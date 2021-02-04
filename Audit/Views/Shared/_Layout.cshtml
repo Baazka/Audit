@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аудит</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />*@
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="~/Plugins/noti/notifications.css">
+    <link rel="stylesheet" href="~/Content/Main.css">
+    <style>
+        .spinner {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            display: none;
+        }
+
+        .center {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .header {
+            background-color: transparent;
+            background-image: url(../../Images/header-back.png);
+            background-repeat: repeat-x;
+        }
+        .menu li {
+            border-bottom: solid 1px #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="progress" style="z-index:9999;" class="spinner">
+        <div class="center">
+            <img src="~/Images/spinner.gif" width="200" />
+        </div>
+    </div>
+    <nav class="navbar sticky-top flex-md-nowrap p-0 header">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 pt-1" href="@Url.Action("Index", "Home")">
+            <img src="@Url.Content("~/Images/Logo-1.png")" style="width:30px; margin-left:20px;" />
+            <h4 class="text-light text-uppercase" style="position:absolute; left:90px; top:10px; font-size:0.7rem; font-weight:normal;">
+                Шалгагдагч этгээдийн<br />
+                бүртгэлийн программ
+            </h4>
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <i class="fa fa-bars text-white"></i>
+            </span>
+        </button>
+
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap text-white">
+                Сайн байна уу, @User.Identity.Name
+                @Html.ActionLink("Гарах", "Logout", "Authentication", new { Area = "" }, new { @style = "color:#fff;" })
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-2 col-lg-1 d-md-block sidebar collapse" style="background-color:#535351;">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column menu">
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#">
+                                <img src="~/Images/i1.png" width="32" />
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#">
+                                <img src="~/Images/i3.png" width="32" />
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#">
+                                <img src="~/Images/i5.png" width="32" />
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#">
+                                <img src="~/Images/i7.png" width="32" />
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" href="#">
+                                <img src="~/Images/i8.png" width="32" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-11 px-md-4" id="mainbody">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <footer class="container-fluid" style="background-color:#707271;">
+        <div class="container text-white text-uppercase py-2">
+            <div class="row">
+                <div class="col-12 text-center">
+                    &copy; Үндэсний аудитын газрын мэдээллийн технологийн төв. @DateTime.Now.Year он
+                </div>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <script src="~/Plugins/noti/notifications.js"></script>
+    <script src="~/Scripts/Application.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

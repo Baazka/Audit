@@ -1,0 +1,160 @@
+﻿@using Audit.Models
+<style>
+    .info-menu h5 {
+        text-transform: uppercase;
+        color: #233772;
+        padding-top: 15px;
+        font-size: 14px;
+    }
+
+    /* .active {
+        background-color: #233772;
+    }
+
+        .active h5 {
+            color: #fff;
+        }*/
+</style>
+
+<div class="d-flex py-2">
+    @if (Role.hasAdminRole(User))
+    {
+        @Html.Action("_getAlba", "Home")
+    }
+    @Html.Action("_getStatus", "Home")
+    @Html.Action("_getError", "Home")
+    <button class="btn text-uppercase text-white ml-auto" style="background-color:#233772" onclick="Organization.add();"><i class="fa fa-plus"></i> Шалгагдагч бүртгэх</button>
+</div>
+<div class="row mb-2">
+    <div class="col-12" id="OrgList">
+
+    </div>
+</div>
+@section scripts{
+    <script>
+        var Organization = {
+            display: function (data) {
+                $("div#orgmodalcontainer").remove();
+                $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
+
+                $("#OrgModal #AimagID").change(function () {
+                    if ($("#OrgModal #SoumID").children().length > 1)
+                        $("#OrgModal #SoumID option:not(:first-child)").remove();
+
+                    var $options = $("#OrgModal #ddSoumHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+
+                    $("#OrgModal #SoumID").append($options);
+                });
+
+                $("#OrgModal").modal({ show: true });
+            },
+            add: function () {
+                $.ajax({
+                    url: "@Url.Action("OrgAddEdit","Home")",
+                    type: "GET",
+                    success: function (data, status, xhr) {
+                        Organization.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                })
+            },
+            list: function () {
+                $.ajax({
+                    url: "@Url.Action("OrgList","Home")",
+                    type: "POST",
+                    success: function (data, status, xhr) {
+                        $("#OrgList").html(data);
+                        $('.datatable').DataTable({
+                            "scrollX": true,
+                            dom: 'Bfrtip',
+                            buttons: [{
+                                extend: 'excelHtml5',
+                                className: 'btn btn-sm btn-custom',
+                                charset: 'UTF-8',
+                                text: 'Excel'
+                            }],
+                            language: {
+                                search: "_INPUT_",
+                                searchPlaceholder: "Хүснэгтээс хайх",
+                                "infoEmpty": "Мэдээлэл байхгүй байна.",
+                                "zeroRecords": "Хайлтын үр дүн байхгүй байна.",
+                                "decimal": ".",
+                                "thousands": ",",
+                                //"search": "Хүснэгтээс хайх",
+                                "lengthMenu": "Хуудаст <b>_MENU_</b> бичлэг",
+                                "infoFiltered": "(Нийт _MAX_ мэдээллээс хайлт хийв)",
+                                "info": "Хуудас: <b>_PAGE_</b>/<b>_PAGES_</b>  Нийт тоо: <b>_START_</b>-<b>_END_</b>/<b>_TOTAL_</b>",
+                                "paginate": {
+                                    "first": "Эхнийх",
+                                    "last": "Сүүлийх",
+                                    "next": "Дараах",
+                                    "previous": "Өмнөх"
+                                },
+                                "aria": {
+                                    "sortAscending": ": өсөхөөр эрэмбэлэх",
+                                    "sortDescending": ": буурхаар эрэмбэлэх"
+                                },
+                                "loadingRecords": "Түр хүлээнэ үү ...",
+                                "processing": "Боловсруулж байна ..."
+                            }
+                        });
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                })
+            },
+            edit: function (orgid) {
+                $.ajax({
+                    url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
+                    type: 'POST',
+                    data: { orgid },
+                    success: function (data, status, xhr) {
+                        Organization.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            close: function () {
+                $("#OrgModal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                   Organization.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        data.message.split("; ").forEach(function (msg) {
+                            $("#OrgModal .error-msgs ul").append("<li>" + msg + "</li>");
+                        });
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        Organization.close();
+                        Message.success(data.message);
+                        GetCount();
+                    }
+                }
+            }
+        }
+                Organization.list();
+    </script>
+}

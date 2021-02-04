@@ -1,0 +1,45 @@
+﻿@model Audit.Models.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="limiter">
+    <div class="container-login100">        
+        <div class="wrap-login100 p-5" style="padding-top:60px!important">
+            <div class="header"> </div>
+                @using (Html.BeginRouteForm("UserLogin", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(false,"",new { @class = "text-danger"})
+                    <div style="" class="d-flex py-4 justify-content-center"><img src="@Url.Content("~/Images/logo.png")" style="max-width: 200px;" /></div>
+                    <div class="wrap-input100 mb-3">
+                        @Html.TextBoxFor(m=>m.UserName, new { @class= "input100", @placeholder = "Нэвтрэх нэр" })
+                        <span class="symbol-input100">
+                            <i class="fa fa-user-o"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input100 mb-3">
+                        @Html.PasswordFor(m => m.Password, new { @class = "input100", @placeholder = "Нууц үг" })
+                        <span class="symbol-input100">
+                            <i class="fa fa-unlock-alt"></i>
+                        </span>
+                    </div>
+                    <div class="d-flex justify-content-between pb-4">
+                        <div class="contact100-form-checkbox m-l-4">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
+                            <label class="label-checkbox100" for="ckb1">
+                                Сануулах
+                            </label>
+                        </div>
+                        <a href="#" class="forgot">Нууц үг мартсан?</a>
+                    </div>
+                    <div class="container">
+                        <div class="col-md-12 text-center">
+                            <button class="login100-form-btn">
+                                Нэвтрэх
+                            </button>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+</div>

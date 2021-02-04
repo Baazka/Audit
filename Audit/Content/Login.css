@@ -1,0 +1,173 @@
+﻿/*//////////////////////////////////////////////////////////////////
+[ login ]*/
+
+.limiter {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header {
+    height: 50px;
+    background-color: #233772;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.container-login100 {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAe8AAAJAAQMAAACe5XwoAAAABlBMVEUTR3V1qf+W6l+bAAAAAnRSTlMALERLodsAAAG5SURBVHic7daxccJQEEXRjUwX1ozpQ7RkctGC3RXqwpoRDYjMAUL+amGXxDOH4DbwPqsT35XfV4xjN43ZXOM2n7ZbOnFfLus9nfgt/WIYhvOSTvR9f5zTia7rDmM271Hefeq6bNrut2d/yqbtfn8Ml2zKuy/Dub2ebGLuj+3tZhNj22/Mprz71PY7ZPMT27O93nRifbT/TjrV3R9tvzWbz3i2/bZsPmJq+03ZvFV3L16b4q0rXtri7ulLs2eJ9J3bM0f6yu65lu987doUb13x0hZ3Hy5rez3JtO/7aWtvN5n9+z7tf59cXvB95zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zqu4zquy+/OdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVzHdVxX2Z3ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruI7ruK6yO9dxHddxHddxHddxHddxHddxHddxHddxHddxHddxHddxHddxHddxHddxHddxHddxXW13rvuPrvsDqlB1nQ0AsOEAAAAASUVORK5CYII=);
+    background-color: transparent;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.wrap-login100 {
+    width: 450px;
+    background: #ECECF8;
+    overflow: hidden;
+    position:relative;
+}
+
+
+
+/*------------------------------------------------------------------
+[  ]*/
+.login100-form {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+/*---------------------------------------------*/
+.wrap-input100 {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.input100 {
+    font-size: 14px;
+    width: 100%;
+    height: 40px;
+    padding: 0 30px 0 35px;
+}
+
+
+.symbol-input100 {
+    color: #999999;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    border-radius: 25px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-left: 15px;
+    pointer-events: none;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+
+/*==================================================================
+[ Restyle Checkbox ]*/
+
+.input-checkbox100 {
+    display: none;
+}
+
+.label-checkbox100 {
+    font-size: 14px;
+    color: #999999;
+    line-height: 1.2;
+    display: block;
+    position: relative;
+    padding-left: 26px;
+    cursor: pointer;
+}
+
+    .label-checkbox100::before {
+        content: "\f00c";
+        font-family: FontAwesome;
+        font-size: 13px;
+        color: transparent;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        background: #fff;
+        left: 0;
+        top: 48%;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+.input-checkbox100:checked + .label-checkbox100::before {
+    color: #233772;
+}
+.forgot {
+    font-size: 14px;
+    color: #999999;
+    line-height: 1.2;
+    display: block;
+    position: relative;
+    padding-left: 26px;
+    cursor: pointer;
+}
+
+/*------------------------------------------------------------------
+[ Button ]*/
+.container-login100-form-btn {
+    width: 50%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.login100-form-btn {
+    line-height: 1.5;
+    color: #fff;
+    height: 40px;
+    border-radius: 5px;
+    background: #233772;
+    padding: 0 25px;
+}
+
