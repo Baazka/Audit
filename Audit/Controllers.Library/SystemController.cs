@@ -90,6 +90,41 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement UserProfile(string userid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "UserProfile"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
         public XElement Dashboard()
         {
             try
@@ -279,5 +314,43 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+
+        #region BM
+        public XElement BM1(string departmentID)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM1"),
+                                               new XElement("Parameters",
+                                                   new XElement("DEPARTMENT_ID", departmentID)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        #endregion
     }
 }

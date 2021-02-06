@@ -53,39 +53,45 @@ namespace Audit.Controllers
                 if (ModelState.IsValid)
                 {
                     XElement res = AppStatic.SystemController.UserLogin(user.UserName, user.Password);
-
                     if (AppStatic.SystemController.Status)
                     {
-                        SystemUser loggedUser = new SystemUser().FromXml(res.Element("User"));
+                        XElement resss = AppStatic.SystemController.UserProfile(res.Value);
+
+                        SystemUser loggedUser = new SystemUser().FromXml(resss.Element("SystemUser"));
                         loggedUser.UserName = user.UserName;
                         List<Claim> claims = new List<Claim>();
                         claims.Add(new Claim(ClaimTypes.Name, loggedUser.UserName));
-                        claims.Add(new Claim(ClaimTypes.NameIdentifier, loggedUser.UserID.ToString()));
+                        claims.Add(new Claim(ClaimTypes.NameIdentifier, loggedUser.USER_ID.ToString()));
 
                         if (loggedUser.UserID != 0)
-                            claims.Add(new Claim("UserID", loggedUser.UserID.ToString()));
+                            claims.Add(new Claim("UserID", loggedUser.USER_ID.ToString()));
+                        if (loggedUser.USER_DEPARTMENT_ID != 0)
+                            claims.Add(new Claim("DepartmentID", loggedUser.USER_DEPARTMENT_ID.ToString()));
 
                         var identity = new ClaimsIdentity(
                            claims,
                            DefaultAuthenticationTypes.ApplicationCookie,
                            ClaimTypes.Name, ClaimTypes.Role);
 
-                        if (loggedUser.IsAdmin)
+                        if (loggedUser.USER_TYPE_NAME == "admin")
                             identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                        if (loggedUser.USER_TYPE_NAME == "stat")
+                            identity.AddClaim(new Claim(ClaimTypes.Role, "Stat"));
 
-                        Authentication.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);                        
+                        Authentication.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
+                        if(loggedUser.USER_TYPE_NAME == "stat")
+                            return RedirectToAction("Index", "Statistic", new { Area = "" });
                         return RedirectToAction("Index", "Home", new { Area = "" });
                     }
                     else
                     {
                         AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
-                        Session["Message"] = AppStatic.SystemController.Message;
-                    }
+                    }                    
                 }
 
                 return View();
             }
-            catch
+            catch(Exception ex)
             {
                 Session["Message"] = "Системд алдаа гарлаа. Та түр хүлээгээд дахин оролдоно уу.";
                 return View();

@@ -27,22 +27,36 @@ namespace Audit.Models
         public string UserPasswordConfirm { get; set; }
         public bool IsAdmin { get; set; }
         public int AlbaID { get; set; }
- 
+
+        public int USER_ID { get; set; }
+        public string USER_NAME { get; set; }
+        public int USER_DEPARTMENT_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public int USER_TYPE_ID { get; set; }
+        public string USER_TYPE_NAME { get; set; }
+        public string USER_EMAIL { get; set; }
+        public DateTime USER_REG_DATE { get; set; }
+
         public SystemUser FromXml(XElement elem)
         {
-            if (elem.Element("UserID") != null)
-                this.UserID = Convert.ToInt32(elem.Element("UserID").Value);
-
-            if (elem.Element("UserName") != null)
-                this.UserName = elem.Element("UserName").Value;
-            if (elem.Element("UserPassword") != null)
-                this.UserPassword = elem.Element("UserPassword").Value;
-            if (elem.Element("UserPassword") != null)
-                this.UserPasswordConfirm = elem.Element("UserPassword").Value;
-            if (elem.Element("IsAdmin") != null)
-                this.IsAdmin = Convert.ToBoolean(elem.Element("IsAdmin").Value);
-            if (elem.Element("AlbaID") != null)
-                this.AlbaID = Convert.ToInt32(elem.Element("AlbaID").Value);
+            if (elem.Element("USER_ID") != null)
+                this.USER_ID = Convert.ToInt32(elem.Element("USER_ID").Value);
+            if (elem.Element("USER_CODE") != null)
+                this.UserName = elem.Element("USER_CODE").Value;
+            if (elem.Element("USER_NAME") != null)
+                this.USER_NAME = elem.Element("USER_NAME").Value;
+            if (elem.Element("USER_DEPARTMENT_ID") != null)
+                this.USER_DEPARTMENT_ID = Convert.ToInt32(elem.Element("USER_DEPARTMENT_ID").Value);
+            if (elem.Element("DEPARTMENT_NAME") != null)
+                this.DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
+            if (elem.Element("USER_TYPE_ID") != null)
+                this.USER_TYPE_ID = Convert.ToInt32(elem.Element("USER_TYPE_ID").Value);
+            if (elem.Element("USER_TYPE_NAME") != null)
+                this.USER_TYPE_NAME = elem.Element("USER_TYPE_NAME").Value;
+            if (elem.Element("USER_EMAIL") != null)
+                this.USER_EMAIL = elem.Element("USER_EMAIL").Value;
+            if (elem.Element("USER_REG_DATE") != null)
+                this.USER_REG_DATE = Convert.ToDateTime(elem.Element("USER_REG_DATE").Value);
             return this;
         }
     }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Audit.App_Func
 {
@@ -13,7 +14,29 @@ namespace Audit.App_Func
         static string _connName = "DataConnection";
 
         static int _connTimeOut = 180000;
+        static OracleConnection _GetConnection()
+        {
+            string connString = ConfigurationManager.ConnectionStrings[_connName].ConnectionString;
 
+            OracleConnection conn = new OracleConnection(connString);
+            conn.Open();
+            return conn;
+        }
+        public static DataTable GetDataTable(OracleCommand cmd, string data)
+        {
+            cmd.Connection = _GetConnection();
+            cmd.CommandText = data;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandTimeout = _connTimeOut;
+
+            DataTable dtTable = new DataTable();
+            dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+            cmd.Connection.Close();
+
+            return dtTable;
+        }
+        
         static SqlConnection GetConnection()
         {
             string connString = ConfigurationManager.ConnectionStrings[_connName].ConnectionString;

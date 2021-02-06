@@ -53,3 +53,40 @@ function errorResponse(xhr, status, error) {
             Message.error(error);
     }
 };
+
+function initDataTable() {
+    $('.datatable').DataTable({
+        "scrollX": true,
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'excelHtml5',
+            className: 'btn btn-sm btn-custom',
+            charset: 'UTF-8',
+            text: 'Excel'
+        }],
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Хүснэгтээс хайх",
+            "infoEmpty": "Мэдээлэл байхгүй байна.",
+            "zeroRecords": "Хайлтын үр дүн байхгүй байна.",
+            "decimal": ".",
+            "thousands": ",",
+            //"search": "Хүснэгтээс хайх",
+            "lengthMenu": "Хуудаст <b>_MENU_</b> бичлэг",
+            "infoFiltered": "(Нийт _MAX_ мэдээллээс хайлт хийв)",
+            "info": "Хуудас: <b>_PAGE_</b>/<b>_PAGES_</b>  Нийт тоо: <b>_START_</b>-<b>_END_</b>/<b>_TOTAL_</b>",
+            "paginate": {
+                "first": "Эхнийх",
+                "last": "Сүүлийх",
+                "next": "Дараах",
+                "previous": "Өмнөх"
+            },
+            "aria": {
+                "sortAscending": ": өсөхөөр эрэмбэлэх",
+                "sortDescending": ": буурхаар эрэмбэлэх"
+            },
+            "loadingRecords": "Түр хүлээнэ үү ...",
+            "processing": "Боловсруулж байна ..."
+        }
+    });
+}

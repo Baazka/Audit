@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -59,37 +60,78 @@ namespace Audit.App_Func
 
             try
             {
-                SqlCommand cmd = new SqlCommand("UserLogin");
-                cmd.Parameters.Add("@UserName", SqlDbType.NVarChar, 50).Value = request.Element("Parameters").Element("Username").Value;
-                cmd.Parameters.Add("@UserPassword", SqlDbType.NVarChar, 50).Value = request.Element("Parameters").Element("Password").Value;
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
+                con.Open();
 
-                cmd.Parameters.Add("@ResponseCode", SqlDbType.VarChar, 10).Direction = ParameterDirection.Output;
-                cmd.Parameters.Add("@ResponseMessage", SqlDbType.NVarChar, 500).Direction = ParameterDirection.Output;
-                cmd.Parameters.Add("@Return", SqlDbType.Int).Direction = ParameterDirection.ReturnValue;
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "F_CHECK_USER";
 
-                DataSet ds = DataConnection.GetDataSet(cmd);
+                // Set parameters
+                OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
+                    OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+                cmd.Parameters.Add(":P_LOGINNAME", OracleDbType.Varchar2, request.Element("Parameters").Element("Username").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_PASSWORD", OracleDbType.Varchar2, request.Element("Parameters").Element("Password").Value, System.Data.ParameterDirection.Input);
 
-                bool responseValue = Convert.ToBoolean(cmd.Parameters["@Return"].Value);
-                string responseCode = cmd.Parameters["@ResponseCode"].Value.ToString();
-                string responseMsg = cmd.Parameters["@ResponseMessage"].Value.ToString();
+                cmd.ExecuteNonQuery();
 
-                if (responseValue)
-                {
+                cmd.Dispose();
+                con.Close();
 
-                    ds.DataSetName = "ResponseData";
-                    if (ds.Tables.Count > 0)
-                    {
-                        ds.Tables[0].TableName = "User";
-                    }
+                object responseValue = retParam.Value;
+                //if (Convert.ToInt32(responseValue) != 1)
+                //{
+                //    response.CreateResponse(false, string.Empty, "Нэр нууц үг буруу байна.");
+                //}
+                XElement xmlResponseData = new XElement("UserID", responseValue);
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
 
-                    StringWriter sw = new StringWriter();
-                    ds.WriteXml(sw, XmlWriteMode.IgnoreSchema);
+            return response;
+        }
+        public static DataResponse UserProfile(XElement request)
+        {
+            DataResponse response = new DataResponse();
 
-                    XElement xmlResponseData = XElement.Parse(sw.ToString());
-                    response.CreateResponse(xmlResponseData);
-                }
-                //Return response
-                response.CreateResponse(responseValue, responseCode, responseMsg);
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT US.USER_ID, US.USER_CODE, US.USER_NAME, US.USER_DEPARTMENT_ID, US.USER_TYPE_ID, US.USER_EMAIL, US.USER_REG_DATE, RD.DEPARTMENT_NAME, UST.USER_TYPE_NAME " +
+                         "FROM SYSTEM_USER US " +
+                         "INNER JOIN REF_DEPARTMENT RD ON RD.DEPARTMENT_ID = US.USER_DEPARTMENT_ID " +
+                         "INNER JOIN SYSTEM_USER_TYPE UST ON UST.USER_TYPE_ID = US.USER_TYPE_ID WHERE USER_ID = :USER_ID";
+
+                // Set parameters
+                //OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
+                    //OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+                cmd.Parameters.Add(":USER_ID", OracleDbType.Int32, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "SystemUser";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
             {
@@ -300,6 +342,59 @@ namespace Audit.App_Func
 
                 StringWriter sw = new StringWriter();
                 ds.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+
+
+        public static DataResponse BM1(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ,"+
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ,"+
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ,"+
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ,"+
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM "+
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID "+
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID "+
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM1";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
                 response.CreateResponse(xmlResponseData);

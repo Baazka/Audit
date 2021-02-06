@@ -10,6 +10,7 @@ namespace Audit.Models
     {
         public const string Active = "Active";
         public const string Admin = "Admin";
+        public const string Stat = "Stat";
 
         public int ID { get; set; }
         public String Name { get; set; }
@@ -27,7 +28,11 @@ namespace Audit.Models
         {
             return User.IsInRole(Admin);
         }
-       
+        public static bool hasStatRole(System.Security.Principal.IPrincipal User)
+        {
+            return User.IsInRole(Stat);
+        }
+
         public Role FromXml(XElement elem)
         {
             if (elem.Element("ID") != null)

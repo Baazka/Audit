@@ -221,6 +221,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,6 +257,17 @@
     <Content Include="Images\mof.png" />
     <Content Include="Images\spinner.gif" />
     <Content Include="Images\ubeg.png" />
+    <Content Include="Plugins\datatables\buttons.dataTables.min.css" />
+    <Content Include="Plugins\datatables\buttons.html5.js" />
+    <Content Include="Plugins\datatables\buttons.html5.min.js" />
+    <Content Include="Plugins\datatables\dataTables.bootstrap4.min.css" />
+    <Content Include="Plugins\datatables\dataTables.bootstrap4.min.js" />
+    <Content Include="Plugins\datatables\dataTables.buttons.min.js" />
+    <Content Include="Plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="Plugins\datatables\jszip.min.js" />
+    <Content Include="Plugins\datatables\pdfmake.min.js" />
+    <Content Include="Plugins\jquery-ui\jquery-ui.css" />
+    <Content Include="Plugins\jquery-ui\jquery-ui.js" />
     <Content Include="Plugins\noti\notifications.css" />
     <Content Include="Plugins\noti\notifications.js" />
     <Content Include="Scripts\Application.js" />
@@ -401,6 +413,9 @@
     <Content Include="Views\Home\OrgList.cshtml" />
     <Content Include="Views\Home\_getStatus.cshtml" />
     <Content Include="Views\Home\_getError.cshtml" />
+    <Content Include="Views\Statistic\Index.cshtml" />
+    <Content Include="Views\Statistic\BM1.cshtml" />
+    <Content Include="Views\Shared\_LayoutStat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
