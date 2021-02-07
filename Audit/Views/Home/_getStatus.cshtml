@@ -1,7 +1,7 @@
 ﻿@model List<Audit.Models.Status>
 
 @{
-    var statuses = Model.Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() });
+    var statuses = Model.Select(s => new SelectListItem() { Text = s.STATUS_NAME, Value = s.STATUS_ID.ToString() });
 }
 
 <div class="form-group padding-xs">

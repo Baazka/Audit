@@ -1,35 +1,20 @@
 ﻿@using Audit.Models
-<style>
-    .info-menu h5 {
-        text-transform: uppercase;
-        color: #233772;
-        padding-top: 15px;
-        font-size: 14px;
-    }
 
-    /* .active {
-        background-color: #233772;
-    }
-
-        .active h5 {
-            color: #fff;
-        }*/
-</style>
-<h1> Heloo</h1>
-@*<div class="d-flex py-2">
+<div class="d-flex py-2">
     @if (Role.hasAdminRole(User))
     {
-        @Html.Action("_getAlba", "Home")
+        @Html.Action("_getDepartment", "Home")
     }
     @Html.Action("_getStatus", "Home")
-    @Html.Action("_getError", "Home")
-    <button class="btn text-uppercase text-white ml-auto" style="background-color:#233772" onclick="Organization.add();"><i class="fa fa-plus"></i> Шалгагдагч бүртгэх</button>
+    @Html.Action("_getViolation", "Home")
+    @*<button class="btn text-uppercase text-white ml-auto" style="background-color:#233772" onclick="Organization.add();"><i class="fa fa-plus"></i> Шалгагдагч бүртгэх</button>*@
 </div>
 <div class="row mb-2">
     <div class="col-12" id="OrgList">
 
     </div>
 </div>
+
 @section scripts{
     <script>
         var Organization = {
@@ -155,6 +140,6 @@
                 }
             }
         }
-                Organization.list();
+        Organization.list();
     </script>
-}*@
+}

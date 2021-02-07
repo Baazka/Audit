@@ -1,33 +1,16 @@
-﻿@model System.Xml.Linq.XElement
+﻿@model List<Audit.Models.OrgList>
     @{ 
         int counter = 0;
-        int type = Convert.ToInt32(ViewBag.TypeID);
-    }
-<style>
-    th {
-        font-size: 12px;
+        Layout = null;
     }
 
-    td {
-        font-size: 11px;
-    }
-    .dataTables_length, .dataTables_length select, .dataTables_filter, .dataTables_filter input, .dataTables_info, .dataTables_paginate {
-        font-size: 12px;
-    }
-    .table th, .table td {
-        padding:5px;
-        vertical-align:middle;
-    }
-</style>
 <div class="card">
-    <div class="card-header text-uppercase text-white" style="background-color:#233772;">
-        Бүртгэлийн жагсаалт
-    </div>
     <div class="card-body">
         <table class="table table-bordered datatable display" style="width:100%">
             <thead>
                 <tr style="background-color:#D2D3D5;">
                     <th class="text-center">№</th>
+                    <th>Алба</th>
                     <th>Регистр</th>
                     <th>Нэр</th>
                     <th>Код</th>
@@ -36,29 +19,26 @@
                     <th>Алдаа</th>
                     <th>Төлөв</th>
                     <th>Сануулга</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @if (Model.Elements("OrgList").Count() != 0)
+                @if (Model.Count != 0)
                 {
-                    foreach (var item in Model.Elements("OrgList"))
+                    foreach (var item in Model)
                     {
                         counter++;
-                        <tr>
-                            <td>@counter</td>
-                            <td>@(item.Element("REGISTER_NO") != null ? item.Element("REGISTER_NO").Value:"")</td>
-                            <td>@(item.Element("ORG_NAME") != null ? item.Element("ORG_NAME").Value:"")</td>
-                            <td>@(item.Element("ORG_CODE") != null ? item.Element("ORG_CODE").Value:"")</td>
-                            <td>@(item.Element("REGISTER_NO") != null ? item.Element("REGISTER_NO").Value:"")</td>
-                            <td>@(item.Element("REGISTER_NO") != null ? item.Element("REGISTER_NO").Value:"")</td>
-                            <td>@(item.Element("REGISTER_NO") != null ? item.Element("REGISTER_NO").Value:"")</td>
-                            <td>@(item.Element("REGISTER_NO") != null ? item.Element("REGISTER_NO").Value:"")</td>
-                            <td>@(item.Element("REGISTER_NO") != null ? item.Element("REGISTER_NO").Value:"")</td>
-                            <td class="text-center" width="40">
-                                @*<a href="javascript:void(0)" onclick="Organization.edit('@item.Element("OrgID").Value')" title="Засах"><i class="fa fa-edit"></i> Засах</a>*@
-                            </td>
-                        </tr>
+                <tr>
+                    <td>@counter</td>
+                    <td>@item.DEPARTMENT_NAME</td>
+                    <td>@item.ORG_REGISTER_NO</td>
+                    <td>@item.ORG_NAME</td>
+                    <td>@item.ORG_CODE</td>
+                    <td>@item.BUDGET_TYPE_NAME</td>
+                    <td>@item.ORG_CONCENTRATOR_NAME</td>
+                    <td>@item.VIOLATION_DETAIL</td>
+                    <td>@item.STATUS_NAME</td>
+                    <td>@item.INFORMATION_DETAIL</td>
+                </tr>
                     }
                 }
             </tbody>

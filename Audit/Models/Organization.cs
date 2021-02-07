@@ -292,4 +292,55 @@ namespace Audit.Models
             return this;
         }
     }
+
+    public class OrgList
+    {
+        public int ORG_ID { get;set; }
+        public int ORG_DEPARTMENT_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string ORG_REGISTER_NO { get; set; }
+        public string ORG_NAME { get; set; }
+        public string ORG_CODE { get; set; }
+        public int ORG_BUDGET_TYPE_ID { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
+        public string VIOLATION_DETAIL { get; set; }
+        public int ORG_CONCENTRATOR_ID { get; set; }
+        public string ORG_CONCENTRATOR_NAME { get; set; }
+        public int ORG_STATUS_ID { get; set; }
+        public string STATUS_NAME { get; set; }
+        public string INFORMATION_DETAIL { get; set; }
+        public OrgList FromXml(XElement elem)
+        {
+            if (elem.Element("ORG_ID") != null)
+                ORG_ID = Convert.ToInt32(elem.Element("ORG_ID").Value);
+            if (elem.Element("ORG_DEPARTMENT_ID") != null)
+                ORG_DEPARTMENT_ID = Convert.ToInt32(elem.Element("ORG_DEPARTMENT_ID").Value);
+            if (elem.Element("DEPARTMENT_NAME") != null)
+                DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
+            if (elem.Element("ORG_REGISTER_NO") != null)
+                ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
+            if (elem.Element("ORG_NAME") != null)
+                ORG_NAME = elem.Element("ORG_NAME").Value;
+            if (elem.Element("ORG_CODE") != null)
+                ORG_CODE = elem.Element("ORG_CODE").Value;
+            if (elem.Element("ORG_BUDGET_TYPE_ID") != null)
+                ORG_BUDGET_TYPE_ID = Convert.ToInt32(elem.Element("ORG_BUDGET_TYPE_ID").Value);
+            if (elem.Element("BUDGET_TYPE_NAME") != null)
+                BUDGET_TYPE_NAME = elem.Element("BUDGET_TYPE_NAME").Value;
+            if (elem.Element("VIOLATION_DETAIL") != null)
+                VIOLATION_DETAIL = elem.Element("VIOLATION_DETAIL").Value;
+            if (elem.Element("ORG_CONCENTRATOR_ID") != null)
+                ORG_CONCENTRATOR_ID = Convert.ToInt32(elem.Element("ORG_CONCENTRATOR_ID").Value);
+            if (elem.Element("ORG_CONCENTRATOR_NAME") != null)
+                ORG_CONCENTRATOR_NAME = elem.Element("ORG_CONCENTRATOR_NAME").Value;
+            if (elem.Element("ORG_STATUS_ID") != null)
+                ORG_STATUS_ID = Convert.ToInt32(elem.Element("ORG_STATUS_ID").Value);
+            if (elem.Element("STATUS_NAME") != null)
+                STATUS_NAME = elem.Element("STATUS_NAME").Value;
+            if (elem.Element("INFORMATION_DETAIL") != null)
+                INFORMATION_DETAIL = elem.Element("INFORMATION_DETAIL").Value;
+
+            return this;
+        }
+    }
 }

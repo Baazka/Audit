@@ -1,0 +1,9 @@
+﻿@model List<Audit.Models.Violation>
+
+@{
+    var errors = Model.Select(s => new SelectListItem() { Text = s.VIOLATION_NAME, Value = s.VIOLATION_ID.ToString() });
+}
+
+<div class="form-group padding-xs">
+    @Html.DropDownList("ddViolation", errors, "--Алдаа--", new { @class = "form-control input-sm" })
+</div>

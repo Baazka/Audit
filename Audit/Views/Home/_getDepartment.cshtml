@@ -1,7 +1,7 @@
-﻿@model List<Audit.Models.Alba>
+﻿@model List<Audit.Models.Department>
 @using Audit.Models
 @{
-    var albas = Model.Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() });
+    var albas = Model.Select(s => new SelectListItem() { Text = s.DEPARTMENT_NAME, Value = s.DEPARTMENT_ID.ToString() });
 
     //var aimags = Role.hasAdminRole(User)?
     //    Model.Where(a => a.ID.ToString() == User.GetClaimData("AlbaID")).Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }) :
