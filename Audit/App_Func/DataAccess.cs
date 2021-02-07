@@ -354,7 +354,52 @@ namespace Audit.App_Func
             return response;
         }
 
+        public static DataResponse BM0(XElement request)
+        {
+            DataResponse response = new DataResponse();
 
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_TYPE ,AUDIT_TYPE_NAME,"+
+                    "TOPIC_TYPE ,TOPIC_CODE ,TOPIC_NAME ,ORDER_NO ,ORDER_DATE ,AUDIT_FORM_TYPE ,AUDIT_PROPOSAL_TYPE ,"+
+                    "AUDIT_BUDGET_TYPE ,AUDIT_INCLUDED_ORG ,WORKING_PERSON ,WORKING_DAY ,WORKING_ADDITION_TIME ,"+
+                    "AUDIT_DEPARTMENT ,AUDITOR_LEAD ,AUDITOR_MEMBER ,AUDITOR_ENTRY ,EXEC_TYPE ,BM.CREATED_DATE FROM BM0_DATA BM "+
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID "+
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID "+
+                    "WHERE(:DEPARTMENT_ID = 23 OR(:DEPARTMENT_ID != 23 AND OFFICE_CODE = :DEPARTMENT_ID)) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM0";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM1(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -392,6 +437,1536 @@ namespace Audit.App_Func
                 con.Close();
 
                 dtTable.TableName = "BM1";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM2(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM2";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM3(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM3";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM4(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM4";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM5(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM5";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM6(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM6";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM7(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM7";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM8(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM8";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse NM1(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "NM1";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse NM2(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "NM2";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse NM3(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "NM3";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse NM4(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "NM4";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse NM5(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "NM5";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse NM6(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "NM6";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse NM7(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "NM7";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM1A(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM1A";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM1B(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM1B";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM1C(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM1C";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM2A(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM2A";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM2B(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM2B";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM2C(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM2C";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM3A(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM3A";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM3B(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM3B";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM3C(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM3C";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM4A(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM4A";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM4B(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM4B";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM4C(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM4C";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM5(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM5";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM6(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM6";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM7(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM7";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse CM8(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
+                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
+                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
+                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
+                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
+                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
+                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
+                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
+                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
+                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
+                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+
+                // Set parameters
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                //OracleDataReader dr = cmd.ExecuteReader();
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "CM8";
 
                 StringWriter sw = new StringWriter();
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);

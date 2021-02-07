@@ -416,6 +416,37 @@
     <Content Include="Views\Statistic\Index.cshtml" />
     <Content Include="Views\Statistic\BM1.cshtml" />
     <Content Include="Views\Shared\_LayoutStat.cshtml" />
+    <Content Include="Views\Statistic\BM2.cshtml" />
+    <Content Include="Views\Statistic\BM3.cshtml" />
+    <Content Include="Views\Statistic\BM4.cshtml" />
+    <Content Include="Views\Statistic\BM5.cshtml" />
+    <Content Include="Views\Statistic\BM6.cshtml" />
+    <Content Include="Views\Statistic\BM7.cshtml" />
+    <Content Include="Views\Statistic\BM8.cshtml" />
+    <Content Include="Views\Statistic\BM0.cshtml" />
+    <Content Include="Views\Statistic\NM1.cshtml" />
+    <Content Include="Views\Statistic\NM2.cshtml" />
+    <Content Include="Views\Statistic\NM3.cshtml" />
+    <Content Include="Views\Statistic\NM4.cshtml" />
+    <Content Include="Views\Statistic\NM5.cshtml" />
+    <Content Include="Views\Statistic\NM6.cshtml" />
+    <Content Include="Views\Statistic\NM7.cshtml" />
+    <Content Include="Views\Statistic\CM1A.cshtml" />
+    <Content Include="Views\Statistic\CM1B.cshtml" />
+    <Content Include="Views\Statistic\CM1C.cshtml" />
+    <Content Include="Views\Statistic\CM2A.cshtml" />
+    <Content Include="Views\Statistic\CM2B.cshtml" />
+    <Content Include="Views\Statistic\CM2C.cshtml" />
+    <Content Include="Views\Statistic\CM3A.cshtml" />
+    <Content Include="Views\Statistic\CM3B.cshtml" />
+    <Content Include="Views\Statistic\CM3C.cshtml" />
+    <Content Include="Views\Statistic\CM4A.cshtml" />
+    <Content Include="Views\Statistic\CM4B.cshtml" />
+    <Content Include="Views\Statistic\CM4C.cshtml" />
+    <Content Include="Views\Statistic\CM5.cshtml" />
+    <Content Include="Views\Statistic\CM6.cshtml" />
+    <Content Include="Views\Statistic\CM7.cshtml" />
+    <Content Include="Views\Statistic\CM8.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

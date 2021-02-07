@@ -1,0 +1,92 @@
+﻿@model System.Xml.Linq.XElement
+@{
+    ViewBag.Title = "BM8";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
+}
+
+<h2>БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл</h2>
+<div class="table-responsive">
+    <table class="table table-bordered datatable display" style="width:100%">
+        <thead>
+            <tr style="background-color:#D2D3D5;">
+                <th rowspan="2" class="text-center">№</th>
+                <th rowspan="2">Он</th>
+                <th rowspan="2">Аудитын төрөл</th>
+                <th rowspan="2">Аудитын код</th>
+                <th rowspan="2">Аудитын нэр</th>
+                <th rowspan="2">Төсөв захирагч</th>
+                <th colspan="4">Залруулсан алдаа</th>
+            </tr>
+            <tr>
+                <th>Алдааны утга</th>
+                <th>Алдааны ангилал</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+            </tr>
+        </thead>
+        @*<tbody>
+                @if (Model.Elements("BM0").Count() != 0)
+                {
+                    foreach (var item in Model.Elements("BM0"))
+                    {
+                        counter++;
+                        <tr>
+                            <td>@counter</td>
+                            @*<td>@(item.Element("OFFICE_ID") != null ? item.Element("OFFICE_ID").Value:"")</td>
+                            <td>@(item.Element("DEPARTMENT_NAME") != null ? item.Element("DEPARTMENT_NAME").Value:"")</td>
+                            <td>@(item.Element("STATISTIC_PERIOD") != null ? item.Element("STATISTIC_PERIOD").Value:"")</td>
+                            <td>@(item.Element("AUDIT_YEAR") != null ? item.Element("AUDIT_YEAR").Value:"")</td>
+                            <td>@(item.Element("AUDIT_TYPE") != null ? item.Element("AUDIT_TYPE").Value:"")</td>
+                            <td>@(item.Element("AUDIT_TYPE_NAME") != null ? item.Element("AUDIT_TYPE_NAME").Value:"")</td>
+                            <td>@(item.Element("AUDIT_CODE") != null ? item.Element("AUDIT_CODE").Value:"")</td>
+                            <td>@(item.Element("AUDIT_NAME") != null ? item.Element("AUDIT_NAME").Value:"")</td>
+                            <td>@(item.Element("AUDIT_BUDGET_TYPE") != null ? item.Element("AUDIT_BUDGET_TYPE").Value:"")</td>
+                            <td>@(item.Element("ORDER_DATE") != null ? item.Element("ORDER_DATE").Value:"")</td>
+                            <td>@(item.Element("ORDER_NO") != null ? item.Element("ORDER_NO").Value:"")</td>
+                            <td>@(item.Element("ACT_NO") != null ? item.Element("ACT_NO").Value:"")</td>
+                            <td>@(item.Element("ACT_VIOLATION_DESC") != null ? item.Element("ACT_VIOLATION_DESC").Value:"")</td>
+                            <td>@(item.Element("ACT_VIOLATION_TYPE") != null ? item.Element("ACT_VIOLATION_TYPE").Value:"")</td>
+                            <td>@(item.Element("ACT_SUBMITTED_DATE") != null ? item.Element("ACT_SUBMITTED_DATE").Value:"")</td>
+                            <td>@(item.Element("ACT_DELIVERY_DATE") != null ? item.Element("ACT_DELIVERY_DATE").Value:"")</td>
+                            <td>@(item.Element("ACT_AMOUNT") != null ? item.Element("ACT_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("ACT_STATE_AMOUNT") != null ? item.Element("ACT_STATE_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("ACT_LOCAL_AMOUNT") != null ? item.Element("ACT_LOCAL_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("ACT_ORG_AMOUNT") != null ? item.Element("ACT_ORG_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("ACT_OTHER_AMOUNT") != null ? item.Element("ACT_OTHER_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("ACT_RCV_NAME") != null ? item.Element("ACT_RCV_NAME").Value:"")</td>
+                            <td>@(item.Element("ACT_RCV_ROLE") != null ? item.Element("ACT_RCV_ROLE").Value:"")</td>
+                            <td>@(item.Element("ACT_RCV_GIVEN_NAME") != null ? item.Element("ACT_RCV_GIVEN_NAME").Value:"")</td>
+                            <td>@(item.Element("ACT_RCV_ADDRESS") != null ? item.Element("ACT_RCV_ADDRESS").Value:"")</td>
+                            <td>@(item.Element("ACT_CONTROL_AUDITOR") != null ? item.Element("ACT_CONTROL_AUDITOR").Value:"")</td>
+                            <td>@(item.Element("COMPLETION_ORDER") != null ? item.Element("COMPLETION_ORDER").Value:"")</td>
+                            <td>@(item.Element("COMPLETION_AMOUNT") != null ? item.Element("COMPLETION_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("COMPLETION_STATE_AMOUNT") != null ? item.Element("COMPLETION_STATE_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("COMPLETION_LOCAL_AMOUNT") != null ? item.Element("COMPLETION_LOCAL_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("COMPLETION_ORG_AMOUNT") != null ? item.Element("COMPLETION_ORG_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("COMPLETION_OTHER_AMOUNT") != null ? item.Element("COMPLETION_OTHER_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("REMOVED_AMOUNT") != null ? item.Element("REMOVED_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("REMOVED_LAW_AMOUNT") != null ? item.Element("REMOVED_LAW_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("REMOVED_LAW_DATE_NO") != null ? item.Element("REMOVED_LAW_DATE_NO").Value:"")</td>
+                            <td>@(item.Element("REMOVED_INVALID_AMOUNT") != null ? item.Element("REMOVED_INVALID_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("REMOVED_INVALID_DATE_NO") != null ? item.Element("REMOVED_INVALID_DATE_NO").Value:"")</td>
+                            <td>@(item.Element("ACT_C2_AMOUNT") != null ? item.Element("ACT_C2_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("ACT_C2_AMOUNT") != null ? item.Element("ACT_C2_AMOUNT").Value:"")</td>
+                            <td>@(item.Element("ACT_C2_NONEXPIRED") != null ? item.Element("ACT_C2_NONEXPIRED").Value:"")</td>
+                                <td>@(item.Element("ACT_C2_EXPIRED") != null ? item.Element("ACT_C2_EXPIRED").Value:"")</td>
+                                <td>@(item.Element("BENEFIT_FIN_AMOUNT") != null ? item.Element("BENEFIT_FIN_AMOUNT").Value:"")</td>
+                                <td>@(item.Element("BENEFIT_NONFIN") != null ? item.Element("BENEFIT_NONFIN").Value:"")</td>
+                                <td>@(item.Element("EXEC_TYPE") != null ? item.Element("EXEC_TYPE").Value:"")</td>
+                                <td>@(item.Element("CREATED_DATE") != null ? item.Element("CREATED_DATE").Value:"")</td>
+                        </tr>
+                    }
+                }
+            </tbody>*@
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        initDataTable();
+    </script>
+} 
