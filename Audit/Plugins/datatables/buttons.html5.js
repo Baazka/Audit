@@ -9,6 +9,7 @@ var _fnGetHeaders = function (dt) {
 	var thRows = $(dt.header()[0]).children();
 	var numRows = thRows.length;
 	var matrix = [];
+
 	// Iterate over each row of the header and add information to matrix.
 	for (var rowIdx = 0; rowIdx < numRows; rowIdx++) {
 		var $row = $(thRows[rowIdx]);
@@ -55,6 +56,7 @@ var _fnGetHeaders = function (dt) {
 			}
 		}
 	}
+
 	return matrix;
 };
 (function( factory ){
@@ -1234,7 +1236,7 @@ DataTable.ext.buttons.csvHtml5 = {
 		//	addRow( data.header, rowPos );
 		//	$('row:last c', rels).attr( 's', '2' ); // bold
 		//}
-		if (config.header) {//search config.header
+		if (config.header) {
 			/* ----- BEGIN changed Code ----- */
 			var headerMatrix = _fnGetHeaders(dt);
 			for (var rowIdx = 0; rowIdx < headerMatrix.length; rowIdx++) {

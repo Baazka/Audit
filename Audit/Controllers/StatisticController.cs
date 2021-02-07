@@ -8,6 +8,7 @@ using System.Xml.Linq;
 
 namespace Audit.Controllers
 {
+    [ApplicationAuthorize]
     public class StatisticController : Controller
     {
         // GET: Stat

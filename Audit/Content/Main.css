@@ -77,3 +77,20 @@
     border-width: 0;
     border-radius: 0;
 }
+
+th {
+    font-size: 12px;
+}
+
+td {
+    font-size: 11px;
+}
+
+.dataTables_length, .dataTables_length select, .dataTables_filter, .dataTables_filter input, .dataTables_info, .dataTables_paginate {
+    font-size: 12px;
+}
+
+.table th, .table td {
+    padding: 5px;
+    vertical-align: middle;
+}
