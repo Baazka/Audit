@@ -1,7 +1,64 @@
-﻿
+﻿@model System.Xml.Linq.XElement
 @{
     ViewBag.Title = "CM4A";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
 }
+<a href="@Url.Action("Index","Statistic")" class="btn btn-link">Буцах</a>
+<h2>СМ-4А. Санхүүгийн тайлангийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</h2>
+<div class="table-responsive">
+    <table class="table table-bordered datatable display" style="width:100%">
+        <thead>
+            <tr style="background-color:#D2D3D5;">
+                <th rowspan="3" class="text-center">№</th>
+                <th rowspan="3">Үзүүлэлт</th>
+                <th colspan="6">Илрүүлэлт</th>
+                <th colspan="2" rowspan="2">Залруулсан алдаа</th>
+                <th colspan="2" rowspan="2">Залруулагдаагүй алдаа, зөрчлийн дүн</th>
+                <th colspan="12">Залруулагдаагүй алдаа, зөрчлийн шийдвэрлэлт</th>
+            </tr>
+            <tr>
+                <th colspan="2">Зөрчил</th>
+                <th colspan="2">Алдаа</th>
+                <th colspan="2">Бүгд</th>
+                <th colspan="2">Тогтоосон төлбөрийн акт</th>
+                <th colspan="2">Өгсөн албан шаардлага</th>
+                <th colspan="2">Өгсөн зөвлөмж</th>
+                <th colspan="2">Албан тушаалтанд хариуцлага тооцуулах санал</th>
+                <th colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
+                <th colspan="2">Бусад</th>
+            </tr>
+            <tr>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
-<h2>CM4A</h2>
-
+@section scripts{
+    <script>
+        initDataTable();
+    </script>
+} 

@@ -1,7 +1,42 @@
-﻿
+﻿@model System.Xml.Linq.XElement
 @{
     ViewBag.Title = "CM1B";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
 }
+<a href="@Url.Action("Index","Statistic")" class="btn btn-link">Буцах</a>
+<h2>СМ-1Б. Гүйцэтгэлийн аудитын ерөнхий мэдээлэл</h2>
+<div class="table-responsive">
+    <table class="table table-bordered datatable display" style="width:100%">
+        <thead>
+            <tr style="background-color:#D2D3D5;">
+                <th rowspan="3" class="text-center">№</th>
+                <th rowspan="3">Үзүүлэлт</th>
+                <th colspan="3">Ажилласан</th>
+                <th colspan="2">Аудитын тоо</th>
+                <th rowspan="3">Аудитад хамрагдсан байгууллагын тоо</th>
+                <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
+            </tr>
+            <tr>
+                <th rowspan="2">Хүн</th>
+                <th rowspan="2">Өдөр</th>
+                <th rowspan="2">Илүү цаг</th>
+                <th rowspan="2">Төлөвлөсөн</th>
+                <th rowspan="2">Гүйцэтгэсэн</th>
+                <th colspan="2">Санхүүгийн</th>
+                <th rowspan="2">Санхүүгийн бус үр өгөөжийн тоо</th>
+            </tr>
+            <tr>
+                <th>Тоо</th>
+                <th>Дүн</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
-<h2>CM1B</h2>
-
+@section scripts{
+    <script>
+        initDataTable();
+    </script>
+} 

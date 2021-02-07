@@ -1,7 +1,71 @@
-﻿
+﻿@model System.Xml.Linq.XElement
 @{
     ViewBag.Title = "CM3C";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
 }
+<a href="@Url.Action("Index","Statistic")" class="btn btn-link">Буцах</a>
+<h2>СМ-3В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</h2>
+<div class="table-responsive">
+    <table class="table table-bordered datatable display" style="width:100%">
+        <thead>
+            <tr style="background-color:#D2D3D5;">
+                <th rowspan="4" class="text-center">№</th>
+                <th rowspan="4">Үзүүлэлт</th>
+                <th colspan="10">Албан тушаалтанд хариуцлага тооцуулах санал</th>
+                <th colspan="12">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
+                <th colspan="2" rowspan="3">Эцсийн үлдэгдэл</th>
+            </tr>
+            <tr>
+                <th rowspan="2" colspan="2">Эхний үлдэгдэл</th>
+                <th rowspan="2" colspan="2">Тайлант хугацаанд нэмэгдсэн</th>
+                <th rowspan="2" colspan="2">Бүгд</th>
+                <th colspan="4">Хэрэгжилт</th>
+                <th colspan="2" rowspan="2">Эхний үлдэгдэл</th>
+                <th colspan="2" rowspan="2">Тайлант хугацаанд шинээр шилжүүлсэн</th>
+                <th colspan="2" rowspan="2">Бүгд</th>
+                <th colspan="6">Хэрэгжилт</th>
+            </tr>
+            <tr>
+                <th colspan="2">Бүрэн хэрэгжсэн</th>
+                <th colspan="2">Хэрэгжээгүй</th>
+                <th colspan="2">Бүрэн шийдвэрлэгдсэн</th>
+                <th colspan="2">Хянагдаж байгаа</th>
+                <th colspan="2">Хэрэгсэхгүй болсон</th>
+            </tr>
+            <tr>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
-<h2>CM3C</h2>
-
+@section scripts{
+    <script>
+        initDataTable();
+    </script>
+} 

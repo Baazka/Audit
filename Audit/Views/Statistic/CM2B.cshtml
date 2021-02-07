@@ -1,7 +1,74 @@
-﻿
+﻿@model System.Xml.Linq.XElement
 @{
     ViewBag.Title = "CM2B";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
 }
+<a href="@Url.Action("Index","Statistic")" class="btn btn-link">Буцах</a>
+<h2>СМ-2Б. Гүйцэтгэлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</h2>
+<div class="table-responsive">
+    <table class="table table-bordered datatable display" style="width:100%">
+        <thead>
+            <tr style="background-color:#D2D3D5;">
+                <th rowspan="4" class="text-center">№</th>
+                <th rowspan="4">Шийдвэрийн төрөл</th>
+                <th rowspan="4">Ангилал</th>
+                <th rowspan="3" colspan="2">Эхний үлдэгдэл</th>
+                <th rowspan="3" colspan="2">Тайлант хугацаанд нэмэгдсэн</th>
+                <th colspan="14">Биелэлт</th>
+                <th colspan="2" rowspan="3">Статистик мэдээнээс хасагдсан</th>
+                <th colspan="2" rowspan="3">Эцсийн үлдэгдэл</th>
+                <th colspan="4" rowspan="2">Үүнээс</th>
+            </tr>
+            <tr>
+                <th rowspan="2" colspan="2">Өмнөх оноос</th>
+                <th rowspan="2" colspan="2">Тайлант оноос</th>
+                <th rowspan="2" colspan="2">Хэрэгжилт бүгд</th>
+                <th colspan="8">Төлбөр барагдуулалтын хэлбэр</th>
+            </tr>
+            <tr>
+                <th colspan="2">Улсын төсөвт</th>
+                <th colspan="2">Орон нутгын төсөвт</th>
+                <th colspan="2">Тухайн байгууллагад</th>
+                <th colspan="2">Бусад</th>
+                <th colspan="2">Хугацаа болоогүй</th>
+                <th colspan="2">Хугацаа хэтэрсэн</th>
+            </tr>
+            <tr>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
-<h2>CM2B</h2>
-
+@section scripts{
+    <script>
+        initDataTable();
+    </script>
+} 

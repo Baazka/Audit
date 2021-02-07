@@ -1,7 +1,53 @@
-﻿
+﻿@model System.Xml.Linq.XElement
 @{
     ViewBag.Title = "CM6";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int counter = 0;
 }
+<a href="@Url.Action("Index","Statistic")" class="btn btn-link">Буцах</a>
+<h2>СМ-6. Төсвийн төсөлд өгсөн санал</h2>
+<div class="table-responsive">
+    <table class="table table-bordered datatable display" style="width:100%">
+        <thead>
+            <tr style="background-color:#D2D3D5;">
+                <th rowspan="4" class="text-center">№</th>
+                <th rowspan="4">Төсөв</th>
+                <th colspan="6">Боловсруулсан санал</th>
+                <th colspan="6">Хүлээн зөвшөөрөгдсөн санал</th>
+            </tr>
+            <tr>
+                <th colspan="2">Бүгд</th>
+                <th colspan="4">Үүнээс</th>
+                <th colspan="2">Бүгд</th>
+                <th colspan="4">Үүнээс</th>
+            </tr>
+            <tr>
+                <th rowspan="2">Тоо</th>
+                <th rowspan="2">Дүн</th>
+                <th colspan="2">Орлого нэмэгдүүлэх</th>
+                <th colspan="2">Зардал хорогдуулах</th>
+                <th rowspan="2">Тоо</th>
+                <th rowspan="2">Дүн</th>
+                <th colspan="2">Орлого нэмэгдүүлэх</th>
+                <th colspan="2">Зардал хорогдуулах</th>
+            </tr>
+            <tr>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+                <th>Тоо</th>
+                <th>Дүн</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
-<h2>CM6</h2>
-
+@section scripts{
+    <script>
+        initDataTable();
+    </script>
+} 
