@@ -3,118 +3,158 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    a, a:hover {
+        color: #000;
+    }
+    .btn:focus, .btn.focus {
+        outline: 0;
+        box-shadow: none;
+    }
+</style>
+<h4>Статистик мэдээний жагсаалт</h4>
+<hr />
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left text-uppercase text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Бүртгэлийн мэдээ
+                </button>
+            </h2>
+        </div>
 
-<h2>Статистик мэдээний жагсаалт</h2>
-<ul class="list-unstyled">
-    <li>
-        Бүртгэлийн мэдээ
-        <ul class="list-unstyled">
-            <li>
-                <a href="@Url.Action("BM0","Statistic")">БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM1","Statistic")">БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM2","Statistic")">БМ-2. Төрийн аудитын газрын аудитор болон багийн албан шаардлагын бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM3","Statistic")">БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM4","Statistic")">БМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM5","Statistic")">БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM6","Statistic")">БМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM7","Statistic")">БМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын бүртгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("BM8","Statistic")">БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл</a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        Нэгтгэлийн мэдээ
-        <ul class="list-unstyled">
-            <li>
-                <a href="@Url.Action("NM1","Statistic")">НМ-1. Төрийн аудитын газрын төлбөрийн актын нэгтгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("NM2","Statistic")">НМ-2. Төрийн аудитын газрын албан шаардлагын нэгтгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("NM3","Statistic")">НМ-3. Төрийн аудитын газрын зөвлөмжийн нэгтгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("NM4","Statistic")">НМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын нэгтгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("NM5","Statistic")">НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("NM6","Statistic")">НМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн нэгтгэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("NM7","Statistic")">НМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын нэгтгэл</a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        Статистик мэдээ
-        <ul class="list-unstyled">
-            <li>
-                <a href="@Url.Action("CM1A","Statistic")">СМ-1А. Санхүүгийн тайлангийн аудитын ерөнхий мэдээлэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM1B","Statistic")">СМ-1Б. Гүйцэтгэлийн аудитын ерөнхий мэдээлэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM1C","Statistic")">СМ-1В. Нийцлийн аудитын ерөнхий мэдээлэл</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM2A","Statistic")">СМ-2А. Санхүүгийн тайлангийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM2B","Statistic")">СМ-2Б. Гүйцэтгэлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM2C","Statistic")">СМ-2В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM3A","Statistic")">СМ-3А. Санхүүгийн тайлангийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM3B","Statistic")">СМ-3Б. Гүйцэтгэлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM3C","Statistic")">СМ-3В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM4A","Statistic")">СМ-4А. Санхүүгийн тайлангийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM4B","Statistic")">СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM4C","Statistic")">СМ-4В. Нийцлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM5","Statistic")">СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM6","Statistic")">СМ-6. Төсвийн төсөлд өгсөн санал</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM7","Statistic")">СМ-7. Дотоод аудит</a>
-            </li>
-            <li>
-                <a href="@Url.Action("CM8","Statistic")">СМ-8. Дэмжих үйлчилгээ</a>
-            </li>
-        </ul>
-    </li>
-</ul>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM0","Statistic")">БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM1","Statistic")">БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM2","Statistic")">БМ-2. Төрийн аудитын газрын аудитор болон багийн албан шаардлагын бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM3","Statistic")">БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM4","Statistic")">БМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM5","Statistic")">БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM6","Statistic")">БМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM7","Statistic")">БМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын бүртгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("BM8","Statistic")">БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left text-uppercase text-dark" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Нэгтгэлийн мэдээ
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="@Url.Action("NM1","Statistic")">НМ-1. Төрийн аудитын газрын төлбөрийн актын нэгтгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("NM2","Statistic")">НМ-2. Төрийн аудитын газрын албан шаардлагын нэгтгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("NM3","Statistic")">НМ-3. Төрийн аудитын газрын зөвлөмжийн нэгтгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("NM4","Statistic")">НМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын нэгтгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("NM5","Statistic")">НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("NM6","Statistic")">НМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн нэгтгэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("NM7","Statistic")">НМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын нэгтгэл</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left text-uppercase text-dark" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Статистик мэдээ
+                </button>
+            </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM1A","Statistic")">СМ-1А. Санхүүгийн тайлангийн аудитын ерөнхий мэдээлэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM1B","Statistic")">СМ-1Б. Гүйцэтгэлийн аудитын ерөнхий мэдээлэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM1C","Statistic")">СМ-1В. Нийцлийн аудитын ерөнхий мэдээлэл</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM2A","Statistic")">СМ-2А. Санхүүгийн тайлангийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM2B","Statistic")">СМ-2Б. Гүйцэтгэлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM2C","Statistic")">СМ-2В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM3A","Statistic")">СМ-3А. Санхүүгийн тайлангийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM3B","Statistic")">СМ-3Б. Гүйцэтгэлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM3C","Statistic")">СМ-3В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM4A","Statistic")">СМ-4А. Санхүүгийн тайлангийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM4B","Statistic")">СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM4C","Statistic")">СМ-4В. Нийцлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM5","Statistic")">СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM6","Statistic")">СМ-6. Төсвийн төсөлд өгсөн санал</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM7","Statistic")">СМ-7. Дотоод аудит</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="@Url.Action("CM8","Statistic")">СМ-8. Дэмжих үйлчилгээ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

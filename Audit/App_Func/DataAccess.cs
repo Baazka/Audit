@@ -81,12 +81,15 @@ namespace Audit.App_Func
                 con.Close();
 
                 object responseValue = retParam.Value;
-                //if (Convert.ToInt32(responseValue) != 1)
-                //{
-                //    response.CreateResponse(false, string.Empty, "Нэр нууц үг буруу байна.");
-                //}
-                XElement xmlResponseData = new XElement("UserID", responseValue);
-                response.CreateResponse(xmlResponseData);
+
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0? true:false;
+
+                if (responseVal)
+                {
+                    XElement xmlResponseData = new XElement("UserID", responseValue);
+                    response.CreateResponse(xmlResponseData);
+                }
+                response.CreateResponse(responseVal, string.Empty, "Нэр нууц үг буруу байна.");
             }
             catch (Exception ex)
             {
