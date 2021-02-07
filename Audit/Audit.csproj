@@ -252,6 +252,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\hashee.png" />
     <Content Include="Images\header-back.png" />
+    <Content Include="Images\i1.png" />
+    <Content Include="Images\i2.png" />
+    <Content Include="Images\i3.png" />
+    <Content Include="Images\i4.png" />
+    <Content Include="Images\i5.png" />
+    <Content Include="Images\i6.png" />
+    <Content Include="Images\i7.png" />
+    <Content Include="Images\i8.png" />
+    <Content Include="Images\logo-1.png" />
     <Content Include="Images\logo-white.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\mof.png" />
