@@ -4,42 +4,80 @@
 }
 
 <div class="limiter">
-    <div class="container-login100">        
+    <div class="container-login100">
         <div class="wrap-login100 p-5" style="padding-top:60px!important">
             <div class="header"> </div>
-                @using (Html.BeginRouteForm("UserLogin", FormMethod.Post))
-                {
-                    @Html.ValidationSummary(false,"",new { @class = "text-danger"})
-                    <div style="" class="d-flex py-4 justify-content-center"><img src="@Url.Content("~/Images/logo.png")" style="max-width: 200px;" /></div>
-                    <div class="wrap-input100 mb-3">
-                        @Html.TextBoxFor(m=>m.UserName, new { @class= "input100", @placeholder = "Нэвтрэх нэр" })
-                        <span class="symbol-input100">
-                            <i class="fa fa-user-o"></i>
-                        </span>
+            @using (Html.BeginRouteForm("UserLogin", FormMethod.Post))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <div style="" class="d-flex py-4 justify-content-center"><img src="@Url.Content("~/Images/logo.png")" style="max-width: 200px;" /></div>
+                <div class="wrap-input100 mb-3">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input100", @placeholder = "Нэвтрэх нэр" })
+                    <span class="symbol-input100">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+                <div class="wrap-input100 mb-3">
+                    @Html.PasswordFor(m => m.Password, new { @class = "input100", @placeholder = "Нууц үг" })
+                    <span class="symbol-input100">
+                        <i class="fa fa-unlock-alt"></i>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-between pb-4">
+                    <div class="contact100-form-checkbox m-l-4">
+                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
+                        <label class="label-checkbox100" for="ckb1">
+                            Сануулах
+                        </label>
                     </div>
-                    <div class="wrap-input100 mb-3">
-                        @Html.PasswordFor(m => m.Password, new { @class = "input100", @placeholder = "Нууц үг" })
-                        <span class="symbol-input100">
-                            <i class="fa fa-unlock-alt"></i>
-                        </span>
+                    <a href="#" class="forgot">Нууц үг мартсан?</a>
+                </div>
+                <div class="container">
+                    <div class="col-md-12 text-center">
+                        <button class="login100-form-btn" type="submit">
+                            Нэвтрэх
+                        </button>
                     </div>
-                    <div class="d-flex justify-content-between pb-4">
-                        <div class="contact100-form-checkbox m-l-4">
-                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
-                            <label class="label-checkbox100" for="ckb1">
-                                Сануулах
-                            </label>
-                        </div>
-                        <a href="#" class="forgot">Нууц үг мартсан?</a>
-                    </div>
-                    <div class="container">
-                        <div class="col-md-12 text-center">
-                            <button class="login100-form-btn">
-                                Нэвтрэх
-                            </button>
-                        </div>
-                    </div>
-                }
+                </div>
+            }
         </div>
     </div>
 </div>
+@section scripts{
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("button[type='submit']").on("click", function () {
+                    var rememberMe = $("input[type='checkbox']").prop('checked');
+                    var username = $('#UserName').val();
+                    var usercode = $('#Password').val();
+                    if (username == undefined || username == '')
+                        alert('Нэвтрэх нэр оруулна уу?')
+                    else if (usercode == undefined || usercode == '')
+                        alert('Нууц үг оруулна уу?')
+                    else {
+                        if (rememberMe) {
+                            var userId = $('#UserName').val();
+                            $.cookie('userId', userId, { expires: 7 });
+                            $.cookie('rememberMe', true, { expires: 7 });
+                        }
+                        else {
+                            $.cookie('userId', null);
+                            $.cookie('rememberMe', null);
+                        }
+                        //$(".loader-wrapper").show();
+                        $("form").submit();
+                    }
+                });
+                var remember = $.cookie('rememberMe');
+                if (remember == 'true') {
+                    var userid = $.cookie('userId');
+                    $('#UserName').attr("value", userid);
+                    $("input[type='checkbox']").prop('checked', 'checked');
+                }
+                else {
+                    $('#UserName').val('');
+                }
+            });
+        </script>
+    }

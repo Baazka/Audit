@@ -293,6 +293,15 @@ namespace Audit.Models
         }
     }
 
+    public class OrgVM
+    {
+        public int DeparmentID { get; set; }
+        public int StatusID { get; set; }
+        public int ViolationID { get; set; }
+        public List<Department> departments { get; set; } = new List<Department>();
+        public List<Status> statuses { get; set; } = new List<Status>();
+        public List<Violation> violations { get; set; } = new List<Violation>();
+    }
     public class OrgList
     {
         public int ORG_ID { get;set; }

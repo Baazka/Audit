@@ -7,12 +7,16 @@
     <title>Аудит</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Custom fonts for this template-->
+    <link href="~/Plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+
     <link rel="stylesheet" href="~/Plugins/datatables/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="~/Plugins/datatables//buttons.dataTables.min.css">
 
     <link rel="stylesheet" href="~/Plugins/jquery-ui/jquery-ui.css">
     <link rel="stylesheet" href="~/Plugins/noti/notifications.css">
-    <link rel="stylesheet" href="~/Content/Main.css">
+    @*<link rel="stylesheet" href="~/Content/Main.css">*@
     <style>
         .spinner {
             position: fixed;
@@ -41,87 +45,116 @@
         }
     </style>
 </head>
-<body>
+<body id="page-top">
     <div id="progress" style="z-index:9999;" class="spinner">
         <div class="center">
             <img src="~/Images/spinner.gif" width="200" />
         </div>
     </div>
-    <nav class="navbar sticky-top flex-md-nowrap p-0 header">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 pt-1" href="@(Role.hasAdminRole(User)?Url.Action("Index", "Home"):Url.Action("Index","Statistic"))">
-            <img src="@Url.Content("~/Images/Logo-1.png")" style="width:30px; margin-left:20px;" />
-            <h4 class="text-light text-uppercase" style="position:absolute; left:90px; top:10px; font-size:0.7rem; font-weight:normal;">
-                Шалгагдагч этгээдийн<br />
-                бүртгэлийн программ
-            </h4>
-        </a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-                <i class="fa fa-bars text-white"></i>
-            </span>
-        </button>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap text-white">
-                Сайн байна уу, @User.Identity.Name
-                @Html.ActionLink("Гарах", "Logout", "Authentication", new { Area = "" }, new { @style = "color:#fff;" })
-            </li>
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <span class="sidebar-brand-icon ">
+                    <img src="@Url.Content("~/Images/Logo-1.png")" style="width:30px;" />
+                </span>
+                <span class="sidebar-brand-text mx-3" style="font-size: 0.5rem; font-weight: normal;">
+                    Шалгагдагч этгээдийн<br />
+                    бүртгэлийн программ
+                </span>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            @Html.Action("Menus","Home", new { Area = ""})
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
         </ul>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <nav id="sidebarMenu" class="col-md-2 col-lg-1 d-md-block sidebar collapse" style="background-color:#535351;">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column menu">
-                        @if (Role.hasStatRole(User))
-                        {
-                            <li class="nav-item text-center">
-                                <a class="nav-link" href="@Url.Action("Index", "Statistic")">
-                                    <img src="~/Images/i8.png" width="32" />
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    Сайн байна уу, @User.Identity.Name.ToUpper()
+                                </span>
+                                
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Тохиргоо
                                 </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item text-center">
-                                <a class="nav-link" href="@Url.Action("Index","Home")">
-                                    <img src="~/Images/i1.png" width="32" />
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="@Url.Action("Logout", "Authentication")">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Гарах
                                 </a>
-                            </li>
-                            <li class="nav-item text-center">
-                                <a class="nav-link" href="#">
-                                    <img src="~/Images/i3.png" width="32" />
-                                </a>
-                            </li>
-                            <li class="nav-item text-center">
-                                <a class="nav-link" href="#">
-                                    <img src="~/Images/i5.png" width="32" />
-                                </a>
-                            </li>
-                            <li class="nav-item text-center">
-                                <a class="nav-link" href="#">
-                                    <img src="~/Images/i7.png" width="32" />
-                                </a>
-                            </li>
-                        }
+                            </div>
+                        </li>
 
                     </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid" id="mainbody">
+                    @RenderBody()
                 </div>
-            </nav>
-            <main role="main" class="col-md-10 ml-sm-auto col-lg-11 px-md-4" id="mainbody">
-                @RenderBody()
-            </main>
-        </div>
-    </div>
-    <footer class="container-fluid" style="background-color:#707271;">
-        <div class="container text-white text-uppercase py-2">
-            <div class="row">
-                <div class="col-12 text-center">
-                    &copy; Үндэсний аудитын газрын мэдээллийн технологийн төв. @DateTime.Now.Year он
-                </div>
+                <!-- /.container-fluid -->
+
             </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span> &copy; Үндэсний аудитын газрын мэдээллийн технологийн төв. @DateTime.Now.Year он</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
-    </footer>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")

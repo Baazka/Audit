@@ -1,1 +1,13 @@
-﻿
+﻿.dataTables_length, .dataTables_length select, .dataTables_filter, .dataTables_filter input, .dataTables_info, .dataTables_paginate {
+    font-size: 12px;
+}
+.dataTable th, .dataTable td {
+    font-weight: normal;
+    font-size:12px;
+}
+#mainbody {
+    font-size: 12px;
+}
+.form-control-sm, .btn-sm {
+    font-size: 12px;
+}

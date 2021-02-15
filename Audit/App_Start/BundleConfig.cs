@@ -22,12 +22,14 @@ namespace Audit
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                      "~/Scripts/bootstrap.min.js",
+                     "~/Scripts/sb-admin-2.js",
                      "~/Scripts/bootstrap-datepicker.min.js",
                      "~/Scripts/bootstrap-datepicker.mn.js",
                      "~/Scripts/app.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/sb-admin-2.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/site.css"));
         }

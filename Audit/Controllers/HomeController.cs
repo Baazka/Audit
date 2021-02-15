@@ -15,7 +15,41 @@ namespace Audit.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            OrgVM res = new OrgVM();
+            try
+            {
+                if (Globals.departments.Count > 0 || Globals.statuses.Count > 0 || Globals.violations.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                    res.statuses = Globals.statuses;
+                    res.violations = Globals.violations;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+
+                    XElement responseStatus = SendLibraryRequest("Status");
+                    Globals.statuses = (from item in responseStatus.Elements("Library") select new Status().FromXml(item)).ToList();
+                    res.statuses = Globals.statuses;
+
+                    XElement responseViolation = SendLibraryRequest("Violation");
+                    Globals.violations = (from item in responseViolation.Elements("Library") select new Violation().FromXml(item)).ToList();
+                    res.violations = Globals.violations;
+
+                    return View(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
+        }
+        public PartialViewResult Menus()
+        {
+            return PartialView();
         }
         public ActionResult OrgList()
         {
@@ -25,24 +59,10 @@ namespace Audit.Controllers
                 orgLists = (from item in res.Elements("OrgList") select new OrgList().FromXml(item)).ToList();
             return View(orgLists);
         }
-        public ActionResult _getDepartment()
-        {
-            XElement response = SendLibraryRequest("Department");
-            List<Department> departments = (from item in response.Elements("Library") select new Department().FromXml(item)).ToList();
-            return PartialView(departments);
-        }
-        public ActionResult _getStatus()
-        {
-            XElement response = SendLibraryRequest("Status");
-            List<Status> statuses = (from item in response.Elements("Library") select new Status().FromXml(item)).ToList();
-            return PartialView(statuses);
-        }
-        public ActionResult _getViolation()
-        {
-            XElement response = SendLibraryRequest("Violation");
-            List<Violation> errors = (from item in response.Elements("Library") select new Violation().FromXml(item)).ToList();
-            return PartialView(errors);
-        }
+        
+
+
+
         public static XElement SendLibraryRequest(string lib)
         {
             XElement elem = new XElement("lib");

@@ -6,19 +6,6 @@ using System.Xml.Linq;
 
 namespace Audit.Models
 {
-    public class Bank
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public Bank FromXml(XElement elem)
-        {
-            if (elem.Element("ID") != null)
-                ID = Convert.ToInt32(elem.Element("ID").Value);
-            if (elem.Element("Name") != null)
-                Name = elem.Element("Name").Value;
-            return this;
-        }
-    }
     public class Department
     {
         public int DEPARTMENT_ID { get; set; }
@@ -32,6 +19,50 @@ namespace Audit.Models
             return this;
         }
     }
+
+    public class Status
+    {
+        public int STATUS_ID { get; set; }
+        public string STATUS_NAME { get; set; }
+        public Status FromXml(XElement elem)
+        {
+            if (elem.Element("STATUS_ID") != null)
+                STATUS_ID = Convert.ToInt32(elem.Element("STATUS_ID").Value);
+            if (elem.Element("STATUS_NAME") != null)
+                STATUS_NAME = elem.Element("STATUS_NAME").Value;
+            return this;
+        }
+    }
+
+    public class Violation
+    {
+        public int VIOLATION_ID { get; set; }
+        public string VIOLATION_NAME { get; set; }
+        public Violation FromXml(XElement elem)
+        {
+            if (elem.Element("VIOLATION_ID") != null)
+                VIOLATION_ID = Convert.ToInt32(elem.Element("VIOLATION_ID").Value);
+            if (elem.Element("VIOLATION_NAME") != null)
+                VIOLATION_NAME = elem.Element("VIOLATION_NAME").Value;
+            return this;
+        }
+    }
+
+
+    public class Bank
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public Bank FromXml(XElement elem)
+        {
+            if (elem.Element("ID") != null)
+                ID = Convert.ToInt32(elem.Element("ID").Value);
+            if (elem.Element("Name") != null)
+                Name = elem.Element("Name").Value;
+            return this;
+        }
+    }
+    
     public class NDBaiguullaga
     {
         public int ID { get; set; }
@@ -181,31 +212,4 @@ namespace Audit.Models
         }
     }
 
-    public class Status
-    {
-        public int STATUS_ID { get; set; }
-        public string STATUS_NAME { get; set; }
-        public Status FromXml(XElement elem)
-        {
-            if (elem.Element("STATUS_ID") != null)
-                STATUS_ID = Convert.ToInt32(elem.Element("STATUS_ID").Value);
-            if (elem.Element("STATUS_NAME") != null)
-                STATUS_NAME = elem.Element("STATUS_NAME").Value;
-            return this;
-        }
-    }
-
-    public class Violation
-    {
-        public int VIOLATION_ID { get; set; }
-        public string VIOLATION_NAME { get; set; }
-        public Violation FromXml(XElement elem)
-        {
-            if (elem.Element("VIOLATION_ID") != null)
-                VIOLATION_ID = Convert.ToInt32(elem.Element("VIOLATION_ID").Value);
-            if (elem.Element("VIOLATION_NAME") != null)
-                VIOLATION_NAME = elem.Element("VIOLATION_NAME").Value;
-            return this;
-        }
-    }
 }

@@ -1,9 +1,0 @@
-﻿@model List<Audit.Models.Status>
-
-@{
-    var statuses = Model.Select(s => new SelectListItem() { Text = s.STATUS_NAME, Value = s.STATUS_ID.ToString() });
-}
-
-<div class="form-group padding-xs">
-    @Html.DropDownList("ddStatus", statuses, "--Төлөв--", new { @class = "form-control input-sm" })
-</div>
