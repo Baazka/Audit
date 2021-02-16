@@ -7,13 +7,19 @@
     a, a:hover {
         color: #000;
     }
+
     .btn:focus, .btn.focus {
         outline: 0;
         box-shadow: none;
     }
 </style>
-<h4>Статистик мэдээний жагсаалт</h4>
-<hr />
+<div class="d-flex">
+    <h4>Статистик мэдээний жагсаалт</h4>
+    <a href="@Url.Action("PowerBI","Statistic")" class="btn btn-sm btn-secondary ml-auto p-2">
+        Power BI
+    </a>
+</div>
+<hr class="sidebar-divider">
 <div class="accordion" id="accordionExample">
     <div class="card">
         <div class="card-header p-0" id="headingOne">

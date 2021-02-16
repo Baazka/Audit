@@ -4,8 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int counter = 0;
 }
-<a href="@Url.Action("Index","Statistic")" class="btn btn-link">Буцах</a>
-<h2>СМ-4А. Санхүүгийн тайлангийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</h2>
+<div class="d-flex">
+    <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
+        <span class="icon text-gray-600">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+    </a>
+    <h4>СМ-4А. Санхүүгийн тайлангийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</h4>
+</div>
+<hr class="sidebar-divider">
 <div class="table-responsive">
     <table class="table table-bordered datatable display" style="width:100%">
         <thead>

@@ -2151,6 +2151,7 @@
     <Content Include="Views\Statistic\CM7.cshtml" />
     <Content Include="Views\Statistic\CM8.cshtml" />
     <Content Include="Views\Home\Menus.cshtml" />
+    <Content Include="Views\Statistic\PowerBI.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

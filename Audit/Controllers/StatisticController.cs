@@ -16,6 +16,10 @@ namespace Audit.Controllers
         {
             return View();
         }
+        public ActionResult PowerBI()
+        {
+            return View();
+        }
         public ActionResult BM0()
         {
             XElement res = AppStatic.SystemController.BM1(User.GetClaimData("DepartmentID"));

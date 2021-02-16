@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "PowerBI";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .iframe-container {
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9*/
+        position: relative;
+    }
+
+        .iframe-container iframe {
+            border: 0;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+</style>
+<div class="d-flex">
+    <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
+        <span class="icon text-gray-600">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+    </a>
+    <h4>PowerBI</h4>
+</div>
+<hr class="sidebar-divider">
+<div class="iframe-container">
+    <iframe src="https://app.powerbi.com/view?r=eyJrIjoiNzAxMzcxYjAtYzAxNC00NjRhLWJhYzgtMWJkMTdlZTQ0MjhjIiwidCI6ImI0MDYwNDEyLTEwM2MtNDBlNy05YzExLTBhNjBkY2NhZjVhZCIsImMiOjEwfQ%3D%3D" allowfullscreen>
+    </iframe>
+</div>
+

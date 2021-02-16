@@ -61,8 +61,6 @@ namespace Audit.Controllers
         }
         
 
-
-
         public static XElement SendLibraryRequest(string lib)
         {
             XElement elem = new XElement("lib");
