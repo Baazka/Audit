@@ -1,0 +1,53 @@
+﻿@model Audit.Models.OrganizationUB
+@{
+    Layout = null;
+}
+
+@if (Model != null)
+{
+<fieldset>
+    <h6>Улсын бүртгэлийн ерөнхий газрын хуулийн этгээдийн бүртгэл</h6>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Регистр:</label>
+                <div class="col-sm-8">
+                    <input class="form-control form-control-sm" value="@Model.UB_REGISTER_NO" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Нэр:</label>
+                <div class="col-sm-8">
+                    <input class="form-control form-control-sm" value="@Model.UB_NAME" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">УБ дугаар:</label>
+                <div class="col-sm-8">
+                    <input class="form-control form-control-sm" value="@Model.UB_DOCUMENT_NO" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Бүртгэгдсэн огноо:</label>
+                <div class="col-sm-8">
+                    <input class="form-control form-control-sm" value="@Model.UB_REG_DATE.ToString("yyyy/MM/dd")" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Хариуцлагын хэлбэр:</label>
+                <div class="col-sm-8">
+                    <input class="form-control form-control-sm" value="@Model.UB_CATEGORY" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+}

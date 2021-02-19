@@ -12,10 +12,18 @@
         </span>
     </a>
     <h4>БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл</h4>
+    <div class="ml-auto pr-2">
+        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-excel"></i>
+            </span>
+            <span class="text">Excel</span>
+        </a>
+    </div>
 </div>
 <hr class="sidebar-divider">
 <div class="table-responsive">
-    <table class="table table-bordered datatable display" style="width:100%">
+    <table id="BM1" class="table table-bordered datatable display" style="width:100%">
         <thead>
             <tr style="background-color:#D2D3D5;">
                 <th rowspan="4" class="text-center">№</th>
@@ -80,7 +88,8 @@
                 <th>Бусад</th>
             </tr>
         </thead>
-        @*<tbody>
+        <tbody>
+            @*<tbody>
             @if (Model.Elements("BM1").Count() != 0)
             {
                 foreach (var item in Model.Elements("BM1"))
@@ -139,9 +148,8 @@
             </tbody>*@
     </table>
 </div>
-
 @section scripts{
     <script>
         initDataTable();
     </script>
-} 
+}

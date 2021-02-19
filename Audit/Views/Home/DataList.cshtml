@@ -1,0 +1,29 @@
+﻿@model List<Audit.Models.DataList>
+@{ 
+    Layout = null;
+}
+
+<table class="table table-sm datatableFeatureDisabled">
+    <thead>
+        <tr>
+            <th>Эх үүсвэр</th>
+            <th>Регистр</th>
+            <th>Нэр</th>
+            <th width="30"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count != 0)
+        {
+            foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.SRC_NAME</td>
+                <td>@item.REG_NO</td>
+                <td>@item.ORG_NAME</td>
+                <td class="text-center"><a href="#" onclick="addTab(@item.SRC_ID,@item.REG_ID, @item.REG_NO)">дэлгэрэнгүй</a></td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>

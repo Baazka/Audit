@@ -11,7 +11,10 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
+}
 
+@if (User.IsInRole("Dans"))
+{
     <!-- Nav Item - Charts -->
     <li class="nav-item active">
         <a class="nav-link" href="#">
@@ -19,12 +22,14 @@
             <span>Шилэн данс</span>
         </a>
     </li>
-}
-@if (User.IsInRole("Stat"))
-{
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+}
+
+@if (User.IsInRole("Stat"))
+{
     <!-- Nav Item - Tables -->
     <li class="nav-item active">
         <a class="nav-link" href="@Url.Action("Index", "Statistic")">
@@ -32,5 +37,8 @@
             <span>Статистик</span>
         </a>
     </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 }
 

@@ -11,10 +11,18 @@
         </span>
     </a>
     <h4>БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл</h4>
+    <div class="ml-auto pr-2">
+        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('BM0', 'БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл')">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-excel"></i>
+            </span>
+            <span class="text">Excel</span>
+        </a>
+    </div>
 </div>
 <hr class="sidebar-divider">
 <div class="table-responsive">
-    <table class="table table-bordered datatable display" style="width:100%">
+    <table id="BM0" class="table table-bordered datatable display" style="width:100%">
         <thead>
             <tr style="background-color:#D2D3D5;">
                 <th rowspan="3" class="text-center">№</th>
@@ -43,7 +51,7 @@
                 <th>Илүү цаг</th>
             </tr>
         </thead>
-        @*<tbody>
+        <tbody>
             @if (Model.Elements("BM0").Count() != 0)
             {
                 foreach (var item in Model.Elements("BM0"))
@@ -91,20 +99,25 @@
                         <td>@(item.Element("ACT_C2_AMOUNT") != null ? item.Element("ACT_C2_AMOUNT").Value:"")</td>
                         <td>@(item.Element("ACT_C2_AMOUNT") != null ? item.Element("ACT_C2_AMOUNT").Value:"")</td>
                         <td>@(item.Element("ACT_C2_NONEXPIRED") != null ? item.Element("ACT_C2_NONEXPIRED").Value:"")</td>
-                            <td>@(item.Element("ACT_C2_EXPIRED") != null ? item.Element("ACT_C2_EXPIRED").Value:"")</td>
-                            <td>@(item.Element("BENEFIT_FIN_AMOUNT") != null ? item.Element("BENEFIT_FIN_AMOUNT").Value:"")</td>
-                            <td>@(item.Element("BENEFIT_NONFIN") != null ? item.Element("BENEFIT_NONFIN").Value:"")</td>
-                            <td>@(item.Element("EXEC_TYPE") != null ? item.Element("EXEC_TYPE").Value:"")</td>
-                            <td>@(item.Element("CREATED_DATE") != null ? item.Element("CREATED_DATE").Value:"")</td>
-            </tr>
+                        <td>@(item.Element("ACT_C2_EXPIRED") != null ? item.Element("ACT_C2_EXPIRED").Value:"")</td>
+                        <td>@(item.Element("BENEFIT_FIN_AMOUNT") != null ? item.Element("BENEFIT_FIN_AMOUNT").Value:"")</td>
+                        <td>@(item.Element("BENEFIT_NONFIN") != null ? item.Element("BENEFIT_NONFIN").Value:"")</td>
+                        <td>@(item.Element("EXEC_TYPE") != null ? item.Element("EXEC_TYPE").Value:"")</td>
+                        <td>@(item.Element("CREATED_DATE") != null ? item.Element("CREATED_DATE").Value:"")</td>
+                    </tr>
+                }
             }
-            }
-            </tbody>*@
+        </tbody>
     </table>
 </div>
 
 @section scripts{
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js" integrity="sha512-wBcFatf7yQavHQWtf4ZEjvtVz4XkYISO96hzvejfh18tn3OrJ3sPBppH0B6q/1SHB4OKHaNNUKqOmsiTGlOM/g==" crossorigin="anonymous"></script><script>
         initDataTable();
+        function exportFile() {
+            var wb = XLSX.utils.table_to_book(document.getElementById('sampletable'));
+            XLSX.writeFile(wb, 'sample.xlsx');
+
+        }
     </script>
 } 

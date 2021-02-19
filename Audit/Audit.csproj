@@ -226,6 +226,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataList.cs" />
     <Compile Include="Models\Info.cs" />
     <Compile Include="Models\LoginVM.cs" />
     <Compile Include="Models\Organization.cs" />
@@ -244,7 +245,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Login.css" />
-    <Content Include="Content\Main.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -266,15 +266,9 @@
     <Content Include="Images\spinner.gif" />
     <Content Include="Images\ubeg.png" />
     <Content Include="Log\dontdelete.txt" />
-    <Content Include="Plugins\datatables\buttons.dataTables.min.css" />
-    <Content Include="Plugins\datatables\buttons.html5.js" />
-    <Content Include="Plugins\datatables\buttons.html5.min.js" />
     <Content Include="Plugins\datatables\dataTables.bootstrap4.min.css" />
     <Content Include="Plugins\datatables\dataTables.bootstrap4.min.js" />
-    <Content Include="Plugins\datatables\dataTables.buttons.min.js" />
     <Content Include="Plugins\datatables\jquery.dataTables.min.js" />
-    <Content Include="Plugins\datatables\jszip.min.js" />
-    <Content Include="Plugins\datatables\pdfmake.min.js" />
     <Content Include="Plugins\fontawesome\attribution.js" />
     <Content Include="Plugins\fontawesome\css\all.css" />
     <Content Include="Plugins\fontawesome\css\all.min.css" />
@@ -2089,6 +2083,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\xlsx.full.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2152,6 +2147,11 @@
     <Content Include="Views\Statistic\CM8.cshtml" />
     <Content Include="Views\Home\Menus.cshtml" />
     <Content Include="Views\Statistic\PowerBI.cshtml" />
+    <Content Include="Views\Home\DataSearch.cshtml" />
+    <Content Include="Views\Home\DataList.cshtml" />
+    <Content Include="Views\Home\AddTabUB.cshtml" />
+    <Content Include="Views\Home\AddTabMOF.cshtml" />
+    <Content Include="Views\Home\OrgDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

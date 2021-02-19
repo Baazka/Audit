@@ -1,0 +1,101 @@
+﻿@model Audit.Models.OrganizationMOF
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <fieldset>
+        <h6>Сангийн яамны төрийн сангийн бүртгэл</h6>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Регистр:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_REGISTER_NO" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Нэр:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Төсвийн ерөнхийлөн захирагч:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_TEZ" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Төсвийн төвлөрүүлэн захирагч:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_TTZ" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Төсвийн шууд захирагч:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_TSHZ" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Салбарын ангилал:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_SALBAR" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Төсвийн төрөл:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_BUDGET_TYPE" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Аймаг:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_AIMAG" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Сум:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_SUM" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Урсгал санхүүжилтийн данс:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_MAIN_ACCOUNT" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Нэмэлт санхүүжилтийн данс:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.MOF_EXTEND_ACCOUNT  " readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}

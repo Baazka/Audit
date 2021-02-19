@@ -7,7 +7,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered datatable display" style="width:100%">
+            <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
                 <thead>
                     <tr style="background-color:#D2D3D5;">
                         <th class="text-center">№</th>
@@ -40,9 +40,9 @@
                         <td>@item.VIOLATION_DETAIL</td>
                         <td>@item.STATUS_NAME</td>
                         <td>@item.INFORMATION_DETAIL</td>
-                        <td>
-                            <a href="#">засах</a>
-                            <a href="#">шилэн данс</a>
+                        <td class="text-center">
+                            <a href="#" onclick="Organization.edit(@item.ORG_ID)">засах</a>
+                            <a href="#" onclick="Organization.delete(@item.ORG_ID)">устгах</a>
                         </td>
                     </tr>
                         }

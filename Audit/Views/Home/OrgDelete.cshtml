@@ -1,0 +1,117 @@
+﻿@model Audit.Models.OrganizationDelete
+
+<style>
+    .modal-header {
+        background-color: #233772;
+        padding: 0.5rem 1rem;
+    }
+
+    .modal-title {
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .close {
+        font-weight: normal;
+        text-shadow: none;
+        opacity: inherit;
+    }
+
+    .col-form-label {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+
+    .field-validation-error {
+        font-size: 12px;
+    }
+
+    .modal-body h6 {
+        text-transform: uppercase;
+        color: #233772;
+    }
+
+    label {
+        font-size: 12px !important;
+    }
+
+    div.ui-datepicker {
+        font-size: 12px;
+    }
+
+</style>
+<div class="modal fade" id="OrgDeleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" >
+        @using (Ajax.BeginForm("OrgDelete", "Home", new { Area = "" },
+                   new AjaxOptions
+                   {
+                       UpdateTargetId = "orgmodaldeletecontainer",
+                       OnBegin = "Modal.show()",
+                       OnComplete = "Modal.hide(); $('#OrgDeleteModal').modal({ show: true }); $('.modal-backdrop:first').remove()",
+                       OnSuccess = "Organization.progressResponse(data, status, xhr)",
+                       OnFailure = "errorResponse",
+                       HttpMethod = "Post",
+                       InsertionMode = InsertionMode.Replace
+                   },
+                   new { @class = "form-horizontal", @autocomplete = "off" }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">Шалгагдагч байгууллагын бүртгэл устгах</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <div class="hidden text-danger error-msgs">
+                            <ul></ul>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.ORG_ID)
+
+                        <div class="form-group">
+                            <label>Огноо</label>
+                            @Html.EditorFor(m => m.P_IDATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                            @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Шалтгаан</label>
+                            @Html.DropDownListFor(model => model.P_REASONID, Model.reasons.Select(m => new SelectListItem { Text = m.INACTIVE_REASON_NAME, Value = m.INACTIVE_REASON_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                            @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Тайлбар</label>
+                            @Html.EditorFor(m => m.P_REASONDESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                            @Html.ValidationMessageFor(m => m.P_REASONDESC, "", new { @class = "text-danger" })
+                        </div>
+
+                        <hr />
+                        <div style="text-align: right">
+                            <button type="submit" class="btn btn-sm btn-danger">Устгах</button>
+                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Болих</button>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+  $( function() {
+      $(".datepicker").datepicker({
+          beforeShow: function () {
+              setTimeout(function () {
+                  $('.ui-datepicker').css('z-index', 99999999999999);
+              }, 0);
+          },
+          dateFormat: "yy/mm/dd",
+          firstDay: 1,
+          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+          monthNames: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"]
+      });
+  });
+</script>

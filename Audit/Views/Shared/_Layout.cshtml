@@ -12,11 +12,9 @@
     <link href="~/Plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="~/Plugins/datatables/dataTables.bootstrap4.min.css" />
-    <link rel="stylesheet" href="~/Plugins/datatables//buttons.dataTables.min.css">
 
     <link rel="stylesheet" href="~/Plugins/jquery-ui/jquery-ui.css">
     <link rel="stylesheet" href="~/Plugins/noti/notifications.css">
-    @*<link rel="stylesheet" href="~/Content/Main.css">*@
     <style>
         .spinner {
             position: fixed;
@@ -71,10 +69,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            @Html.Action("Menus","Home", new { Area = ""})
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            @Html.Action("Menus", "Home", new { Area = "" })
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -90,7 +85,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -107,7 +102,7 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     Сайн байна уу, @User.Identity.Name.ToUpper()
                                 </span>
-                                
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -160,10 +155,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/Plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="~/Plugins/datatables/dataTables.buttons.min.js"></script>
-    <script src="~/Plugins/datatables/jszip.min.js"></script>
-    <script src="~/Plugins/datatables/pdfmake.min.js"></script>
-    <script src="~/Plugins/datatables/buttons.html5.js"></script>
+    <script src="~/Scripts/xlsx.full.min.js"></script>
 
     <script src="~/Plugins/jquery-ui/jquery-ui.js"></script>
 

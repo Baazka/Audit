@@ -11,3 +11,6 @@
 .form-control-sm, .btn-sm {
     font-size: 12px;
 }
+.modal-dialog {
+    height: 100%!important;
+}

@@ -18,19 +18,36 @@
             @Html.DropDownListFor(model => model.ViolationID, Model.violations.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         <div class="form-group-sm pr-2">
-            <button type="button" id="btnSearch" class="btn btn-sm" style="margin-top: 32px;">
+            <button type="button" id="btnSearch" class="btn btn-sm btn-secondary" style="margin-top: 32px;">
                 <i class="fa fa-search"></i>
                 Хайх
             </button>
         </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="Organization.loadTemplate();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Шинэ бүртгэл</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" style="margin-top: 32px;" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
         @* <button class="btn text-uppercase text-white ml-auto" style="background-color:#233772" onclick="Organization.add();"><i class="fa fa-plus"></i> Шалгагдагч бүртгэх</button>*@
     </div>
 </form>
-    <div class="row mb-2">
-        <div class="col-12" id="OrgList">
+<div class="row mb-2">    
+    <div class="col-12" id="OrgList">
 
-        </div>
     </div>
+</div>
 
     @section scripts{
         <script>
@@ -52,21 +69,27 @@
 
                 $("#OrgModal").modal({ show: true });
             },
-            add: function () {
+            displayDelete: function (data) {
+                $("div#orgmodaldeletecontainer").remove();
+                $('<div/>', { id: "orgmodaldeletecontainer" }).appendTo('body').append(data);
+
+                $('#OrgDeleteModal').modal({ show: true });
+            },
+            loadTemplate: function () {
                 $.ajax({
-                    url: "@Url.Action("OrgAddEdit","Home")",
-                    type: "GET",
-                    success: function (data, status, xhr) {
-                        Organization.display(data);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
-                    }
-                })
+                        url: "@Url.Action("OrgAddEdit", "Home", new { Area = "" })",
+                        type: 'GET',
+                        success: function (data) {
+                            Organization.display(data);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
             },
             list: function () {
                 $.ajax({
@@ -74,39 +97,7 @@
                     type: "POST",
                     success: function (data, status, xhr) {
                         $("#OrgList").html(data);
-                        $('.datatable').DataTable({
-                            dom: 'Bfrtip',
-                            buttons: [{
-                                extend: 'excelHtml5',
-                                className: 'btn btn-sm btn-custom',
-                                charset: 'UTF-8',
-                                text: 'Excel'
-                            }],
-                            language: {
-                                search: "_INPUT_",
-                                searchPlaceholder: "Хүснэгтээс хайх",
-                                "infoEmpty": "Мэдээлэл байхгүй байна.",
-                                "zeroRecords": "Хайлтын үр дүн байхгүй байна.",
-                                "decimal": ".",
-                                "thousands": ",",
-                                //"search": "Хүснэгтээс хайх",
-                                "lengthMenu": "Хуудаст <b>_MENU_</b> бичлэг",
-                                "infoFiltered": "(Нийт _MAX_ мэдээллээс хайлт хийв)",
-                                "info": "Хуудас: <b>_PAGE_</b>/<b>_PAGES_</b>  Нийт тоо: <b>_START_</b>-<b>_END_</b>/<b>_TOTAL_</b>",
-                                "paginate": {
-                                    "first": "Эхнийх",
-                                    "last": "Сүүлийх",
-                                    "next": "Дараах",
-                                    "previous": "Өмнөх"
-                                },
-                                "aria": {
-                                    "sortAscending": ": өсөхөөр эрэмбэлэх",
-                                    "sortDescending": ": буурхаар эрэмбэлэх"
-                                },
-                                "loadingRecords": "Түр хүлээнэ үү ...",
-                                "processing": "Боловсруулж байна ..."
-                            }
-                        });
+                        initDataTable();
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -134,28 +125,106 @@
                     }
                 });
             },
+            delete: function (orgid) {
+                 $.ajax({
+                    url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
+                    type: 'GET',
+                     data: { orgid },
+                    success: function (data, status, xhr) {
+                        Organization.displayDelete(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            confirm: function (orgid) {
+                var result = confirm("Баталгаажуулах уу?");
+                if (result) {
+                    $.ajax({
+                        url: "@Url.Action("OrgConfirm", "Home", new { Area = "" })",
+                        type: 'POST',
+                        data: { orgid },
+                        dataType: "json",
+                        success: function (data, status, xhr) {
+                            Organization.progressResponse(data, status, xhr, true);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
             close: function () {
                 $("#OrgModal").modal("hide");
+                $('#OrgDeleteModal').modal("hide");
             },
-            progressResponse: function (data, status, xhr) {
+            progressResponse: function (data, status, xhr, confirmed=false) {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
                    Organization.display(data);
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {
-                        data.message.split("; ").forEach(function (msg) {
-                            $("#OrgModal .error-msgs ul").append("<li>" + msg + "</li>");
-                        });
+                        Message.error(data.message);
                     } else {
-                        $('.modal-backdrop:first').remove()
-                        Organization.close();
+                        if (confirmed == false) {
+                            $('.modal-backdrop:first').remove()
+                            Organization.close();
+                            Organization.list();
+                        }
                         Message.success(data.message);
-                        GetCount();
                     }
                 }
             }
         }
-        Organization.list();
+            Organization.list();
+
+            function addTab(type, regid, registerno) {
+                var url, title;
+                switch (type) {
+                    case 1:
+                        url = "@Url.Action("AddTabUB","Home")";
+                        title = "УБ";
+                    break;
+                  case 2:
+                        url = "@Url.Action("AddTabMOF", "Home")";
+                        title = "СЯ";
+                    break;
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { reg_id:regid },
+                    success: function (data, status, xhr) {
+                        $("#myTab").append('<li class="nav-item" role="presentation" id="tabid_' + regid +'">' +
+                            '<a class="nav-link" id="lib-tab_' + regid + '" data-toggle="tab" href="#lib_' + regid + '" role="tab" aria-selected="false">' + title + "-" + registerno + '<span onclick="removeTab(' + regid + ')" style="display: inline-block; color: #737373; position: absolute; padding-left: 10px; font-size:10px;">X</span></a></li>');
+                        $("#myTabContent").append('<div class="tab-pane fade" id="lib_' + regid + '" role="tabpanel" aria-labelledby="lib-tab_' + regid + '">' +
+                            '<br />'+ data+'</div>');
+                        $("#myTab #lib-tab_"+regid).unbind().click();
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                })
+            }
+            function removeTab(regid) {
+                $("#tabid_" + regid).remove();
+                $("#lib_" + regid).remove();
+                $('#myTab a:last').tab('show');
+            }
         </script>
     }

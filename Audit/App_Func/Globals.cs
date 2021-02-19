@@ -18,11 +18,20 @@ namespace Audit.App_Func
         public static List<Department> departments { get; set; } = new List<Department>();
         public static List<Status> statuses { get; set; } = new List<Status>();
         public static List<Violation> violations { get; set; } = new List<Violation>();
-        //public static List<GenderVM> gender { get; set; } = new List<GenderVM>();
-        //public static List<OriginVM> origin { get; set; } = new List<OriginVM>();
-        //public static List<SystemUserLevelVM> systemuserlevel { get; set; } = new List<SystemUserLevelVM>();
-        //public static List<PersonRelationVM> personrelation { get; set; } = new List<PersonRelationVM>();
-        //public static List<PersonStatusVM> personstatus { get; set; } = new List<PersonStatusVM>();
+        public static List<Office> offices { get; set; } = new List<Office>();
+        public static List<SubOffice> subOffices { get; set; } = new List<SubOffice>();
+
+        public static List<BudgetType> budgetTypes { get; set; } = new List<BudgetType>();
+        public static List<ActivityLib> activities { get; set; } = new List<ActivityLib>();
+        public static List<SubBudgetType> subBudgetTypes { get; set; } = new List<SubBudgetType>();
+        public static List<Committee> committees { get; set; } = new List<Committee>();
+        public static List<TaxOffice> taxOffices { get; set; } = new List<TaxOffice>();
+        public static List<CostType> costTypes { get; set; } = new List<CostType>();
+        public static List<InsuranceOffice> insuranceOffices { get; set; } = new List<InsuranceOffice>();
+        public static List<FinOffice> finOffices { get; set; } = new List<FinOffice>();
+        public static List<FinancingType> financingTypes { get; set; } = new List<FinancingType>();
+        public static List<Bank> banks { get; set; } = new List<Bank>();
+        public static List<Reason> reasons { get; set; } = new List<Reason>();
 
         static string SecurityKey = null;
         static internal string _logFolder = null;

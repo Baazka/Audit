@@ -34,11 +34,11 @@ namespace Audit.Controllers
                 lvm.ReturnUrl = returnUrl;
                 return View(lvm);
             }
-            catch
+            catch(Exception ex)
             {
-                Session["Message"] = "Системд алдаа гарлаа. Та түр хүлээгээд дахин оролдоно уу.";
-                return View();
+                Globals.WriteErrorLog(ex);
             }
+            return View();
         }
 
         [HttpPost]
@@ -91,11 +91,11 @@ namespace Audit.Controllers
 
                 return View();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Session["Message"] = "Системд алдаа гарлаа. Та түр хүлээгээд дахин оролдоно уу.";
-                return View();
+                Globals.WriteErrorLog(ex);
             }
+            return View();
         }
 
         [ApplicationAuthorize]
@@ -108,11 +108,11 @@ namespace Audit.Controllers
                 Session.Abandon();
                 return RedirectToAction("Login", "Authentication", new { Area = "" });
             }
-            catch
+            catch (Exception ex)
             {
-                Session["Message"] = "Системд алдаа гарлаа. Та түр хүлээгээд дахин оролдоно уу.";
-                return View();
+                Globals.WriteErrorLog(ex);
             }
+            return View();
         }
     }
 }

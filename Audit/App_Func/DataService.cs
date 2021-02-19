@@ -42,6 +42,16 @@ namespace Audit.App_Func
             functions.Add("UserLogin", (request) => DataAccess.UserLogin(request));
             functions.Add("UserProfile", (request) => DataAccess.UserProfile(request));
             functions.Add("OrgList", (request) => DataAccess.OrgList(request));
+            functions.Add("OrgDetail", (request) => DataAccess.OrgDetail(request));
+            functions.Add("OrgUB", (request) => DataAccess.OrgUB(request));
+            functions.Add("OrgUBsingle", (request) => DataAccess.OrgUBsingle(request));
+            functions.Add("OrgMOF", (request) => DataAccess.OrgMOF(request));
+            functions.Add("OrgMOFsingle", (request) => DataAccess.OrgMOFsingle(request));
+            functions.Add("OrgSave", (request) => DataAccess.OrgSave(request));
+            functions.Add("OrgInsert", (request) => DataAccess.OrgInsert(request));
+            functions.Add("OrgConfirm", (request) => DataAccess.OrgConfirm(request));
+            functions.Add("OrgDelete", (request) => DataAccess.OrgDelete(request));
+            functions.Add("DataSearch", (request) => DataAccess.DataSearch(request));
 
 
             functions.Add("BM0", (request) => DataAccess.BM0(request));
