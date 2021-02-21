@@ -29,7 +29,7 @@
                         foreach (var item in Model)
                         {
                             counter++;
-                    <tr>
+                    <tr data-id="@item.ORG_ID">
                         <td>@counter</td>
                         <td>@item.DEPARTMENT_NAME</td>
                         <td>@item.ORG_REGISTER_NO</td>
@@ -41,8 +41,12 @@
                         <td>@item.STATUS_NAME</td>
                         <td>@item.INFORMATION_DETAIL</td>
                         <td class="text-center">
-                            <a href="#" onclick="Organization.edit(@item.ORG_ID)">засах</a>
-                            <a href="#" onclick="Organization.delete(@item.ORG_ID)">устгах</a>
+                            <a class="btn btn-warning btn-sm" href="#" onclick="Organization.edit(@item.ORG_ID)">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="#" onclick="Organization.delete(@item.ORG_ID)">
+                                <i class="fa fa-trash-alt"></i>
+                            </a>
                         </td>
                     </tr>
                         }
