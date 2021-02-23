@@ -52,7 +52,7 @@
                        UpdateTargetId = "orgmodaldeletecontainer",
                        OnBegin = "Modal.show()",
                        OnComplete = "Modal.hide(); $('#OrgDeleteModal').modal({ show: true }); $('.modal-backdrop:first').remove()",
-                       OnSuccess = "Organization.progressResponse(data, status, xhr)",
+                       OnSuccess = "Organization.progressResponse(data, status, xhr, false, true)",
                        OnFailure = "errorResponse",
                        HttpMethod = "Post",
                        InsertionMode = InsertionMode.Replace
@@ -72,20 +72,22 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.ORG_ID)
 
-                        <div class="form-group">
-                            <label>Огноо</label>
-                            @Html.EditorFor(m => m.P_IDATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
-                            @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            <label>Шалтгаан</label>
-                            @Html.DropDownListFor(model => model.P_REASONID, Model.reasons.Select(m => new SelectListItem { Text = m.INACTIVE_REASON_NAME, Value = m.INACTIVE_REASON_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                            @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            <label>Тайлбар</label>
-                            @Html.EditorFor(m => m.P_REASONDESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                            @Html.ValidationMessageFor(m => m.P_REASONDESC, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Огноо</label>
+                                @Html.EditorFor(m => m.P_IDATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Шалтгаан</label>
+                                @Html.DropDownListFor(model => model.P_REASONID, Model.reasons.Select(m => new SelectListItem { Text = m.INACTIVE_REASON_NAME, Value = m.INACTIVE_REASON_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Тайлбар</label>
+                                @Html.TextAreaFor(m => m.P_REASONDESC, new { @class = "form-control form-control-sm" } )
+                                @Html.ValidationMessageFor(m => m.P_REASONDESC, "", new { @class = "text-danger" })
+                            </div>
                         </div>
 
                         <hr />

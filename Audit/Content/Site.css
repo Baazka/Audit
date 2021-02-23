@@ -1,9 +1,16 @@
 ﻿.dataTables_length, .dataTables_length select, .dataTables_filter, .dataTables_filter input, .dataTables_info, .dataTables_paginate {
     font-size: 12px;
 }
+.datatable thead th {
+    vertical-align: middle;
+    border-bottom: 2px solid #e3e6f0;
+    text-align: center;
+}
 .dataTable th, .dataTable td {
-    font-weight: normal;
     font-size:12px;
+}
+.table th, .table td {
+    padding: 0.3rem;
 }
 #mainbody {
     font-size: 12px;

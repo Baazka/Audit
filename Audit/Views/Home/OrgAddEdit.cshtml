@@ -210,7 +210,12 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Сум/дүүрэг:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_SUB_OFFICE_ID, Model.subOffices.Select(m => new SelectListItem { Text = m.SUB_OFFICE_NAME, Value = m.SUB_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.DropDownListFor(model => model.ORG_SUB_OFFICE_ID, Model.subOffices.Where(m => m.OFFICE_ID == Model.ORG_OFFICE_ID).Select(m => new SelectListItem { Text = m.SUB_OFFICE_NAME, Value = m.SUB_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+
+                                                @if (Model.budgetTypes.Count() > 0)
+                                                {
+                                                    @Html.DropDownList("ddSubBudgetHidden", Model.subBudgetTypes.Select(m => new SelectListItem() { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() + ":" + m.SUB_BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                                }
                                                 @Html.ValidationMessageFor(m => m.ORG_SUB_OFFICE_ID, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -336,7 +341,12 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Хэлбэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_SUB_BUDGET_TYPE_ID, Model.subBudgetTypes.Select(m => new SelectListItem { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.SUB_BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.DropDownListFor(model => model.ORG_SUB_BUDGET_TYPE_ID, Model.subBudgetTypes.Where(m => m.BUDGET_TYPE_ID == Model.ORG_BUDGET_TYPE_ID).Select(m => new SelectListItem { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.SUB_BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+
+                                                @if (Model.budgetTypes.Count() > 0)
+                                                {
+                                                    @Html.DropDownList("ddSubBudgetHidden", Model.subBudgetTypes.Select(m => new SelectListItem() { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() + ":" + m.SUB_BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                                }
                                                 @Html.ValidationMessageFor(m => m.ORG_SUB_BUDGET_TYPE_ID, "", new { @class = "text-danger" })
                                             </div>
                                         </div>

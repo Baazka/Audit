@@ -10,7 +10,7 @@
             </div>
         }
         <div class="form-group-sm pr-2">
-            <label for="StatusID" class="col-form-label">Статус:</label>
+            <label for="StatusID" class="col-form-label">Төлөв:</label>
             @Html.DropDownListFor(model => model.StatusID, Model.statuses.Select(m => new SelectListItem { Text = m.STATUS_NAME, Value = m.STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         <div class="form-group-sm pr-2">
@@ -64,20 +64,30 @@
                 else
                     $('#organizationlist_filter label input').val($('#ViolationID option:selected').text()).keyup();
             })
-        var Organization = {
+            var Organization = {
+                OrgID:null,
             display: function (data) {
                 $("div#orgmodalcontainer").remove();
                 $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
 
-                $("#OrgModal #AimagID").change(function () {
-                    if ($("#OrgModal #SoumID").children().length > 1)
-                        $("#OrgModal #SoumID option:not(:first-child)").remove();
-
-                    var $options = $("#OrgModal #ddSoumHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                $('#OrgModal #ORG_OFFICE_ID').change(function () {
+                    if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
+                        $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
+                    var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
                         $(this).val($(this).val().split(':')[1]);
                     });
+                    $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
 
-                    $("#OrgModal #SoumID").append($options);
+                });
+
+                $('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
+                    if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
+                        $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
+                    var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+                    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
+
                 });
 
                 $("#OrgModal").modal({ show: true });
@@ -139,6 +149,7 @@
                 });
             },
             delete: function (orgid) {
+                Organization.OrgID = orgid;
                  $.ajax({
                     url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
                     type: 'GET',
@@ -180,7 +191,7 @@
                 $("#OrgModal").modal("hide");
                 $('#OrgDeleteModal').modal("hide");
             },
-            progressResponse: function (data, status, xhr, confirmed=false) {
+            progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
                    Organization.display(data);
@@ -189,9 +200,13 @@
                     if (data.error) {
                         Message.error(data.message);
                     } else {
+                        $('.modal-backdrop:first').remove()
+                        Organization.close();
+                        if (deleted == true) {
+                            if (!data.error)
+                                table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
+                        }
                         if (confirmed == false) {
-                            $('.modal-backdrop:first').remove()
-                            Organization.close();
                             Organization.list();
                         }
                         Message.success(data.message);

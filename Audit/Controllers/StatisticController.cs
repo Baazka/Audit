@@ -9,6 +9,7 @@ using System.Xml.Linq;
 namespace Audit.Controllers
 {
     [ApplicationAuthorize]
+    [Authorize(Roles = "Stat")]
     public class StatisticController : Controller
     {
         // GET: Stat
@@ -64,21 +65,21 @@ namespace Audit.Controllers
         }
         public ActionResult BM6()
         {
-            XElement res = AppStatic.SystemController.BM1(User.GetClaimData("DepartmentID"));
+            XElement res = AppStatic.SystemController.BM6(User.GetClaimData("DepartmentID"));
             if (res != null && res.Elements("BM6") != null)
                 return View(res);
             return View();
         }
         public ActionResult BM7()
         {
-            XElement res = AppStatic.SystemController.BM1(User.GetClaimData("DepartmentID"));
+            XElement res = AppStatic.SystemController.BM7(User.GetClaimData("DepartmentID"));
             if (res != null && res.Elements("BM7") != null)
                 return View(res);
             return View();
         }
         public ActionResult BM8()
         {
-            XElement res = AppStatic.SystemController.BM1(User.GetClaimData("DepartmentID"));
+            XElement res = AppStatic.SystemController.BM8(User.GetClaimData("DepartmentID"));
             if (res != null && res.Elements("BM8") != null)
                 return View(res);
             return View();

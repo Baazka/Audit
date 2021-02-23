@@ -9,15 +9,15 @@
         <div class="table-responsive">
             <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
                 <thead>
-                    <tr style="background-color:#D2D3D5;">
+                    <tr>
                         <th class="text-center">№</th>
                         <th>Алба</th>
                         <th>Регистр</th>
-                        <th>Нэр</th>
-                        <th>Код</th>
-                        <th>Төсөв захирагч</th>
+                        <th>Шалгагдагч байгууллагын нэр</th>
+                        <th>СТАУС бүртгэлийн код</th>
+                        <th>Төвлөрүүлэн захирагч</th>
                         <th>Дээд шатны төсөв захирагч</th>
-                        <th>Алдаа</th>
+                        <th>Алдааны мэдээлэл</th>
                         <th>Төлөв</th>
                         <th>Сануулга</th>
                         <th>Үйлдэл</th>
@@ -30,7 +30,7 @@
                         {
                             counter++;
                     <tr data-id="@item.ORG_ID">
-                        <td>@counter</td>
+                        <td class="text-center">@counter</td>
                         <td>@item.DEPARTMENT_NAME</td>
                         <td>@item.ORG_REGISTER_NO</td>
                         <td>@item.ORG_NAME</td>
@@ -41,12 +41,14 @@
                         <td>@item.STATUS_NAME</td>
                         <td>@item.INFORMATION_DETAIL</td>
                         <td class="text-center">
-                            <a class="btn btn-warning btn-sm" href="#" onclick="Organization.edit(@item.ORG_ID)">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#" onclick="Organization.delete(@item.ORG_ID)">
-                                <i class="fa fa-trash-alt"></i>
-                            </a>
+                            <div class="btn-group">
+                                <a class="btn btn-sm" href="#" onclick="Organization.edit(@item.ORG_ID)">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-sm" href="#" onclick="Organization.delete(@item.ORG_ID)">
+                                    <i class="fa fa-trash-alt"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                         }
