@@ -14,33 +14,41 @@ namespace Audit.Models
         public int ORGB_ID2 { get; set; }
         public int ORGP_ID { get; set; }
         public int ORGP_ID2 { get; set; }
-        //[Required(ErrorMessage = "Дугаар оруулна уу.")]
+        [Required(ErrorMessage = "Дугаар оруулна уу.")]
         public string ORG_CODE { get; set; }
-        //[Required(ErrorMessage = "Нэр оруулна уу.")]
+        [Required(ErrorMessage = "Нэр оруулна уу.")]
+        [RegularExpression("^[а-яА-Я|ө|ү|Ө|Ү| |\\.]*$", ErrorMessage ="Текст утга биш байна.")]
         public string ORG_NAME { get; set; }
-        //[Required(ErrorMessage = "Регистрийн дугаар оруулна уу.")]
+        [Required(ErrorMessage = "Регистрийн дугаар оруулна уу.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
+        [StringLength(int.MaxValue, MinimumLength = 7, ErrorMessage = "7 оронтой байна.")]
         public string ORG_REGISTER_NO { get; set; }
-        //[Required(ErrorMessage = "УБ-ийн дугаар оруулна уу.")]
+        [Required(ErrorMessage = "УБ-ийн дугаар оруулна уу.")]
         public string ORG_REGISTER_NUMBER { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? ORG_REG_DATE { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_OFFICE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_SUB_OFFICE_ID { get; set; }
-        //[Required(ErrorMessage = "Албан ёсны хаяг оруулна уу.")]
+        [Required(ErrorMessage = "Албан ёсны хаяг оруулна уу.")]
         public string ORG_ADDRESS { get; set; }
-        //[Required(ErrorMessage = "Цахим хуудас оруулна уу.")]
+        [Required(ErrorMessage = "Цахим хуудас оруулна уу.")]
         public string ORG_WEBSITE { get; set; }
-        //[Required(ErrorMessage = "И-мэйл оруулна уу.")]
+        [Required(ErrorMessage = "И-мэйл оруулна уу.")]
         public string ORG_EMAIL { get; set; }
-        //[Required(ErrorMessage = "Утас оруулна уу.")]
-        //[RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
+        [Required(ErrorMessage = "Утас оруулна уу.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORG_PHONE { get; set; }
-        //[Required(ErrorMessage = "Факс оруулна уу.")]
+        [Required(ErrorMessage = "Факс оруулна уу.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORG_FAX { get; set; }
 
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORGB_BANK_ID { get; set; }
         public int? ORGB_BANK_ACCOUNT { get; set; }
         public string ORGB_DESCRIPTION { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORGB_BANK_ID2 { get; set; }
         public int? ORGB_BANK_ACCOUNT2 { get; set; }
         public string ORGB_DESCRIPTION2 { get; set; }
@@ -50,14 +58,14 @@ namespace Audit.Models
         public string ORGP_ROLE { get; set; }        
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? ORGP_ROLE_DATE { get; set; }
-        //[Required(ErrorMessage = "Утга оруулна уу.")]
-        //[RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
+        [RegularExpression(@"^([А-Я|Ө|Ү]{2})([0-9]{8})$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
         public string ORGP_REGISTER_NO { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_LASTNAME { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_FIRSTNAME { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORGP_PHONE { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_EMAIL { get; set; }
@@ -71,14 +79,14 @@ namespace Audit.Models
         public string ORGP_ROLE2 { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? ORGP_ROLE_DATE2 { get;set; }
-        //[Required(ErrorMessage = "Утга оруулна уу.")]
-        //[RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
+        [RegularExpression(@"^([А-Я|Ө|Ү]{2})([0-9]{8})$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
         public string ORGP_REGISTER_NO2 { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_LASTNAME2 { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_FIRSTNAME2 { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORGP_PHONE2 { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_EMAIL2 { get; set; }
@@ -88,15 +96,25 @@ namespace Audit.Models
         public string ORGP_PROFESSION2 { get; set; }
 
         //busad
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_BUDGET_TYPE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_ACTIVITY_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_SUB_BUDGET_TYPE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_DEPARTMENT_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_COMMITTEE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_TAX_OFFICE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_COST_TYPE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_INSURANCE_OFFICE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_FIN_OFFICE_ID { get; set; }
+        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_FINANCING_TYPE_ID { get; set; }
 
         public List<Office> offices { get; set; } = new List<Office>();

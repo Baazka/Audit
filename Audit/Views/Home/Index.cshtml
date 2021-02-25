@@ -73,7 +73,7 @@
                 $('#OrgModal #ORG_OFFICE_ID').change(function () {
                     if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
                         $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
-                    var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
                         $(this).val($(this).val().split(':')[1]);
                     });
                     $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
