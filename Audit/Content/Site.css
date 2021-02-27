@@ -15,7 +15,7 @@
 #mainbody {
     font-size: 12px;
 }
-.form-control-sm, .btn-sm {
+.form-control-sm, .btn-sm, .form-check-label {
     font-size: 12px;
 }
 .modal-dialog {

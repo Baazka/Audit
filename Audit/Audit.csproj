@@ -150,6 +150,9 @@
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -226,6 +229,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BM8.cs" />
     <Compile Include="Models\DataList.cs" />
     <Compile Include="Models\Info.cs" />
     <Compile Include="Models\LoginVM.cs" />
@@ -249,6 +253,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\calendar.png" />
     <Content Include="Images\hashee.png" />
     <Content Include="Images\header-back.png" />
     <Content Include="Images\i1.png" />
@@ -1917,8 +1922,12 @@
     <Content Include="Plugins\fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="Plugins\fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="Plugins\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Plugins\jquery-ui\images\ui-icons_444444_256x240.png" />
+    <Content Include="Plugins\jquery-ui\images\ui-icons_555555_256x240.png" />
     <Content Include="Plugins\jquery-ui\jquery-ui.css" />
     <Content Include="Plugins\jquery-ui\jquery-ui.js" />
+    <Content Include="Plugins\multiselect\bootstrap-multiselect.min.css" />
+    <Content Include="Plugins\multiselect\bootstrap-multiselect.min.js" />
     <Content Include="Plugins\noti\notifications.css" />
     <Content Include="Plugins\noti\notifications.js" />
     <Content Include="Scripts\Application.js" />
@@ -2152,6 +2161,7 @@
     <Content Include="Views\Home\AddTabUB.cshtml" />
     <Content Include="Views\Home\AddTabMOF.cshtml" />
     <Content Include="Views\Home\OrgDelete.cshtml" />
+    <Content Include="Views\Statistic\BM8_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

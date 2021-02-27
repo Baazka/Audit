@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Xml.Linq;
 
 namespace Audit.Models
@@ -382,8 +383,10 @@ namespace Audit.Models
     public class OrgVM
     {
         public int DeparmentID { get; set; }
-        public int StatusID { get; set; }
-        public int ViolationID { get; set; }
+        public int[] StatusIDs { get; set; }
+        public MultiSelectList Status { get; set; }
+        public int[] ViolationIDs { get; set; }
+        public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Status> statuses { get; set; } = new List<Status>();
         public List<Violation> violations { get; set; } = new List<Violation>();

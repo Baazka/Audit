@@ -125,7 +125,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement OrgList(string departmentID)
+        public XElement OrgList(XElement element, string departmentID)
         {
             try
             {
@@ -136,7 +136,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "OrgList"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("DEPARTMENT_ID", departmentID),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -784,7 +785,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement BM8(string departmentID)
+        public XElement BM8(XElement element, string departmentID)
         {
             try
             {
@@ -795,7 +796,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM8"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("DEPARTMENT_ID", departmentID),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 

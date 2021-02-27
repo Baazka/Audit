@@ -79,9 +79,9 @@ namespace Audit.Controllers
         }
         public ActionResult BM8()
         {
-            XElement res = AppStatic.SystemController.BM8(User.GetClaimData("DepartmentID"));
-            if (res != null && res.Elements("BM8") != null)
-                return View(res);
+            //XElement res = AppStatic.SystemController.BM8(User.GetClaimData("DepartmentID"));
+            //if (res != null && res.Elements("BM8") != null)
+            //    return View(res);
             return View();
         }
         public ActionResult NM1()

@@ -11,6 +11,7 @@ using System.Xml.Linq;
 namespace Audit.Controllers
 {
     [ApplicationAuthorize]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -107,6 +108,7 @@ namespace Audit.Controllers
             }
             return View(res);
         }
+        [AllowAnonymous]
         public PartialViewResult Menus()
         {
             return PartialView();
@@ -114,9 +116,9 @@ namespace Audit.Controllers
         public ActionResult OrgList()
         {
             List<OrgList> orgLists = new List<OrgList>();
-            XElement res = AppStatic.SystemController.OrgList(User.GetClaimData("DepartmentID"));
-            if (res != null && res.Elements("OrgList") != null)
-                orgLists = (from item in res.Elements("OrgList") select new OrgList().FromXml(item)).ToList();
+            //XElement res = AppStatic.SystemController.OrgList(User.GetClaimData("DepartmentID"));
+            //if (res != null && res.Elements("OrgList") != null)
+            //    orgLists = (from item in res.Elements("OrgList") select new OrgList().FromXml(item)).ToList();
             return View(orgLists);
         }
         public ActionResult OrgDetail(int orgid)

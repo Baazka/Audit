@@ -1,4 +1,4 @@
-﻿@model System.Xml.Linq.XElement
+﻿@*@model Audit.Models.BM8*@
 @{
     ViewBag.Title = "BM8";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -43,26 +43,7 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model!=null && Model.Elements("BM8").Count() != 0)
-            {
-                foreach (var item in Model.Elements("BM8"))
-                {
-                    counter++;
-            <tr>
-                <td>@counter</td>
-                <td>@(item.Element("OFFICE_ID") != null ? item.Element("OFFICE_ID").Value:"")</td>
-                <td>@(item.Element("AUDIT_YEAR") != null ? item.Element("AUDIT_YEAR").Value:"")</td>
-                <td>@(item.Element("AUDIT_TYPE") != null ? item.Element("AUDIT_TYPE").Value:"")</td>
-                <td>@(item.Element("AUDIT_CODE") != null ? item.Element("AUDIT_CODE").Value:"")</td>
-                <td>@(item.Element("AUDIT_NAME") != null ? item.Element("AUDIT_NAME").Value:"")</td>
-                <td>@(item.Element("AUDIT_BUDGET_TYPE") != null ? item.Element("AUDIT_BUDGET_TYPE").Value:"")</td>
-                <td>@(item.Element("CORRECTED_ERROR_DESC") != null ? item.Element("CORRECTED_ERROR_DESC").Value:"")</td>
-                <td>@(item.Element("CORRECTED_ERROR_TYPE") != null ? item.Element("CORRECTED_ERROR_TYPE").Value:"")</td>
-                <td>@(item.Element("CORRECTED_COUNT") != null ? item.Element("CORRECTED_COUNT").Value:"")</td>
-                <td>@(item.Element("CORRECTED_AMOUNT") != null ? item.Element("CORRECTED_AMOUNT").Value:"")</td>
-            </tr>
-                }
-            }
+            
         </tbody>
     </table>
 </div>

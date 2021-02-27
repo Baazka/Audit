@@ -1,75 +1,25 @@
-﻿@model List<Audit.Models.OrgList>
+﻿@*@model System.Xml.Linq.XElement*@
+@using Audit.Models
 @{
-    int counter = 0;
+    ViewBag.Title = "BM8";
     Layout = null;
+    int counter = 0;
 }
 
-<div class="card">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="text-center">№</th>
-                        <th>Алба</th>
-                        <th>Регистр</th>
-                        <th>Шалгагдагч байгууллагын нэр</th>
-                        <th>СТАУС бүртгэлийн код</th>
-                        <th>Төвлөрүүлэн захирагч</th>
-                        <th>Дээд шатны төсөв захирагч</th>
-                        <th>Алдааны мэдээлэл</th>
-                        <th>Төлөв</th>
-                        <th>Сануулга</th>
-                        <th>Үйлдэл</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @*@if (Model.Count != 0)
-                        {
-                            foreach (var item in Model)
-                            {
-                                counter++;
-                        <tr data-id="@item.ORG_ID">
-                            <td class="text-center">@counter</td>
-                            <td>@item.DEPARTMENT_NAME</td>
-                            <td>@item.ORG_REGISTER_NO</td>
-                            <td>@item.ORG_NAME</td>
-                            <td>@item.ORG_CODE</td>
-                            <td>@item.BUDGET_TYPE_NAME</td>
-                            <td>@item.ORG_CONCENTRATOR_NAME</td>
-                            <td>@item.VIOLATION_DETAIL</td>
-                            <td>@item.STATUS_NAME</td>
-                            <td>@item.INFORMATION_DETAIL</td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <a class="btn btn-sm" href="#" onclick="Organization.edit(@item.ORG_ID)">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-sm" href="#" onclick="Organization.delete(@item.ORG_ID)">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                            }
-                        }*@
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-    <script>    
-        function orgListInit() {
-        var table = $("#organizationlist").DataTable({
+
+<script>
+    $(document).ready(function () {
+        bm8ListInit();
+    });
+
+    function bm8ListInit() {
+        var table = $("#BM8").DataTable({
             "serverSide": true,
             "processing": true,
             "ajax": {
-                url: "/api/service/orglist",
+                url: "/api/service/bm8list",
                 type: 'POST',
                 data: function (data) {
-                    data.status = $('#status').val();
-                    data.violation = $('#violation option:selected').toArray().map(item => item.text).join();
-                    data.DeparmentID = $('#DeparmentID').val();
                     return data;
                 }
             },
@@ -79,21 +29,27 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                { "data": "DEPARTMENT_NAME", "name":"DEPARTMENT_NAME" },
-                { "data": "ORG_REGISTER_NO", "name":"ORG_REGISTER_NO","sortable": false },
-                { "data": "ORG_NAME", "name":"ORG_NAME" },
-                { "data": "ORG_CODE", "name":"ORG_CODE" },
-                { "data": "BUDGET_TYPE_NAME", "name":"BUDGET_TYPE_NAME" },
-                { "data": "ORG_CONCENTRATOR_NAME", "name":"ORG_CONCENTRATOR_NAME" },
-                { "data": "VIOLATION_DETAIL", "name":"VIOLATION_DETAIL" },
-                { "data": "STATUS_NAME", "name": "STATUS_NAME" },
-                { "data": "INFORMATION_DETAIL", "name": "INFORMATION_DETAIL" },
+                { "data": "OFFICE_ID", "name":"OFFICE_ID" },
+                { "data": "AUDIT_YEAR", "name":"AUDIT_YEAR","sortable": false },
+                { "data": "AUDIT_TYPE", "name":"AUDIT_TYPE" },
+                { "data": "AUDIT_TYPE", "name":"AUDIT_TYPE" },
+                { "data": "AUDIT_CODE", "name":"AUDIT_CODE" },
+                { "data": "AUDIT_NAME", "name":"AUDIT_NAME" },
+                { "data": "AUDIT_BUDGET_TYPE", "name":"AUDIT_BUDGET_TYPE" },
+                { "data": "CORRECTED_ERROR_DESC", "name": "CORRECTED_ERROR_DESC" },
+                { "data": "CORRECTED_ERROR_TYPE", "name": "CORRECTED_ERROR_TYPE", "sortable": false },
+                { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false },
+                { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false },
                     { "data": null, "sortable": false,
                         render: function (data, type, row, meta) {
                             return null;
                         }
                     },
-                    
+                    { "data": null, "sortable": false,
+                        render: function (data, type, row, meta) {
+                            return null;
+                        }
+                    },
                     @*{
                         "data": null, "sortable": false, "class":'text-center',
                         render: function (data, type, row, meta) {
@@ -121,9 +77,10 @@
             "info": true,
             "stateSave": false,
             "bAutoWidth": false,
+
             lengthChange: true,
-            "language": datatables.language
 
         });
+
     }
-    </script>
+</script>
