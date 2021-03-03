@@ -25,29 +25,31 @@ namespace Audit.Controllers
                 if (request.order.Count > 0)
                 {
                     elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
-                    elem.Add(new XElement("OrderDir", request.order[0].dir));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
                 }
-                //if (!string.IsNullOrEmpty(request.columns[request.order[0].column].name))
-                //{
-                   
-                //}
-                if (!string.IsNullOrEmpty(request.search.value))
-                {
-                    elem.Add(new XElement("Search", request.search.value));
-                }
-                if(request.DeparmentID != 0)
-                {
-                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
-                }                
 
-                if (request.status.Count != 0)
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if(request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT",  request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.status != null)
                 {
-                    elem.Add(new XElement("V_STATUS", request.status));
+                    string ss = String.Join(",", request.status.Select(p => p.ToString()).ToArray());
+                    elem.Add(new XElement("V_STATUS", ss));
                 }
-                if (request.violation.Count !=0)
-                {
+                else
+                    elem.Add(new XElement("V_STATUS", null));
+
+                if (request.violation !=null)
                     elem.Add(new XElement("V_VIOLATION", request.violation));
-                }
+                else
+                    elem.Add(new XElement("V_VIOLATION", null));
 
                 XElement res = AppStatic.SystemController.OrgList(elem, User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("OrgList") != null)

@@ -17,9 +17,9 @@ namespace Audit.Models
         public string ORG_CONCENTRATOR_NAME { get; set; }
         public string STATUS_NAME { get; set; }
         public string INFORMATION_DETAIL { get; set; }
-        public List<int> status { get; set; }
+        public int[] status { get; set; }
         public List<string> violation { get; set; }
-        public int DeparmentID { get; set; }
+        public int? DeparmentID { get; set; }
     }
     public class OrgListResponse : DataTableAjaxResponModel
     {

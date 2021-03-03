@@ -51,91 +51,196 @@
         </div>
     </div>
 </form>
-<div class="row mb-2">    
+<div class="row mb-2">
     <div class="col-12" id="OrgList">
-        @Html.Action("OrgList", "Home")
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">№</th>
+                                <th>Алба</th>
+                                <th>Регистр</th>
+                                <th>Шалгагдагч байгууллагын нэр</th>
+                                <th>СТАУС бүртгэлийн код</th>
+                                <th>Төвлөрүүлэн захирагч</th>
+                                <th>Дээд шатны төсөв захирагч</th>
+                                <th>Алдааны мэдээлэл</th>
+                                <th>Төлөв</th>
+                                <th>Сануулга</th>
+                                <th>Үйлдэл</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*@if (Model.Count != 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        counter++;
+                                <tr data-id="@item.ORG_ID">
+                                    <td class="text-center">@counter</td>
+                                    <td>@item.DEPARTMENT_NAME</td>
+                                    <td>@item.ORG_REGISTER_NO</td>
+                                    <td>@item.ORG_NAME</td>
+                                    <td>@item.ORG_CODE</td>
+                                    <td>@item.BUDGET_TYPE_NAME</td>
+                                    <td>@item.ORG_CONCENTRATOR_NAME</td>
+                                    <td>@item.VIOLATION_DETAIL</td>
+                                    <td>@item.STATUS_NAME</td>
+                                    <td>@item.INFORMATION_DETAIL</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm" href="#" onclick="Organization.edit(@item.ORG_ID)">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-sm" href="#" onclick="Organization.delete(@item.ORG_ID)">
+                                                <i class="fa fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                    }
+                                }*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-    @section scripts{
-        <script>
-            $(document).ready(function () {
-                orgListInit();
-            })
-            $('#status').multiselect({
-                nonSelectedText: "Сонгоно уу",
-                buttonClass: 'form-control form-control-sm',
-                onChange: function (option, checked, select) {
-                    orgListInit();
-                }
-            });
-            $('#violation').multiselect({
-                nonSelectedText: "Сонгоно уу",
-                buttonClass: 'form-control form-control-sm',
-                onChange: function (option, checked, select) {
-                    orgListInit();
-                }
-            });
-            $('#DeparmentID').change(function () {
-                orgListInit();
-            });
-            var Organization = {
-                OrgID:null,
-            display: function (data) {
-                $("div#orgmodalcontainer").remove();
-                $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
-
-                $('#OrgModal #ORG_OFFICE_ID').change(function () {
-                    if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
-                        $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
-                    var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                        $(this).val($(this).val().split(':')[1]);
-                    });
-                    $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
-
-                });
-
-                $('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
-                    if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
-                        $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
-                    var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                        $(this).val($(this).val().split(':')[1]);
-                    });
-                    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
-
-                });
-
-                $("#OrgModal").modal({ show: true });
-            },
-            displayDelete: function (data) {
-                $("div#orgmodaldeletecontainer").remove();
-                $('<div/>', { id: "orgmodaldeletecontainer" }).appendTo('body').append(data);
-
-                $('#OrgDeleteModal').modal({ show: true });
-            },
-            loadTemplate: function () {
-                $.ajax({
-                        url: "@Url.Action("OrgAddEdit", "Home", new { Area = "" })",
-                        type: 'GET',
-                        success: function (data) {
-                            Organization.display(data);
-                        },
-                        error: errorResponse,
-                        beforeSend: function () {
-                            Modal.show();
-                        },
-                        complete: function () {
-                            Modal.hide();
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            orgListInit();
+        })
+        function orgListInit() {
+            var table = $("#organizationlist").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/orglist",
+                    type: 'POST',
+                    data: function (data) {
+                        data.status = $('#status').val();
+                        data.violation = $('#violation option:selected').toArray().map(item => item.text).join();
+                        data.DeparmentID = $('#DeparmentID').val();
+                        return data;
+                    }
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
                         }
-                    });
-            },
-            list: function () {
-                $.ajax({
-                    url: "@Url.Action("OrgList","Home")",
-                    type: "POST",
-                    success: function (data, status, xhr) {
-                        $("#OrgList").html(data);
-                        initDataTable();
+                    },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO", "sortable": false },
+                    { "data": "ORG_NAME", "name": "ORG_NAME" },
+                    { "data": "ORG_CODE", "name": "ORG_CODE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    { "data": "ORG_CONCENTRATOR_NAME", "name": "ORG_CONCENTRATOR_NAME" },
+                    { "data": "VIOLATION_DETAIL", "name": "VIOLATION_DETAIL" },
+                    { "data": "STATUS_NAME", "name": "STATUS_NAME" },
+                    { "data": "INFORMATION_DETAIL", "name": "INFORMATION_DETAIL" },
+                    {
+                        "data": null, "sortable": false,
+                        render: function (data, type, row, meta) {
+                            return null;
+                        }
+                    },
+
+                    @* {
+                "data": null, "sortable": false, "class": 'text-center',
+                render: function (data, type, row, meta) {
+                    var tmp = '';
+                    var url = '<a href="@Url.Action("Detail", "Horse")?horseID=' + data.EHorseID + '" class="btn btn-sm btn-custom" title="Дэлгэрэнгүй"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" /></svg></a>';
+                    if ('True' == '@User.IsInRole(SystemUserRole.UserRole.DNARole)' || 'True' == '@User.IsInRole(SystemUserRole.UserRole.AllRole)')
+                        tmp += url;
+                    url = '<a href="#" class="btn btn-sm btn-custom" data-toggle="modal" data-target="#horseMovementAdd" data-horseid="' + data.EHorseID + '" title="Адуу шилжүүлэх"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" /></svg></a>'
+                    if ('True' == '@User.IsInRole(SystemUserRole.UserRole.MovementRole)' || 'True' == '@User.IsInRole(SystemUserRole.UserRole.AllRole)')
+                        if (data.Status != @HorseWeb.Models.HorseMovementVM.HorseStatus.Movement && data.Status != @HorseWeb.Models.HorseMovementVM.HorseStatus.Dead && data.Status != @HorseWeb.Models.HorseMovementVM.HorseStatus.Food)
+                    tmp += url;
+                    url = '<a href="#" class="btn btn-sm btn-custom" data-horseid="' + data.HorseID + '" data-chipno="' + data.ChipNo + '" data-toggle="modal" data-target="#horseLose" title="Хорогдол"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" /></svg></a>';
+                    if ('True' == '@User.IsInRole(SystemUserRole.UserRole.DeleteRole)' || 'True' == '@User.IsInRole(SystemUserRole.UserRole.AllRole)')
+                        if (data.IsAlive)
+                            tmp += url;
+                    return tmp;
+                }
+            } *@
+                ],
+            "destroy": true,
+                "scrollCollapse": true,
+                    "paging": true,
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Бүгд"]],
+                            "filter": true,
+                                "info": true,
+                                    "stateSave": false,
+                                        "bAutoWidth": false,
+                                            lengthChange: true,
+                                                "language": datatables.language
+
+        });
+    }
+        $('#status').multiselect({
+            nonSelectedText: "Сонгоно уу",
+            buttonClass: 'form-control form-control-sm',
+            onChange: function (option, checked, select) {
+                orgListInit();
+            }
+        });
+        $('#violation').multiselect({
+            nonSelectedText: "Сонгоно уу",
+            buttonClass: 'form-control form-control-sm',
+            onChange: function (option, checked, select) {
+                orgListInit();
+            }
+        });
+        $('#DeparmentID').change(function () {
+            orgListInit();
+        });
+        var Organization = {
+        OrgID:null,
+        display: function (data) {
+            $("div#orgmodalcontainer").remove();
+            $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
+
+            $('#OrgModal #ORG_OFFICE_ID').change(function () {
+                if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
+                    $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
+                var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
+
+            });
+
+            $('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
+                if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
+                    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
+                var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
+
+            });
+
+            $("#OrgModal").modal({ show: true });
+        },
+        displayDelete: function (data) {
+            $("div#orgmodaldeletecontainer").remove();
+            $('<div/>', { id: "orgmodaldeletecontainer" }).appendTo('body').append(data);
+
+            $('#OrgDeleteModal').modal({ show: true });
+        },
+        loadTemplate: function () {
+            $.ajax({
+                    url: "@Url.Action("OrgAddEdit", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.display(data);
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -144,15 +249,70 @@
                     complete: function () {
                         Modal.hide();
                     }
-                })
-            },
-            edit: function (orgid) {
+                });
+        },
+        list: function () {
+            $.ajax({
+                url: "@Url.Action("OrgList","Home")",
+                type: "POST",
+                success: function (data, status, xhr) {
+                    $("#OrgList").html(data);
+                    initDataTable();
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            })
+        },
+        edit: function (orgid) {
+            $.ajax({
+                url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
+                type: 'POST',
+                data: { orgid },
+                success: function (data, status, xhr) {
+                    Organization.progressResponse(data, status, xhr);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        delete: function (orgid) {
+            Organization.OrgID = orgid;
                 $.ajax({
-                    url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
+                url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
+                type: 'GET',
+                    data: { orgid },
+                success: function (data, status, xhr) {
+                    Organization.displayDelete(data);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        confirm: function (orgid) {
+            var result = confirm("Баталгаажуулах уу?");
+            if (result) {
+                $.ajax({
+                    url: "@Url.Action("OrgConfirm", "Home", new { Area = "" })",
                     type: 'POST',
                     data: { orgid },
+                    dataType: "json",
                     success: function (data, status, xhr) {
-                        Organization.progressResponse(data, status, xhr);
+                        Organization.progressResponse(data, status, xhr, true);
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -162,116 +322,75 @@
                         Modal.hide();
                     }
                 });
-            },
-            delete: function (orgid) {
-                Organization.OrgID = orgid;
-                 $.ajax({
-                    url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
-                    type: 'GET',
-                     data: { orgid },
-                    success: function (data, status, xhr) {
-                        Organization.displayDelete(data);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            }
+        },
+        close: function () {
+            $("#OrgModal").modal("hide");
+            $('#OrgDeleteModal').modal("hide");
+        },
+        progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                Organization.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    Organization.close();
+                    if (deleted == true) {
+                        if (!data.error)
+                            table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
                     }
-                });
-            },
-            confirm: function (orgid) {
-                var result = confirm("Баталгаажуулах уу?");
-                if (result) {
-                    $.ajax({
-                        url: "@Url.Action("OrgConfirm", "Home", new { Area = "" })",
-                        type: 'POST',
-                        data: { orgid },
-                        dataType: "json",
-                        success: function (data, status, xhr) {
-                            Organization.progressResponse(data, status, xhr, true);
-                        },
-                        error: errorResponse,
-                        beforeSend: function () {
-                            Modal.show();
-                        },
-                        complete: function () {
-                            Modal.hide();
-                        }
-                    });
-                }
-            },
-            close: function () {
-                $("#OrgModal").modal("hide");
-                $('#OrgDeleteModal').modal("hide");
-            },
-            progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
-                var ct = xhr.getResponseHeader("content-type") || "";
-                if (ct.indexOf("html") > -1) {
-                   Organization.display(data);
-                }
-                if (ct.indexOf('json') > -1) {
-                    if (data.error) {
-                        Message.error(data.message);
-                    } else {
-                        $('.modal-backdrop:first').remove()
-                        Organization.close();
-                        if (deleted == true) {
-                            if (!data.error)
-                                table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
-                        }
-                        if (confirmed == false) {
-                            Organization.list();
-                        }
-                        Message.success(data.message);
+                    if (confirmed == false) {
+                        Organization.list();
                     }
+                    Message.success(data.message);
                 }
             }
         }
+        }
             //Organization.list();
 
-            function addTab(type, regid, registerno) {
-                var url, title;
-                switch (type) {
-                    case 1:
-                        url = "@Url.Action("AddTabUB","Home")";
-                        title = "УБ";
-                    break;
-                  case 2:
-                        url = "@Url.Action("AddTabMOF", "Home")";
-                        title = "СЯ";
-                    break;
+        function addTab(type, regid, registerno) {
+            var url, title;
+            switch (type) {
+                case 1:
+                    url = "@Url.Action("AddTabUB","Home")";
+                    title = "УБ";
+                break;
+                case 2:
+                    url = "@Url.Action("AddTabMOF", "Home")";
+                    title = "СЯ";
+                break;
+            }
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { reg_id:regid },
+                success: function (data, status, xhr) {
+                    $("#myTab").append('<li class="nav-item" role="presentation" id="tabid_' + regid +'">' +
+                        '<a class="nav-link" id="lib-tab_' + regid + '" data-toggle="tab" href="#lib_' + regid + '" role="tab" aria-selected="false">' + title + "-" + registerno + '<span onclick="removeTab(' + regid + ')" style="display: inline-block; color: #737373; position: absolute; padding-left: 10px; font-size:10px;">X</span></a></li>');
+                    $("#myTabContent").append('<div class="tab-pane fade" id="lib_' + regid + '" role="tabpanel" aria-labelledby="lib-tab_' + regid + '">' +
+                        '<br />'+ data+'</div>');
+                    $("#myTab #lib-tab_"+regid).unbind().click();
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
                 }
+            })
+        }
+        function removeTab(regid) {
+            $("#tabid_" + regid).remove();
+            $("#lib_" + regid).remove();
+            $('#myTab a:last').tab('show');
+        }
 
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: { reg_id:regid },
-                    success: function (data, status, xhr) {
-                        $("#myTab").append('<li class="nav-item" role="presentation" id="tabid_' + regid +'">' +
-                            '<a class="nav-link" id="lib-tab_' + regid + '" data-toggle="tab" href="#lib_' + regid + '" role="tab" aria-selected="false">' + title + "-" + registerno + '<span onclick="removeTab(' + regid + ')" style="display: inline-block; color: #737373; position: absolute; padding-left: 10px; font-size:10px;">X</span></a></li>');
-                        $("#myTabContent").append('<div class="tab-pane fade" id="lib_' + regid + '" role="tabpanel" aria-labelledby="lib-tab_' + regid + '">' +
-                            '<br />'+ data+'</div>');
-                        $("#myTab #lib-tab_"+regid).unbind().click();
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
-                    }
-                })
-            }
-            function removeTab(regid) {
-                $("#tabid_" + regid).remove();
-                $("#lib_" + regid).remove();
-                $('#myTab a:last').tab('show');
-            }
-
-
-            orgListInit();
-
-        </script>
-    }
+    </script>
+}
