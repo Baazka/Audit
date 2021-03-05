@@ -18,7 +18,7 @@ namespace Audit.Models
         [Required(ErrorMessage = "Дугаар оруулна уу.")]
         public string ORG_CODE { get; set; }
         [Required(ErrorMessage = "Нэр оруулна уу.")]
-        [RegularExpression("^[а-яА-Я|ө|ү|Ө|Ү| |\\.]*$", ErrorMessage ="Текст утга биш байна.")]
+        [RegularExpression("^[а-яА-Я|ө|ү|Ө|Ү| |,|\\.]*$", ErrorMessage ="Текст утга биш байна.")]
         public string ORG_NAME { get; set; }
         [Required(ErrorMessage = "Регистрийн дугаар оруулна уу.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
@@ -59,7 +59,7 @@ namespace Audit.Models
         public string ORGP_ROLE { get; set; }        
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? ORGP_ROLE_DATE { get; set; }
-        [RegularExpression(@"^([А-Я|Ө|Ү]{2})([0-9]{8})$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
+        [RegularExpression(@"^([а-яА-Я|ө|ү|Ө|Ү]{2})([0-9]{8})$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
         public string ORGP_REGISTER_NO { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_LASTNAME { get; set; }
@@ -80,7 +80,7 @@ namespace Audit.Models
         public string ORGP_ROLE2 { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? ORGP_ROLE_DATE2 { get;set; }
-        [RegularExpression(@"^([А-Я|Ө|Ү]{2})([0-9]{8})$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
+        [RegularExpression(@"^([а-яА-Я|ө|ү|Ө|Ү]{2})([0-9]{8})$", ErrorMessage = "Регистрийн дугаар зөв оруулна уу.")]
         public string ORGP_REGISTER_NO2 { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_LASTNAME2 { get; set; }

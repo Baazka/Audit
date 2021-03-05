@@ -50,6 +50,62 @@
 
 @section scripts{
     <script>
-        initDataTable();
+    $(document).ready(function () {
+        bm8ListInit();
+    });
+
+    function bm8ListInit() {
+        var table = $("#BM8").DataTable({
+            "serverSide": true,
+            "processing": true,
+            "ajax": {
+                url: "/api/service/bm8list",
+                type: 'POST',
+                data: function (data) {
+                    return data;
+                }
+            },
+            "columns": [
+                    { "data": null,"sortable": false, "class":'text-center',
+                    render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "OFFICE_ID", "name":"OFFICE_ID" },
+                    { "data": "AUDIT_YEAR", "name":"AUDIT_YEAR","sortable": false },
+                    { "data": "AUDIT_TYPE", "name":"AUDIT_TYPE" },
+                    { "data": "AUDIT_TYPE", "name":"AUDIT_TYPE" },
+                    { "data": "AUDIT_CODE", "name":"AUDIT_CODE" },
+                    { "data": "AUDIT_NAME", "name":"AUDIT_NAME" },
+                    { "data": "AUDIT_BUDGET_TYPE", "name":"AUDIT_BUDGET_TYPE" },
+                    { "data": "CORRECTED_ERROR_DESC", "name": "CORRECTED_ERROR_DESC" },
+                    { "data": "CORRECTED_ERROR_TYPE", "name": "CORRECTED_ERROR_TYPE", "sortable": false },
+                    { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false },
+                    { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false },
+                    { "data": null, "sortable": false,
+                        render: function (data, type, row, meta) {
+                            return null;
+                        }
+                    },
+                    { "data": null, "sortable": false,
+                        render: function (data, type, row, meta) {
+                            return null;
+                        }
+                    }                    
+                ],
+            "destroy": true,
+            "scrollCollapse": true,
+            "paging": true,
+            "lengthMenu": [[10, 25, 50], [10, 25, 50],
+            "filter": true,
+            "info": true,
+            "stateSave": false,
+            "bAutoWidth": false,
+
+            lengthChange: true,
+
+        });
+
+    }
     </script>
 } 

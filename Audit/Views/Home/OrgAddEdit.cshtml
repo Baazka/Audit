@@ -212,9 +212,9 @@
                                             <div class="col-sm-8">
                                                 @Html.DropDownListFor(model => model.ORG_SUB_OFFICE_ID, Model.subOffices.Where(m => m.OFFICE_ID == Model.ORG_OFFICE_ID).Select(m => new SelectListItem { Text = m.SUB_OFFICE_NAME, Value = m.SUB_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
 
-                                                @if (Model.budgetTypes.Count() > 0)
+                                                @if (Model.subOffices.Count() > 0)
                                                 {
-                                                    @Html.DropDownList("ddSubOfficeHidden", Model.subBudgetTypes.Select(m => new SelectListItem() { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() + ":" + m.SUB_BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                                    @Html.DropDownList("ddSubOfficeHidden", Model.subOffices.Select(m => new SelectListItem() { Text = m.SUB_OFFICE_NAME, Value = m.OFFICE_ID.ToString() + ":" + m.SUB_OFFICE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
                                                 }
                                                 @Html.ValidationMessageFor(m => m.ORG_SUB_OFFICE_ID, "", new { @class = "text-danger" })
                                             </div>

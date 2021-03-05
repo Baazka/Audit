@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Audit.App_Func
+namespace Audit
 {
     public class AppStatic
     {

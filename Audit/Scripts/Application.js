@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    $("#mainbody").css("min-height", $(document).height() - 89);
+    //$("#mainbody").css("min-height", $(document).height() - 89);
+    countdown();
 });
 
 var Modal = {
@@ -8,6 +9,7 @@ var Modal = {
     },
     hide: function () {
         $("#progress").hide();
+        seconds = sessionTimeOut;
     }
 };
 const myNotification = window.createNotification();
@@ -58,7 +60,7 @@ function errorResponse(xhr, status, error) {
 
 var table;
 function initDataTable(paging = true) {
-    table = $('.datatable').DataTable({
+    $('.datatable').DataTable({
         paging: paging,
         language: {
             search: "_INPUT_",
@@ -130,4 +132,14 @@ function exportFile(tableid, excelname) {
 
     table.destroy();
     initDataTable(true);
+}
+
+function countdown() {
+    seconds--;
+    //$('#ctr').html(seconds);
+    if (seconds <= 0) {
+        window.location.reload();
+    } else {
+        setTimeout('countdown()', 1000);
+    }
 }

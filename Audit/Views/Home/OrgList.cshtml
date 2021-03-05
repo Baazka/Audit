@@ -58,7 +58,8 @@
         </div>
     </div>
 </div>
-    <script>    
+<script>
+
         function orgListInit() {
         var table = $("#organizationlist").DataTable({
             "serverSide": true,
@@ -73,6 +74,11 @@
                     return data;
                 }
             },
+            createdRow: function (row, data, dataIndex) {
+                $(row).attr('data-id', data.ORG_ID);
+            },
+
+
             "columns": [
                     { "data": null,"sortable": false, "class":'text-center',
                     render: function (data, type, row, meta) {
@@ -88,30 +94,13 @@
                 { "data": "VIOLATION_DETAIL", "name":"VIOLATION_DETAIL" },
                 { "data": "STATUS_NAME", "name": "STATUS_NAME" },
                 { "data": "INFORMATION_DETAIL", "name": "INFORMATION_DETAIL" },
-                    { "data": null, "sortable": false,
-                        render: function (data, type, row, meta) {
-                            return null;
-                        }
-                    },
-                    
-                    @*{
+                    {
                         "data": null, "sortable": false, "class":'text-center',
                         render: function (data, type, row, meta) {
-                            var tmp = '';
-                            var url = '<a href="@Url.Action("Detail", "Horse")?horseID=' + data.EHorseID + '" class="btn btn-sm btn-custom" title="Дэлгэрэнгүй"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" /></svg></a>';
-                            if ('True' == '@User.IsInRole(SystemUserRole.UserRole.DNARole)' || 'True' == '@User.IsInRole(SystemUserRole.UserRole.AllRole)')
-                                tmp += url;
-                            url = '<a href="#" class="btn btn-sm btn-custom" data-toggle="modal" data-target="#horseMovementAdd" data-horseid="' + data.EHorseID + '" title="Адуу шилжүүлэх"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" /></svg></a>'
-                            if ('True' == '@User.IsInRole(SystemUserRole.UserRole.MovementRole)' || 'True' == '@User.IsInRole(SystemUserRole.UserRole.AllRole)')
-                                if(data.Status != @HorseWeb.Models.HorseMovementVM.HorseStatus.Movement && data.Status != @HorseWeb.Models.HorseMovementVM.HorseStatus.Dead && data.Status != @HorseWeb.Models.HorseMovementVM.HorseStatus.Food)
-                                    tmp += url;
-                            url = '<a href="#" class="btn btn-sm btn-custom" data-horseid="' + data.HorseID + '" data-chipno="' + data.ChipNo + '" data-toggle="modal" data-target="#horseLose" title="Хорогдол"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" /></svg></a>';
-                            if ('True' == '@User.IsInRole(SystemUserRole.UserRole.DeleteRole)' || 'True' == '@User.IsInRole(SystemUserRole.UserRole.AllRole)')
-                                if (data.IsAlive)
-                                    tmp += url;
-                            return tmp;
+
+                            return '<a href="@Url.Action("Detail","Person")?personID=' + data.ORG_ID + '" class="btn btn-sm btn-custom" title="Дэлгэрэнгүй"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" /></svg> </a>';
                         }
-                    }*@
+                    }
                 ],
             "destroy": true,
             "scrollCollapse": true,
@@ -126,4 +115,4 @@
 
         });
     }
-    </script>
+</script>

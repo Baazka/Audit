@@ -8,6 +8,7 @@ namespace Audit.Models
 {
     public class OrgListRequest : DataTableAjaxPostModel
     {
+        public int ORG_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public string ORG_REGISTER_NO { get; set; }
         public string ORG_NAME { get; set; }

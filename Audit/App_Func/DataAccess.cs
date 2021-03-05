@@ -275,7 +275,7 @@ namespace Audit.App_Func
                     "CASE WHEN :ORDER_NAME = 'STATUS_NAME' AND :ORDER_DIR = 'DESC' THEN RS.STATUS_NAME END DESC, " +
                     "CASE WHEN :ORDER_NAME = 'INFORMATION_DETAIL' AND :ORDER_DIR = 'ASC' THEN R1.INFORMATION_DETAIL END ASC, " +
                     "CASE WHEN :ORDER_NAME = 'INFORMATION_DETAIL' AND :ORDER_DIR = 'DESC' THEN R1.INFORMATION_DETAIL END DESC " +
-                    "OFFSET (:PAGENUMBER * :PAGESIZE) ROWS " +
+                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                     "FETCH NEXT :PAGESIZE ROWS ONLY";
 
                 cmd.BindByName = true;

@@ -169,6 +169,12 @@
     <script src="~/Plugins/multiselect/bootstrap-multiselect.min.js"></script>
     <script src="~/Plugins/noti/notifications.js"></script>
     <script src="~/Scripts/Application.js"></script>
+    @Html.Raw(
+        "<script type='text/javascript'>" +
+        "var sessionTimeOut = " + (AppStatic.SessionTimeOut + 1) + ";" +
+        "var seconds = sessionTimeOut;" +
+        "</script>"
+    )
     @RenderSection("scripts", required: false)
 </body>
 </html>
