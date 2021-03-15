@@ -386,6 +386,18 @@ namespace Audit.Controllers
             }
             try
             {
+                //ubinfo
+                XElement resUB = AppStatic.SystemController.OrgUB(organization.ORG_REGISTER_NO);
+                if (resUB != null && resUB.Elements("UBList") != null)
+                {
+                    organization.organizationUBs = (from item in resUB.Elements("UBList") select new OrganizationUB().FromXml(item)).ToList();
+                }
+                //mofinfo
+                XElement resMOF = AppStatic.SystemController.OrgMOF(organization.ORG_REGISTER_NO);
+                if (resMOF != null && resMOF.Elements("MOFList") != null)
+                {
+                    organization.organizationMOFs = (from item in resMOF.Elements("MOFList") select new OrganizationMOF().FromXml(item)).ToList();
+                }
                 if (Globals.departments.Count > 0)
                 {
                     organization.departments = Globals.departments;
