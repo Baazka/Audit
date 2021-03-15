@@ -1627,5 +1627,116 @@ namespace Audit.Controllers.Library
             return null;
         }
         #endregion
+
+        #region Shilen 
+        public XElement Table1List()
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "Table1List"));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+
+        public XElement MirrDataList(int orgid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "MirrDataList"),
+                                               new XElement("Parameters",
+                                               new XElement("ORGID", orgid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool MirrorAccInsert(int yearcode, int orgid, int mdcodes, int data01, string data02, int userid, DateTime Insdate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "MirrorAccInsert"),
+                                               new XElement("Parameters",
+                                                   new XElement("YEAR_CODE", yearcode),
+                                                   new XElement("ORG_ID", orgid),
+                                                   new XElement("MD_CODE", mdcodes),
+                                                   new XElement("DATA01", data01),
+                                                   new XElement("DATA02", data02),
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("INSDATE", Insdate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+
+        #endregion'
     }
 }

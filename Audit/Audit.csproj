@@ -225,6 +225,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\ShilendansController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2024,6 +2025,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Print.js" />
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
@@ -2162,6 +2164,17 @@
     <Content Include="Views\Home\AddTabMOF.cshtml" />
     <Content Include="Views\Home\OrgDelete.cshtml" />
     <Content Include="Views\Statistic\BM8_List.cshtml" />
+    <Content Include="Views\Shilendans\AddShilenDans.cshtml" />
+    <Content Include="Views\Shilendans\Index.cshtml" />
+    <Content Include="Views\Shilendans\OrgList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab1.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab2.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab3.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab4.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab5.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab6.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab7.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Tab8.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

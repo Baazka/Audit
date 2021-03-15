@@ -1,0 +1,27 @@
+﻿@model Audit.Models.Tab8
+@{
+    Layout = null;
+}
+
+@if (Model.MD_CODE == "180" || Model.MD_CODE == "181")
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr>
+        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td>@Html.TextAreaFor(x => x.Data02, new { @style = "width: 100%;" })</td>
+    </tr>
+}
+else
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr>
+        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td>
+            @Html.DropDownListFor(model => model.Data01, new SelectList(
+                        new List<Object>{
+                           new { value = 0 , text = "Тийм" },
+                           new { value = 1 , text = "Үгүй" }
+                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+        </td>
+    </tr>
+}

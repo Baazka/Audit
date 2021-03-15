@@ -1,0 +1,51 @@
+﻿@model List<Audit.Models.OrgList>
+    @{ 
+        int counter = 0;
+        Layout = null;
+    }
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="text-center">№</th>
+                        <th>Алба</th>
+                        <th>Регистр</th>
+                        <th>Шалгагдагч байгууллагын нэр</th>
+                        <th>СТАУС бүртгэлийн код</th>
+                        <th>Төвлөрүүлэн захирагч</th>
+                        <th>Дээд шатны төсөв захирагч</th>
+                        <th>Үйлдэл</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count != 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            counter++;
+                    <tr data-id="@item.ORG_ID">
+                        <td class="text-center">@counter</td>
+                        <td>@item.DEPARTMENT_NAME</td>
+                        <td>@item.ORG_REGISTER_NO</td>
+                        <td>@item.ORG_NAME</td>
+                        <td>@item.ORG_CODE</td>
+                        <td>@item.BUDGET_TYPE_NAME</td>
+                        <td>@item.ORG_CONCENTRATOR_NAME</td> 
+                        <td class="text-center" width="10%">
+                            <div class="btn-group">
+                                <a class="btn btn-sm" href="#" onclick="Organization.edit(@item.ORG_ID)">
+                                    <i class="fa fa-edit"></i> шилэн данс
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

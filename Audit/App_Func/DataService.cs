@@ -86,6 +86,10 @@ namespace Audit.App_Func
             functions.Add("CM6", (request) => DataAccess.CM6(request));
             functions.Add("CM7", (request) => DataAccess.CM7(request));
             functions.Add("CM8", (request) => DataAccess.CM8(request));
+
+            functions.Add("Table1List", (request) => DataAccess.Table1List(request));
+            functions.Add("MirrorAccInsert", (request) => DataAccess.MirrorAccInsert(request));
+            functions.Add("MirrDataList", (request) => DataAccess.MirrDataList(request));
         }
     }
 }

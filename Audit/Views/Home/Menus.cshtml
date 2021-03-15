@@ -9,24 +9,30 @@
         </a>
     </li>
 
+    <li class="nav-item active">
+        <a class="nav-link" href="@Url.Action("Index", "Shilendans")">
+            <i class="fas fa-fw fa-paste"></i>
+            <span>Шилэн данс</span>
+        </a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 }
 
-@if (User.IsInRole("Dans"))
-{
-    <!-- Nav Item - Charts -->
-    <li class="nav-item active">
+@*@if (User.IsInRole("Dans"))*@
+@*{*@
+<!-- Nav Item - Charts -->
+@*<li class="nav-item active">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-file"></i>
             <span>Шилэн данс</span>
         </a>
-    </li>
+    </li>*@
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+<!-- Divider -->
+@*<hr class="sidebar-divider">*@
 
-}
+@*}*@
 
 @if (User.IsInRole("Stat"))
 {

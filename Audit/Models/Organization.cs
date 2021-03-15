@@ -45,6 +45,9 @@ namespace Audit.Models
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORG_FAX { get; set; }
 
+        public string ORG_CONCENTRATOR_NAME { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
+
         [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORGB_BANK_ID { get; set; }
         public int? ORGB_BANK_ACCOUNT { get; set; }
@@ -136,6 +139,15 @@ namespace Audit.Models
         public List<OrganizationUB> organizationUBs { get; set; } = new List<OrganizationUB>();
         public List<OrganizationMOF> organizationMOFs { get; set; } = new List<OrganizationMOF>();
 
+        public List<Tab1> tab1 { get; set; }
+        public List<Tab2> tab2 { get; set; }
+        public List<Tab3> tab3 { get; set; }
+        public List<Tab4> tab4 { get; set; }
+        public List<Tab5> tab5 { get; set; }
+        public List<Tab6> tab6 { get; set; }
+        public List<Tab7> tab7 { get; set; }
+        public List<Tab8> tab8 { get; set; }
+        public int AUD_LAWS_NUM { get; set; }
         public Organization FromXml(XElement elem)
         {
             if (elem.Element("ORG_ID") != null)
@@ -157,7 +169,11 @@ namespace Audit.Models
             if (elem.Element("ORG_REGISTER_NO") != null)
                 ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
             if (elem.Element("ORG_REGISTER_NUMBER") != null)
-                ORG_REGISTER_NUMBER = elem.Element("ORG_REGISTER_NUMBER").Value;            
+                ORG_REGISTER_NUMBER = elem.Element("ORG_REGISTER_NUMBER").Value;
+            if (elem.Element("ORG_CONCENTRATOR_NAME") != null)
+                ORG_CONCENTRATOR_NAME = elem.Element("ORG_CONCENTRATOR_NAME").Value;
+            if (elem.Element("BUDGET_TYPE_NAME") != null)
+                BUDGET_TYPE_NAME = elem.Element("BUDGET_TYPE_NAME").Value;
             if (elem.Element("ORG_REG_DATE") != null)
                 ORG_REG_DATE = Convert.ToDateTime(elem.Element("ORG_REG_DATE").Value);
             if (elem.Element("ORG_OFFICE_ID") != null)
@@ -473,5 +489,93 @@ namespace Audit.Models
                        new XElement("P_PARENTID", P_PARENTID)
                        );
         }
+    }
+
+    public class Tab1
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
+    }
+
+    public class Tab2
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
+    }
+
+    public class Tab3
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
+    }
+
+    public class Tab4
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
+    }
+
+    public class Tab5
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
+    }
+
+    public class Tab6
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
+    }
+
+    public class Tab7
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
+    }
+
+    public class Tab8
+    {
+        public string MD_CODE { get; set; }
+        public string MD_LAWS_NUM { get; set; }
+        public string MD_NAME { get; set; }
+        public string MD_TIME { get; set; }
+        public int Data01 { get; set; }
+        public string Data02 { get; set; }
+        public string Data03 { get; set; }
     }
 }

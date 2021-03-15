@@ -2430,5 +2430,143 @@ namespace Audit.App_Func
 
             return response;
         }
+
+        public static DataResponse Table1List(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["MirroraccConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                //cmd.CommandText = "SELECT B.MD_CODE, B.MD_LAWS_NUM, B.MD_NAME, B.MD_TIME, B.TAB_ID, A.DATA01, A.DATA02, A.DATA03 " +
+                //    "FROM SHILENDANSDATA A " +
+                //    "RIGHT JOIN MD_DESC B ON A.MDCODE = B.MD_CODE " +
+                //    "ORDER BY B.MD_CODE ASC ";
+
+                cmd.CommandText = "SELECT MD_CODE, MD_LAWS_NUM, MD_NAME, MD_TIME, TAB_ID " +
+                    "FROM MD_DESC " +
+                    "ORDER BY MD_CODE ASC ";
+
+                // Set parameters
+                //cmd.Parameters.Add("");
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "Table1List";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+
+        public static DataResponse MirrDataList(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["MirroraccConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT B.MD_CODE, B.MD_LAWS_NUM, B.MD_TIME, B.MD_NAME, A.DATA01, A.DATA02 " +
+                        "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                        "JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
+                        "WHERE A.ORGID = :ORGID " +
+                        "ORDER BY B.MD_CODE ";
+
+                // Set parameters
+                cmd.Parameters.Add(":ORGID", OracleDbType.Varchar2, request.Element("Parameters").Element("ORGID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "MirrDataList";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+
+        public static DataResponse MirrorAccInsert(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["MirroraccConfig"]);
+                con.Open();
+
+                //Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "F_MIRRORACC_INSERT";
+
+                // Set parameters
+                OracleParameter retParam = cmd.Parameters.Add(":Ret_val", OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+
+                cmd.Parameters.Add(":P_YEARCODE", OracleDbType.Int32).Value = request.Element("Parameters").Element("YEAR_CODE")?.Value;
+                cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = request.Element("Parameters").Element("ORG_ID")?.Value;
+                cmd.Parameters.Add(":P_MD_CODE", OracleDbType.Int32).Value = request.Element("Parameters").Element("MD_CODE")?.Value;
+                cmd.Parameters.Add(":P_DATA01", OracleDbType.Int32).Value = request.Element("Parameters").Element("DATA01")?.Value;
+                cmd.Parameters.Add(":P_DATA02", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("DATA02")?.Value;
+                cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_INSDATE", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("INSDATE").Value;
+                //cmd.ArrayBindCount = request.Element("Parameters").Element("MD_CODE").Value.Length;
+
+
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+                con.Close();
+
+                object responseValue = retParam.Value;
+
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+
+                response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+
     }
 }

@@ -1,0 +1,39 @@
+﻿@model Audit.Models.Tab3
+@{
+    Layout = null;
+}
+
+@if (Model.MD_CODE == "65" || Model.MD_CODE == "72" || Model.MD_CODE == "79" || Model.MD_CODE == "86" || Model.MD_CODE == "93" || Model.MD_CODE == "100")
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr style="text-align:center;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
+}
+@if (Model.MD_CODE == "64")
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr>
+        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td>
+            @Html.DropDownListFor(model => model.Data01, new SelectList(
+                        new List<Object>{
+                            new { value = 0 , text = "--Сонгоно уу--" },
+                           new { value = 1 , text = "Тухайн мэдээллийг оруулаагүй" },
+                           new { value = 2 , text = "Тухайн мэдээллийг оруулсан" },
+                           new { value = 3 , text = "Тухайн мэдээллийг хугацаа хоцорч оруулсан" },
+                           new { value = 4 , text = "Тухайн мэдээллийг оруулах шаардлагагүй, хамааралгүй" }
+                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+        </td>
+    </tr>
+}
+@if (Model.MD_CODE == "66" || Model.MD_CODE == "67" || Model.MD_CODE == "68" || Model.MD_CODE == "69" || Model.MD_CODE == "70" || Model.MD_CODE == "71" || Model.MD_CODE == "73" || Model.MD_CODE == "74" || Model.MD_CODE == "75" || Model.MD_CODE == "76" || Model.MD_CODE == "77" || Model.MD_CODE == "78" || Model.MD_CODE == "80" || Model.MD_CODE == "81" || Model.MD_CODE == "82" || Model.MD_CODE == "83" || Model.MD_CODE == "84" || Model.MD_CODE == "85" || Model.MD_CODE == "87" || Model.MD_CODE == "88" || Model.MD_CODE == "89" || Model.MD_CODE == "90" || Model.MD_CODE == "91" || Model.MD_CODE == "92" || Model.MD_CODE == "94" || Model.MD_CODE == "95" || Model.MD_CODE == "96" || Model.MD_CODE == "97" || Model.MD_CODE == "98" || Model.MD_CODE == "99" || Model.MD_CODE == "101" || Model.MD_CODE == "102")
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr>
+        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;" })</td>
+    </tr>
+}

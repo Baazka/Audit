@@ -1,0 +1,39 @@
+﻿@model Audit.Models.Tab7
+@{
+    Layout = null;
+}
+
+@if (Model.MD_CODE == "153")
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr style="text-align:center;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
+}
+@if (Model.MD_CODE == "159" || Model.MD_CODE == "163" || Model.MD_CODE == "167" || Model.MD_CODE == "171")
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr>
+        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td>
+            @Html.DropDownListFor(model => model.Data01, new SelectList(
+                        new List<Object>{
+                            new { value = 0 , text = "--Сонгоно уу--" },
+                           new { value = 1 , text = "Тухайн мэдээллийг оруулаагүй" },
+                           new { value = 2 , text = "Тухайн мэдээллийг оруулсан" },
+                           new { value = 3 , text = "Тухайн мэдээллийг хугацаа хоцорч оруулсан" },
+                           new { value = 4 , text = "Тухайн мэдээллийг оруулах шаардлагагүй, хамааралгүй" }
+                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+        </td>
+    </tr>
+}
+@if (Model.MD_CODE == "154" || Model.MD_CODE == "155" || Model.MD_CODE == "156" || Model.MD_CODE == "157" || Model.MD_CODE == "158" || Model.MD_CODE == "160" || Model.MD_CODE == "161" || Model.MD_CODE == "162" || Model.MD_CODE == "164" || Model.MD_CODE == "165" || Model.MD_CODE == "166" || Model.MD_CODE == "168" || Model.MD_CODE == "169" || Model.MD_CODE == "170" || Model.MD_CODE == "172" || Model.MD_CODE == "173" || Model.MD_CODE == "174")
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    <tr>
+        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;" })</td>
+    </tr>
+}

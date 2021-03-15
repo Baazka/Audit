@@ -1,0 +1,171 @@
+﻿@using Audit.Models
+@model Audit.Models.OrgVM
+
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+        @if (Role.hasAdminRole(User))
+        {
+            <div class="form-group-sm pr-2">
+                <label for="DeparmentID" class="col-form-label">Алба:</label>
+                @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            </div>
+        }
+
+    </div>
+</form>
+<div class="row mb-2">
+    <div class="col-12" id="OrgList">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">№</th>
+                                <th>Алба</th>
+                                <th>Регистр</th>
+                                <th>Шалгагдагч байгууллагын нэр</th>
+                                <th>СТАУС бүртгэлийн код</th>
+                                <th>Төвлөрүүлэн захирагч</th>
+                                <th>Дээд шатны төсөв захирагч</th>
+                                <th>Үйлдэл</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            orgListInit();
+        })
+        var table;
+        function orgListInit(pagelength=10) {
+            table = $("#organizationlist").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/orglist",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ORG_ID);
+                },
+
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO", "sortable": false },
+                    { "data": "ORG_NAME", "name": "ORG_NAME" },
+                    { "data": "ORG_CODE", "name": "ORG_CODE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    { "data": "ORG_CONCENTRATOR_NAME", "name": "ORG_CONCENTRATOR_NAME" },
+                    {
+                "data": null, "sortable": false, "class": 'text-center', "width": '10%',
+                render: function (data, type, row, meta) {
+                    return '<div class="btn-group">'+
+                                '<a class="btn btn-sm" href="#" onclick="Organization.edit('+data.ORG_ID+')">'+
+                                    '<i class="fa fa-edit"></i> шилэн данс'+
+                                '</a>'+
+                            '</div>';
+                }
+            }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "pageLength": pagelength,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+
+            });
+        }
+        
+        $('#DeparmentID').change(function () {
+            orgListInit();
+        });
+        var Organization = {
+        OrgID:null,
+        display: function (data) {
+            $("div#orgmodalcontainer").remove();
+            $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);           
+
+            $("#OrgModal").modal({ show: true });
+        },
+        loadTemplate: function () {
+                $.ajax({
+                        url: "@Url.Action("AddShilenDans", "Shilendans", new { Area = "" })",
+                        type: 'GET',
+                        success: function (data) {
+                            Organization.display(data);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+            },
+        edit: function (orgid) {
+                $.ajax({
+                    url: "@Url.Action("OrgDetail", "Shilendans", new { Area = "" })",
+                    type: 'GET',
+                    data: { orgid },
+                    success: function (data, status, xhr) {
+                        Organization.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+        close: function () {
+            $("#OrgModal").modal("hide");
+        },
+        progressResponse: function (data, status, xhr) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                Organization.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    Organization.close();
+                    orgListInit();
+                    Message.success(data.message);
+                }
+            }
+        }
+        }
+
+    </script>
+}
