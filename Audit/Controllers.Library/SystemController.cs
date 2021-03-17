@@ -1698,7 +1698,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public bool MirrorAccInsert(int yearcode, int orgid, int mdcodes, int data01, string data02, int userid, DateTime Insdate)
+        public bool MirrorAccInsert(int yearcode, int orgid, int mdcodes, double data01, string data02, int userid, DateTime Insdate)
         {
             try
             {

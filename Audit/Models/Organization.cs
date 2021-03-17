@@ -497,7 +497,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }
@@ -508,7 +508,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }
@@ -519,7 +519,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }
@@ -530,7 +530,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }
@@ -541,7 +541,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }
@@ -552,7 +552,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }
@@ -563,7 +563,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }
@@ -574,7 +574,7 @@ namespace Audit.Models
         public string MD_LAWS_NUM { get; set; }
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
-        public int Data01 { get; set; }
+        public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
     }

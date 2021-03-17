@@ -6,7 +6,7 @@
 @if (Model.MD_CODE == "65" || Model.MD_CODE == "72" || Model.MD_CODE == "79" || Model.MD_CODE == "86" || Model.MD_CODE == "93" || Model.MD_CODE == "100")
 {
     @Html.HiddenFor(x => x.MD_CODE)
-    <tr style="text-align:center;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
+    <tr style="text-align:center;font-weight:bold;text-transform:uppercase;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
 }
 @if (Model.MD_CODE == "64")
 {

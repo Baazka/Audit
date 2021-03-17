@@ -6,7 +6,7 @@
 @if (Model.MD_CODE == "36" || Model.MD_CODE == "42" || Model.MD_CODE == "49" || Model.MD_CODE == "56")
 {
     @Html.HiddenFor(x => x.MD_CODE)
-    <tr style="text-align:center;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
+    <tr style="text-align:center;font-weight:bold;text-transform:uppercase;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
 }
 @if (Model.MD_CODE == "35" || Model.MD_CODE == "40" || Model.MD_CODE == "41" || Model.MD_CODE == "63")
 {
@@ -34,6 +34,6 @@
         <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>@Html.DisplayFor(x => x.MD_TIME)</td>
-        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;" })</td>
+        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;"})</td>
     </tr>
 }

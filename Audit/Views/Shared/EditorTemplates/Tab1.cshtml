@@ -6,7 +6,7 @@
 @if (Model.MD_CODE == "3" || Model.MD_CODE == "27")
 {
     @Html.HiddenFor(x => x.MD_CODE)
-    <tr style="text-align:center;">
+    <tr style="text-align:center;font-weight:bold;text-transform:uppercase;">
         <td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td>
     </tr>
 }
@@ -26,6 +26,7 @@
                            new { value = 3 , text = "Тухайн мэдээллийг хугацаа хоцорч оруулсан" },
                            new { value = 4 , text = "Тухайн мэдээллийг оруулах шаардлагагүй, хамааралгүй" }
                      }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+            @Html.ValidationMessageFor(model => model.Data01, "", new { @class = "text-danger" })
         </td>
     </tr>
 }

@@ -279,7 +279,7 @@ namespace Audit.Controllers
                                 MD_LAWS_NUM = table1[i].Field<string>("MD_LAWS_NUM"),
                                 MD_NAME = table1[i].Field<string>("MD_NAME"),
                                 MD_TIME = table1[i].Field<string>("MD_TIME"),
-                                Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
                             }
                         );
                     }
@@ -293,7 +293,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table2[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table2[i].Field<string>("MD_NAME"),
                                     MD_TIME = table2[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
                                 }
                             );
                     }
@@ -307,7 +307,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table3[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table3[i].Field<string>("MD_NAME"),
                                     MD_TIME = table3[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
                                 }
                             );
                     }
@@ -321,7 +321,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table4[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table4[i].Field<string>("MD_NAME"),
                                     MD_TIME = table4[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
+                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
                                     Data02 =DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
                                 }
                             );
@@ -336,7 +336,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table5[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table5[i].Field<string>("MD_NAME"),
                                     MD_TIME = table5[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
                                 }
                             );
                     }
@@ -350,7 +350,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table6[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table6[i].Field<string>("MD_NAME"),
                                     MD_TIME = table6[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
+                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
                                     Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
                                 }
                             );
@@ -365,7 +365,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table7[i].Field<string>("MD_NAME"),
                                     MD_TIME = table7[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
                                 }
                             );
                     }
@@ -379,7 +379,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table8[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table8[i].Field<string>("MD_NAME"),
                                     MD_TIME = table8[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToInt32(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
+                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
                                     Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
                                 }
                             );
@@ -395,7 +395,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table1[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table1[i].Field<string>("MD_NAME"),
                             MD_TIME = table1[i].Field<string>("MD_TIME"),
-                            Data01 = 0
+                            Data01 = 0.00
                         });
                     }
                     for (int i = 0; i < table2.Length; i++)
@@ -406,7 +406,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table2[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table2[i].Field<string>("MD_NAME"),
                             MD_TIME = table2[i].Field<string>("MD_TIME"),
-                            Data01 = 0
+                            Data01 = 0.00
                         });
                     }
                     for (int i = 0; i < table3.Length; i++)
@@ -417,7 +417,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table3[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table3[i].Field<string>("MD_NAME"),
                             MD_TIME = table3[i].Field<string>("MD_TIME"),
-                            Data01 = 0
+                            Data01 = 0.00
                         });
                     }
                     for (int i = 0; i < table4.Length; i++)
@@ -426,7 +426,7 @@ namespace Audit.Controllers
                         {
                             MD_CODE = table4[i].Field<string>("MD_CODE"),
                             MD_NAME = table4[i].Field<string>("MD_NAME"),
-                            Data01 = 0,
+                            Data01 = 0.00,
                             Data02 = null
                         });
                     }
@@ -438,7 +438,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table5[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table5[i].Field<string>("MD_NAME"),
                             MD_TIME = table5[i].Field<string>("MD_TIME"),
-                            Data01 = 0
+                            Data01 = 0.00
                         });
                     }
                     for (int i = 0; i < table6.Length; i++)
@@ -447,7 +447,7 @@ namespace Audit.Controllers
                         {
                             MD_CODE = table6[i].Field<string>("MD_CODE"),
                             MD_NAME = table6[i].Field<string>("MD_NAME"),
-                            Data01 = 0,
+                            Data01 = 0.00,
                             Data02 = null
                         });
                     }
@@ -459,7 +459,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table7[i].Field<string>("MD_NAME"),
                             MD_TIME = table7[i].Field<string>("MD_TIME"),
-                            Data01 = 0
+                            Data01 = 0.00
                         });
                     }
                     for (int i = 0; i < table8.Length; i++)
@@ -468,7 +468,7 @@ namespace Audit.Controllers
                         {
                             MD_CODE = table8[i].Field<string>("MD_CODE"),
                             MD_NAME = table8[i].Field<string>("MD_NAME"),
-                            Data01 = 0,
+                            Data01 = 0.00,
                             Data02 = null
                         });
                     }
@@ -636,13 +636,13 @@ namespace Audit.Controllers
         {
             //if (ModelState.IsValid)
             //{
-            if (organization.ORG_ID != 0)
-            {
+                if (organization.ORG_ID != 0)
+                {
                 int YearCode = 2020;
                 DateTime InsDate = DateTime.Now;
 
                 int mdcodes = 0;
-                int data01 = 0;
+                double data01 = 0;
                 string data02 = null;
 
                 switch (button) {
@@ -651,7 +651,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab1.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab1[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab1[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab1[i].Data01);
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);                                
                             }
@@ -662,7 +662,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab2.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab2[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab2[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab2[i].Data01);
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -673,7 +673,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab3.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab3[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab3[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab3[i].Data01);
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -684,7 +684,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab4.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab4[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab4[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab4[i].Data01);
                                 data02 = organization.tab4[i].Data02;
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -695,7 +695,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab5.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab5[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab5[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab5[i].Data01);
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -706,7 +706,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab6.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab6[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab6[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab6[i].Data01);
                                 data02 = organization.tab6[i].Data02;
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -717,7 +717,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab7.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab7[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab7[i].Data01);
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -728,7 +728,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab8.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab8[i].MD_CODE);
-                                data01 = Convert.ToInt32(organization.tab8[i].Data01);
+                                data01 = Convert.ToDouble(organization.tab8[i].Data01);
                                 data02 = organization.tab8[i].Data02;
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -760,7 +760,7 @@ namespace Audit.Controllers
             //{
             //    ViewBag.No = "Энэ мэдээлэл мэдээллийн санд байхгүй байна.";
             //}
-            
+
             return PartialView(organization);
 
         }

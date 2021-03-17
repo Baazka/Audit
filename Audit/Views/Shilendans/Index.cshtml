@@ -1,6 +1,20 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
+@{
+    var status = Model.statuses.Select(c => new
+    {
+        ID = c.STATUS_ID,
+        Name = c.STATUS_NAME
+    }).ToList();
+    Model.Status = new MultiSelectList(status, "ID", "Name");
 
+    var violation = Model.violations.Select(c => new
+    {
+        ID = c.VIOLATION_ID,
+        Name = c.VIOLATION_NAME
+    }).ToList();
+    Model.Violation = new MultiSelectList(violation, "ID", "Name");
+}
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
         @if (Role.hasAdminRole(User))
@@ -10,7 +24,14 @@
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
         }
-
+        <div class="form-group-sm pr-2">
+            <label for="StatusID" class="col-form-label">Төлөв:</label><br />
+            @Html.ListBoxFor(model => model.StatusIDs, Model.Status, new { id = "status" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="ViolationID" class="col-form-label">Алдаа:</label><br />
+            @Html.ListBoxFor(model => model.ViolationIDs, Model.Violation, new { id = "violation" })
+        </div>
     </div>
 </form>
 <div class="row mb-2">
@@ -28,6 +49,9 @@
                                 <th>СТАУС бүртгэлийн код</th>
                                 <th>Төвлөрүүлэн захирагч</th>
                                 <th>Дээд шатны төсөв захирагч</th>
+                                <th>Алдааны мэдээлэл</th>
+                                <th>Төлөв</th>
+                                <th>Сануулга</th>
                                 <th>Үйлдэл</th>
                             </tr>
                         </thead>
@@ -76,6 +100,9 @@
                     { "data": "ORG_CODE", "name": "ORG_CODE" },
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "ORG_CONCENTRATOR_NAME", "name": "ORG_CONCENTRATOR_NAME" },
+                    { "data": "VIOLATION_DETAIL", "name": "VIOLATION_DETAIL" },
+                    { "data": "STATUS_NAME", "name": "STATUS_NAME" },
+                    { "data": "INFORMATION_DETAIL", "name": "INFORMATION_DETAIL" },
                     {
                 "data": null, "sortable": false, "class": 'text-center', "width": '10%',
                 render: function (data, type, row, meta) {
@@ -101,7 +128,20 @@
 
             });
         }
-        
+        $('#status').multiselect({
+            nonSelectedText: "Сонгоно уу",
+            buttonClass: 'form-control form-control-sm',
+            onChange: function (option, checked, select) {
+                orgListInit();
+            }
+        });
+        $('#violation').multiselect({
+            nonSelectedText: "Сонгоно уу",
+            buttonClass: 'form-control form-control-sm',
+            onChange: function (option, checked, select) {
+                orgListInit();
+            }
+        });
         $('#DeparmentID').change(function () {
             orgListInit();
         });
@@ -109,7 +149,7 @@
         OrgID:null,
         display: function (data) {
             $("div#orgmodalcontainer").remove();
-            $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);           
+            $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
 
             $("#OrgModal").modal({ show: true });
         },
