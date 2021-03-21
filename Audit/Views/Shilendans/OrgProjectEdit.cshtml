@@ -1,0 +1,133 @@
+﻿@model Audit.Models.Organization
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="content">
+
+        @using (Ajax.BeginForm("OrgProjectEdit", "Shilendans", new { Area = "" },
+                   new AjaxOptions
+                   {
+                       UpdateTargetId = "orgmodalcontainer",
+                       OnBegin = "Modal.show()",
+                       OnComplete = "Modal.hide(); $('#OrgModal').modal({ show: true }); $('.modal-backdrop:first').remove()",
+                       OnSuccess = "Organization.progressResponse(data, status, xhr)",
+                       OnFailure = "errorResponse",
+                       HttpMethod = "Post",
+                       InsertionMode = InsertionMode.Replace
+                   },
+                   new { @class = "form-horizontal", @autocomplete = "off" }))
+        {
+
+
+<div class="col-md-12" style="padding: 0 100px;">
+    @Html.HiddenFor(m => m.ORG_ID)
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
+        <div class="col-sm-2">
+            @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
+                                          new List<Object>{
+                                    new { value = 1 , text = "3.1.4" },
+                                    new { value = 2 , text = "3.1.5" },
+                                          }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+        </div>
+    </div>
+
+    <table class="table table-bordered" style="font-size:12px;">
+        <tr>
+            <th>Хуулийн заалт</th>
+            <th>Мэдээллийн агуулга </th>
+            <th>Хугацаа</th>
+            <th>Үнэлгээ</th>
+        </tr>
+        @Html.EditorFor(t => t.tab7)
+        <tr>
+            <td>Шалгасан аудиторын нэр</td>
+            <td>@User.Identity.Name.ToUpper()</td>
+        </tr>
+        <tr>
+            <td>Аудиторын код</td>
+            <td>***</td>
+        </tr>
+    </table>
+
+    <div style="text-align: right">
+        <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+        <button type="button" class="btn btn-sm btn-default bg-secondary text-white">Хаах</button>
+    </div>
+</div>}
+    </div>
+</body>
+</html>
+<script>
+  $( function() {
+      $(".datepicker").datepicker({
+          beforeShow: function () {
+              setTimeout(function () {
+                  $('.ui-datepicker').css('z-index', 99999999999999);
+              }, 0);
+          },
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          firstDay: 1,
+          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+          maxDate: "+0D",
+          showOn: "button",
+          buttonImage: "@Url.Content("~/Images/calendar.png")",
+          buttonImageOnly: true,
+          buttonText: "Select date"
+      });
+  });
+</script>
+
+@section scripts{
+    <script>
+
+        var table;
+        
+        var Organization = {
+        OrgID:null,
+        
+        
+        close: function () {
+            $("#OrgModal").modal("hide");
+            $('#OrgDeleteModal').modal("hide");
+        },
+        progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                Organization.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    Organization.close();
+
+                    if (deleted == true) {
+                        if (!data.error)
+                            table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
+                    }
+                    if (confirmed == false && deleted == false) {
+                        orgListInit();
+                    }
+                    Message.success(data.message);
+                }
+            }
+        }
+        }
+
+
+    </script>
+}

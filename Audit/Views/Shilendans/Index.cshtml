@@ -43,12 +43,12 @@
                         <thead>
                             <tr>
                                 <th class="text-center">№</th>
-                                <th>Алба</th>
-                                <th>Регистр</th>
-                                <th>Шалгагдагч байгууллагын нэр</th>
-                                <th>СТАУС бүртгэлийн код</th>
-                                <th>Төвлөрүүлэн захирагч</th>
-                                <th>Дээд шатны төсөв захирагч</th>
+                                <th>ТЕЗ</th>
+                                <th width="8%">ТТЗ/ТЕЗ</th>
+                                <th width="20%">Харъяа байгууллага, санхүүгийн тайлангийн нэр</th>
+                                <th>Байгууллагын нэр</th>
+                                <th>Регистрийн дугаар</th>
+                                @*<th>СТАУС бүртгэлийн код</th>*@
                                 <th>Алдааны мэдээлэл</th>
                                 <th>Төлөв</th>
                                 <th>Сануулга</th>
@@ -94,12 +94,12 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
-                    { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO", "sortable": false },
-                    { "data": "ORG_NAME", "name": "ORG_NAME" },
-                    { "data": "ORG_CODE", "name": "ORG_CODE" },
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "ORG_CONCENTRATOR_NAME", "name": "ORG_CONCENTRATOR_NAME" },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "ORG_NAME", "name": "ORG_NAME" },
+                    { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO", "sortable": false },
+                    /*{ "data": "ORG_CODE", "name": "ORG_CODE" },*/
                     { "data": "VIOLATION_DETAIL", "name": "VIOLATION_DETAIL" },
                     { "data": "STATUS_NAME", "name": "STATUS_NAME" },
                     { "data": "INFORMATION_DETAIL", "name": "INFORMATION_DETAIL" },

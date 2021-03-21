@@ -2175,6 +2175,7 @@
     <Content Include="Views\Shared\EditorTemplates\Tab6.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Tab7.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Tab8.cshtml" />
+    <Content Include="Views\Shilendans\OrgProjectEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -235,12 +235,16 @@ namespace Audit.Controllers
 
                 
                 XElement tb1res = AppStatic.SystemController.Table1List();
+                XElement tblprojectlist = AppStatic.SystemController.TableProjectList(Convert.ToInt32(organization.ORG_ID));
 
                 DataSet ds = new DataSet();
+                DataSet ds1 = new DataSet();
 
                 StringReader sr = new StringReader(tb1res.ToString());
+                StringReader sr2 = new StringReader(tblprojectlist.ToString());
 
                 ds.ReadXml(sr, XmlReadMode.InferSchema);
+                ds1.ReadXml(sr2, XmlReadMode.InferSchema);
 
                 DataRow[] table1 = ds.Tables[0].Select();
                 DataRow[] table2 = ds.Tables[0].Select("TAB_ID = " + 2);
@@ -249,7 +253,27 @@ namespace Audit.Controllers
                 DataRow[] table5 = ds.Tables[0].Select("TAB_ID = " + 5);
                 DataRow[] table6 = ds.Tables[0].Select("TAB_ID = " + 6);
                 DataRow[] table7 = ds.Tables[0].Select("TAB_ID = " + 7);
-                DataRow[] table8 = ds.Tables[0].Select("TAB_ID = " + 8);
+
+                if(ds1.Tables.Count > 0) { 
+                DataRow[] table8 = ds1.Tables[0].Select();
+                organization.tab8 = new List<Tab8>();
+
+                for (int i = 0; i < table8.Length; i++)
+                {
+                    organization.tab8.Add(
+                            new Tab8
+                            {
+                                PROJECT_NAME = table8[i].Field<string>("PROJECT_NAME"),
+                                PROJECT_NUMBER = table8[i].Field<string>("PROJECT_NUMBER"),
+                                PROJECT_START_DATE = table8[i].Field<string>("PROJECT_START_DATE"),
+                                PROJECT_END_DATE = table8[i].Field<string>("PROJECT_END_DATE"),
+                                PROJECT_PERCENT = table8[i].Field<string>("PROJECT_PERCENT"),
+                                PROJECT_TOTAL_BUDGET = table8[i].Field<string>("PROJECT_TOTAL_BUDGET"),
+                                PROJECT_ORG_FUND = table8[i].Field<string>("PROJECT_ORG_FUND"),
+                            }
+                        );
+                }
+                }
 
                 organization.tab1 = new List<Tab1>();
                 organization.tab2 = new List<Tab2>();
@@ -258,7 +282,7 @@ namespace Audit.Controllers
                 organization.tab5 = new List<Tab5>();
                 organization.tab6 = new List<Tab6>();
                 organization.tab7 = new List<Tab7>();
-                organization.tab8 = new List<Tab8>();
+                
 
                 XElement MirrOrgDataLists = AppStatic.SystemController.MirrDataList(orgid);
                 DataSet DsTables = new DataSet();
@@ -365,25 +389,13 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table7[i].Field<string>("MD_NAME"),
                                     MD_TIME = table7[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
-                                }
-                            );
-                    }
-                    for (int i = 0; i < table8.Length; i++)
-                    {
-                        var md = Convert.ToInt32(table8[i].Field<string>("MD_CODE"));
-                        organization.tab8.Add(
-                                new Tab8
-                                {
-                                    MD_CODE = table8[i].Field<string>("MD_CODE"),
-                                    MD_LAWS_NUM = table8[i].Field<string>("MD_LAWS_NUM"),
-                                    MD_NAME = table8[i].Field<string>("MD_NAME"),
-                                    MD_TIME = table8[i].Field<string>("MD_TIME"),
                                     Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
                                     Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
                                 }
                             );
                     }
+                    
+                    
                 }
                 else
                 {
@@ -459,17 +471,9 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table7[i].Field<string>("MD_NAME"),
                             MD_TIME = table7[i].Field<string>("MD_TIME"),
-                            Data01 = 0.00
-                        });
-                    }
-                    for (int i = 0; i < table8.Length; i++)
-                    {
-                        organization.tab8.Add(new Tab8
-                        {
-                            MD_CODE = table8[i].Field<string>("MD_CODE"),
-                            MD_NAME = table8[i].Field<string>("MD_NAME"),
                             Data01 = 0.00,
-                            Data02 = null
+                            Data02 = null,
+                            Data03 = DateTime.Now
                         });
                     }
                 }
@@ -655,7 +659,8 @@ namespace Audit.Controllers
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);                                
                             }
-                     }
+                            
+                        }
                     break;
                     case "tab2save":
                         {
@@ -666,6 +671,7 @@ namespace Audit.Controllers
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
+
                         }
                         break;
                     case "tab3save":
@@ -714,23 +720,21 @@ namespace Audit.Controllers
                         break;
                     case "tab7save":
                         {
+                            string project_name = organization.tab7[2].Data02;
+                            string project_num = organization.tab7[3].Data02;
+                            DateTime? project_start_date = organization.tab7[4].Data03;
+                            DateTime? project_end_date = organization.tab7[5].Data03;
+                            double project_percent = organization.tab7[6].Data01;
+                            double project_budget = Convert.ToInt32(organization.tab7[7].Data01);
+                            string project_fund = organization.tab7[1].Data02;
+                            int project_law_num = organization.AUD_LAWS_NUM;
+
                             for (int i = 0; i < organization.tab7.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab7[i].Data01);
-                                data02 = " ";
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
-                            }
-                        }
-                        break;
-                    case "tab8save":
-                        {
-                            for (int i = 0; i < organization.tab8.Count(); i++)
-                            {
-                                mdcodes = Convert.ToInt32(organization.tab8[i].MD_CODE);
-                                data01 = Convert.ToDouble(organization.tab8[i].Data01);
-                                data02 = organization.tab8[i].Data02;
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                data02 = organization.tab7[i].Data02;
+                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date.ToString(), project_end_date.ToString(), Convert.ToInt32(project_percent), project_budget.ToString(), project_fund ,mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
                             }
                         }
                         break;
@@ -742,7 +746,7 @@ namespace Audit.Controllers
 
                     if (result1 == true)
                     {
-                        return RedirectToAction("Index", "Shilendans");
+                        return View();
                     }
                     else
                     {
@@ -763,6 +767,104 @@ namespace Audit.Controllers
 
             return PartialView(organization);
 
+        }
+
+        [HttpPost]
+        public ActionResult OrgProjectEdit(Organization organization, string button)
+        {
+            //if (ModelState.IsValid)
+            //{
+
+                int YearCode = 2020;
+                DateTime InsDate = DateTime.Now;
+
+                int mdcodes = 0;
+                double data01 = 0;
+                string data02 = null;
+
+                switch (button)
+                {
+                    case "tab7save":
+                        {
+                            string project_name = organization.tab7[2].Data02;
+                            string project_num = organization.tab7[3].Data02;
+                            DateTime? project_start_date = organization.tab7[4].Data03;
+                            DateTime? project_end_date = organization.tab7[5].Data03;
+                            double project_percent = organization.tab7[6].Data01;
+                            double project_budget = Convert.ToInt32(organization.tab7[7].Data01);
+                            string project_fund = organization.tab7[1].Data02;
+                            int project_law_num = organization.AUD_LAWS_NUM;
+
+                            for (int i = 0; i < organization.tab7.Count(); i++)
+                            {
+                                mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
+                                data01 = Convert.ToDouble(organization.tab7[i].Data01);
+                                data02 = organization.tab7[i].Data02;
+                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date.ToString(), project_end_date.ToString(), Convert.ToInt32(project_percent), project_budget.ToString(), project_fund, mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
+                            }
+                        }
+                        break;
+                }
+                var result1 = true;
+                return Json(new { error = false, message = AppStatic.SystemController.Message });
+                try
+                {
+
+                    if (result1 == true)
+                    {
+                        return RedirectToAction("AddShilenDans", "Shilendans");
+                    }
+                    else
+                    {
+                        ViewBag.No = "Хадгалахад алдаа гарлаа !!!";
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Globals.WriteErrorLog(ex);
+                }
+            //}
+            //else
+            //{
+            //    ViewBag.No = "Энэ мэдээлэл мэдээллийн санд байхгүй байна.";
+            //}
+
+            return PartialView(organization);
+
+        }
+
+        public ActionResult OrgProjectEdit(string ID)
+        {
+            XElement MirrOrgProjects = AppStatic.SystemController.OrgProjectDataList(ID);
+            DataSet DsOrgProjects = new DataSet();
+
+            StringReader sr1 = new StringReader(MirrOrgProjects.ToString());
+
+            DsOrgProjects.ReadXml(sr1, XmlReadMode.InferSchema);
+
+            DataRow[] table7 = DsOrgProjects.Tables[0].Select();
+            organization.tab7 = new List<Tab7>();
+
+            if (DsOrgProjects != null && DsOrgProjects.Tables.Count > 0)
+            {
+                for (int i = 0; i < table7.Length; i++)
+                {
+                    //var md = Convert.ToInt32(DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MDCODE"));
+                    organization.tab7.Add(
+                        new Tab7
+                        {
+                            MD_CODE = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MDCODE"),
+                            MD_LAWS_NUM = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MD_LAWS_NUM"),
+                            MD_NAME = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MD_NAME"),
+                            MD_TIME = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MD_TIME"),
+                            Data01 = Convert.ToDouble(DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("DATA01")),
+                            Data02 = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("DATA02")
+                        }
+                    );
+                }
+            }
+            return PartialView("OrgProjectEdit", organization);
         }
         public JsonResult OrgConfirm(int orgid)
         {

@@ -1736,6 +1736,123 @@ namespace Audit.Controllers.Library
 
             return false;
         }
+        public bool OrgProjectInsert(int yearcode, int orgid, string project_name, string project_number, string project_start_date, string project_end_date, int project_percent, string project_budget, string project_fund ,int mdcodes, double data01, string data02, int userid, DateTime Insdate, int project_law_num)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "OrgProjectInsert"),
+                                               new XElement("Parameters",
+                                                   new XElement("YEAR_CODE", yearcode),
+                                                   new XElement("ORG_ID", orgid),
+                                                   new XElement("PROJ_NAME", project_name),
+                                                   new XElement("PROJ_NUM", project_number),
+                                                   new XElement("PROJ_START_DATE", project_start_date),
+                                                   new XElement("PROJ_END_DATE", project_end_date),
+                                                   new XElement("PROJ_PERCENT", project_percent),
+                                                   new XElement("PROJ_BUDGET", project_budget),
+                                                   new XElement("PROJ_FUND", project_fund),
+                                                   new XElement("MD_CODE", mdcodes),
+                                                   new XElement("DATA01", data01),
+                                                   new XElement("DATA02", data02),
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("INSDATE", Insdate),
+                                                   new XElement("PROJ_LAW_NUM", project_law_num)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+
+        public XElement TableProjectList(int orgid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "TableProjectList"),
+                                               new XElement("Parameters",
+                                                   new XElement("ORG_ID", orgid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public XElement OrgProjectDataList(string ID)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "OrgProjectDataList"),
+                                               new XElement("Parameters",
+                                               new XElement("PROJECT_ID", ID)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
 
         #endregion'
     }

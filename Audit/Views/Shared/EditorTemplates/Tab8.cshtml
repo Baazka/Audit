@@ -3,25 +3,25 @@
     Layout = null;
 }
 
-@if (Model.MD_CODE == "180" || Model.MD_CODE == "181")
-{
-    @Html.HiddenFor(x => x.MD_CODE)
+@if (Model.PROJECT_NAME == null)
+{ 
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.TextAreaFor(x => x.Data02, new { @style = "width: 100%;" })</td>
+        Төсөл бүртгэгдээгүй байна.
     </tr>
 }
 else
-{
-    @Html.HiddenFor(x => x.MD_CODE)
-    <tr>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>
-            @Html.DropDownListFor(model => model.Data01, new SelectList(
-                        new List<Object>{
-                           new { value = 0 , text = "Тийм" },
-                           new { value = 1 , text = "Үгүй" }
-                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
-        </td>
-    </tr>
+{ 
+@Html.HiddenFor(x => x.PROJECT_NUMBER)
+<tr>
+    <td>@Html.DisplayFor(x => x.PROJECT_NAME)</td>
+    <td>@Html.DisplayFor(x => x.PROJECT_NUMBER)</td>
+    <td>@Html.DisplayFor(x => x.PROJECT_START_DATE)</td>
+    <td>@Html.DisplayFor(x => x.PROJECT_END_DATE)</td>
+    <td>@Html.DisplayFor(x => x.PROJECT_PERCENT)</td>
+    <td>@Html.DisplayFor(x => x.PROJECT_TOTAL_BUDGET)</td>
+    <td>@Html.DisplayFor(x => x.PROJECT_ORG_FUND)</td>
+    <td width="8%"> @*@Html.ActionLink("Засах", "OrgProjectEdit", "Shilendans", new { ID = Model.PROJECT_NUMBER }, null) |
+         @Html.ActionLink("Устгах", "OrgProjectDelete", "Shilendans", new { ID = Model.PROJECT_NUMBER}, new { @style = "color: #dc3545;" })*@
+    <a href="#"><i class="fa fa-edit"></i></a> <a href="#"><i class="fa fa-trash-alt"></i></a></td>
+</tr>
 }

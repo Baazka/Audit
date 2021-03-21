@@ -565,17 +565,20 @@ namespace Audit.Models
         public string MD_TIME { get; set; }
         public double Data01 { get; set; }
         public string Data02 { get; set; }
-        public string Data03 { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime? Data03 { get; set; }
     }
 
     public class Tab8
     {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public double Data01 { get; set; }
-        public string Data02 { get; set; }
-        public string Data03 { get; set; }
+        public string PROJECT_NAME { get; set; }
+        public string PROJECT_NUMBER { get; set; }
+        public string PROJECT_START_DATE { get; set; }
+        public string PROJECT_END_DATE { get; set; }
+        public string PROJECT_PERCENT { get; set; }
+        public string PROJECT_TOTAL_BUDGET { get; set; }
+        public string PROJECT_ORG_FUND { get; set; }
+
     }
 }

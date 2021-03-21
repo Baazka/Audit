@@ -90,6 +90,9 @@ namespace Audit.App_Func
             functions.Add("Table1List", (request) => DataAccess.Table1List(request));
             functions.Add("MirrorAccInsert", (request) => DataAccess.MirrorAccInsert(request));
             functions.Add("MirrDataList", (request) => DataAccess.MirrDataList(request));
+            functions.Add("OrgProjectInsert", (request) => DataAccess.OrgProjectInsert(request));
+            functions.Add("TableProjectList", (request) => DataAccess.TableProjectList(request));
+            functions.Add("OrgProjectDataList", (request) => DataAccess.OrgProjectDataList(request));
         }
     }
 }
