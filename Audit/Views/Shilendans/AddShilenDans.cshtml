@@ -5,7 +5,7 @@
         background-color: #233772;
         padding: 0.5rem 1rem;
     }
-        
+
     .modal-title {
         text-transform: uppercase;
         color: #fff;
@@ -113,22 +113,23 @@
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     @if (Model != null && Model.ORG_ID != 0)
                     {
-    <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="maygt1-tab" data-toggle="tab" href="#maygt1" role="tab" aria-selected="true">
-            МАЯГТ 1
-        </a>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="maygt1-tab" data-toggle="tab" href="#maygt1" role="tab" aria-selected="true">
+                                МАЯГТ 1
+                            </a>
 
-    </li>
+                        </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="maygt2-tab" data-toggle="tab" href="#maygt2" role="tab" aria-selected="false">
                                 МАЯГТ 4
                             </a>
                         </li>
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link" id="maygt3-tab" data-toggle="tab" href="#maygt3" role="tab" aria-selected="false">
-                                                    МАЯГТ 6
-                                                </a>
-                                            </li>}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="maygt3-tab" data-toggle="tab" href="#maygt3" role="tab" aria-selected="false">
+                                МАЯГТ 6
+                            </a>
+                        </li>
+}
                 </ul>
                 <div class="tab-content" id="myTabContent" style="background-color: #e7e7e5; padding:0 10px">
                     <div class="tab-pane fade show active" id="maygt1" role="tabpanel" aria-labelledby="maygt1-tab">
@@ -151,19 +152,19 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">ТЕЗ:</label>
                                         <div class="col-sm-8">
-                                            @Html.EditorFor(m => m.ORG_CONCENTRATOR_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            <input class="form-control form-control-sm" value="@Model.BUDGET_TYPE_NAME" readonly />
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control form-control-sm" value="@Model.BUDGET_TYPE_NAME" readonly />
+                                            <input class="form-control form-control-sm" value="@Model.ORG_CONCENTRATOR_NAME" readonly />
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Харьяа байгууллага, санхүүгийн тайлангийн нэр:</label>
+                                        <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
                                         <div class="col-sm-8">
                                             @Html.EditorFor(m => m.ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
                                         </div>
@@ -173,9 +174,9 @@
                                         <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                      new List<Object>{
-                                                     new { value = 99 , text = "2020.01.01-2020.12.31" },
-                          }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                             new List<Object>{
+                                                        new { value = 99 , text = "2020.01.01-2020.12.31" },
+                                 }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                         </div>
                                     </div>
                                 </div>
@@ -349,7 +350,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Харьяа байгууллага, санхүүгийн тайлангийн нэр:</label>
+                                        <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
                                         <div class="col-sm-8">
                                             @Html.EditorFor(m => m.ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
                                         </div>
@@ -359,9 +360,9 @@
                                         <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                      new List<Object>{
+                                                           new List<Object>{
                                                      new { value = 99 , text = "2020.01.01-2020.12.31" },
-                          }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+   }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                         </div>
                                     </div>
                                 </div>
@@ -489,7 +490,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label">Харьяа байгууллага, санхүүгийн тайлангийн нэр:</label>
+                                        <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
                                         <div class="col-sm-8">
                                             @Html.EditorFor(m => m.ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
                                         </div>
@@ -499,9 +500,9 @@
                                         <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                      new List<Object>{
+                                                           new List<Object>{
                                                      new { value = 99 , text = "2020.01.01-2020.12.31" },
-                          }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+   }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                         </div>
                                     </div>
                                 </div>
@@ -562,9 +563,11 @@
                                                     <th rowspan="2" style="vertical-align:middle;" class="text-center">Нийт төсөвт өртөг /сая.төг/</th>
                                                     <th rowspan="2" style="vertical-align:middle;" class="text-center">Санхүүжилт өгсөн байгууллагын нэр /санхүүжилт олгосон Захиалагч байгууллага/</th>
                                                     <th rowspan="2" style="vertical-align:middle;" class="text-center">Үйлдэл</th>
-                                                <tr><th class="text-center">Эхлэх</th><th class="text-center">Дуусах</th>
+                                                <tr>
+                                                    <th class="text-center">Эхлэх</th>
+                                                    <th class="text-center">Дуусах</th>
 
-                                                @Html.EditorFor(t => t.tab8)
+                                                    @Html.EditorFor(t => t.tab8)
                                             </table>
 
                                         </div>
@@ -578,136 +581,136 @@
 
         </div>
 
-        
+
     </div>
 </div>
 
-<div class="modal fade" id="InsertProjectModal" role="dialog">
-    <div class="modal-dialog" style="max-width:90%;margin: 0 auto;">
+                <div class="modal fade" id="InsertProjectModal" role="dialog">
+                    <div class="modal-dialog" style="max-width:90%;margin: 0 auto;">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel"></h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
-            </div>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="exampleModalLabel">НЭМЭХ</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+                            </div>
 
-            <div class="row" style="background-color: #e7e7e5;margin: 0 10px;">
+                            <div class="row" style="background-color: #e7e7e5;margin: 0 10px;">
 
-                <div class="col-md-6">
-                    <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+                                <div class="col-md-6">
+                                    <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">ТЕЗ:</label>
-                        <div class="col-sm-8">
-                            @Html.EditorFor(m => m.ORG_CONCENTRATOR_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                        </div>
-                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(m => m.BUDGET_TYPE_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        </div>
+                                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
-                        <div class="col-sm-8">
-                            <input class="form-control form-control-sm" value="@Model.BUDGET_TYPE_NAME" readonly />
-                        </div>
-                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control form-control-sm" value="@Model.BUDGET_TYPE_NAME" readonly />
+                                        </div>
+                                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Харьяа байгууллага, санхүүгийн тайлангийн нэр:</label>
-                        <div class="col-sm-8">
-                            @Html.EditorFor(m => m.ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                        </div>
-                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                                        <div class="col-sm-8">
+                                            @Html.EditorFor(m => m.ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        </div>
+                                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
-                        <div class="col-sm-8">
-                            @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                new List<Object>{
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownListFor(m => m.taxOffices, new SelectList(
+                                                                     new List<Object>{
                                         new { value = 99 , text = "2020.01.01-2020.12.31" },
-                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
+                 }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
 
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
-                        <div class="col-sm-7">
-                            @Html.EditorFor(m => m.ORGP_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
-                        <div class="col-sm-7">
-                            @Html.EditorFor(m => m.ORGP_FIRSTNAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
-                        <div class="col-sm-7">
-                            @Html.EditorFor(m => m.ORGP_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал, нэр, холбоо барих утас :</label>
-                        <div class="col-sm-7">
-                            <input class="form-control form-control-sm" value="@Model.ORGP_ROLE2, @Model.ORGP_FIRSTNAME2, @Model.ORGP_PHONE2" readonly />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr />
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                                        <div class="col-sm-7">
+                                            @Html.EditorFor(m => m.ORGP_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                                        <div class="col-sm-7">
+                                            @Html.EditorFor(m => m.ORGP_FIRSTNAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                        <div class="col-sm-7">
+                                            @Html.EditorFor(m => m.ORGP_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал, нэр, холбоо барих утас :</label>
+                                        <div class="col-sm-7">
+                                            <input class="form-control form-control-sm" value="@Model.ORGP_ROLE2, @Model.ORGP_FIRSTNAME2, @Model.ORGP_PHONE2" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
 
-            <div style="margin: 0 10px;">
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
-                    <div class="col-sm-2">
-                        @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
-                                                        new List<Object>{
+                            <div style="margin: 0 10px;">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
+                                    <div class="col-sm-2">
+                                        @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
+                                                                             new List<Object>{
                                                         new { value = 1 , text = "3.1.4" },
                                                         new { value = 2 , text = "3.1.5" },
-                                                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                     }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered" style="font-size:12px;">
+                                    <tr>
+                                        <th>Хуулийн заалт</th>
+                                        <th>Мэдээллийн агуулга </th>
+                                        <th>Хугацаа</th>
+                                        <th>Үнэлгээ</th>
+                                    </tr>
+                                    @Html.EditorFor(t => t.tab7)
+                                    <tr>
+                                        <td>Шалгасан аудиторын нэр</td>
+                                        <td>@User.Identity.Name.ToUpper()</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Аудиторын код</td>
+                                        <td>***</td>
+                                    </tr>
+                                </table>
+
+                                <div style="text-align: right">
+                                    <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                    <button type="submit" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
+                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-
-                <table class="table table-bordered" style="font-size:12px;">
-                    <tr>
-                        <th>Хуулийн заалт</th>
-                        <th>Мэдээллийн агуулга </th>
-                        <th>Хугацаа</th>
-                        <th>Үнэлгээ</th>
-                    </tr>
-                    @Html.EditorFor(t => t.tab7)
-                    <tr>
-                        <td>Шалгасан аудиторын нэр</td>
-                        <td>@User.Identity.Name.ToUpper()</td>
-                    </tr>
-                    <tr>
-                        <td>Аудиторын код</td>
-                        <td>***</td>
-                    </tr>
-                </table>
-
-                <div style="text-align: right">
-                    <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                    <button type="submit" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
-                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div> 
-}
+                </div>}
 @*<script>
-    function print() {
-        printJS({
-            printable: 'printdiv1',
-            type: 'html',
-            targetStyles: ['*']
-        })
-    }
+        function print() {
+            printJS({
+                printable: 'printdiv1',
+                type: 'html',
+                targetStyles: ['*']
+            })
+        }
 
-    document.getElementById('printButton').addEventListener("click", print)
-</script>*@
+        document.getElementById('printButton').addEventListener("click", print)
+    </script>*@
+

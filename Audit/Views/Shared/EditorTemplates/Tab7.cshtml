@@ -51,12 +51,12 @@
 @if (Model.MD_CODE == "157" || Model.MD_CODE == "158")
 {
     @Html.HiddenFor(x => x.MD_CODE)
-<tr>
-    <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
-    <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-    <td>@Html.DisplayFor(x => x.MD_TIME)</td>
-    <td>@Html.EditorFor(x => x.Data03, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })</td>
-</tr>
+    <tr>
+        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td>@Html.EditorFor(x => x.Data03, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker"} })</td>
+    </tr>
 }
 @if (Model.MD_CODE == "160" || Model.MD_CODE == "161" || Model.MD_CODE == "162" || Model.MD_CODE == "164" || Model.MD_CODE == "165" || Model.MD_CODE == "166" || Model.MD_CODE == "168" || Model.MD_CODE == "169" || Model.MD_CODE == "170" || Model.MD_CODE == "172" || Model.MD_CODE == "173" || Model.MD_CODE == "174")
 {
@@ -95,6 +95,7 @@
     </tr>
 }
 
+
 <script>
   $( function() {
       $(".datepicker").datepicker({
@@ -109,11 +110,11 @@
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
-          maxDate: "+0D",
-          showOn: "button",
+          maxDate: "+0D"
+          @*showOn: "button",
           buttonImage: "@Url.Content("~/Images/calendar.png")",
           buttonImageOnly: true,
-          buttonText: "Select date"
+          buttonText: "Select date"*@
       });
   });
 </script>
