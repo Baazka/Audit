@@ -41,7 +41,7 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утас оруулна уу.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORG_PHONE { get; set; }
-        [Required(ErrorMessage = "Факс оруулна уу.")]
+        //[Required(ErrorMessage = "Факс оруулна уу.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORG_FAX { get; set; }
 
@@ -50,11 +50,15 @@ namespace Audit.Models
 
         [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORGB_BANK_ID { get; set; }
-        public int? ORGB_BANK_ACCOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
+        public string ORGB_BANK_ACCOUNT { get; set; }
         public string ORGB_DESCRIPTION { get; set; }
         [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORGB_BANK_ID2 { get; set; }
-        public int? ORGB_BANK_ACCOUNT2 { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
+        public string ORGB_BANK_ACCOUNT2 { get; set; }
         public string ORGB_DESCRIPTION2 { get; set; }
 
         //udirdlaga
@@ -194,13 +198,13 @@ namespace Audit.Models
             if (elem.Element("ORGB_BANK_ID") != null)
                 ORGB_BANK_ID = Convert.ToInt32(elem.Element("ORGB_BANK_ID").Value);
             if (elem.Element("ORGB_BANK_ACCOUNT") != null)
-                ORGB_BANK_ACCOUNT = Convert.ToInt32(elem.Element("ORGB_BANK_ACCOUNT").Value);
+                ORGB_BANK_ACCOUNT = elem.Element("ORGB_BANK_ACCOUNT").Value;
             if (elem.Element("ORGB_DESCRIPTION") != null)
                 ORGB_DESCRIPTION = elem.Element("ORGB_DESCRIPTION").Value;
             if (elem.Element("ORGB_BANK_ID2") != null)
                 ORGB_BANK_ID2 = Convert.ToInt32(elem.Element("ORGB_BANK_ID2").Value);
             if (elem.Element("ORGB_BANK_ACCOUNT2") != null)
-                ORGB_BANK_ACCOUNT2 = Convert.ToInt32(elem.Element("ORGB_BANK_ACCOUNT2").Value);
+                ORGB_BANK_ACCOUNT2 = elem.Element("ORGB_BANK_ACCOUNT2").Value;
             if (elem.Element("ORGB_DESCRIPTION2") != null)
                 ORGB_DESCRIPTION2 = elem.Element("ORGB_DESCRIPTION2").Value;
 
