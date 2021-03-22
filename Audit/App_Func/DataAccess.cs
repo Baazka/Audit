@@ -208,6 +208,7 @@ namespace Audit.App_Func
 
             return response;
         }
+        #region Reg
         public static DataResponse OrgList(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -567,8 +568,8 @@ namespace Audit.App_Func
 
                 cmd.Parameters.Add(":P_BANKID1", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID")?.Value;
                 cmd.Parameters.Add(":P_BANKID2", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID2")?.Value;
-                cmd.Parameters.Add(":P_BANKACCOUNT1", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ACCOUNT")?.Value;
-                cmd.Parameters.Add(":P_BANKACCOUNT2", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ACCOUNT2")?.Value;
+                cmd.Parameters.Add(":P_BANKACCOUNT1", OracleDbType.Int64).Value = elem.Element("ORGB_BANK_ACCOUNT")?.Value;
+                cmd.Parameters.Add(":P_BANKACCOUNT2", OracleDbType.Int64).Value = elem.Element("ORGB_BANK_ACCOUNT2")?.Value;
                 cmd.Parameters.Add(":P_BANKDESC1", OracleDbType.Varchar2).Value = elem.Element("ORGB_DESCRIPTION")?.Value;
                 cmd.Parameters.Add(":P_BANKDESC2", OracleDbType.Varchar2).Value = elem.Element("ORGB_DESCRIPTION2")?.Value;
 
@@ -836,7 +837,8 @@ namespace Audit.App_Func
 
             return response;
         }
-
+        #endregion
+        #region BM
         public static DataResponse BM0(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -1257,6 +1259,8 @@ namespace Audit.App_Func
 
             return response;
         }
+        #endregion
+        #region NM
         public static DataResponse NM1(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -1614,6 +1618,8 @@ namespace Audit.App_Func
 
             return response;
         }
+        #endregion
+        #region CM
         public static DataResponse CM1A(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2430,6 +2436,7 @@ namespace Audit.App_Func
 
             return response;
         }
+        #endregion
 
         public static DataResponse Table1List(XElement request)
         {
