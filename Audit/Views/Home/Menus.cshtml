@@ -1,50 +1,32 @@
-﻿
-@if (User.IsInRole("Admin"))
+﻿@model System.Xml.Linq.XElement
+
+@if (Model.Elements("MenuList").Count() != 0)
 {
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="@Url.Action("Index", "Home")">
-            <i class="fas fa-fw fa-file-alt"></i>
-            <span>Бүртгэл</span>
-        </a>
-    </li>
-
-    <li class="nav-item active">
-        <a class="nav-link" href="@Url.Action("Index", "Shilendans")">
-            <i class="fas fa-fw fa-paste"></i>
-            <span>Шилэн данс</span>
-        </a>
-    </li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+    foreach (var i in Model.Elements("MenuList"))
+    {
+        <li class="nav-item active">
+            <a class="nav-link" href="@i.Element("MENU_ROUTE").Value?menuid=@i.Element("MENU_ID").Value">
+                <i class="fas fa-fw fa-file-alt"></i>
+                <span>@i.Element("MENU_NAME").Value</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+    }
 }
-
-@*@if (User.IsInRole("Dans"))*@
-@*{*@
-<!-- Nav Item - Charts -->
-@*<li class="nav-item active">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-file"></i>
-            <span>Шилэн данс</span>
-        </a>
-    </li>*@
-
+<!--<li class="nav-item active">
+    <a class="nav-link" href="@Url.Action("Index", "Shilendans")">
+        <i class="fas fa-fw fa-paste"></i>
+        <span>Шилэн данс</span>
+    </a>
+</li>-->
 <!-- Divider -->
-@*<hr class="sidebar-divider">*@
-
-@*}*@
-
-@if (User.IsInRole("Stat"))
-{
-    <!-- Nav Item - Tables -->
-    <li class="nav-item active">
-        <a class="nav-link" href="@Url.Action("Index", "Statistic")">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Статистик</span>
-        </a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-}
-
+<!--<hr class="sidebar-divider">-->
+<!-- Nav Item - Tables -->
+<!--<li class="nav-item active">
+    <a class="nav-link" href="@Url.Action("Index", "Statistic")">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Статистик</span>
+    </a>
+</li>-->
+<!-- Divider -->
+<!--<hr class="sidebar-divider">-->

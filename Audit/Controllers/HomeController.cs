@@ -11,14 +11,18 @@ using System.Xml.Linq;
 namespace Audit.Controllers
 {
     [ApplicationAuthorize]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Director")]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int menuid)
         {
             OrgVM res = new OrgVM();
             try
             {
+                XElement response = AppStatic.SystemController.MenuRole(Convert.ToInt32(User.Identity.GetUserId()), menuid);
+                if (response != null && response.Elements("MenuRole") != null)
+                    res.menuRoles = (from item in response.Elements("MenuRole") select new MenuRole().FromXml(item)).ToList();
+
                 if (Globals.departments.Count > 0 || Globals.statuses.Count > 0 || Globals.violations.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
                 {
                     res.departments = Globals.departments;
@@ -109,16 +113,19 @@ namespace Audit.Controllers
             return View(res);
         }
         [AllowAnonymous]
+        public ActionResult Home()
+        {
+            return View();
+        }
+        [AllowAnonymous]
         public PartialViewResult Menus()
         {
-            return PartialView();
+            XElement res = AppStatic.SystemController.MenuList(Convert.ToInt32(User.Identity.GetUserId()));
+            return PartialView(res);
         }
         public ActionResult OrgList()
         {
             List<OrgList> orgLists = new List<OrgList>();
-            //XElement res = AppStatic.SystemController.OrgList(User.GetClaimData("DepartmentID"));
-            //if (res != null && res.Elements("OrgList") != null)
-            //    orgLists = (from item in res.Elements("OrgList") select new OrgList().FromXml(item)).ToList();
             return View(orgLists);
         }
         public ActionResult OrgDetail(int orgid)

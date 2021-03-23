@@ -234,6 +234,7 @@
     <Compile Include="Models\DataList.cs" />
     <Compile Include="Models\Info.cs" />
     <Compile Include="Models\LoginVM.cs" />
+    <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\SystemLibrary.cs" />
@@ -2175,6 +2176,7 @@
     <Content Include="Views\Shared\EditorTemplates\Tab7.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Tab8.cshtml" />
     <Content Include="Views\Shilendans\OrgProjectEdit.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
