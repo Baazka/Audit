@@ -18,7 +18,7 @@
 }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
-        @if (Role.hasAdminRole(User))
+        @if (Role.hasDirectorRole(User))
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
@@ -33,6 +33,7 @@
             <label for="ViolationID" class="col-form-label">Алдаа:</label><br />
             @Html.ListBoxFor(model => model.ViolationIDs, Model.Violation, new { id = "violation" })
         </div>
+        @*@if (Model.menuRoles.) { }*@
         <div class="form-group-sm ml-auto pr-2">
             <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="Organization.loadTemplate();">
                 <span class="icon text-white-50">

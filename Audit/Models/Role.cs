@@ -10,6 +10,9 @@ namespace Audit.Models
     {
         public const string Active = "Active";
         public const string Admin = "Admin";
+        public const string Head_Auditor = "Head_Auditor";
+        public const string Branch_Auditor = "Branch_Auditor";
+        public const string Director = "Director";
         public const string Stat = "Stat";
 
         public int ID { get; set; }
@@ -27,6 +30,18 @@ namespace Audit.Models
         public static bool hasAdminRole(System.Security.Principal.IPrincipal User)
         {
             return User.IsInRole(Admin);
+        }
+        public static bool hasHeadAuditorRole(System.Security.Principal.IPrincipal User)
+        {
+            return User.IsInRole(Head_Auditor);
+        }
+        public static bool hasBranchAuditorRole(System.Security.Principal.IPrincipal User)
+        {
+            return User.IsInRole(Branch_Auditor);
+        }
+        public static bool hasDirectorRole(System.Security.Principal.IPrincipal User)
+        {
+            return User.IsInRole(Director);
         }
         public static bool hasStatRole(System.Security.Principal.IPrincipal User)
         {

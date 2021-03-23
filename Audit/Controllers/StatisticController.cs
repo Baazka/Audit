@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace Audit.Controllers
 {
     [ApplicationAuthorize]
-    [Authorize(Roles = "Stat")]
+    //[Authorize(Roles = "Director")]
     public class StatisticController : Controller
     {
         // GET: Stat

@@ -402,6 +402,7 @@ namespace Audit.Models
 
     public class OrgVM
     {
+        public List<MenuRole> menuRoles { get; set; }
         public int DeparmentID { get; set; }
         public int[] StatusIDs { get; set; }
         public MultiSelectList Status { get; set; }

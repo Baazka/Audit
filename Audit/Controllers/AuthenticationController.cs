@@ -73,15 +73,19 @@ namespace Audit.Controllers
                            DefaultAuthenticationTypes.ApplicationCookie,
                            ClaimTypes.Name, ClaimTypes.Role);
 
-                        if (loggedUser.USER_TYPE_NAME == "Admin")
+                        if (loggedUser.USER_TYPE_NAME.ToUpper() == "ADMIN")
                             identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
-                        if (loggedUser.USER_TYPE_NAME == "stat")
-                            identity.AddClaim(new Claim(ClaimTypes.Role, "Stat"));
+                        if (loggedUser.USER_TYPE_NAME.ToUpper() == "HEAD_AUDITOR")
+                            identity.AddClaim(new Claim(ClaimTypes.Role, "Head_Auditor"));
+                        if (loggedUser.USER_TYPE_NAME.ToUpper() == "BRANCH_AUDITOR")
+                            identity.AddClaim(new Claim(ClaimTypes.Role, "Branch_Auditor"));
+                        if (loggedUser.USER_TYPE_NAME.ToUpper() == "DIRECTOR")
+                            identity.AddClaim(new Claim(ClaimTypes.Role, "Director"));
 
                         Authentication.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
-                        if(loggedUser.USER_TYPE_NAME == "stat")
-                            return RedirectToAction("Index", "Statistic", new { Area = "" });
-                        return RedirectToAction("Index", "Home", new { Area = "" });
+
+                        //return RedirectToAction("Index", "Home", new { Area = "" });
+                        return RedirectToAction("Home", "Home", new { Area = "" });
                     }
                     else
                     {
