@@ -73,7 +73,7 @@ namespace Audit.Controllers
                            DefaultAuthenticationTypes.ApplicationCookie,
                            ClaimTypes.Name, ClaimTypes.Role);
 
-                        if (loggedUser.USER_TYPE_NAME == "admin")
+                        if (loggedUser.USER_TYPE_NAME == "Admin")
                             identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
                         if (loggedUser.USER_TYPE_NAME == "stat")
                             identity.AddClaim(new Claim(ClaimTypes.Role, "Stat"));
