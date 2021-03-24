@@ -14,12 +14,12 @@ namespace Audit.Controllers
     //[Authorize(Roles = "Director")]
     public class HomeController : Controller
     {
-        public ActionResult Index(int menuid)
+        public ActionResult Index(string id)
         {
             OrgVM res = new OrgVM();
             try
             {
-                XElement response = AppStatic.SystemController.MenuRole(Convert.ToInt32(User.Identity.GetUserId()), menuid);
+                XElement response = AppStatic.SystemController.MenuRole(Convert.ToInt32(User.Identity.GetUserId()), Convert.ToInt32(Globals.Decrypt(id)));
                 if (response != null && response.Elements("MenuRole") != null)
                     res.menuRoles = (from item in response.Elements("MenuRole") select new MenuRole().FromXml(item)).ToList();
 
@@ -128,11 +128,12 @@ namespace Audit.Controllers
             List<OrgList> orgLists = new List<OrgList>();
             return View(orgLists);
         }
-        public ActionResult OrgDetail(int orgid)
+        public ActionResult OrgDetail(int orgid, bool isshow)
         {
             Organization organization = new Organization();
             try
             {
+                organization.IsShow = isshow;
                 XElement res = AppStatic.SystemController.OrgDetail(orgid);
                 if (res != null && res.Elements("OrgDetail") != null) {
                     organization = new Organization().FromXml(res.Element("OrgDetail"));

@@ -1,11 +1,12 @@
 ﻿@model System.Xml.Linq.XElement
+    @using Audit.App_Func
 
 @if (Model.Elements("MenuList").Count() != 0)
 {
     foreach (var i in Model.Elements("MenuList"))
     {
         <li class="nav-item active">
-            <a class="nav-link" href="@i.Element("MENU_ROUTE").Value?menuid=@i.Element("MENU_ID").Value">
+            <a class="nav-link" href="@i.Element("MENU_ROUTE").Value?id=@Globals.Encrypt(i.Element("MENU_ID").Value)">
                 <i class="fas fa-fw fa-file-alt"></i>
                 <span>@i.Element("MENU_NAME").Value</span>
             </a>

@@ -93,7 +93,7 @@ namespace Audit.Controllers.Library
                 if (!this.IsValid) { return null; }
 
                 XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "MenuList"),
+                                               new XElement("Function", "MenuRole"),
                                                new XElement("Parameters",
                                                    new XElement("USER_ID", userid),
                                                    new XElement("MENU_ID", menuid)));

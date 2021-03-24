@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="AUD_STAT">
+  <ConnectionProperties>
+    <Extension>OLEDB</Extension>
+    <ConnectString>Provider=OraOLEDB.Oracle.1;Data Source=10.10.10.41:1521/PDBORCL</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>63e395b3-1bf0-49b1-bb4f-b0f36b79eb01</DataSourceID>
+</RptDataSource>
