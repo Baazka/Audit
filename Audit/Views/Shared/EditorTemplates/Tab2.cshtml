@@ -6,11 +6,17 @@
 @if (Model.MD_CODE == "36" || Model.MD_CODE == "42" || Model.MD_CODE == "49" || Model.MD_CODE == "56")
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr style="text-align:center;font-weight:bold;text-transform:uppercase;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
 }
 @if (Model.MD_CODE == "35" || Model.MD_CODE == "40" || Model.MD_CODE == "41" || Model.MD_CODE == "63")
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr>
         <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
@@ -30,6 +36,9 @@
 @if (Model.MD_CODE == "37" || Model.MD_CODE == "38" || Model.MD_CODE == "39" || Model.MD_CODE == "43" || Model.MD_CODE == "44" || Model.MD_CODE == "45" || Model.MD_CODE == "46" || Model.MD_CODE == "47" || Model.MD_CODE == "48" || Model.MD_CODE == "50" || Model.MD_CODE == "51" || Model.MD_CODE == "52" || Model.MD_CODE == "53" || Model.MD_CODE == "54" || Model.MD_CODE == "55" || Model.MD_CODE == "57" || Model.MD_CODE == "58" || Model.MD_CODE == "59" || Model.MD_CODE == "60" || Model.MD_CODE == "61" || Model.MD_CODE == "62")
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr>
         <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>

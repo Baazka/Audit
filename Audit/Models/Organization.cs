@@ -584,6 +584,7 @@ namespace Audit.Models
         public string PROJECT_PERCENT { get; set; }
         public string PROJECT_TOTAL_BUDGET { get; set; }
         public string PROJECT_ORG_FUND { get; set; }
+        public int ORG_ID { get; set; }
 
     }
 }

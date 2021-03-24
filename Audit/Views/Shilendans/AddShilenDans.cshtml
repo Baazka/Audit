@@ -1,5 +1,5 @@
 ﻿@model Audit.Models.Organization
-
+@using Audit.App_Func
 <style>
     .modal-header {
         background-color: #233772;
@@ -89,17 +89,18 @@
 </style>
 
 @using (Ajax.BeginForm("AddShilenDans", "Shilendans", new { Area = "" },
-           new AjaxOptions
-           {
-               UpdateTargetId = "orgmodalcontainer",
-               OnBegin = "Modal.show()",
-               OnComplete = "Modal.hide(); $('#OrgModal').modal({ show: true }); $('.modal-backdrop:first').remove()",
-               OnSuccess = "Organization.progressResponse(data, status, xhr)",
-               OnFailure = "errorResponse",
-               HttpMethod = "Post",
-               InsertionMode = InsertionMode.Replace
-           },
-           new { @class = "form-horizontal", @autocomplete = "off" }))
+    new AjaxOptions
+    {
+        UpdateTargetId = "orgmodalcontainer",
+        //OnBegin = "Modal.show()",
+        //OnComplete = "Modal.hide(); $('#OrgModal').modal('show');",
+        //OnComplete = "",
+        OnSuccess = "Organization.progressResponse(data, status, xhr)",
+        OnFailure = "errorResponse",
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.Replace
+    },
+    new { @class = "form-horizontal", @autocomplete = "off" }))
 {
 <div class="modal fade" id="OrgModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
@@ -110,26 +111,31 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
             </div>
             <div class="modal-body">
+                @if(ViewBag.Results != null){ 
+                <div class="alert alert-success success text-center">
+                    <span style="font-weight:bold;">@ViewBag.Results</span>
+                </div>
+                }
+
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     @if (Model != null && Model.ORG_ID != 0)
                     {
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="maygt1-tab" data-toggle="tab" href="#maygt1" role="tab" aria-selected="true">
-                                МАЯГТ 1
-                            </a>
-
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="maygt2-tab" data-toggle="tab" href="#maygt2" role="tab" aria-selected="false">
-                                МАЯГТ 4
-                            </a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="maygt3-tab" data-toggle="tab" href="#maygt3" role="tab" aria-selected="false">
-                                МАЯГТ 6
-                            </a>
-                        </li>
-}
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="maygt1-tab" data-toggle="tab" href="#maygt1" role="tab" aria-selected="true">
+                            МАЯГТ 1
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="maygt2-tab" data-toggle="tab" href="#maygt2" role="tab" aria-selected="false">
+                            МАЯГТ 4
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="maygt3-tab" data-toggle="tab" href="#maygt3" role="tab" aria-selected="false">
+                            МАЯГТ 6
+                        </a>
+                    </li>
+                    }
                 </ul>
                 <div class="tab-content" id="myTabContent" style="background-color: #e7e7e5; padding:0 10px">
                     <div class="tab-pane fade show active" id="maygt1" role="tabpanel" aria-labelledby="maygt1-tab">
@@ -174,9 +180,9 @@
                                         <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                             new List<Object>{
+                                                                                 new List<Object>{
                                                         new { value = 99 , text = "2020.01.01-2020.12.31" },
-                                 }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+}, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +257,8 @@
 
                                         <div style="text-align: right">
                                             <button type="submit" value="tab1save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                                            @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
+                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                         </div>
 
                                     </div>
@@ -269,7 +276,7 @@
 
                                         <div style="text-align: right">
                                             <button type="submit" value="tab2save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                         </div>
                                     </div>
 
@@ -286,7 +293,7 @@
 
                                         <div style="text-align: right">
                                             <button type="submit" value="tab3save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                         </div>
                                     </div>
 
@@ -299,18 +306,18 @@
                                             @Html.EditorFor(t => t.tab4)
                                             <tr>
                                                 <td>Шалгасан аудиторын нэр</td>
-                                                <td>@User.Identity.Name.ToUpper()</td>
+                                                <td>@User.GetClaimData("USER_NAME")</td>
                                             </tr>
                                             <tr>
                                                 <td>Аудиторын код</td>
-                                                <td>***</td>
+                                                <td>@User.Identity.Name.ToUpper()</td>
                                             </tr>
                                         </table>
 
                                         <div style="text-align: right">
                                             <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                             <button type="button" id="printButton" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
-                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                         </div>
                                     </div>
                                 </div>
@@ -360,9 +367,9 @@
                                         <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                           new List<Object>{
+                                                                               new List<Object>{
                                                      new { value = 99 , text = "2020.01.01-2020.12.31" },
-   }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+}, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                         </div>
                                     </div>
                                 </div>
@@ -426,7 +433,7 @@
 
                                             <div style="text-align: right">
                                                 <button type="submit" value="tab5save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                             </div>
 
                                         </div>
@@ -440,17 +447,18 @@
                                                 @Html.EditorFor(t => t.tab6)
                                                 <tr>
                                                     <td>Шалгасан аудиторын нэр</td>
-                                                    <td>@User.Identity.Name.ToUpper()</td>
+                                                    <td>@User.GetClaimData("USER_NAME")</td>
+
                                                 </tr>
                                                 <tr>
                                                     <td>Аудиторын код</td>
-                                                    <td>***</td>
+                                                    <td>@User.Identity.Name.ToUpper()</td>
                                                 </tr>
                                             </table>
 
                                             <div style="text-align: right">
                                                 <button type="submit" value="tab6save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                             </div>
                                         </div>
                                     </div>
@@ -500,9 +508,9 @@
                                         <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                           new List<Object>{
+                                                                               new List<Object>{
                                                      new { value = 99 , text = "2020.01.01-2020.12.31" },
-   }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+}, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                         </div>
                                     </div>
                                 </div>
@@ -552,7 +560,7 @@
                                             <div style="text-align: right; margin-top:6px;">
                                                 <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" data-toggle="modal" data-target="#InsertProjectModal">Нэмэх</button>
                                                 <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
-                                            </div>
+                                            </div><br>
 
                                             <table class="table table-bordered" style="font-size:12px;">
                                                 <tr>
@@ -625,9 +633,9 @@
                                         <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
                                         <div class="col-sm-8">
                                             @Html.DropDownListFor(m => m.taxOffices, new SelectList(
-                                                                     new List<Object>{
-                                        new { value = 99 , text = "2020.01.01-2020.12.31" },
-                 }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                                                          new List<Object>{
+        new { value = 99 , text = "2020.01.01-2020.12.31" },
+}, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                         </div>
                                     </div>
                                 </div>
@@ -667,28 +675,29 @@
                                     <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
                                     <div class="col-sm-2">
                                         @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
-                                                                             new List<Object>{
-                                                        new { value = 1 , text = "3.1.4" },
-                                                        new { value = 2 , text = "3.1.5" },
-                                                     }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                                                                  new List<Object>{
+                        new { value = 1 , text = "3.1.4" },
+                        new { value = 2 , text = "3.1.5" },
+  }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
                                     </div>
                                 </div>
 
                                 <table class="table table-bordered" style="font-size:12px;">
                                     <tr>
-                                        <th>Хуулийн заалт</th>
-                                        <th>Мэдээллийн агуулга </th>
-                                        <th>Хугацаа</th>
-                                        <th>Үнэлгээ</th>
+                                        <th width="10%">Хуулийн заалт</th>
+                                        <th width="40%">Мэдээллийн агуулга </th>
+                                        <th width="10%">Хугацаа</th>
+                                        <th width="40%">Үнэлгээ</th>
                                     </tr>
                                     @Html.EditorFor(t => t.tab7)
                                     <tr>
                                         <td>Шалгасан аудиторын нэр</td>
-                                        <td>@User.Identity.Name.ToUpper()</td>
+                                        <td>@User.GetClaimData("USER_NAME")</td>
+
                                     </tr>
                                     <tr>
                                         <td>Аудиторын код</td>
-                                        <td>***</td>
+                                        <td>@User.Identity.Name.ToUpper()</td>
                                     </tr>
                                 </table>
 
@@ -702,6 +711,29 @@
 
                     </div>
                 </div>}
+
+
+
+<div class="modal fade" id="NoteModal" role="dialog">
+    <div class="modal-dialog" style="max-width:90%;margin: 0 auto;">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="height: 800px;">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel"></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+            </div>
+
+            <h6 class="alert alert-danger text-center" style="margin-top:350px;">Энэ цонхыг хаахдаа итгэлтэй байна уу</h6>
+
+            <div style="text-align: center">
+                <a href="/Shilendans/Index" class="btn btn-danger">ТИЙМ</a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">ҮГҮЙ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @*<script>
         function print() {
             printJS({
@@ -713,4 +745,8 @@
 
         document.getElementById('printButton').addEventListener("click", print)
     </script>*@
-
+<script>
+    $(document).ready(function () {
+        $("div.success").fadeIn(300).delay(1500).fadeOut(400);
+    });
+</script>

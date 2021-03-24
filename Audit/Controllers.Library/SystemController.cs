@@ -1807,7 +1807,7 @@ namespace Audit.Controllers.Library
 
             return false;
         }
-        public bool OrgProjectInsert(int yearcode, int orgid, string project_name, string project_number, string project_start_date, string project_end_date, int project_percent, string project_budget, string project_fund ,int mdcodes, double data01, string data02, int userid, DateTime Insdate, int project_law_num)
+        public bool OrgProjectInsert(int yearcode, int orgid, string project_name, int project_number, string project_start_date, string project_end_date, int project_percent, string project_budget, string project_fund ,int mdcodes, double data01, string data02, int userid, DateTime Insdate, int project_law_num)
         {
             try
             {
@@ -1889,7 +1889,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement OrgProjectDataList(string ID)
+        public XElement OrgProjectDataList(int ID)
         {
             try
             {

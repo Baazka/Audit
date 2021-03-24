@@ -6,6 +6,9 @@
 @if (Model.MD_CODE == "108" || Model.MD_CODE == "109")
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>@Html.TextAreaFor(x => x.Data02, new { @style = "width: 100%;" })</td>
@@ -14,6 +17,9 @@
 else
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>
@@ -21,7 +27,7 @@ else
                         new List<Object>{
                            new { value = 0 , text = "Тийм" },
                            new { value = 1 , text = "Үгүй" }
-                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;"})
+                        }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
         </td>
     </tr>
 }

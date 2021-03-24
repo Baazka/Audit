@@ -1,13 +1,69 @@
 ﻿@model Audit.Models.Organization
-
+@using Audit.App_Func
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="/Scripts/bootstrap.min.js"></script>
+<script src="/Scripts/sb-admin-2.js"></script>
+<script src="/Plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/Plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/Scripts/xlsx.full.min.js"></script>
+<script src="/Scripts/Print.js"></script>
+<script src="/Plugins/jquery-ui/jquery-ui.js"></script>
+<script src="/Plugins/multiselect/bootstrap-multiselect.min.js"></script>
+<script src="/Plugins/noti/notifications.js"></script>
+<script src="/Scripts/Application.js"></script>
+<link href="/Plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/Plugins/datatables/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" href="/Plugins/jquery-ui/jquery-ui.css">
+<link rel="stylesheet" href="/Plugins/multiselect/bootstrap-multiselect.min.css">
+<link rel="stylesheet" href="/Plugins/noti/notifications.css">
+<script src="/Scripts/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<link href="/Content/bootstrap.css" rel="stylesheet" />
+<link href="/Content/sb-admin-2.css" rel="stylesheet" />
+<link href="/Content/site.css" rel="stylesheet" />
+<script src="/Scripts/modernizr-2.8.3.js"></script>
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+<script>
+$( function() {
+    $(".datepicker").datepicker({
+        beforeShow: function () {
+            setTimeout(function () {
+                $('.ui-datepicker').css('z-index', 99999999999999);
+            }, 0);
+        },
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy/mm/dd",
+        firstDay: 1,
+        dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+        monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+        maxDate: "+0D"
+        @*showOn: "button",
+        buttonImage: "@Url.Content("~/Images/calendar.png")",
+        buttonImageOnly: true,
+        buttonText: "Select date"*@
+    });
+});
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("div.success").fadeIn(300).delay(1500).fadeOut(400);
+
+    });
+
+    @*function Redirect() {
+            window.location.href = "@Url.Action("Index", "Shilendans")";
+        }
+        setTimeout('Redirect()', 100);*@
+</script>
 
 </head>
 <body>
@@ -30,14 +86,21 @@
 
 <div class="col-md-12" style="padding: 0 100px;">
     @Html.HiddenFor(m => m.ORG_ID)
+
+    @if(ViewBag.Results != null){ 
+    <div class="alert alert-success success text-center">
+        <span style="font-weight:bold;">@ViewBag.Results</span>
+    </div>
+    }
+
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
         <div class="col-sm-2">
             @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
-                                          new List<Object>{
+                                               new List<Object>{
                                     new { value = 1 , text = "3.1.4" },
                                     new { value = 2 , text = "3.1.5" },
-                                          }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                   }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
         </div>
     </div>
 
@@ -51,83 +114,21 @@
         @Html.EditorFor(t => t.tab7)
         <tr>
             <td>Шалгасан аудиторын нэр</td>
-            <td>@User.Identity.Name.ToUpper()</td>
+            <td>@User.GetClaimData("USER_NAME")</td>
         </tr>
         <tr>
             <td>Аудиторын код</td>
-            <td>***</td>
+            <td>@User.Identity.Name.ToUpper()</td>
         </tr>
     </table>
 
     <div style="text-align: right">
         <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-        <button type="button" class="btn btn-sm btn-default bg-secondary text-white">Хаах</button>
+        <a href="/Shilendans/Index" class="btn btn-sm btn-default bg-secondary text-white">Буцах</a>
     </div>
 </div>}
     </div>
 </body>
 </html>
-<script>
-  $( function() {
-      $(".datepicker").datepicker({
-          beforeShow: function () {
-              setTimeout(function () {
-                  $('.ui-datepicker').css('z-index', 99999999999999);
-              }, 0);
-          },
-          changeMonth: true,
-          changeYear: true,
-          dateFormat: "yy/mm/dd",
-          firstDay: 1,
-          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
-          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
-          maxDate: "+0D",
-          showOn: "button",
-          buttonImage: "@Url.Content("~/Images/calendar.png")",
-          buttonImageOnly: true,
-          buttonText: "Select date"
-      });
-  });
-</script>
-
-@section scripts{
-    <script>
-
-        var table;
-        
-        var Organization = {
-        OrgID:null,
-        
-        
-        close: function () {
-            $("#OrgModal").modal("hide");
-            $('#OrgDeleteModal').modal("hide");
-        },
-        progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                Organization.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    Organization.close();
-
-                    if (deleted == true) {
-                        if (!data.error)
-                            table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
-                    }
-                    if (confirmed == false && deleted == false) {
-                        orgListInit();
-                    }
-                    Message.success(data.message);
-                }
-            }
-        }
-        }
 
 
-    </script>
-}
