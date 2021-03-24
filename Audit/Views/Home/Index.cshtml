@@ -180,7 +180,7 @@
             orgListInit();
         });
         var Organization = {
-        OrgID:null,
+            OrgID: null,
         display: function (data) {
             $("div#orgmodalcontainer").remove();
             $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
@@ -246,11 +246,15 @@
                 }
             })
         },*@
-        edit: function (orgid) {
+            edit: function (orgid) {
+                if ("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" == "False")
+                    isshow = false
+                else
+                    isshow = true
             $.ajax({
                 url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
                 type: 'POST',
-                data: { orgid },
+                data: { orgid, isshow },
                 success: function (data, status, xhr) {
                     Organization.progressResponse(data, status, xhr);
                 },

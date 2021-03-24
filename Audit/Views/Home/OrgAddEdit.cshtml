@@ -586,7 +586,7 @@
                                 </div>
                                 <hr />
                                 <div style="text-align: right">
-                                    @if (Model != null && Model.ORG_ID != 0)
+                                    @if (Model != null && Model.ORG_ID != 0 && Model.IsShow)
                                     {
                                         <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" onclick="Organization.confirm(@Model.ORG_ID)">Баталгаажуулах</button>
                                     }

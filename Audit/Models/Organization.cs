@@ -11,6 +11,7 @@ namespace Audit.Models
     public class Organization
     {
         public int ORG_ID { get; set; }
+        public bool IsShow { get; set; } = false;
         public int ORGB_ID { get; set; }
         public int ORGB_ID2 { get; set; }
         public int ORGP_ID { get; set; }
