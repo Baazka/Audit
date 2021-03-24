@@ -276,7 +276,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
                 con.Close();
 
-                dtTable.TableName = "MenuList";
+                dtTable.TableName = "MenuRole";
 
                 StringWriter sw = new StringWriter();
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);

@@ -40,6 +40,7 @@ namespace Audit.App_Func
 
             functions.Add("Library", (request) => DataAccess.Library(request));
             functions.Add("MenuList", (request) => DataAccess.MenuList(request));
+            functions.Add("MenuRole", (request) => DataAccess.MenuRole(request));
             functions.Add("UserLogin", (request) => DataAccess.UserLogin(request));
             functions.Add("UserProfile", (request) => DataAccess.UserProfile(request));
             functions.Add("OrgList", (request) => DataAccess.OrgList(request));
