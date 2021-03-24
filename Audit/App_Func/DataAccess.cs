@@ -157,31 +157,31 @@ namespace Audit.App_Func
                 if (libName == "Department")
                     cmd.CommandText = "SELECT DEPARTMENT_ID, DEPARTMENT_NAME FROM AUD_REG.REF_DEPARTMENT WHERE IS_ACTIVE = 1 AND DEPARTMENT_TYPE = 1 ORDER BY DEPARTMENT_ID ASC";
                 else if (libName == "Status")
-                    cmd.CommandText = "SELECT STATUS_ID, STATUS_NAME FROM REF_STATUS WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT STATUS_ID, STATUS_NAME FROM REF_STATUS WHERE IS_ACTIVE = 1 ORDER BY STATUS_ID ASC";
                 else if (libName == "Violation")
-                    cmd.CommandText = "SELECT VIOLATION_ID, VIOLATION_NAME FROM REF_VIOLATION WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT VIOLATION_ID, VIOLATION_NAME FROM REF_VIOLATION WHERE IS_ACTIVE = 1 ORDER BY VIOLATION_ID ASC";
                 else if (libName == "Office")
-                    cmd.CommandText = "SELECT OFFICE_ID, OFFICE_NAME FROM AUD_REG.REF_OFFICE WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT OFFICE_ID, OFFICE_NAME FROM AUD_REG.REF_OFFICE WHERE IS_ACTIVE = 1 ORDER BY OFFICE_ID ASC";
                 else if (libName == "SubOffice")
-                    cmd.CommandText = "SELECT OFFICE_ID, SUB_OFFICE_ID, SUB_OFFICE_NAME FROM AUD_REG.REF_SUB_OFFICE WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT OFFICE_ID, SUB_OFFICE_ID, SUB_OFFICE_NAME FROM AUD_REG.REF_SUB_OFFICE WHERE IS_ACTIVE = 1 ORDER BY SUB_OFFICE_ID ASC";
                 else if (libName == "BudgetType")
                     cmd.CommandText = "SELECT BUDGET_TYPE_ID, BUDGET_TYPE_NAME FROM AUD_REG.REF_BUDGET_TYPE WHERE IS_ACTIVE = 1";
                 else if (libName == "Activity")
-                    cmd.CommandText = "SELECT ACTIVITY_ID, ACTIVITY_NAME FROM AUD_REG.REF_ACTIVITY WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT ACTIVITY_ID, ACTIVITY_NAME FROM AUD_REG.REF_ACTIVITY WHERE IS_ACTIVE = 1 ORDER BY ACTIVITY_ID ASC";
                 else if (libName == "SubBudgetType")
-                    cmd.CommandText = "SELECT BUDGET_TYPE_ID, SUB_BUDGET_TYPE_ID, SUB_BUDGET_TYPE_NAME FROM AUD_REG.REF_SUB_BUDGET_TYPE WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT BUDGET_TYPE_ID, SUB_BUDGET_TYPE_ID, SUB_BUDGET_TYPE_NAME FROM AUD_REG.REF_SUB_BUDGET_TYPE WHERE IS_ACTIVE = 1 ORDER BY BUDGET_TYPE_ID ASC";
                 else if (libName == "Committee")
-                    cmd.CommandText = "SELECT COMMITTEE_ID, COMMITTEE_NAME FROM AUD_REG.REF_COMMITTEE WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT COMMITTEE_ID, COMMITTEE_NAME FROM AUD_REG.REF_COMMITTEE WHERE IS_ACTIVE = 1 ORDER BY COMMITTEE_ID ASC";
                 else if (libName == "TaxOffice")
-                    cmd.CommandText = "SELECT TAX_OFFICE_ID, TAX_OFFICE_NAME FROM AUD_REG.REF_TAX_OFFICE WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT TAX_OFFICE_ID, TAX_OFFICE_NAME FROM AUD_REG.REF_TAX_OFFICE WHERE IS_ACTIVE = 1 ORDER BY TAX_OFFICE_ID ASC";
                 else if (libName == "CostType")
                     cmd.CommandText = "SELECT COST_TYPE_ID, COST_TYPE_NAME FROM AUD_REG.REF_COST_TYPE WHERE IS_ACTIVE = 1";
                 else if (libName == "InsuranceOffice")
-                    cmd.CommandText = "SELECT INSURANCE_OFFICE_ID, INSURANCE_OFFICE_NAME FROM AUD_REG.REF_INSURANCE_OFFICE WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT INSURANCE_OFFICE_ID, INSURANCE_OFFICE_NAME FROM AUD_REG.REF_INSURANCE_OFFICE WHERE IS_ACTIVE = 1 ORDER BY INSURANCE_OFFICE_ID ASC";
                 else if (libName == "FinancingType")
                     cmd.CommandText = "SELECT FINANCING_TYPE_ID, FINANCING_TYPE_NAME FROM AUD_REG.REF_FINANCING_TYPE WHERE IS_ACTIVE = 1";
                 else if (libName == "FinOffice")
-                    cmd.CommandText = "SELECT FIN_OFFICE_ID, FIN_OFFICE_NAME FROM AUD_REG.REF_FIN_OFFICE WHERE IS_ACTIVE = 1";
+                    cmd.CommandText = "SELECT FIN_OFFICE_ID, FIN_OFFICE_NAME FROM AUD_REG.REF_FIN_OFFICE WHERE IS_ACTIVE = 1 ORDER BY FIN_OFFICE_ID ASC";
                 else if (libName == "Bank")
                     cmd.CommandText = "SELECT BANK_ID, BANK_NAME FROM AUD_REG.REF_BANK WHERE IS_ACTIVE = 1 ORDER BY BANK_ID";
                 else if (libName == "Reason")
