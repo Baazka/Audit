@@ -143,6 +143,7 @@ namespace Audit.Models
 
         public List<OrganizationUB> organizationUBs { get; set; } = new List<OrganizationUB>();
         public List<OrganizationMOF> organizationMOFs { get; set; } = new List<OrganizationMOF>();
+        public List<OrganizationTAX> organizationTAXs { get; set; } = new List<OrganizationTAX>();
 
         public List<Tab1> tab1 { get; set; }
         public List<Tab2> tab2 { get; set; }
@@ -400,7 +401,89 @@ namespace Audit.Models
             return this;
         }
     }
+    public class OrganizationTAX
+    {
+        public int TAX_ID { get; set; }
+        public string GDSR_NUMBER { get; set; }
+        public string COMPANY_REG_NO { get; set; }
+        public string LEGAL_NAME { get; set; }
+        public int LEGAL_STATUS { get; set; }
+        public string LEGAL_STATUS_NAME { get; set; }
+        public DateTime COMPANY_REG_DATE { get; set; }
+        public int PROPERTY_TYPE { get; set; }
+        public string PROPERTY_TYPE_NAME { get; set; }
+        public string NUMBER_FOUNDERS { get; set; }
+        public string OPERATION { get; set; }
+        public int SOFF_OFF_CODE { get; set; }
+        public string OFF_NAME { get; set; }
+        public int SOFF_CODE { get; set; }
+        public string SOFF_NAME { get; set; }
+        public string SECTOR { get; set; }
+        public string SECTOR_CODE { get; set; }
+        public string SECTOR_NAME { get; set; }
+        public string SUB_SECTOR { get; set; }
+        public string SUB_SECTOR_CODE_NAME { get; set; }
+        public string ELEMENT { get; set; }
+        public string ELEMENT_NAME { get; set; }
+        public string DIVISION { get; set; }
+        public string DIVISION_NAME { get; set; }
+        public string REGION { get; set; }
+        public OrganizationTAX FromXml(XElement elem)
+        {
+            if (elem.Element("TAX_ID") != null)
+                TAX_ID = Convert.ToInt32(elem.Element("TAX_ID").Value);
+            if (elem.Element("GDSR_NUMBER") != null)
+                GDSR_NUMBER = elem.Element("GDSR_NUMBER").Value;
+            if (elem.Element("COMPANY_REG_NO") != null)
+                COMPANY_REG_NO = elem.Element("COMPANY_REG_NO").Value;
+            if (elem.Element("LEGAL_NAME") != null)
+                LEGAL_NAME = elem.Element("LEGAL_NAME").Value;
+            if (elem.Element("LEGAL_STATUS") != null)
+                LEGAL_STATUS = Convert.ToInt32(elem.Element("LEGAL_STATUS").Value);
+            if (elem.Element("LEGAL_STATUS_NAME ") != null)
+                LEGAL_STATUS_NAME = elem.Element("LEGAL_STATUS_NAME ").Value;
+            if (elem.Element("COMPANY_REG_DATE") != null)
+                COMPANY_REG_DATE = Convert.ToDateTime(elem.Element("COMPANY_REG_DATE").Value);
+            if (elem.Element("PROPERTY_TYPE") != null)
+                PROPERTY_TYPE = Convert.ToInt32(elem.Element("PROPERTY_TYPE").Value);
+            if (elem.Element("PROPERTY_TYPE_NAME") != null)
+                PROPERTY_TYPE_NAME = elem.Element("PROPERTY_TYPE_NAME").Value;
+            if (elem.Element("NUMBER_FOUNDERS") != null)
+                NUMBER_FOUNDERS = elem.Element("NUMBER_FOUNDERS").Value;
+            if (elem.Element("OPERATION") != null)
+                OPERATION = elem.Element("OPERATION").Value;
+            if (elem.Element("SOFF_OFF_CODE") != null)
+                SOFF_OFF_CODE = Convert.ToInt32(elem.Element("SOFF_OFF_CODE").Value);
+            if (elem.Element("OFF_NAME") != null)
+                OFF_NAME = elem.Element("OFF_NAME").Value;
+            if (elem.Element("SOFF_CODE") != null)
+                SOFF_CODE = Convert.ToInt32(elem.Element("SOFF_CODE").Value);
+            if (elem.Element("SOFF_NAME") != null)
+                SOFF_NAME = elem.Element("SOFF_NAME").Value;
+            if (elem.Element("SECTOR") != null)
+                SECTOR = elem.Element("SECTOR").Value;
+            if (elem.Element("SECTOR_CODE") != null)
+                SECTOR_CODE = elem.Element("SECTOR_CODE").Value;
+            if (elem.Element("SECTOR_NAME") != null)
+                SECTOR_NAME = elem.Element("SECTOR_NAME").Value;
+            if (elem.Element("SUB_SECTOR") != null)
+                SUB_SECTOR = elem.Element("SUB_SECTOR").Value;
+            if (elem.Element("SUB_SECTOR_CODE_NAME") != null)
+                SUB_SECTOR_CODE_NAME = elem.Element("SUB_SECTOR_CODE_NAME").Value;
+            if (elem.Element("ELEMENT") != null)
+                ELEMENT = elem.Element("ELEMENT").Value;
+            if (elem.Element("ELEMENT_NAME") != null)
+                ELEMENT_NAME = elem.Element("ELEMENT_NAME").Value;
+            if (elem.Element("DIVISION") != null)
+                DIVISION = elem.Element("DIVISION").Value;
+            if (elem.Element("DIVISION_NAME") != null)
+                DIVISION_NAME = elem.Element("DIVISION_NAME").Value;
+            if (elem.Element("REGION") != null)
+                REGION = elem.Element("REGION").Value;
 
+            return this;
+        }
+    }
     public class OrgVM
     {
         public List<MenuRole> menuRoles { get; set; }
