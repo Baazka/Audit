@@ -660,8 +660,8 @@ namespace Audit.Controllers
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);                                
                             }
-                            
-                        }
+                            ViewBag.Tabid = "#maygt1-1";
+                     }
                     break;
                     case "tab2save":
                         {
@@ -672,7 +672,7 @@ namespace Audit.Controllers
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
-
+                            ViewBag.Tabid = "#maygt1-2";
                         }
                         break;
                     case "tab3save":
@@ -684,6 +684,7 @@ namespace Audit.Controllers
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
+                            ViewBag.Tabid = "#maygt1-3";
                         }
                         break;
                     case "tab4save":
@@ -695,6 +696,7 @@ namespace Audit.Controllers
                                 data02 = organization.tab4[i].Data02;
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
+                            ViewBag.Tabid = "#maygt1-4";
                         }
                         break;
                     case "tab5save":
@@ -706,6 +708,7 @@ namespace Audit.Controllers
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
+                            ViewBag.Tabid = "#maygt2";
                         }
                         break;
                     case "tab6save":
@@ -717,6 +720,7 @@ namespace Audit.Controllers
                                 data02 = organization.tab6[i].Data02;
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
+                            ViewBag.Tabid = "#maygt2";
                         }
                         break;
                     case "tab7save":
@@ -737,11 +741,12 @@ namespace Audit.Controllers
                                 data02 = organization.tab7[i].Data02;
                                 var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date, project_end_date, Convert.ToInt32(project_percent), project_budget.ToString(), project_fund ,mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
                             }
+                            ViewBag.Tabid = "#maygt3";
                         }
                         break;
                 }
                 var result1 = true;
-                
+                //return ViewBag.Tabid = "maygt1-2";
 
                 try
                 {
@@ -749,7 +754,8 @@ namespace Audit.Controllers
                     if (result1 == true)
                     {
                         //return Json(new { error = false, message = AppStatic.SystemController.Message });
-                        return ViewBag.Results = AppStatic.SystemController.Message;
+                        ViewBag.Results = AppStatic.SystemController.Message;
+                        return (ViewBag);
                     }
                     else
                     {
