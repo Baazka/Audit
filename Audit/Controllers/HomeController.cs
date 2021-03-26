@@ -149,6 +149,12 @@ namespace Audit.Controllers
                     {
                         organization.organizationMOFs = (from item in resMOF.Elements("MOFList") select new OrganizationMOF().FromXml(item)).ToList();
                     }
+                    //taxinfo
+                    XElement resTAX = AppStatic.SystemController.OrgTAX(organization.ORG_REGISTER_NO);
+                    if (resMOF != null && resMOF.Elements("TAXList") != null)
+                    {
+                        organization.organizationMOFs = (from item in resMOF.Elements("TAXList") select new OrganizationMOF().FromXml(item)).ToList();
+                    }
                 }
                 if (Globals.departments.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
                 {
@@ -406,6 +412,12 @@ namespace Audit.Controllers
                 {
                     organization.organizationMOFs = (from item in resMOF.Elements("MOFList") select new OrganizationMOF().FromXml(item)).ToList();
                 }
+                //taxinfo
+                XElement resTAX = AppStatic.SystemController.OrgTAX(organization.ORG_REGISTER_NO);
+                if (resTAX != null && resMOF.Elements("TAXList") != null)
+                {
+                    organization.organizationTAXs = (from item in resTAX.Elements("TAXList") select new OrganizationTAX().FromXml(item)).ToList();
+                }
                 if (Globals.departments.Count > 0)
                 {
                     organization.departments = Globals.departments;
@@ -642,6 +654,23 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("MOFsingle") != null)
                 {
                     item = new OrganizationMOF().FromXml(res.Element("MOFsingle"));
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return PartialView(item);
+        }
+        public PartialViewResult AddTabTAX(int reg_id)
+        {
+            OrganizationTAX item = new OrganizationTAX();
+            try
+            {
+                XElement res = AppStatic.SystemController.OrgTAXsingle(reg_id);
+                if (res != null && res.Elements("TAXsingle") != null)
+                {
+                    item = new OrganizationTAX().FromXml(res.Element("TAXsingle"));
                 }
             }
             catch (Exception ex)

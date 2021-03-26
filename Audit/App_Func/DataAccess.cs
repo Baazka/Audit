@@ -532,6 +532,47 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse OrgTAX(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME , "+
+                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME , "+
+                " ELEMENT ,ELEMENT_NAME ,DIVISION ,DIVISION_NAME ,REGION FROM AUD_REG.TAX_REGISTRATION WHERE GDSR_NUMBER = :REG_NO";
+
+                // Set parameters
+                cmd.Parameters.Add(":REG_NO", OracleDbType.Varchar2, request.Element("Parameters").Element("REG_NO").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "TAXList";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse OrgUBsingle(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -598,6 +639,47 @@ namespace Audit.App_Func
                 con.Close();
 
                 dtTable.TableName = "MOFsingle";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse OrgTAXsingle(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT TAX_ID, GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME ,"+
+                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME ,"+
+                " ELEMENT ,ELEMENT_NAME ,DIVISION ,DIVISION_NAME ,REGION FROM AUD_REG.TAX_REGISTRATION WHERE TAX_ID = :REG_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":REG_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("REG_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "TAXsingle";
 
                 StringWriter sw = new StringWriter();
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);

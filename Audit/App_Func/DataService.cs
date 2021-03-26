@@ -49,6 +49,8 @@ namespace Audit.App_Func
             functions.Add("OrgUBsingle", (request) => DataAccess.OrgUBsingle(request));
             functions.Add("OrgMOF", (request) => DataAccess.OrgMOF(request));
             functions.Add("OrgMOFsingle", (request) => DataAccess.OrgMOFsingle(request));
+            functions.Add("OrgTAX", (request) => DataAccess.OrgTAX(request));
+            functions.Add("OrgTAXsingle", (request) => DataAccess.OrgTAXsingle(request));
             functions.Add("OrgSave", (request) => DataAccess.OrgSave(request));
             functions.Add("OrgInsert", (request) => DataAccess.OrgInsert(request));
             functions.Add("OrgConfirm", (request) => DataAccess.OrgConfirm(request));

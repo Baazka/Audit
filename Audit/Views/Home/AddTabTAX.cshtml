@@ -1,0 +1,133 @@
+﻿@model Audit.Models.OrganizationTAX
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <fieldset>
+        <h6>Татварын ерөнхий газрын татвар төлөгчийн бүртгэл</h6>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Регистр:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.GDSR_NUMBER" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Улсын бүртгэлийн дугаар:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.COMPANY_REG_NO" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Нэр:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.LEGAL_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Хариуцлагын хэлбэр:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.LEGAL_STATUS_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Байгуулагдсан огноо:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.COMPANY_REG_DATE" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Өмчийн хэлбэр:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.PROPERTY_TYPE_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Үүсгэн байгуулагчийн тоо:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.NUMBER_FOUNDERS" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Үйл ажиллагааны төлөв:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.OPERATION" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Аймаг/Дүүрэг:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.OFF_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Сум/Хороо:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.SOFF_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Үйл ажиллагааны сектор:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.SECTOR_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Дэд сектор:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.SUB_SECTOR_CODE_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Ангилал:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.ELEMENT_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Үйл ажиллагааны төрөл:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.DIVISION_NAME" readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Хаяг:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control form-control-sm" value="@Model.REGION" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}
