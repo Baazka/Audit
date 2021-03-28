@@ -440,8 +440,8 @@ namespace Audit.Models
                 LEGAL_NAME = elem.Element("LEGAL_NAME").Value;
             if (elem.Element("LEGAL_STATUS") != null)
                 LEGAL_STATUS = Convert.ToInt32(elem.Element("LEGAL_STATUS").Value);
-            if (elem.Element("LEGAL_STATUS_NAME ") != null)
-                LEGAL_STATUS_NAME = elem.Element("LEGAL_STATUS_NAME ").Value;
+            if (elem.Element("LEGAL_STATUS_NAME") != null)
+                LEGAL_STATUS_NAME = elem.Element("LEGAL_STATUS_NAME").Value;
             if (elem.Element("COMPANY_REG_DATE") != null)
                 COMPANY_REG_DATE = Convert.ToDateTime(elem.Element("COMPANY_REG_DATE").Value);
             if (elem.Element("PROPERTY_TYPE") != null)

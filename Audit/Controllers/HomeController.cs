@@ -112,7 +112,7 @@ namespace Audit.Controllers
             }
             return View(res);
         }
-        [AllowAnonymous]
+        
         public ActionResult Home()
         {
             return View();
@@ -133,10 +133,10 @@ namespace Audit.Controllers
             Organization organization = new Organization();
             try
             {
-                organization.IsShow = isshow;
                 XElement res = AppStatic.SystemController.OrgDetail(orgid);
                 if (res != null && res.Elements("OrgDetail") != null) {
                     organization = new Organization().FromXml(res.Element("OrgDetail"));
+                    organization.IsShow = isshow;
                     //ubinfo
                     XElement resUB = AppStatic.SystemController.OrgUB(organization.ORG_REGISTER_NO);
                     if (resUB != null && resUB.Elements("UBList") != null)
@@ -151,9 +151,9 @@ namespace Audit.Controllers
                     }
                     //taxinfo
                     XElement resTAX = AppStatic.SystemController.OrgTAX(organization.ORG_REGISTER_NO);
-                    if (resMOF != null && resMOF.Elements("TAXList") != null)
+                    if (resTAX != null && resTAX.Elements("TAXList") != null)
                     {
-                        organization.organizationMOFs = (from item in resMOF.Elements("TAXList") select new OrganizationMOF().FromXml(item)).ToList();
+                        organization.organizationTAXs = (from item in resTAX.Elements("TAXList") select new OrganizationTAX().FromXml(item)).ToList();
                     }
                 }
                 if (Globals.departments.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
@@ -414,7 +414,7 @@ namespace Audit.Controllers
                 }
                 //taxinfo
                 XElement resTAX = AppStatic.SystemController.OrgTAX(organization.ORG_REGISTER_NO);
-                if (resTAX != null && resMOF.Elements("TAXList") != null)
+                if (resTAX != null && resTAX.Elements("TAXList") != null)
                 {
                     organization.organizationTAXs = (from item in resTAX.Elements("TAXList") select new OrganizationTAX().FromXml(item)).ToList();
                 }

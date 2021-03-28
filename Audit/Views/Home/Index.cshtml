@@ -247,10 +247,11 @@
             })
         },*@
             edit: function (orgid) {
-                if ("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" == "False")
-                    isshow = false
-                else
+                console.log("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
+                if ("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
                     isshow = true
+                else
+                    isshow = false
             $.ajax({
                 url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
                 type: 'POST',
