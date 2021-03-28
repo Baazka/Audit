@@ -6,6 +6,11 @@ using System.Xml.Linq;
 
 namespace Audit.Models
 {
+    public class BM8VM
+    {
+        public int DeparmentID { get; set; }
+        public List<Department> departments { get; set; } = new List<Department>();
+    }
     public class BM8
     {
         public string OFFICE_ID { get; set; }

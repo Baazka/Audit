@@ -1395,15 +1395,81 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
+                XElement req = request.Element("Parameters").Element("Request");
+
+                //RowCount
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "F_BM8_COUNT";
+
+                OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
+                    OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+                //cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_PERIOD", OracleDbType.Varchar2, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
 
                 // Create and execute the command
-                OracleCommand cmd = con.CreateCommand();
+                cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, EXEC_TYPE, CREATED_DATE FROM AUD_STAT.BM8_DATA";
+                cmd.CommandText = "SELECT ID, OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, EXEC_TYPE, CREATED_DATE FROM AUD_STAT.BM8_DATA " +
+                    //"WHERE :DEP_ID = 2 OR(DEP_ID != 2 AND OFFICE_ID = :DEP_ID) " +
+                    "where (:V_DEPARTMENT IS NULL OR OFFICE_ID = :V_DEPARTMENT) " +
+                    "AND(:V_PERIOD IS NULL OR STATISTIC_PERIOD = :V_PERIOD) " +
+                    "AND(:V_SEARCH IS NULL OR OFFICE_ID LIKE '%' || :V_SEARCH || '%' " +
+                    "OR STATISTIC_PERIOD LIKE '%' || :V_SEARCH || '%' OR AUDIT_YEAR LIKE '%' || :V_SEARCH || '%' " +
+                    "OR AUDIT_TYPE LIKE '%' || :V_SEARCH || '%' OR AUDIT_CODE LIKE '%' || :V_SEARCH || '%' " +
+                    "OR AUDIT_NAME LIKE '%' || :V_SEARCH || '%' OR AUDIT_BUDGET_TYPE LIKE '%' || :V_SEARCH || '%' " +
+                    "OR CORRECTED_ERROR_DESC LIKE '%' || :V_SEARCH || '%' OR CORRECTED_ERROR_TYPE LIKE '%' || :V_SEARCH || '%' " +
+                    "OR CORRECTED_COUNT LIKE '%' || :V_SEARCH || '%' OR CORRECTED_AMOUNT LIKE '%' || :V_SEARCH || '%' " +
+                    "OR EXEC_TYPE LIKE '%' || :V_SEARCH || '%' OR CREATED_DATE LIKE '%' || :V_SEARCH || '%') " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN OFFICE_ID END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN OFFICE_ID END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'STATISTIC_PERIOD' AND: ORDER_DIR = 'ASC' THEN STATISTIC_PERIOD END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'STATISTIC_PERIOD' AND: ORDER_DIR = 'DESC' THEN STATISTIC_PERIOD END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN AUDIT_YEAR END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN AUDIT_YEAR END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN AUDIT_TYPE END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN AUDIT_TYPE END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN AUDIT_CODE END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN AUDIT_CODE END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN AUDIT_NAME END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN AUDIT_NAME END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN AUDIT_BUDGET_TYPE END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN AUDIT_BUDGET_TYPE END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_DESC' AND: ORDER_DIR = 'ASC' THEN CORRECTED_ERROR_DESC END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_DESC' AND: ORDER_DIR = 'DESC' THEN CORRECTED_ERROR_DESC END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_TYPE' AND: ORDER_DIR = 'ASC' THEN CORRECTED_ERROR_TYPE END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_TYPE' AND: ORDER_DIR = 'DESC' THEN CORRECTED_ERROR_TYPE END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_COUNT' AND: ORDER_DIR = 'ASC' THEN CORRECTED_COUNT END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_COUNT' AND: ORDER_DIR = 'DESC' THEN CORRECTED_COUNT END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_AMOUNT' AND: ORDER_DIR = 'ASC' THEN CORRECTED_AMOUNT END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'CORRECTED_AMOUNT' AND: ORDER_DIR = 'DESC' THEN CORRECTED_AMOUNT END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'EXEC_TYPE' AND: ORDER_DIR = 'ASC' THEN EXEC_TYPE END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'EXEC_TYPE' AND: ORDER_DIR = 'DESC' THEN EXEC_TYPE END DESC, " +
+                    "CASE WHEN: ORDER_NAME = 'CREATED_DATE' AND: ORDER_DIR = 'ASC' THEN CREATED_DATE END ASC, " +
+                    "CASE WHEN: ORDER_NAME = 'CREATED_DATE' AND: ORDER_DIR = 'DESC' THEN CREATED_DATE END DESC " +
+                    "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
 
+                cmd.BindByName = true;
                 // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
-                
+                //cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Varchar2, req.Element("V_PERIOD")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1416,6 +1482,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", retParam.Value));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
