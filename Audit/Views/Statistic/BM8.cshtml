@@ -135,7 +135,88 @@
             });
 
         }
+        $('#DeparmentID').change(function () {
+            bm8ListInit();
+        });
+    var BM8 = {
+        OrgID: null,
+        display: function (data) {
+            $("div#bm8modalcontainer").remove();
+            $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
 
+            $("#Bm8Modal").modal({ show: true });
+        },
+        loadTemplate: function () {
+            $.ajax({
+                    url: "@Url.Action("BM8AddEdit", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        BM8.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+        },
+        edit: function (orgid) {
+            $.ajax({
+                url: "@Url.Action("OrgDetail", "Statistic", new { Area = "" })",
+                type: 'POST',
+                data: { orgid, isshow },
+                success: function (data, status, xhr) {
+                    BM8.progressResponse(data, status, xhr);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        delete: function (orgid) {
+            BM8.OrgID = orgid;
+                $.ajax({
+                url: "@Url.Action("OrgDelete", "Statistic", new { Area = "" })",
+                type: 'GET',
+                    data: { orgid },
+                success: function (data, status, xhr) {
+                    BM8.displayDelete(data);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        close: function () {
+            $("#Bm8Modal").modal("hide");
+        },
+        progressResponse: function (data, status, xhr) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                BM8.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    BM8.close();
+                    bm8ListInit();
+                    Message.success(data.message);
+                }
+            }
+        }
+    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').prop('disabled', true);
             table.destroy();

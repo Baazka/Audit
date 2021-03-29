@@ -104,6 +104,11 @@ namespace Audit.Controllers
             }
             return View(res);
         }
+        public ActionResult BM8AddEdit()
+        {
+            BM8 bm8 = new BM8();
+            return PartialView(bm8);
+        }
         public ActionResult NM1()
         {
             XElement res = AppStatic.SystemController.BM1(User.GetClaimData("DepartmentID"));

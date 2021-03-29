@@ -13,6 +13,7 @@ namespace Audit.Models
     }
     public class BM8
     {
+        public int ID { get; set; }
         public string OFFICE_ID { get; set; }
         public string AUDIT_YEAR { get; set; }
         public string AUDIT_TYPE { get; set; }
@@ -28,6 +29,8 @@ namespace Audit.Models
         {
             if (xml != null)
             {
+                if (xml.Element("ID") != null)
+                    ID = Convert.ToInt32(xml.Element("ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
                     OFFICE_ID = xml.Element("OFFICE_ID").Value;
                 if (xml.Element("AUDIT_YEAR") != null)
