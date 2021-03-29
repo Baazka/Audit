@@ -1,8 +1,8 @@
-﻿@*@model Audit.Models.BM8*@
+﻿@using Audit.Models
+@model Audit.Models.BM8VM
 @{
     ViewBag.Title = "BM8";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int counter = 0;
 }
 
 <div class="d-flex">
@@ -12,95 +12,144 @@
         </span>
     </a>
     <h4>БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл</h4>
-    <div class="ml-auto pr-2">
+    @*<div class="ml-auto pr-2">
         <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('BM8', 'БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл')">
             <span class="icon text-white-50">
                 <i class="fas fa-file-excel"></i>
             </span>
             <span class="text">Excel</span>
         </a>
-    </div>
+    </div>*@
 </div>
 <hr class="sidebar-divider">
-<div class="table-responsive">
-    <table id="BM8" class="table table-bordered datatable display" style="width:100%">
-        <thead>
-            <tr>
-                <th rowspan="2" class="text-center">№</th>
-                <th rowspan="2">Төрийн аудитын байгууллага</th>
-                <th rowspan="2">Он</th>
-                <th rowspan="2">Аудитын төрөл</th>
-                <th rowspan="2">Аудитын код</th>
-                <th rowspan="2">Аудитын нэр</th>
-                <th rowspan="2">Төсөв захирагч</th>
-                <th colspan="4">Залруулсан алдаа</th>
-            </tr>
-            <tr>
-                <th>Алдааны утга</th>
-                <th>Алдааны ангилал</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="Organization.loadTemplate();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Шинэ бүртгэл</span>
+            </a>
+        </div>
+
+
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM8', 'БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
+</form>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="BM8" class="table table-bordered datatable display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="text-center">№</th>
+                        <th rowspan="2">Төрийн аудитын байгууллага</th>
+                        <th rowspan="2">Он</th>
+                        <th rowspan="2">Аудитын төрөл</th>
+                        <th rowspan="2">Аудитын код</th>
+                        <th rowspan="2">Аудитын нэр</th>
+                        <th rowspan="2">Төсөв захирагч</th>
+                        <th colspan="4">Залруулсан алдаа</th>
+                        <th rowspan="2">Үйлдэл</th>
+                    </tr>
+                    <tr>
+                        <th>Алдааны утга</th>
+                        <th>Алдааны ангилал</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @section scripts{
     <script>
-    $(document).ready(function () {
-        bm8ListInit();
-    });
-
-    function bm8ListInit() {
-        var table = $("#BM8").DataTable({
-            "serverSide": true,
-            "processing": true,
-            "ajax": {
-                url: "/api/service/bm8list",
-                type: 'POST',
-                data: function (data) {
-                    return data;
-                }
-            },
-            "columns": [
-                {
-                    "data": null, "sortable": false, "class": 'text-center',
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    }
-                },
-                { "data": "OFFICE_ID", "name": "OFFICE_ID" },
-                { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR", "sortable": false },
-                { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
-                { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
-                { "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
-                { "data": "CORRECTED_ERROR_DESC", "name": "CORRECTED_ERROR_DESC" },
-                { "data": "CORRECTED_ERROR_TYPE", "name": "CORRECTED_ERROR_TYPE", "sortable": false },
-                { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false },
-                { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false },
-                //{
-                //    "data": null, "sortable": false,
-                //    render: function (data, type, row, meta) {
-                //        return null;
-                //    }
-                //}
-            ],
-            "destroy": true,
-            "scrollCollapse": true,
-            "paging": true,
-            "lengthMenu": [[10, 25, 50], [10, 25, 50]],
-            "filter": true,
-            "info": true,
-            "stateSave": false,
-            "bAutoWidth": false,
-            lengthChange: true,
-            "language": datatables.language
+        $(document).ready(function () {
+            bm8ListInit();
         });
 
-    }
+        function bm8ListInit() {
+            var table = $("#BM8").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/bm8list",
+                    type: 'POST',
+                    data: function (data) {
+                        return data;
+                    }
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "OFFICE_ID", "name": "OFFICE_ID" },
+                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR", "sortable": false },
+                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
+                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
+                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
+                    { "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
+                    { "data": "CORRECTED_ERROR_DESC", "name": "CORRECTED_ERROR_DESC" },
+                    { "data": "CORRECTED_ERROR_TYPE", "name": "CORRECTED_ERROR_TYPE", "sortable": false },
+                    { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false },
+                    { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false },
+                    {
+                        "data": null, "sortable": false,
+                        render: function (data, type, row, meta) {
+                            return null;
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+            });
+
+        }
+
+        function exportFile(tableid, excelname,) {
+            $('#exportXLSX').prop('disabled', true);
+            table.destroy();
+            bm8ListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                table.destroy();
+                bm8ListInit();
+                $('#exportXLSX').prop('disabled', false);
+            }, 5000
+            )
+        }
     </script>
 } 

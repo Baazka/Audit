@@ -1,4 +1,5 @@
 ﻿using Audit.App_Func;
+using Audit.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,10 +80,29 @@ namespace Audit.Controllers
         }
         public ActionResult BM8()
         {
-            //XElement res = AppStatic.SystemController.BM8(User.GetClaimData("DepartmentID"));
-            //if (res != null && res.Elements("BM8") != null)
-            //    return View(res);
-            return View();
+            BM8VM res = new BM8VM();
+            try
+            {
+                //XElement response = AppStatic.SystemController.MenuRole(Convert.ToInt32(User.Identity.GetUserId()), Convert.ToInt32(Globals.Decrypt(id)));
+                //if (response != null && response.Elements("MenuRole") != null)
+                //    res.menuRoles = (from item in response.Elements("MenuRole") select new MenuRole().FromXml(item)).ToList();
+
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult NM1()
         {
@@ -244,6 +264,14 @@ namespace Audit.Controllers
             if (res != null && res.Elements("CM8") != null)
                 return View(res);
             return View();
+        }
+
+        public static XElement SendLibraryRequest(string lib)
+        {
+            XElement elem = new XElement("lib");
+            elem.Add(new XElement("LibraryName", lib));
+
+            return AppStatic.SystemController.Library(elem);
         }
     }
 }
