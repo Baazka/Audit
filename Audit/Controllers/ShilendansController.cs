@@ -727,10 +727,10 @@ namespace Audit.Controllers
                         {
                             string project_name = organization.tab7[2].Data02;
                             int project_num = Convert.ToInt32(organization.tab7[3].Data01);
-                            string project_start_date = organization.tab7[4].Data02;
-                            string project_end_date = organization.tab7[5].Data02;
-                            double project_percent = organization.tab7[6].Data01;
-                            double project_budget = Convert.ToInt32(organization.tab7[7].Data01);
+                            string project_start_date = organization.tab7[7].Data02;
+                            string project_end_date = organization.tab7[8].Data02;
+                            double project_percent = organization.tab7[9].Data01;
+                            double project_budget = Convert.ToInt32(organization.tab7[10].Data01);
                             string project_fund = organization.tab7[1].Data02;
                             int project_law_num = organization.AUD_LAWS_NUM;
 
@@ -777,6 +777,7 @@ namespace Audit.Controllers
             return PartialView(organization);
 
         }
+
 
         [HttpPost]
         public ActionResult OrgProjectEdit(Organization organization, string button)
@@ -846,6 +847,43 @@ namespace Audit.Controllers
 
         }
 
+        public ActionResult OrgProjectDelete(Organization organization, int org_id, int pro_id)
+        {
+            var result = AppStatic.SystemController.OrgProjectDelete(org_id, pro_id);
+            Json(new { error = false, message = AppStatic.SystemController.Message });
+            ViewBag.Tabid = "#maygt3";
+            ViewBag.Results = AppStatic.SystemController.Message;
+
+            bool res = true;
+            try
+            {
+
+                if (res == true)
+                {
+                    //return View("Index", "Shilendans");
+                    return RedirectToAction("Index", "Shilendans");
+                    //return PartialView("AddShilenDans","", organization);
+                }
+                else
+                {
+                    return ViewBag.Results = AppStatic.SystemController.Message;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            //}
+            //else
+            //{
+            //    ViewBag.No = "Энэ мэдээлэл мэдээллийн санд байхгүй байна.";
+            //}
+
+            return PartialView(organization);
+
+        }
+
         public ActionResult OrgProjectEdit(int pro_id, int org_id)
         {
             Session["OrganizationIDs"] = org_id;
@@ -879,6 +917,7 @@ namespace Audit.Controllers
             }
             return PartialView("OrgProjectEdit", organization);
         }
+
         public JsonResult OrgConfirm(int orgid)
         {
             return AppStatic.SystemController.OrgConfirm(Convert.ToInt32(User.Identity.GetUserId()), orgid)

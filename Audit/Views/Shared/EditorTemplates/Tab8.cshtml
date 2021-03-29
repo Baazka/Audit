@@ -27,8 +27,8 @@ else
         <td>@Html.DisplayFor(x => x.PROJECT_TOTAL_BUDGET)</td>
         <td>@Html.DisplayFor(x => x.PROJECT_ORG_FUND)</td>
         <td width="8%">
-            @Html.ActionLink("Засах", "OrgProjectEdit", "Shilendans", new { pro_id = Model.PROJECT_NUMBER, org_id = Model.ORG_ID }, null) | <a href="#" style="color: #dc3545;">Устгах</a>
-            @*@Html.ActionLink("Устгах", "OrgProjectDelete", "Shilendans", new { ID = Model.PROJECT_NUMBER }, new { @style = "color: #dc3545;" })*@
+            @Html.ActionLink("Засах", "OrgProjectEdit", "Shilendans", new { pro_id = Model.PROJECT_NUMBER, org_id = Model.ORG_ID }, null) |
+            @Html.ActionLink("Устгах", "OrgProjectDelete", "Shilendans", new { pro_id = Model.PROJECT_NUMBER, org_id = Model.ORG_ID }, new { @style = "color: #dc3545;"})
             @*<a href="#"><i class="fa fa-edit"></i></a> <a href="#"><i class="fa fa-trash-alt"></i></a>*@
         </td>
     </tr>

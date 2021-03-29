@@ -5,30 +5,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/Content/bootstrap.css" rel="stylesheet" />
-    <link href="/Content/sb-admin-2.css" rel="stylesheet" />
-    <link href="/Content/site.css" rel="stylesheet" />
-    <script src="/Scripts/modernizr-2.8.3.js"></script>
-    <link href="/Plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/Plugins/datatables/dataTables.bootstrap4.min.css" />
-    <link rel="stylesheet" href="/Plugins/jquery-ui/jquery-ui.css">
-    <link rel="stylesheet" href="/Plugins/multiselect/bootstrap-multiselect.min.css">
-    <link rel="stylesheet" href="/Plugins/noti/notifications.css">
-    <script src="/Scripts/jquery-3.5.1.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Custom fonts for this template-->
+    <link href="~/Plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/Plugins/datatables/dataTables.bootstrap4.min.css" />
+
+    <link rel="stylesheet" href="~/Plugins/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="~/Plugins/multiselect/bootstrap-multiselect.min.css">
+    <link rel="stylesheet" href="~/Plugins/noti/notifications.css">
+    @Scripts.Render("~/bundles/jquery")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="/Scripts/jquery.validate.js"></script>
-    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/Scripts/sb-admin-2.js"></script>
-    <script src="/Plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/Plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="/Scripts/xlsx.full.min.js"></script>
-    <script src="/Scripts/Print.js"></script>
-    <script src="/Plugins/jquery-ui/jquery-ui.js"></script>
-    <script src="/Plugins/multiselect/bootstrap-multiselect.min.js"></script>
-    <script src="/Plugins/noti/notifications.js"></script>
-    <script src="/Scripts/Application.js"></script>
+    <script src="~/Plugins/jquery-ui/jquery-ui.js"></script>
+
 
     <script>
     $( function() {
@@ -44,8 +35,7 @@
             firstDay: 1,
             dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
             monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
-            maxDate: "+0D",
-            placeholder: "Өдөр сонгоно уу"
+            maxDate: "+0D"
             @*showOn: "button",
             buttonImage: "@Url.Content("~/Images/calendar.png")",
             buttonImageOnly: true,
@@ -55,14 +45,9 @@
     </script>
 
     <script>
-    $(document).ready(function () {
-        $("div.success").fadeIn(300).delay(1500).fadeOut(400);
-    });
-
-    @*function Redirect() {
-            window.location.href = "@Url.Action("Index", "Shilendans")";
-        }
-        setTimeout('Redirect()', 100);*@
+        $(document).ready(function () {
+            $("div.success").fadeIn(300).delay(1500).fadeOut(400);
+        });
     </script>
 
 </head>
@@ -126,6 +111,7 @@
         <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
         <a href="/Shilendans/Index" class="btn btn-sm btn-default bg-secondary text-white">Буцах</a>
     </div>
+    <br>
 </div>}
     </div>
 </body>

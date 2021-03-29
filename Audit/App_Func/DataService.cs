@@ -95,6 +95,8 @@ namespace Audit.App_Func
             functions.Add("OrgProjectInsert", (request) => DataAccess.OrgProjectInsert(request));
             functions.Add("TableProjectList", (request) => DataAccess.TableProjectList(request));
             functions.Add("OrgProjectDataList", (request) => DataAccess.OrgProjectDataList(request));
+            functions.Add("OrgProjectDelete", (request) => DataAccess.OrgProjectDelete(request));
+
         }
     }
 }

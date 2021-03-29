@@ -1925,6 +1925,43 @@ namespace Audit.Controllers.Library
             return null;
         }
 
+        public XElement OrgProjectDelete(int org_id, int pro_id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "OrgProjectDelete"),
+                                               new XElement("Parameters",
+                                               new XElement("ORG_ID", org_id),
+                                               new XElement("PRO_ID", pro_id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+
         #endregion'
     }
 }
