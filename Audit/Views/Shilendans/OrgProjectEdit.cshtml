@@ -19,7 +19,13 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="~/Plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.maskMoney.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('.currency').maskMoney();
+        });
+    </script>
 
     <script>
     $( function() {

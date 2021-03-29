@@ -318,7 +318,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table2[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table2[i].Field<string>("MD_NAME"),
                                     MD_TIME = table2[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                    Data01 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")
                                 }
                             );
                     }
@@ -332,7 +332,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table3[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table3[i].Field<string>("MD_NAME"),
                                     MD_TIME = table3[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                    Data01 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")
                                 }
                             );
                     }
@@ -361,7 +361,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table5[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table5[i].Field<string>("MD_NAME"),
                                     MD_TIME = table5[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"))
+                                    Data01 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")
                                 }
                             );
                     }
@@ -390,7 +390,7 @@ namespace Audit.Controllers
                                     MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
                                     MD_NAME = table7[i].Field<string>("MD_NAME"),
                                     MD_TIME = table7[i].Field<string>("MD_TIME"),
-                                    Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
+                                    Data01 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"),
                                     Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
                                 }
                             );
@@ -419,7 +419,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table2[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table2[i].Field<string>("MD_NAME"),
                             MD_TIME = table2[i].Field<string>("MD_TIME"),
-                            Data01 = 0.00
+                            Data01 = null
                         });
                     }
                     for (int i = 0; i < table3.Length; i++)
@@ -430,7 +430,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table3[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table3[i].Field<string>("MD_NAME"),
                             MD_TIME = table3[i].Field<string>("MD_TIME"),
-                            Data01 = 0.00
+                            Data01 = null
                         });
                     }
                     for (int i = 0; i < table4.Length; i++)
@@ -451,7 +451,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table5[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table5[i].Field<string>("MD_NAME"),
                             MD_TIME = table5[i].Field<string>("MD_TIME"),
-                            Data01 = 0.00
+                            Data01 = null
                         });
                     }
                     for (int i = 0; i < table6.Length; i++)
@@ -472,7 +472,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table7[i].Field<string>("MD_NAME"),
                             MD_TIME = table7[i].Field<string>("MD_TIME"),
-                            Data01 = 0.00,
+                            Data01 = null,
                             Data02 = null,
                             Data03 = DateTime.Now
                         });
@@ -668,7 +668,7 @@ namespace Audit.Controllers
                             for (int i = 0; i < organization.tab2.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab2[i].MD_CODE);
-                                data01 = Convert.ToDouble(organization.tab2[i].Data01);
+                                data01 =  Convert.ToDouble(organization.tab2[i].Data01);
                                 data02 = " ";
                                 var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
@@ -729,8 +729,8 @@ namespace Audit.Controllers
                             int project_num = Convert.ToInt32(organization.tab7[3].Data01);
                             string project_start_date = organization.tab7[7].Data02;
                             string project_end_date = organization.tab7[8].Data02;
-                            double project_percent = organization.tab7[9].Data01;
-                            double project_budget = Convert.ToInt32(organization.tab7[10].Data01);
+                            int project_percent = Convert.ToInt32(organization.tab7[9].Data01);
+                            string project_budget = organization.tab7[10].Data01;
                             string project_fund = organization.tab7[1].Data02;
                             int project_law_num = organization.AUD_LAWS_NUM;
 
@@ -739,7 +739,7 @@ namespace Audit.Controllers
                                 mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab7[i].Data01);
                                 data02 = organization.tab7[i].Data02;
-                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date, project_end_date, Convert.ToInt32(project_percent), project_budget.ToString(), project_fund ,mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
+                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund ,mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
                             }
                             ViewBag.Tabid = "#maygt3";
                         }
@@ -799,10 +799,10 @@ namespace Audit.Controllers
                             int org_id = Convert.ToInt32(Session["OrganizationIDs"].ToString());
                             string project_name = organization.tab7[2].Data02;
                             int project_num = Convert.ToInt32(organization.tab7[3].Data01);
-                            string project_start_date = organization.tab7[4].Data02;
-                            string project_end_date = organization.tab7[5].Data02;
-                            double project_percent = organization.tab7[6].Data01;
-                            double project_budget = Convert.ToInt32(organization.tab7[7].Data01);
+                            string project_start_date = organization.tab7[7].Data02;
+                            string project_end_date = organization.tab7[8].Data02;
+                            int project_percent = Convert.ToInt32(organization.tab7[9].Data01);
+                            string project_budget = organization.tab7[10].Data01;
                             string project_fund = organization.tab7[1].Data02;
                             int project_law_num = organization.AUD_LAWS_NUM;
 
@@ -811,7 +811,7 @@ namespace Audit.Controllers
                                 mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab7[i].Data01);
                                 data02 = organization.tab7[i].Data02;
-                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, org_id, project_name, project_num, project_start_date, project_end_date, Convert.ToInt32(project_percent), project_budget.ToString(), project_fund, mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
+                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, org_id, project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund, mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
                             }
                         }
                         break;
@@ -909,7 +909,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MD_NAME"),
                             MD_TIME = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("MD_TIME"),
-                            Data01 = Convert.ToDouble(DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("DATA01")),
+                            Data01 = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("DATA01"),
                             Data02 = DsOrgProjects.Tables["OrgProjectDataList"].Rows[i].Field<string>("DATA02")
                         }
                     );
