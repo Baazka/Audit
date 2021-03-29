@@ -2210,6 +2210,7 @@
     <Content Include="Views\Shilendans\OrgProjectEdit.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Home\AddTabTAX.cshtml" />
+    <Content Include="Views\Statistic\BM8AddEdit.cshtml" />
     <Content Include="Views\Shilendans\OrgProjectDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
