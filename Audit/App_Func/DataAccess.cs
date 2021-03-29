@@ -2895,6 +2895,46 @@ namespace Audit.App_Func
             return response;
         }
 
+        public static DataResponse OrgProjectDelete(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["MirroraccConfig"]);
+                con.Open();
+
+                //Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "F_ORG_PROJECT_DELETE";
+
+                // Set parameters
+                OracleParameter retParam = cmd.Parameters.Add(":Ret_val", OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+               
+                cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = request.Element("Parameters").Element("ORG_ID")?.Value;
+                cmd.Parameters.Add(":P_PROID", OracleDbType.Int32).Value = request.Element("Parameters").Element("PRO_ID")?.Value;
+
+
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+                con.Close();
+
+                object responseValue = retParam.Value;
+
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+
+                response.CreateResponse(responseVal, string.Empty, "Амжилттай устгалаа");
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+
         public static DataResponse OrgProjectInsert(XElement request)
         {
             DataResponse response = new DataResponse();
