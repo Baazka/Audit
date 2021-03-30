@@ -33,6 +33,8 @@ namespace Audit.App_Func
         public static List<Bank> banks { get; set; } = new List<Bank>();
         public static List<Reason> reasons { get; set; } = new List<Reason>();
 
+        public static List<Period> periods { get; set; } = new List<Period>();
+
         static string SecurityKey = null;
         static internal string _logFolder = null;
         static public string LogFolder

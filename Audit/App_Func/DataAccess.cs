@@ -186,6 +186,8 @@ namespace Audit.App_Func
                     cmd.CommandText = "SELECT BANK_ID, BANK_NAME FROM AUD_REG.REF_BANK WHERE IS_ACTIVE = 1 ORDER BY BANK_ID";
                 else if (libName == "Reason")
                     cmd.CommandText = "SELECT INACTIVE_REASON_ID, INACTIVE_REASON_NAME FROM AUD_REG.REF_INACTIVE_REASON WHERE IS_ACTIVE = 1 ORDER BY INACTIVE_REASON_ID";
+                else if (libName == "StatPeriod")
+                    cmd.CommandText = "SELECT ID,PERIOD_LABEL FROM AUD_STAT.REF_PERIOD ORDER BY ID";
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -312,7 +314,7 @@ namespace Audit.App_Func
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
                     OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
                 cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID")?.Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value  :null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION")?.Value.Replace(",", "%"), System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
@@ -366,7 +368,7 @@ namespace Audit.App_Func
                 // Set parameters
                 cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
 
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT")!=null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value: null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT")!=null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value :null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION")?.Value.Replace(",", "%"), System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
@@ -777,7 +779,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
 
                 response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
@@ -865,7 +867,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
 
                 response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
@@ -944,7 +946,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
                 string responseMsg = "";
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
                 if (responseVal)
                     responseMsg = "Баталгаажууллаа.";
                 else
@@ -992,7 +994,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
 
                 response.CreateResponse(responseVal, string.Empty, "Устгалаа");
             }
@@ -1075,7 +1077,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM "+
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID "+
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID "+
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1126,7 +1128,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1177,7 +1179,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1228,7 +1230,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1279,7 +1281,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1399,71 +1401,75 @@ namespace Audit.App_Func
 
                 //RowCount
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "F_BM8_COUNT";
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM8_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                        "WHERE (:V_USER_TYPE != 'Branch_Auditor' OR (:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.CORRECTED_ERROR_DESC) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.CORRECTED_ERROR_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
-                    OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
-                //cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID")?.Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":P_PERIOD", OracleDbType.Varchar2, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":P_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                cmd.ExecuteNonQuery();
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
                 cmd.Dispose();
 
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, EXEC_TYPE, CREATED_DATE FROM AUD_STAT.BM8_DATA " +
-                    //"WHERE :DEP_ID = 2 OR(DEP_ID != 2 AND OFFICE_ID = :DEP_ID) " +
-                    "where (:V_DEPARTMENT IS NULL OR OFFICE_ID = :V_DEPARTMENT) " +
-                    "AND(:V_PERIOD IS NULL OR STATISTIC_PERIOD = :V_PERIOD) " +
-                    "AND(:V_SEARCH IS NULL OR OFFICE_ID LIKE '%' || :V_SEARCH || '%' " +
-                    "OR STATISTIC_PERIOD LIKE '%' || :V_SEARCH || '%' OR AUDIT_YEAR LIKE '%' || :V_SEARCH || '%' " +
-                    "OR AUDIT_TYPE LIKE '%' || :V_SEARCH || '%' OR AUDIT_CODE LIKE '%' || :V_SEARCH || '%' " +
-                    "OR AUDIT_NAME LIKE '%' || :V_SEARCH || '%' OR AUDIT_BUDGET_TYPE LIKE '%' || :V_SEARCH || '%' " +
-                    "OR CORRECTED_ERROR_DESC LIKE '%' || :V_SEARCH || '%' OR CORRECTED_ERROR_TYPE LIKE '%' || :V_SEARCH || '%' " +
-                    "OR CORRECTED_COUNT LIKE '%' || :V_SEARCH || '%' OR CORRECTED_AMOUNT LIKE '%' || :V_SEARCH || '%' " +
-                    "OR EXEC_TYPE LIKE '%' || :V_SEARCH || '%' OR CREATED_DATE LIKE '%' || :V_SEARCH || '%') " +
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_YEAR, BM.AUDIT_TYPE, BM.AUDIT_CODE, BM.AUDIT_NAME, "+
+                    "BM.AUDIT_BUDGET_TYPE, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT, BM.EXEC_TYPE, BM.CREATED_DATE "+
+                    "FROM AUD_STAT.BM8_DATA BM "+
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID "+
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID "+
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR (:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' "+
+                    "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' "+
+                    "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' "+
+                    "OR UPPER(BM.CORRECTED_ERROR_DESC) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.CORRECTED_ERROR_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
                     "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN ID END ASC,  " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN OFFICE_ID END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN OFFICE_ID END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'STATISTIC_PERIOD' AND: ORDER_DIR = 'ASC' THEN STATISTIC_PERIOD END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'STATISTIC_PERIOD' AND: ORDER_DIR = 'DESC' THEN STATISTIC_PERIOD END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN AUDIT_YEAR END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN AUDIT_YEAR END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN AUDIT_TYPE END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN AUDIT_TYPE END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN AUDIT_CODE END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN AUDIT_CODE END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN AUDIT_NAME END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN AUDIT_NAME END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN AUDIT_BUDGET_TYPE END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN AUDIT_BUDGET_TYPE END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_DESC' AND: ORDER_DIR = 'ASC' THEN CORRECTED_ERROR_DESC END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_DESC' AND: ORDER_DIR = 'DESC' THEN CORRECTED_ERROR_DESC END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_TYPE' AND: ORDER_DIR = 'ASC' THEN CORRECTED_ERROR_TYPE END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_ERROR_TYPE' AND: ORDER_DIR = 'DESC' THEN CORRECTED_ERROR_TYPE END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_COUNT' AND: ORDER_DIR = 'ASC' THEN CORRECTED_COUNT END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_COUNT' AND: ORDER_DIR = 'DESC' THEN CORRECTED_COUNT END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_AMOUNT' AND: ORDER_DIR = 'ASC' THEN CORRECTED_AMOUNT END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'CORRECTED_AMOUNT' AND: ORDER_DIR = 'DESC' THEN CORRECTED_AMOUNT END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'EXEC_TYPE' AND: ORDER_DIR = 'ASC' THEN EXEC_TYPE END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'EXEC_TYPE' AND: ORDER_DIR = 'DESC' THEN EXEC_TYPE END DESC, " +
-                    "CASE WHEN: ORDER_NAME = 'CREATED_DATE' AND: ORDER_DIR = 'ASC' THEN CREATED_DATE END ASC, " +
-                    "CASE WHEN: ORDER_NAME = 'CREATED_DATE' AND: ORDER_DIR = 'DESC' THEN CREATED_DATE END DESC " +
-                    "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT: PAGESIZE ROWS ONLY";
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN ID END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND :ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND :ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND :ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND :ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND :ORDER_DIR = 'ASC' THEN BM.AUDIT_YEAR END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND :ORDER_DIR = 'DESC' THEN BM.AUDIT_YEAR END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND :ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND :ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND :ORDER_DIR = 'ASC' THEN BM.AUDIT_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND :ORDER_DIR = 'DESC' THEN BM.AUDIT_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND :ORDER_DIR = 'ASC' THEN BM.AUDIT_NAME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND :ORDER_DIR = 'DESC' THEN BM.AUDIT_NAME END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND :ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND :ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_ERROR_DESC' AND :ORDER_DIR = 'ASC' THEN BM.CORRECTED_ERROR_DESC END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_ERROR_DESC' AND :ORDER_DIR = 'DESC' THEN BM.CORRECTED_ERROR_DESC END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_ERROR_TYPE' AND :ORDER_DIR = 'ASC' THEN BM.CORRECTED_ERROR_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_ERROR_TYPE' AND :ORDER_DIR = 'DESC' THEN BM.CORRECTED_ERROR_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_COUNT' AND :ORDER_DIR = 'ASC' THEN BM.CORRECTED_COUNT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_COUNT' AND :ORDER_DIR = 'DESC' THEN BM.CORRECTED_COUNT END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_AMOUNT' AND :ORDER_DIR = 'ASC' THEN BM.CORRECTED_AMOUNT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'CORRECTED_AMOUNT' AND :ORDER_DIR = 'DESC' THEN BM.CORRECTED_AMOUNT END DESC " +
+                    "OFFSET((  :PAGENUMBER / :PAGESIZE) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT :PAGESIZE ROWS ONLY";
 
                 cmd.BindByName = true;
-                // Set parameters
-                //cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
-
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Varchar2, req.Element("V_PERIOD")?.Value, System.Data.ParameterDirection.Input);
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value  :null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
@@ -1482,7 +1488,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
-                xmlResponseData.Add(new XElement("RowCount", retParam.Value));
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1518,7 +1524,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1569,7 +1575,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1620,7 +1626,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1671,7 +1677,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1722,7 +1728,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1773,7 +1779,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1824,7 +1830,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1877,7 +1883,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1928,7 +1934,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -1979,7 +1985,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2030,7 +2036,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2081,7 +2087,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2132,7 +2138,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2183,7 +2189,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2234,7 +2240,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2285,7 +2291,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2336,7 +2342,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2387,7 +2393,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2438,7 +2444,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2489,7 +2495,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2540,7 +2546,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2591,7 +2597,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2642,7 +2648,7 @@ namespace Audit.App_Func
                     "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
                     "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR: DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
 
                 // Set parameters
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2883,7 +2889,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
             }
@@ -2923,7 +2929,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай устгалаа");
             }
@@ -2977,7 +2983,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
             }

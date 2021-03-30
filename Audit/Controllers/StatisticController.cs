@@ -97,6 +97,16 @@ namespace Audit.Controllers
                     Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
                     res.departments = Globals.departments;
                 }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
             }
             catch (Exception ex)
             {

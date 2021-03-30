@@ -29,9 +29,13 @@
             <label for="DeparmentID" class="col-form-label">Алба:</label>
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="Organization.loadTemplate();">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM8.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -95,6 +99,8 @@
                     url: "/api/service/bm8list",
                     type: 'POST',
                     data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.PeriodID = $('#PeriodID').val();
                         return data;
                     }
                 },
@@ -136,6 +142,9 @@
 
         }
         $('#DeparmentID').change(function () {
+            bm8ListInit();
+        });
+        $('#PeriodID').change(function () {
             bm8ListInit();
         });
     var BM8 = {

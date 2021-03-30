@@ -92,12 +92,12 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_DEPARTMENT", null));
 
-                if (!string.IsNullOrEmpty(request.Period))
-                    elem.Add(new XElement("V_PERIOD", request.Period));
+                if (request.PeriodID !=null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM8(elem, User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM8(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("BM8") != null)
                     response.data = (from item in res.Elements("BM8") select new BM8().SetXml(item)).ToList();
 

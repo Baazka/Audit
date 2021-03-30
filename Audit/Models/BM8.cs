@@ -9,7 +9,9 @@ namespace Audit.Models
     public class BM8VM
     {
         public int DeparmentID { get; set; }
+        public int PeriodID { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
+        public List<Period> periods { get; set; } = new List<Period>();
     }
     public class BM8
     {
