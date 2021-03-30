@@ -747,7 +747,7 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
     $(document).ready(function () {
         var tabid = '@(ViewBag.Tabid)';
         //alert(tabid)
-        if (tabid != null) {
+        if (tabid != null && tabid != "") {
             $('.nav a[href="'+tabid+'"]').tab('show');
         }
     });
