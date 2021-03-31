@@ -962,6 +962,141 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement BM8Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM8Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM8Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM8Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public XElement NM1(string departmentID)
         {
             try

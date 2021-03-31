@@ -1433,15 +1433,15 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.BM8_DATA BM "+
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID "+
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID "+
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR (:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE (:V_USER_TYPE != 'Branch_Auditor' OR (:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
                     "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' "+
                     "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' "+
                     "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' "+
                     "OR UPPER(BM.CORRECTED_ERROR_DESC) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.CORRECTED_ERROR_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
                     "ORDER BY " +
                     "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND :ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND :ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN RD.DEPARTMENT_NAME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'DESC' THEN RD.DEPARTMENT_NAME END DESC,  " +
                     "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND :ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
                     "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND :ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
                     "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND :ORDER_DIR = 'ASC' THEN BM.AUDIT_YEAR END ASC,  " +
@@ -1490,6 +1490,174 @@ namespace Audit.App_Func
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
                 xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM8Detail(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT office_id, statistic_period, audit_year, audit_type, audit_code, audit_name, audit_budget_type, corrected_error_desc, corrected_error_type, corrected_count, corrected_amount, exec_type, created_date, id, is_active, created_by FROM bm8_data WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM8Detail";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM8Update(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM8");
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET OFFICE_ID = :P_OFFICE_ID, STATISTIC_PERIOD = :P_STATISTIC_PERIOD, AUDIT_YEAR = :P_AUDIT_YEAR, AUDIT_CODE = :P_AUDIT_CODE, AUDIT_NAME = :P_AUDIT_NAME, AUDIT_BUDGET_TYPE = :P_AUDIT_BUDGET_TYPE, CORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID").Value;
+                cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD").Value;
+                cmd.Parameters.Add(":P_AUDIT_YEAR", OracleDbType.Int32).Value = elem.Element("AUDIT_YEAR")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_CODE", OracleDbType.Varchar2).Value = elem.Element("AUDIT_CODE")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_NAME", OracleDbType.Varchar2).Value = elem.Element("AUDIT_NAME")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_BUDGET_TYPE", OracleDbType.Varchar2).Value = elem.Element("AUDIT_BUDGET_TYPE")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM8Insert(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM8");
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM8_DATA(OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES (:P_OFFICE_ID, :P_STATISTIC_PERIOD, :P_AUDIT_YEAR, :P_AUDIT_TYPE, :P_AUDIT_CODE, :P_AUDIT_NAME, :P_AUDIT_BUDGET_TYPE, :P_CORRECTED_ERROR_DESC, :P_CORRECTED_ERROR_TYPE, :P_CORRECTED_COUNT, :P_CORRECTED_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID")?.Value;
+                cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_YEAR", OracleDbType.Int32).Value = elem.Element("AUDIT_YEAR")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_TYPE", OracleDbType.Varchar2).Value = elem.Element("AUDIT_TYPE")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_CODE", OracleDbType.Varchar2).Value = elem.Element("AUDIT_CODE")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_NAME", OracleDbType.Varchar2).Value = elem.Element("AUDIT_NAME")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_BUDGET_TYPE", OracleDbType.Varchar2).Value = elem.Element("AUDIT_BUDGET_TYPE")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
+                cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM8Delete(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA "+
+                    "SET IS_ACTIVE = 0, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("UPDATED_DATE")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Устгалаа");
             }
             catch (Exception ex)
             {

@@ -104,6 +104,9 @@
                         return data;
                     }
                 },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ID);
+                },
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center',
@@ -111,7 +114,7 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "OFFICE_ID", "name": "OFFICE_ID" },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR", "sortable": false },
                     { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
                     { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
@@ -122,9 +125,17 @@
                     { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false },
                     { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false },
                     {
-                        "data": null, "sortable": false,
+                        "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return null;
+                            var tmp = '<div class="btn-group">';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM8.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM8.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_EDIT")')*@
+                            tmp += urledit;
+                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_DELETE")')*@
+                            tmp += urldelete;
+                            tmp += "</div>";
+                            return tmp;
                         }
                     }
                 ],
@@ -148,7 +159,7 @@
             bm8ListInit();
         });
     var BM8 = {
-        OrgID: null,
+        bm8ID: null,
         display: function (data) {
             $("div#bm8modalcontainer").remove();
             $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
@@ -171,11 +182,11 @@
                     }
                 });
         },
-        edit: function (orgid) {
+        edit: function (id) {
             $.ajax({
-                url: "@Url.Action("OrgDetail", "Statistic", new { Area = "" })",
+                url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
                 type: 'POST',
-                data: { orgid, isshow },
+                data: { id },
                 success: function (data, status, xhr) {
                     BM8.progressResponse(data, status, xhr);
                 },
@@ -188,23 +199,26 @@
                 }
             });
         },
-        delete: function (orgid) {
-            BM8.OrgID = orgid;
+        delete: function (id) {
+            BM8.bm8ID = id;
+            var r = confirm("Устгах уу!");
+            if (r) {
                 $.ajax({
-                url: "@Url.Action("OrgDelete", "Statistic", new { Area = "" })",
-                type: 'GET',
-                    data: { orgid },
-                success: function (data, status, xhr) {
-                    BM8.displayDelete(data);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
-                }
-            });
+                    url: "@Url.Action("BM8Delete", "Statistic", new { Area = "" })",
+                    type: 'POST',
+                    data: { id },
+                    success: function (data, status, xhr) {
+                        BM8.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            }
         },
         close: function () {
             $("#Bm8Modal").modal("hide");

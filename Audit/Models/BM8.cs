@@ -16,7 +16,10 @@ namespace Audit.Models
     public class BM8
     {
         public int ID { get; set; }
-        public string OFFICE_ID { get; set; }
+        public int OFFICE_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public int STATISTIC_PERIOD { get; set; }
+        public string PERIOD_LABEL { get; set; }
         public string AUDIT_YEAR { get; set; }
         public string AUDIT_TYPE { get; set; }
         public string AUDIT_CODE { get; set; }
@@ -26,7 +29,13 @@ namespace Audit.Models
         public string CORRECTED_ERROR_TYPE { get; set; }
         public string CORRECTED_COUNT { get; set; }
         public string CORRECTED_AMOUNT { get; set; }
-        
+        public int IS_ACTIVE { get; set; } = 1;
+
+        public DateTime? CREATED_DATE { get; set; }
+        public DateTime? UPDATED_DATE { get; set; }
+        public List<Department> departments { get; set; } = new List<Department>();
+        public List<Period> periods { get; set; } = new List<Period>();
+
         public BM8 SetXml(XElement xml)
         {
             if (xml != null)
@@ -34,7 +43,13 @@ namespace Audit.Models
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
-                    OFFICE_ID = xml.Element("OFFICE_ID").Value;
+                    OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
+                if (xml.Element("DEPARTMENT_NAME") != null)
+                    DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value;
+                if (xml.Element("STATISTIC_PERIOD") != null)
+                    STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
+                if (xml.Element("PERIOD_LABEL") != null)
+                    PERIOD_LABEL = xml.Element("PERIOD_LABEL").Value;
                 if (xml.Element("AUDIT_YEAR") != null)
                     AUDIT_YEAR = xml.Element("AUDIT_YEAR").Value;
                 if (xml.Element("AUDIT_TYPE") != null)
@@ -53,9 +68,33 @@ namespace Audit.Models
                     CORRECTED_COUNT = xml.Element("CORRECTED_COUNT").Value;
                 if (xml.Element("CORRECTED_AMOUNT") != null)
                     CORRECTED_AMOUNT = xml.Element("CORRECTED_AMOUNT").Value;
+                if (xml.Element("CORRECTED_AMOUNT") != null)
+                    CORRECTED_AMOUNT = xml.Element("CORRECTED_AMOUNT").Value;
+                if (xml.Element("CREATED_DATE") != null)
+                    CREATED_DATE = Convert.ToDateTime(xml.Element("CREATED_DATE").Value);
 
             }
             return this;
+        }
+        public XElement ToXml()
+        {
+            return new XElement("BM8",
+                       new XElement("ID", ID),
+                       new XElement("OFFICE_ID", OFFICE_ID),
+                       new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
+                       new XElement("AUDIT_YEAR", AUDIT_YEAR),
+                       new XElement("AUDIT_TYPE", AUDIT_TYPE),
+                       new XElement("AUDIT_CODE", AUDIT_CODE),
+                       new XElement("AUDIT_NAME", AUDIT_NAME),
+                       new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
+                       new XElement("CORRECTED_ERROR_DESC", CORRECTED_ERROR_DESC),
+                       new XElement("CORRECTED_ERROR_TYPE", CORRECTED_ERROR_TYPE),
+                       new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
+                       new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),
+                       new XElement("IS_ACTIVE", IS_ACTIVE),
+                       new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null),
+                       new XElement("UPDATED_DATE", UPDATED_DATE != null ? ((DateTime)UPDATED_DATE).ToString("dd-MMM-yy") : null)
+                       );
         }
     }
 

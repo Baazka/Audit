@@ -28,6 +28,7 @@ namespace Audit.Models
     }
     public class BM8ListRequest : DataTableAjaxPostModel
     {
+        public int ID { get; set; }
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public string STATISTIC_PERIOD { get; set; }
