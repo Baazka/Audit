@@ -1,8 +1,8 @@
-﻿@model System.Xml.Linq.XElement
+﻿@using Audit.Models
+@model Audit.Models.BM0VM
 @{
     ViewBag.Title = "BM0";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int counter = 0;
 }
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
@@ -11,113 +11,254 @@
         </span>
     </a>
     <h4>БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл</h4>
-    <div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('BM0', 'БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>
 </div>
 <hr class="sidebar-divider">
-<div class="table-responsive">
-    <table id="BM0" class="table table-bordered datatable display" style="width:100%">
-        <thead>
-            <tr style="background-color:#D2D3D5;">
-                <th rowspan="3" class="text-center">№</th>
-                <th colspan="12">Ерөнхий мэдээлэл</th>
-                <th colspan="4">Аудитын багийн мэдээлэл</th>
-            </tr>
-            <tr>
-                <th rowspan="2">Аудитын төрөл</th>
-                <th rowspan="2">Сэдвийн үндэслэл</th>
-                <th rowspan="2">Сэдвийн код</th>
-                <th rowspan="2">Сэдвийн нэр</th>
-                <th rowspan="2">Батлагдсан тушаалын дугаар</th>
-                <th rowspan="2">Батлагдсан огноо</th>
-                <th rowspan="2">Санал дүгнэлтийн төрөл</th>
-                <th rowspan="2">Төсөв захирагчийн ангилал</th>
-                <th rowspan="2">Хамрагдсан байгууллагын жагсаалт</th>
-                <th colspan="3">Ажилласан</th>
-                <th rowspan="2">Харьяа газар</th>
-                <th rowspan="2">Багийн ахлах</th>
-                <th rowspan="2">Багийн гишүүд</th>
-                <th rowspan="2">Мэдээлэл оруулсан аудитор</th>
-            </tr>
-            <tr>
-                <th>Хүн</th>
-                <th>Өдөр</th>
-                <th>Илүү цаг</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Elements("BM0").Count() != 0)
-            {
-                foreach (var item in Model.Elements("BM0"))
-                {
-                    counter++;
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM0.loadTemplate();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Шинэ бүртгэл</span>
+            </a>
+        </div>
+
+
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM0', 'БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="BM0" class="table table-bordered datatable display" style="width:100%">
+                <thead>
                     <tr>
-                        <td>@counter</td>
-                        <td>@(item.Element("OFFICE_ID") != null ? item.Element("OFFICE_ID").Value:"")</td>
-                        <td>@(item.Element("DEPARTMENT_NAME") != null ? item.Element("DEPARTMENT_NAME").Value:"")</td>
-                        <td>@(item.Element("STATISTIC_PERIOD") != null ? item.Element("STATISTIC_PERIOD").Value:"")</td>
-                        <td>@(item.Element("AUDIT_YEAR") != null ? item.Element("AUDIT_YEAR").Value:"")</td>
-                        <td>@(item.Element("AUDIT_TYPE") != null ? item.Element("AUDIT_TYPE").Value:"")</td>
-                        <td>@(item.Element("AUDIT_TYPE_NAME") != null ? item.Element("AUDIT_TYPE_NAME").Value:"")</td>
-                        <td>@(item.Element("AUDIT_CODE") != null ? item.Element("AUDIT_CODE").Value:"")</td>
-                        <td>@(item.Element("AUDIT_NAME") != null ? item.Element("AUDIT_NAME").Value:"")</td>
-                        <td>@(item.Element("AUDIT_BUDGET_TYPE") != null ? item.Element("AUDIT_BUDGET_TYPE").Value:"")</td>
-                        <td>@(item.Element("ORDER_DATE") != null ? item.Element("ORDER_DATE").Value:"")</td>
-                        <td>@(item.Element("ORDER_NO") != null ? item.Element("ORDER_NO").Value:"")</td>
-                        <td>@(item.Element("ACT_NO") != null ? item.Element("ACT_NO").Value:"")</td>
-                        <td>@(item.Element("ACT_VIOLATION_DESC") != null ? item.Element("ACT_VIOLATION_DESC").Value:"")</td>
-                        <td>@(item.Element("ACT_VIOLATION_TYPE") != null ? item.Element("ACT_VIOLATION_TYPE").Value:"")</td>
-                        <td>@(item.Element("ACT_SUBMITTED_DATE") != null ? item.Element("ACT_SUBMITTED_DATE").Value:"")</td>
-                        <td>@(item.Element("ACT_DELIVERY_DATE") != null ? item.Element("ACT_DELIVERY_DATE").Value:"")</td>
-                        <td>@(item.Element("ACT_AMOUNT") != null ? item.Element("ACT_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("ACT_STATE_AMOUNT") != null ? item.Element("ACT_STATE_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("ACT_LOCAL_AMOUNT") != null ? item.Element("ACT_LOCAL_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("ACT_ORG_AMOUNT") != null ? item.Element("ACT_ORG_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("ACT_OTHER_AMOUNT") != null ? item.Element("ACT_OTHER_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("ACT_RCV_NAME") != null ? item.Element("ACT_RCV_NAME").Value:"")</td>
-                        <td>@(item.Element("ACT_RCV_ROLE") != null ? item.Element("ACT_RCV_ROLE").Value:"")</td>
-                        <td>@(item.Element("ACT_RCV_GIVEN_NAME") != null ? item.Element("ACT_RCV_GIVEN_NAME").Value:"")</td>
-                        <td>@(item.Element("ACT_RCV_ADDRESS") != null ? item.Element("ACT_RCV_ADDRESS").Value:"")</td>
-                        <td>@(item.Element("ACT_CONTROL_AUDITOR") != null ? item.Element("ACT_CONTROL_AUDITOR").Value:"")</td>
-                        <td>@(item.Element("COMPLETION_ORDER") != null ? item.Element("COMPLETION_ORDER").Value:"")</td>
-                        <td>@(item.Element("COMPLETION_AMOUNT") != null ? item.Element("COMPLETION_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("COMPLETION_STATE_AMOUNT") != null ? item.Element("COMPLETION_STATE_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("COMPLETION_LOCAL_AMOUNT") != null ? item.Element("COMPLETION_LOCAL_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("COMPLETION_ORG_AMOUNT") != null ? item.Element("COMPLETION_ORG_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("COMPLETION_OTHER_AMOUNT") != null ? item.Element("COMPLETION_OTHER_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("REMOVED_AMOUNT") != null ? item.Element("REMOVED_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("REMOVED_LAW_AMOUNT") != null ? item.Element("REMOVED_LAW_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("REMOVED_LAW_DATE_NO") != null ? item.Element("REMOVED_LAW_DATE_NO").Value:"")</td>
-                        <td>@(item.Element("REMOVED_INVALID_AMOUNT") != null ? item.Element("REMOVED_INVALID_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("REMOVED_INVALID_DATE_NO") != null ? item.Element("REMOVED_INVALID_DATE_NO").Value:"")</td>
-                        <td>@(item.Element("ACT_C2_AMOUNT") != null ? item.Element("ACT_C2_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("ACT_C2_AMOUNT") != null ? item.Element("ACT_C2_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("ACT_C2_NONEXPIRED") != null ? item.Element("ACT_C2_NONEXPIRED").Value:"")</td>
-                        <td>@(item.Element("ACT_C2_EXPIRED") != null ? item.Element("ACT_C2_EXPIRED").Value:"")</td>
-                        <td>@(item.Element("BENEFIT_FIN_AMOUNT") != null ? item.Element("BENEFIT_FIN_AMOUNT").Value:"")</td>
-                        <td>@(item.Element("BENEFIT_NONFIN") != null ? item.Element("BENEFIT_NONFIN").Value:"")</td>
-                        <td>@(item.Element("EXEC_TYPE") != null ? item.Element("EXEC_TYPE").Value:"")</td>
-                        <td>@(item.Element("CREATED_DATE") != null ? item.Element("CREATED_DATE").Value:"")</td>
+                        <th rowspan="3" class="text-center">№</th>
+                        <th colspan="12">Ерөнхий мэдээлэл</th>
+                        <th colspan="4">Аудитын багийн мэдээлэл</th>
+                        <th rowspan="3" class="text-center">Үйлдэл</th>
                     </tr>
-                }
-            }
-        </tbody>
-    </table>
+                    <tr>
+                        <th rowspan="2">Аудитын төрөл</th>
+                        <th rowspan="2">Сэдвийн үндэслэл</th>
+                        <th rowspan="2">Сэдвийн код</th>
+                        <th rowspan="2">Сэдвийн нэр</th>
+                        <th rowspan="2">Батлагдсан тушаалын дугаар</th>
+                        <th rowspan="2">Батлагдсан огноо</th>
+                        <th rowspan="2">Санал дүгнэлтийн төрөл</th>
+                        <th rowspan="2">Төсөв захирагчийн ангилал</th>
+                        <th rowspan="2">Хамрагдсан байгууллагын жагсаалт</th>
+                        <th colspan="3">Ажилласан</th>
+                        <th rowspan="2">Харьяа газар</th>
+                        <th rowspan="2">Багийн ахлах</th>
+                        <th rowspan="2">Багийн гишүүд</th>
+                        <th rowspan="2">Мэдээлэл оруулсан аудитор</th>
+                    </tr>
+                    <tr>
+                        <th>Хүн</th>
+                        <th>Өдөр</th>
+                        <th>Илүү цаг</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @section scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js" integrity="sha512-wBcFatf7yQavHQWtf4ZEjvtVz4XkYISO96hzvejfh18tn3OrJ3sPBppH0B6q/1SHB4OKHaNNUKqOmsiTGlOM/g==" crossorigin="anonymous"></script><script>
-        initDataTable();
-        function exportFile() {
-            var wb = XLSX.utils.table_to_book(document.getElementById('sampletable'));
-            XLSX.writeFile(wb, 'sample.xlsx');
+    <script>
+        $(document).ready(function () {
+            bm0ListInit();
+        });
 
+        function bm0ListInit() {
+            var table = $("#BM0").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/bm0list",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.PeriodID = $('#PeriodID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ID);
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
+                    { "data": "TOPIC_TYPE", "name": "TOPIC_TYPE" },
+                    { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
+                    { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
+                    { "data": "ORDER_NO", "name": "ORDER_NO" },
+                    { "data": "ORDER_DATE", "name": "ORDER_DATE" },
+                    { "data": "AUDIT_FORM_TYPE", "name": "AUDIT_FORM_TYPE" },
+                    { "data": "AUDIT_PROPOSAL_TYPE", "name": "AUDIT_PROPOSAL_TYPE" },
+                    //{ "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
+                    { "data": "AUDIT_INCLUDED_ORG", "name": "AUDIT_INCLUDED_ORG" },
+                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
+                    { "data": "WORKING_DAY", "name": "WORKING_DAY" },
+                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
+                    { "data": "AUDIT_DEPARTMENT", "name": "AUDIT_DEPARTMENT" },
+                    { "data": "AUDITOR_LEAD", "name": "AUDITOR_LEAD" },
+                    { "data": "AUDITOR_MEMBER", "name": "AUDITOR_MEMBER" },
+                    { "data": "AUDITOR_ENTRY", "name": "AUDITOR_ENTRY" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            var tmp = '<div class="btn-group">';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM0.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM0.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            tmp += urledit;
+                            tmp += urldelete;
+                            tmp += "</div>";
+                            return tmp;
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+            });
+
+        }
+        $('#DeparmentID').change(function () {
+            bm0ListInit();
+        });
+        $('#PeriodID').change(function () {
+            bm0ListInit();
+        });
+        var BM0 = {
+        bm0ID: null,
+        display: function (data) {
+            $("div#bm0modalcontainer").remove();
+            $('<div/>', { id: "bm0modalcontainer" }).appendTo('body').append(data);
+
+            $("#Bm0Modal").modal({ show: true });
+        },
+        loadTemplate: function () {
+            $.ajax({
+                    url: "@Url.Action("BM0AddEdit", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        BM0.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+        },
+        edit: function (id) {
+            $.ajax({
+                url: "@Url.Action("BM0Detail", "Statistic", new { Area = "" })",
+                type: 'POST',
+                data: { id },
+                success: function (data, status, xhr) {
+                    BM0.progressResponse(data, status, xhr);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        delete: function (id) {
+            BM0.bm0ID = id;
+            var r = confirm("Устгах уу!");
+            if (r) {
+                $.ajax({
+                    url: "@Url.Action("BM0Delete", "Statistic", new { Area = "" })",
+                    type: 'POST',
+                    data: { id },
+                    success: function (data, status, xhr) {
+                        BM0.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            }
+        },
+        close: function () {
+            $("#Bm0Modal").modal("hide");
+        },
+        progressResponse: function (data, status, xhr) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                BM0.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    BM0.close();
+                    bm0ListInit();
+                    Message.success(data.message);
+                }
+            }
+        }
+    }
+        function exportFile(tableid, excelname,) {
+            $('#exportXLSX').prop('disabled', true);
+            table.destroy();
+            bm0ListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                table.destroy();
+                bm0ListInit();
+                $('#exportXLSX').prop('disabled', false);
+            }, 5000
+            )
         }
     </script>
 } 

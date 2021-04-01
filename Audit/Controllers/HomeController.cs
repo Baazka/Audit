@@ -386,6 +386,7 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult OrgAddEdit(Organization organization)
         {
+            ModelState.Remove("ORG_ACTIVITY_ID");
             if (ModelState.IsValid)
             {
                 if(organization.ORG_ID != 0)

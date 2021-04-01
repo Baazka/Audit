@@ -91,7 +91,28 @@
             orgListInit();
         })
         var table;
-        function orgListInit(pagelength=10) {
+        function orgListInit(pagelength = 10) {
+            //jQuery.extend(jQuery.fn.dataTableExt.oSort, {
+
+            //    "case-sensitive-asc": function (a, b) {
+            //        if (a < b) {
+            //            return -1;
+            //        } else if (a > b) {
+            //            return 1;
+            //        } else {
+            //            return 0;
+            //        }
+            //    },
+            //    "case-sensitive-desc": function (a, b) {
+            //        if (a > b) {
+            //            return -1;
+            //        } else if (a < b) {
+            //            return 1;
+            //        } else {
+            //            return 0;
+            //        }
+            //    }
+            //});
             table = $("#organizationlist").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -108,7 +129,8 @@
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.ORG_ID);
                 },
-
+                //"columnDefs": [
+                //    { "type": "case-sensitive", targets: 0 }],
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center',
@@ -158,7 +180,10 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "search": {
+                    "caseInsensitive": false
+                }
 
             });
         }

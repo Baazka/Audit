@@ -107,7 +107,7 @@ namespace Audit.Models
         //busad
         [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_BUDGET_TYPE_ID { get; set; }
-        [Required(ErrorMessage = "Утга сонгоно уу.")]
+        //[Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_ACTIVITY_ID { get; set; }
         [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_SUB_BUDGET_TYPE_ID { get; set; }

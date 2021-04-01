@@ -26,6 +26,239 @@ namespace Audit.Models
     {
         public List<OrgList> data { get; set; } = new List<OrgList>();
     }
+    public class BM0ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM0ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM0> data { get; set; } = new List<BM0>();
+    }
+    public class BM1ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM1ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM1> data { get; set; } = new List<BM1>();
+    }
+    public class BM2ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM2ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM2> data { get; set; } = new List<BM2>();
+    }
+    public class BM3ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM3ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM3> data { get; set; } = new List<BM3>();
+    }
+    public class BM4ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM4ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM4> data { get; set; } = new List<BM4>();
+    }
+    public class BM5ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM5ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM5> data { get; set; } = new List<BM5>();
+    }
+    public class BM6ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM6ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM6> data { get; set; } = new List<BM6>();
+    }
+    public class BM7ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string TOPIC_TYPE { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string AUDIT_FORM_TYPE { get; set; }
+        public string AUDIT_PROPOSAL_TYPE { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string AUDIT_INCLUDED_ORG { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public string AUDIT_DEPARTMENT { get; set; }
+        public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_ENTRY { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class BM7ListResponse : DataTableAjaxResponModel
+    {
+        public List<BM7> data { get; set; } = new List<BM7>();
+    }
+
     public class BM8ListRequest : DataTableAjaxPostModel
     {
         public int ID { get; set; }

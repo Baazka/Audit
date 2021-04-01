@@ -254,6 +254,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BM7.cs" />
+    <Compile Include="Models\BM6.cs" />
+    <Compile Include="Models\BM5.cs" />
+    <Compile Include="Models\BM4.cs" />
+    <Compile Include="Models\BM3.cs" />
+    <Compile Include="Models\BM2.cs" />
+    <Compile Include="Models\BM1.cs" />
+    <Compile Include="Models\BM0.cs" />
     <Compile Include="Models\BM8.cs" />
     <Compile Include="Models\DataList.cs" />
     <Compile Include="Models\Info.cs" />
@@ -298,6 +306,7 @@
     <Content Include="Images\spinner.gif" />
     <Content Include="Images\ubeg.png" />
     <Content Include="Log\dontdelete.txt" />
+    <Content Include="Plugins\datatables\Case-Sensitive.js" />
     <Content Include="Plugins\datatables\dataTables.bootstrap4.min.css" />
     <Content Include="Plugins\datatables\dataTables.bootstrap4.min.js" />
     <Content Include="Plugins\datatables\jquery.dataTables.min.js" />

@@ -1016,22 +1016,93 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_TYPE ,AUDIT_TYPE_NAME,"+
-                    "TOPIC_TYPE ,TOPIC_CODE ,TOPIC_NAME ,ORDER_NO ,ORDER_DATE ,AUDIT_FORM_TYPE ,AUDIT_PROPOSAL_TYPE ,"+
-                    "AUDIT_BUDGET_TYPE ,AUDIT_INCLUDED_ORG ,WORKING_PERSON ,WORKING_DAY ,WORKING_ADDITION_TIME ,"+
-                    "AUDIT_DEPARTMENT ,AUDITOR_LEAD ,AUDITOR_MEMBER ,AUDITOR_ENTRY ,EXEC_TYPE ,BM.CREATED_DATE FROM BM0_DATA BM "+
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID "+
-                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID "+
-                    "WHERE(:DEPARTMENT_ID = 23 OR(:DEPARTMENT_ID != 23 AND OFFICE_CODE = :DEPARTMENT_ID)) AND ROWNUM <= 5";
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM0_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID  " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID  " +
+                        "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT, BM.AUDITOR_LEAD, BM.AUDITOR_MEMBER, BM.AUDITOR_ENTRY, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY,                    BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE FROM AUD_STAT.BM0_DATA BM "+
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID "+
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID "+
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) "+
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,   " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_MEMBER END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_ENTRY END ASC,  " +                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_ENTRY END DESC " +
+                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1044,6 +1115,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1062,27 +1134,67 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
-                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
-                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
-                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
-                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ,"+
-                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ,"+
-                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ,"+
-                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ,"+
-                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM "+
-                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID "+
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID "+
-                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                cmd.CommandText = "SELECT COUNT(BM.ID) "+
+                    "FROM AUD_STAT.BM1_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.ACT_VIOLATION_DESC) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.ACT_CONTROL_AUDITOR) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_YEAR, BM.AUDIT_TYPE, BM.AUDIT_CODE, BM.AUDIT_NAME, BM.AUDIT_BUDGET_TYPE, BM.ORDER_DATE, BM.ORDER_NO, BM.ACT_NO, BM.ACT_VIOLATION_DESC, BM.ACT_VIOLATION_TYPE, BM.ACT_SUBMITTED_DATE, BM.ACT_DELIVERY_DATE, BM.ACT_AMOUNT, BM.ACT_STATE_AMOUNT, BM.ACT_LOCAL_AMOUNT, BM.ACT_ORG_AMOUNT, BM.ACT_OTHER_AMOUNT, BM.ACT_RCV_NAME, BM.ACT_RCV_ROLE, BM.ACT_RCV_GIVEN_NAME, BM.ACT_RCV_ADDRESS, BM.ACT_CONTROL_AUDITOR, BM.COMPLETION_ORDER, BM.COMPLETION_AMOUNT, BM.COMPLETION_STATE_AMOUNT, BM.COMPLETION_LOCAL_AMOUNT, BM.COMPLETION_ORG_AMOUNT, BM.COMPLETION_OTHER_AMOUNT, BM.REMOVED_AMOUNT, BM.REMOVED_LAW_AMOUNT, BM.REMOVED_LAW_DATE_NO, BM.REMOVED_INVALID_AMOUNT, BM.REMOVED_INVALID_DATE_NO, BM.ACT_C2_AMOUNT, BM.ACT_C2_NONEXPIRED, BM.ACT_C2_EXPIRED, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE " +
+                    "FROM AUD_STAT.BM1_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.ACT_VIOLATION_DESC) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.ACT_CONTROL_AUDITOR) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC, " +
+                     //"CASE WHEN :ORDER_NAME IS NOT NULL AND: ORDER_DIR = 'ASC' THEN 'BM.' ||:ORDER_NAME END ASC, " +
+                     //"CASE WHEN :ORDER_NAME IS NOT NULL AND: ORDER_DIR = 'DESC' THEN 'BM.' ||:ORDER_NAME END DESC " +
+                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1095,6 +1207,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1113,27 +1226,93 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
-                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
-                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
-                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
-                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
-                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
-                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
-                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
-                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
-                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM0_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID  " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID  " +
+                        "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT, BM.AUDITOR_LEAD, BM.AUDITOR_MEMBER, BM.AUDITOR_ENTRY, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY,                    BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,   " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_MEMBER END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_ENTRY END ASC,  " + "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_ENTRY END DESC " +
+                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1146,6 +1325,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1164,27 +1344,93 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
-                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
-                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
-                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
-                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
-                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
-                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
-                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
-                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
-                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM0_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID  " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID  " +
+                        "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT, BM.AUDITOR_LEAD, BM.AUDITOR_MEMBER, BM.AUDITOR_ENTRY, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY,                    BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,   " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_MEMBER END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_ENTRY END ASC,  " + "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_ENTRY END DESC " +
+                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1197,6 +1443,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1215,27 +1462,93 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
-                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
-                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
-                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
-                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
-                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
-                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
-                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
-                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
-                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM0_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID  " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID  " +
+                        "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT, BM.AUDITOR_LEAD, BM.AUDITOR_MEMBER, BM.AUDITOR_ENTRY, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY,                    BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,   " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_MEMBER END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_ENTRY END ASC,  " + "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_ENTRY END DESC " +
+                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1248,6 +1561,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1266,27 +1580,93 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "select OFFICE_ID ,DEPARTMENT_NAME,STATISTIC_PERIOD ,AUDIT_YEAR ,AUDIT_TYPE ," +
-                    "AUDIT_TYPE_NAME,AUDIT_CODE ,AUDIT_NAME ,AUDIT_BUDGET_TYPE ,ORDER_DATE ,ORDER_NO ,ACT_NO ," +
-                    "ACT_VIOLATION_DESC ,ACT_VIOLATION_TYPE ,ACT_SUBMITTED_DATE ,ACT_DELIVERY_DATE ,ACT_AMOUNT ," +
-                    "ACT_STATE_AMOUNT ,ACT_LOCAL_AMOUNT ,ACT_ORG_AMOUNT ,ACT_OTHER_AMOUNT ,ACT_RCV_NAME ,ACT_RCV_ROLE ," +
-                    "ACT_RCV_GIVEN_NAME ,ACT_RCV_ADDRESS ,ACT_CONTROL_AUDITOR ,COMPLETION_ORDER ,COMPLETION_AMOUNT ," +
-                    "COMPLETION_STATE_AMOUNT ,COMPLETION_LOCAL_AMOUNT ,COMPLETION_ORG_AMOUNT ,COMPLETION_OTHER_AMOUNT ," +
-                    "REMOVED_AMOUNT ,REMOVED_LAW_AMOUNT ,REMOVED_LAW_DATE_NO ,REMOVED_INVALID_AMOUNT ," +
-                    "REMOVED_INVALID_DATE_NO ,ACT_C2_AMOUNT ,ACT_C2_NONEXPIRED ,ACT_C2_EXPIRED ,BENEFIT_FIN ," +
-                    "BENEFIT_FIN_AMOUNT ,BENEFIT_NONFIN ,EXEC_TYPE ,BM.CREATED_DATE from bm1_data BM " +
-                    "INNER JOIN AUD_REG.REF_AUDIT_TYPE ON AUDIT_TYPE = AUDIT_TYPE_ID " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT ON OFFICE_ID = DEPARTMENT_ID " +
-                    "WHERE(:DEPARTMENT_ID = 23 OR :DEPARTMENT_ID != 23 AND OFFICE_ID = :DEPARTMENT_ID) AND ROWNUM <= 5";
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM0_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID  " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID  " +
+                        "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT, BM.AUDITOR_LEAD, BM.AUDITOR_MEMBER, BM.AUDITOR_ENTRY, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY,                    BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,   " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_MEMBER END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_ENTRY END ASC,  " + "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_ENTRY END DESC " +
+                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1299,6 +1679,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1317,16 +1698,93 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, OFFICE_ID ,STATISTIC_PERIOD ,AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE,AUDIT_NAME, VIOLATION_COUNT, VIOLATION_AMOUNT, ERROR_COUNT, ERROR_AMOUNT, ALL_COUNT, ALL_AMOUNT, CORRECTED_ERROR_COUNT, CORRECTED_ERROR_AMOUNT, OTHER_ERROR_COUNT, OTHER_ERROR_AMOUNT, ACT_COUNT, ACT_AMOUNT, CLAIM_COUNT, CLAIM_AMOUNT, REFERENCE_COUNT, REFERENCE_AMOUNT, PROPOSAL_COUNT, PROPOSAL_AMOUNT, LAW_COUNT, LAW_AMOUNT, OTHER_COUNT, OTHER_AMOUNT, EXEC_TYPE, CREATED_DATE FROM AUD_STAT.BM6_DATA";
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM0_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID  " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID  " +
+                        "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT, BM.AUDITOR_LEAD, BM.AUDITOR_MEMBER, BM.AUDITOR_ENTRY, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY,                    BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,   " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_MEMBER END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_ENTRY END ASC,  " + "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_ENTRY END DESC " +
+                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1339,6 +1797,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -1357,16 +1816,93 @@ namespace Audit.App_Func
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-
+                XElement req = request.Element("Parameters").Element("Request");
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, DECISION_TYPE, INCOME_STATE_COUNT, INCOME_STATE_AMOUNT, INCOME_LOCAL_COUNT, INCOME_LOCAL_NUMBER, BUDGET_STATE_COUNT, BUDGET_STATE_AMOUNT, BUDGET_LOCAL_COUNT, BUDGET_LOCAL_AMOUNT, ACCOUNTANT_COUNT, ACCOUNTANT_AMOUNT, EFFICIENCY_COUNT, EFFICIENCY_AMOUNT, LAW_COUNT, LAW_AMOUNT, MONITORING_COUNT, MONITORING_AMOUNT, PURCHASE_COUNT, PURCHASE_AMOUNT, COST_COUNT, COST_AMOUNT, OTHER_COUNT, OTHER_AMOUNT, ALL_COUNT, ALL_AMOUNT, EXEC_TYPE, CREATED_DATE FROM AUD_STAT.BM7_DATA";
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
+                        "FROM AUD_STAT.BM0_DATA BM " +
+                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID  " +
+                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID  " +
+                        "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                        "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                        "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
-                // Set parameters
-                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
+                DataTable dtTableCount = new DataTable();
+                dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
+                dtTableCount.TableName = "RowCount";
+                var count = dtTableCount.Rows[0][0];
+                // Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT, BM.AUDITOR_LEAD, BM.AUDITOR_MEMBER, BM.AUDITOR_ENTRY, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY,                    BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_PROPOSAL_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_DEPARTMENT) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_LEAD) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDITOR_MEMBER) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(BM.AUDITOR_ENTRY) LIKE '%' || UPPER(:V_SEARCH) || '%')  " +
+                    "ORDER BY " +
+                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,   " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC,  " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_MEMBER END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_ENTRY END ASC,  " + "CASE WHEN :ORDER_NAME = 'AUDITOR_ENTRY' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_ENTRY END DESC " +
+                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters  
+                cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -1379,6 +1915,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)

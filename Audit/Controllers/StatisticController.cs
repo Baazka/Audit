@@ -25,10 +25,35 @@ namespace Audit.Controllers
         }
         public ActionResult BM0()
         {
-            XElement res = AppStatic.SystemController.BM1(User.GetClaimData("DepartmentID"));
-            if (res != null && res.Elements("BM0") != null)
-                return View(res);
-            return View();
+            BM0VM res = new BM0VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult BM1()
         {

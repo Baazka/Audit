@@ -339,7 +339,7 @@
                                             <label class="col-sm-4 col-form-label">Үйл ажиллагааны ангилал:</label>
                                             <div class="col-sm-8">
                                                 @Html.DropDownListFor(model => model.ORG_ACTIVITY_ID, Model.activities.Select(m => new SelectListItem { Text = m.ACTIVITY_NAME, Value = m.ACTIVITY_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_ACTIVITY_ID, "", new { @class = "text-danger" })
+                                                @*@Html.ValidationMessageFor(m => m.ORG_ACTIVITY_ID, "", new { @class = "text-danger" })*@
                                             </div>
                                         </div>
                                     </div>
