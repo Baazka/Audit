@@ -21,6 +21,7 @@ namespace Audit.Models
         public int[] status { get; set; }
         public List<string> violation { get; set; }
         public int? DeparmentID { get; set; }
+        public int[] budget_type { get; set; }
     }
     public class OrgListResponse : DataTableAjaxResponModel
     {

@@ -50,10 +50,10 @@
   </PropertyGroup>
   <ItemGroup>
     <DataSource Include="AUD_OA.rds" />
-    <DataSource Include="AUD_REG.rds" />
-    <DataSource Include="AUD_STAT.rds" />
   </ItemGroup>
   <ItemGroup>
+    <Report Include="Report1.rdl" />
+    <Report Include="Report2.rdl" />
     <Report Include="ReportTest.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

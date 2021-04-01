@@ -490,6 +490,8 @@ namespace Audit.Models
         public int DeparmentID { get; set; }
         public int[] StatusIDs { get; set; }
         public MultiSelectList Status { get; set; }
+        public int[] BudgetTypeIDs { get; set; }
+        public MultiSelectList BudgetType { get; set; }
         public int[] ViolationIDs { get; set; }
         public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
@@ -668,6 +670,7 @@ namespace Audit.Models
         public string PROJECT_PERCENT { get; set; }
         public string PROJECT_TOTAL_BUDGET { get; set; }
         public string PROJECT_ORG_FUND { get; set; }
+        public string PROJECT_ID { get; set; }
         public int ORG_ID { get; set; }
 
     }

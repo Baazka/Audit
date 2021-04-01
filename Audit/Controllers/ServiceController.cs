@@ -51,6 +51,14 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_VIOLATION", null));
 
+                if (request.budget_type != null)
+                {
+                    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
+                    elem.Add(new XElement("V_BUDGET_TYPE", ss));
+                }
+                else
+                    elem.Add(new XElement("V_BUDGET_TYPE", null));
+
                 XElement res = AppStatic.SystemController.OrgList(elem, User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("OrgList") != null)
                     response.data = (from item in res.Elements("OrgList") select new OrgList().FromXml(item)).ToList();

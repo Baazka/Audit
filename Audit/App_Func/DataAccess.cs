@@ -335,6 +335,7 @@ namespace Audit.App_Func
                     "WHERE R1.IS_ACTIVE = 1 AND (:DEP_ID = 2 OR (:DEP_ID !=2 AND R1.ORG_DEPARTMENT_ID = :DEP_ID)) " +
                     "AND (:V_DEPARTMENT IS NULL OR R1.ORG_DEPARTMENT_ID = :V_DEPARTMENT) " +
                     "AND (:V_STATUS IS NULL OR (R1.ORG_STATUS_ID IN (:V_STATUS))) " +
+                    "AND (:V_BUDGET_TYPE IS NULL OR (R1.ORG_BUDGET_TYPE_ID IN (:V_BUDGET_TYPE))) " +
                     "AND (:V_VIOLATION IS NULL OR (R1.VIOLATION_DETAIL LIKE '%'||:V_VIOLATION||'%')) " +
                     "AND (:V_SEARCH IS NULL OR RD.DEPARTMENT_NAME LIKE '%'||:V_SEARCH||'%' " +
                     "OR R1.ORG_REGISTER_NO LIKE '%'||:V_SEARCH||'%' OR R1.ORG_NAME LIKE '%'||:V_SEARCH||'%' " +
@@ -371,6 +372,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT")!=null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value :null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION")?.Value.Replace(",", "%"), System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_BUDGET_TYPE", OracleDbType.Varchar2, req.Element("V_BUDGET_TYPE")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
@@ -3486,10 +3488,10 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT PROJECT_NAME, PROJECT_NUMBER, PROJECT_START_DATE, PROJECT_END_DATE, PROJECT_PERCENT, PROJECT_TOTAL_BUDGET, PROJECT_ORG_FUND " +
+                cmd.CommandText = "SELECT PROJECT_NAME, PROJECT_NUMBER, PROJECT_START_DATE, PROJECT_END_DATE, PROJECT_PERCENT, PROJECT_TOTAL_BUDGET, PROJECT_ORG_FUND, PROJECT_ID " +
                     "FROM AUD_MIRRORACC.ORG_PROJECT_LIST " +
-                    "WHERE ORGID = :ORG_ID " +
-                    "GROUP BY PROJECT_NAME, PROJECT_NUMBER, PROJECT_START_DATE, PROJECT_END_DATE, PROJECT_PERCENT, PROJECT_TOTAL_BUDGET, PROJECT_ORG_FUND ";
+                    "WHERE PROJECT_IS_ACTIVE = 1 AND ORGID = :ORG_ID " +
+                    "GROUP BY PROJECT_NAME, PROJECT_NUMBER, PROJECT_START_DATE, PROJECT_END_DATE, PROJECT_PERCENT, PROJECT_TOTAL_BUDGET, PROJECT_ORG_FUND, PROJECT_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":ORG_ID", OracleDbType.Int32, request.Element("Parameters").Element("ORG_ID").Value, System.Data.ParameterDirection.Input);
@@ -3532,7 +3534,7 @@ namespace Audit.App_Func
                 cmd.CommandText = "SELECT A.MDCODE, B.MD_LAWS_NUM, B.MD_NAME, B.MD_TIME, A.DATA01, A.DATA02 " +
                         "FROM AUD_MIRRORACC.ORG_PROJECT_LIST A " +
                         "JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
-                        "WHERE A.PROJECT_NUMBER = :PROJECT_ID " +
+                        "WHERE A.PROJECT_ID = :PROJECT_ID " +
                         "ORDER BY B.MD_CODE ";
 
                 // Set parameters
@@ -3583,6 +3585,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_MD_CODE", OracleDbType.Int32).Value = request.Element("Parameters").Element("MD_CODE")?.Value;
                 cmd.Parameters.Add(":P_DATA01", OracleDbType.Double).Value = request.Element("Parameters").Element("DATA01")?.Value;
                 cmd.Parameters.Add(":P_DATA02", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("DATA02")?.Value;
+                cmd.Parameters.Add(":P_ISFINISH", OracleDbType.Int32).Value = request.Element("Parameters").Element("ISFINISH")?.Value;
                 cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_INSDATE", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("INSDATE").Value;
                 //cmd.ArrayBindCount = request.Element("Parameters").Element("MD_CODE").Value.Length;
@@ -3667,7 +3670,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_YEARCODE", OracleDbType.Int32).Value = request.Element("Parameters").Element("YEAR_CODE")?.Value;
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = request.Element("Parameters").Element("ORG_ID")?.Value;
                 cmd.Parameters.Add(":P_PROJECT_NAME", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("PROJ_NAME")?.Value;
-                cmd.Parameters.Add(":P_PROJECT_NUMBER", OracleDbType.Int32).Value = request.Element("Parameters").Element("PROJ_NUM")?.Value;
+                cmd.Parameters.Add(":P_PROJECT_NUMBER", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("PROJ_NUM")?.Value;
                 cmd.Parameters.Add(":P_PROJECT_START_DATE", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("PROJ_START_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROJECT_END_DATE", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("PROJ_END_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROJECT_PERCENT", OracleDbType.Int32).Value = request.Element("Parameters").Element("PROJ_PERCENT")?.Value;
@@ -3679,6 +3682,8 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_INSDATE", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("INSDATE").Value;
                 cmd.Parameters.Add(":P_LAWS_NUMBER", OracleDbType.Int32).Value = request.Element("Parameters").Element("PROJ_LAW_NUM").Value;
+                cmd.Parameters.Add(":P_PROJ_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("PROJ_ID").Value;
+                cmd.Parameters.Add(":P_PROJ_IS_ACTIVE", OracleDbType.Int32).Value = request.Element("Parameters").Element("PROJ_IS_ACTIVE").Value;
                 //cmd.ArrayBindCount = request.Element("Parameters").Element("MD_CODE").Value.Length;
 
 
