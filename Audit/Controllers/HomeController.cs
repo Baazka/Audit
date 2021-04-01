@@ -115,6 +115,11 @@ namespace Audit.Controllers
         
         public ActionResult Home()
         {
+            if (Globals.periods.Count == 0)
+            {
+                XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+            }
             return View();
         }
         [AllowAnonymous]

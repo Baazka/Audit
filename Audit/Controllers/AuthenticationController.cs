@@ -67,8 +67,10 @@ namespace Audit.Controllers
                             claims.Add(new Claim("UserID", loggedUser.USER_ID.ToString()));
                         if (loggedUser.USER_DEPARTMENT_ID != 0)
                             claims.Add(new Claim("DepartmentID", loggedUser.USER_DEPARTMENT_ID.ToString()));
+                        if (loggedUser.USER_TYPE_NAME != "")
+                            claims.Add(new Claim("USER_TYPE", loggedUser.USER_TYPE_NAME));
                         if (loggedUser.USER_NAME != "")
-                            claims.Add(new Claim("USER_NAME", loggedUser.USER_NAME.ToString()));
+                            claims.Add(new Claim("USER_NAME", loggedUser.USER_NAME));
 
                         var identity = new ClaimsIdentity(
                            claims,

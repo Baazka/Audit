@@ -29,7 +29,11 @@ namespace Audit.Models
     }
     public class BM8ListRequest : DataTableAjaxPostModel
     {
-        public string OFFICE_ID { get; set; }
+        public int ID { get; set; }
+        public int OFFICE_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string STATISTIC_PERIOD { get; set; }
+        public string PERIOD_LABEL { get; set; }
         public string AUDIT_YEAR { get; set; }
         public string AUDIT_TYPE { get; set; }
         public string AUDIT_CODE { get; set; }
@@ -39,8 +43,11 @@ namespace Audit.Models
         public string CORRECTED_ERROR_TYPE { get; set; }
         public string CORRECTED_COUNT { get; set; }
         public string CORRECTED_AMOUNT { get; set; }
+        public string EXEC_TYPE { get; set; }
+        public string CREATED_DATE { get; set; }
+
         public int? DeparmentID { get; set; }
-        public string Period { get; set; }
+        public int? PeriodID { get; set; }
 
     }
     public class BM8ListResponse : DataTableAjaxResponModel

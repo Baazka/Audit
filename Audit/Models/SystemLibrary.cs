@@ -222,4 +222,17 @@ namespace Audit.Models
             return this;
         }
     }
+    public class Period
+    {
+        public int ID { get; set; }
+        public string PERIOD_LABEL { get; set; }
+        public Period FromXml(XElement elem)
+        {
+            if (elem.Element("ID") != null)
+                ID = Convert.ToInt32(elem.Element("ID").Value);
+            if (elem.Element("PERIOD_LABEL") != null)
+                PERIOD_LABEL = elem.Element("PERIOD_LABEL").Value;
+            return this;
+        }
+    }
 }
