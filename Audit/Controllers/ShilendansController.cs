@@ -270,6 +270,7 @@ namespace Audit.Controllers
                                     PROJECT_PERCENT = table8[i].Field<string>("PROJECT_PERCENT"),
                                     PROJECT_TOTAL_BUDGET = table8[i].Field<string>("PROJECT_TOTAL_BUDGET"),
                                     PROJECT_ORG_FUND = table8[i].Field<string>("PROJECT_ORG_FUND"),
+                                    PROJECT_ID = table8[i].Field<string>("PROJECT_ID"),
                                     ORG_ID = orgid
                                 }
                             );
@@ -637,10 +638,10 @@ namespace Audit.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddShilenDans(Organization organization, string button)
         {
-            //if (ModelState.IsValid)
-            //{
+            
                 if (organization.ORG_ID != 0)
                 {
                 int YearCode = 2020;
@@ -649,6 +650,7 @@ namespace Audit.Controllers
                 int mdcodes = 0;
                 double data01 = 0;
                 string data02 = null;
+                int is_finish = 0;
 
                 switch (button) {
                     case "tab1save":
@@ -658,92 +660,102 @@ namespace Audit.Controllers
                                 mdcodes = Convert.ToInt32(organization.tab1[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab1[i].Data01);
                                 data02 = " ";
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);                                
+                                is_finish = 0;
+                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);                                
                             }
                             ViewBag.Tabid = "#maygt1-1";
-                     }
+                    }
                     break;
                     case "tab2save":
-                        {
+                    {
                             for (int i = 0; i < organization.tab2.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab2[i].MD_CODE);
                                 data01 =  Convert.ToDouble(organization.tab2[i].Data01);
                                 data02 = " ";
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                is_finish = 0;
+                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
                             ViewBag.Tabid = "#maygt1-2";
-                        }
-                        break;
+                    }
+                    break;
                     case "tab3save":
-                        {
+                    {
                             for (int i = 0; i < organization.tab3.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab3[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab3[i].Data01);
                                 data02 = " ";
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                is_finish = 0;
+                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
                             ViewBag.Tabid = "#maygt1-3";
-                        }
-                        break;
+                    }
+                    break;
                     case "tab4save":
-                        {
+                    {
                             for (int i = 0; i < organization.tab4.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab4[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab4[i].Data01);
                                 data02 = organization.tab4[i].Data02;
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                is_finish = 1;
+                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
                             ViewBag.Tabid = "#maygt1-4";
-                        }
-                        break;
+                    }
+                    break;
                     case "tab5save":
-                        {
+                    {
                             for (int i = 0; i < organization.tab5.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab5[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab5[i].Data01);
                                 data02 = " ";
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                is_finish = 0;
+                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
                             ViewBag.Tabid = "#maygt2";
-                        }
-                        break;
+                    }
+                    break;
                     case "tab6save":
-                        {
+                    {
                             for (int i = 0; i < organization.tab6.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab6[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab6[i].Data01);
                                 data02 = organization.tab6[i].Data02;
-                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                is_finish = 1;
+                                var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
                             ViewBag.Tabid = "#maygt2";
-                        }
-                        break;
+                    }
+                    break;
                     case "tab7save":
-                        {
+                    {
+                            Random rand = new Random();
+
                             string project_name = organization.tab7[2].Data02;
-                            int project_num = Convert.ToInt32(organization.tab7[3].Data01);
+                            string project_num = organization.tab7[3].Data02;
                             string project_start_date = organization.tab7[7].Data02;
                             string project_end_date = organization.tab7[8].Data02;
                             int project_percent = Convert.ToInt32(organization.tab7[9].Data01);
                             string project_budget = organization.tab7[10].Data01;
                             string project_fund = organization.tab7[1].Data02;
                             int project_law_num = organization.AUD_LAWS_NUM;
+                            int project_id = rand.Next(100000, 999999);
+                            int project_is_active = 1;
 
                             for (int i = 0; i < organization.tab7.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab7[i].Data01);
                                 data02 = organization.tab7[i].Data02;
-                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund ,mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
+                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund ,mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num, project_id, project_is_active);
                             }
                             ViewBag.Tabid = "#maygt3";
-                        }
-                        break;
+                    }
+                    break;
                 }
                 var result1 = true;
                 //return ViewBag.Tabid = "maygt1-2";
@@ -768,12 +780,7 @@ namespace Audit.Controllers
                     Globals.WriteErrorLog(ex);
                 }
              }
-            //}
-            //else
-            //{
-            //    ViewBag.No = "Энэ мэдээлэл мэдээллийн санд байхгүй байна.";
-            //}
-
+            
             return PartialView(organization);
 
         }
@@ -796,22 +803,24 @@ namespace Audit.Controllers
                 {
                     case "tab7save":
                         {
+                            int project_id = Convert.ToInt32(Session["ProjectIDs"].ToString());
                             int org_id = Convert.ToInt32(Session["OrganizationIDs"].ToString());
                             string project_name = organization.tab7[2].Data02;
-                            int project_num = Convert.ToInt32(organization.tab7[3].Data01);
+                            string project_num = organization.tab7[3].Data02;
                             string project_start_date = organization.tab7[7].Data02;
                             string project_end_date = organization.tab7[8].Data02;
                             int project_percent = Convert.ToInt32(organization.tab7[9].Data01);
                             string project_budget = organization.tab7[10].Data01;
                             string project_fund = organization.tab7[1].Data02;
                             int project_law_num = organization.AUD_LAWS_NUM;
+                            int is_active = 1;
 
                             for (int i = 0; i < organization.tab7.Count(); i++)
                             {
                                 mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
                                 data01 = Convert.ToDouble(organization.tab7[i].Data01);
                                 data02 = organization.tab7[i].Data02;
-                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, org_id, project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund, mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num);
+                                var result = AppStatic.SystemController.OrgProjectInsert(YearCode, org_id, project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund, mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num, project_id, is_active);
                             }
                         }
                         break;
@@ -886,6 +895,7 @@ namespace Audit.Controllers
 
         public ActionResult OrgProjectEdit(int pro_id, int org_id)
         {
+            Session["ProjectIDs"] = pro_id;
             Session["OrganizationIDs"] = org_id;
             XElement MirrOrgProjects = AppStatic.SystemController.OrgProjectDataList(pro_id);
             DataSet DsOrgProjects = new DataSet();

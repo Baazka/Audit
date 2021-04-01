@@ -22,7 +22,7 @@
     @Html.HiddenFor(x => x.MD_TIME)
     <tr style="text-align:center;font-weight:bold;text-transform:uppercase;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
 }
-@if (Model.MD_CODE == "166" || Model.MD_CODE == "167" || Model.MD_CODE == "169" || Model.MD_CODE == "170")
+@if (Model.MD_CODE == "166" || Model.MD_CODE == "167" || Model.MD_CODE == "168" || Model.MD_CODE == "169" || Model.MD_CODE == "170")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
@@ -58,10 +58,10 @@
         <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>@Html.DisplayFor(x => x.MD_TIME)</td>
-        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "currency" })</td>
+        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "text-right currency" })</td>
     </tr>
 }
-@if (Model.MD_CODE == "168" || Model.MD_CODE == "171" || Model.MD_CODE == "174")
+@if (Model.MD_CODE == "171" || Model.MD_CODE == "174")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)

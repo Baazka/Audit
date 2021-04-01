@@ -18,6 +18,8 @@ else
     @Html.HiddenFor(x => x.PROJECT_PERCENT)
     @Html.HiddenFor(x => x.PROJECT_TOTAL_BUDGET)
     @Html.HiddenFor(x => x.PROJECT_ORG_FUND)
+    @Html.HiddenFor(x => x.PROJECT_ID)
+
     <tr>
         <td>@Html.DisplayFor(x => x.PROJECT_NAME)</td>
         <td>@Html.DisplayFor(x => x.PROJECT_NUMBER)</td>
@@ -26,9 +28,9 @@ else
         <td>@Html.DisplayFor(x => x.PROJECT_PERCENT)</td>
         <td>@Html.DisplayFor(x => x.PROJECT_TOTAL_BUDGET)</td>
         <td>@Html.DisplayFor(x => x.PROJECT_ORG_FUND)</td>
-        <td width="8%">
-            @Html.ActionLink("Засах", "OrgProjectEdit", "Shilendans", new { pro_id = Model.PROJECT_NUMBER, org_id = Model.ORG_ID }, null) |
-            @Html.ActionLink("Устгах", "OrgProjectDelete", "Shilendans", new { pro_id = Model.PROJECT_NUMBER, org_id = Model.ORG_ID }, new { @style = "color: #dc3545;"})
+        <td class="text-center" width="8%">
+            @Html.ActionLink("Засах", "OrgProjectEdit", "Shilendans", new { pro_id = Model.PROJECT_ID, org_id = Model.ORG_ID }, null) |
+            @Html.ActionLink("Устгах", "OrgProjectDelete", "Shilendans", new { pro_id = Model.PROJECT_ID, org_id = Model.ORG_ID }, new { @style = "color: #dc3545;" })
             @*<a href="#"><i class="fa fa-edit"></i></a> <a href="#"><i class="fa fa-trash-alt"></i></a>*@
         </td>
     </tr>

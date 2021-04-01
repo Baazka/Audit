@@ -1839,7 +1839,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public bool MirrorAccInsert(int yearcode, int orgid, int mdcodes, double data01, string data02, int userid, DateTime Insdate)
+        public bool MirrorAccInsert(int yearcode, int orgid, int mdcodes, double data01, string data02, int is_finish ,int userid, DateTime Insdate)
         {
             try
             {
@@ -1855,6 +1855,7 @@ namespace Audit.Controllers.Library
                                                    new XElement("MD_CODE", mdcodes),
                                                    new XElement("DATA01", data01),
                                                    new XElement("DATA02", data02),
+                                                   new XElement("ISFINISH", is_finish),
                                                    new XElement("USER_ID", userid),
                                                    new XElement("INSDATE", Insdate)));
 
@@ -1877,7 +1878,7 @@ namespace Audit.Controllers.Library
 
             return false;
         }
-        public bool OrgProjectInsert(int yearcode, int orgid, string project_name, int project_number, string project_start_date, string project_end_date, int project_percent, string project_budget, string project_fund ,int mdcodes, double data01, string data02, int userid, DateTime Insdate, int project_law_num)
+        public bool OrgProjectInsert(int yearcode, int orgid, string project_name, string project_number, string project_start_date, string project_end_date, int project_percent, string project_budget, string project_fund ,int mdcodes, double data01, string data02, int userid, DateTime Insdate, int project_law_num, int project_id, int project_is_active)
         {
             try
             {
@@ -1902,7 +1903,9 @@ namespace Audit.Controllers.Library
                                                    new XElement("DATA02", data02),
                                                    new XElement("USER_ID", userid),
                                                    new XElement("INSDATE", Insdate),
-                                                   new XElement("PROJ_LAW_NUM", project_law_num)));
+                                                   new XElement("PROJ_LAW_NUM", project_law_num),
+                                                   new XElement("PROJ_ID", project_id),
+                                                   new XElement("PROJ_IS_ACTIVE", project_is_active)));
 
                 DataResponse response = GetDataResponse(requestXml);
 
