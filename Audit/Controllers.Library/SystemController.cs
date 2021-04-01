@@ -407,6 +407,76 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement OrgTAX(string regno)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "OrgTAX"),
+                                               new XElement("Parameters",
+                                                   new XElement("REG_NO", regno)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public XElement OrgTAXsingle(int regid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "OrgTAXsingle"),
+                                               new XElement("Parameters",
+                                                   new XElement("REG_ID", regid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
         public bool OrgSave(int userid, XElement element)
         {
             try
@@ -856,7 +926,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement BM8(XElement element, string departmentID)
+        public XElement BM8(XElement element, string usertype)
         {
             try
             {
@@ -867,7 +937,7 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM8"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID),
+                                                   new XElement("USER_TYPE", usertype),
                                                    element));
 
                 DataResponse response = GetDataResponse(requestXml);
@@ -891,6 +961,141 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+        }
+        public XElement BM8Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM8Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM8Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM8Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
         }
         public XElement NM1(string departmentID)
         {
@@ -1807,7 +2012,7 @@ namespace Audit.Controllers.Library
 
             return false;
         }
-        public bool OrgProjectInsert(int yearcode, int orgid, string project_name, string project_number, string project_start_date, string project_end_date, int project_percent, string project_budget, string project_fund ,int mdcodes, double data01, string data02, int userid, DateTime Insdate, int project_law_num)
+        public bool OrgProjectInsert(int yearcode, int orgid, string project_name, int project_number, string project_start_date, string project_end_date, int project_percent, string project_budget, string project_fund ,int mdcodes, double data01, string data02, int userid, DateTime Insdate, int project_law_num)
         {
             try
             {
@@ -1889,7 +2094,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement OrgProjectDataList(string ID)
+        public XElement OrgProjectDataList(int ID)
         {
             try
             {
@@ -1901,6 +2106,43 @@ namespace Audit.Controllers.Library
                                                new XElement("Function", "OrgProjectDataList"),
                                                new XElement("Parameters",
                                                new XElement("PROJECT_ID", ID)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+
+        public XElement OrgProjectDelete(int org_id, int pro_id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "OrgProjectDelete"),
+                                               new XElement("Parameters",
+                                               new XElement("ORG_ID", org_id),
+                                               new XElement("PRO_ID", pro_id)));
 
                 DataResponse response = GetDataResponse(requestXml);
 

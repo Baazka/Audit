@@ -59,7 +59,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.25in</Height>
+                  <Height>1.11458in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -117,6 +117,7 @@
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
+                            <WritingMode>Rotate270</WritingMode>
                           </Style>
                         </Textbox>
                       </CellContents>
@@ -207,7 +208,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
-            <Height>0.5in</Height>
+            <Height>1.36458in</Height>
             <Width>2in</Width>
             <Style>
               <Border>
@@ -216,7 +217,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>0.5in</Height>
+        <Height>1.36458in</Height>
         <Style />
       </Body>
       <Width>2in</Width>

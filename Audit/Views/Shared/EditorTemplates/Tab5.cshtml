@@ -3,14 +3,20 @@
     Layout = null;
 }
 
-@if (Model.MD_CODE == "110" || Model.MD_CODE == "111" || Model.MD_CODE == "116" || Model.MD_CODE == "121" || Model.MD_CODE == "126" || Model.MD_CODE == "131" || Model.MD_CODE == "133" || Model.MD_CODE == "138" || Model.MD_CODE == "143")
+@if (Model.MD_CODE == "110" || Model.MD_CODE == "111" || Model.MD_CODE == "118" || Model.MD_CODE == "125" || Model.MD_CODE == "132" || Model.MD_CODE == "141" || Model.MD_CODE == "147" || Model.MD_CODE == "154")
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr style="text-align:center;font-weight:bold;text-transform:uppercase;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
 }
-@if (Model.MD_CODE == "131" || Model.MD_CODE == "132" || Model.MD_CODE == "136" || Model.MD_CODE == "137")
+@if (Model.MD_CODE == "139" || Model.MD_CODE == "140" || Model.MD_CODE == "145" || Model.MD_CODE == "146")
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr>
         <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
@@ -27,13 +33,16 @@
         </td>
     </tr>
 }
-@if (Model.MD_CODE == "112" || Model.MD_CODE == "113" || Model.MD_CODE == "114" || Model.MD_CODE == "115" || Model.MD_CODE == "117" || Model.MD_CODE == "118" || Model.MD_CODE == "119" || Model.MD_CODE == "120" || Model.MD_CODE == "122" || Model.MD_CODE == "123" || Model.MD_CODE == "124" || Model.MD_CODE == "125" || Model.MD_CODE == "127" || Model.MD_CODE == "128" || Model.MD_CODE == "129" || Model.MD_CODE == "130" || Model.MD_CODE == "134" || Model.MD_CODE == "135" || Model.MD_CODE == "139" || Model.MD_CODE == "140" || Model.MD_CODE == "141" || Model.MD_CODE == "142" || Model.MD_CODE == "144" || Model.MD_CODE == "145")
+@if (Model.MD_CODE == "112" || Model.MD_CODE == "113" || Model.MD_CODE == "114" || Model.MD_CODE == "115" || Model.MD_CODE == "116" || Model.MD_CODE == "117" || Model.MD_CODE == "119" || Model.MD_CODE == "120" || Model.MD_CODE == "121" || Model.MD_CODE == "122" || Model.MD_CODE == "123" || Model.MD_CODE == "124" || Model.MD_CODE == "126" || Model.MD_CODE == "127" || Model.MD_CODE == "128" || Model.MD_CODE == "129" || Model.MD_CODE == "130" || Model.MD_CODE == "131" || Model.MD_CODE == "133" || Model.MD_CODE == "134" || Model.MD_CODE == "135" || Model.MD_CODE == "136" || Model.MD_CODE == "137" || Model.MD_CODE == "138" || Model.MD_CODE == "142" || Model.MD_CODE == "143" || Model.MD_CODE == "144" || Model.MD_CODE == "148" || Model.MD_CODE == "149" || Model.MD_CODE == "150" || Model.MD_CODE == "151" || Model.MD_CODE == "152" || Model.MD_CODE == "153" || Model.MD_CODE == "155" || Model.MD_CODE == "156" || Model.MD_CODE == "157")
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(x => x.MD_LAWS_NUM)
+    @Html.HiddenFor(x => x.MD_NAME)
+    @Html.HiddenFor(x => x.MD_TIME)
     <tr>
         <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>@Html.DisplayFor(x => x.MD_TIME)</td>
-        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @type = "number", @min = "0", @step = "0.01" })</td>
+        <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "currency" })</td>
     </tr>
 }

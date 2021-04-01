@@ -186,9 +186,9 @@
                     }
                 });
             },
-        close: function () {
-            $("#OrgModal").modal("hide");
-        },
+        //close: function () {
+        //    $("#OrgModal").modal("hide");
+        //},
         progressResponse: function (data, status, xhr) {
             var ct = xhr.getResponseHeader("content-type") || "";
             if (ct.indexOf("html") > -1) {
@@ -198,10 +198,11 @@
                 if (data.error) {
                     Message.error(data.message);
                 } else {
-                    $('.modal-backdrop:first').remove()
-                    Organization.close();
-                    orgListInit();
+                    //$('.modal-backdrop:first').remove()
+                    //Organization.close();
+                    //orgListInit();
                     Message.success(data.message);
+                    //$('#OrgModal').modal('show');
                 }
             }
         }

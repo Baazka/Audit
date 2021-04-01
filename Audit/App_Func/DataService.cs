@@ -49,6 +49,8 @@ namespace Audit.App_Func
             functions.Add("OrgUBsingle", (request) => DataAccess.OrgUBsingle(request));
             functions.Add("OrgMOF", (request) => DataAccess.OrgMOF(request));
             functions.Add("OrgMOFsingle", (request) => DataAccess.OrgMOFsingle(request));
+            functions.Add("OrgTAX", (request) => DataAccess.OrgTAX(request));
+            functions.Add("OrgTAXsingle", (request) => DataAccess.OrgTAXsingle(request));
             functions.Add("OrgSave", (request) => DataAccess.OrgSave(request));
             functions.Add("OrgInsert", (request) => DataAccess.OrgInsert(request));
             functions.Add("OrgConfirm", (request) => DataAccess.OrgConfirm(request));
@@ -65,6 +67,10 @@ namespace Audit.App_Func
             functions.Add("BM6", (request) => DataAccess.BM6(request));
             functions.Add("BM7", (request) => DataAccess.BM7(request));
             functions.Add("BM8", (request) => DataAccess.BM8(request));
+            functions.Add("BM8Detail", (request) => DataAccess.BM8Detail(request));
+            functions.Add("BM8Insert", (request) => DataAccess.BM8Insert(request));
+            functions.Add("BM8Update", (request) => DataAccess.BM8Update(request));
+            functions.Add("BM8Delete", (request) => DataAccess.BM8Delete(request));
             functions.Add("NM1", (request) => DataAccess.NM1(request));
             functions.Add("NM2", (request) => DataAccess.NM2(request));
             functions.Add("NM3", (request) => DataAccess.NM3(request));
@@ -95,6 +101,8 @@ namespace Audit.App_Func
             functions.Add("OrgProjectInsert", (request) => DataAccess.OrgProjectInsert(request));
             functions.Add("TableProjectList", (request) => DataAccess.TableProjectList(request));
             functions.Add("OrgProjectDataList", (request) => DataAccess.OrgProjectDataList(request));
+            functions.Add("OrgProjectDelete", (request) => DataAccess.OrgProjectDelete(request));
+
         }
     }
 }

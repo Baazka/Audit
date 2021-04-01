@@ -18,7 +18,7 @@
 }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
-        @if (Role.hasDirectorRole(User))
+        @if (Role.hasHeadAuditorRole(User))
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
@@ -247,10 +247,11 @@
             })
         },*@
             edit: function (orgid) {
-                if ("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" == "False")
-                    isshow = false
-                else
+                console.log("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
+                if ("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
                     isshow = true
+                else
+                    isshow = false
             $.ajax({
                 url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
                 type: 'POST',
@@ -347,6 +348,10 @@
                     url = "@Url.Action("AddTabMOF", "Home")";
                     title = "СЯ";
                 break;
+                case 3:
+                    url = "@Url.Action("AddTabTAX", "Home")";
+                    title = "ТА";
+                break;
             }
 
             $.ajax({
@@ -369,6 +374,7 @@
                 }
             })
         }
+
         function removeTab(regid) {
             $("#tabid_" + regid).remove();
             $("#lib_" + regid).remove();

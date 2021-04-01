@@ -28,16 +28,26 @@ namespace Audit.Models
     }
     public class BM8ListRequest : DataTableAjaxPostModel
     {
-        public string ChipNo { get; set; }
-        public string FatherNo { get; set; }
-        public string MotherNo { get; set; }
-        public string HorseName { get; set; }
-        public int BreedID { get; set; }
-        public string Origin { get; set; }
-        public char Gender { get; set; }
-        public int BirthYear { get; set; }
-        public int BirthMonth { get; set; }
-        public string HorseColor { get; set; }
+        public int ID { get; set; }
+        public int OFFICE_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string STATISTIC_PERIOD { get; set; }
+        public string PERIOD_LABEL { get; set; }
+        public string AUDIT_YEAR { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string AUDIT_CODE { get; set; }
+        public string AUDIT_NAME { get; set; }
+        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string CORRECTED_ERROR_DESC { get; set; }
+        public string CORRECTED_ERROR_TYPE { get; set; }
+        public string CORRECTED_COUNT { get; set; }
+        public string CORRECTED_AMOUNT { get; set; }
+        public string EXEC_TYPE { get; set; }
+        public string CREATED_DATE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
     }
     public class BM8ListResponse : DataTableAjaxResponModel
     {
