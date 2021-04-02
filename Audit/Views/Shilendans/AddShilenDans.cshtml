@@ -626,7 +626,8 @@
                                             <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                         </div><br>
 
-                                        <table class="table table-bordered" id="reloadtable" style="font-size:12px;">
+                                        <div id="ReloadTables">
+                                        <table class="table table-bordered reloadtable" id="reloadtable" style="font-size:12px;">
                                             <tr>
                                                 <th rowspan="2" style="vertical-align:middle;" class="text-center">Хэрэгжүүлж буй төсөл арга хэмжээний нэр</th>
                                                 <th rowspan="2" style="vertical-align:middle;" class="text-center" width="10%">Гэрээний дугаар</th>
@@ -641,7 +642,7 @@
 
                                                 @Html.EditorFor(t => t.tab8)
                                         </table>
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -783,7 +784,8 @@
                 <div style="text-align: right">
                     <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                     <button type="submit" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
-                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                    @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
                 </div>
                 <br>
             </div>
@@ -831,7 +833,7 @@
         var tabid = '@(ViewBag.Tabid)';
         //alert(tabid)
         if (tabid != null && tabid != "") {
-            $('.nav a[href="'+tabid+'"]').tab('show');
+            $('.nav a[href="' + tabid + '"]').tab('show');
         }
     });
 </script>
@@ -850,26 +852,12 @@
 
 <script>
     $(document).ready(function () {
+        var modal_id = '@(ViewBag.ModalID)';
+        if (modal_id != null && modal_id != "") {
 
-        //window.addEventListener("load", event => {
-        //    document.getElementById("reloadtable").onclick = function () {
-        //        location.reload(true);
-        //    }
-        //});
-
-        //setTimeout(function () {
-        //    document.getElementById("reloadtable").reload(true);
-        //}, 1000);
-        //$(window).load(function () {
-        //    var table = document.getElementById("myTable");
-        //    table.load();
-        //}
-        //var table = $("#reloadtable");
-
-        // refresh every 5 seconds
-        //var refresher = setInterval(function () {
-        //    table.load();
-        //}, 1000)
-        //setTimeout();
+            setTimeout(function () {
+                $(""+modal_id+"").modal();
+            }, 1000);
+        }
     });
 </script>

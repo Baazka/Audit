@@ -32,7 +32,7 @@
         <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>@Html.DisplayFor(x => x.MD_TIME)</td>
-        <td>@Html.TextBoxFor(x => x.Data02, new { @style = "width: 100%;" })</td>
+        <td>@Html.TextBoxFor(x => x.Data02, new { @style = "width: 100%;", @placeholder = "Утга оруулна уу" })</td>
     </tr>
 }
 @if (Model.MD_CODE == "172" || Model.MD_CODE == "173")

@@ -740,7 +740,7 @@ namespace Audit.Controllers
                             string project_start_date = organization.tab7[7].Data02;
                             string project_end_date = organization.tab7[8].Data02;
                             int project_percent = Convert.ToInt32(organization.tab7[9].Data01);
-                            string project_budget = organization.tab7[10].Data01;
+                            string project_budget = organization.tab7[10].Data01.ToString();
                             string project_fund = organization.tab7[1].Data02;
                             int project_law_num = organization.AUD_LAWS_NUM;
                             int project_id = rand.Next(100000, 999999);
@@ -753,7 +753,7 @@ namespace Audit.Controllers
                                 data02 = organization.tab7[i].Data02;
                                 var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund ,mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num, project_id, project_is_active);
                             }
-                            ViewBag.Tabid = "#maygt3";
+                            ViewBag.ModalID = "#InsertProjectModal";
                     }
                     break;
                 }
@@ -810,7 +810,7 @@ namespace Audit.Controllers
                             string project_start_date = organization.tab7[7].Data02;
                             string project_end_date = organization.tab7[8].Data02;
                             int project_percent = Convert.ToInt32(organization.tab7[9].Data01);
-                            string project_budget = organization.tab7[10].Data01;
+                            string project_budget = organization.tab7[10].Data01.ToString();
                             string project_fund = organization.tab7[1].Data02;
                             int project_law_num = organization.AUD_LAWS_NUM;
                             int is_active = 1;
