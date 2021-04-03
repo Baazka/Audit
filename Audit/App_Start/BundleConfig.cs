@@ -32,6 +32,11 @@ namespace Audit
                       "~/Content/sb-admin-2.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Login").Include(
+                      "~/Content/bootstrap.min.css",
+                      "~/Plugins/fontawesome/css/all.css",
+                      "~/Content/Login.css"));
         }
     }
 }

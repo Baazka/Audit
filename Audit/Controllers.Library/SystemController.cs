@@ -1105,7 +1105,9 @@ namespace Audit.Controllers.Library
 
             return false;
         }
-        public XElement NM1(string departmentID)
+        #endregion
+        #region NM
+        public XElement NM1(XElement element, string usertype)
         {
             try
             {
@@ -1116,7 +1118,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "NM1"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1140,7 +1143,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement NM2(string departmentID)
+        public XElement NM2(XElement element, string usertype)
         {
             try
             {
@@ -1151,7 +1154,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "NM2"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1175,7 +1179,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement NM3(string departmentID)
+        public XElement NM3(XElement element, string usertype)
         {
             try
             {
@@ -1186,7 +1190,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "NM3"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1210,7 +1215,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement NM4(string departmentID)
+        public XElement NM4(XElement element, string usertype)
         {
             try
             {
@@ -1221,7 +1226,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "NM4"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1245,7 +1251,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement NM5(string departmentID)
+        public XElement NM5(XElement element, string usertype)
         {
             try
             {
@@ -1256,7 +1262,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "NM5"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1280,7 +1287,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement NM6(string departmentID)
+        public XElement NM6(XElement element, string usertype)
         {
             try
             {
@@ -1291,7 +1298,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "NM6"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1315,7 +1323,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement NM7(string departmentID)
+        public XElement NM7(XElement element, string usertype)
         {
             try
             {
@@ -1326,7 +1334,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "NM7"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1350,7 +1359,9 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM1A(string departmentID)
+        #endregion
+        #region CM
+        public XElement CM1A(XElement element, string usertype)
         {
             try
             {
@@ -1361,7 +1372,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM1A"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1385,7 +1397,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM1B(string departmentID)
+        public XElement CM1B(XElement element, string usertype)
         {
             try
             {
@@ -1396,7 +1408,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM1B"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1420,7 +1433,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM1C(string departmentID)
+        public XElement CM1C(XElement element, string usertype)
         {
             try
             {
@@ -1431,7 +1444,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM1C"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1455,7 +1469,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM2A(string departmentID)
+        public XElement CM2A(XElement element, string usertype)
         {
             try
             {
@@ -1466,7 +1480,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM2A"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1490,7 +1505,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM2B(string departmentID)
+        public XElement CM2B(XElement element, string usertype)
         {
             try
             {
@@ -1501,7 +1516,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM2B"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1525,7 +1541,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM2C(string departmentID)
+        public XElement CM2C(XElement element, string usertype)
         {
             try
             {
@@ -1536,7 +1552,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM2C"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1560,7 +1577,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM3A(string departmentID)
+        public XElement CM3A(XElement element, string usertype)
         {
             try
             {
@@ -1571,7 +1588,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM3A"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1595,7 +1613,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM3B(string departmentID)
+        public XElement CM3B(XElement element, string usertype)
         {
             try
             {
@@ -1606,7 +1624,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM3B"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1630,7 +1649,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM3C(string departmentID)
+        public XElement CM3C(XElement element, string usertype)
         {
             try
             {
@@ -1641,7 +1660,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM3C"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1665,7 +1685,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM4A(string departmentID)
+        public XElement CM4A(XElement element, string usertype)
         {
             try
             {
@@ -1676,7 +1696,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM4A"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1700,7 +1721,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM4B(string departmentID)
+        public XElement CM4B(XElement element, string usertype)
         {
             try
             {
@@ -1711,7 +1732,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM4B"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1735,7 +1757,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM4C(string departmentID)
+        public XElement CM4C(XElement element, string usertype)
         {
             try
             {
@@ -1746,7 +1768,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM4C"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1770,7 +1793,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM5(string departmentID)
+        public XElement CM5(XElement element, string usertype)
         {
             try
             {
@@ -1781,7 +1804,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM5"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1805,7 +1829,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM6(string departmentID)
+        public XElement CM6(XElement element, string usertype)
         {
             try
             {
@@ -1816,7 +1840,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM6"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1840,7 +1865,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM7(string departmentID)
+        public XElement CM7(XElement element, string usertype)
         {
             try
             {
@@ -1851,7 +1876,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM7"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1875,7 +1901,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM8(string departmentID)
+        public XElement CM8(XElement element, string usertype)
         {
             try
             {
@@ -1886,7 +1912,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "CM8"),
                                                new XElement("Parameters",
-                                                   new XElement("DEPARTMENT_ID", departmentID)));
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
 
                 DataResponse response = GetDataResponse(requestXml);
 

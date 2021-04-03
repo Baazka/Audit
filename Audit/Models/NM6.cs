@@ -6,14 +6,14 @@ using System.Xml.Linq;
 
 namespace Audit.Models
 {
-    public class BM6VM
+    public class NM6VM
     {
         public int DeparmentID { get; set; }
         public int PeriodID { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
     }
-    public class BM6
+    public class NM6
     {
         public int ID { get; set; }
         public int OFFICE_ID { get; set; }
@@ -24,7 +24,7 @@ namespace Audit.Models
         public string AUDIT_TYPE { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-
+        
         public int VIOLATION_COUNT { get; set; }
         public decimal VIOLATION_AMOUNT { get; set; }
         public int ERROR_COUNT { get; set; }
@@ -48,6 +48,7 @@ namespace Audit.Models
         public int OTHER_COUNT { get; set; }
         public decimal OTHER_AMOUNT { get; set; }
 
+        public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }
 
         public DateTime? CREATED_DATE { get; set; }
@@ -55,7 +56,7 @@ namespace Audit.Models
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
 
-        public BM6 SetXml(XElement xml)
+        public NM6 SetXml(XElement xml)
         {
             if (xml != null)
             {
@@ -67,9 +68,6 @@ namespace Audit.Models
                     DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value;
                 if (xml.Element("STATISTIC_PERIOD") != null)
                     STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
-                if (xml.Element("PERIOD_LABEL") != null)
-                    PERIOD_LABEL = xml.Element("PERIOD_LABEL").Value;
-
                 if (xml.Element("AUDIT_YEAR") != null)
                     AUDIT_YEAR = Convert.ToInt32(xml.Element("AUDIT_YEAR").Value);
                 if (xml.Element("AUDIT_TYPE") != null)
@@ -119,43 +117,35 @@ namespace Audit.Models
                     LAW_COUNT = Convert.ToInt32(xml.Element("LAW_COUNT").Value);
                 if (xml.Element("LAW_AMOUNT") != null)
                     LAW_AMOUNT = Convert.ToDecimal(xml.Element("LAW_AMOUNT").Value);
-                if (xml.Element("OTHER_COUNT") != null)
-                    OTHER_COUNT = Convert.ToInt32(xml.Element("OTHER_COUNT").Value);
-                if (xml.Element("OTHER_AMOUNT") != null)
-                    OTHER_AMOUNT = Convert.ToDecimal(xml.Element("OTHER_AMOUNT").Value);
 
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
+                if (xml.Element("CREATED_DATE") != null)
+                    CREATED_DATE = Convert.ToDateTime(xml.Element("CREATED_DATE").Value);
+
             }
             return this;
         }
         public XElement ToXml()
         {
-            return new XElement("BM0",
+            return new XElement("NM1",
                        new XElement("ID", ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
+                       //new XElement("AUDIT_YEAR", AUDIT_YEAR),
                        //new XElement("AUDIT_TYPE", AUDIT_TYPE),
-                       //new XElement("TOPIC_TYPE", TOPIC_TYPE),
-                       //new XElement("TOPIC_CODE", TOPIC_CODE),
-                       //new XElement("TOPIC_NAME", TOPIC_NAME),
-                       //new XElement("ORDER_NO", ORDER_NO),
-                       //new XElement("ORDER_DATE", ORDER_DATE),
-                       //new XElement("AUDIT_PROPOSAL_TYPE", AUDIT_PROPOSAL_TYPE),
+                       //new XElement("AUDIT_CODE", AUDIT_CODE),
+                       //new XElement("AUDIT_NAME", AUDIT_NAME),
                        //new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
-                       //new XElement("AUDIT_INCLUDED_ORG", AUDIT_INCLUDED_ORG),
-                       //new XElement("WORKING_PERSON", WORKING_PERSON),
-                       //new XElement("WORKING_DAY", WORKING_DAY),
-                       //new XElement("WORKING_ADDITION_TIME", WORKING_ADDITION_TIME),
-                       //new XElement("AUDIT_DEPARTMENT", AUDIT_DEPARTMENT),
-                       //new XElement("AUDITOR_LEAD", AUDITOR_LEAD),
-                       //new XElement("AUDITOR_MEMBER", AUDITOR_MEMBER),
-                       //new XElement("AUDITOR_ENTRY", AUDITOR_ENTRY),
-                       //new XElement("EXEC_TYPE", EXEC_TYPE),
+                       //new XElement("CORRECTED_ERROR_DESC", CORRECTED_ERROR_DESC),
+                       //new XElement("CORRECTED_ERROR_TYPE", CORRECTED_ERROR_TYPE),
+                       //new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
+                       //new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),
                        //new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null),
                        new XElement("UPDATED_DATE", UPDATED_DATE != null ? ((DateTime)UPDATED_DATE).ToString("dd-MMM-yy") : null)
                        );
         }
     }
+
 }

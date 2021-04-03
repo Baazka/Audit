@@ -1,8 +1,8 @@
-﻿@model System.Xml.Linq.XElement
+﻿@using Audit.Models
+@model Audit.Models.NM5VM
 @{
     ViewBag.Title = "NM5";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int counter = 0;
 }
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
@@ -11,51 +11,252 @@
         </span>
     </a>
     <h4>НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл</h4>
-    <div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('NM5', 'НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>
 </div>
 <hr class="sidebar-divider">
-<div class="table-responsive">
-    <table id="NM5" class="table table-bordered datatable display" style="width:100%">
-        <thead>
-            <tr style="background-color:#D2D3D5;">
-                <th rowspan="3" class="text-center">№</th>
-                <th rowspan="3">Аудитын код</th>
-                <th rowspan="3">Аудитын нэр</th>
-                <th rowspan="2" colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
-                <th colspan="6">Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</th>
-                <th colspan="2" rowspan="2">Дараа онд шилжих үлдэгдэл</th>
-            </tr>
-            <tr>
-                <th colspan="2">Бүрэн шийдвэрлэгдсэн</th>
-                <th colspan="2">Хянагдаж байгаа</th>
-                <th colspan="2">Хэрэгсэхгүй болсон</th>
-            </tr>
-            <tr>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
 
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="NM5.loadTemplate();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Шинэ бүртгэл</span>
+            </a>
+        </div>
+
+
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM5', 'НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="NM5" class="table table-bordered datatable display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th rowspan="3" class="text-center">№</th>
+                        <th rowspan="3">Аудитын код</th>
+                        <th rowspan="3">Аудитын нэр</th>
+                        <th rowspan="2" colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
+                        <th colspan="6">Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</th>
+                        <th colspan="2" rowspan="2">Дараа онд шилжих үлдэгдэл</th>
+                        <th rowspan="3" class="text-center">Үйлдэл</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Бүрэн шийдвэрлэгдсэн</th>
+                        <th colspan="2">Хянагдаж байгаа</th>
+                        <th colspan="2">Хэрэгсэхгүй болсон</th>
+                    </tr>
+                    <tr>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
 @section scripts{
     <script>
-        initDataTable();
+        $(document).ready(function () {
+            nm5ListInit();
+        });
+
+        function nm5ListInit() {
+            var table = $("#NM5").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/nm5list",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.PeriodID = $('#PeriodID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ID);
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    //{ "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
+                    //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
+                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
+                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
+                    //{ "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
+
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
+                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT" },
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
+                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT" },
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
+                    { "data": "COMPLETION_INVALID_COUNT", "name": "COMPLETION_INVALID_COUNT" },
+                    { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT" },
+                    { "data": "LAW_C2_NUMBER_COUNT", "name": "LAW_C2_NUMBER_COUNT" },
+                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT" },
+                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            var tmp = '<div class="btn-group">';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="NM5.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="NM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            tmp += urledit;
+                            tmp += urldelete;
+                            tmp += "</div>";
+                            return tmp;
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+            });
+
+        }
+        $('#DeparmentID').change(function () {
+            nm5ListInit();
+        });
+        $('#PeriodID').change(function () {
+            nm5ListInit();
+        });
+        var NM5 = {
+        nm5ID: null,
+        display: function (data) {
+            $("div#nm5modalcontainer").remove();
+            $('<div/>', { id: "nm5modalcontainer" }).appendTo('body').append(data);
+
+            $("#Nm5Modal").modal({ show: true });
+        },
+        loadTemplate: function () {
+            $.ajax({
+                    url: "@Url.Action("NM5AddEdit", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        NM5.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+        },
+        edit: function (id) {
+            $.ajax({
+                url: "@Url.Action("NM5Detail", "Statistic", new { Area = "" })",
+                type: 'POST',
+                data: { id },
+                success: function (data, status, xhr) {
+                    NM5.progressResponse(data, status, xhr);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        delete: function (id) {
+            NM5.nm5ID = id;
+            var r = confirm("Устгах уу!");
+            if (r) {
+                $.ajax({
+                    url: "@Url.Action("NM5Delete", "Statistic", new { Area = "" })",
+                    type: 'POST',
+                    data: { id },
+                    success: function (data, status, xhr) {
+                        NM5.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            }
+        },
+        close: function () {
+            $("#Nm5Modal").modal("hide");
+        },
+        progressResponse: function (data, status, xhr) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                NM5.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    NM5.close();
+                    nm5ListInit();
+                    Message.success(data.message);
+                }
+            }
+        }
+    }
+        function exportFile(tableid, excelname,) {
+            $('#exportXLSX').prop('disabled', true);
+            table.destroy();
+            nm5ListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                table.destroy();
+                nm5ListInit();
+                $('#exportXLSX').prop('disabled', false);
+            }, 5000
+            )
+        }
     </script>
-} 
+}

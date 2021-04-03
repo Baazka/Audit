@@ -33,7 +33,7 @@ namespace Audit.Models
         public string VIOLATION_RESPONDENT { get; set; }
         public string PROPOSAL_SUBMITTED_DATE { get; set; }
         public string PROPOSAL_DELIVERY_DATE { get; set; }
-        public int PROPOSAL_AMOUNT { get; set; }
+        public decimal PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }
         public string PROPOSAL_RCV_ROLE { get; set; }
         public string PROPOSAL_RCV_GIVEN_NAME { get; set; }
@@ -43,9 +43,9 @@ namespace Audit.Models
 
         public string COMPLETION_ORDER { get; set; }
         public int COMPLETION_DONE { get; set; }
-        public int COMPLETION_DONE_AMOUNT { get; set; }
+        public decimal COMPLETION_DONE_AMOUNT { get; set; }
         public int COMPLETION_PROGRESS { get; set; }
-        public int COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
 
         public int EXEC_TYPE { get; set; }
 
@@ -95,7 +95,7 @@ namespace Audit.Models
                 if (xml.Element("PROPOSAL_DELIVERY_DATE") != null)
                     PROPOSAL_DELIVERY_DATE = xml.Element("PROPOSAL_DELIVERY_DATE").Value;
                 if (xml.Element("PROPOSAL_AMOUNT") != null)
-                    PROPOSAL_AMOUNT = Convert.ToInt32(xml.Element("PROPOSAL_AMOUNT").Value);
+                    PROPOSAL_AMOUNT = Convert.ToDecimal(xml.Element("PROPOSAL_AMOUNT").Value);
                 if (xml.Element("PROPOSAL_RCV_NAME") != null)
                     PROPOSAL_RCV_NAME = xml.Element("PROPOSAL_RCV_NAME").Value;
                 if (xml.Element("PROPOSAL_RCV_ROLE") != null)
@@ -114,11 +114,11 @@ namespace Audit.Models
                 if (xml.Element("COMPLETION_DONE") != null)
                     COMPLETION_DONE = Convert.ToInt32(xml.Element("COMPLETION_DONE").Value);
                 if (xml.Element("COMPLETION_DONE_AMOUNT") != null)
-                    COMPLETION_DONE_AMOUNT = Convert.ToInt32(xml.Element("COMPLETION_DONE_AMOUNT").Value);
+                    COMPLETION_DONE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_DONE_AMOUNT").Value);
                 if (xml.Element("COMPLETION_PROGRESS") != null)
                     COMPLETION_PROGRESS = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS").Value);
                 if (xml.Element("COMPLETION_PROGRESS_AMOUNT") != null)
-                    COMPLETION_PROGRESS_AMOUNT = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
+                    COMPLETION_PROGRESS_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
                 
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
