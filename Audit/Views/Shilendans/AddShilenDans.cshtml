@@ -801,7 +801,6 @@
 }
 
 
-
 <div class="modal fade" id="NoteModal" role="dialog">
     <div class="modal-dialog" style="max-width:100%;margin: 0 auto;">
         <!-- Modal content-->
@@ -832,6 +831,17 @@
 
         document.getElementById('printButton').addEventListener("click", print)
     </script>*@
+<script>
+    $(document).ready(function () {
+        $('input').keypress(function (e) {
+            if (e.which == 13) {
+                $(this).next('input').focus();
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function () {
         var tabid = '@(ViewBag.Tabid)';
@@ -865,3 +875,4 @@
         }
     });
 </script>
+
