@@ -685,6 +685,324 @@ namespace Audit.Models
     {
         public List<NM7> data { get; set; } = new List<NM7>();
     }
+    public class CM1ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string CATEGORY_TYPE { get; set; }
+        public int IS_STATE { get; set; }
+        public int WORKING_PERSON { get; set; }
+        public int WORKING_DAY { get; set; }
+        public int WORKING_ADDITION_TIME { get; set; }
+        public int EXECUTORY { get; set; }
+        public int EXEC_DECISION { get; set; }
+        public int EXEC_COLLECTION { get; set; }
+        public int EXEC_TRUSTED { get; set; }
+        public int PERFORMED { get; set; }
+        public int PERF_DECISION { get; set; }
+        public int PERF_COLLECTION { get; set; }
+        public int PERF_TRUSTED { get; set; }
+        public int PERF_NOT_AUDITED { get; set; }
+        public int PROPOSAL { get; set; }
+        public int PROP_UNVIOLATED { get; set; }
+        public int PROP_RESTRICTED { get; set; }
+        public int PROP_NEGATIVE { get; set; }
+        public int PROP_NOT { get; set; }
+        public int TPA_COUNT { get; set; }
+        public decimal TPA_AMOUNT { get; set; }
+        public int AUDITED_INCLUDED_ORG { get; set; }
+        public int BENEFIT_FIN_COUNT { get; set; }
+        public decimal BENEFIT_FIN_AMOUNT { get; set; }
+        public int BENEFIT_NONFIN { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM1ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM1> data { get; set; } = new List<CM1>();
+    }
+    public class CM2ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string DECISION_TYPE { get; set; }
+        public string BUDGET_TYPE { get; set; }
+        public int IS_STATE { get; set; }
+
+        public int C1_COUNT { get; set; }
+        public decimal C1_AMOUNT { get; set; }
+        public int CURRENT_COUNT { get; set; }
+        public decimal CURRENT_AMOUNT { get; set; }
+        public int PREV_COUNT { get; set; }
+        public decimal PREV_AMOUNT { get; set; }
+        public int CY_COUNT { get; set; }
+        public decimal CY_AMOUNT { get; set; }
+        public int TOTAL_COUNT { get; set; }
+        public decimal TOTAL_AMOUNT { get; set; }
+        public int COMP_STATE_COUNT { get; set; }
+        public decimal COMP_STATE_AMOUNT { get; set; }
+        public int COMP_LOCAL_COUNT { get; set; }
+        public decimal COMP_LOCAL_AMOUNT { get; set; }
+        public int COMP_ORG_COUNT { get; set; }
+        public decimal COMP_ORG_AMOUNT { get; set; }
+        public int COMP_OTHER_COUNT { get; set; }
+        public decimal COMP_OTHER_AMOUNT { get; set; }
+        public int STATISTIC_COUNT { get; set; }
+        public decimal STATISTIC_AMOUNT { get; set; }
+        public int C2_COUNT { get; set; }
+        public decimal C2_AMOUNT { get; set; }
+        public int C2_NONEXPIRED_COUNT { get; set; }
+        public decimal C2_NONEXPIRED_AMOUNT { get; set; }
+        public int C2_EXPIRED_COUNT { get; set; }
+        public decimal C2_EXPIRED_AMOUNT { get; set; }
+        public int EXEC_TYPE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM2ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM2> data { get; set; } = new List<CM2>();
+    }
+    public class CM3ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string DECISION_TYPE { get; set; }
+        public string BUDGET_TYPE { get; set; }
+        public int IS_STATE { get; set; }
+
+        public int C1_COUNT { get; set; }
+        public decimal C1_AMOUNT { get; set; }
+        public int CURRENT_COUNT { get; set; }
+        public decimal CURRENT_AMOUNT { get; set; }
+        public int TOTAL_COUNT { get; set; }
+        public decimal TOTAL_AMOUNT { get; set; }
+        public int COMPLETION_DONE_COUNT { get; set; }
+        public decimal COMPLETION_DONE_AMOUNT { get; set; }
+        public int COMPLETION_PROGRESS_COUNT { get; set; }
+        public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public int LAW_COUNT { get; set; }
+        public decimal LAW_AMOUNT { get; set; }
+        public int LAW_CURRENT_COUNT { get; set; }
+        public decimal LAW_CURRENT_AMOUNT { get; set; }
+        public int LAW_TOTAL_COUNT { get; set; }
+        public decimal LAW_TOTAL_AMOUNT { get; set; }
+        public int LAW_COMP_DONE_COUNT { get; set; }
+        public decimal LAW_COMP_DONE_AMOUNT { get; set; }
+        public int LAW_COMP_PROG_COUNT { get; set; }
+        public decimal LAW_COMP_PROG_AMOUNT { get; set; }
+        public int LAW_COMP_INVALID_COUNT { get; set; }
+        public decimal LAW_COMP_INVALID_AMOUNT { get; set; }
+        public int C2_COUNT { get; set; }
+        public decimal C2_AMOUNT { get; set; }
+        public int EXEC_TYPE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM3ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM3> data { get; set; } = new List<CM3>();
+    }
+    public class CM4ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string DECISION_TYPE { get; set; }
+        public string BUDGET_TYPE { get; set; }
+        public int IS_STATE { get; set; }
+
+        public int VIOLATION_COUNT { get; set; }
+        public decimal VIOLATION_AMOUNT { get; set; }
+        public int ERROR_COUNT { get; set; }
+        public decimal ERROR_AMOUNT { get; set; }
+        public int ALL_COUNT { get; set; }
+        public decimal ALL_AMOUNT { get; set; }
+        public int CORRECTED_ERROR_COUNT { get; set; }
+        public decimal CORRECTED_ERROR_AMOUNT { get; set; }
+        public int OTHER_ERROR_COUNT { get; set; }
+        public decimal OTHER_ERROR_AMOUNT { get; set; }
+        public int ACT_COUNT { get; set; }
+        public decimal ACT_AMOUNT { get; set; }
+        public int CLAIM_COUNT { get; set; }
+        public decimal CLAIM_AMOUNT { get; set; }
+        public int REFERENCE_COUNT { get; set; }
+        public decimal REFERENCE_AMOUNT { get; set; }
+        public int PROPOSAL_COUNT { get; set; }
+        public decimal PROPOSAL_AMOUNT { get; set; }
+        public int LAW_COUNT { get; set; }
+        public decimal LAW_AMOUNT { get; set; }
+        public int OTHER_COUNT { get; set; }
+        public decimal OTHER_AMOUNT { get; set; }
+        public int EXEC_TYPE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM4ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM4> data { get; set; } = new List<CM4>();
+    }
+    public class CM5ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public string DECISION_TYPE { get; set; }
+
+        public int INCOME_STATE_COUNT { get; set; }
+        public decimal INCOME_STATE_AMOUNT { get; set; }
+        public int INCOME_LOCAL_COUNT { get; set; }
+        public decimal INCOME_LOCAL_AMOUNT { get; set; }
+
+        public int BUDGET_STATE_COUNT { get; set; }
+        public decimal BUDGET_STATE_AMOUNT { get; set; }
+        public int BUDGET_LOCAL_COUNT { get; set; }
+        public decimal BUDGET_LOCAL_AMOUNT { get; set; }
+
+        public int ACCOUNTANT_COUNT { get; set; }
+        public decimal ACCOUNTANT_AMOUNT { get; set; }
+        public int EFFICIENCY_COUNT { get; set; }
+        public decimal EFFICIENCY_AMOUNT { get; set; }
+        public int LAW_COUNT { get; set; }
+        public decimal LAW_AMOUNT { get; set; }
+        public int MONITORING_COUNT { get; set; }
+        public decimal MONITORING_AMOUNT { get; set; }
+        public int PURCHASE_COUNT { get; set; }
+        public decimal PURCHASE_AMOUNT { get; set; }
+        public int COST_COUNT { get; set; }
+        public decimal COST_AMOUNT { get; set; }
+        public int OTHER_COUNT { get; set; }
+        public decimal OTHER_AMOUNT { get; set; }
+        public int ALL_COUNT { get; set; }
+        public decimal ALL_AMOUNT { get; set; }
+        public int EXEC_TYPE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM5ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM5> data { get; set; } = new List<CM5>();
+    }
+    public class CM6ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUD_NAME { get; set; }
+        public int IS_STATE { get; set; }
+
+        public int ALL_COUNT { get; set; }
+        public decimal ALL_AMOUNT { get; set; }
+        public int PROCESSED_INCOMED_COUNT { get; set; }
+        public decimal PROCESSED_INCOMED_AMOUNT { get; set; }
+        public int PROCESSED_COSTS_COUNT { get; set; }
+        public decimal PROCESSED_COSTS_AMOUNT { get; set; }
+
+        public int ALL_C1_COUNT { get; set; }
+        public decimal ALL_C2_AMOUNT { get; set; }
+        public int ACCEPTED_INCOMED_COUNT { get; set; }
+        public decimal ACCEPTED_INCOMED_AMOUNT { get; set; }
+        public int ACCEPTED_COSTS_COUNT { get; set; }
+        public decimal ACCEPTED_COSTS_AMOUNT { get; set; }
+
+        public int EXEC_TYPE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM6ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM6> data { get; set; } = new List<CM6>();
+    }
+    public class CM7ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public string AUD_NAME { get; set; }
+        public string NAME_TYPE { get; set; }
+
+        public int REFERENCE_COUNT { get; set; }
+        public int BUDGET_EXPENSES { get; set; }
+        public int HUMAN_RESOURCES { get; set; }
+        public int PLANNED_COMPLETED { get; set; }
+        public int OTHER { get; set; }
+        public int COMP_DONE { get; set; }
+        public int COMP_PROGRESS { get; set; }
+        public int RESOLVED_COMPLAINT_COUNT { get; set; }
+        public string REFERENCE_NOT_COMP { get; set; }
+        public int EXEC_TYPE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM7ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM7> data { get; set; } = new List<CM7>();
+    }
+
+    public class CM8ListRequest : DataTableAjaxPostModel
+    {
+        public int ID { get; set; }
+        public int APPROVED_BUDGET { get; set; }
+        public int PERFORMANCE_BUDGET { get; set; }
+        public int WORKERS { get; set; }
+        public int APPROVED_NUMBERS { get; set; }
+        public int DIRECTING_STAFF { get; set; }
+        public int SENIOR_AUDITOR_ANALYST { get; set; }
+        public int AUDITOR_ANALYST { get; set; }
+        public int OTHER_OFFICE { get; set; }
+        public int EDU_DOCTOR { get; set; }
+        public int EDU_MAGISTR { get; set; }
+        public int EDU_BAKLAVR { get; set; }
+        public int EDU_AMONGST { get; set; }
+        public int EDU_JUNIOR_AMONGST { get; set; }
+        public int PRO_ACCOUNTANT { get; set; }
+        public int ACCOUNTANT_ECONOMIST { get; set; }
+        public int LAWYER { get; set; }
+        public int INGENER { get; set; }
+        public int OTHER_PROF { get; set; }
+        public int STUDY_COUNT { get; set; }
+        public int INCLUDED_MAN { get; set; }
+        public int ONLINE_STUDY_COUNT { get; set; }
+        public int LOCAL_STUDY_COUNT { get; set; }
+        public int AUDIT_STUDY_COUNT { get; set; }
+        public int FOREIGN__STUDY_COUNT { get; set; }
+        public int FOREIGN_MAN_COUNT { get; set; }
+        public int INSIDE_STUDY_COUNT { get; set; }
+        public int INSIDE_MAN_COUNT { get; set; }
+        public int ORG_STUDY_COUNT { get; set; }
+        public int ORG_MAN_COUNT { get; set; }
+        public int RESEARCH_ALL { get; set; }
+        public int PUBLISHED_REPORT { get; set; }
+        public int NEWS_ARTICLE { get; set; }
+        public int TV_NEWS_BROADCAST { get; set; }
+        public int ORG_NEWS { get; set; }
+        public int WEB_ACCESS { get; set; }
+        public int RECEIVED_ALL { get; set; }
+        public int TAB_WORKERS { get; set; }
+        public int TAB_SKILLS { get; set; }
+        public int AUDIT_LET { get; set; }
+        public int RECEIVED_OTHER { get; set; }
+        public int DECIDED_TIME { get; set; }
+        public int DEC_EXPIRED { get; set; }
+        public int DEC_UNEXPIRED { get; set; }
+        public string EXEC_TYPE { get; set; }
+
+        public int? DeparmentID { get; set; }
+        public int? PeriodID { get; set; }
+
+    }
+    public class CM8ListResponse : DataTableAjaxResponModel
+    {
+        public List<CM8> data { get; set; } = new List<CM8>();
+    }
     public class DataTableAjaxResponModel
     {
         public int draw { get; set; }

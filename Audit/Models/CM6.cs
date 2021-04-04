@@ -25,18 +25,18 @@ namespace Audit.Models
         public int IS_STATE { get; set; }
 
         public int ALL_COUNT { get; set; }
-        public int ALL_AMOUNT { get; set; }
+        public decimal ALL_AMOUNT { get; set; }
         public int PROCESSED_INCOMED_COUNT { get; set; }
-        public int PROCESSED_INCOMED_AMOUNT { get; set; }
+        public decimal PROCESSED_INCOMED_AMOUNT { get; set; }
         public int PROCESSED_COSTS_COUNT { get; set; }
-        public int PROCESSED_COSTS_AMOUNT { get; set; }
+        public decimal PROCESSED_COSTS_AMOUNT { get; set; }
 
         public int ALL_C1_COUNT { get; set; }
-        public int ALL_C2_AMOUNT { get; set; }
+        public decimal ALL_C2_AMOUNT { get; set; }
         public int ACCEPTED_INCOMED_COUNT { get; set; }
-        public int ACCEPTED_INCOMED_AMOUNT { get; set; }
+        public decimal ACCEPTED_INCOMED_AMOUNT { get; set; }
         public int ACCEPTED_COSTS_COUNT { get; set; }
-        public int ACCEPTED_COSTS_AMOUNT { get; set; }
+        public decimal ACCEPTED_COSTS_AMOUNT { get; set; }
         
         public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }
@@ -68,27 +68,27 @@ namespace Audit.Models
                 if (xml.Element("ALL_COUNT") != null)
                     ALL_COUNT = Convert.ToInt32(xml.Element("ALL_COUNT").Value);
                 if (xml.Element("ALL_AMOUNT") != null)
-                    ALL_AMOUNT = Convert.ToInt32(xml.Element("ALL_AMOUNT").Value);
+                    ALL_AMOUNT = Convert.ToDecimal(xml.Element("ALL_AMOUNT").Value);
                 if (xml.Element("PROCESSED_INCOMED_COUNT") != null)
                     PROCESSED_INCOMED_COUNT = Convert.ToInt32(xml.Element("PROCESSED_INCOMED_COUNT").Value);
                 if (xml.Element("PROCESSED_INCOMED_AMOUNT") != null)
-                    PROCESSED_INCOMED_AMOUNT = Convert.ToInt32(xml.Element("PROCESSED_INCOMED_AMOUNT").Value);
+                    PROCESSED_INCOMED_AMOUNT = Convert.ToDecimal(xml.Element("PROCESSED_INCOMED_AMOUNT").Value);
                 if (xml.Element("PROCESSED_COSTS_COUNT") != null)
                     PROCESSED_COSTS_COUNT = Convert.ToInt32(xml.Element("PROCESSED_COSTS_COUNT").Value);
                 if (xml.Element("PROCESSED_COSTS_AMOUNT") != null)
-                    PROCESSED_COSTS_AMOUNT = Convert.ToInt32(xml.Element("PROCESSED_COSTS_AMOUNT").Value);
+                    PROCESSED_COSTS_AMOUNT = Convert.ToDecimal(xml.Element("PROCESSED_COSTS_AMOUNT").Value);
                 if (xml.Element("ALL_C1_COUNT") != null)
                     ALL_C1_COUNT = Convert.ToInt32(xml.Element("ALL_C1_COUNT").Value);
                 if (xml.Element("ALL_C2_AMOUNT") != null)
-                    ALL_C2_AMOUNT = Convert.ToInt32(xml.Element("ALL_C2_AMOUNT").Value);
+                    ALL_C2_AMOUNT = Convert.ToDecimal(xml.Element("ALL_C2_AMOUNT").Value);
                 if (xml.Element("ACCEPTED_INCOMED_COUNT") != null)
                     ACCEPTED_INCOMED_COUNT = Convert.ToInt32(xml.Element("ACCEPTED_INCOMED_COUNT").Value);
                 if (xml.Element("ACCEPTED_INCOMED_AMOUNT") != null)
-                    ACCEPTED_INCOMED_AMOUNT = Convert.ToInt32(xml.Element("ACCEPTED_INCOMED_AMOUNT").Value);
+                    ACCEPTED_INCOMED_AMOUNT = Convert.ToDecimal(xml.Element("ACCEPTED_INCOMED_AMOUNT").Value);
                 if (xml.Element("ACCEPTED_COSTS_COUNT") != null)
                     ACCEPTED_COSTS_COUNT = Convert.ToInt32(xml.Element("ACCEPTED_COSTS_COUNT").Value);
                 if (xml.Element("ACCEPTED_COSTS_AMOUNT") != null)
-                    ACCEPTED_COSTS_AMOUNT = Convert.ToInt32(xml.Element("ACCEPTED_COSTS_AMOUNT").Value);
+                    ACCEPTED_COSTS_AMOUNT = Convert.ToDecimal(xml.Element("ACCEPTED_COSTS_AMOUNT").Value);
 
                 if (xml.Element("IS_ACTIVE") != null)
                     IS_ACTIVE = Convert.ToInt32(xml.Element("IS_ACTIVE").Value);

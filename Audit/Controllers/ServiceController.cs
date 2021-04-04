@@ -793,5 +793,365 @@ namespace Audit.Controllers
             }
             return response;
         }
+        [HttpPost]
+        public CM1ListResponse CM1List(CM1ListRequest request)
+        {
+            CM1ListResponse response = new CM1ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM1A(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM1A") != null)
+                    response.data = (from item in res.Elements("CM1A") select new CM1().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+        [HttpPost]
+        public CM2ListResponse CM2List(CM2ListRequest request)
+        {
+            CM2ListResponse response = new CM2ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM2A(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM2A") != null)
+                    response.data = (from item in res.Elements("CM2A") select new CM2().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+        [HttpPost]
+        public CM3ListResponse CM3List(CM3ListRequest request)
+        {
+            CM3ListResponse response = new CM3ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM3A(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM3A") != null)
+                    response.data = (from item in res.Elements("CM3A") select new CM3().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+        [HttpPost]
+        public CM4ListResponse CM4List(CM4ListRequest request)
+        {
+            CM4ListResponse response = new CM4ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM4A(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM4A") != null)
+                    response.data = (from item in res.Elements("CM4A") select new CM4().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+        [HttpPost]
+        public CM5ListResponse CM5List(CM5ListRequest request)
+        {
+            CM5ListResponse response = new CM5ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM5(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM5") != null)
+                    response.data = (from item in res.Elements("CM5") select new CM5().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+        [HttpPost]
+        public CM6ListResponse CM6List(CM6ListRequest request)
+        {
+            CM6ListResponse response = new CM6ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM6(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM6") != null)
+                    response.data = (from item in res.Elements("CM6") select new CM6().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+        [HttpPost]
+        public CM7ListResponse CM7List(CM7ListRequest request)
+        {
+            CM7ListResponse response = new CM7ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM7(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM7") != null)
+                    response.data = (from item in res.Elements("CM7") select new CM7().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+        [HttpPost]
+        public CM8ListResponse CM8List(CM8ListRequest request)
+        {
+            CM8ListResponse response = new CM8ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.CM8(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM8") != null)
+                    response.data = (from item in res.Elements("CM8") select new CM8().SetXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
     }
 }

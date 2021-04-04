@@ -1,8 +1,8 @@
-﻿@model System.Xml.Linq.XElement
+﻿@using Audit.Models
+@model Audit.Models.CM8VM
 @{
     ViewBag.Title = "CM8";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int counter = 0;
 }
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
@@ -11,96 +11,322 @@
         </span>
     </a>
     <h4>СМ-8. Дэмжих үйлчилгээ</h4>
-    <div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('CM8', 'СМ-8. Дэмжих үйлчилгээ')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>
 </div>
 <hr class="sidebar-divider">
-<div class="table-responsive">
-    <table id="CM8" class="table table-bordered datatable display" style="width:100%">
-        <thead>
-            <tr style="background-color:#D2D3D5;">
-                <th rowspan="4" class="text-center">№</th>
-                <th rowspan="2" colspan="2">Тайлант оны төсөв /сая.төг/</th>
-                <th colspan="17">Хүний нөөц</th>
-                <th colspan="11">Сургалт</th>
-                <th colspan="5">Мэдээлэл, сурталчилгаа</th>
-                <th rowspan="4">Цахим хуудасны хандалтын тоо</th>
-                <th colspan="8">Хүлээн авсан мэдээлэл, хүсэлт, өргөдөл</th>
-            </tr>
-            <tr>
-                <th rowspan="3">Батлагдсан орон тоо</th>
-                <th rowspan="3">Ажиллагсад</th>
-                <th colspan="15">Үүнээс</th>
-                <th colspan="5">ҮАГ-аас зохион байгуулсан</th>
-                <th colspan="2" rowspan="2">Гадаад сургалт</th>
-                <th colspan="2" rowspan="2">Дотоод нэгжийн сургалт</th>
-                <th colspan="2" rowspan="2">Бусад байгууллагаас зохион байгуулсан</th>
-                <th rowspan="3">Бүгд</th>
-                <th colspan="4">Үүнээс</th>
-                <th rowspan="3">Бүгд</th>
-                <th colspan="4">Үүнээс</th>
-                <th colspan="3" rowspan="2">Шийдвэрлэлтийн байдал</th>
-            </tr>
-            <tr>
-                <th rowspan="2">Батлагдсан төсөв</th>
-                <th rowspan="2">Гүйцэтгэл</th>
-                <th colspan="5">Албан тушаал</th>
-                <th colspan="5">Боловсрол</th>
-                <th rowspan="2">Мэргэшсэн нягтлан бодогч</th>
-                <th colspan="4">Мэргэжил</th>
-                <th rowspan="2">Сургалтын тоо</th>
-                <th rowspan="2">Хамрагдсан хүн /Бүгд/</th>
-                <th colspan="3">Үүнээс</th>
-                <th rowspan="2">Хэвлэмэлээр болон хувилж өгсөн тайлан</th>
-                <th rowspan="2">Хэвлэлийн мэдээ, нийтлэл</th>
-                <th rowspan="2">Радио, телевизийн мэдээ, нэвтрүүлэг</th>
-                <th rowspan="2">Бусад байгууллагад хийсэн мэдээлэл, сурталчилгаа</th>
-                <th rowspan="2">ТАБ-ын үйл ажиллагаатай холбоотой</th>
-                <th rowspan="2">ТАБ-ын ажиллагсадын мэргэжлийн ур чадвар, ёс зүйтэй холбоотой</th>
-                <th rowspan="2">Аудит хийлгэх тухай</th>
-                <th rowspan="2">Бусад</th>
-            </tr>
-            <tr>
-                <th>Удирдах ажилтан</th>
-                <th>Менежер</th>
-                <th>Ахлах аудитор, ахлах шинжээч</th>
-                <th>Аудитор, шинжээч</th>
-                <th>Бусад</th>
-                <th>Доктор</th>
-                <th>Магистр</th>
-                <th>Бакалавр</th>
-                <th>Тусгай дунд</th>
-                <th>Бүрэн дунд</th>
-                <th>Нягтлан бодогч, эдийн засагч</th>
-                <th>Хуульч</th>
-                <th>Инженер</th>
-                <th>Бусад</th>
-                <th>Онлайн сургалтад хамрагдсан хүний тоо</th>
-                <th>Орон нутагт зохион байгуулсан сургалтад оролцсон хүний тоо</th>
-                <th>ҮАГ дээр зохион байгуулсан сургалтад хамрагдсан хүний тоо</th>
-                <th>Сургалтын тоо</th>
-                <th>Хүний тоо</th>
-                <th>Сургалтын тоо</th>
-                <th>Хүний тоо</th>
-                <th>Сургалтын тоо</th>
-                <th>Хүний тоо</th>
-                <th>Хугацаанд нь шийдвэрлэсэн</th>
-                <th>Хугацаа болоогүй</th>
-                <th>Хугацаа хэтэрсэн</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM8.loadTemplate();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Шинэ бүртгэл</span>
+            </a>
+        </div>
+
+
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM8', 'СМ-8. Дэмжих үйлчилгээ')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="CM8" class="table table-bordered datatable display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th rowspan="4" class="text-center">№</th>
+                        <th rowspan="2" colspan="2">Тайлант оны төсөв /сая.төг/</th>
+                        <th colspan="17">Хүний нөөц</th>
+                        <th colspan="11">Сургалт</th>
+                        <th colspan="5">Мэдээлэл, сурталчилгаа</th>
+                        <th rowspan="4">Цахим хуудасны хандалтын тоо</th>
+                        <th colspan="8">Хүлээн авсан мэдээлэл, хүсэлт, өргөдөл</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="3">Батлагдсан орон тоо</th>
+                        <th rowspan="3">Ажиллагсад</th>
+                        <th colspan="15">Үүнээс</th>
+                        <th colspan="5">ҮАГ-аас зохион байгуулсан</th>
+                        <th colspan="2" rowspan="2">Гадаад сургалт</th>
+                        <th colspan="2" rowspan="2">Дотоод нэгжийн сургалт</th>
+                        <th colspan="2" rowspan="2">Бусад байгууллагаас зохион байгуулсан</th>
+                        <th rowspan="3">Бүгд</th>
+                        <th colspan="4">Үүнээс</th>
+                        <th rowspan="3">Бүгд</th>
+                        <th colspan="4">Үүнээс</th>
+                        <th colspan="3" rowspan="2">Шийдвэрлэлтийн байдал</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Батлагдсан төсөв</th>
+                        <th rowspan="2">Гүйцэтгэл</th>
+                        <th colspan="5">Албан тушаал</th>
+                        <th colspan="5">Боловсрол</th>
+                        <th rowspan="2">Мэргэшсэн нягтлан бодогч</th>
+                        <th colspan="4">Мэргэжил</th>
+                        <th rowspan="2">Сургалтын тоо</th>
+                        <th rowspan="2">Хамрагдсан хүн /Бүгд/</th>
+                        <th colspan="3">Үүнээс</th>
+                        <th rowspan="2">Хэвлэмэлээр болон хувилж өгсөн тайлан</th>
+                        <th rowspan="2">Хэвлэлийн мэдээ, нийтлэл</th>
+                        <th rowspan="2">Радио, телевизийн мэдээ, нэвтрүүлэг</th>
+                        <th rowspan="2">Бусад байгууллагад хийсэн мэдээлэл, сурталчилгаа</th>
+                        <th rowspan="2">ТАБ-ын үйл ажиллагаатай холбоотой</th>
+                        <th rowspan="2">ТАБ-ын ажиллагсадын мэргэжлийн ур чадвар, ёс зүйтэй холбоотой</th>
+                        <th rowspan="2">Аудит хийлгэх тухай</th>
+                        <th rowspan="2">Бусад</th>
+                    </tr>
+                    <tr>
+                        <th>Удирдах ажилтан</th>
+                        <th>Менежер</th>
+                        <th>Ахлах аудитор, ахлах шинжээч</th>
+                        <th>Аудитор, шинжээч</th>
+                        <th>Бусад</th>
+                        <th>Доктор</th>
+                        <th>Магистр</th>
+                        <th>Бакалавр</th>
+                        <th>Тусгай дунд</th>
+                        <th>Бүрэн дунд</th>
+                        <th>Нягтлан бодогч, эдийн засагч</th>
+                        <th>Хуульч</th>
+                        <th>Инженер</th>
+                        <th>Бусад</th>
+                        <th>Онлайн сургалтад хамрагдсан хүний тоо</th>
+                        <th>Орон нутагт зохион байгуулсан сургалтад оролцсон хүний тоо</th>
+                        <th>ҮАГ дээр зохион байгуулсан сургалтад хамрагдсан хүний тоо</th>
+                        <th>Сургалтын тоо</th>
+                        <th>Хүний тоо</th>
+                        <th>Сургалтын тоо</th>
+                        <th>Хүний тоо</th>
+                        <th>Сургалтын тоо</th>
+                        <th>Хүний тоо</th>
+                        <th>Хугацаанд нь шийдвэрлэсэн</th>
+                        <th>Хугацаа болоогүй</th>
+                        <th>Хугацаа хэтэрсэн</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @section scripts{
     <script>
-        initDataTable();
+        $(document).ready(function () {
+            cm8ListInit();
+        });
+
+        function cm8ListInit() {
+            var table = $("#CM8").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/cm8list",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.PeriodID = $('#PeriodID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ID);
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "APPROVED_BUDGET", "name": "APPROVED_BUDGET" },
+                    { "data": "PERFORMANCE_BUDGET", "name": "PERFORMANCE_BUDGET" },
+                    { "data": "WORKERS", "name": "WORKERS" },
+                    { "data": "APPROVED_NUMBERS", "name": "APPROVED_NUMBERS" },
+                    { "data": "DIRECTING_STAFF", "name": "DIRECTING_STAFF" },
+                    { "data": "SENIOR_AUDITOR_ANALYST", "name": "SENIOR_AUDITOR_ANALYST" },
+                    { "data": "AUDITOR_ANALYST", "name": "AUDITOR_ANALYST" },
+                    { "data": "OTHER_OFFICE", "name": "OTHER_OFFICE" },
+                    { "data": "EDU_DOCTOR", "name": "EDU_DOCTOR" },
+                    { "data": "EDU_MAGISTR", "name": "EDU_MAGISTR" },
+                    { "data": "EDU_BAKLAVR", "name": "EDU_BAKLAVR" },
+                    { "data": "EDU_AMONGST", "name": "EDU_AMONGST" },
+                    { "data": "EDU_JUNIOR_AMONGST", "name": "EDU_JUNIOR_AMONGST" },
+                    { "data": "PRO_ACCOUNTANT", "name": "PRO_ACCOUNTANT" },
+                    { "data": "ACCOUNTANT_ECONOMIST", "name": "ACCOUNTANT_ECONOMIST" },
+                    { "data": "LAWYER", "name": "LAWYER" },
+                    { "data": "INGENER", "name": "INGENER" },
+                    { "data": "OTHER_PROF", "name": "OTHER_PROF" },
+                    { "data": "STUDY_COUNT", "name": "STUDY_COUNT" },
+                    { "data": "INCLUDED_MAN", "name": "INCLUDED_MAN" },
+                    { "data": "ONLINE_STUDY_COUNT", "name": "ONLINE_STUDY_COUNT" },
+                    { "data": "LOCAL_STUDY_COUNT", "name": "LOCAL_STUDY_COUNT" },
+                    { "data": "AUDIT_STUDY_COUNT", "name": "AUDIT_STUDY_COUNT" },
+                    { "data": "FOREIGN__STUDY_COUNT", "name": "FOREIGN__STUDY_COUNT" },
+                    { "data": "FOREIGN_MAN_COUNT", "name": "FOREIGN_MAN_COUNT" },
+                    { "data": "INSIDE_STUDY_COUNT", "name": "INSIDE_STUDY_COUNT" },
+                    { "data": "INSIDE_MAN_COUNT", "name": "INSIDE_MAN_COUNT" },
+                    { "data": "ORG_STUDY_COUNT", "name": "ORG_STUDY_COUNT" },
+                    { "data": "ORG_MAN_COUNT", "name": "ORG_MAN_COUNT" },
+                    { "data": "RESEARCH_ALL", "name": "RESEARCH_ALL" },
+                    { "data": "PUBLISHED_REPORT", "name": "PUBLISHED_REPORT" },
+                    { "data": "NEWS_ARTICLE", "name": "NEWS_ARTICLE" },
+                    { "data": "TV_NEWS_BROADCAST", "name": "TV_NEWS_BROADCAST" },
+                    { "data": "ORG_NEWS", "name": "ORG_NEWS" },
+                    { "data": "WEB_ACCESS", "name": "WEB_ACCESS" },
+                    { "data": "RECEIVED_ALL", "name": "RECEIVED_ALL" },
+                    { "data": "TAB_WORKERS", "name": "TAB_WORKERS" },
+                    { "data": "TAB_SKILLS", "name": "TAB_SKILLS" },
+                    { "data": "AUDIT_LET", "name": "AUDIT_LET" },
+                    { "data": "RECEIVED_OTHER", "name": "RECEIVED_OTHER" },
+                    { "data": "DECIDED_TIME", "name": "DECIDED_TIME" },
+                    { "data": "DEC_EXPIRED", "name": "DEC_EXPIRED" },
+                    { "data": "DEC_UNEXPIRED", "name": "DEC_UNEXPIRED" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            var tmp = '<div class="btn-group">';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM8.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM8.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            tmp += urledit;
+                            tmp += urldelete;
+                            tmp += "</div>";
+                            return tmp;
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+            });
+
+        }
+        $('#DeparmentID').change(function () {
+            cm8ListInit();
+        });
+        $('#PeriodID').change(function () {
+            cm8ListInit();
+        });
+        var CM8 = {
+        cm8ID: null,
+        display: function (data) {
+            $("div#cm8modalcontainer").remove();
+            $('<div/>', { id: "cm8modalcontainer" }).appendTo('body').append(data);
+
+            $("#CM8Modal").modal({ show: true });
+        },
+        loadTemplate: function () {
+            $.ajax({
+                    url: "@Url.Action("CM8AddEdit", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        CM8.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+        },
+        edit: function (id) {
+            $.ajax({
+                url: "@Url.Action("CM8Detail", "Statistic", new { Area = "" })",
+                type: 'POST',
+                data: { id },
+                success: function (data, status, xhr) {
+                    CM8.progressResponse(data, status, xhr);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        delete: function (id) {
+            CM8.cm8ID = id;
+            var r = confirm("Устгах уу!");
+            if (r) {
+                $.ajax({
+                    url: "@Url.Action("CM8Delete", "Statistic", new { Area = "" })",
+                    type: 'POST',
+                    data: { id },
+                    success: function (data, status, xhr) {
+                        CM8.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            }
+        },
+        close: function () {
+            $("#CM8Modal").modal("hide");
+        },
+        progressResponse: function (data, status, xhr) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                CM8.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    CM8.close();
+                    cm8ListInit();
+                    Message.success(data.message);
+                }
+            }
+        }
+    }
+        function exportFile(tableid, excelname,) {
+            $('#exportXLSX').prop('disabled', true);
+            table.destroy();
+            cm8ListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                table.destroy();
+                cm8ListInit();
+                $('#exportXLSX').prop('disabled', false);
+            }, 5000
+            )
+        }
     </script>
-} 
+}

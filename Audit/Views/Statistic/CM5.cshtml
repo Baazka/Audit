@@ -1,8 +1,8 @@
-﻿@model System.Xml.Linq.XElement
+﻿@using Audit.Models
+@model Audit.Models.CM5VM
 @{
     ViewBag.Title = "CM5";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int counter = 0;
 }
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
@@ -11,73 +11,281 @@
         </span>
     </a>
     <h4>СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал</h4>
-    <div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('CM5', 'СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>
 </div>
 <hr class="sidebar-divider">
-<div class="table-responsive">
-    <table id="CM5" class="table table-bordered datatable display" style="width:100%">
-        <thead>
-            <tr style="background-color:#D2D3D5;">
-                <th rowspan="3" class="text-center">№</th>
-                <th rowspan="3">Аудитын төрөл</th>
-                <th rowspan="3">Үзүүлэлт</th>
-                <th colspan="4">Орлого бүрдүүлэлттэй холбоотой</th>
-                <th colspan="4">Төсвийн төлөвлөлт, гүйцэтгэлтэй холбоотой</th>
-                <th colspan="2" rowspan="2">НББ, тайлагналттай холбоотой</th>
-                <th colspan="2" rowspan="2">Арвилан хэмнэлт, үр ашиг, үр нөлөөтэй холбоотой</th>
-                <th colspan="2" rowspan="2">Хууль, тогтоомжийн хэрэгжилттэй холбоотой</th>
-                <th colspan="2" rowspan="2">Дотоод хяналт, хариуцлагатай холбоотой</th>
-                <th colspan="2" rowspan="2">Худалдан авалттай холбоотой</th>
-                <th colspan="2" rowspan="2">Зориулалт бус зарцуулалттай холбоотой</th>
-                <th colspan="2" rowspan="2">Бусад</th>
-                <th colspan="2" rowspan="2">Алдаа зөрчлийн нийт дүн</th>
-            </tr>
-            <tr>
-                <th colspan="2">Улсын төсөв</th>
-                <th colspan="2">Орон нутгын төсөв</th>
-                <th colspan="2">Улсын төсөв</th>
-                <th colspan="2">Орон нутгын төсөв</th>
-            </tr>
-            <tr>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM5.loadTemplate();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Шинэ бүртгэл</span>
+            </a>
+        </div>
+
+
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM5', 'СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="CM5" class="table table-bordered datatable display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th rowspan="3" class="text-center">№</th>
+                        <th rowspan="3">Аудитын төрөл</th>
+                        <th rowspan="3">Үзүүлэлт</th>
+                        <th colspan="4">Орлого бүрдүүлэлттэй холбоотой</th>
+                        <th colspan="4">Төсвийн төлөвлөлт, гүйцэтгэлтэй холбоотой</th>
+                        <th colspan="2" rowspan="2">НББ, тайлагналттай холбоотой</th>
+                        <th colspan="2" rowspan="2">Арвилан хэмнэлт, үр ашиг, үр нөлөөтэй холбоотой</th>
+                        <th colspan="2" rowspan="2">Хууль, тогтоомжийн хэрэгжилттэй холбоотой</th>
+                        <th colspan="2" rowspan="2">Дотоод хяналт, хариуцлагатай холбоотой</th>
+                        <th colspan="2" rowspan="2">Худалдан авалттай холбоотой</th>
+                        <th colspan="2" rowspan="2">Зориулалт бус зарцуулалттай холбоотой</th>
+                        <th colspan="2" rowspan="2">Бусад</th>
+                        <th colspan="2" rowspan="2">Алдаа зөрчлийн нийт дүн</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Улсын төсөв</th>
+                        <th colspan="2">Орон нутгын төсөв</th>
+                        <th colspan="2">Улсын төсөв</th>
+                        <th colspan="2">Орон нутгын төсөв</th>
+                    </tr>
+                    <tr>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @section scripts{
     <script>
-        initDataTable();
+        $(document).ready(function () {
+            cm5ListInit();
+        });
+
+        function cm5ListInit() {
+            var table = $("#CM5").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/cm5list",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.PeriodID = $('#PeriodID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ID);
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
+                    { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
+                    { "data": "INCOME_STATE_COUNT", "name": "INCOME_STATE_COUNT" },
+                    { "data": "INCOME_STATE_AMOUNT", "name": "INCOME_STATE_AMOUNT" },
+                    { "data": "INCOME_LOCAL_COUNT", "name": "INCOME_LOCAL_AMOUNT" },
+                    { "data": "BUDGET_STATE_COUNT", "name": "BUDGET_STATE_COUNT" },
+                    { "data": "BUDGET_STATE_AMOUNT", "name": "BUDGET_STATE_AMOUNT" },
+                    { "data": "BUDGET_LOCAL_COUNT", "name": "BUDGET_LOCAL_COUNT" },
+                    { "data": "BUDGET_LOCAL_AMOUNT", "name": "BUDGET_LOCAL_AMOUNT" },
+                    { "data": "ACCOUNTANT_COUNT", "name": "ACCOUNTANT_COUNT" },
+                    { "data": "ACCOUNTANT_AMOUNT", "name": "ACCOUNTANT_AMOUNT" },
+                    { "data": "EFFICIENCY_COUNT", "name": "EFFICIENCY_COUNT" },
+                    { "data": "EFFICIENCY_AMOUNT", "name": "EFFICIENCY_AMOUNT" },
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
+                    { "data": "MONITORING_COUNT", "name": "MONITORING_COUNT" },
+                    { "data": "MONITORING_AMOUNT", "name": "MONITORING_AMOUNT" },
+                    { "data": "PURCHASE_COUNT", "name": "PURCHASE_COUNT" },
+                    { "data": "PURCHASE_AMOUNT", "name": "PURCHASE_AMOUNT" },
+                    { "data": "COST_COUNT", "name": "COST_COUNT" },
+                    { "data": "COST_AMOUNT", "name": "COST_AMOUNT" },
+                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT" },
+                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
+                    { "data": "ALL_COUNT", "name": "ALL_COUNT" },
+                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            var tmp = '<div class="btn-group">';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM5.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            tmp += urledit;
+                            tmp += urldelete;
+                            tmp += "</div>";
+                            return tmp;
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+            });
+
+        }
+        $('#DeparmentID').change(function () {
+            cm5ListInit();
+        });
+        $('#PeriodID').change(function () {
+            cm5ListInit();
+        });
+        var CM5 = {
+        cm5ID: null,
+        display: function (data) {
+            $("div#cm5modalcontainer").remove();
+            $('<div/>', { id: "cm5modalcontainer" }).appendTo('body').append(data);
+
+            $("#CM5Modal").modal({ show: true });
+        },
+        loadTemplate: function () {
+            $.ajax({
+                    url: "@Url.Action("CM5AddEdit", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        CM5.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+        },
+        edit: function (id) {
+            $.ajax({
+                url: "@Url.Action("CM5Detail", "Statistic", new { Area = "" })",
+                type: 'POST',
+                data: { id },
+                success: function (data, status, xhr) {
+                    CM5.progressResponse(data, status, xhr);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        delete: function (id) {
+            CM5.cm5ID = id;
+            var r = confirm("Устгах уу!");
+            if (r) {
+                $.ajax({
+                    url: "@Url.Action("CM5Delete", "Statistic", new { Area = "" })",
+                    type: 'POST',
+                    data: { id },
+                    success: function (data, status, xhr) {
+                        CM5.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            }
+        },
+        close: function () {
+            $("#CM5Modal").modal("hide");
+        },
+        progressResponse: function (data, status, xhr) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                CM5.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    CM5.close();
+                    cm5ListInit();
+                    Message.success(data.message);
+                }
+            }
+        }
+    }
+        function exportFile(tableid, excelname,) {
+            $('#exportXLSX').prop('disabled', true);
+            table.destroy();
+            cm5ListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                table.destroy();
+                cm5ListInit();
+                $('#exportXLSX').prop('disabled', false);
+            }, 5000
+            )
+        }
     </script>
-} 
+}

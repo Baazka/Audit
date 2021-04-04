@@ -659,83 +659,515 @@ namespace Audit.Controllers
         }
         public ActionResult CM1A()
         {
-            
-            return View();
+            CM1VM res = new CM1VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM1B()
         {
-            
-            return View();
+            CM1VM res = new CM1VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM1C()
         {
-           
-            return View();
+            CM1VM res = new CM1VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM2A()
         {
-            
-            return View();
+            CM2VM res = new CM2VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM2B()
         {
-           
-            return View();
+            CM2VM res = new CM2VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM2C()
         {
-            
-            return View();
+            CM2VM res = new CM2VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM3A()
         {
-            
-            return View();
+            CM3VM res = new CM3VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM3B()
         {
-            
-            return View();
+            CM3VM res = new CM3VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM3C()
         {
-            
-            return View();
+            CM3VM res = new CM3VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM4A()
         {
-            
-            return View();
+            CM4VM res = new CM4VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM4B()
         {
-           
-            return View();
+            CM4VM res = new CM4VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM4C()
         {
-            
-            return View();
+            CM4VM res = new CM4VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM5()
         {
-           
-            return View();
+            CM5VM res = new CM5VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM6()
         {
-           
-            return View();
+            CM6VM res = new CM6VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM7()
         {
-            
-            return View();
+            CM7VM res = new CM7VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
         public ActionResult CM8()
         {
-            
-            return View();
+            CM8VM res = new CM8VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                {
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
         }
 
         public static XElement SendLibraryRequest(string lib)

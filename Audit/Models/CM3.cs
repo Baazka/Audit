@@ -27,29 +27,29 @@ namespace Audit.Models
         public int IS_STATE { get; set; }
 
         public int C1_COUNT { get; set; }
-        public int C1_AMOUNT { get; set; }
+        public decimal C1_AMOUNT { get; set; }
         public int CURRENT_COUNT { get; set; }
-        public int CURRENT_AMOUNT { get; set; }
+        public decimal CURRENT_AMOUNT { get; set; }
         public int TOTAL_COUNT { get; set; }
-        public int TOTAL_AMOUNT { get; set; }
+        public decimal TOTAL_AMOUNT { get; set; }
         public int COMPLETION_DONE_COUNT { get; set; }
-        public int COMPLETION_DONE_AMOUNT { get; set; }
+        public decimal COMPLETION_DONE_AMOUNT { get; set; }
         public int COMPLETION_PROGRESS_COUNT { get; set; }
-        public int COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
         public int LAW_COUNT { get; set; }
-        public int LAW_AMOUNT { get; set; }
+        public decimal LAW_AMOUNT { get; set; }
         public int LAW_CURRENT_COUNT { get; set; }
-        public int LAW_CURRENT_AMOUNT { get; set; }
+        public decimal LAW_CURRENT_AMOUNT { get; set; }
         public int LAW_TOTAL_COUNT { get; set; }
-        public int LAW_TOTAL_AMOUNT { get; set; }
+        public decimal LAW_TOTAL_AMOUNT { get; set; }
         public int LAW_COMP_DONE_COUNT { get; set; }
-        public int LAW_COMP_DONE_AMOUNT { get; set; }
+        public decimal LAW_COMP_DONE_AMOUNT { get; set; }
         public int LAW_COMP_PROG_COUNT { get; set; }
-        public int LAW_COMP_PROG_AMOUNT { get; set; }
+        public decimal LAW_COMP_PROG_AMOUNT { get; set; }
         public int LAW_COMP_INVALID_COUNT { get; set; }
-        public int LAW_COMP_INVALID_AMOUNT { get; set; }
+        public decimal LAW_COMP_INVALID_AMOUNT { get; set; }
         public int C2_COUNT { get; set; }
-        public int C2_AMOUNT { get; set; }
+        public decimal C2_AMOUNT { get; set; }
         public int EXEC_TYPE { get; set; }
 
         public DateTime? CREATED_DATE { get; set; }
@@ -82,51 +82,51 @@ namespace Audit.Models
                 if (xml.Element("C1_COUNT") != null)
                     C1_COUNT = Convert.ToInt32(xml.Element("C1_COUNT").Value);
                 if (xml.Element("C1_AMOUNT") != null)
-                    C1_AMOUNT = Convert.ToInt32(xml.Element("C1_AMOUNT").Value);
+                    C1_AMOUNT = Convert.ToDecimal(xml.Element("C1_AMOUNT").Value);
                 if (xml.Element("CURRENT_COUNT") != null)
                     CURRENT_COUNT = Convert.ToInt32(xml.Element("CURRENT_COUNT").Value);
                 if (xml.Element("CURRENT_AMOUNT") != null)
-                    CURRENT_AMOUNT = Convert.ToInt32(xml.Element("CURRENT_AMOUNT").Value);               
+                    CURRENT_AMOUNT = Convert.ToDecimal(xml.Element("CURRENT_AMOUNT").Value);               
                 if (xml.Element("TOTAL_COUNT") != null)
                     TOTAL_COUNT = Convert.ToInt32(xml.Element("TOTAL_COUNT").Value);
                 if (xml.Element("TOTAL_AMOUNT") != null)
-                    TOTAL_AMOUNT = Convert.ToInt32(xml.Element("TOTAL_AMOUNT").Value);
+                    TOTAL_AMOUNT = Convert.ToDecimal(xml.Element("TOTAL_AMOUNT").Value);
                 if (xml.Element("COMPLETION_DONE_COUNT") != null)
                     COMPLETION_DONE_COUNT = Convert.ToInt32(xml.Element("COMPLETION_DONE_COUNT").Value);
                 if (xml.Element("COMPLETION_DONE_AMOUNT") != null)
-                    COMPLETION_DONE_AMOUNT = Convert.ToInt32(xml.Element("COMPLETION_DONE_AMOUNT").Value);
+                    COMPLETION_DONE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_DONE_AMOUNT").Value);
                 if (xml.Element("COMPLETION_PROGRESS_COUNT") != null)
                     COMPLETION_PROGRESS_COUNT = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS_COUNT").Value);
                 if (xml.Element("COMPLETION_PROGRESS_AMOUNT") != null)
-                    COMPLETION_PROGRESS_AMOUNT = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
+                    COMPLETION_PROGRESS_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
                 if (xml.Element("LAW_COUNT") != null)
                     LAW_COUNT = Convert.ToInt32(xml.Element("LAW_COUNT").Value);
                 if (xml.Element("LAW_AMOUNT") != null)
-                    LAW_AMOUNT = Convert.ToInt32(xml.Element("LAW_AMOUNT").Value);
+                    LAW_AMOUNT = Convert.ToDecimal(xml.Element("LAW_AMOUNT").Value);
                 if (xml.Element("LAW_CURRENT_COUNT") != null)
                     LAW_CURRENT_COUNT = Convert.ToInt32(xml.Element("LAW_CURRENT_COUNT").Value);
                 if (xml.Element("LAW_CURRENT_AMOUNT") != null)
-                    LAW_CURRENT_AMOUNT = Convert.ToInt32(xml.Element("LAW_CURRENT_AMOUNT").Value);
+                    LAW_CURRENT_AMOUNT = Convert.ToDecimal(xml.Element("LAW_CURRENT_AMOUNT").Value);
                 if (xml.Element("LAW_TOTAL_COUNT") != null)
                     LAW_TOTAL_COUNT = Convert.ToInt32(xml.Element("LAW_TOTAL_COUNT").Value);
                 if (xml.Element("LAW_TOTAL_AMOUNT") != null)
-                    LAW_TOTAL_AMOUNT = Convert.ToInt32(xml.Element("LAW_TOTAL_AMOUNT").Value);                
+                    LAW_TOTAL_AMOUNT = Convert.ToDecimal(xml.Element("LAW_TOTAL_AMOUNT").Value);                
                 if (xml.Element("LAW_COMP_DONE_COUNT") != null)
                     LAW_COMP_DONE_COUNT = Convert.ToInt32(xml.Element("LAW_COMP_DONE_COUNT").Value);
                 if (xml.Element("LAW_COMP_DONE_AMOUNT") != null)
-                    LAW_COMP_DONE_AMOUNT = Convert.ToInt32(xml.Element("LAW_COMP_DONE_AMOUNT").Value);
+                    LAW_COMP_DONE_AMOUNT = Convert.ToDecimal(xml.Element("LAW_COMP_DONE_AMOUNT").Value);
                 if (xml.Element("LAW_COMP_PROG_COUNT") != null)
                     LAW_COMP_PROG_COUNT = Convert.ToInt32(xml.Element("LAW_COMP_PROG_COUNT").Value);
                 if (xml.Element("LAW_COMP_PROG_AMOUNT") != null)
-                    LAW_COMP_PROG_AMOUNT = Convert.ToInt32(xml.Element("LAW_COMP_PROG_AMOUNT").Value);
+                    LAW_COMP_PROG_AMOUNT = Convert.ToDecimal(xml.Element("LAW_COMP_PROG_AMOUNT").Value);
                 if (xml.Element("LAW_COMP_INVALID_COUNT") != null)
                     LAW_COMP_INVALID_COUNT = Convert.ToInt32(xml.Element("LAW_COMP_INVALID_COUNT").Value);
                 if (xml.Element("LAW_COMP_INVALID_AMOUNT") != null)
-                    LAW_COMP_INVALID_AMOUNT = Convert.ToInt32(xml.Element("LAW_COMP_INVALID_AMOUNT").Value);
+                    LAW_COMP_INVALID_AMOUNT = Convert.ToDecimal(xml.Element("LAW_COMP_INVALID_AMOUNT").Value);
                 if (xml.Element("C2_COUNT") != null)
                     C2_COUNT = Convert.ToInt32(xml.Element("C2_COUNT").Value);
                 if (xml.Element("C2_AMOUNT") != null)
-                    C2_AMOUNT = Convert.ToInt32(xml.Element("C2_AMOUNT").Value);
+                    C2_AMOUNT = Convert.ToDecimal(xml.Element("C2_AMOUNT").Value);
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
                 if (xml.Element("CREATED_DATE") != null)

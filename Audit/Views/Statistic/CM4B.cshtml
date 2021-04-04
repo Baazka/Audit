@@ -1,8 +1,8 @@
-﻿@model System.Xml.Linq.XElement
+﻿@using Audit.Models
+@model Audit.Models.CM2VM
 @{
     ViewBag.Title = "CM4B";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int counter = 0;
 }
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
@@ -11,56 +11,264 @@
         </span>
     </a>
     <h4>СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</h4>
-    <div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('CM4B', 'СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>
 </div>
 <hr class="sidebar-divider">
-<div class="table-responsive">
-    <table id="CM4B" class="table table-bordered datatable display" style="width:100%">
-        <thead>
-            <tr style="background-color:#D2D3D5;">
-                <th rowspan="3" class="text-center">№</th>
-                <th rowspan="3">Үзүүлэлт</th>
-                <th rowspan="2" colspan="2">Нийт зөрчил</th>
-                <th colspan="12">Зөрчлийн шийдвэрлэлт</th>
-            </tr>
-            <tr>
-                <th colspan="2">Тогтоосон төлбөрийн акт</th>
-                <th colspan="2">Өгсөн албан шаардлага</th>
-                <th colspan="2">Өгсөн зөвлөмж</th>
-                <th colspan="2">Албан тушаалтанд хариуцлага тооцуулах санал</th>
-                <th colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
-                <th colspan="2">Бусад</th>
-            </tr>
-            <tr>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-                <th>Тоо</th>
-                <th>Дүн</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
 
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM4B.loadTemplate();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Шинэ бүртгэл</span>
+            </a>
+        </div>
+
+
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM4B', 'СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="CM4B" class="table table-bordered datatable display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th rowspan="3" class="text-center">№</th>
+                        <th rowspan="3">Үзүүлэлт</th>
+                        <th rowspan="2" colspan="2">Нийт зөрчил</th>
+                        <th colspan="12">Зөрчлийн шийдвэрлэлт</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Тогтоосон төлбөрийн акт</th>
+                        <th colspan="2">Өгсөн албан шаардлага</th>
+                        <th colspan="2">Өгсөн зөвлөмж</th>
+                        <th colspan="2">Албан тушаалтанд хариуцлага тооцуулах санал</th>
+                        <th colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
+                        <th colspan="2">Бусад</th>
+                    </tr>
+                    <tr>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                        <th>Тоо</th>
+                        <th>Дүн</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @section scripts{
     <script>
-        initDataTable();
+        $(document).ready(function () {
+            cm4bListInit();
+        });
+
+        function cm4bListInit() {
+            var table = $("#CM4B").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/cm4list",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.PeriodID = $('#PeriodID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ID);
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
+                    { "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
+                    { "data": "IS_STATE", "name": "IS_STATE" },
+                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
+                    { "data": "WORKING_DAY", "name": "WORKING_DAY" },
+                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
+                    { "data": "EXECUTORY", "name": "EXECUTORY" },
+                    { "data": "EXEC_DECISION", "name": "EXEC_DECISION" },
+                    { "data": "EXEC_COLLECTION", "name": "EXEC_COLLECTION" },
+                    { "data": "EXEC_TRUSTED", "name": "EXEC_TRUSTED" },
+                    { "data": "PERFORMED", "name": "PERFORMED" },
+                    { "data": "PERF_DECISION", "name": "PERF_DECISION" },
+                    { "data": "PERF_COLLECTION", "name": "PERF_COLLECTION" },
+                    { "data": "PERF_TRUSTED", "name": "PERF_TRUSTED" },
+                    { "data": "PERF_NOT_AUDITED", "name": "PERF_NOT_AUDITED" },
+                    { "data": "PROPOSAL", "name": "PROPOSAL" },
+                    { "data": "PROP_UNVIOLATED", "name": "PROP_UNVIOLATED" },
+                    { "data": "PROP_RESTRICTED", "name": "PROP_RESTRICTED" },
+                    { "data": "PROP_NEGATIVE", "name": "PROP_NEGATIVE" },
+                    { "data": "PROP_NOT", "name": "PROP_NOT" },
+                    { "data": "TPA_COUNT", "name": "TPA_COUNT" },
+                    { "data": "TPA_AMOUNT", "name": "TPA_AMOUNT" },
+                    { "data": "AUDITED_INCLUDED_ORG", "name": "AUDITED_INCLUDED_ORG" },
+                    { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
+                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
+                    { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            var tmp = '<div class="btn-group">';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM4B.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM4B.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            tmp += urledit;
+                            tmp += urldelete;
+                            tmp += "</div>";
+                            return tmp;
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+            });
+
+        }
+        $('#DeparmentID').change(function () {
+            cm4bListInit();
+        });
+        $('#PeriodID').change(function () {
+            cm4bListInit();
+        });
+        var CM4B = {
+        cm4bID: null,
+        display: function (data) {
+            $("div#cm4bmodalcontainer").remove();
+            $('<div/>', { id: "cm4bmodalcontainer" }).appendTo('body').append(data);
+
+            $("#CM4BModal").modal({ show: true });
+        },
+        loadTemplate: function () {
+            $.ajax({
+                    url: "@Url.Action("CM4BAddEdit", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                success: function (data) {
+                    CM4B.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+        },
+        edit: function (id) {
+            $.ajax({
+                url: "@Url.Action("CM4BDetail", "Statistic", new { Area = "" })",
+                type: 'POST',
+                data: { id },
+                success: function (data, status, xhr) {
+                    CM4B.progressResponse(data, status, xhr);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
+        delete: function (id) {
+            CM4B.cm4bID = id;
+            var r = confirm("Устгах уу!");
+            if (r) {
+                $.ajax({
+                    url: "@Url.Action("CM4BDelete", "Statistic", new { Area = "" })",
+                    type: 'POST',
+                    data: { id },
+                    success: function (data, status, xhr) {
+                        CM4B.progressResponse(data, status, xhr);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            }
+        },
+        close: function () {
+            $("#CM4BModal").modal("hide");
+        },
+        progressResponse: function (data, status, xhr) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                CM4B.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    CM4B.close();
+                    cm4bListInit();
+                    Message.success(data.message);
+                }
+            }
+        }
+    }
+        function exportFile(tableid, excelname,) {
+            $('#exportXLSX').prop('disabled', true);
+            table.destroy();
+            cm4bListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                table.destroy();
+                cm4bListInit();
+                $('#exportXLSX').prop('disabled', false);
+            }, 5000
+            )
+        }
     </script>
-} 
+}

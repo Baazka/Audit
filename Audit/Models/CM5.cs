@@ -25,31 +25,31 @@ namespace Audit.Models
         public string DECISION_TYPE { get; set; }
 
         public int INCOME_STATE_COUNT { get; set; }
-        public int INCOME_STATE_AMOUNT { get; set; }
+        public decimal INCOME_STATE_AMOUNT { get; set; }
         public int INCOME_LOCAL_COUNT { get; set; }
-        public int INCOME_LOCAL_AMOUNT { get; set; }
+        public decimal INCOME_LOCAL_AMOUNT { get; set; }
 
         public int BUDGET_STATE_COUNT { get; set; }
-        public int BUDGET_STATE_AMOUNT { get; set; }
+        public decimal BUDGET_STATE_AMOUNT { get; set; }
         public int BUDGET_LOCAL_COUNT { get; set; }
-        public int BUDGET_LOCAL_AMOUNT { get; set; }
+        public decimal BUDGET_LOCAL_AMOUNT { get; set; }
 
         public int ACCOUNTANT_COUNT { get; set; }
-        public int ACCOUNTANT_AMOUNT { get; set; }
+        public decimal ACCOUNTANT_AMOUNT { get; set; }
         public int EFFICIENCY_COUNT { get; set; }
-        public int EFFICIENCY_AMOUNT { get; set; }
+        public decimal EFFICIENCY_AMOUNT { get; set; }
         public int LAW_COUNT { get; set; }
-        public int LAW_AMOUNT { get; set; }
+        public decimal LAW_AMOUNT { get; set; }
         public int MONITORING_COUNT { get; set; }
-        public int MONITORING_AMOUNT { get; set; }
+        public decimal MONITORING_AMOUNT { get; set; }
         public int PURCHASE_COUNT { get; set; }
-        public int PURCHASE_AMOUNT { get; set; }
+        public decimal PURCHASE_AMOUNT { get; set; }
         public int COST_COUNT { get; set; }
-        public int COST_AMOUNT { get; set; }
+        public decimal COST_AMOUNT { get; set; }
         public int OTHER_COUNT { get; set; }
-        public int OTHER_AMOUNT { get; set; }
+        public decimal OTHER_AMOUNT { get; set; }
         public int ALL_COUNT { get; set; }
-        public int ALL_AMOUNT { get; set; }
+        public decimal ALL_AMOUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }
@@ -81,52 +81,52 @@ namespace Audit.Models
                 if (xml.Element("INCOME_STATE_COUNT") != null)
                     INCOME_STATE_COUNT = Convert.ToInt32(xml.Element("INCOME_STATE_COUNT").Value);
                 if (xml.Element("INCOME_STATE_AMOUNT") != null)
-                    INCOME_STATE_AMOUNT = Convert.ToInt32(xml.Element("INCOME_STATE_AMOUNT").Value);
+                    INCOME_STATE_AMOUNT = Convert.ToDecimal(xml.Element("INCOME_STATE_AMOUNT").Value);
                 if (xml.Element("INCOME_LOCAL_COUNT") != null)
                     INCOME_LOCAL_COUNT = Convert.ToInt32(xml.Element("INCOME_LOCAL_COUNT").Value);
                 if (xml.Element("INCOME_LOCAL_AMOUNT") != null)
-                    INCOME_LOCAL_AMOUNT = Convert.ToInt32(xml.Element("INCOME_LOCAL_AMOUNT").Value); 
+                    INCOME_LOCAL_AMOUNT = Convert.ToDecimal(xml.Element("INCOME_LOCAL_AMOUNT").Value); 
                                 
                 if (xml.Element("BUDGET_STATE_COUNT") != null)
                     BUDGET_STATE_COUNT = Convert.ToInt32(xml.Element("BUDGET_STATE_COUNT").Value);
                 if (xml.Element("BUDGET_STATE_AMOUNT") != null)
-                    BUDGET_STATE_AMOUNT = Convert.ToInt32(xml.Element("BUDGET_STATE_AMOUNT").Value);
+                    BUDGET_STATE_AMOUNT = Convert.ToDecimal(xml.Element("BUDGET_STATE_AMOUNT").Value);
                 if (xml.Element("BUDGET_LOCAL_COUNT") != null)
                     BUDGET_LOCAL_COUNT = Convert.ToInt32(xml.Element("BUDGET_LOCAL_COUNT").Value);
                 if (xml.Element("BUDGET_LOCAL_AMOUNT") != null)
-                    BUDGET_LOCAL_AMOUNT = Convert.ToInt32(xml.Element("BUDGET_LOCAL_AMOUNT").Value);
+                    BUDGET_LOCAL_AMOUNT = Convert.ToDecimal(xml.Element("BUDGET_LOCAL_AMOUNT").Value);
                 if (xml.Element("ACCOUNTANT_COUNT") != null)
                     ACCOUNTANT_COUNT = Convert.ToInt32(xml.Element("ACCOUNTANT_COUNT").Value);
                 if (xml.Element("ACCOUNTANT_AMOUNT") != null)
-                    ACCOUNTANT_AMOUNT = Convert.ToInt32(xml.Element("ACCOUNTANT_AMOUNT").Value);
+                    ACCOUNTANT_AMOUNT = Convert.ToDecimal(xml.Element("ACCOUNTANT_AMOUNT").Value);
                 if (xml.Element("EFFICIENCY_COUNT") != null)
                     EFFICIENCY_COUNT = Convert.ToInt32(xml.Element("EFFICIENCY_COUNT").Value);
                 if (xml.Element("EFFICIENCY_AMOUNT") != null)
-                    EFFICIENCY_AMOUNT = Convert.ToInt32(xml.Element("EFFICIENCY_AMOUNT").Value);
+                    EFFICIENCY_AMOUNT = Convert.ToDecimal(xml.Element("EFFICIENCY_AMOUNT").Value);
                 if (xml.Element("LAW_COUNT") != null)
                     LAW_COUNT = Convert.ToInt32(xml.Element("LAW_COUNT").Value);
                 if (xml.Element("LAW_AMOUNT") != null)
-                    LAW_AMOUNT = Convert.ToInt32(xml.Element("LAW_AMOUNT").Value);
+                    LAW_AMOUNT = Convert.ToDecimal(xml.Element("LAW_AMOUNT").Value);
                 if (xml.Element("MONITORING_COUNT") != null)
                     MONITORING_COUNT = Convert.ToInt32(xml.Element("MONITORING_COUNT").Value);
                 if (xml.Element("MONITORING_AMOUNT") != null)
-                    MONITORING_AMOUNT = Convert.ToInt32(xml.Element("MONITORING_AMOUNT").Value);                
+                    MONITORING_AMOUNT = Convert.ToDecimal(xml.Element("MONITORING_AMOUNT").Value);                
                 if (xml.Element("PURCHASE_COUNT") != null)
                     PURCHASE_COUNT = Convert.ToInt32(xml.Element("PURCHASE_COUNT").Value);
                 if (xml.Element("PURCHASE_AMOUNT") != null)
-                    PURCHASE_AMOUNT = Convert.ToInt32(xml.Element("PURCHASE_AMOUNT").Value);
+                    PURCHASE_AMOUNT = Convert.ToDecimal(xml.Element("PURCHASE_AMOUNT").Value);
                 if (xml.Element("COST_COUNT") != null)
                     COST_COUNT = Convert.ToInt32(xml.Element("COST_COUNT").Value);
                 if (xml.Element("COST_AMOUNT") != null)
-                    COST_AMOUNT = Convert.ToInt32(xml.Element("COST_AMOUNT").Value);
+                    COST_AMOUNT = Convert.ToDecimal(xml.Element("COST_AMOUNT").Value);
                 if (xml.Element("OTHER_COUNT") != null)
                     OTHER_COUNT = Convert.ToInt32(xml.Element("OTHER_COUNT").Value);
                 if (xml.Element("OTHER_AMOUNT") != null)
-                    OTHER_AMOUNT = Convert.ToInt32(xml.Element("OTHER_AMOUNT").Value);
+                    OTHER_AMOUNT = Convert.ToDecimal(xml.Element("OTHER_AMOUNT").Value);
                 if (xml.Element("ALL_COUNT") != null)
                     ALL_COUNT = Convert.ToInt32(xml.Element("ALL_COUNT").Value);
                 if (xml.Element("ALL_AMOUNT") != null)
-                    ALL_AMOUNT = Convert.ToInt32(xml.Element("ALL_AMOUNT").Value);
+                    ALL_AMOUNT = Convert.ToDecimal(xml.Element("ALL_AMOUNT").Value);
 
                 if (xml.Element("IS_ACTIVE") != null)
                     IS_ACTIVE = Convert.ToInt32(xml.Element("IS_ACTIVE").Value);
