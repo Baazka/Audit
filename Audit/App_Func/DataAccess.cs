@@ -4160,7 +4160,9 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND CM.STATISTIC_PERIOD = :V_PERIOD";
+                    "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(CM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "OR UPPER(CM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(CM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);

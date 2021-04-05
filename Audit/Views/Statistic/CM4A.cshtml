@@ -57,6 +57,7 @@
                         <th colspan="2" rowspan="2">Залруулсан алдаа</th>
                         <th colspan="2" rowspan="2">Залруулагдаагүй алдаа, зөрчлийн дүн</th>
                         <th colspan="12">Залруулагдаагүй алдаа, зөрчлийн шийдвэрлэлт</th>
+                        <th rowspan="3">Үйлдэл</th>
                     </tr>
                     <tr>
                         <th colspan="2">Зөрчил</th>
@@ -129,32 +130,29 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
-                    { "data": "IS_STATE", "name": "IS_STATE" },
-                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
-                    { "data": "WORKING_DAY", "name": "WORKING_DAY" },
-                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
-                    { "data": "EXECUTORY", "name": "EXECUTORY" },
-                    { "data": "EXEC_DECISION", "name": "EXEC_DECISION" },
-                    { "data": "EXEC_COLLECTION", "name": "EXEC_COLLECTION" },
-                    { "data": "EXEC_TRUSTED", "name": "EXEC_TRUSTED" },
-                    { "data": "PERFORMED", "name": "PERFORMED" },
-                    { "data": "PERF_DECISION", "name": "PERF_DECISION" },
-                    { "data": "PERF_COLLECTION", "name": "PERF_COLLECTION" },
-                    { "data": "PERF_TRUSTED", "name": "PERF_TRUSTED" },
-                    { "data": "PERF_NOT_AUDITED", "name": "PERF_NOT_AUDITED" },
-                    { "data": "PROPOSAL", "name": "PROPOSAL" },
-                    { "data": "PROP_UNVIOLATED", "name": "PROP_UNVIOLATED" },
-                    { "data": "PROP_RESTRICTED", "name": "PROP_RESTRICTED" },
-                    { "data": "PROP_NEGATIVE", "name": "PROP_NEGATIVE" },
-                    { "data": "PROP_NOT", "name": "PROP_NOT" },
-                    { "data": "TPA_COUNT", "name": "TPA_COUNT" },
-                    { "data": "TPA_AMOUNT", "name": "TPA_AMOUNT" },
-                    { "data": "AUDITED_INCLUDED_ORG", "name": "AUDITED_INCLUDED_ORG" },
-                    { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
-                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
-                    { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
+                    { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
+                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT" },
+                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT" },
+                    { "data": "ERROR_COUNT", "name": "ERROR_COUNT" },
+                    { "data": "ERROR_AMOUNT", "name": "ERROR_AMOUNT" },
+                    { "data": "ALL_COUNT", "name": "ALL_COUNT" },
+                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
+                    { "data": "CORRECTED_ERROR_COUNT", "name": "CORRECTED_ERROR_COUNT" },
+                    { "data": "CORRECTED_ERROR_AMOUNT", "name": "CORRECTED_ERROR_AMOUNT" },
+                    { "data": "OTHER_ERROR_COUNT", "name": "OTHER_ERROR_COUNT" },
+                    { "data": "OTHER_ERROR_AMOUNT", "name": "OTHER_ERROR_AMOUNT" },
+                    { "data": "ACT_COUNT", "name": "ACT_COUNT" },
+                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT" },
+                    { "data": "CLAIM_COUNT", "name": "CLAIM_COUNT" },
+                    { "data": "CLAIM_AMOUNT", "name": "CLAIM_AMOUNT" },
+                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT" },
+                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT" },
+                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT" },
+                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT" },
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
+                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT" },
+                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
