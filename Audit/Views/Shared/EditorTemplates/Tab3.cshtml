@@ -24,11 +24,11 @@
         <td>
             @Html.DropDownListFor(model => model.Data01, new SelectList(
                         new List<Object>{
-                            new { value = 0 , text = "--Сонгоно уу--" },
-                           new { value = 1 , text = "Тухайн мэдээллийг оруулсан" },
-                           new { value = 2 , text = "Тухайн мэдээллийг оруулаагүй" },
-                           new { value = 3 , text = "Тухайн мэдээллийг хугацаа хоцорч оруулсан" },
-                           new { value = 4 , text = "Тухайн мэдээллийг оруулах шаардлагагүй, хамааралгүй" }
+                           new { value = 0 , text = "--Сонгоно уу--" },
+                           new { value = 1 , text = "Оруулсан" },
+                           new { value = 2 , text = "Оруулаагүй" },
+                           new { value = 3 , text = "Хугацаа хоцорч оруулсан" },
+                           new { value = 4 , text = "Оруулах шаардлагагүй, хамааралгүй" }
                         }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
         </td>
     </tr>

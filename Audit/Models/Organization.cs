@@ -528,6 +528,9 @@ namespace Audit.Models
         public int ORG_STATUS_ID { get; set; }
         public string STATUS_NAME { get; set; }
         public string INFORMATION_DETAIL { get; set; }
+        public int TAB1_IS_FINISH { get; set; }
+        public int TAB2_IS_FINISH { get; set; }
+        public int TAB3_IS_FINISH { get; set; }
         public OrgList FromXml(XElement elem)
         {
             if (elem.Element("ORG_ID") != null)
@@ -558,6 +561,12 @@ namespace Audit.Models
                 STATUS_NAME = elem.Element("STATUS_NAME").Value;
             if (elem.Element("INFORMATION_DETAIL") != null)
                 INFORMATION_DETAIL = elem.Element("INFORMATION_DETAIL").Value;
+            if (elem.Element("TAB1_IS_FINISH") != null)
+                TAB1_IS_FINISH = Convert.ToInt32( elem.Element("TAB1_IS_FINISH").Value);
+            if (elem.Element("TAB2_IS_FINISH") != null)
+                TAB2_IS_FINISH = Convert.ToInt32(elem.Element("TAB2_IS_FINISH").Value);
+            if (elem.Element("TAB3_IS_FINISH") != null)
+                TAB3_IS_FINISH = Convert.ToInt32(elem.Element("TAB3_IS_FINISH").Value);
 
             return this;
         }
