@@ -1940,6 +1940,43 @@ namespace Audit.Controllers.Library
         #endregion
 
         #region Shilen 
+        public XElement MirrorOrgList(XElement element, string departmentID)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "MirrorOrgList"),
+                                               new XElement("Parameters",
+                                                   new XElement("DEPARTMENT_ID", departmentID),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+
         public XElement Table1List()
         {
             try
