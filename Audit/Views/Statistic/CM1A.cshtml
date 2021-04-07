@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM1A.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM1A', 'СМ-1А. Санхүүгийн тайлангийн аудитын ерөнхий мэдээлэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -101,7 +91,7 @@
             cm1aListInit();
         });
 
-        function cm1aListInit() {
+        function cm1aListInit(pagelength = 10) {
             var table = $("#CM1A").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -111,6 +101,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Type = 1;
                         return data;
                     }
                 },
@@ -124,8 +115,8 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
+                    //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
+                    //{ "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
                     { "data": "IS_STATE", "name": "IS_STATE" },
                     { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
                     { "data": "WORKING_DAY", "name": "WORKING_DAY" },
@@ -150,22 +141,12 @@
                     { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM1A.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM1A.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -183,7 +164,8 @@
             cm1aListInit();
         });
         var CM1A = {
-        cm1aID: null,
+            cm1aID: null,
+            table:null,
         display: function (data) {
             $("div#cm1amodalcontainer").remove();
             $('<div/>', { id: "cm1amodalcontainer" }).appendTo('body').append(data);
@@ -265,17 +247,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            CM1A.table.destroy();
             cm1aListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM1A.table.destroy();
                 cm1aListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

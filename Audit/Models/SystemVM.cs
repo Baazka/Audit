@@ -718,6 +718,7 @@ namespace Audit.Models
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
         public int BENEFIT_NONFIN { get; set; }
 
+        public int Type { get; set; }
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -762,6 +763,7 @@ namespace Audit.Models
         public decimal C2_EXPIRED_AMOUNT { get; set; }
         public int EXEC_TYPE { get; set; }
 
+        public int Type { get; set; }
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -804,6 +806,7 @@ namespace Audit.Models
         public decimal C2_AMOUNT { get; set; }
         public int EXEC_TYPE { get; set; }
 
+        public int Type { get; set; }
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -844,6 +847,7 @@ namespace Audit.Models
         public decimal OTHER_AMOUNT { get; set; }
         public int EXEC_TYPE { get; set; }
 
+        public int Type { get; set; }
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -976,7 +980,7 @@ namespace Audit.Models
         public int ONLINE_STUDY_COUNT { get; set; }
         public int LOCAL_STUDY_COUNT { get; set; }
         public int AUDIT_STUDY_COUNT { get; set; }
-        public int FOREIGN__STUDY_COUNT { get; set; }
+        public int FOREIGN_STUDY_COUNT { get; set; }
         public int FOREIGN_MAN_COUNT { get; set; }
         public int INSIDE_STUDY_COUNT { get; set; }
         public int INSIDE_MAN_COUNT { get; set; }

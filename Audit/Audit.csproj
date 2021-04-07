@@ -2236,6 +2236,15 @@
     <Content Include="Views\Home\AddTabTAX.cshtml" />
     <Content Include="Views\Statistic\BM8AddEdit.cshtml" />
     <Content Include="Views\Shilendans\OrgProjectDelete.cshtml" />
+    <Content Include="Views\Statistic\BM0AddEdit.cshtml" />
+    <Content Include="Views\Statistic\BM1AddEdit.cshtml" />
+    <Content Include="Views\Statistic\BM2AddEdit.cshtml" />
+    <Content Include="Views\Statistic\BM3AddEdit.cshtml" />
+    <Content Include="Views\Statistic\BM4AddEdit.cshtml" />
+    <Content Include="Views\Statistic\BM5AddEdit.cshtml" />
+    <Content Include="Views\Statistic\CM6AddEdit.cshtml" />
+    <Content Include="Views\Statistic\CM7AddEdit.cshtml" />
+    <Content Include="Views\Statistic\CM8AddEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="NM1.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('HM1', 'НМ-1. Төрийн аудитын газрын төлбөрийн актын нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -60,7 +50,6 @@
                         <th rowspan="3" colspan="2">Дараа онд шилжих үлдэгдэл</th>
                         <th colspan="4">Үүнээс</th>
                         <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
-                        <th rowspan="4" class="text-center">Үйлдэл</th>
                     </tr>
                     <tr>
                         <th rowspan="3">Тоо</th>
@@ -120,8 +109,8 @@
             nm1ListInit();
         });
 
-        function nm1ListInit() {
-            var table = $("#NM1").DataTable({
+        function nm1ListInit(pagelength = 10) {
+            NM1.table = $("#NM1").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -177,22 +166,11 @@
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
                     //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="NM1.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="NM1.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -210,7 +188,8 @@
             nm1ListInit();
         });
         var NM1 = {
-        nm1ID: null,
+            nm1ID: null,
+            table:null,
         display: function (data) {
             $("div#nm1modalcontainer").remove();
             $('<div/>', { id: "nm1modalcontainer" }).appendTo('body').append(data);
@@ -292,17 +271,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            NM1.table.destroy();
             nm1ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                NM1.table.destroy();
                 nm1ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

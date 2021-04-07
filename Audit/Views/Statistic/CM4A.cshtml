@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM4A.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM4A', 'СМ-4А. Санхүүгийн тайлангийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -57,7 +47,6 @@
                         <th colspan="2" rowspan="2">Залруулсан алдаа</th>
                         <th colspan="2" rowspan="2">Залруулагдаагүй алдаа, зөрчлийн дүн</th>
                         <th colspan="12">Залруулагдаагүй алдаа, зөрчлийн шийдвэрлэлт</th>
-                        <th rowspan="3">Үйлдэл</th>
                     </tr>
                     <tr>
                         <th colspan="2">Зөрчил</th>
@@ -130,7 +119,7 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
+                    { "data": "IS_STATE", "name": "IS_STATE" },
                     { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT" },
                     { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT" },
                     { "data": "ERROR_COUNT", "name": "ERROR_COUNT" },
@@ -153,18 +142,6 @@
                     { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
                     { "data": "OTHER_COUNT", "name": "OTHER_COUNT" },
                     { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM4A.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM4A.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,

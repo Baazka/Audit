@@ -102,20 +102,25 @@ namespace Audit.Models
         }
         public XElement ToXml()
         {
-            return new XElement("NM1",
+            return new XElement("CM6",
                        new XElement("ID", ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
-                       //new XElement("AUDIT_YEAR", AUDIT_YEAR),
-                       //new XElement("AUDIT_TYPE", AUDIT_TYPE),
-                       //new XElement("AUDIT_CODE", AUDIT_CODE),
-                       //new XElement("AUDIT_NAME", AUDIT_NAME),
-                       //new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
-                       //new XElement("CORRECTED_ERROR_DESC", CORRECTED_ERROR_DESC),
-                       //new XElement("CORRECTED_ERROR_TYPE", CORRECTED_ERROR_TYPE),
-                       //new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
-                       //new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),
-                       //new XElement("IS_ACTIVE", IS_ACTIVE),
+                       new XElement("AUD_NAME", AUD_NAME),
+                       new XElement("IS_STATE", IS_STATE),
+                       new XElement("ALL_COUNT", ALL_COUNT),
+                       new XElement("ALL_AMOUNT", ALL_AMOUNT),
+                       new XElement("PROCESSED_INCOMED_COUNT", PROCESSED_INCOMED_COUNT),
+                       new XElement("PROCESSED_INCOMED_AMOUNT", PROCESSED_INCOMED_AMOUNT),
+                       new XElement("PROCESSED_COSTS_COUNT", PROCESSED_COSTS_COUNT),
+                       new XElement("PROCESSED_COSTS_AMOUNT", PROCESSED_COSTS_AMOUNT),
+                       new XElement("ALL_C1_COUNT", ALL_C1_COUNT),
+                       new XElement("ALL_C2_AMOUNT", ALL_C2_AMOUNT),
+                       new XElement("ACCEPTED_INCOMED_COUNT", ACCEPTED_INCOMED_COUNT),
+                       new XElement("ACCEPTED_INCOMED_AMOUNT", ACCEPTED_INCOMED_AMOUNT),
+                       new XElement("ACCEPTED_COSTS_COUNT", ACCEPTED_COSTS_COUNT),
+                       new XElement("ACCEPTED_COSTS_AMOUNT", ACCEPTED_COSTS_AMOUNT),
+                       new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null)
                        );
         }

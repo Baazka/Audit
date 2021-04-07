@@ -682,6 +682,141 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement BM0Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM0Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM0Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM0Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM0Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM0Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM0Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM0Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public XElement BM1(XElement element, string usertype)
         {
             try
@@ -717,6 +852,141 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+        }
+        public XElement BM1Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM1Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM1Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM1Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM1Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM1Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM1Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM1Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
         }
         public XElement BM2(XElement element, string usertype)
         {
@@ -754,6 +1024,141 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement BM2Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM2Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM2Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM2Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM2Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM2Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM2Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM2Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public XElement BM3(XElement element, string usertype)
         {
             try
@@ -789,6 +1194,141 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+        }
+        public XElement BM3Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM3Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM3Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM3Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM3Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM3Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM3Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM3Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
         }
         public XElement BM4(XElement element, string usertype)
         {
@@ -826,6 +1366,141 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement BM4Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM4Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM4Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM4Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM4Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM4Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM4Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM4Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public XElement BM5(XElement element, string usertype)
         {
             try
@@ -861,6 +1536,141 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+        }
+        public XElement BM5Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM5Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool BM5Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM5Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM5Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM5Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM5Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM5Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
         }
         public XElement BM6(XElement element, string usertype)
         {
@@ -1361,7 +2171,7 @@ namespace Audit.Controllers.Library
         }
         #endregion
         #region CM
-        public XElement CM1A(XElement element, string usertype)
+        public XElement CM1(XElement element, string usertype)
         {
             try
             {
@@ -1370,7 +2180,43 @@ namespace Audit.Controllers.Library
                 if (!this.IsValid) { return null; }
 
                 XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM1A"),
+                                               new XElement("Function", "CM1"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }        
+        public XElement CM2(XElement element, string usertype)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM2"),
                                                new XElement("Parameters",
                                                    new XElement("USER_TYPE", usertype),
                                                    element));
@@ -1397,7 +2243,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM1B(XElement element, string usertype)
+        public XElement CM3(XElement element, string usertype)
         {
             try
             {
@@ -1406,7 +2252,7 @@ namespace Audit.Controllers.Library
                 if (!this.IsValid) { return null; }
 
                 XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM1B"),
+                                               new XElement("Function", "CM3"),
                                                new XElement("Parameters",
                                                    new XElement("USER_TYPE", usertype),
                                                    element));
@@ -1433,7 +2279,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement CM1C(XElement element, string usertype)
+        public XElement CM4(XElement element, string usertype)
         {
             try
             {
@@ -1442,331 +2288,7 @@ namespace Audit.Controllers.Library
                 if (!this.IsValid) { return null; }
 
                 XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM1C"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM2A(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM2A"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM2B(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM2B"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM2C(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM2C"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM3A(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM3A"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM3B(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM3B"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM3C(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM3C"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM4A(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM4A"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM4B(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM4B"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
-        public XElement CM4C(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "CM4C"),
+                                               new XElement("Function", "CM4"),
                                                new XElement("Parameters",
                                                    new XElement("USER_TYPE", usertype),
                                                    element));
@@ -1865,6 +2387,141 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement CM6Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM6Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool CM6Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM6Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool CM6Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM6Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool CM6Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM6Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public XElement CM7(XElement element, string usertype)
         {
             try
@@ -1901,6 +2558,141 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement CM7Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM7Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool CM7Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM7Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool CM7Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM7Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool CM7Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM7Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public XElement CM8(XElement element, string usertype)
         {
             try
@@ -1936,6 +2728,141 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+        }
+        public XElement CM8Detail(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM8Detail"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public bool CM8Update(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM8Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool CM8Insert(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM8Insert"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool CM8Delete(int userid, int id, string updatedate)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "CM8Delete"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("ID", id),
+                                                   new XElement("UPDATED_DATE", updatedate)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
         }
         #endregion
 
