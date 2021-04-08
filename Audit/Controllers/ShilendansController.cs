@@ -928,6 +928,37 @@ namespace Audit.Controllers
             return PartialView("OrgProjectEdit", organization);
         }
 
+        public ActionResult Print(Organization organization, int org_id)
+        {
+            XElement tblprojectlist = AppStatic.SystemController.PrintDataList(org_id);
+
+            DataSet print_ds = new DataSet();
+
+            StringReader print_sr = new StringReader(tblprojectlist.ToString());
+
+            print_ds.ReadXml(print_sr, XmlReadMode.InferSchema);
+
+            DataRow[] print1 = print_ds.Tables[0].Select();
+            organization.print1 = new List<Print1>();
+
+            for (int i = 0; i < print1.Length; i++)
+            {
+                organization.print1.Add(
+                        new Print1
+                        {
+                            MEDEELEH_TOO = print1[i].Field<string>("MEDEELEH"),
+                            MEDEELSEN_TOO = print1[i].Field<string>("MEDEELSEN"),
+                            MEDEELEEGUI_TOO = print1[i].Field<string>("MEDEELEEGUI"),
+                            HAMAARALGUI = print1[i].Field<string>("HOTSORCH_ORUULSAN"),
+                            HUGATSAA_HOTSROOSON = print1[i].Field<string>("HAMAARALGUI"),
+                            MEDEELSEN_PERCENT = print1[i].Field<string>("PRECENT"),
+                            HUGATSAA_HOTSROOSON_PERCENT = print1[i].Field<string>("PRECENT2")
+                        }
+                    );
+            }
+           return View(organization);
+        }
+
         public JsonResult OrgConfirm(int orgid)
         {
             return AppStatic.SystemController.OrgConfirm(Convert.ToInt32(User.Identity.GetUserId()), orgid)

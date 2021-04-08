@@ -153,6 +153,7 @@ namespace Audit.Models
         public List<Tab6> tab6 { get; set; }
         public List<Tab7> tab7 { get; set; }
         public List<Tab8> tab8 { get; set; }
+        public List<Print1> print1 { get; set; }
         public int AUD_LAWS_NUM { get; set; }
         public Organization FromXml(XElement elem)
         {
@@ -681,6 +682,17 @@ namespace Audit.Models
         public string PROJECT_ORG_FUND { get; set; }
         public string PROJECT_ID { get; set; }
         public int ORG_ID { get; set; }
+
+    }
+    public class Print1
+    {
+        public string MEDEELEH_TOO { get; set; }
+        public string MEDEELSEN_TOO { get; set; }
+        public string MEDEELEEGUI_TOO { get; set; }
+        public string HAMAARALGUI { get; set; }
+        public string HUGATSAA_HOTSROOSON { get; set; }
+        public string MEDEELSEN_PERCENT { get; set; }
+        public string HUGATSAA_HOTSROOSON_PERCENT { get; set; }
 
     }
 }

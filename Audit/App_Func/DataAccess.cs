@@ -4432,6 +4432,50 @@ namespace Audit.App_Func
             return response;
         }
 
+        public static DataResponse PrintDataList(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["MirroraccConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT CASE WHEN A.DATA01 IS NOT NULL THEN 1 END MEDEELEH, CASE WHEN A.DATA01 = 1 THEN 1 WHEN B.MD_CODE IN(37,43,44,50,51,57,58,66,67,73,74,80,81,87,88,94,95,101) THEN A.DATA01 END MEDEELSEN, " +
+                        "CASE WHEN A.DATA01 = 2 THEN 1 END MEDEELEEGUI, CASE WHEN A.DATA01 = 3 THEN 1 END HOTSORCH_ORUULSAN, CASE WHEN A.DATA01 = 4 THEN 1 END HAMAARALGUI, CASE WHEN A.DATA01 = 1 THEN '100%' ELSE '0%' END PRECENT, CASE WHEN A.DATA01 = 3 THEN '100%' ELSE '0%' END PRECENT2 " +
+                        "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                        "INNER JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
+                        "WHERE A.ORGID = :ORGID AND B.IS_PREW = 1 AND B.MD_CODE IN(1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,37,40,41,43,44,50,51,57,58,63,64,66,67,73,74,80,81,87,88,94,95,101) " +
+                        "ORDER BY A.MDCODE ASC ";
+
+                // Set parameters
+                cmd.Parameters.Add(":ORGID", OracleDbType.Varchar2, request.Element("Parameters").Element("ORGID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "PrintDataList";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse TableProjectList(XElement request)
         {
             DataResponse response = new DataResponse();

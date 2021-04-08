@@ -2046,6 +2046,41 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement PrintDataList(int orgid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "PrintDataList"),
+                                               new XElement("Parameters",
+                                               new XElement("ORGID", orgid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
         public bool MirrorAccInsert(int yearcode, int orgid, int mdcodes, double data01, string data02, int is_finish ,int userid, DateTime Insdate)
         {
             try
