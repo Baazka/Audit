@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM5.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM5', 'СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -133,7 +123,7 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
+                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
                     { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
                     { "data": "INCOME_STATE_COUNT", "name": "INCOME_STATE_COUNT" },
                     { "data": "INCOME_STATE_AMOUNT", "name": "INCOME_STATE_AMOUNT" },
@@ -158,18 +148,6 @@
                     { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
                     { "data": "ALL_COUNT", "name": "ALL_COUNT" },
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM5.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,

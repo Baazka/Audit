@@ -91,8 +91,8 @@
             bm0ListInit();
         });
 
-        function bm0ListInit() {
-            var table = $("#BM0").DataTable({
+        function bm0ListInit(pagelength = 10) {
+            BM0.table = $("#BM0").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -147,6 +147,7 @@
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -164,7 +165,8 @@
             bm0ListInit();
         });
         var BM0 = {
-        bm0ID: null,
+            bm0ID: null,
+            table:null,
         display: function (data) {
             $("div#bm0modalcontainer").remove();
             $('<div/>', { id: "bm0modalcontainer" }).appendTo('body').append(data);
@@ -246,17 +248,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            BM0.table.destroy();
             bm0ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                BM0.table.destroy();
                 bm0ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

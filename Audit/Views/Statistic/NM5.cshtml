@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="NM5.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM5', 'НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -57,7 +47,6 @@
                         <th rowspan="2" colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
                         <th colspan="6">Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</th>
                         <th colspan="2" rowspan="2">Дараа онд шилжих үлдэгдэл</th>
-                        <th rowspan="3" class="text-center">Үйлдэл</th>
                     </tr>
                     <tr>
                         <th colspan="2">Бүрэн шийдвэрлэгдсэн</th>
@@ -89,8 +78,8 @@
             nm5ListInit();
         });
 
-        function nm5ListInit() {
-            var table = $("#NM5").DataTable({
+        function nm5ListInit(pagelength = 10) {
+            NM5.table = $("#NM5").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -129,22 +118,11 @@
                     { "data": "LAW_C2_NUMBER_COUNT", "name": "LAW_C2_NUMBER_COUNT" },
                     { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT" },
                     //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="NM5.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="NM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -162,7 +140,8 @@
             nm5ListInit();
         });
         var NM5 = {
-        nm5ID: null,
+            nm5ID: null,
+            table:null,
         display: function (data) {
             $("div#nm5modalcontainer").remove();
             $('<div/>', { id: "nm5modalcontainer" }).appendTo('body').append(data);
@@ -244,17 +223,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            NM5.table.destroy();
             nm5ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                NM5.table.destroy();
                 nm5ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

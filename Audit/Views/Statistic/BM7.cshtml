@@ -12,14 +12,6 @@
         </span>
     </a>
     <h4>БМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын бүртгэл</h4>
-    <div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('BM7', 'БМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын бүртгэл')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>
 </div>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
@@ -35,16 +27,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM7.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM7', 'БМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын бүртгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -77,7 +59,6 @@
                         <th colspan="2" rowspan="2">Зориулалт бус зарцуулалттай холбоотой</th>
                         <th colspan="2" rowspan="2">Бусад</th>
                         <th colspan="2" rowspan="2">Алдаа зөрчлийн нийт дүн</th>
-                        <th rowspan="3">Үйлдэл</th>
                     </tr>
                     <tr>
                         <th colspan="2">Улсын төсөв</th>
@@ -125,8 +106,8 @@
             bm7ListInit();
         });
 
-        function bm7ListInit() {
-            var table = $("#BM7").DataTable({
+        function bm7ListInit(pagelength = 10) {
+            BM7.table = $("#BM7").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -178,22 +159,11 @@
                     { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
                     { "data": "ALL_COUNT", "name": "ALL_COUNT" },
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM7.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM7.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -211,7 +181,8 @@
             bm7ListInit();
         });
         var BM7 = {
-        bm7ID: null,
+            bm7ID: null,
+            table:null,
         display: function (data) {
             $("div#bm7modalcontainer").remove();
             $('<div/>', { id: "bm7modalcontainer" }).appendTo('body').append(data);
@@ -293,17 +264,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            BM7.table.destroy();
             bm7ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                BM7.table.destroy();
                 bm7ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

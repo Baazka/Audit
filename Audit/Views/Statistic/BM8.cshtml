@@ -12,14 +12,6 @@
         </span>
     </a>
     <h4>БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл</h4>
-    @*<div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile('BM8', 'БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>*@
 </div>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
@@ -91,8 +83,8 @@
             bm8ListInit();
         });
 
-        function bm8ListInit() {
-            var table = $("#BM8").DataTable({
+        function bm8ListInit(pagelength = 10) {
+            BM8.table = $("#BM8").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -142,6 +134,7 @@
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -160,6 +153,7 @@
         });
     var BM8 = {
         bm8ID: null,
+        table: null,
         display: function (data) {
             $("div#bm8modalcontainer").remove();
             $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
@@ -241,17 +235,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            BM8.table.destroy();
             bm8ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                BM8.table.destroy();
                 bm8ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

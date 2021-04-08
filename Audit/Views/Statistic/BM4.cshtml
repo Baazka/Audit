@@ -104,7 +104,7 @@
             bm4ListInit();
         });
 
-        function bm4ListInit() {
+        function bm4ListInit(pagelength = 10) {
             var table = $("#BM4").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -136,6 +136,7 @@
                     { "data": "ORDER_NO", "name": "ORDER_NO" },
                     { "data": "PROPOSAL_NO", "name": "PROPOSAL_NO" },
                     { "data": "PROPOSAL_VIOLATION_DESC", "name": "PROPOSAL_VIOLATION_DESC" },
+                    { "data": "PROPOSAL_VIOLATION_TYPE", "name": "PROPOSAL_VIOLATION_TYPE" },
                     { "data": "VIOLATION_RESPONDENT", "name": "VIOLATION_RESPONDENT" },
                     { "data": "PROPOSAL_SUBMITTED_DATE", "name": "PROPOSAL_SUBMITTED_DATE" },
                     { "data": "PROPOSAL_DELIVERY_DATE", "name": "PROPOSAL_DELIVERY_DATE" },
@@ -145,7 +146,6 @@
                     { "data": "PROPOSAL_RCV_GIVEN_NAME", "name": "PROPOSAL_RCV_GIVEN_NAME" },
                     { "data": "PROPOSAL_RCV_ADDRESS", "name": "PROPOSAL_RCV_ADDRESS" },
                     { "data": "PROPOSAL_CONTROL_AUDITOR", "name": "PROPOSAL_CONTROL_AUDITOR" },
-                    { "data": "PROPOSAL_VIOLATION_TYPE", "name": "PROPOSAL_VIOLATION_TYPE" },
                     { "data": "COMPLETION_ORDER", "name": "COMPLETION_ORDER" },
                     { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE" },
                     { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
@@ -167,6 +167,7 @@
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -184,7 +185,8 @@
             bm4ListInit();
         });
         var BM4 = {
-        bm4ID: null,
+            bm4ID: null,
+            table:null,
         display: function (data) {
             $("div#bm4modalcontainer").remove();
             $('<div/>', { id: "bm4modalcontainer" }).appendTo('body').append(data);
@@ -266,17 +268,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            BM4.table.destroy();
             bm4sListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                BM4.table.destroy();
                 bm4ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }
