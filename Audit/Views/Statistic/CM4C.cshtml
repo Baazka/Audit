@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM4C.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM4C', 'СМ-4В. Нийцлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -115,14 +105,11 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
+                    //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
+                    //{ "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
                     { "data": "IS_STATE", "name": "IS_STATE" },
-                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
-                    { "data": "WORKING_DAY", "name": "WORKING_DAY" },
-                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
-                    { "data": "EXECUTORY", "name": "EXECUTORY" },
-                    { "data": "EXEC_DECISION", "name": "EXEC_DECISION" },
+                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT" },
+                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT" },
                     { "data": "EXEC_COLLECTION", "name": "EXEC_COLLECTION" },
                     { "data": "EXEC_TRUSTED", "name": "EXEC_TRUSTED" },
                     { "data": "PERFORMED", "name": "PERFORMED" },
@@ -141,18 +128,6 @@
                     { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM4C.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM4C.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,

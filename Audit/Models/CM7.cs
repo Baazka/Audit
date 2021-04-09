@@ -91,20 +91,23 @@ namespace Audit.Models
         }
         public XElement ToXml()
         {
-            return new XElement("NM1",
+            return new XElement("CM7",
                        new XElement("ID", ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
-                       //new XElement("AUDIT_YEAR", AUDIT_YEAR),
-                       //new XElement("AUDIT_TYPE", AUDIT_TYPE),
-                       //new XElement("AUDIT_CODE", AUDIT_CODE),
-                       //new XElement("AUDIT_NAME", AUDIT_NAME),
-                       //new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
-                       //new XElement("CORRECTED_ERROR_DESC", CORRECTED_ERROR_DESC),
-                       //new XElement("CORRECTED_ERROR_TYPE", CORRECTED_ERROR_TYPE),
-                       //new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
-                       //new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),
-                       //new XElement("IS_ACTIVE", IS_ACTIVE),
+                       new XElement("AUD_NAME", AUD_NAME),
+                       new XElement("NAME_TYPE", NAME_TYPE),
+                       new XElement("REFERENCE_COUNT", REFERENCE_COUNT),
+                       new XElement("BUDGET_EXPENSES", BUDGET_EXPENSES),
+                       new XElement("HUMAN_RESOURCES", HUMAN_RESOURCES),
+                       new XElement("PLANNED_COMPLETED", PLANNED_COMPLETED),
+                       new XElement("OTHER", OTHER),
+                       new XElement("COMP_DONE", COMP_DONE),
+                       new XElement("COMP_PROGRESS", COMP_PROGRESS),
+                       new XElement("RESOLVED_COMPLAINT_COUNT", RESOLVED_COMPLAINT_COUNT),
+                       new XElement("REFERENCE_NOT_COMP", REFERENCE_NOT_COMP),
+                       new XElement("EXEC_TYPE", EXEC_TYPE),
+                       new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null)
                        );
         }

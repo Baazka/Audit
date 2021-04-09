@@ -59,33 +59,36 @@
         width: 100%;
     }
 
-        .nav-tabs .nav-item {
-            background-color: #e7e7e5;
-            border-top-right-radius: 7px;
-            border-top-left-radius: 7px;
-        }
+    .nav-tabs .nav-item {
+        background-color: #FFF;
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;
+    }
 
-            .nav-tabs .nav-item.show .nav-item, .nav-tabs .nav-link.active {
-                background-color: #e7e7e5;
-                border: none !important;
-                border-top-right-radius: 7px;
-                border-top-left-radius: 7px;
-                color: #1b508a;
-            }
 
-        .nav-tabs .nav-link {
-            border: none;
-            color: #1b508a;
-            font-weight: bold;
-            font-size: small;
-            padding: 4px 20px;
-            height: auto;
-            align-self: center;
-            border-color: white;
-            border-style: solid;
-            border-width: 3.5px;
-            border-top: none;
-        }
+    .nav .nav-link {
+        color: #1b508a;
+        font-weight: bold;
+        font-size: small;
+        padding: 4px 20px;
+        height: auto;
+        align-self: center;
+        border-color: white;
+        border-style: solid;
+        border-width: 3.5px;
+        border-top: none;
+        background-color: #eaecf4;
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;
+    }
+    .nav .nav-link.active {
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;
+        background-color: #1b508a;
+        color: #FFF;
+        border: solid 3px #1b508a;
+    }
+
 </style>
 
 @using (Ajax.BeginForm("AddShilenDans", "Shilendans", new { Area = "" },
@@ -152,7 +155,7 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                     @Html.HiddenFor(m => m.ORGP_ID)
                                     @Html.HiddenFor(m => m.ORGP_ID2)*@
 
-                                <div class="row" id="printdiv1">
+                        <div class="row">
 
                                     <div class="col-md-4">
                                         <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
@@ -238,29 +241,29 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                 <hr />
                                 <div class="clearfix"></div>
 
-                                <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 6px 3px;">
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" id="maygt1_1-tab" data-toggle="tab" href="#maygt1-1" role="tab" aria-selected="true" style="background-color:#1b508a;color:#FFF;">
-                                                ТӨСӨВ ГҮЙЦЭТГЭЛ
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="maygt1_2-tab" data-toggle="tab" href="#maygt1-2" role="tab" aria-selected="false" style="background-color:#1b508a;color:#FFF;">
-                                                ХӨРӨНГӨ ОРУУЛАЛТ, ТЕНДЕР, ХУДАЛДАН АВАЛТ
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="maygt1_3-tab" data-toggle="tab" href="#maygt1-3" role="tab" aria-selected="false" style="background-color:#1b508a;color:#FFF;">
-                                                БУСАД
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="maygt1_4-tab" data-toggle="tab" href="#maygt1-4" role="tab" aria-selected="false" style="background-color:#1b508a;color:#FFF;">
-                                                ЗӨРЧЛИЙН ШИЙДЭЛ
-                                            </a>
-                                        </li>
-                                    </ul>
+                            <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 6px 3px;">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="maygt1_1-tab" data-toggle="tab" href="#maygt1-1" role="tab" aria-selected="true">
+                                            ТӨСӨВ ГҮЙЦЭТГЭЛ
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="maygt1_2-tab" data-toggle="tab" href="#maygt1-2" role="tab" aria-selected="false">
+                                            ХӨРӨНГӨ ОРУУЛАЛТ, ТЕНДЕР, ХУДАЛДАН АВАЛТ
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="maygt1_3-tab" data-toggle="tab" href="#maygt1-3" role="tab" aria-selected="false">
+                                            БУСАД
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="maygt1_4-tab" data-toggle="tab" href="#maygt1-4" role="tab" aria-selected="false">
+                                            ЗӨРЧЛИЙН ШИЙДЭЛ
+                                        </a>
+                                    </li>
+                                </ul>
 
                                     <div class="tab-content" id="printdiv1">
                                         <div class="tab-pane fade show active" id="maygt1-1" role="tabpanel" aria-labelledby="maygt1_1-tab">
@@ -339,17 +342,17 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                                 </tr>
                                             </table>
 
-                                            <div style="text-align: right">
-                                                <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                                <button type="button" id="printButton" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
-                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                            </div>
-                                            <br>
+                                        <div style="text-align: right">
+                                            <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                            @Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.ORG_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
+                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                         </div>
+                                        <br>
                                     </div>
                                 </div>
-                            </fieldset>
-                        </div>
+                            </div>
+                        </fieldset>
+                    </div>
 
 
                         <div class="tab-pane fade" id="maygt2" role="tabpanel" aria-labelledby="maygt2-tab">
@@ -450,19 +453,19 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                     <hr />
                                     <div class="clearfix"></div>
 
-                                    <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link active" id="maygt2_1-tab" data-toggle="tab" href="#maygt2-1" role="tab" aria-selected="true" style="background-color:#1b508a;color:#FFF;">
-                                                    МАЯГТ 4
-                                                </a>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link" id="maygt2_2-tab" data-toggle="tab" href="#maygt2-2" role="tab" aria-selected="false" style="background-color:#1b508a;color:#FFF;">
-                                                    ЗӨРЧЛИЙН ШИЙДЭЛ
-                                                </a>
-                                            </li>
-                                        </ul>
+                            <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="maygt2_1-tab" data-toggle="tab" href="#maygt2-1" role="tab" aria-selected="true">
+                                            МАЯГТ 4
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="maygt2_2-tab" data-toggle="tab" href="#maygt2-2" role="tab" aria-selected="false">
+                                            ЗӨРЧЛИЙН ШИЙДЭЛ
+                                        </a>
+                                    </li>
+                                </ul>
 
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="maygt2-1" role="tabpanel" aria-labelledby="maygt2_1-tab">
@@ -613,14 +616,14 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                     <hr />
                                     <div class="clearfix"></div>
 
-                                    <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link active" id="maygt3_1-tab" data-toggle="tab" href="#maygt3-1" role="tab" aria-selected="true" style="background-color:#1b508a;color:#FFF;">
-                                                    МАЯГТ 6
-                                                </a>
-                                            </li>
-                                        </ul>
+                            <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="maygt3_1-tab" data-toggle="tab" href="#maygt3-1" role="tab" aria-selected="true">
+                                            МАЯГТ 6
+                                        </a>
+                                    </li>
+                                </ul>
 
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="maygt3-1" role="tabpanel" aria-labelledby="maygt3_1-tab">
@@ -819,17 +822,6 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
     </div>
 </div>
 
-@*<script>
-        function print() {
-            printJS({
-                printable: 'printdiv1',
-                type: 'html',
-                targetStyles: ['*']
-            })
-        }
-
-        document.getElementById('printButton').addEventListener("click", print)
-    </script>*@
 <script>
     $(document).ready(function () {
         $('input').keypress(function (e) {

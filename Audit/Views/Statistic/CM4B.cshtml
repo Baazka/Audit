@@ -1,5 +1,5 @@
 ﻿@using Audit.Models
-@model Audit.Models.CM2VM
+@model Audit.Models.CM4VM
 @{
     ViewBag.Title = "CM4B";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM4B.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM4B', 'СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>

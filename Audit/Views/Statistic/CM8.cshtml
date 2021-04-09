@@ -134,8 +134,8 @@
             cm8ListInit();
         });
 
-        function cm8ListInit() {
-            var table = $("#CM8").DataTable({
+        function cm8ListInit(pagelength = 10) {
+            CM8.table = $("#CM8").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -159,38 +159,44 @@
                     },
                     { "data": "APPROVED_BUDGET", "name": "APPROVED_BUDGET" },
                     { "data": "PERFORMANCE_BUDGET", "name": "PERFORMANCE_BUDGET" },
-                    { "data": "WORKERS", "name": "WORKERS" },
                     { "data": "APPROVED_NUMBERS", "name": "APPROVED_NUMBERS" },
+                    { "data": "WORKERS", "name": "WORKERS" },
                     { "data": "DIRECTING_STAFF", "name": "DIRECTING_STAFF" },
+                    { "data": null, "name": null },
                     { "data": "SENIOR_AUDITOR_ANALYST", "name": "SENIOR_AUDITOR_ANALYST" },
                     { "data": "AUDITOR_ANALYST", "name": "AUDITOR_ANALYST" },
                     { "data": "OTHER_OFFICE", "name": "OTHER_OFFICE" },
+
                     { "data": "EDU_DOCTOR", "name": "EDU_DOCTOR" },
                     { "data": "EDU_MAGISTR", "name": "EDU_MAGISTR" },
                     { "data": "EDU_BAKLAVR", "name": "EDU_BAKLAVR" },
                     { "data": "EDU_AMONGST", "name": "EDU_AMONGST" },
                     { "data": "EDU_JUNIOR_AMONGST", "name": "EDU_JUNIOR_AMONGST" },
+
                     { "data": "PRO_ACCOUNTANT", "name": "PRO_ACCOUNTANT" },
                     { "data": "ACCOUNTANT_ECONOMIST", "name": "ACCOUNTANT_ECONOMIST" },
                     { "data": "LAWYER", "name": "LAWYER" },
                     { "data": "INGENER", "name": "INGENER" },
                     { "data": "OTHER_PROF", "name": "OTHER_PROF" },
+
                     { "data": "STUDY_COUNT", "name": "STUDY_COUNT" },
                     { "data": "INCLUDED_MAN", "name": "INCLUDED_MAN" },
                     { "data": "ONLINE_STUDY_COUNT", "name": "ONLINE_STUDY_COUNT" },
                     { "data": "LOCAL_STUDY_COUNT", "name": "LOCAL_STUDY_COUNT" },
                     { "data": "AUDIT_STUDY_COUNT", "name": "AUDIT_STUDY_COUNT" },
-                    { "data": "FOREIGN__STUDY_COUNT", "name": "FOREIGN__STUDY_COUNT" },
+                    { "data": "FOREIGN_STUDY_COUNT", "name": "FOREIGN_STUDY_COUNT" },
                     { "data": "FOREIGN_MAN_COUNT", "name": "FOREIGN_MAN_COUNT" },
                     { "data": "INSIDE_STUDY_COUNT", "name": "INSIDE_STUDY_COUNT" },
                     { "data": "INSIDE_MAN_COUNT", "name": "INSIDE_MAN_COUNT" },
                     { "data": "ORG_STUDY_COUNT", "name": "ORG_STUDY_COUNT" },
                     { "data": "ORG_MAN_COUNT", "name": "ORG_MAN_COUNT" },
+
                     { "data": "RESEARCH_ALL", "name": "RESEARCH_ALL" },
                     { "data": "PUBLISHED_REPORT", "name": "PUBLISHED_REPORT" },
                     { "data": "NEWS_ARTICLE", "name": "NEWS_ARTICLE" },
                     { "data": "TV_NEWS_BROADCAST", "name": "TV_NEWS_BROADCAST" },
                     { "data": "ORG_NEWS", "name": "ORG_NEWS" },
+
                     { "data": "WEB_ACCESS", "name": "WEB_ACCESS" },
                     { "data": "RECEIVED_ALL", "name": "RECEIVED_ALL" },
                     { "data": "TAB_WORKERS", "name": "TAB_WORKERS" },
@@ -216,6 +222,7 @@
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -233,7 +240,8 @@
             cm8ListInit();
         });
         var CM8 = {
-        cm8ID: null,
+            cm8ID: null,
+            table:null,
         display: function (data) {
             $("div#cm8modalcontainer").remove();
             $('<div/>', { id: "cm8modalcontainer" }).appendTo('body').append(data);
@@ -315,17 +323,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            CM8.table.destroy();
             cm8ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM8.table.destroy();
                 cm8ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

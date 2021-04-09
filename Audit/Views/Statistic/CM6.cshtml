@@ -11,14 +11,6 @@
         </span>
     </a>
     <h4>СМ-6. Төсвийн төсөлд өгсөн санал</h4>
-    <div class="ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" onclick="exportFile()">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-    </div>
 </div>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
@@ -61,6 +53,7 @@
                     <tr>
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Төсөв</th>
+                        <th rowspan="4">Үзүүлэлт</th>
                         <th colspan="6">Боловсруулсан санал</th>
                         <th colspan="6">Хүлээн зөвшөөрөгдсөн санал</th>
                         <th rowspan="4">Үйлдэл</th>
@@ -104,8 +97,8 @@
             cm6ListInit();
         });
 
-        function cm6ListInit() {
-            var table = $("#CM6").DataTable({
+        function cm6ListInit(pagelength = 10) {
+            CM6.table = $("#CM6").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -157,6 +150,7 @@
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -165,7 +159,6 @@
                 lengthChange: true,
                 "language": datatables.language
             });
-
         }
         $('#DeparmentID').change(function () {
             cm6ListInit();
@@ -174,7 +167,8 @@
             cm6ListInit();
         });
         var CM6 = {
-        cm6ID: null,
+            cm6ID: null,
+            table:null,
         display: function (data) {
             $("div#cm6modalcontainer").remove();
             $('<div/>', { id: "cm6modalcontainer" }).appendTo('body').append(data);
@@ -256,17 +250,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            CM6.table.destroy();
             cm6ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM6.table.destroy();
                 cm6ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

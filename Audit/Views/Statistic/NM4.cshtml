@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="NM4.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM4', 'НМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -56,7 +46,6 @@
                         <th rowspan="3">Аудитын нэр</th>
                         <th rowspan="2" colspan="2">Хариуцлага тооцуулах санал</th>
                         <th colspan="4">Албан тушаалтанд хариуцлага тооцуулах саналын хэрэгжилт</th>
-                        <th rowspan="3" class="text-center">Үйлдэл</th>
                     </tr>
                     <tr>
                         <th colspan="2">Бүрэн хэрэгжсэн</th>
@@ -82,8 +71,8 @@
             nm4ListInit();
         });
 
-        function nm4ListInit() {
-            var table = $("#NM4").DataTable({
+        function nm4ListInit(pagelength = 10) {
+            NM4.table = $("#NM4").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -118,23 +107,12 @@
                     { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
                     { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT" },
                     { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
-                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="NM4.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="NM4.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" }                    
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -152,7 +130,8 @@
             nm4ListInit();
         });
         var NM4 = {
-        nm4ID: null,
+            nm4ID: null,
+            table: null,
         display: function (data) {
             $("div#nm4modalcontainer").remove();
             $('<div/>', { id: "nm4modalcontainer" }).appendTo('body').append(data);
@@ -234,17 +213,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            NM4.table.destroy();
             nm4ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                NM4.table.destroy();
                 nm4ListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

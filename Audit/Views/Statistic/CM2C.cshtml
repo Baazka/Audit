@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM2C.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM2C', 'СМ-2В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -116,8 +106,8 @@
             cm2cListInit();
         });
 
-        function cm2cListInit() {
-            var table = $("#CM2C").DataTable({
+        function cm2cListInit(pagelength = 10) {
+            CM2C.table = $("#CM2C").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -126,6 +116,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Type = 3;
                         return data;
                     }
                 },
@@ -165,22 +156,11 @@
                     { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM2C.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM2C.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
@@ -198,7 +178,8 @@
             cm2cListInit();
         });
         var CM2C = {
-        cm2cID: null,
+            cm2cID: null,
+            table: null,
         display: function (data) {
             $("div#cm2cmodalcontainer").remove();
             $('<div/>', { id: "cm2cmodalcontainer" }).appendTo('body').append(data);
@@ -280,17 +261,17 @@
         }
     }
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            CM2C.table.destroy();
             cm2cListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM2C.table.destroy();
                 cm2cListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

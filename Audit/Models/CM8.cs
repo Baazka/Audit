@@ -44,7 +44,7 @@ namespace Audit.Models
         public int ONLINE_STUDY_COUNT { get; set; }
         public int LOCAL_STUDY_COUNT { get; set; }
         public int AUDIT_STUDY_COUNT { get; set; }
-        public int FOREIGN__STUDY_COUNT { get; set; }
+        public int FOREIGN_STUDY_COUNT { get; set; }
         public int FOREIGN_MAN_COUNT { get; set; }
         public int INSIDE_STUDY_COUNT { get; set; }
         public int INSIDE_MAN_COUNT { get; set; }
@@ -136,8 +136,8 @@ namespace Audit.Models
                     LOCAL_STUDY_COUNT = Convert.ToInt32(xml.Element("LOCAL_STUDY_COUNT").Value);
                 if (xml.Element("AUDIT_STUDY_COUNT") != null)
                     AUDIT_STUDY_COUNT = Convert.ToInt32(xml.Element("AUDIT_STUDY_COUNT").Value);
-                if (xml.Element("FOREIGN__STUDY_COUNT") != null)
-                    FOREIGN__STUDY_COUNT = Convert.ToInt32(xml.Element("FOREIGN__STUDY_COUNT").Value);
+                if (xml.Element("FOREIGN_STUDY_COUNT") != null)
+                    FOREIGN_STUDY_COUNT = Convert.ToInt32(xml.Element("FOREIGN_STUDY_COUNT").Value);
                 if (xml.Element("FOREIGN_MAN_COUNT") != null)
                     FOREIGN_MAN_COUNT = Convert.ToInt32(xml.Element("FOREIGN_MAN_COUNT").Value);
                 if (xml.Element("INSIDE_STUDY_COUNT") != null)
@@ -189,20 +189,55 @@ namespace Audit.Models
         }
         public XElement ToXml()
         {
-            return new XElement("NM1",
+            return new XElement("CM8",
                        new XElement("ID", ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
-                       //new XElement("AUDIT_YEAR", AUDIT_YEAR),
-                       //new XElement("AUDIT_TYPE", AUDIT_TYPE),
-                       //new XElement("AUDIT_CODE", AUDIT_CODE),
-                       //new XElement("AUDIT_NAME", AUDIT_NAME),
-                       //new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
-                       //new XElement("CORRECTED_ERROR_DESC", CORRECTED_ERROR_DESC),
-                       //new XElement("CORRECTED_ERROR_TYPE", CORRECTED_ERROR_TYPE),
-                       //new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
-                       //new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),
-                       //new XElement("IS_ACTIVE", IS_ACTIVE),
+                       new XElement("APPROVED_BUDGET", APPROVED_BUDGET),
+                       new XElement("PERFORMANCE_BUDGET", PERFORMANCE_BUDGET),
+                       new XElement("WORKERS", WORKERS),
+                       new XElement("APPROVED_NUMBERS", APPROVED_NUMBERS),
+                       new XElement("DIRECTING_STAFF", DIRECTING_STAFF),
+                       new XElement("SENIOR_AUDITOR_ANALYST", SENIOR_AUDITOR_ANALYST),
+                       new XElement("AUDITOR_ANALYST", AUDITOR_ANALYST),
+                       new XElement("OTHER_OFFICE", OTHER_OFFICE),
+                       new XElement("EDU_DOCTOR", EDU_DOCTOR),
+                       new XElement("EDU_MAGISTR", EDU_MAGISTR),
+                       new XElement("EDU_BAKLAVR", EDU_BAKLAVR),
+                       new XElement("EDU_AMONGST", EDU_AMONGST),
+                       new XElement("EDU_JUNIOR_AMONGST", EDU_JUNIOR_AMONGST),
+                       new XElement("PRO_ACCOUNTANT", PRO_ACCOUNTANT),
+                       new XElement("ACCOUNTANT_ECONOMIST", ACCOUNTANT_ECONOMIST),
+                       new XElement("LAWYER", LAWYER),
+                       new XElement("INGENER", INGENER),
+                       new XElement("OTHER_PROF", OTHER_PROF),
+                       new XElement("STUDY_COUNT", STUDY_COUNT),
+                       new XElement("INCLUDED_MAN", INCLUDED_MAN),
+                       new XElement("ONLINE_STUDY_COUNT", ONLINE_STUDY_COUNT),
+                       new XElement("LOCAL_STUDY_COUNT", LOCAL_STUDY_COUNT),
+                       new XElement("AUDIT_STUDY_COUNT", AUDIT_STUDY_COUNT),
+                       new XElement("FOREIGN_STUDY_COUNT", FOREIGN_STUDY_COUNT),
+                       new XElement("FOREIGN_MAN_COUNT", FOREIGN_MAN_COUNT),
+                       new XElement("INSIDE_STUDY_COUNT", INSIDE_STUDY_COUNT),
+                       new XElement("INSIDE_MAN_COUNT", INSIDE_MAN_COUNT),
+                       new XElement("ORG_STUDY_COUNT", ORG_STUDY_COUNT),
+                       new XElement("ORG_MAN_COUNT", ORG_MAN_COUNT),
+                       new XElement("RESEARCH_ALL", RESEARCH_ALL),
+                       new XElement("PUBLISHED_REPORT", PUBLISHED_REPORT),
+                       new XElement("NEWS_ARTICLE", NEWS_ARTICLE),
+                       new XElement("TV_NEWS_BROADCAST", TV_NEWS_BROADCAST),
+                       new XElement("ORG_NEWS", ORG_NEWS),
+                       new XElement("WEB_ACCESS", WEB_ACCESS),
+                       new XElement("RECEIVED_ALL", RECEIVED_ALL),
+                       new XElement("TAB_WORKERS", TAB_WORKERS),
+                       new XElement("TAB_SKILLS", TAB_SKILLS),
+                       new XElement("AUDIT_LET", AUDIT_LET),
+                       new XElement("RECEIVED_OTHER", RECEIVED_OTHER),
+                       new XElement("DECIDED_TIME", DECIDED_TIME),
+                       new XElement("DEC_EXPIRED", DEC_EXPIRED),
+                       new XElement("DEC_UNEXPIRED", DEC_UNEXPIRED),
+                       new XElement("EXEC_TYPE", EXEC_TYPE),
+                       new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null)
                        );
         }

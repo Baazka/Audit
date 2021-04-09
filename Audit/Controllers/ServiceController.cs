@@ -853,6 +853,7 @@ namespace Audit.Controllers
 
                 elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
                 elem.Add(new XElement("PageNumber", request.start));
+                elem.Add(new XElement("V_TYPE", request.Type));
                 if (request.order.Count > 0)
                 {
                     elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
@@ -874,9 +875,9 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM1A(elem, User.GetClaimData("USER_TYPE"));
-                if (res != null && res.Elements("CM1A") != null)
-                    response.data = (from item in res.Elements("CM1A") select new CM1().SetXml(item)).ToList();
+                XElement res = AppStatic.SystemController.CM1(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM1") != null)
+                    response.data = (from item in res.Elements("CM1") select new CM1().SetXml(item)).ToList();
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -898,6 +899,7 @@ namespace Audit.Controllers
 
                 elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
                 elem.Add(new XElement("PageNumber", request.start));
+                elem.Add(new XElement("V_TYPE", request.Type));
                 if (request.order.Count > 0)
                 {
                     elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
@@ -919,9 +921,9 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM2A(elem, User.GetClaimData("USER_TYPE"));
-                if (res != null && res.Elements("CM2A") != null)
-                    response.data = (from item in res.Elements("CM2A") select new CM2().SetXml(item)).ToList();
+                XElement res = AppStatic.SystemController.CM2(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM2") != null)
+                    response.data = (from item in res.Elements("CM2") select new CM2().SetXml(item)).ToList();
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -943,6 +945,7 @@ namespace Audit.Controllers
 
                 elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
                 elem.Add(new XElement("PageNumber", request.start));
+                elem.Add(new XElement("V_TYPE", request.Type));
                 if (request.order.Count > 0)
                 {
                     elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
@@ -964,9 +967,9 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM3A(elem, User.GetClaimData("USER_TYPE"));
-                if (res != null && res.Elements("CM3A") != null)
-                    response.data = (from item in res.Elements("CM3A") select new CM3().SetXml(item)).ToList();
+                XElement res = AppStatic.SystemController.CM3(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("CM3") != null)
+                    response.data = (from item in res.Elements("CM3") select new CM3().SetXml(item)).ToList();
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -988,6 +991,7 @@ namespace Audit.Controllers
 
                 elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
                 elem.Add(new XElement("PageNumber", request.start));
+                elem.Add(new XElement("V_TYPE", request.Type));
                 if (request.order.Count > 0)
                 {
                     elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
@@ -1009,9 +1013,9 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM4A(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM4(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("CM4A") != null)
-                    response.data = (from item in res.Elements("CM4A") select new CM4().SetXml(item)).ToList();
+                    response.data = (from item in res.Elements("CM4") select new CM4().SetXml(item)).ToList();
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;

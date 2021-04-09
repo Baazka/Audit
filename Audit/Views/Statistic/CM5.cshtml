@@ -26,16 +26,6 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM5.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-
-
-        <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM5', 'СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -64,7 +54,6 @@
                         <th colspan="2" rowspan="2">Зориулалт бус зарцуулалттай холбоотой</th>
                         <th colspan="2" rowspan="2">Бусад</th>
                         <th colspan="2" rowspan="2">Алдаа зөрчлийн нийт дүн</th>
-                        <th rowspan="3">Үйлдэл</th>
                     </tr>
                     <tr>
                         <th colspan="2">Улсын төсөв</th>
@@ -159,18 +148,6 @@
                     { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
                     { "data": "ALL_COUNT", "name": "ALL_COUNT" },
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM5.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
