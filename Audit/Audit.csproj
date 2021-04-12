@@ -2245,6 +2245,7 @@
     <Content Include="Views\Statistic\CM6AddEdit.cshtml" />
     <Content Include="Views\Statistic\CM7AddEdit.cshtml" />
     <Content Include="Views\Statistic\CM8AddEdit.cshtml" />
+    <Content Include="Views\Statistic\OrgSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

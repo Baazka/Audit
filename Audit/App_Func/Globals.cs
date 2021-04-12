@@ -35,6 +35,14 @@ namespace Audit.App_Func
 
         public static List<Period> periods { get; set; } = new List<Period>();
 
+        #region Stat
+        public static List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();
+        public static List<REF_TOPIC_TYPE> topictypes { get; set; } = new List<REF_TOPIC_TYPE>();
+        public static List<REF_FORM_TYPE> formtypes { get; set; } = new List<REF_FORM_TYPE>();
+        public static List<REF_PROPOSAL_TYPE> proposaltypes { get; set; } = new List<REF_PROPOSAL_TYPE>();
+        public static List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
+        #endregion
+
         static string SecurityKey = null;
         static internal string _logFolder = null;
         static public string LogFolder
