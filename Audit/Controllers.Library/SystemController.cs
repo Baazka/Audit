@@ -2864,6 +2864,41 @@ namespace Audit.Controllers.Library
 
             return false;
         }
+        public XElement OrgSearch(string vsearch)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "OrgSearch"),
+                                               new XElement("Parameters",
+                                                   new XElement("V_SEARCH", vsearch)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
         #endregion
 
         #region Shilen 
@@ -2948,6 +2983,41 @@ namespace Audit.Controllers.Library
 
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "MirrDataList"),
+                                               new XElement("Parameters",
+                                               new XElement("ORGID", orgid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public XElement PrintDataList(int orgid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "PrintDataList"),
                                                new XElement("Parameters",
                                                new XElement("ORGID", orgid)));
 

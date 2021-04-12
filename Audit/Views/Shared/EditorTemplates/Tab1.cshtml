@@ -31,8 +31,9 @@
                            new { value = 2 , text = "Оруулаагүй" },
                            new { value = 3 , text = "Хугацаа хоцорч оруулсан" },
                            new { value = 4 , text = "Оруулах шаардлагагүй, хамааралгүй" }
-                     }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;", @required = "required" })
-            @Html.ValidationMessageFor(model => model.Data01, "", new { @class = "text-danger" })
+                     }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;", @id = "tab1select" })
+            @*@Html.ValidationMessageFor(model => model.Data01, "", new { @class = "text-danger" })*@
+
         </td>
     </tr>
 }

@@ -122,6 +122,7 @@ namespace Audit.App_Func
             functions.Add("CM8Insert", (request) => DataAccess.CM8Insert(request));
             functions.Add("CM8Update", (request) => DataAccess.CM8Update(request));
             functions.Add("CM8Delete", (request) => DataAccess.CM8Delete(request));
+            functions.Add("OrgSearch", (request) => DataAccess.OrgSearch(request));
 
             functions.Add("MirrorOrgList", (request) => DataAccess.MirrorOrgList(request));
             functions.Add("Table1List", (request) => DataAccess.Table1List(request));
@@ -131,6 +132,7 @@ namespace Audit.App_Func
             functions.Add("TableProjectList", (request) => DataAccess.TableProjectList(request));
             functions.Add("OrgProjectDataList", (request) => DataAccess.OrgProjectDataList(request));
             functions.Add("OrgProjectDelete", (request) => DataAccess.OrgProjectDelete(request));
+            functions.Add("PrintDataList", (request) => DataAccess.PrintDataList(request));
 
         }
     }

@@ -73,51 +73,52 @@
         {
 
 
-<div class="col-md-12" style="padding: 0 100px;">
-    @Html.HiddenFor(m => m.ORG_ID)
+            <div class="col-md-12" style="padding: 0 100px;">
+                @Html.HiddenFor(m => m.ORG_ID)
 
-    @if(ViewBag.Results != null){ 
-    <div class="alert alert-success success text-center">
-        <span style="font-weight:bold;">@ViewBag.Results</span>
-    </div>
-    }
+                @if (ViewBag.Results != null)
+                {
+                    <div class="alert alert-success success text-center">
+                        <span style="font-weight:bold;">@ViewBag.Results</span>
+                    </div>
+                }
 
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
-        <div class="col-sm-2">
-            @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
-                                               new List<Object>{
-                                    new { value = 1 , text = "3.1.4" },
-                                    new { value = 2 , text = "3.1.5" },
-                                                   }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
-        </div>
-    </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
+                    <div class="col-sm-2">
+                        @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
+                                                           new List<Object>{
+                                                new { value = 1 , text = "3.1.4" },
+                                                new { value = 2 , text = "3.1.5" },
+                                                               }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                    </div>
+                </div>
 
-    <table class="table table-bordered" style="font-size:12px;">
-        <tr>
-            <th>Хуулийн заалт</th>
-            <th>Мэдээллийн агуулга </th>
-            <th>Хугацаа</th>
-            <th>Үнэлгээ</th>
-        </tr>
-        @Html.EditorFor(t => t.tab7)
-        <tr>
-            <td>Шалгасан аудиторын нэр</td>
-            <td>@User.GetClaimData("USER_NAME")</td>
-        </tr>
-        <tr>
-            <td>Аудиторын код</td>
-            <td>@User.Identity.Name.ToUpper()</td>
-        </tr>
-    </table>
+                <table class="table table-bordered" style="font-size:12px;">
+                    <tr>
+                        <th>Хуулийн заалт</th>
+                        <th>Мэдээллийн агуулга </th>
+                        <th>Хугацаа</th>
+                        <th>Үнэлгээ</th>
+                    </tr>
+                    @Html.EditorFor(t => t.tab7)
+                    <tr>
+                        <td>Шалгасан аудиторын нэр</td>
+                        <td>@User.GetClaimData("USER_NAME")</td>
+                    </tr>
+                    <tr>
+                        <td>Аудиторын код</td>
+                        <td>@User.Identity.Name.ToUpper()</td>
+                    </tr>
+                </table>
 
-    <div style="text-align: right">
-        <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-        <button type="button" id="printButton" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
-         <a href="/Shilendans/Index" class="btn btn-sm btn-default bg-secondary text-white">Буцах</a>
-    </div>
-    <br>
-</div>}
+                <div style="text-align: right">
+                    <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                    <button type="button" id="printButton" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
+                    <a href="/Shilendans/Index" class="btn btn-sm btn-default bg-secondary text-white">Буцах</a>
+                </div>
+                <br>
+            </div>}
     </div>
 </body>
 </html>

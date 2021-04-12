@@ -33,15 +33,15 @@ namespace Audit.Models
     public class BM0ListRequest : DataTableAjaxPostModel
     {
         public int ID { get; set; }
-        public string AUDIT_TYPE { get; set; }
-        public string TOPIC_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
         public string TOPIC_CODE { get; set; }
         public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
-        public string AUDIT_FORM_TYPE { get; set; }
-        public string AUDIT_PROPOSAL_TYPE { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string FORM_TYPE_NAME { get; set; }
+        public string PROPOSAL_TYPE_NAME { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string AUDIT_INCLUDED_ORG { get; set; }
         public int WORKING_PERSON { get; set; }
         public int WORKING_DAY { get; set; }
