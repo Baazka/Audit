@@ -8,11 +8,6 @@
       <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>a98db976-88db-451b-a43a-624fb955174b</rd:DataSourceID>
     </DataSource>
-    <DataSource Name="AUD_REG">
-      <DataSourceReference>AUD_REG</DataSourceReference>
-      <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>e0d17ede-f7d8-4276-b9b2-f0e31322ebcd</rd:DataSourceID>
-    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSet2">

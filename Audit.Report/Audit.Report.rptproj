@@ -12,7 +12,7 @@
     <TargetDatasetFolder>Datasets</TargetDatasetFolder>
     <TargetDatasourceFolder>Data Sources</TargetDatasourceFolder>
     <TargetReportPartFolder>Report Parts</TargetReportPartFolder>
-    <TargetServerURL>http://localhost/reportserver</TargetServerURL>
+    <TargetServerURL>http://10.10.10.43:8787/reportserver</TargetServerURL>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DebugLocal' ">
     <FullPath>DebugLocal</FullPath>
@@ -54,6 +54,9 @@
   <ItemGroup>
     <Report Include="Report1.rdl" />
     <Report Include="Report2.rdl" />
+    <Report Include="ReportNegtgel2.rdl" />
+    <Report Include="ReportNegtgel3.rdl" />
+    <Report Include="ReportNegtgel4.rdl" />
     <Report Include="ReportTest.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
