@@ -2231,7 +2231,6 @@
     <Content Include="Views\Shared\EditorTemplates\Tab6.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Tab7.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Tab8.cshtml" />
-    <Content Include="Views\Shilendans\OrgProjectEdit.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Home\AddTabTAX.cshtml" />
     <Content Include="Views\Statistic\BM8AddEdit.cshtml" />
@@ -2246,6 +2245,9 @@
     <Content Include="Views\Statistic\CM7AddEdit.cshtml" />
     <Content Include="Views\Statistic\CM8AddEdit.cshtml" />
     <Content Include="Views\Statistic\OrgSearch.cshtml" />
+    <Content Include="Views\Shilendans\Print.cshtml" />
+    <Content Include="Views\Shilendans\OrgProjectEdit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Print1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
