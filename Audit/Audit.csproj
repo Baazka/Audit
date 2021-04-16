@@ -248,6 +248,7 @@
     <Compile Include="Controllers.Library\_Controller.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\ShilendansController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
@@ -2248,8 +2249,9 @@
     <Content Include="Views\Shilendans\Print.cshtml" />
     <Content Include="Views\Shilendans\OrgProjectEdit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Print1.cshtml" />
-	<Content Include="Views\Report\Index.cshtml" />
-	<Content Include="Views\Report\Viewer.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\Viewer.cshtml" />
+    <Content Include="Views\Statistic\BM0Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

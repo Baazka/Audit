@@ -38,6 +38,7 @@ namespace Audit.Models
         [Required(ErrorMessage = "Цахим хуудас оруулна уу.")]
         public string ORG_WEBSITE { get; set; }
         [Required(ErrorMessage = "И-мэйл оруулна уу.")]
+        [RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" , ErrorMessage = "error")]
         public string ORG_EMAIL { get; set; }
         [Required(ErrorMessage = "Утас оруулна уу.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
@@ -77,6 +78,7 @@ namespace Audit.Models
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORGP_PHONE { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
+        [RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" , ErrorMessage = "error")]
         public string ORGP_EMAIL { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_EXPERIENCE_YEAR { get; set; }
@@ -98,6 +100,7 @@ namespace Audit.Models
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         public string ORGP_PHONE2 { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
+        [RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" , ErrorMessage ="error")]
         public string ORGP_EMAIL2 { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORGP_EXPERIENCE_YEAR2 { get; set; }
@@ -123,7 +126,7 @@ namespace Audit.Models
         public int ORG_INSURANCE_OFFICE_ID { get; set; }
         [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int ORG_FIN_OFFICE_ID { get; set; }
-        [Required(ErrorMessage = "Утга сонгоно уу.")]
+        [Required(ErrorMessage = "Санхүүжилтийн хөтөлбөр сонгоно уу.")]
         public int ORG_FINANCING_TYPE_ID { get; set; }
 
         public List<Office> offices { get; set; } = new List<Office>();
@@ -576,6 +579,7 @@ namespace Audit.Models
     {
         public int ORG_ID { get; set; }
         public DateTime? P_IDATE { get; set; }
+        [Required(ErrorMessage = "Шалтгаан сонгоно уу.")]
         public int P_REASONID { get; set; }
         public string P_REASONDESC { get; set; }
         public int P_PARENTID { get; set; }

@@ -192,7 +192,6 @@
                                     {
                                         @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
                                     }
-                                    @Html.ValidationMessageFor(m => m.AUDIT_FORM_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -203,9 +202,8 @@
                                     @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                     @if (Model.proposaltypes.Count() > 0)
                                     {
-                                        @Html.DropDownList("ddProposalTypeidden", Model.proposaltypes.Select(m => new SelectListItem() { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_AUDIT_TYPE_ID.ToString() + ":" + m.PROPOSAL_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                        @Html.DropDownList("ddProposalTypeHidden", Model.proposaltypes.Select(m => new SelectListItem() { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_AUDIT_TYPE_ID.ToString() + ":" + m.PROPOSAL_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
                                     }
-                                    @Html.ValidationMessageFor(m => m.AUDIT_PROPOSAL_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -216,9 +214,8 @@
                                     @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                     @if (Model.refbudgettypes.Count() > 0)
                                     {
-                                        @Html.DropDownList("ddRefBudgetTypeidden", Model.refbudgettypes.Select(m => new SelectListItem() { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_AUDIT_TYPE_ID.ToString() + ":" + m.BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                        @Html.DropDownList("ddRefBudgetTypeHidden", Model.refbudgettypes.Select(m => new SelectListItem() { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_AUDIT_TYPE_ID.ToString() + ":" + m.BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
                                     }
-                                    @Html.ValidationMessageFor(m => m.AUDIT_BUDGET_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -235,7 +232,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Ажилласан хүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.WORKING_PERSON, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.WORKING_PERSON, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                     @Html.ValidationMessageFor(m => m.WORKING_PERSON, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -244,7 +241,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Ажилласан өдөр:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.WORKING_DAY, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.WORKING_DAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                     @Html.ValidationMessageFor(m => m.WORKING_DAY, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -253,7 +250,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Ажилласан илүү цаг:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.WORKING_ADDITION_TIME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.WORKING_ADDITION_TIME, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                     @Html.ValidationMessageFor(m => m.WORKING_ADDITION_TIME, "", new { @class = "text-danger" })
                                 </div>
                             </div>

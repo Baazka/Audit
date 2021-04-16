@@ -107,7 +107,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.ID)
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Төрийн аудитын байгууллага:</label>
                                 <div class="col-sm-8">
@@ -116,11 +116,299 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Он:</label>
                                 <div class="col-sm-8">
                                     @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">BM0:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.AUDIT_ID, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын төрөл:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.AUDIT_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын код:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.AUDIT_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын нэр:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.AUDIT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Төсөв захирагч / Сэдвийн ангилал:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.AUDIT_BUDGET_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Огноо:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.ORDER_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Дугаар:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.ORDER_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Албан шаардлагын огноо, дугаар:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Зөрчлийн товч утга:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_VIOLATION_DESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Зөрчлийн ангилал:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_VIOLATION_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Хүлээлгэн өгсөн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Зөрчлийг барагдуулах:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Зөрчлийн дүн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Байгууллагын нэр:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_RCV_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Албан тушаал:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_RCV_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Овог нэр:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_RCV_GIVEN_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Холбоо барих  хаяг, утас:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_RCV_ADDRESS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Зөрчлийг арилгасан баримт:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.COMPLETION_ORDER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Дүн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.COMPLETION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Улсын төсөвт:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Орон нутгийн төсөвт:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.COMPLETION_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Тухайн байгууллагад:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.COMPLETION_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Бусад:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.COMPLETION_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Дүн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Огноо:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.REMOVED_LAW_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Дугаар:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.REMOVED_LAW_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Дүн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Огноо:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.REMOVED_INVALID_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Дугаар:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.REMOVED_INVALID_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Дараа онд шилжих үлдэгдлийн дүн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Хугацаа болоогүй:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.CLAIM_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Санхүүгийн тоо:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Санхүүгийн дүн:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Санхүүгийн бус үр өгөөжийн тоо:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                 </div>
                             </div>
                         </div>

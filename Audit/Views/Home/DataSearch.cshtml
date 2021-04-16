@@ -18,21 +18,26 @@
         }
     });
     $("#searchBtn").unbind().click(function () {
-        $.ajax({
-            url: "@Url.Action("DataList", "Home", new { Area = "" })",
-            type: 'POST',
-            data: { vsearch: $("#vsearch").val() },
-            success: function (data, status, xhr) {
-                $("#datalist").html(data);
-                initDataTableFeatureDisabled();
-            },
-            error: errorResponse,
-            beforeSend: function () {
-                Modal.show();
-            },
-            complete: function () {
-                Modal.hide();
-            }
-        });
+        if ($("#vsearch").val() != null && $("#vsearch").val() != '') {
+            $.ajax({
+                url: "@Url.Action("DataList", "Home", new { Area = "" })",
+                type: 'POST',
+                data: { vsearch: $("#vsearch").val() },
+                success: function (data, status, xhr) {
+                    $("#datalist").html(data);
+                    initDataTableFeatureDisabled();
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        }
+        else {
+            alert('Хайх утга оруулна уу');
+        }
     });
 </script>

@@ -41,6 +41,8 @@ namespace Audit.App_Func
         public static List<REF_FORM_TYPE> formtypes { get; set; } = new List<REF_FORM_TYPE>();
         public static List<REF_PROPOSAL_TYPE> proposaltypes { get; set; } = new List<REF_PROPOSAL_TYPE>();
         public static List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
+        public static List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
+        public static List<REF_VIOLATION_TYPE> refviolationtypes { get; set; } = new List<REF_VIOLATION_TYPE>();
         #endregion
 
         static string SecurityKey = null;

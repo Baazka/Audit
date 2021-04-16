@@ -21,7 +21,7 @@ namespace Audit.Models
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-        public int AUDIT_TYPE { get; set; }
+        public int? AUDIT_TYPE { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
         public int TOPIC_TYPE { get; set; }
         public string TOPIC_TYPE_NAME { get; set; }
@@ -29,11 +29,11 @@ namespace Audit.Models
         public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
-        public int AUDIT_FORM_TYPE { get; set; }
+        public int? AUDIT_FORM_TYPE { get; set; }
         public string FORM_TYPE_NAME { get; set; }
-        public int AUDIT_PROPOSAL_TYPE { get; set; }
+        public int? AUDIT_PROPOSAL_TYPE { get; set; }
         public string PROPOSAL_TYPE_NAME { get; set; }
-        public int AUDIT_BUDGET_TYPE { get; set; }
+        public int? AUDIT_BUDGET_TYPE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
         public string AUDIT_INCLUDED_ORG { get; set; }
         public int WORKING_PERSON { get; set; }
@@ -145,6 +145,34 @@ namespace Audit.Models
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE)
                        );
+        }
+    }
+    public class BM0Search
+    {
+        public int ID { get; set; }
+        public string TOPIC_CODE  { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string ORDER_NO { get; set; }
+        public string AUDIT_TYPE { get; set; }
+        public BM0Search SetXml(XElement xml)
+        {
+            if (xml != null)
+            {
+                if (xml.Element("ID") != null)
+                    ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("TOPIC_CODE") != null)
+                    TOPIC_CODE = xml.Element("TOPIC_CODE").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("TOPIC_NAME") != null)
+                    TOPIC_NAME = xml.Element("TOPIC_NAME").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("ORDER_DATE") != null)
+                    ORDER_DATE = xml.Element("ORDER_DATE").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("ORDER_NO") != null)
+                    ORDER_NO = xml.Element("ORDER_NO").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("AUDIT_TYPE") != null)
+                    AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
+            }
+            return this;
         }
     }
 }

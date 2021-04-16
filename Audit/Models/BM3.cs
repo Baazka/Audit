@@ -16,15 +16,18 @@ namespace Audit.Models
     public class BM3
     {
         public int ID { get; set; }
+        public int AUDIT_ID { get; set; }
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
+        public int AUDIT_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
 
@@ -55,7 +58,9 @@ namespace Audit.Models
         public int WORKING_DAY { get; set; }
         public int WORKING_ADDITION_TIME { get; set; }
         public int EXEC_TYPE { get; set; }
+        public int REFERENCE_TYPE { get; set; }
 
+        public int IS_ACTIVE { get; set; } = 1;
         public DateTime? CREATED_DATE { get; set; }
         public DateTime? UPDATED_DATE { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
@@ -67,6 +72,8 @@ namespace Audit.Models
             {
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("AUDIT_ID") != null)
+                    AUDIT_ID = Convert.ToInt32(xml.Element("AUDIT_ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
                     OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
                 if (xml.Element("DEPARTMENT_NAME") != null)
@@ -79,13 +86,17 @@ namespace Audit.Models
                 if (xml.Element("AUDIT_YEAR") != null)
                     AUDIT_YEAR = Convert.ToInt32(xml.Element("AUDIT_YEAR").Value);
                 if (xml.Element("AUDIT_TYPE") != null)
-                    AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
+                    AUDIT_TYPE = Convert.ToInt32(xml.Element("AUDIT_TYPE").Value);
+                if (xml.Element("AUDIT_TYPE_NAME") != null)
+                    AUDIT_TYPE_NAME = xml.Element("AUDIT_TYPE_NAME").Value;
                 if (xml.Element("AUDIT_CODE") != null)
                     AUDIT_CODE = xml.Element("AUDIT_CODE").Value;
                 if (xml.Element("AUDIT_NAME") != null)
                     AUDIT_NAME = xml.Element("AUDIT_NAME").Value;
                 if (xml.Element("AUDIT_BUDGET_TYPE") != null)
-                    AUDIT_BUDGET_TYPE = xml.Element("AUDIT_BUDGET_TYPE").Value;
+                    AUDIT_BUDGET_TYPE = Convert.ToInt32(xml.Element("AUDIT_BUDGET_TYPE").Value);
+                if (xml.Element("BUDGET_TYPE_NAME") != null)
+                    BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
                 if (xml.Element("ORDER_DATE") != null)
                     ORDER_DATE = xml.Element("ORDER_DATE").Value;
                 if (xml.Element("ORDER_NO") != null)
@@ -147,30 +158,44 @@ namespace Audit.Models
         }
         public XElement ToXml()
         {
-            return new XElement("BM0",
+            return new XElement("BM3",
                        new XElement("ID", ID),
+                       new XElement("AUDIT_ID", AUDIT_ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
-                       //new XElement("AUDIT_TYPE", AUDIT_TYPE),
-                       //new XElement("TOPIC_TYPE", TOPIC_TYPE),
-                       //new XElement("TOPIC_CODE", TOPIC_CODE),
-                       //new XElement("TOPIC_NAME", TOPIC_NAME),
-                       //new XElement("ORDER_NO", ORDER_NO),
-                       //new XElement("ORDER_DATE", ORDER_DATE),
-                       //new XElement("AUDIT_PROPOSAL_TYPE", AUDIT_PROPOSAL_TYPE),
-                       //new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
-                       //new XElement("AUDIT_INCLUDED_ORG", AUDIT_INCLUDED_ORG),
-                       //new XElement("WORKING_PERSON", WORKING_PERSON),
-                       //new XElement("WORKING_DAY", WORKING_DAY),
-                       //new XElement("WORKING_ADDITION_TIME", WORKING_ADDITION_TIME),
-                       //new XElement("AUDIT_DEPARTMENT", AUDIT_DEPARTMENT),
-                       //new XElement("AUDITOR_LEAD", AUDITOR_LEAD),
-                       //new XElement("AUDITOR_MEMBER", AUDITOR_MEMBER),
-                       //new XElement("AUDITOR_ENTRY", AUDITOR_ENTRY),
-                       //new XElement("EXEC_TYPE", EXEC_TYPE),
-                       //new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null),
-                       new XElement("UPDATED_DATE", UPDATED_DATE != null ? ((DateTime)UPDATED_DATE).ToString("dd-MMM-yy") : null)
+                       new XElement("AUDIT_YEAR", AUDIT_YEAR),
+                       new XElement("AUDIT_TYPE", AUDIT_TYPE),
+                       new XElement("AUDIT_CODE", AUDIT_CODE),
+                       new XElement("AUDIT_NAME", AUDIT_NAME),
+                       new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
+                       new XElement("ORDER_DATE", ORDER_DATE),
+                       new XElement("ORDER_NO", ORDER_NO),
+                       new XElement("REFERENCE_DESC", REFERENCE_DESC),
+                       new XElement("REFERENCE_AMOUNT", REFERENCE_AMOUNT),
+                       new XElement("REFERENCE_SUBMITTED_DATE", REFERENCE_SUBMITTED_DATE),
+                       new XElement("REFERENCE_DELIVERY_DATE", REFERENCE_DELIVERY_DATE),
+                       new XElement("REFERENCE_RCV_NAME", REFERENCE_RCV_NAME),
+                       new XElement("REFERENCE_RCV_ROLE", REFERENCE_RCV_ROLE),
+                       new XElement("REFERENCE_RCV_GIVEN_NAME", REFERENCE_RCV_GIVEN_NAME),
+                       new XElement("REFERENCE_RCV_ADDRESS", REFERENCE_RCV_ADDRESS),
+                       new XElement("REFERENCE_CONTROL_AUDITOR", REFERENCE_CONTROL_AUDITOR),
+                       new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
+                       new XElement("COMPLETION_DONE", COMPLETION_DONE),
+                       new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),
+                       new XElement("COMPLETION_PROGRESS", COMPLETION_PROGRESS),
+                       new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT),
+                       new XElement("C2_NONEXPIRED", C2_NONEXPIRED),
+                       new XElement("C2_NONEXPIRED_AMOUNT", C2_NONEXPIRED_AMOUNT),
+                       new XElement("C2_EXPIRED", C2_EXPIRED),
+                       new XElement("C2_EXPIRED_AMOUNT", C2_EXPIRED_AMOUNT),
+                       new XElement("BENEFIT_FIN", BENEFIT_FIN),
+                       new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT),
+                       new XElement("BENEFIT_NONFIN", BENEFIT_NONFIN),
+                       new XElement("WORKING_PERSON", WORKING_PERSON),
+                       new XElement("WORKING_DAY", WORKING_DAY),
+                       new XElement("WORKING_ADDITION_TIME", WORKING_ADDITION_TIME),
+                       new XElement("IS_ACTIVE", IS_ACTIVE),
+                       new XElement("CREATED_DATE", CREATED_DATE)
                        );
         }
     }

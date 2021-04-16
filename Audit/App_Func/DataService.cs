@@ -123,6 +123,7 @@ namespace Audit.App_Func
             functions.Add("CM8Update", (request) => DataAccess.CM8Update(request));
             functions.Add("CM8Delete", (request) => DataAccess.CM8Delete(request));
             functions.Add("OrgSearch", (request) => DataAccess.OrgSearch(request));
+            functions.Add("BM0Search", (request) => DataAccess.BM0Search(request));
 
             functions.Add("MirrorOrgList", (request) => DataAccess.MirrorOrgList(request));
             functions.Add("Table1List", (request) => DataAccess.Table1List(request));

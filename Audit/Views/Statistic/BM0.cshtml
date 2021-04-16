@@ -190,14 +190,14 @@
                 //ProsolType
                 if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
                     $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddProposalTypeidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                var $options = $("#Bm0Modal #ddProposalTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
                     $(this).val($(this).val().split(':')[1]);
                 });
                 $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
                 //ProsolType
                 if ($("#Bm0Modal #AUDIT_BUDGET_TYPE").children().length > 1)
                     $("#Bm0Modal #AUDIT_BUDGET_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddRefBudgetTypeidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                var $options = $("#Bm0Modal #ddRefBudgetTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
                     $(this).val($(this).val().split(':')[1]);
                 });
                 $("#Bm0Modal #AUDIT_BUDGET_TYPE").append($options);
@@ -206,23 +206,7 @@
 
             $("#Bm0Modal").modal({ show: true });
             },
-            //displayOrgSearch: function (data) {
-            //    $("div#orgsearchmodalcontainer").remove();
-            //    $('<div/>', { id: "orgsearchmodalcontainer" }).appendTo('body').append(data);
-
-            //    $("#Bm0Modal").modal({ show: true });
-
-
-            //    //$("div#professiongroupcontainer").remove();
-            //    //$('<div/>', { id: "professiongroupcontainer" }).appendTo('body').append(data);
-
-            //    //$('#ProfessionGroupModel').modal({ show: true });
-
-            //    //$("#ProfessionGroupModel .btngrouplistPopup").on('click', function () {
-            //    //    Profession.professiongroupList(1);
-            //    //});
-
-            //},
+            
         loadTemplate: function () {
             $.ajax({
                     url: "@Url.Action("BM0AddEdit", "Statistic", new { Area = "" })",

@@ -312,4 +312,30 @@ namespace Audit.Models
             return this;
         }
     }
+    public class REF_AUDIT_YEAR
+    {
+        public int YEAR_ID { get; set; }
+        public string YEAR_LABEL { get; set; }
+        public REF_AUDIT_YEAR FromXml(XElement elem)
+        {
+            if (elem.Element("YEAR_ID") != null)
+                YEAR_ID = Convert.ToInt32(elem.Element("YEAR_ID").Value);
+            if (elem.Element("YEAR_LABEL") != null)
+                YEAR_LABEL = elem.Element("YEAR_LABEL").Value;
+            return this;
+        }
+    }
+    public class REF_VIOLATION_TYPE
+    {
+        public int VIOLATION_ID { get; set; }
+        public string VIOLATION_NAME { get; set; }
+        public REF_VIOLATION_TYPE FromXml(XElement elem)
+        {
+            if (elem.Element("VIOLATION_ID") != null)
+                VIOLATION_ID = Convert.ToInt32(elem.Element("VIOLATION_ID").Value);
+            if (elem.Element("VIOLATION_NAME") != null)
+                VIOLATION_NAME = elem.Element("VIOLATION_NAME").Value;
+            return this;
+        }
+    }
 }

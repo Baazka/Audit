@@ -16,6 +16,7 @@ namespace Audit.Models
     public class BM8
     {
         public int ID { get; set; }
+        public int AUDIT_ID { get; set; }
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
@@ -42,6 +43,8 @@ namespace Audit.Models
             {
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("AUDIT_ID") != null)
+                    AUDIT_ID = Convert.ToInt32(xml.Element("AUDIT_ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
                     OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
                 if (xml.Element("DEPARTMENT_NAME") != null)
@@ -78,6 +81,7 @@ namespace Audit.Models
         {
             return new XElement("BM8",
                        new XElement("ID", ID),
+                       new XElement("AUDIT_ID", AUDIT_ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
                        new XElement("AUDIT_YEAR", AUDIT_YEAR),
