@@ -128,20 +128,12 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Аудитын он:</label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">BM0:</label>
                                 <div class="col-sm-8">
                                     <div class="input-group input-group-sm">
                                         @Html.EditorFor(m => m.AUDIT_ID, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary btnBM0listPopup">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                                                     <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
                                                 </svg>
@@ -151,12 +143,19 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын он:</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудитын төрөл:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                    @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @readonly = "readonly" })
                                     @Html.ValidationMessageFor(m => m.AUDIT_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -183,7 +182,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Төсөв захирагч / Сэдвийн ангилал:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_BUDGET_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     @Html.ValidationMessageFor(m => m.AUDIT_BUDGET_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -192,7 +191,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Огноо:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ORDER_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                    @Html.EditorFor(m => m.ORDER_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.ORDER_DATE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -255,7 +254,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.ACT_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -264,7 +263,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Улсын төсөвт:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     @Html.ValidationMessageFor(m => m.ACT_STATE_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -273,7 +272,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Орон нутгийн төсөвт:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     @Html.ValidationMessageFor(m => m.ACT_LOCAL_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -282,7 +281,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Тухайн байгууллагад:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     @Html.ValidationMessageFor(m => m.ACT_ORG_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -291,7 +290,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Бусад:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     @Html.ValidationMessageFor(m => m.ACT_OTHER_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -354,7 +353,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.COMPLETION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.COMPLETION_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -363,7 +362,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Улсын төсөвт:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
                                     @Html.ValidationMessageFor(m => m.COMPLETION_STATE_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -372,7 +371,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Орон нутгийн төсөвт:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.COMPLETION_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
                                     @Html.ValidationMessageFor(m => m.COMPLETION_LOCAL_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -381,7 +380,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Тухайн байгууллагад:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.COMPLETION_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
                                     @Html.ValidationMessageFor(m => m.COMPLETION_ORG_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -390,7 +389,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Бусад:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.COMPLETION_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
                                     @Html.ValidationMessageFor(m => m.COMPLETION_OTHER_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -399,7 +398,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.REMOVED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.REMOVED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.REMOVED_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -408,7 +407,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount3" } })
                                     @Html.ValidationMessageFor(m => m.REMOVED_LAW_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -426,7 +425,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount3" } })
                                     @Html.ValidationMessageFor(m => m.REMOVED_INVALID_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -444,7 +443,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дараа онд шилжих үлдэгдлийн дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.ACT_C2_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -453,7 +452,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Хугацаа болоогүй :</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4" } })
                                     @Html.ValidationMessageFor(m => m.ACT_C2_NONEXPIRED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -462,7 +461,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4" } })
                                     @Html.ValidationMessageFor(m => m.ACT_C2_EXPIRED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -526,5 +525,71 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
+      calculateSum1();
+      calculateSum2();
+      calculateSum3();
+      calculateSum4();
+
+      $(".amount1").on("keydown keyup", function () {
+          calculateSum1();
+      });
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
+      });
+      $(".amount3").on("keydown keyup", function () {
+          calculateSum3();
+      });
+      $(".amount4").on("keydown keyup", function () {
+          calculateSum4();
+      });
+
+      function calculateSum1() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount1").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+
+          $("#ACT_AMOUNT").val(sum.toFixed(2));
+      }
+      function calculateSum2() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount2").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+
+          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+      }
+      function calculateSum3() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount3").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+
+          $("#REMOVED_AMOUNT").val(sum.toFixed(2));
+      }
+      function calculateSum4() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount4").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+
+          $("#ACT_C2_AMOUNT").val(sum.toFixed(2));
+      }
   });
 </script>

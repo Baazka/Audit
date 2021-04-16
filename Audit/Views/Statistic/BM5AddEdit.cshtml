@@ -128,7 +128,24 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">BM0:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_ID, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    <div class="input-group input-group-sm">
+                                        @Html.EditorFor(m => m.AUDIT_ID, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын он:</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                 </div>
                             </div>
                         </div>
@@ -136,7 +153,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудитын төрөл:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(m => m.AUDIT_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -144,7 +162,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудитын код:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.AUDIT_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.AUDIT_CODE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -152,7 +171,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудитын нэр:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.AUDIT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.AUDIT_NAME, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -160,7 +180,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Төсөв захирагч / Сэдвийн ангилал:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_BUDGET_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    @Html.ValidationMessageFor(m => m.AUDIT_BUDGET_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -186,8 +207,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Зөрчлийн ангилал:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.LAW_VIOLATION_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    @Html.ValidationMessageFor(m => m.LAW_VIOLATION_TYPE, "", new { @class = "text-danger" })
+                                    @Html.DropDownListFor(model => model.LAW_VIOLATION_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+
                                 </div>
                             </div>
                         </div>
@@ -203,7 +224,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Тоо:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.LAW_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.LAW_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -211,7 +232,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -219,7 +240,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Бүрэн шийдвэрлэгдсэн Тоо:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -227,7 +248,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Бүрэн шийдвэрлэгдсэн Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -235,7 +256,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Хянагдаж байгаа Тоо:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -243,7 +264,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Хянагдаж байгаа Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -251,7 +272,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Хэрэгсэхгүй болсон Тоо:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -259,7 +280,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Хэрэгсэхгүй болсон Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -267,7 +288,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дараа онд шилжих үлдэгдэл Тоо:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>
@@ -275,7 +296,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дараа онд шилжих үлдэгдэл Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
                             </div>
                         </div>

@@ -26,7 +26,8 @@ namespace Audit.Models
         public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
         public string ACT_NO { get; set; }
@@ -71,6 +72,8 @@ namespace Audit.Models
         public List<Period> periods { get; set; } = new List<Period>();
         public List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
         public List<REF_VIOLATION_TYPE> refviolationtypes { get; set; } = new List<REF_VIOLATION_TYPE>();
+        public List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();
+        public List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
 
         public BM1 SetXml(XElement xml)
         {
@@ -100,7 +103,9 @@ namespace Audit.Models
                 if (xml.Element("AUDIT_NAME") != null)
                     AUDIT_NAME = xml.Element("AUDIT_NAME").Value;
                 if (xml.Element("AUDIT_BUDGET_TYPE") != null)
-                    AUDIT_BUDGET_TYPE = xml.Element("AUDIT_BUDGET_TYPE").Value;
+                    AUDIT_BUDGET_TYPE = Convert.ToInt32(xml.Element("AUDIT_BUDGET_TYPE").Value);
+                if (xml.Element("BUDGET_TYPE_NAME") != null)
+                    BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
                 if (xml.Element("ORDER_DATE") != null)
                     ORDER_DATE = xml.Element("ORDER_DATE").Value;
                 if (xml.Element("ORDER_NO") != null)
