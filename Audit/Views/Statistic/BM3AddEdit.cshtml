@@ -138,6 +138,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    @Html.ValidationMessageFor(m => m.AUDIT_ID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -294,7 +295,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хэрэгжсэн Тоо:</label>
+                                <label class="col-sm-4 col-form-label">Хэрэгжсэн тоо:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
@@ -302,7 +303,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хэрэгжсэн Дүн:</label>
+                                <label class="col-sm-4 col-form-label">Хэрэгжсэн дүн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
@@ -310,7 +311,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хэрэгжээгүй Тоо:</label>
+                                <label class="col-sm-4 col-form-label">Хэрэгжээгүй тоо:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
@@ -318,7 +319,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хэрэгжээгүй Дүн:</label>
+                                <label class="col-sm-4 col-form-label">Хэрэгжээгүй дүн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                 </div>
@@ -326,33 +327,37 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хугацаа болоогүй Тоо:</label>
+                                <label class="col-sm-4 col-form-label">Хугацаа болоогүй тоо:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.C2_NONEXPIRED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хугацаа болоогүй Дүн:</label>
+                                <label class="col-sm-4 col-form-label">Хугацаа болоогүй дүн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.C2_NONEXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.C2_NONEXPIRED_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн Тоо:</label>
+                                <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн тоо:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.C2_EXPIRED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн Дүн:</label>
+                                <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн дүн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.C2_EXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.C2_EXPIRED_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -361,6 +366,7 @@
                                 <label class="col-sm-4 col-form-label">Санхүүгийн тоо:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.BENEFIT_FIN, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -369,6 +375,7 @@
                                 <label class="col-sm-4 col-form-label">Санхүүгийн дүн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -377,6 +384,7 @@
                                 <label class="col-sm-4 col-form-label">Санхүүгийн бус үр өгөөжийн тоо:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.BENEFIT_NONFIN, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>

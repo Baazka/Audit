@@ -17,17 +17,23 @@ namespace Audit.Models
     public class BM0
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-        public int? AUDIT_TYPE { get; set; }
+        [Required(ErrorMessage = "Аудитын төрөл сонгоно уу.")]
+        public int AUDIT_TYPE { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
-        public int TOPIC_TYPE { get; set; }
+        public int? TOPIC_TYPE { get; set; }
         public string TOPIC_TYPE_NAME { get; set; }
+        [Required(ErrorMessage = "Сэдвийн код оруулна уу.")]
         public string TOPIC_CODE { get; set; }
+        [Required(ErrorMessage = "Сэдвийн нэр оруулна уу.")]
         public string TOPIC_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_NO { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_DATE { get; set; }
         public int? AUDIT_FORM_TYPE { get; set; }
         public string FORM_TYPE_NAME { get; set; }
@@ -35,13 +41,21 @@ namespace Audit.Models
         public string PROPOSAL_TYPE_NAME { get; set; }
         public int? AUDIT_BUDGET_TYPE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDIT_INCLUDED_ORG { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int WORKING_PERSON { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int WORKING_DAY { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int WORKING_ADDITION_TIME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDIT_DEPARTMENT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_LEAD { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_MEMBER { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_ENTRY { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;

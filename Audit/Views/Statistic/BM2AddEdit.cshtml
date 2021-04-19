@@ -138,6 +138,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    @Html.ValidationMessageFor(m => m.AUDIT_ID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -393,6 +394,7 @@
                                 <label class="col-sm-4 col-form-label">Дараа онд шилжих үлдэгдлийн дүн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.CLAIM_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.CLAIM_C2_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -401,6 +403,7 @@
                                 <label class="col-sm-4 col-form-label">Хугацаа болоогүй:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.CLAIM_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                    @Html.ValidationMessageFor(m => m.CLAIM_C2_NONEXPIRED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -409,6 +412,7 @@
                                 <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.CLAIM_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                    @Html.ValidationMessageFor(m => m.CLAIM_C2_EXPIRED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -417,6 +421,7 @@
                                 <label class="col-sm-4 col-form-label">Санхүүгийн тоо:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.BENEFIT_FIN, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -425,6 +430,7 @@
                                 <label class="col-sm-4 col-form-label">Санхүүгийн дүн:</label>
                                 <div class="col-sm-8">
                                     @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -432,7 +438,8 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Санхүүгийн бус үр өгөөжийн тоо:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } }) 
+                                    @Html.ValidationMessageFor(m => m.BENEFIT_NONFIN, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -16,7 +17,9 @@ namespace Audit.Models
     public class BM3
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "BM0 сонгоно уу.")]
         public int AUDIT_ID { get; set; }
+        [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
@@ -28,7 +31,9 @@ namespace Audit.Models
         public string AUDIT_NAME { get; set; }
         public int AUDIT_BUDGET_TYPE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_NO { get; set; }
 
         public string REFERENCE_DESC { get; set; }
@@ -46,13 +51,20 @@ namespace Audit.Models
         public decimal COMPLETION_DONE_AMOUNT { get; set; }
         public int COMPLETION_PROGRESS { get; set; }
         public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int C2_NONEXPIRED { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal C2_NONEXPIRED_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int C2_EXPIRED { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal C2_EXPIRED_AMOUNT { get; set; }
-        
+
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int BENEFIT_FIN { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int BENEFIT_NONFIN { get; set; }
         public int WORKING_PERSON { get; set; }
         public int WORKING_DAY { get; set; }
