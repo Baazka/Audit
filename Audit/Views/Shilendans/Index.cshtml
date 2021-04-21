@@ -42,19 +42,19 @@
                     <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
                         <thead>
                             <tr>
-                                <th rowspan="2" class="text-center">№</th>
-                                <th rowspan="2">ТЕЗ</th>
-                                <th rowspan="2" width="8%">ТТЗ/ТЕЗ</th>
-                                <th rowspan="2" width="20%">Харъяа аудитын байгууллагын нэр</th>
-                                <th rowspan="2">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
-                                <th rowspan="2">Регистрийн дугаар</th>
+                                <th class="text-center">№</th>
+                                <th>ТЕЗ</th>
+                                <th width="8%">ТТЗ/ТЕЗ</th>
+                                <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                                <th>Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                                <th>Регистрийн дугаар</th>
                                 @*<th>СТАУС бүртгэлийн код</th>*@
-                                <th colspan="3">Мэдээ оруулсан байдал</th>
-                                <th rowspan="2">Шилэн данс</th>
-                            <tr>
-                                <th>МАЯГТ 1</th>
+                                <th>Мэдээ оруулсан эсэх</th>
+                                <th>Шилэн данс</th>
+                            </tr>
+                                @*<th>МАЯГТ 1</th>
                                 <th>МАЯГТ 4</th>
-                                <th>МАЯГТ 6</th>
+                                <th>МАЯГТ 6</th>*@
                         </thead>
                         <tbody>
                         </tbody>
@@ -105,18 +105,18 @@
                             if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
                         }
                     },
-                    {
-                        "data": "TAB2_IS_FINISH", "class": 'text-center', "width": '8%',
-                        render: function (data, type, row, meta) {
-                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
-                        }
-                    },
-                    {
-                        "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
-                        render: function (data, type, row, meta) {
-                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
-                        }
-                    },
+                    //{
+                    //    "data": "TAB2_IS_FINISH", "class": 'text-center', "width": '8%',
+                    //    render: function (data, type, row, meta) {
+                    //        if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                    //    }
+                    //},
+                    //{
+                    //    "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
+                    //    render: function (data, type, row, meta) {
+                    //        if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                    //    }
+                    //},
                     /*{ "data": "ORG_CODE", "name": "ORG_CODE" },*/
                     { "data": null, "sortable": false, "class": 'text-center', "width": '10%',
                         render: function (data, type, row, meta) {
