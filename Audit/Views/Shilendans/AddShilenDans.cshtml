@@ -127,19 +127,19 @@
                     {*@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="maygt1-tab" data-toggle="tab" href="#maygt1" role="tab" aria-selected="true">
-                            МАЯГТ 1
+                            Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т хамаарах байгууллагад хөтлөх маягт
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    @*<li class="nav-item" role="presentation">
                         <a class="nav-link" id="maygt2-tab" data-toggle="tab" href="#maygt2" role="tab" aria-selected="false">
-                            МАЯГТ 4
+                            Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т хамаарах байгууллагад хөтлөх маягт
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="maygt3-tab" data-toggle="tab" href="#maygt3" role="tab" aria-selected="false">
-                            МАЯГТ 6
+                            Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.4, 3.1.5-д хамаарах байгууллагад хөтлөх маягт
                         </a>
-                    </li>
+                    </li>*@
                     @*}*@
                 </ul>
                 <div class="tab-content" id="myTabContent" style="background-color: #e7e7e5; padding:0 10px">
@@ -245,17 +245,17 @@
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link active" id="maygt1_1-tab" data-toggle="tab" href="#maygt1-1" role="tab" aria-selected="true">
-                                            ТӨСӨВ ГҮЙЦЭТГЭЛ
+                                            ХӨТЛӨХ МАЯГТ-1
                                         </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="maygt1_2-tab" data-toggle="tab" href="#maygt1-2" role="tab" aria-selected="false">
-                                            ХӨРӨНГӨ ОРУУЛАЛТ, ТЕНДЕР, ХУДАЛДАН АВАЛТ
+                                            ХӨТЛӨХ МАЯГТ-2
                                         </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="maygt1_3-tab" data-toggle="tab" href="#maygt1-3" role="tab" aria-selected="false">
-                                            БУСАД
+                                            ХӨТЛӨХ МАЯГТ-3
                                         </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
@@ -344,7 +344,8 @@
 
                                         <div style="text-align: right">
                                             <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            @Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.ORG_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
+                                            @*@Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.ORG_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })*@
+                                            <a href="#" class="btn btn-sm" style = "background-color:#233772; color:#fff;">Хэвлэх</a>
                                             <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                                         </div>
                                         <br>
@@ -457,7 +458,7 @@
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link active" id="maygt2_1-tab" data-toggle="tab" href="#maygt2-1" role="tab" aria-selected="true">
-                                            МАЯГТ 4
+                                            ХӨТЛӨХ МАЯГТ-1
                                         </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
@@ -627,6 +628,7 @@
 
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="maygt3-1" role="tabpanel" aria-labelledby="maygt3_1-tab">
+                                        <p style="color: #000;font-size: 12px;text-align: center;margin-top: 10px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.4, 3.1.5-д заасан улс, орон нутгийн төсвийн хөрөнгөөр хөрөнгө оруулалт, төсөл, хөтөлбөр, арга хэмжээ, ажил, үйлчилгээ гүйцэтгэж байгаа аж ахуйн нэгж, байгууллага, төрийн чиг үүрэгт хамаарах ажил, үйлчилгээг хууль тогтоомж, гэрээний үндсэн дээр гүйцэтгэгчид хөтлөх маягт</p>
 
                                         <div style="text-align: right; margin-top:6px;">
                                             <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" data-toggle="modal" data-target="#InsertProjectModal">Нэмэх</button>
@@ -851,7 +853,34 @@
 
 <script>
     $(document).ready(function () {
-        $(".currency").maskMoney({ suffix: ' ' });
+    /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+        .keyup(function(e) {
+				var e = window.event || e;
+				var keyUnicode = e.charCode || e.keyCode;
+				if (e !== undefined) {
+					switch (keyUnicode) {
+						case 16: break; // Shift
+						case 17: break; // Ctrl
+						case 18: break; // Alt
+						case 27: this.value = ''; break; // Esc: clear entry
+						case 35: break; // End
+						case 36: break; // Home
+						case 37: break; // cursor left
+						case 38: break; // cursor up
+						case 39: break; // cursor right
+						case 40: break; // cursor down
+						case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+						case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+						case 190: break; // .
+						default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+					}
+				}
+			})
     });
 </script>
 
