@@ -135,6 +135,7 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                             Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т хамаарах байгууллагад хөтлөх маягт
                         </a>
                     </li>
+                    
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="maygt3-tab" data-toggle="tab" href="#maygt3" role="tab" aria-selected="false">
                             Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.4, 3.1.5-д хамаарах байгууллагад хөтлөх маягт
@@ -271,61 +272,67 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
 
                                             <table class="table table-bordered" style="font-size:12px;">
                                                 <tr>
-                                                    <th>Хуулийн заалт</th>
+                                                    <th class="text-center">Хуулийн заалт</th>
                                                     <th>Мэдээллийн агуулга </th>
-                                                    <th>Хугацаа</th>
+                                                    <th class="text-center">Хугацаа</th>
                                                     <th>Үнэлгээ</th>
                                                 </tr>
                                                 @Html.EditorFor(t => t.tab1)
                                             </table>
 
                                             <div style="text-align: right">
-                                                <button type="submit" value="tab1save" name="button" id="tab1saving" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                 @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
                                                 <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                <button type="submit" value="tab1save" name="button" id="tab1saving" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                             </div>
                                             <br>
                                         </div>
 
                                         <div class="tab-pane fade" id="maygt1-2" role="tabpanel" aria-labelledby="maygt1_2-tab">
+                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
                                             <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
                                             <table class="table table-bordered" style="font-size:12px;">
                                                 <tr>
-                                                    <th>Хуулийн заалт</th>
+                                                    <th class="text-center">Хуулийн заалт</th>
                                                     <th>Мэдээллийн агуулга </th>
-                                                    <th>Хугацаа</th>
+                                                    <th class="text-center">Хугацаа</th>
                                                     <th>Үнэлгээ</th>
                                                 </tr>
                                                 @Html.EditorFor(t => t.tab2)
                                             </table>
 
                                             <div style="text-align: right">
-                                                <button type="submit" value="tab2save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                 <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                <button type="submit" value="tab2save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                             </div>
                                             <br>
                                         </div>
 
                                         <div class="tab-pane fade" id="maygt1-3" role="tabpanel" aria-labelledby="maygt1_3-tab">
+                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
                                             <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
                                             <table class="table table-bordered" style="font-size:12px;">
                                                 <tr>
-                                                    <th>Хуулийн заалт</th>
+                                                    <th class="text-center">Хуулийн заалт</th>
                                                     <th>Мэдээллийн агуулга </th>
-                                                    <th>Хугацаа</th>
+                                                    <th class="text-center">Хугацаа</th>
                                                     <th>Үнэлгээ</th>
                                                 </tr>
                                                 @Html.EditorFor(t => t.tab3)
                                             </table>
 
                                             <div style="text-align: right">
-                                                <button type="submit" value="tab3save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                 <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                <button type="submit" value="tab3save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                             </div>
                                             <br>
                                         </div>
 
                                         <div class="tab-pane fade" id="maygt1-4" role="tabpanel" aria-labelledby="maygt1_4-tab">
+                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
                                             <table class="table table-bordered" style="font-size:12px;">
                                                 <tr>
                                                     <th>Мэдээллийн агуулга </th>
@@ -342,14 +349,14 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                                 </tr>
                                             </table>
 
-                                        <div style="text-align: right">
-                                            <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            @*@Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.ORG_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })*@
-                                            <a href="#" class="btn btn-sm" style = "background-color:#233772; color:#fff;">Хэвлэх</a>
-                                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                            <div style="text-align: right">
+                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                @*@Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.ORG_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })*@
+                                                <a href="#" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</a>
+                                                <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                            </div>
+                                            <br>
                                         </div>
-                                        <br>
-                                    </div>
                                 </div>
                             </div>
                         </fieldset>
@@ -483,8 +490,8 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                                 </table>
 
                                                 <div style="text-align: right">
-                                                    <button type="submit" value="tab5save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                     <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                    <button type="submit" value="tab5save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                 </div>
                                                 <br>
                                             </div>
@@ -507,9 +514,9 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                                 </table>
 
                                                 <div style="text-align: right">
-                                                    <button type="submit" value="tab6save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                                    <button type="button" id="printButton" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
                                                     <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                    <button type="button" id="printButton" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
+                                                    <button type="submit" value="tab6save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                 </div>
                                                 <br>
                                             </div>
@@ -774,9 +781,9 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                     <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
                     <table class="table table-bordered" style="font-size:12px;">
                         <tr>
-                            <th width="10%">Хуулийн заалт</th>
+                            <th width="10%" class="text-center">Хуулийн заалт</th>
                             <th width="40%">Мэдээллийн агуулга </th>
-                            <th width="10%">Хугацаа</th>
+                            <th width="10%" class="text-center">Хугацаа</th>
                             <th width="40%">Үнэлгээ</th>
                         </tr>
                         @Html.EditorFor(t => t.tab7)
@@ -791,10 +798,10 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                     </table>
 
                     <div style="text-align: right">
-                        <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                        <button type="submit" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
                         <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
                         @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
+                        <button type="submit" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
+                        <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                     </div>
                     <br>
                 </div>

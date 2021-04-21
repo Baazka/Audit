@@ -10,8 +10,8 @@
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.TextAreaFor(x => x.Data02, new { @style = "width: 100%;" })</td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td style="vertical-align:middle;">@Html.TextAreaFor(x => x.Data02, new { @style = "width: 100%;" })</td>
     </tr>
 }
 else
@@ -21,7 +21,7 @@ else
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>
             @Html.DropDownListFor(model => model.Data01, new SelectList(
                         new List<Object>{

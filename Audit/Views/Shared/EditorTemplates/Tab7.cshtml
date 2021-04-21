@@ -29,9 +29,9 @@
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data02, new { @style = "width: 100%;", @placeholder = "Утга оруулна уу" })</td>
     </tr>
 }
@@ -42,9 +42,9 @@
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.EditorFor(x => x.Data02, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @placeholder = "Өдөр сонгоно уу" } })</td>
     </tr>
 }
@@ -55,9 +55,9 @@
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "text-right currency" })</td>
     </tr>
 }
@@ -68,9 +68,9 @@
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @type = "number", @placeholder = "Утга оруулна уу" })</td>
     </tr>
 }
