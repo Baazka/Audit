@@ -33,15 +33,15 @@ namespace Audit.Models
     public class BM0ListRequest : DataTableAjaxPostModel
     {
         public int ID { get; set; }
-        public string AUDIT_TYPE { get; set; }
-        public string TOPIC_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
         public string TOPIC_CODE { get; set; }
         public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
-        public string AUDIT_FORM_TYPE { get; set; }
-        public string AUDIT_PROPOSAL_TYPE { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string FORM_TYPE_NAME { get; set; }
+        public string PROPOSAL_TYPE_NAME { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string AUDIT_INCLUDED_ORG { get; set; }
         public int WORKING_PERSON { get; set; }
         public int WORKING_DAY { get; set; }
@@ -63,15 +63,18 @@ namespace Audit.Models
     {
         public int ID { get; set; }
         public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
+        public int AUDIT_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
         public string ACT_NO { get; set; }
         public string ACT_VIOLATION_DESC { get; set; }
-        public string ACT_VIOLATION_TYPE { get; set; }
+        public int ACT_VIOLATION_TYPE { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public string ACT_SUBMITTED_DATE { get; set; }
         public string ACT_DELIVERY_DATE { get; set; }
         public int ACT_AMOUNT { get; set; }
@@ -114,17 +117,25 @@ namespace Audit.Models
     public class BM2ListRequest : DataTableAjaxPostModel
     {
         public int ID { get; set; }
+        public int AUDIT_ID { get; set; }
+        public int OFFICE_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public int STATISTIC_PERIOD { get; set; }
+        public string PERIOD_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
+        public int AUDIT_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
 
         public string CLAIM_NO { get; set; }
         public string CLAIM_VIOLATION_DESC { get; set; }
-        public string CLAIM_VIOLATION_TYPE { get; set; }
+        public int CLAIM_VIOLATION_TYPE { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public string CLAIM_SUBMITTED_DATE { get; set; }
         public string CLAIM_DELIVERY_DATE { get; set; }
         public decimal CLAIM_VIOLATION_AMOUNT { get; set; }
@@ -151,7 +162,6 @@ namespace Audit.Models
         public decimal BENEFIT_FIN { get; set; }
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
         public decimal BENEFIT_NONFIN { get; set; }
-        public int EXEC_TYPE { get; set; }
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
@@ -165,10 +175,12 @@ namespace Audit.Models
     {
         public int ID { get; set; }
         public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
+        public int AUDIT_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
 
@@ -212,10 +224,12 @@ namespace Audit.Models
     {
         public int ID { get; set; }
         public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
+        public int AUDIT_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
 
@@ -230,7 +244,8 @@ namespace Audit.Models
         public string PROPOSAL_RCV_GIVEN_NAME { get; set; }
         public string PROPOSAL_RCV_ADDRESS { get; set; }
         public string PROPOSAL_CONTROL_AUDITOR { get; set; }
-        public string PROPOSAL_VIOLATION_TYPE { get; set; }
+        public int PROPOSAL_VIOLATION_TYPE { get; set; }
+        public string VIOLATION_NAME { get; set; }
 
         public string COMPLETION_ORDER { get; set; }
         public int COMPLETION_DONE { get; set; }
@@ -252,16 +267,19 @@ namespace Audit.Models
     {
         public int ID { get; set; }
         public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
+        public int AUDIT_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
 
         public string LAW_RESPONDANT_NAME { get; set; }
         public string LAW_VIOLATION_DESC { get; set; }
-        public string LAW_VIOLATION_TYPE { get; set; }
+        public int LAW_VIOLATION_TYPE { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public string LAW_MOVING_INFORMATION { get; set; }
         public int LAW_NUMBER { get; set; }
         public decimal LAW_AMOUNT { get; set; }

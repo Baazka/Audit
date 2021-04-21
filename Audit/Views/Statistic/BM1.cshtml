@@ -57,7 +57,7 @@
                         <th rowspan="4">Аудитын төрөл</th>
                         <th rowspan="4">Аудитын код</th>
                         <th rowspan="4">Аудитын нэр</th>
-                        <th rowspan="4">Сэдвийн ангилал</th>
+                        <th rowspan="4">Төсөв захирагч / Сэдвийн ангилал</th>
                         <th colspan="2">Батлагдсан тушаал</th>
                         <th colspan="14">Төлбөрийн актын мэдээлэл</th>
                         <th rowspan="4">Төлбөрийн актын хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог, нэр, албан тушаал</th>
@@ -152,15 +152,15 @@
                         }
                     },
                     { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
+                    { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
                     { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
                     { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
-                    { "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "ORDER_DATE", "name": "ORDER_DATE" },
                     { "data": "ORDER_NO", "name": "ORDER_NO" },
                     { "data": "ACT_NO", "name": "ACT_NO" },
                     { "data": "ACT_VIOLATION_DESC", "name": "ACT_VIOLATION_DESC" },
-                    { "data": "ACT_VIOLATION_TYPE", "name": "ACT_VIOLATION_TYPE" },
+                    { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME" },
                     { "data": "ACT_SUBMITTED_DATE", "name": "ACT_SUBMITTED_DATE" },
                     { "data": "ACT_DELIVERY_DATE", "name": "ACT_DELIVERY_DATE" },
                     { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT" },
@@ -216,7 +216,16 @@
                 lengthChange: true,
                 "language": datatables.language
             });
+        }
+        function Choose (id, code, name, orderdate, orderno, audittype) {
+            $("#Bm1Modal input#AUDIT_ID").val(id);
+            $("#Bm1Modal #AUDIT_TYPE").val(audittype);
+            $("#Bm1Modal input#AUDIT_CODE").val(code);
+            $("#Bm1Modal input#AUDIT_NAME").val(name);
+            $("#Bm1Modal input#ORDER_DATE").val(orderdate);
+            $("#Bm1Modal input#ORDER_NO").val(orderno);
 
+            $('#BM0ListModel').modal('hide');
         }
         $('#DeparmentID').change(function () {
             bm1ListInit();
@@ -232,7 +241,41 @@
             $('<div/>', { id: "bm1modalcontainer" }).appendTo('body').append(data);
 
             $("#Bm1Modal").modal({ show: true });
+
+            $(".btnBM0listPopup").on('click', function () {
+                if ($('#OFFICE_ID').val() != null && $('#OFFICE_ID').val() != '')
+                    BM1.BM0List($('#OFFICE_ID').val());
+                else 
+                    alert('Төрийн аудитын байгууллага сонгоно уу.');                
+            });
         },
+        displayBM0List: function (data) {
+            $("div#bm0listmodalcontainer").remove();
+                $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
+
+                $('#Bm1Modal').modal('hide');
+            $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                $('#Bm1Modal').modal('show');
+            });
+        },
+        BM0List: function (officeid) {
+            $.ajax({
+                    url: '@Url.Action("BM0Search", "Statistic", new { Area = "" })',
+                    type: 'GET',
+                    cache: false,
+                    data: { officeid },
+                    success: function (data) {
+                        BM1.displayBM0List(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+        },            
         loadTemplate: function () {
             $.ajax({
                     url: "@Url.Action("BM1AddEdit", "Statistic", new { Area = "" })",

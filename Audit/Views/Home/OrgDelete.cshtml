@@ -75,13 +75,13 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Огноо</label>
-                                @Html.EditorFor(m => m.P_IDATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                @Html.EditorFor(m => m.P_IDATE, new { htmlAttributes = new { @class = "form-control form-control-sm", @Value = DateTime.Now.ToString("dd-MMM-yy"), @readonly ="readonly" } })
                                 @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Шалтгаан</label>
                                 @Html.DropDownListFor(model => model.P_REASONID, Model.reasons.Select(m => new SelectListItem { Text = m.INACTIVE_REASON_NAME, Value = m.INACTIVE_REASON_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                @Html.ValidationMessageFor(m => m.P_IDATE, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(m => m.P_REASONID, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Тайлбар</label>
@@ -102,7 +102,7 @@
         }
     </div>
 </div>
-<script>
+@*<script>
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -116,4 +116,4 @@
           monthNames: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"]
       });
   });
-</script>
+</script>*@

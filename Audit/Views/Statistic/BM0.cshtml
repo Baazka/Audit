@@ -52,7 +52,7 @@
                 <thead>
                     <tr>
                         <th rowspan="3" class="text-center">№</th>
-                        <th colspan="12">Ерөнхий мэдээлэл</th>
+                        <th colspan="13">Ерөнхий мэдээлэл</th>
                         <th colspan="4">Аудитын багийн мэдээлэл</th>
                         <th rowspan="3" class="text-center">Үйлдэл</th>
                     </tr>
@@ -63,6 +63,7 @@
                         <th rowspan="2">Сэдвийн нэр</th>
                         <th rowspan="2">Батлагдсан тушаалын дугаар</th>
                         <th rowspan="2">Батлагдсан огноо</th>
+                        <th rowspan="2">Аудит хийсэн хэлбэр</th>
                         <th rowspan="2">Санал дүгнэлтийн төрөл</th>
                         <th rowspan="2">Төсөв захирагчийн ангилал</th>
                         <th rowspan="2">Хамрагдсан байгууллагын жагсаалт</th>
@@ -114,15 +115,15 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "TOPIC_TYPE", "name": "TOPIC_TYPE" },
+                    { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
+                    { "data": "TOPIC_TYPE_NAME", "name": "TOPIC_TYPE_NAME" },
                     { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
                     { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
                     { "data": "ORDER_NO", "name": "ORDER_NO" },
                     { "data": "ORDER_DATE", "name": "ORDER_DATE" },
-                    //{ "data": "AUDIT_FORM_TYPE", "name": "AUDIT_FORM_TYPE" },
-                    { "data": "AUDIT_PROPOSAL_TYPE", "name": "AUDIT_PROPOSAL_TYPE" },
-                    { "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
+                    { "data": "FORM_TYPE_NAME", "name": "FORM_TYPE_NAME" },
+                    { "data": "PROPOSAL_TYPE_NAME", "name": "PROPOSAL_TYPE_NAME" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "AUDIT_INCLUDED_ORG", "name": "AUDIT_INCLUDED_ORG" },
                     { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
                     { "data": "WORKING_DAY", "name": "WORKING_DAY" },
@@ -171,8 +172,41 @@
             $("div#bm0modalcontainer").remove();
             $('<div/>', { id: "bm0modalcontainer" }).appendTo('body').append(data);
 
+            $('#Bm0Modal #AUDIT_TYPE').change(function () {
+                //TopicType
+                if ($("#Bm0Modal #TOPIC_TYPE").children().length > 1)
+                    $("#Bm0Modal #TOPIC_TYPE option:not(:first)").remove();
+                var $options = $("#Bm0Modal #ddTopicTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#Bm0Modal #TOPIC_TYPE").append($options);
+                //FormType
+                if ($("#Bm0Modal #AUDIT_FORM_TYPE").children().length > 1)
+                    $("#Bm0Modal #AUDIT_FORM_TYPE option:not(:first)").remove();
+                var $options = $("#Bm0Modal #ddFormTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
+                //ProsolType
+                if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
+                    $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
+                var $options = $("#Bm0Modal #ddProposalTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
+                //ProsolType
+                if ($("#Bm0Modal #AUDIT_BUDGET_TYPE").children().length > 1)
+                    $("#Bm0Modal #AUDIT_BUDGET_TYPE option:not(:first)").remove();
+                var $options = $("#Bm0Modal #ddRefBudgetTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#Bm0Modal #AUDIT_BUDGET_TYPE").append($options);
+
+            });
+
             $("#Bm0Modal").modal({ show: true });
-        },
+            },
+            
         loadTemplate: function () {
             $.ajax({
                     url: "@Url.Action("BM0AddEdit", "Statistic", new { Area = "" })",

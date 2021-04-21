@@ -1,0 +1,15 @@
+﻿@using ReportViewerForMvc;
+@{
+    ViewBag.Title = "Index";
+}
+@if (ViewBag.ReportViewer != null)
+{
+    @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+}
+<style>
+   
+    iframe {
+        width: 100% !important;
+        height: 100% !important;
+    }
+</style>

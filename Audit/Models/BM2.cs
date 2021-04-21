@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -16,21 +17,29 @@ namespace Audit.Models
     public class BM2
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "BM0 сонгоно уу.")]
+        public int AUDIT_ID { get; set; }
+        [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
+        public int AUDIT_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public int AUDIT_BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_NO { get; set; }
 
         public string CLAIM_NO { get; set; }
         public string CLAIM_VIOLATION_DESC { get; set; }
-        public string CLAIM_VIOLATION_TYPE { get; set; }
+        public int CLAIM_VIOLATION_TYPE { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public string CLAIM_SUBMITTED_DATE { get; set; }
         public string CLAIM_DELIVERY_DATE { get; set; }
         public decimal CLAIM_VIOLATION_AMOUNT { get; set; }
@@ -51,18 +60,29 @@ namespace Audit.Models
         public decimal REMOVED_INVALID_AMOUNT { get; set; }
         public string REMOVED_INVALID_DATE { get; set; }
         public string REMOVED_INVALID_NO { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal CLAIM_C2_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal CLAIM_C2_NONEXPIRED { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal CLAIM_C2_EXPIRED { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal BENEFIT_FIN { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
 
+        public int IS_ACTIVE { get; set; } = 1;
         public DateTime? CREATED_DATE { get; set; }
         public DateTime? UPDATED_DATE { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
+        public List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
+        public List<REF_VIOLATION_TYPE> refviolationtypes { get; set; } = new List<REF_VIOLATION_TYPE>();
+        public List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();
+        public List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
 
         public BM2 SetXml(XElement xml)
         {
@@ -70,6 +90,8 @@ namespace Audit.Models
             {
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("AUDIT_ID") != null)
+                    AUDIT_ID = Convert.ToInt32(xml.Element("AUDIT_ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
                     OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
                 if (xml.Element("DEPARTMENT_NAME") != null)
@@ -82,13 +104,17 @@ namespace Audit.Models
                 if (xml.Element("AUDIT_YEAR") != null)
                     AUDIT_YEAR = Convert.ToInt32(xml.Element("AUDIT_YEAR").Value);
                 if (xml.Element("AUDIT_TYPE") != null)
-                    AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
+                    AUDIT_TYPE = Convert.ToInt32(xml.Element("AUDIT_TYPE").Value);
+                if (xml.Element("AUDIT_TYPE_NAME") != null)
+                    AUDIT_TYPE_NAME = xml.Element("AUDIT_TYPE_NAME").Value;
                 if (xml.Element("AUDIT_CODE") != null)
                     AUDIT_CODE = xml.Element("AUDIT_CODE").Value;
                 if (xml.Element("AUDIT_NAME") != null)
                     AUDIT_NAME = xml.Element("AUDIT_NAME").Value;
                 if (xml.Element("AUDIT_BUDGET_TYPE") != null)
-                    AUDIT_BUDGET_TYPE = xml.Element("AUDIT_BUDGET_TYPE").Value;
+                    AUDIT_BUDGET_TYPE = Convert.ToInt32(xml.Element("AUDIT_BUDGET_TYPE").Value);
+                if (xml.Element("BUDGET_TYPE_NAME") != null)
+                    BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
                 if (xml.Element("ORDER_DATE") != null)
                     ORDER_DATE = xml.Element("ORDER_DATE").Value;
                 if (xml.Element("ORDER_NO") != null)
@@ -99,7 +125,9 @@ namespace Audit.Models
                 if (xml.Element("CLAIM_VIOLATION_DESC") != null)
                     CLAIM_VIOLATION_DESC = xml.Element("CLAIM_VIOLATION_DESC").Value;
                 if (xml.Element("CLAIM_VIOLATION_TYPE") != null)
-                    CLAIM_VIOLATION_TYPE = xml.Element("CLAIM_VIOLATION_TYPE").Value;
+                    CLAIM_VIOLATION_TYPE = Convert.ToInt32(xml.Element("CLAIM_VIOLATION_TYPE").Value);
+                if (xml.Element("VIOLATION_NAME") != null)
+                    VIOLATION_NAME = xml.Element("VIOLATION_NAME").Value;
                 if (xml.Element("CLAIM_SUBMITTED_DATE") != null)
                     CLAIM_SUBMITTED_DATE = xml.Element("CLAIM_SUBMITTED_DATE").Value;
                 if (xml.Element("CLAIM_DELIVERY_DATE") != null)
@@ -161,30 +189,49 @@ namespace Audit.Models
         }
         public XElement ToXml()
         {
-            return new XElement("BM0",
+            return new XElement("BM2",
                        new XElement("ID", ID),
+                       new XElement("ID", AUDIT_ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
-                       //new XElement("AUDIT_TYPE", AUDIT_TYPE),
-                       //new XElement("TOPIC_TYPE", TOPIC_TYPE),
-                       //new XElement("TOPIC_CODE", TOPIC_CODE),
-                       //new XElement("TOPIC_NAME", TOPIC_NAME),
-                       //new XElement("ORDER_NO", ORDER_NO),
-                       //new XElement("ORDER_DATE", ORDER_DATE),
-                       //new XElement("AUDIT_PROPOSAL_TYPE", AUDIT_PROPOSAL_TYPE),
-                       //new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
-                       //new XElement("AUDIT_INCLUDED_ORG", AUDIT_INCLUDED_ORG),
-                       //new XElement("WORKING_PERSON", WORKING_PERSON),
-                       //new XElement("WORKING_DAY", WORKING_DAY),
-                       //new XElement("WORKING_ADDITION_TIME", WORKING_ADDITION_TIME),
-                       //new XElement("AUDIT_DEPARTMENT", AUDIT_DEPARTMENT),
-                       //new XElement("AUDITOR_LEAD", AUDITOR_LEAD),
-                       //new XElement("AUDITOR_MEMBER", AUDITOR_MEMBER),
-                       //new XElement("AUDITOR_ENTRY", AUDITOR_ENTRY),
-                       //new XElement("EXEC_TYPE", EXEC_TYPE),
-                       //new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null),
-                       new XElement("UPDATED_DATE", UPDATED_DATE != null ? ((DateTime)UPDATED_DATE).ToString("dd-MMM-yy") : null)
+                       new XElement("AUDIT_YEAR", AUDIT_YEAR),
+                       new XElement("AUDIT_TYPE", AUDIT_TYPE),
+                       new XElement("AUDIT_CODE", AUDIT_CODE),
+                       new XElement("AUDIT_NAME", AUDIT_NAME),
+                       new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
+                       new XElement("ORDER_DATE", ORDER_DATE),
+                       new XElement("ORDER_NO", ORDER_NO),
+                       new XElement("CLAIM_NO", CLAIM_NO),
+                       new XElement("CLAIM_VIOLATION_DESC", CLAIM_VIOLATION_DESC),
+                       new XElement("CLAIM_VIOLATION_TYPE", CLAIM_VIOLATION_TYPE),
+                       new XElement("CLAIM_SUBMITTED_DATE", CLAIM_SUBMITTED_DATE),
+                       new XElement("CLAIM_DELIVERY_DATE", CLAIM_DELIVERY_DATE),
+                       new XElement("CLAIM_VIOLATION_AMOUNT", CLAIM_VIOLATION_AMOUNT),
+                       new XElement("CLAIM_RCV_NAME", CLAIM_RCV_NAME),
+                       new XElement("CLAIM_RCV_ROLE", CLAIM_RCV_ROLE),
+                       new XElement("CLAIM_RCV_GIVEN_NAME", CLAIM_RCV_GIVEN_NAME),
+                       new XElement("CLAIM_RCV_ADDRESS", CLAIM_RCV_ADDRESS),
+                       new XElement("CLAIM_CONTROL_AUDITOR", CLAIM_CONTROL_AUDITOR),
+                       new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
+                       new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT),
+                       new XElement("COMPLETION_STATE_AMOUNT", COMPLETION_STATE_AMOUNT),
+                       new XElement("COMPLETION_LOCAL_AMOUNT", COMPLETION_LOCAL_AMOUNT),
+                       new XElement("COMPLETION_ORG_AMOUNT", COMPLETION_ORG_AMOUNT),
+                       new XElement("COMPLETION_OTHER_AMOUNT", COMPLETION_OTHER_AMOUNT),
+                       new XElement("REMOVED_LAW_AMOUNT", REMOVED_LAW_AMOUNT),
+                       new XElement("REMOVED_LAW_DATE", REMOVED_LAW_DATE),
+                       new XElement("REMOVED_LAW_NO", REMOVED_LAW_NO),
+                       new XElement("REMOVED_INVALID_AMOUNT", REMOVED_INVALID_AMOUNT),
+                       new XElement("REMOVED_INVALID_DATE", REMOVED_INVALID_DATE),
+                       new XElement("REMOVED_INVALID_NO", REMOVED_INVALID_NO),
+                       new XElement("CLAIM_C2_AMOUNT", CLAIM_C2_AMOUNT),
+                       new XElement("CLAIM_C2_NONEXPIRED", CLAIM_C2_NONEXPIRED),
+                       new XElement("CLAIM_C2_EXPIRED", CLAIM_C2_EXPIRED),
+                       new XElement("BENEFIT_FIN", BENEFIT_FIN),
+                       new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT),
+                       new XElement("BENEFIT_NONFIN", BENEFIT_NONFIN),
+                       new XElement("IS_ACTIVE", IS_ACTIVE),
+                       new XElement("CREATED_DATE", CREATED_DATE)
                        );
         }
     }

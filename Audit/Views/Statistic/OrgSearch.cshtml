@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+<div class="modal fade" id="OrgSearchModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">BM0 бүртгэл</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-sm mb-3">
+                    <input type="text" name="vsearch" id="vsearch" class="form-control" placeholder="Нэр, регистр">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="searchBtn"><i class="fa fa-search"></i> Хайх</button>
+                    </div>
+                </div>
+                <div id="datalist">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#vsearch').keypress(function (e) {
+        if (e.which == 13) {
+            $('#searchBtn').click();
+            return false;    //<---- Add this line
+        }
+    });
+    $("#searchBtn").unbind().click(function () {
+        $.ajax({
+            url: "@Url.Action("OrgSearch", "Statistic", new { Area = "" })",
+            type: 'POST',
+            data: { vsearch: $("#vsearch").val() },
+            success: function (data, status, xhr) {
+                $("#datalist").html(data);
+                initDataTableFeatureDisabled();
+            },
+            error: errorResponse,
+            beforeSend: function () {
+                Modal.show();
+            },
+            complete: function () {
+                Modal.hide();
+            }
+        });
+    });
+</script>

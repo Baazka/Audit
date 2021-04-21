@@ -235,4 +235,107 @@ namespace Audit.Models
             return this;
         }
     }
+    public class REF_AUDIT_TYPE
+    {
+        public int AUDIT_TYPE_ID { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public REF_AUDIT_TYPE FromXml(XElement elem)
+        {
+            if (elem.Element("AUDIT_TYPE_ID") != null)
+                AUDIT_TYPE_ID = Convert.ToInt32(elem.Element("AUDIT_TYPE_ID").Value);
+            if (elem.Element("AUDIT_TYPE_NAME") != null)
+                AUDIT_TYPE_NAME = elem.Element("AUDIT_TYPE_NAME").Value;
+            return this;
+        }
+    }
+    public class REF_TOPIC_TYPE
+    {
+        public int TOPIC_TYPE_ID { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public int TOPIC_AUDIT_TYPE_ID { get; set; }
+        public REF_TOPIC_TYPE FromXml(XElement elem)
+        {
+            if (elem.Element("TOPIC_TYPE_ID") != null)
+                TOPIC_TYPE_ID = Convert.ToInt32(elem.Element("TOPIC_TYPE_ID").Value);
+            if (elem.Element("TOPIC_TYPE_NAME") != null)
+                TOPIC_TYPE_NAME = elem.Element("TOPIC_TYPE_NAME").Value;
+            if (elem.Element("TOPIC_AUDIT_TYPE_ID") != null)
+                TOPIC_AUDIT_TYPE_ID = Convert.ToInt32(elem.Element("TOPIC_AUDIT_TYPE_ID").Value);
+            return this;
+        }
+    }
+    public class REF_FORM_TYPE
+    {
+        public int FORM_TYPE_ID { get; set; }
+        public string FORM_TYPE_NAME { get; set; }
+        public int FORM_AUDIT_TYPE_ID { get; set; }
+        public REF_FORM_TYPE FromXml(XElement elem)
+        {
+            if (elem.Element("FORM_TYPE_ID") != null)
+                FORM_TYPE_ID = Convert.ToInt32(elem.Element("FORM_TYPE_ID").Value);
+            if (elem.Element("FORM_TYPE_NAME") != null)
+                FORM_TYPE_NAME = elem.Element("FORM_TYPE_NAME").Value;
+            if (elem.Element("FORM_AUDIT_TYPE_ID") != null)
+                FORM_AUDIT_TYPE_ID = Convert.ToInt32(elem.Element("FORM_AUDIT_TYPE_ID").Value);
+            return this;
+        }
+    }
+    public class REF_PROPOSAL_TYPE
+    {
+        public int PROPOSAL_TYPE_ID { get; set; }
+        public string PROPOSAL_TYPE_NAME { get; set; }
+        public int PROPOSAL_AUDIT_TYPE_ID { get; set; }
+        public REF_PROPOSAL_TYPE FromXml(XElement elem)
+        {
+            if (elem.Element("PROPOSAL_TYPE_ID") != null)
+                PROPOSAL_TYPE_ID = Convert.ToInt32(elem.Element("PROPOSAL_TYPE_ID").Value);
+            if (elem.Element("PROPOSAL_TYPE_NAME") != null)
+                PROPOSAL_TYPE_NAME = elem.Element("PROPOSAL_TYPE_NAME").Value;
+            if (elem.Element("PROPOSAL_AUDIT_TYPE_ID") != null)
+                PROPOSAL_AUDIT_TYPE_ID = Convert.ToInt32(elem.Element("PROPOSAL_AUDIT_TYPE_ID").Value);
+            return this;
+        }
+    }
+    public class REF_BUDGET_TYPE
+    {
+        public int BUDGET_TYPE_ID { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
+        public int BUDGET_AUDIT_TYPE_ID { get; set; }
+        public REF_BUDGET_TYPE FromXml(XElement elem)
+        {
+            if (elem.Element("BUDGET_TYPE_ID") != null)
+                BUDGET_TYPE_ID = Convert.ToInt32(elem.Element("BUDGET_TYPE_ID").Value);
+            if (elem.Element("BUDGET_TYPE_NAME") != null)
+                BUDGET_TYPE_NAME = elem.Element("BUDGET_TYPE_NAME").Value;
+            if (elem.Element("BUDGET_AUDIT_TYPE_ID") != null)
+                BUDGET_AUDIT_TYPE_ID = Convert.ToInt32(elem.Element("BUDGET_AUDIT_TYPE_ID").Value);
+            return this;
+        }
+    }
+    public class REF_AUDIT_YEAR
+    {
+        public int YEAR_ID { get; set; }
+        public string YEAR_LABEL { get; set; }
+        public REF_AUDIT_YEAR FromXml(XElement elem)
+        {
+            if (elem.Element("YEAR_ID") != null)
+                YEAR_ID = Convert.ToInt32(elem.Element("YEAR_ID").Value);
+            if (elem.Element("YEAR_LABEL") != null)
+                YEAR_LABEL = elem.Element("YEAR_LABEL").Value;
+            return this;
+        }
+    }
+    public class REF_VIOLATION_TYPE
+    {
+        public int VIOLATION_ID { get; set; }
+        public string VIOLATION_NAME { get; set; }
+        public REF_VIOLATION_TYPE FromXml(XElement elem)
+        {
+            if (elem.Element("VIOLATION_ID") != null)
+                VIOLATION_ID = Convert.ToInt32(elem.Element("VIOLATION_ID").Value);
+            if (elem.Element("VIOLATION_NAME") != null)
+                VIOLATION_NAME = elem.Element("VIOLATION_NAME").Value;
+            return this;
+        }
+    }
 }

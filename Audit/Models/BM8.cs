@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -16,6 +17,9 @@ namespace Audit.Models
     public class BM8
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "BM0 сонгоно уу.")]
+        public int AUDIT_ID { get; set; }
+        [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
@@ -35,6 +39,10 @@ namespace Audit.Models
         public DateTime? UPDATED_DATE { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
+        public List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
+        public List<REF_VIOLATION_TYPE> refviolationtypes { get; set; } = new List<REF_VIOLATION_TYPE>();
+        public List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();
+        public List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
 
         public BM8 SetXml(XElement xml)
         {
@@ -42,6 +50,8 @@ namespace Audit.Models
             {
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("AUDIT_ID") != null)
+                    AUDIT_ID = Convert.ToInt32(xml.Element("AUDIT_ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
                     OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
                 if (xml.Element("DEPARTMENT_NAME") != null)
@@ -78,6 +88,7 @@ namespace Audit.Models
         {
             return new XElement("BM8",
                        new XElement("ID", ID),
+                       new XElement("AUDIT_ID", AUDIT_ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
                        new XElement("AUDIT_YEAR", AUDIT_YEAR),
