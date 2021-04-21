@@ -21,3 +21,89 @@
 .modal-dialog {
     height: 100%!important;
 }
+.modal-header {
+    background-color: #233772;
+    padding: 0.5rem 1rem;
+}
+
+.modal-title {
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.tab-content {
+    min-height: 500px;
+}
+
+.close {
+    font-weight: normal;
+    text-shadow: none;
+    opacity: inherit;
+    color: white;
+}
+
+.col-form-label {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.field-validation-error {
+    font-size: 12px;
+}
+
+.modal-body h6 {
+    text-transform: uppercase;
+    color: #233772;
+}
+
+label {
+    font-size: 12px !important;
+}
+
+div.ui-datepicker {
+    font-size: 12px;
+}
+
+.ui-datepicker-trigger {
+    position: absolute;
+    right: 15px;
+    top: 7px;
+}
+
+.nav-tabs {
+    background-color: white;
+    height: auto;
+    width: 100%;
+}
+
+    .nav-tabs .nav-item {
+        background-color: #e7e7e5;
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;
+    }
+
+        .nav-tabs .nav-item.show .nav-item, .nav-tabs .nav-link.active {
+            background-color: #e7e7e5;
+            border: none !important;
+            border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+            color: #1b508a;
+        }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #1b508a;
+        font-weight: bold;
+        font-size: small;
+        padding: 4px 20px;
+        height: auto;
+        align-self: center;
+        border-color: white;
+        border-style: solid;
+        border-width: 3.5px;
+        border-top: none;
+    }
