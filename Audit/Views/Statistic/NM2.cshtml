@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM2', 'НМ-2. Төрийн аудитын газрын албан шаардлагын нэгтгэл')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM2', 'НМ-2. Төрийн аудитын газрын албан шаардлагын нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,9 +39,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM2" class="table table-bordered datatable display" style="width:100%">
+            <table id="NM2" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Аудитын код</th>
                         <th rowspan="3">Аудитын нэр</th>
@@ -51,7 +52,7 @@
                         <th colspan="4">Үүнээс</th>
                         <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2">Тоо</th>
                         <th rowspan="2">Дүн</th>
                         <th rowspan="2">Тоо</th>
@@ -68,7 +69,7 @@
                         <th colspan="2">Санхүүгийн</th>
                         <th>Санхүүгийн бус</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -134,35 +135,33 @@
                     { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
                     //{ "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
 
-                    { "data": "CLAIM_VIOLATION_COUNT", "name": "CLAIM_VIOLATION_COUNT" },
-                    { "data": "CLAIM_VIOLATION_AMOUNT", "name": "CLAIM_VIOLATION_AMOUNT" },
-                    { "data": "COMPLETION_COUNT", "name": "COMPLETION_COUNT" },
-                    { "data": "COMPLETION_AMOUNT", "name": "COMPLETION_AMOUNT" },
-                    { "data": "COMPLETION_STATE_COUNT", "name": "COMPLETION_STATE_COUNT" },
-                    { "data": "COMPLETION_STATE_AMOUNT", "name": "COMPLETION_STATE_AMOUNT" },
-                    { "data": "COMPLETION_LOCAL_COUNT", "name": "COMPLETION_LOCAL_COUNT" },
-                    { "data": "COMPLETION_LOCAL_AMOUNT", "name": "COMPLETION_LOCAL_AMOUNT" },
-                    { "data": "COMPLETION_ORG_COUNT", "name": "COMPLETION_ORG_COUNT" },
-                    { "data": "COMPLETION_ORG_AMOUNT", "name": "COMPLETION_ORG_AMOUNT" },
-                    { "data": "COMPLETION_OTHER_COUNT", "name": "COMPLETION_OTHER_COUNT" },
-                    { "data": "COMPLETION_OTHER_AMOUNT", "name": "COMPLETION_OTHER_AMOUNT" },
-                    { "data": "REMOVED_COUNT", "name": "REMOVED_COUNT" },
-                    { "data": "REMOVED_AMOUNT", "name": "REMOVED_AMOUNT" },
-                    { "data": "REMOVED_LAW_COUNT", "name": "REMOVED_LAW_COUNT" },
-                    { "data": "REMOVED_LAW_AMOUNT", "name": "REMOVED_LAW_AMOUNT" },
-                    { "data": "REMOVED_INVALID_COUNT", "name": "REMOVED_INVALID_COUNT" },
-                    { "data": "REMOVED_INVALID_AMOUNT", "name": "REMOVED_INVALID_AMOUNT" },
-                    { "data": "CLAIM_C2_COUNT", "name": "CLAIM_C2_COUNT" },
-                    { "data": "CLAIM_C2_AMOUNT", "name": "CLAIM_C2_AMOUNT" },
-                    { "data": "CLAIM_C2_NONEXPIRED_COUNT", "name": "CLAIM_C2_NONEXPIRED_COUNT" },
-                    { "data": "CLAIM_C2_NONEXPIRED_AMOUNT", "name": "CLAIM_C2_NONEXPIRED_AMOUNT" },
-                    { "data": "CLAIM_C2_EXPIRED_COUNT", "name": "CLAIM_C2_EXPIRED_COUNT" },
-                    { "data": "CLAIM_C2_EXPIRED_AMOUNT", "name": "CLAIM_C2_EXPIRED_AMOUNT" },
-                    { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
-                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
-                    { "data": "BENEFIT_NONFIN_COUNT", "name": "BENEFIT_NONFIN_COUNT" },
-                    //{ "data": "BENEFIT_NONFIN_AMOUNT", "name": "BENEFIT_NONFIN_AMOUNT" },
-                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
+                    { "data": "CLAIM_VIOLATION_COUNT", "name": "CLAIM_VIOLATION_COUNT", "class": "text-right" },
+                    { "data": "CLAIM_VIOLATION_AMOUNT", "name": "CLAIM_VIOLATION_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_COUNT", "name": "COMPLETION_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_AMOUNT", "name": "COMPLETION_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_STATE_COUNT", "name": "COMPLETION_STATE_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_STATE_AMOUNT", "name": "COMPLETION_STATE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_LOCAL_COUNT", "name": "COMPLETION_LOCAL_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_LOCAL_AMOUNT", "name": "COMPLETION_LOCAL_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_ORG_COUNT", "name": "COMPLETION_ORG_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_ORG_AMOUNT", "name": "COMPLETION_ORG_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_OTHER_COUNT", "name": "COMPLETION_OTHER_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_OTHER_AMOUNT", "name": "COMPLETION_OTHER_AMOUNT", "class": "text-right" },
+                    { "data": "REMOVED_COUNT", "name": "REMOVED_COUNT", "class": "text-right" },
+                    { "data": "REMOVED_AMOUNT", "name": "REMOVED_AMOUNT", "class": "text-right" },
+                    { "data": "REMOVED_LAW_COUNT", "name": "REMOVED_LAW_COUNT", "class": "text-right" },
+                    { "data": "REMOVED_LAW_AMOUNT", "name": "REMOVED_LAW_AMOUNT", "class": "text-right" },
+                    { "data": "REMOVED_INVALID_COUNT", "name": "REMOVED_INVALID_COUNT", "class": "text-right" },
+                    { "data": "REMOVED_INVALID_AMOUNT", "name": "REMOVED_INVALID_AMOUNT", "class": "text-right" },
+                    { "data": "CLAIM_C2_COUNT", "name": "CLAIM_C2_COUNT", "class": "text-right" },
+                    { "data": "CLAIM_C2_AMOUNT", "name": "CLAIM_C2_AMOUNT", "class": "text-right" },
+                    { "data": "CLAIM_C2_NONEXPIRED_COUNT", "name": "CLAIM_C2_NONEXPIRED_COUNT", "class": "text-right" },
+                    { "data": "CLAIM_C2_NONEXPIRED_AMOUNT", "name": "CLAIM_C2_NONEXPIRED_AMOUNT", "class": "text-right" },
+                    { "data": "CLAIM_C2_EXPIRED_COUNT", "name": "CLAIM_C2_EXPIRED_COUNT", "class": "text-right" },
+                    { "data": "CLAIM_C2_EXPIRED_AMOUNT", "name": "CLAIM_C2_EXPIRED_AMOUNT", "class": "text-right" },
+                    { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT", "class": "text-right" },
+                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT", "class": "text-right" },
+                    { "data": "BENEFIT_NONFIN_COUNT", "name": "BENEFIT_NONFIN_COUNT", "class": "text-right" },
                 ],
                 "destroy": true,
                 "scrollCollapse": true,

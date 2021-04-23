@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM2B', 'СМ-2Б. Гүйцэтгэлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM2B', 'СМ-2Б. Гүйцэтгэлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,9 +39,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="CM2B" class="table table-bordered datatable display" style="width:100%">
+            <table id="CM2B" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Шийдвэрийн төрөл</th>
                         <th rowspan="4">Ангилал</th>
@@ -51,13 +52,13 @@
                         <th colspan="2" rowspan="3">Эцсийн үлдэгдэл</th>
                         <th colspan="4" rowspan="2">Үүнээс</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2" colspan="2">Өмнөх оноос</th>
                         <th rowspan="2" colspan="2">Тайлант оноос</th>
                         <th rowspan="2" colspan="2">Хэрэгжилт бүгд</th>
                         <th colspan="8">Төлбөр барагдуулалтын хэлбэр</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Улсын төсөвт</th>
                         <th colspan="2">Орон нутгын төсөвт</th>
                         <th colspan="2">Тухайн байгууллагад</th>
@@ -65,7 +66,7 @@
                         <th colspan="2">Хугацаа болоогүй</th>
                         <th colspan="2">Хугацаа хэтэрсэн</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>

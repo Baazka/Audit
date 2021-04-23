@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM6', 'НМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн нэгтгэл')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM6', 'НМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,9 +39,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM6" class="table table-bordered datatable display" style="width:100%">
+            <table id="NM6" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Аудитын код</th>
                         <th rowspan="3">Аудитын нэр</th>
@@ -49,7 +50,7 @@
                         <th colspan="2" rowspan="2">Залруулагдаагүй алдаа, зөрчлийн дүн</th>
                         <th colspan="12">Үүнээс: Залруулагдаагүй алдаа, зөрчлийн шийдвэрлэлт</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Зөрчил</th>
                         <th colspan="2">Алдаа</th>
                         <th colspan="2">Бүгд</th>
@@ -60,7 +61,7 @@
                         <th colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
                         <th colspan="2">Бусад</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -125,29 +126,28 @@
                     { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
                     //{ "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
 
-                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT" },
-                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT" },
-                    { "data": "ERROR_COUNT", "name": "ERROR_COUNT" },
-                    { "data": "ERROR_AMOUNT", "name": "ERROR_AMOUNT" },
-                    { "data": "ALL_COUNT", "name": "ALL_COUNT" },
-                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
-                    { "data": "CORRECTED_ERROR_COUNT", "name": "CORRECTED_ERROR_COUNT" },
-                    { "data": "CORRECTED_ERROR_AMOUNT", "name": "CORRECTED_ERROR_AMOUNT" },
-                    { "data": "OTHER_ERROR_COUNT", "name": "OTHER_ERROR_COUNT" },
-                    { "data": "OTHER_ERROR_AMOUNT", "name": "OTHER_ERROR_AMOUNT" },
-                    { "data": "ACT_COUNT", "name": "ACT_COUNT" },
-                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT" },
-                    { "data": "CLAIM_COUNT", "name": "CLAIM_COUNT" },
-                    { "data": "CLAIM_AMOUNT", "name": "CLAIM_AMOUNT" },
-                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT" },
-                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT" },
-                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT" },
-                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT" },
-                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
-                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
-                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT" },
-                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
-                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
+                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT", "class": "text-right" },
+                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT", "class": "text-right" },
+                    { "data": "ERROR_COUNT", "name": "ERROR_COUNT", "class": "text-right" },
+                    { "data": "ERROR_AMOUNT", "name": "ERROR_AMOUNT", "class": "text-right" },
+                    { "data": "ALL_COUNT", "name": "ALL_COUNT", "class": "text-right" },
+                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT", "class": "text-right" },
+                    { "data": "CORRECTED_ERROR_COUNT", "name": "CORRECTED_ERROR_COUNT", "class": "text-right" },
+                    { "data": "CORRECTED_ERROR_AMOUNT", "name": "CORRECTED_ERROR_AMOUNT", "class": "text-right" },
+                    { "data": "OTHER_ERROR_COUNT", "name": "OTHER_ERROR_COUNT", "class": "text-right" },
+                    { "data": "OTHER_ERROR_AMOUNT", "name": "OTHER_ERROR_AMOUNT", "class": "text-right" },
+                    { "data": "ACT_COUNT", "name": "ACT_COUNT", "class": "text-right" },
+                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT", "class": "text-right" },
+                    { "data": "CLAIM_COUNT", "name": "CLAIM_COUNT", "class": "text-right" },
+                    { "data": "CLAIM_AMOUNT", "name": "CLAIM_AMOUNT", "class": "text-right" },
+                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT", "class": "text-right" },
+                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT", "class": "text-right" },
+                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT", "class": "text-right" },
+                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT", "class": "text-right" },
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT", "class": "text-right" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right" },
+                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT", "class": "text-right" },
+                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT", "class": "text-right" },
                 ],
                 "destroy": true,
                 "scrollCollapse": true,

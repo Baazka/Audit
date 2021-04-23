@@ -37,6 +37,7 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
 
         public string REFERENCE_DESC { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public decimal REFERENCE_AMOUNT { get; set; }
         public string REFERENCE_SUBMITTED_DATE { get; set; }
         public string REFERENCE_DELIVERY_DATE { get; set; }
@@ -120,6 +121,8 @@ namespace Audit.Models
 
                 if (xml.Element("REFERENCE_DESC") != null)
                     REFERENCE_DESC = xml.Element("REFERENCE_DESC").Value;
+                if (xml.Element("VIOLATION_NAME") != null)
+                    VIOLATION_NAME = xml.Element("VIOLATION_NAME").Value;
                 if (xml.Element("REFERENCE_AMOUNT") != null)
                     REFERENCE_AMOUNT = Convert.ToDecimal(xml.Element("REFERENCE_AMOUNT").Value);
                 if (xml.Element("REFERENCE_SUBMITTED_DATE") != null)

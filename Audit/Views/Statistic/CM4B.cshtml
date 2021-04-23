@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM4B', 'СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM4B', 'СМ-4Б. Гүйцэтгэлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,15 +39,15 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="CM4B" class="table table-bordered datatable display" style="width:100%">
+            <table id="CM4B" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Үзүүлэлт</th>
                         <th rowspan="2" colspan="2">Нийт зөрчил</th>
                         <th colspan="12">Зөрчлийн шийдвэрлэлт</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Тогтоосон төлбөрийн акт</th>
                         <th colspan="2">Өгсөн албан шаардлага</th>
                         <th colspan="2">Өгсөн зөвлөмж</th>
@@ -54,7 +55,7 @@
                         <th colspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
                         <th colspan="2">Бусад</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>

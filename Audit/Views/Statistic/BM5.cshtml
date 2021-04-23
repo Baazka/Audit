@@ -25,19 +25,18 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM5.loadTemplate();">
+            <br />
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM5.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
-
-
-        <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM5', 'БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл')">
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM5', 'БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -49,9 +48,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM5" class="table table-bordered datatable display" style="width:100%">
+            <table id="BM5" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Он</th>
                         <th rowspan="3">Аудитын төрөл</th>
@@ -64,7 +63,7 @@
                         <th colspan="2" rowspan="2">Дараа онд шилжих үлдэгдэл</th>
                         <th rowspan="3">Үйлдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2">Зөрчил гаргасан байгууллага, албан тушаалтны нэр</th>
                         <th rowspan="2">Зөрчлийн товч утга</th>
                         <th rowspan="2">Зөрчлийн ангилал</th>
@@ -73,7 +72,7 @@
                         <th colspan="2">Хянагдаж байгаа</th>
                         <th colspan="2">Хэрэгсэхгүй болсон</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -133,22 +132,22 @@
                     { "data": "LAW_VIOLATION_DESC", "name": "LAW_VIOLATION_DESC" },
                     { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME" },
                     { "data": "LAW_MOVING_INFORMATION", "name": "LAW_MOVING_INFORMATION" },
-                    { "data": "LAW_NUMBER", "name": "LAW_NUMBER" },
-                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
-                    { "data": "LAW_C2_NUMBER", "name": "LAW_C2_NUMBER" },
-                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT" },
-                    { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE" },
-                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
-                    { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS" },
-                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
-                    { "data": "COMPLETION_INVALID", "name": "COMPLETION_INVALID" },
-                    { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT" },
+                    { "data": "LAW_NUMBER", "name": "LAW_NUMBER", "class": "text-right" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right" },
+                    { "data": "LAW_C2_NUMBER", "name": "LAW_C2_NUMBER", "class": "text-right" },
+                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE", "class": "text-right" },
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_INVALID", "name": "COMPLETION_INVALID", "class": "text-right" },
+                    { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT", "class": "text-right" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
                             var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM5.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM5.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
                             tmp += urledit;
                             tmp += urldelete;
                             tmp += "</div>";

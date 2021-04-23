@@ -27,17 +27,17 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM1.loadTemplate();">
+            <br />
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM1.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
-
-
-        <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -51,7 +51,7 @@
         <div class="table-responsive">
             <table id="BM1" class="table table-bordered datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Он</th>
                         <th rowspan="4">Аудитын төрөл</th>
@@ -68,7 +68,7 @@
                         <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
                         <th rowspan="4">Үйлдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3">Огноо</th>
                         <th rowspan="3">Дугаар</th>
                         <th rowspan="3">Төлбөрийн актын дугаар, огноо</th>
@@ -86,7 +86,7 @@
                         <th colspan="2">Санхүүгийн</th>
                         <th rowspan="3">Санхүүгийн бус үр өгөөжийн тоо</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2">Хүлээлгэн өгсөн</th>
                         <th rowspan="2">Төлбөрийг барагдуулах</th>
                         <th rowspan="2">Дүн</th>
@@ -108,7 +108,7 @@
                         <th rowspan="2">Тоо</th>
                         <th rowspan="2">Дүн</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Улсын төсөвт</th>
                         <th>Орон нутгийн төсөвт</th>
                         <th>Тухайн байгууллагад</th>
@@ -163,40 +163,40 @@
                     { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME" },
                     { "data": "ACT_SUBMITTED_DATE", "name": "ACT_SUBMITTED_DATE" },
                     { "data": "ACT_DELIVERY_DATE", "name": "ACT_DELIVERY_DATE" },
-                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT" },
-                    { "data": "ACT_STATE_AMOUNT", "name": "ACT_STATE_AMOUNT" },
-                    { "data": "ACT_LOCAL_AMOUNT", "name": "ACT_LOCAL_AMOUNT" },
-                    { "data": "ACT_ORG_AMOUNT", "name": "ACT_ORG_AMOUNT" },
-                    { "data": "ACT_OTHER_AMOUNT", "name": "ACT_OTHER_AMOUNT" },
+                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT", "class": "text-right" },
+                    { "data": "ACT_STATE_AMOUNT", "name": "ACT_STATE_AMOUNT", "class": "text-right" },
+                    { "data": "ACT_LOCAL_AMOUNT", "name": "ACT_LOCAL_AMOUNT", "class": "text-right" },
+                    { "data": "ACT_ORG_AMOUNT", "name": "ACT_ORG_AMOUNT", "class": "text-right" },
+                    { "data": "ACT_OTHER_AMOUNT", "name": "ACT_OTHER_AMOUNT", "class": "text-right" },
                     { "data": "ACT_RCV_NAME", "name": "ACT_RCV_NAME" },
                     { "data": "ACT_RCV_ROLE", "name": "ACT_RCV_ROLE" },
                     { "data": "ACT_RCV_GIVEN_NAME", "name": "ACT_RCV_GIVEN_NAME" },
                     { "data": "ACT_RCV_ADDRESS", "name": "ACT_RCV_ADDRESS" },
                     { "data": "ACT_CONTROL_AUDITOR", "name": "ACT_CONTROL_AUDITOR" },
                     { "data": "COMPLETION_ORDER", "name": "COMPLETION_ORDER" },
-                    { "data": "COMPLETION_AMOUNT", "name": "COMPLETION_AMOUNT" },
-                    { "data": "COMPLETION_STATE_AMOUNT", "name": "COMPLETION_STATE_AMOUNT" },
-                    { "data": "COMPLETION_LOCAL_AMOUNT", "name": "COMPLETION_LOCAL_AMOUNT" },
-                    { "data": "COMPLETION_ORG_AMOUNT", "name": "COMPLETION_ORG_AMOUNT" },
-                    { "data": "COMPLETION_OTHER_AMOUNT", "name": "COMPLETION_OTHER_AMOUNT" },
-                    { "data": "REMOVED_AMOUNT", "name": "REMOVED_AMOUNT" },
-                    { "data": "REMOVED_LAW_AMOUNT", "name": "REMOVED_LAW_AMOUNT" },
+                    { "data": "COMPLETION_AMOUNT", "name": "COMPLETION_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_STATE_AMOUNT", "name": "COMPLETION_STATE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_LOCAL_AMOUNT", "name": "COMPLETION_LOCAL_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_ORG_AMOUNT", "name": "COMPLETION_ORG_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_OTHER_AMOUNT", "name": "COMPLETION_OTHER_AMOUNT", "class": "text-right" },
+                    { "data": "REMOVED_AMOUNT", "name": "REMOVED_AMOUNT", "class": "text-right" },
+                    { "data": "REMOVED_LAW_AMOUNT", "name": "REMOVED_LAW_AMOUNT", "class": "text-right" },
                     { "data": "REMOVED_LAW_DATE_NO", "name": "REMOVED_LAW_DATE_NO" },
-                    { "data": "REMOVED_INVALID_AMOUNT", "name": "REMOVED_INVALID_AMOUNT" },
+                    { "data": "REMOVED_INVALID_AMOUNT", "name": "REMOVED_INVALID_AMOUNT", "class": "text-right" },
                     { "data": "REMOVED_INVALID_DATE_NO", "name": "REMOVED_INVALID_DATE_NO" },
-                    { "data": "ACT_C2_AMOUNT", "name": "ACT_C2_AMOUNT" },
-                    { "data": "ACT_C2_NONEXPIRED", "name": "ACT_C2_NONEXPIRED" },
-                    { "data": "ACT_C2_EXPIRED", "name": "ACT_C2_EXPIRED" },
-                    { "data": "BENEFIT_FIN", "name": "BENEFIT_FIN" },
-                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
-                    { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
+                    { "data": "ACT_C2_AMOUNT", "name": "ACT_C2_AMOUNT", "class": "text-right" },
+                    { "data": "ACT_C2_NONEXPIRED", "name": "ACT_C2_NONEXPIRED", "class": "text-right" },
+                    { "data": "ACT_C2_EXPIRED", "name": "ACT_C2_EXPIRED", "class": "text-right" },
+                    { "data": "BENEFIT_FIN", "name": "BENEFIT_FIN", "class": "text-right" },
+                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT", "class": "text-right" },
+                    { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN", "class": "text-right" },
                     //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
                             var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM1.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM1.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM1.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM1.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
                             tmp += urledit;
                             tmp += urldelete;
                             tmp += "</div>";

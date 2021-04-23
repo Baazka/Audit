@@ -43,6 +43,7 @@ namespace Audit.Models
         public string VIOLATION_RESPONDENT { get; set; }
         public string PROPOSAL_SUBMITTED_DATE { get; set; }
         public string PROPOSAL_DELIVERY_DATE { get; set; }
+        public int PROPOSAL_COUNT { get; set; }
         public decimal PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }
         public string PROPOSAL_RCV_ROLE { get; set; }
@@ -114,6 +115,8 @@ namespace Audit.Models
                     PROPOSAL_SUBMITTED_DATE = xml.Element("PROPOSAL_SUBMITTED_DATE").Value;
                 if (xml.Element("PROPOSAL_DELIVERY_DATE") != null)
                     PROPOSAL_DELIVERY_DATE = xml.Element("PROPOSAL_DELIVERY_DATE").Value;
+                if (xml.Element("PROPOSAL_COUNT") != null)
+                    PROPOSAL_COUNT = Convert.ToInt32(xml.Element("PROPOSAL_COUNT").Value);
                 if (xml.Element("PROPOSAL_AMOUNT") != null)
                     PROPOSAL_AMOUNT = Convert.ToDecimal(xml.Element("PROPOSAL_AMOUNT").Value);
                 if (xml.Element("PROPOSAL_RCV_NAME") != null)
@@ -166,6 +169,7 @@ namespace Audit.Models
                        new XElement("VIOLATION_RESPONDENT", VIOLATION_RESPONDENT),
                        new XElement("PROPOSAL_SUBMITTED_DATE", PROPOSAL_SUBMITTED_DATE),
                        new XElement("PROPOSAL_DELIVERY_DATE", PROPOSAL_DELIVERY_DATE),
+                       new XElement("PROPOSAL_COUNT", PROPOSAL_COUNT),
                        new XElement("PROPOSAL_AMOUNT", PROPOSAL_AMOUNT),
                        new XElement("PROPOSAL_RCV_NAME", PROPOSAL_RCV_NAME),
                        new XElement("PROPOSAL_RCV_ROLE", PROPOSAL_RCV_ROLE),

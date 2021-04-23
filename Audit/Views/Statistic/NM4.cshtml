@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM4', 'НМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын нэгтгэл')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM4', 'НМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,20 +39,20 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM4" class="table table-bordered datatable display" style="width:100%">
+            <table id="NM4" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Аудитын код</th>
                         <th rowspan="3">Аудитын нэр</th>
                         <th rowspan="2" colspan="2">Хариуцлага тооцуулах санал</th>
                         <th colspan="4">Албан тушаалтанд хариуцлага тооцуулах саналын хэрэгжилт</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Бүрэн хэрэгжсэн</th>
                         <th colspan="2">Хэрэгжээгүй</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -100,13 +101,13 @@
                     { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
                     //{ "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
 
-                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT" },
-                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT" },
+                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT", "class": "text-right" },
+                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT", "class": "text-right" },
                     //{ "data": "PROPOSAL_VIOLATION_TYPE", "name": "PROPOSAL_VIOLATION_TYPE" },
-                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT" },
-                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
-                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT" },
-                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
+                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
                     //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" }                    
                 ],
                 "destroy": true,

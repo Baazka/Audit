@@ -185,6 +185,7 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
 
         public string REFERENCE_DESC { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public decimal REFERENCE_AMOUNT { get; set; }
         public string REFERENCE_SUBMITTED_DATE { get; set; }
         public string REFERENCE_DELIVERY_DATE { get; set; }
@@ -238,6 +239,7 @@ namespace Audit.Models
         public string VIOLATION_RESPONDENT { get; set; }
         public string PROPOSAL_SUBMITTED_DATE { get; set; }
         public string PROPOSAL_DELIVERY_DATE { get; set; }
+        public int PROPOSAL_COUNT { get; set; }
         public decimal PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }
         public string PROPOSAL_RCV_ROLE { get; set; }

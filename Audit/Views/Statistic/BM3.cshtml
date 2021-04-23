@@ -25,19 +25,18 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM3.loadTemplate();">
+            <br />
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM3.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
-
-
-        <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM3', 'БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл')">
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM3', 'БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -49,9 +48,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM3" class="table table-bordered datatable display" style="width:100%">
+            <table id="BM3" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Он</th>
                         <th rowspan="3">Аудитын төрөл</th>
@@ -67,7 +66,7 @@
                         <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
                         <th rowspan="3" class="text-center">Үйлдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2">Огноо</th>
                         <th rowspan="2">Дугаар</th>
                         <th rowspan="2">Зөвлөмжийн утга</th>
@@ -82,7 +81,7 @@
                         <th colspan="2">Санхүүгийн</th>
                         <th rowspan="2">Санхүүгийн бус үр өгөөжийн тоо</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Хүргүүлсэн</th>
                         <th>Биелэлтийг тооцох</th>
                         <th>Байгууллагын нэр</th>
@@ -145,8 +144,8 @@
                     { "data": "ORDER_DATE", "name": "ORDER_DATE" },
                     { "data": "ORDER_NO", "name": "ORDER_NO" },
                     { "data": "REFERENCE_DESC", "name": "REFERENCE_DESC" },
-                    { "data": null, "name": null },
-                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT" },
+                    { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME" },
+                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT", "class": "text-right" },
                     { "data": "REFERENCE_SUBMITTED_DATE", "name": "REFERENCE_SUBMITTED_DATE" },
                     { "data": "REFERENCE_DELIVERY_DATE", "name": "REFERENCE_DELIVERY_DATE" },
                     { "data": "REFERENCE_RCV_NAME", "name": "REFERENCE_RCV_NAME" },
@@ -155,17 +154,17 @@
                     { "data": "REFERENCE_RCV_ADDRESS", "name": "REFERENCE_RCV_ADDRESS" },
                     { "data": "REFERENCE_CONTROL_AUDITOR", "name": "REFERENCE_CONTROL_AUDITOR" },
                     { "data": "COMPLETION_ORDER", "name": "COMPLETION_ORDER" },
-                    { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE" },
-                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
-                    { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS" },
-                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
-                    { "data": "C2_NONEXPIRED", "name": "C2_NONEXPIRED" },
-                    { "data": "C2_NONEXPIRED_AMOUNT", "name": "C2_NONEXPIRED_AMOUNT" },
-                    { "data": "C2_EXPIRED", "name": "C2_EXPIRED" },
-                    { "data": "C2_EXPIRED_AMOUNT", "name": "C2_EXPIRED_AMOUNT" },
-                    { "data": "BENEFIT_FIN", "name": "BENEFIT_FIN" },
-                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
-                    { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
+                    { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE", "class": "text-right" },
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
+                    { "data": "C2_NONEXPIRED", "name": "C2_NONEXPIRED", "class": "text-right" },
+                    { "data": "C2_NONEXPIRED_AMOUNT", "name": "C2_NONEXPIRED_AMOUNT", "class": "text-right" },
+                    { "data": "C2_EXPIRED", "name": "C2_EXPIRED", "class": "text-right" },
+                    { "data": "C2_EXPIRED_AMOUNT", "name": "C2_EXPIRED_AMOUNT", "class": "text-right" },
+                    { "data": "BENEFIT_FIN", "name": "BENEFIT_FIN", "class": "text-right" },
+                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT", "class": "text-right" },
+                    { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN", "class": "text-right" },
                     //{ "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
                     //{ "data": "WORKING_DAY", "name": "WORKING_DAY" },
                     //{ "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
@@ -173,8 +172,8 @@
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
                             var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM3.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM3.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM3.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM3.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
                             tmp += urledit;
                             tmp += urldelete;
                             tmp += "</div>";

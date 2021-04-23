@@ -31,10 +31,10 @@ namespace Audit.Models
         public string AUDIT_NAME { get; set; }
         public int AUDIT_BUDGET_TYPE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
-        public string ORDER_DATE { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
-        public string ORDER_NO { get; set; }
+        //[Required(ErrorMessage = "Утга оруулна уу.")]
+        //public string ORDER_DATE { get; set; }
+        //[Required(ErrorMessage = "Утга оруулна уу.")]
+        //public string ORDER_NO { get; set; }
 
         public string LAW_RESPONDANT_NAME { get; set; }
         public string LAW_VIOLATION_DESC { get; set; }
@@ -96,10 +96,10 @@ namespace Audit.Models
                     AUDIT_BUDGET_TYPE = Convert.ToInt32(xml.Element("AUDIT_BUDGET_TYPE").Value);
                 if (xml.Element("BUDGET_TYPE_NAME") != null)
                     BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
-                if (xml.Element("ORDER_DATE") != null)
-                    ORDER_DATE = xml.Element("ORDER_DATE").Value;
-                if (xml.Element("ORDER_NO") != null)
-                    ORDER_NO = xml.Element("ORDER_NO").Value;
+                //if (xml.Element("ORDER_DATE") != null)
+                //    ORDER_DATE = xml.Element("ORDER_DATE").Value;
+                //if (xml.Element("ORDER_NO") != null)
+                //    ORDER_NO = xml.Element("ORDER_NO").Value;
 
                 if (xml.Element("LAW_RESPONDANT_NAME") != null)
                     LAW_RESPONDANT_NAME = xml.Element("LAW_RESPONDANT_NAME").Value;
@@ -150,8 +150,8 @@ namespace Audit.Models
                        new XElement("AUDIT_CODE", AUDIT_CODE),
                        new XElement("AUDIT_NAME", AUDIT_NAME),
                        new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
-                       new XElement("ORDER_DATE", ORDER_DATE),
-                       new XElement("ORDER_NO", ORDER_NO),
+                       //new XElement("ORDER_DATE", ORDER_DATE),
+                       //new XElement("ORDER_NO", ORDER_NO),
                        new XElement("LAW_RESPONDANT_NAME", LAW_RESPONDANT_NAME),
                        new XElement("LAW_VIOLATION_DESC", LAW_VIOLATION_DESC),
                        new XElement("LAW_VIOLATION_TYPE", LAW_VIOLATION_TYPE),

@@ -26,17 +26,17 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM6.loadTemplate();">
+            <br />
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="CM6.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
-
-
-        <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM6', 'СМ-6. Төсвийн төсөлд өгсөн санал')">
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM6', 'СМ-6. Төсвийн төсөлд өгсөн санал')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -48,9 +48,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="CM6" class="table table-bordered datatable display" style="width:100%">
+            <table id="CM6" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Төсөв</th>
                         <th rowspan="4">Үзүүлэлт</th>
@@ -58,13 +58,13 @@
                         <th colspan="6">Хүлээн зөвшөөрөгдсөн санал</th>
                         <th rowspan="4">Үйлдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Бүгд</th>
                         <th colspan="4">Үүнээс</th>
                         <th colspan="2">Бүгд</th>
                         <th colspan="4">Үүнээс</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2">Тоо</th>
                         <th rowspan="2">Дүн</th>
                         <th colspan="2">Орлого нэмэгдүүлэх</th>
@@ -74,7 +74,7 @@
                         <th colspan="2">Орлого нэмэгдүүлэх</th>
                         <th colspan="2">Зардал хорогдуулах</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -122,24 +122,24 @@
                     },
                     { "data": "AUD_NAME", "name": "AUD_NAME" },
                     { "data": "IS_STATE", "name": "IS_STATE" },
-                    { "data": "ALL_COUNT", "name": "ALL_COUNT" },
-                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
-                    { "data": "PROCESSED_INCOMED_COUNT", "name": "PROCESSED_INCOMED_COUNT" },
-                    { "data": "PROCESSED_INCOMED_AMOUNT", "name": "PROCESSED_INCOMED_AMOUNT" },
-                    { "data": "PROCESSED_COSTS_COUNT", "name": "PROCESSED_COSTS_COUNT" },
-                    { "data": "PROCESSED_COSTS_AMOUNT", "name": "PROCESSED_COSTS_AMOUNT" },
-                    { "data": "ALL_C1_COUNT", "name": "ALL_C1_COUNT" },
-                    { "data": "ALL_C2_AMOUNT", "name": "ALL_C2_AMOUNT" },
-                    { "data": "ACCEPTED_INCOMED_COUNT", "name": "ACCEPTED_INCOMED_COUNT" },
-                    { "data": "ACCEPTED_INCOMED_AMOUNT", "name": "ACCEPTED_INCOMED_AMOUNT" },
-                    { "data": "ACCEPTED_COSTS_COUNT", "name": "ACCEPTED_COSTS_COUNT" },
-                    { "data": "ACCEPTED_COSTS_AMOUNT", "name": "ACCEPTED_COSTS_AMOUNT" },
+                    { "data": "ALL_COUNT", "name": "ALL_COUNT", "class": "text-right" },
+                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT", "class": "text-right" },
+                    { "data": "PROCESSED_INCOMED_COUNT", "name": "PROCESSED_INCOMED_COUNT", "class": "text-right" },
+                    { "data": "PROCESSED_INCOMED_AMOUNT", "name": "PROCESSED_INCOMED_AMOUNT", "class": "text-right" },
+                    { "data": "PROCESSED_COSTS_COUNT", "name": "PROCESSED_COSTS_COUNT", "class": "text-right" },
+                    { "data": "PROCESSED_COSTS_AMOUNT", "name": "PROCESSED_COSTS_AMOUNT", "class": "text-right" },
+                    { "data": "ALL_C1_COUNT", "name": "ALL_C1_COUNT", "class": "text-right" },
+                    { "data": "ALL_C2_AMOUNT", "name": "ALL_C2_AMOUNT", "class": "text-right" },
+                    { "data": "ACCEPTED_INCOMED_COUNT", "name": "ACCEPTED_INCOMED_COUNT", "class": "text-right" },
+                    { "data": "ACCEPTED_INCOMED_AMOUNT", "name": "ACCEPTED_INCOMED_AMOUNT", "class": "text-right" },
+                    { "data": "ACCEPTED_COSTS_COUNT", "name": "ACCEPTED_COSTS_COUNT", "class": "text-right" },
+                    { "data": "ACCEPTED_COSTS_AMOUNT", "name": "ACCEPTED_COSTS_AMOUNT", "class": "text-right" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
                             var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM6.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM6.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM6.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM6.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
                             tmp += urledit;
                             tmp += urldelete;
                             tmp += "</div>";
