@@ -118,5 +118,147 @@ namespace Audit.Controllers
 
             return AppStatic.SystemController.Library(elem);
         }
+        public ActionResult AddEdit()
+        {
+            Organization organization = new Organization();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    organization.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    organization.departments = Globals.departments;
+                }
+                if (Globals.offices.Count > 0)
+                {
+                    organization.offices = Globals.offices;
+                }
+                else
+                {
+                    XElement responseOffice = SendLibraryRequest("Office");
+                    Globals.offices = (from item in responseOffice.Elements("Library") select new Office().FromXml(item)).ToList();
+                    organization.offices = Globals.offices;
+                }
+                if (Globals.subOffices.Count > 0)
+                {
+                    organization.subOffices = Globals.subOffices;
+                }
+                else
+                {
+                    XElement responseSubOffice = SendLibraryRequest("SubOffice");
+                    Globals.subOffices = (from item in responseSubOffice.Elements("Library") select new SubOffice().FromXml(item)).ToList();
+                    organization.subOffices = Globals.subOffices;
+                }
+                if (Globals.budgetTypes.Count > 0)
+                {
+                    organization.budgetTypes = Globals.budgetTypes;
+                }
+                else
+                {
+                    XElement responseBudgetType = SendLibraryRequest("BudgetType");
+                    Globals.budgetTypes = (from item in responseBudgetType.Elements("Library") select new BudgetType().FromXml(item)).ToList();
+                    organization.budgetTypes = Globals.budgetTypes;
+                }
+                if (Globals.activities.Count > 0)
+                {
+                    organization.activities = Globals.activities;
+                }
+                else
+                {
+                    XElement responseActivity = SendLibraryRequest("Activity");
+                    Globals.activities = (from item in responseActivity.Elements("Library") select new ActivityLib().FromXml(item)).ToList();
+                    organization.activities = Globals.activities;
+                }
+                if (Globals.subBudgetTypes.Count > 0)
+                {
+                    organization.subBudgetTypes = Globals.subBudgetTypes;
+                }
+                else
+                {
+                    XElement responseSubBudgetType = SendLibraryRequest("SubBudgetType");
+                    Globals.subBudgetTypes = (from item in responseSubBudgetType.Elements("Library") select new SubBudgetType().FromXml(item)).ToList();
+                    organization.subBudgetTypes = Globals.subBudgetTypes;
+                }
+                if (Globals.committees.Count > 0)
+                {
+                    organization.committees = Globals.committees;
+                }
+                else
+                {
+                    XElement responseCommittee = SendLibraryRequest("Committee");
+                    Globals.committees = (from item in responseCommittee.Elements("Library") select new Committee().FromXml(item)).ToList();
+                    organization.committees = Globals.committees;
+                }
+                if (Globals.taxOffices.Count > 0)
+                {
+                    organization.taxOffices = Globals.taxOffices;
+                }
+                else
+                {
+                    XElement responseTaxOffice = SendLibraryRequest("TaxOffice");
+                    Globals.taxOffices = (from item in responseTaxOffice.Elements("Library") select new TaxOffice().FromXml(item)).ToList();
+                    organization.taxOffices = Globals.taxOffices;
+                }
+                if (Globals.costTypes.Count > 0)
+                {
+                    organization.costTypes = Globals.costTypes;
+                }
+                else
+                {
+                    XElement responseCostType = SendLibraryRequest("CostType");
+                    Globals.costTypes = (from item in responseCostType.Elements("Library") select new CostType().FromXml(item)).ToList();
+                    organization.costTypes = Globals.costTypes;
+                }
+                if (Globals.insuranceOffices.Count > 0)
+                {
+                    organization.insuranceOffices = Globals.insuranceOffices;
+                }
+                else
+                {
+                    XElement responseInsuranceOffice = SendLibraryRequest("InsuranceOffice");
+                    Globals.insuranceOffices = (from item in responseInsuranceOffice.Elements("Library") select new InsuranceOffice().FromXml(item)).ToList();
+                    organization.insuranceOffices = Globals.insuranceOffices;
+                }
+                if (Globals.financingTypes.Count > 0)
+                {
+                    organization.financingTypes = Globals.financingTypes;
+                }
+                else
+                {
+                    XElement responseFinancingType = SendLibraryRequest("FinancingType");
+                    Globals.financingTypes = (from item in responseFinancingType.Elements("Library") select new FinancingType().FromXml(item)).ToList();
+                    organization.financingTypes = Globals.financingTypes;
+                }
+                if (Globals.banks.Count > 0)
+                {
+                    organization.banks = Globals.banks;
+                }
+                else
+                {
+                    XElement responseBank = SendLibraryRequest("Bank");
+                    Globals.banks = (from item in responseBank.Elements("Library") select new Bank().FromXml(item)).ToList();
+                    organization.banks = Globals.banks;
+                }
+                if (Globals.finOffices.Count > 0)
+                {
+                    organization.finOffices = Globals.finOffices;
+                }
+                else
+                {
+                    XElement responseFinOffice = SendLibraryRequest("FinOffice");
+                    Globals.finOffices = (from item in responseFinOffice.Elements("Library") select new FinOffice().FromXml(item)).ToList();
+                    organization.finOffices = Globals.finOffices;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return PartialView(organization);
+        }
     }
 }

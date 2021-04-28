@@ -30,7 +30,8 @@ namespace Audit.Models
         public string AUDIT_NAME { get; set; }
         public string AUDIT_BUDGET_TYPE { get; set; }
         public string CORRECTED_ERROR_DESC { get; set; }
-        public string CORRECTED_ERROR_TYPE { get; set; }
+        public int CORRECTED_ERROR_TYPE { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public int CORRECTED_COUNT { get; set; }
         public decimal CORRECTED_AMOUNT { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
@@ -73,7 +74,9 @@ namespace Audit.Models
                 if (xml.Element("CORRECTED_ERROR_DESC") != null)
                     CORRECTED_ERROR_DESC = xml.Element("CORRECTED_ERROR_DESC").Value;
                 if (xml.Element("CORRECTED_ERROR_TYPE") != null)
-                    CORRECTED_ERROR_TYPE = xml.Element("CORRECTED_ERROR_TYPE").Value;
+                    CORRECTED_ERROR_TYPE = Convert.ToInt32(xml.Element("CORRECTED_ERROR_TYPE").Value);
+                if (xml.Element("VIOLATION_NAME") != null)
+                    VIOLATION_NAME = xml.Element("VIOLATION_NAME").Value;
                 if (xml.Element("CORRECTED_COUNT") != null)
                     CORRECTED_COUNT = Convert.ToInt32(xml.Element("CORRECTED_COUNT").Value);
                 if (xml.Element("CORRECTED_AMOUNT") != null)

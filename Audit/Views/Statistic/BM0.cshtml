@@ -4,6 +4,11 @@
     ViewBag.Title = "BM0";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .width {
+        width: 300px!important;
+    }
+</style>
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
@@ -47,7 +52,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM0" class="table table-bordered table-hover datatable display" style="width:100%">
+            <table id="BM0" class="table table-bordered table-hover datatable display" >
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -107,6 +112,7 @@
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.ID);
                 },
+                
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center',
@@ -144,15 +150,21 @@
                         }
                     }
                 ],
+                columnDefs: [
+                    { width: 200, targets: 4 },
+                    { width: 200, targets: 10 },
+                    
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true, 
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
                 "stateSave": false,
-                "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language
             });
@@ -179,21 +191,8 @@
                     $(this).val($(this).val().split(':')[1]);
                 });
                 $("#Bm0Modal #TOPIC_TYPE").append($options);
-                //FormType
-                if ($("#Bm0Modal #AUDIT_FORM_TYPE").children().length > 1)
-                    $("#Bm0Modal #AUDIT_FORM_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddFormTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
-                });
-                $("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
-                //ProsolType
-                if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
-                    $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddProposalTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
-                });
-                $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
-                //ProsolType
+                
+                //BudgetType
                 if ($("#Bm0Modal #AUDIT_BUDGET_TYPE").children().length > 1)
                     $("#Bm0Modal #AUDIT_BUDGET_TYPE option:not(:first)").remove();
                 var $options = $("#Bm0Modal #ddRefBudgetTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
@@ -203,6 +202,23 @@
 
             });
 
+            $('#Bm0Modal #AUDIT_FORM_TYPE').change(function () {
+
+                ////FormType
+                //if ($("#Bm0Modal #AUDIT_FORM_TYPE").children().length > 1)
+                //    $("#Bm0Modal #AUDIT_FORM_TYPE option:not(:first)").remove();
+                //var $options = $("#Bm0Modal #ddFormTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                //    $(this).val($(this).val().split(':')[1]);
+                //});
+                //$("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
+                //ProsolType
+                if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
+                    $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
+                var $options = $("#Bm0Modal #ddProposalTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
+            });
             $("#Bm0Modal").modal({ show: true });
             },
             

@@ -59,7 +59,7 @@ namespace Audit.Models
         public string AUDITOR_ENTRY { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
-
+        public decimal AUDIT_SERVICE_PAY { get; set; }
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public DateTime? UPDATED_DATE { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
@@ -129,7 +129,9 @@ namespace Audit.Models
                     AUDITOR_MEMBER = xml.Element("AUDITOR_MEMBER").Value;
                 if (xml.Element("AUDITOR_ENTRY") != null)
                     AUDITOR_ENTRY = xml.Element("AUDITOR_ENTRY").Value;
-    }
+                if (xml.Element("AUDIT_SERVICE_PAY") != null)
+                    AUDIT_SERVICE_PAY = Convert.ToDecimal(xml.Element("AUDIT_SERVICE_PAY").Value);
+            }
             return this;
         }
         public XElement ToXml()
@@ -155,6 +157,7 @@ namespace Audit.Models
                        new XElement("AUDITOR_LEAD", AUDITOR_LEAD),
                        new XElement("AUDITOR_MEMBER", AUDITOR_MEMBER),
                        new XElement("AUDITOR_ENTRY", AUDITOR_ENTRY),
+                       new XElement("AUDIT_SERVICE_PAY", AUDIT_SERVICE_PAY),
                        new XElement("EXEC_TYPE", EXEC_TYPE),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE)
@@ -169,6 +172,7 @@ namespace Audit.Models
         public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
         public string AUDIT_TYPE { get; set; }
+        public int? AUDIT_BUDGET_TYPE { get; set; }
         public BM0Search SetXml(XElement xml)
         {
             if (xml != null)
@@ -185,6 +189,8 @@ namespace Audit.Models
                     ORDER_NO = xml.Element("ORDER_NO").Value.Replace("\n", "").Replace("\r", "");
                 if (xml.Element("AUDIT_TYPE") != null)
                     AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
+                if (xml.Element("AUDIT_BUDGET_TYPE") != null)
+                    AUDIT_BUDGET_TYPE = Convert.ToInt32(xml.Element("AUDIT_BUDGET_TYPE").Value);
             }
             return this;
         }

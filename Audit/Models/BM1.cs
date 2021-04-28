@@ -65,9 +65,9 @@ namespace Audit.Models
         public decimal ACT_C2_AMOUNT { get; set; }
         public decimal ACT_C2_NONEXPIRED { get; set; }
         public decimal ACT_C2_EXPIRED { get; set; }
-        public decimal BENEFIT_FIN { get; set; }
+        public int BENEFIT_FIN { get; set; }
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        public decimal BENEFIT_NONFIN { get; set; }
+        public int BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
 
@@ -176,11 +176,11 @@ namespace Audit.Models
                 if (xml.Element("ACT_C2_EXPIRED") != null)
                     ACT_C2_EXPIRED = Convert.ToDecimal(xml.Element("ACT_C2_EXPIRED").Value);
                 if (xml.Element("BENEFIT_FIN") != null)
-                    BENEFIT_FIN = Convert.ToDecimal(xml.Element("BENEFIT_FIN").Value);
+                    BENEFIT_FIN = Convert.ToInt32(xml.Element("BENEFIT_FIN").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
                     BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value);
                 if (xml.Element("BENEFIT_NONFIN") != null)
-                    BENEFIT_NONFIN = Convert.ToDecimal(xml.Element("BENEFIT_NONFIN").Value);
+                    BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
             }

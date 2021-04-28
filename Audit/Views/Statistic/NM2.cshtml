@@ -39,7 +39,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM2" class="table table-bordered table-hover datatable display" style="width:100%">
+            <table id="NM2" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -163,8 +163,14 @@
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT", "class": "text-right" },
                     { "data": "BENEFIT_NONFIN_COUNT", "name": "BENEFIT_NONFIN_COUNT", "class": "text-right" },
                 ],
+                columnDefs: [
+                    { width: 200, targets: 2 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],

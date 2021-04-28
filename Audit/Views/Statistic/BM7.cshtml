@@ -40,7 +40,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM7" class="table table-bordered table-hover datatable display" style="width:100%">
+            <table id="BM7" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -161,8 +161,14 @@
                     { "data": "ALL_COUNT", "name": "ALL_COUNT", "class": "text-right" },
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT", "class": "text-right" },
                 ],
+                columnDefs: [
+                    { width: 200, targets: 5 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],

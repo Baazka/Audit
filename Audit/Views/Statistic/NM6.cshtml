@@ -39,7 +39,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM6" class="table table-bordered table-hover datatable display" style="width:100%">
+            <table id="NM6" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -149,8 +149,14 @@
                     { "data": "OTHER_COUNT", "name": "OTHER_COUNT", "class": "text-right" },
                     { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT", "class": "text-right" },
                 ],
+                columnDefs: [
+                    { width: 200, targets: 2 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
