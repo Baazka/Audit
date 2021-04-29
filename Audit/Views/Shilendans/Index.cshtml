@@ -34,7 +34,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
-                        <thead>
+                        <thead style="background-color:#f8f9fc;">
                             <tr>
                                 <th class="text-center">№</th>
                                 <th>ТЕЗ</th>
@@ -118,7 +118,7 @@
                     { "data": null, "sortable": false, "class": 'text-center', "width": '10%',
                         render: function (data, type, row, meta) {
                                 return '<div class="btn-group">' +
-                                    '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.OPEN_ID + ')" style="vertival-align:middle;">' +
+                                    '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.OPEN_ID + ')" style="vertival-align:middle;color: #4e73df;">' +
                                     '<i class="fa fa-edit"></i> Оруулах' +
                                     '</a>' +
                                     '</div>';
