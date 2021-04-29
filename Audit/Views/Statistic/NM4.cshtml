@@ -39,7 +39,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM4" class="table table-bordered table-hover datatable display" style="width:100%">
+            <table id="NM4" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -110,8 +110,14 @@
                     { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
                     //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" }                    
                 ],
+                columnDefs: [
+                    { width: 200, targets: 2 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],

@@ -44,16 +44,25 @@
                 </a>
             </div>
         }*@
-
-    <div class="form-group-sm ml-auto">
+    <div class="form-group-sm ml-auto pr-2">
         <br />
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
+        <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Exam.loadTemplate();">
             <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
+                <i class="fas fa-plus"></i>
             </span>
-            <span class="text">Excel</span>
+            <span class="text">Шинэ бүртгэл</span>
         </a>
     </div>
+
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
     </div>
 </form>
 <div class="row mb-2">
@@ -174,33 +183,33 @@
         $('#DeparmentID').change(function () {
             orgListInit();
         });
-        var Organization = {
+        var Exam = {
             OrgID: null,
         display: function (data) {
-            $("div#orgmodalcontainer").remove();
-            $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
+            $("div#exammodalcontainer").remove();
+            $('<div/>', { id: "exammodalcontainer" }).appendTo('body').append(data);
 
-            $('#OrgModal #ORG_OFFICE_ID').change(function () {
-                if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
-                    $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
-                var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
-                });
-                $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
+            $("#ExamModal").modal({ show: true });
+            //$('#OrgModal #ORG_OFFICE_ID').change(function () {
+            //    if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
+            //        $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
+            //    var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+            //        $(this).val($(this).val().split(':')[1]);
+            //    });
+            //    $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
 
-            });
+            //});
 
-            $('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
-                if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
-                    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
-                var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
-                });
-                $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
+            //$('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
+            //    if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
+            //        $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
+            //    var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+            //        $(this).val($(this).val().split(':')[1]);
+            //    });
+            //    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
 
-            });
+            //});
 
-            $("#OrgModal").modal({ show: true });
         },
         displayDelete: function (data) {
             $("div#orgmodaldeletecontainer").remove();
@@ -210,10 +219,10 @@
         },
         loadTemplate: function () {
             $.ajax({
-                    url: "@Url.Action("OrgAddEdit", "Home", new { Area = "" })",
+                    url: "@Url.Action("AddEdit", "Exam", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
-                        Organization.display(data);
+                        Exam.display(data);
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -224,23 +233,6 @@
                     }
                 });
         },
-        @*list: function () {
-            $.ajax({
-                url: "@Url.Action("OrgList","Home")",
-                type: "POST",
-                success: function (data, status, xhr) {
-                    $("#OrgList").html(data);
-                    initDataTable();
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
-                }
-            })
-        },*@
             edit: function (orgid) {
                 @*console.log("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
                 if ("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
@@ -252,7 +244,7 @@
                 type: 'POST',
                 data: { orgid, isshow },
                 success: function (data, status, xhr) {
-                    Organization.progressResponse(data, status, xhr);
+                    Exam.progressResponse(data, status, xhr);
                 },
                 error: errorResponse,
                 beforeSend: function () {
@@ -264,13 +256,13 @@
             });
         },
         delete: function (orgid) {
-            Organization.OrgID = orgid;
+            Exam.OrgID = orgid;
                 $.ajax({
                 url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
                 type: 'GET',
                     data: { orgid },
                 success: function (data, status, xhr) {
-                    Organization.displayDelete(data);
+                    Exam.displayDelete(data);
                 },
                 error: errorResponse,
                 beforeSend: function () {
@@ -290,7 +282,7 @@
                     data: { orgid },
                     dataType: "json",
                     success: function (data, status, xhr) {
-                        Organization.progressResponse(data, status, xhr, true);
+                        Exam.progressResponse(data, status, xhr, true);
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -309,18 +301,18 @@
         progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
             var ct = xhr.getResponseHeader("content-type") || "";
             if (ct.indexOf("html") > -1) {
-                Organization.display(data);
+                Exam.display(data);
             }
             if (ct.indexOf('json') > -1) {
                 if (data.error) {
                     Message.error(data.message);
                 } else {
                     $('.modal-backdrop:first').remove()
-                    Organization.close();
+                    Exam.close();
 
                     if (deleted == true) {
                         if (!data.error)
-                            table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
+                            table.row($("tr[data-id='" + Exam.OrgID + "']")).remove().draw();
                     }
                     if (confirmed == false && deleted == false) {
                         orgListInit();
@@ -330,8 +322,6 @@
             }
         }
         }
-            //Organization.list();
-
         function addTab(type, regid, registerno) {
             var url, title;
             switch (type) {

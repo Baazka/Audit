@@ -108,11 +108,12 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудит хийсэн хэлбэр:</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                    @if (Model.formtypes.Count() > 0)
-                                    {
-                                        @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                    }
+                                    @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    @*@Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @if (Model.formtypes.Count() > 0)
+                    {
+                        @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                    }*@
                                 </div>
                             </div>
                         </div>
@@ -212,6 +213,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын үйлчилгээний төлбөр:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal" } })
+                                    @Html.ValidationMessageFor(m => m.AUDIT_SERVICE_PAY, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
                         <hr />
                         <div style="text-align: right">
@@ -243,6 +253,6 @@
           buttonImage: "@Url.Content("~/Images/calendar.png")",
           buttonImageOnly: true,
           buttonText: "Select date"
-      });
+      });      
   });
 </script>

@@ -48,7 +48,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM5" class="table table-bordered table-hover datatable display" style="width:100%">
+            <table id="BM5" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -155,8 +155,16 @@
                         }
                     }
                 ],
+                columnDefs: [
+                    { width: 200, targets: 4 },
+                    { width: 300, targets: 7 },
+                    { width: 100, targets: 9 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
@@ -169,13 +177,14 @@
             });
 
         }
-        function Choose(id, code, name, orderdate, orderno, audittype) {
+        function Choose(id, code, name, orderdate, orderno, audittype, auditbudgettype) {
             $("#Bm5Modal input#AUDIT_ID").val(id);
             $("#Bm5Modal #AUDIT_TYPE").val(audittype);
             $("#Bm5Modal input#AUDIT_CODE").val(code);
             $("#Bm5Modal input#AUDIT_NAME").val(name);
             $("#Bm5Modal input#ORDER_DATE").val(orderdate);
             $("#Bm5Modal input#ORDER_NO").val(orderno);
+            $("#Bm5Modal #AUDIT_BUDGET_TYPE").val(auditbudgettype);
 
             $('#BM0ListModel').modal('hide');
         }

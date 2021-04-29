@@ -48,7 +48,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM4" class="table table-bordered table-hover datatable display" style="width:100%">
+            <table id="BM4" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -147,7 +147,7 @@
                     { "data": "PROPOSAL_RCV_GIVEN_NAME", "name": "PROPOSAL_RCV_GIVEN_NAME" },
                     { "data": "PROPOSAL_RCV_ADDRESS", "name": "PROPOSAL_RCV_ADDRESS" },
                     { "data": "PROPOSAL_CONTROL_AUDITOR", "name": "PROPOSAL_CONTROL_AUDITOR" },
-                    { "data": "COMPLETION_ORDER", "name": "COMPLETION_ORDER", "class": "text-right" },
+                    { "data": "COMPLETION_ORDER", "name": "COMPLETION_ORDER" },
                     { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE", "class": "text-right" },
                     { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
                     { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS", "class": "text-right" },
@@ -165,27 +165,36 @@
                         }
                     }
                 ],
+                columnDefs: [
+                    { width: 200, targets: 4 },
+                    { width: 300, targets: 9 },
+                    { width: 100, targets: 10 },
+                    { width: 100, targets: 21 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
                 "stateSave": false,
-                "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language
             });
 
         }
-        function Choose(id, code, name, orderdate, orderno, audittype) {
+        function Choose(id, code, name, orderdate, orderno, audittype, auditbudgettype) {
             $("#Bm4Modal input#AUDIT_ID").val(id);
             $("#Bm4Modal #AUDIT_TYPE").val(audittype);
             $("#Bm4Modal input#AUDIT_CODE").val(code);
             $("#Bm4Modal input#AUDIT_NAME").val(name);
             $("#Bm4Modal input#ORDER_DATE").val(orderdate);
             $("#Bm4Modal input#ORDER_NO").val(orderno);
+            $("#Bm5Modal #AUDIT_BUDGET_TYPE").val(auditbudgettype);
 
             $('#BM0ListModel').modal('hide');
         }
