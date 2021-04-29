@@ -82,6 +82,11 @@ namespace Audit.Models
     public class BM1ListRequest : DataTableAjaxPostModel
     {
         public int ID { get; set; }
+        public int AUDIT_ID { get; set; }
+        public int OFFICE_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public int STATISTIC_PERIOD { get; set; }
+        public string PERIOD_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
         public int AUDIT_TYPE { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
@@ -97,34 +102,33 @@ namespace Audit.Models
         public string VIOLATION_NAME { get; set; }
         public string ACT_SUBMITTED_DATE { get; set; }
         public string ACT_DELIVERY_DATE { get; set; }
-        public int ACT_AMOUNT { get; set; }
-        public int ACT_STATE_AMOUNT { get; set; }
-        public int ACT_LOCAL_AMOUNT { get; set; }
-        public int ACT_ORG_AMOUNT { get; set; }
-        public int ACT_OTHER_AMOUNT { get; set; }
+        public decimal ACT_AMOUNT { get; set; }
+        public decimal ACT_STATE_AMOUNT { get; set; }
+        public decimal ACT_LOCAL_AMOUNT { get; set; }
+        public decimal ACT_ORG_AMOUNT { get; set; }
+        public decimal ACT_OTHER_AMOUNT { get; set; }
         public string ACT_RCV_NAME { get; set; }
         public string ACT_RCV_ROLE { get; set; }
         public string ACT_RCV_GIVEN_NAME { get; set; }
         public string ACT_RCV_ADDRESS { get; set; }
         public string ACT_CONTROL_AUDITOR { get; set; }
         public string COMPLETION_ORDER { get; set; }
-        public int COMPLETION_AMOUNT { get; set; }
-        public int COMPLETION_STATE_AMOUNT { get; set; }
-        public int COMPLETION_LOCAL_AMOUNT { get; set; }
-        public int COMPLETION_ORG_AMOUNT { get; set; }
-        public int COMPLETION_OTHER_AMOUNT { get; set; }
-        public int REMOVED_AMOUNT { get; set; }
-        public int REMOVED_LAW_AMOUNT { get; set; }
+        public decimal COMPLETION_AMOUNT { get; set; }
+        public decimal COMPLETION_STATE_AMOUNT { get; set; }
+        public decimal COMPLETION_LOCAL_AMOUNT { get; set; }
+        public decimal COMPLETION_ORG_AMOUNT { get; set; }
+        public decimal COMPLETION_OTHER_AMOUNT { get; set; }
+        public decimal REMOVED_AMOUNT { get; set; }
+        public decimal REMOVED_LAW_AMOUNT { get; set; }
         public string REMOVED_LAW_DATE_NO { get; set; }
-        public int REMOVED_INVALID_AMOUNT { get; set; }
+        public decimal REMOVED_INVALID_AMOUNT { get; set; }
         public string REMOVED_INVALID_DATE_NO { get; set; }
-        public int ACT_C2_AMOUNT { get; set; }
-        public int ACT_C2_NONEXPIRED { get; set; }
-        public int ACT_C2_EXPIRED { get; set; }
+        public decimal ACT_C2_AMOUNT { get; set; }
+        public decimal ACT_C2_NONEXPIRED { get; set; }
+        public decimal ACT_C2_EXPIRED { get; set; }
         public int BENEFIT_FIN { get; set; }
-        public int BENEFIT_FIN_AMOUNT { get; set; }
+        public decimal BENEFIT_FIN_AMOUNT { get; set; }
         public int BENEFIT_NONFIN { get; set; }
-        public int EXEC_TYPE { get; set; }
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
@@ -179,9 +183,9 @@ namespace Audit.Models
         public decimal CLAIM_C2_AMOUNT { get; set; }
         public decimal CLAIM_C2_NONEXPIRED { get; set; }
         public decimal CLAIM_C2_EXPIRED { get; set; }
-        public decimal BENEFIT_FIN { get; set; }
+        public int BENEFIT_FIN { get; set; }
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        public decimal BENEFIT_NONFIN { get; set; }
+        public int BENEFIT_NONFIN { get; set; }
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
@@ -205,6 +209,7 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
 
         public string REFERENCE_DESC { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public decimal REFERENCE_AMOUNT { get; set; }
         public string REFERENCE_SUBMITTED_DATE { get; set; }
         public string REFERENCE_DELIVERY_DATE { get; set; }
@@ -258,6 +263,7 @@ namespace Audit.Models
         public string VIOLATION_RESPONDENT { get; set; }
         public string PROPOSAL_SUBMITTED_DATE { get; set; }
         public string PROPOSAL_DELIVERY_DATE { get; set; }
+        public int PROPOSAL_COUNT { get; set; }
         public decimal PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }
         public string PROPOSAL_RCV_ROLE { get; set; }
@@ -421,7 +427,8 @@ namespace Audit.Models
         public string AUDIT_NAME { get; set; }
         public string AUDIT_BUDGET_TYPE { get; set; }
         public string CORRECTED_ERROR_DESC { get; set; }
-        public string CORRECTED_ERROR_TYPE { get; set; }
+        public int CORRECTED_ERROR_TYPE { get; set; }
+        public string VIOLATION_NAME { get; set; }
         public string CORRECTED_COUNT { get; set; }
         public string CORRECTED_AMOUNT { get; set; }
         public string EXEC_TYPE { get; set; }

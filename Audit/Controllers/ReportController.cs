@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Configuration;
 using System.Net;
+using Audit.Models;
 using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
+using Microsoft.AspNet.Identity;
+using Audit.App_Func;
+using System.Xml.Linq;
+using System.Linq;
 
 
 namespace Audit.Controllers
@@ -12,10 +17,10 @@ namespace Audit.Controllers
     
     public class ReportController : Controller
     {
-        private string _UserName = "BatOchir.n@audit.mn";
-        private string _PassWord = "Audit8085*";
-        private string _DomainName = "http://10.10.10.43:8787/ReportServer";
 
+        ReportViewer ReportViewer1 = new ReportViewer();
+        string ssrsURL = System.Configuration.ConfigurationManager.AppSettings["SSRSReportURL"].ToString();
+        public string title = "";
         // local variable for network credential.
 
 
@@ -48,22 +53,89 @@ namespace Audit.Controllers
              //con.Close();*/
             return View();
         }
-        public PartialViewResult Viewer(string name)
+        public PartialViewResult Viewer(string name,string title)
         {
-            string ssrsURL = System.Configuration.ConfigurationManager.AppSettings["SSRSReportURL"].ToString();
-            ReportViewer ReportViewer1 = new ReportViewer();
+            
+            Reports res = new Reports();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+                
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            //return View(res);
+            ViewBag.periods = Globals.periods;
+        
+            
             ReportViewer1.ProcessingMode = ProcessingMode.Remote;
             ReportViewer1.SizeToReportContent = true;
-            ReportViewer1.Width = Unit.Percentage(100);
-            ReportViewer1.Height = Unit.Percentage(100);
+            //ReportViewer1.Width = Unit.Percentage(100);
+            //ReportViewer1.Height = Unit.Percentage(100);
             ReportViewer1.AsyncRendering = true;
+            ReportViewer1.ShowToolBar = false;
             ReportViewer1.ServerReport.ReportServerCredentials = new MyReportServerCredentials();
             ReportViewer1.ServerReport.ReportServerUrl = new Uri(ssrsURL);
-            ReportViewer1.ServerReport.ReportPath = name;
+            ReportViewer1.ServerReport.ReportPath = string.IsNullOrEmpty(name)? "/Audit.Report/Report1/Audit.Report/Report1" : name;
+            ReportParameter[] parameters = new ReportParameter[1];
+            parameters[0] = new ReportParameter("UserId", User.Identity.GetUserId(), true);
+            ReportViewer1.ServerReport.SetParameters(parameters);
             ReportViewer1.ServerReport.Refresh();
             ViewBag.ReportViewer = ReportViewer1;
-            return PartialView(ViewBag);
+            res.title = title;
+            return PartialView(res);
         }
+        protected void ExportExcel_Click(object sender, EventArgs e)
+        {
+            Warning[] warnings;
+            string[] streamids;
+            string mimeType;
+            string encoding;
+            string extension;
+            string filename;
+
+            byte[] bytes = ReportViewer1.ServerReport.Render(
+               "Excel", null, out mimeType, out encoding,
+                out extension,
+               out streamids, out warnings);
+
+            filename = string.Format("{0}.{1}", "ExportToExcel", "xls");
+            Response.ClearHeaders();
+            Response.Clear();
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + filename);
+            Response.ContentType = mimeType;
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
+        }
+
+        public static XElement SendLibraryRequest(string lib)
+        {
+            XElement elem = new XElement("lib");
+            elem.Add(new XElement("LibraryName", lib));
+
+            return AppStatic.SystemController.Library(elem);
+        }
+        [HttpPost]
+        public void albaSongoh(string value)
+        {
+            Console.WriteLine("value=============================================>" + value);
+            // your code
+            // return PartialView();//your response
+        }
+
         public ActionResult negtgel1()
         {
             string ssrsURL = System.Configuration.ConfigurationManager.AppSettings["SSRSReportURL"].ToString();
@@ -84,10 +156,7 @@ namespace Audit.Controllers
         public WindowsIdentity ImpersonationUser
         {
             get
-            {
-                // Use the default Windows user.  Credentials will be
-                // provided by the NetworkCredentials property.
-               
+            {             
 
                 return null;
             }

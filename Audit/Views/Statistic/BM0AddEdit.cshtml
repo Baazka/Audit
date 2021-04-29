@@ -1,84 +1,5 @@
 ﻿@model Audit.Models.BM0
 
-<style>
-    .modal-header {
-        background-color: #233772;
-        padding: 0.5rem 1rem;
-    }
-
-    .modal-title {
-        text-transform: uppercase;
-        color: #fff;
-    }
-    .tab-content {
-        min-height: 500px;
-    }
-    .close {
-        font-weight: normal;
-        text-shadow: none;
-        opacity: inherit;
-    }
-
-    .col-form-label {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .form-group {
-        margin-bottom: 0.5rem;
-    }
-
-    .field-validation-error {
-        font-size: 12px;
-    }
-
-    .modal-body h6 {
-        text-transform: uppercase;
-        color: #233772;
-    }
-
-    label {
-        font-size: 12px !important;
-    }
-    div.ui-datepicker {
-        font-size: 12px;
-    }
-    .ui-datepicker-trigger {
-        position: absolute;
-        right: 15px;
-        top:7px;
-    }
-    .nav-tabs {
-        background-color: white;
-        height: auto;
-        width: 100%;
-    }
-        .nav-tabs .nav-item {
-            background-color: #e7e7e5;
-            border-top-right-radius: 7px;
-            border-top-left-radius: 7px;
-        }
-            .nav-tabs .nav-item.show .nav-item, .nav-tabs .nav-link.active {
-                background-color: #e7e7e5;
-                border: none !important;
-                border-top-right-radius: 7px;
-                border-top-left-radius: 7px;
-                color: #1b508a;
-            }
-        .nav-tabs .nav-link {
-            border: none;
-            color: #1b508a;
-            font-weight: bold;
-            font-size: small;
-            padding: 4px 20px;
-            height: auto;
-            align-self: center;
-            border-color: white;
-            border-style: solid;
-            border-width: 3.5px;
-            border-top: none;
-        }
-</style>
 <div class="modal fade" id="Bm0Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM0AddEdit", "Statistic", new { Area = "" },
@@ -187,11 +108,12 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудит хийсэн хэлбэр:</label>
                                 <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                    @if (Model.formtypes.Count() > 0)
-                                    {
-                                        @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                    }
+                                    @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    @*@Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @if (Model.formtypes.Count() > 0)
+                    {
+                        @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                    }*@
                                 </div>
                             </div>
                         </div>
@@ -291,6 +213,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын үйлчилгээний төлбөр:</label>
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal" } })
+                                    @Html.ValidationMessageFor(m => m.AUDIT_SERVICE_PAY, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
                         <hr />
                         <div style="text-align: right">
@@ -322,6 +253,6 @@
           buttonImage: "@Url.Content("~/Images/calendar.png")",
           buttonImageOnly: true,
           buttonText: "Select date"
-      });
+      });      
   });
 </script>

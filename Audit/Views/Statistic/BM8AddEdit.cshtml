@@ -1,84 +1,5 @@
 ﻿@model Audit.Models.BM8
 
-<style>
-    .modal-header {
-        background-color: #233772;
-        padding: 0.5rem 1rem;
-    }
-
-    .modal-title {
-        text-transform: uppercase;
-        color: #fff;
-    }
-    .tab-content {
-        min-height: 500px;
-    }
-    .close {
-        font-weight: normal;
-        text-shadow: none;
-        opacity: inherit;
-    }
-
-    .col-form-label {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .form-group {
-        margin-bottom: 0.5rem;
-    }
-
-    .field-validation-error {
-        font-size: 12px;
-    }
-
-    .modal-body h6 {
-        text-transform: uppercase;
-        color: #233772;
-    }
-
-    label {
-        font-size: 12px !important;
-    }
-    div.ui-datepicker {
-        font-size: 12px;
-    }
-    .ui-datepicker-trigger {
-        position: absolute;
-        right: 15px;
-        top:7px;
-    }
-    .nav-tabs {
-        background-color: white;
-        height: auto;
-        width: 100%;
-    }
-        .nav-tabs .nav-item {
-            background-color: #e7e7e5;
-            border-top-right-radius: 7px;
-            border-top-left-radius: 7px;
-        }
-            .nav-tabs .nav-item.show .nav-item, .nav-tabs .nav-link.active {
-                background-color: #e7e7e5;
-                border: none !important;
-                border-top-right-radius: 7px;
-                border-top-left-radius: 7px;
-                color: #1b508a;
-            }
-        .nav-tabs .nav-link {
-            border: none;
-            color: #1b508a;
-            font-weight: bold;
-            font-size: small;
-            padding: 4px 20px;
-            height: auto;
-            align-self: center;
-            border-color: white;
-            border-style: solid;
-            border-width: 3.5px;
-            border-top: none;
-        }
-</style>
 <div class="modal fade" id="Bm8Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM8AddEdit", "Statistic", new { Area = "" },
@@ -107,7 +28,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.ID)
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Төрийн аудитын байгууллага:</label>
                                 <div class="col-sm-8">
@@ -116,15 +37,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Он:</label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.AUDIT_YEAR, new List<SelectListItem>() { new SelectListItem() { Text = "2020", Value = "2020" }, new SelectListItem() { Text = "2021", Value = "2021" }, new SelectListItem() { Text = "2022", Value = "2022" } }, new { @class = "form-control form-control-sm" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Он:</label>
                                 <div class="col-sm-8">
@@ -132,51 +45,69 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Он:</label>
+                                <label class="col-sm-4 col-form-label">BM0:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.CREATED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                    <div class="input-group input-group-sm">
+                                        @Html.EditorFor(m => m.AUDIT_ID, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.AUDIT_ID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Аудитын он:</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудитын төрөл:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @readonly = "readonly" })
                                     @Html.ValidationMessageFor(m => m.AUDIT_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудитын код:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.AUDIT_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.AUDIT_CODE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Аудитын нэр:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.AUDIT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.AUDIT_NAME, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Төсөв захирагч:</label>
+                                <label class="col-sm-4 col-form-label">Төсөв захирагч / Сэдвийн ангилал:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_BUDGET_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     @Html.ValidationMessageFor(m => m.AUDIT_BUDGET_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-6">
+                        </div>                        
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Алдааны утга:</label>
                                 <div class="col-sm-8">
@@ -185,16 +116,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Алдааны ангилал:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.CORRECTED_ERROR_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                   @* @Html.EditorFor(m => m.CORRECTED_ERROR_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })*@
+                                    @Html.DropDownListFor(model => model.CORRECTED_ERROR_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm text-right" })
                                     @Html.ValidationMessageFor(m => m.CORRECTED_ERROR_TYPE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Тоо:</label>
                                 <div class="col-sm-8">
@@ -203,11 +135,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.CORRECTED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.EditorFor(m => m.CORRECTED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                     @Html.ValidationMessageFor(m => m.CORRECTED_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>

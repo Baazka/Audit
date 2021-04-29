@@ -288,15 +288,16 @@
     <Compile Include="Controllers.Library\SystemController.cs" />
     <Compile Include="Controllers.Library\_Controller.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\ShilendansController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\BM7.cs" />
     <Compile Include="Models\BM6.cs" />
     <Compile Include="Models\BM5.cs" />

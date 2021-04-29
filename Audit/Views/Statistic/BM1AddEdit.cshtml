@@ -1,84 +1,5 @@
 ﻿@model Audit.Models.BM1
 
-<style>
-    .modal-header {
-        background-color: #233772;
-        padding: 0.5rem 1rem;
-    }
-
-    .modal-title {
-        text-transform: uppercase;
-        color: #fff;
-    }
-    .tab-content {
-        min-height: 500px;
-    }
-    .close {
-        font-weight: normal;
-        text-shadow: none;
-        opacity: inherit;
-    }
-
-    .col-form-label {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .form-group {
-        margin-bottom: 0.5rem;
-    }
-
-    .field-validation-error {
-        font-size: 12px;
-    }
-
-    .modal-body h6 {
-        text-transform: uppercase;
-        color: #233772;
-    }
-
-    label {
-        font-size: 12px !important;
-    }
-    div.ui-datepicker {
-        font-size: 12px;
-    }
-    .ui-datepicker-trigger {
-        position: absolute;
-        right: 15px;
-        top:7px;
-    }
-    .nav-tabs {
-        background-color: white;
-        height: auto;
-        width: 100%;
-    }
-        .nav-tabs .nav-item {
-            background-color: #e7e7e5;
-            border-top-right-radius: 7px;
-            border-top-left-radius: 7px;
-        }
-            .nav-tabs .nav-item.show .nav-item, .nav-tabs .nav-link.active {
-                background-color: #e7e7e5;
-                border: none !important;
-                border-top-right-radius: 7px;
-                border-top-left-radius: 7px;
-                color: #1b508a;
-            }
-        .nav-tabs .nav-link {
-            border: none;
-            color: #1b508a;
-            font-weight: bold;
-            font-size: small;
-            padding: 4px 20px;
-            height: auto;
-            align-self: center;
-            border-color: white;
-            border-style: solid;
-            border-width: 3.5px;
-            border-top: none;
-        }
-</style>
 <div class="modal fade" id="Bm1Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM1AddEdit", "Statistic", new { Area = "" },
@@ -255,7 +176,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Төлбөрийн дүн:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                    @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.ACT_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -264,7 +185,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Улсын төсөвт:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                    @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1" } })
                                     @Html.ValidationMessageFor(m => m.ACT_STATE_AMOUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -415,9 +336,9 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хуулийн байгууллагад шилжүүлсэн огноо:</label>
+                                <label class="col-sm-4 col-form-label">Хуулийн байгууллагад шилжүүлсэн огноо, дугаар:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.REMOVED_LAW_DATE_NO, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                    @Html.EditorFor(m => m.REMOVED_LAW_DATE_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.REMOVED_LAW_DATE_NO, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -433,9 +354,9 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Тушаалаар хүчингүй болгосон огноо:</label>
+                                <label class="col-sm-4 col-form-label">Тушаалаар хүчингүй болгосон огноо, дугаар:</label>
                                 <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.REMOVED_INVALID_DATE_NO, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                    @Html.EditorFor(m => m.REMOVED_INVALID_DATE_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.REMOVED_INVALID_DATE_NO, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -530,6 +451,32 @@
       calculateSum2();
       calculateSum3();
       calculateSum4();
+      
+      //$(".decimal").on('keyup', function (evt) {
+      //    if (evt.which != 110 && evt.which != 190) {
+      //        $(".decimal").formatCurrency();
+      //    }
+      //});
+      
+      //$('.number').keyup(function (event) {
+
+      //    // skip for arrow keys
+      //    if (event.which >= 37 && event.which <= 40) return;
+
+      //    // format number
+      //    $(this).val(function (index, value) {
+      //        return value
+      //            .replace(/\D/g, "")
+      //            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      //            ;
+      //    });
+      //});
+      //$(".decimal").on('keyup', function (evt) {
+      //    if (evt.which != 110 && evt.which != 190) {
+      //        var n = parseFloat($(this).val().replace(/\,/g, ''), 2);
+      //        $(this).val(n.toLocaleString());
+      //    }
+      //});
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
@@ -550,7 +497,7 @@
           $(".amount1").each(function () {
               //add only if the value is number
               if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
+                  sum += parseFloat(this.value.replace(',', ''));
               }
           });
 

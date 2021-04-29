@@ -7,14 +7,15 @@ using System.Xml.Linq;
 
 namespace Audit.Models
 {
-    public class BM1VM
+    public class Reports
     {
         public int DeparmentID { get; set; }
         public int PeriodID { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
+        public string title { get; set; }
     }
-    public class BM1
+    public class Report
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "BM0 сонгоно уу.")]
@@ -35,43 +36,47 @@ namespace Audit.Models
         public string ORDER_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_NO { get; set; }
-        public string ACT_NO { get; set; }
-        public string ACT_VIOLATION_DESC { get; set; }
-        public int ACT_VIOLATION_TYPE { get; set; }
+
+        public string CLAIM_NO { get; set; }
+        public string CLAIM_VIOLATION_DESC { get; set; }
+        public int CLAIM_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
-        public string ACT_SUBMITTED_DATE { get; set; }
-        public string ACT_DELIVERY_DATE { get; set; }
-        public decimal ACT_AMOUNT { get; set; }
-        public decimal ACT_STATE_AMOUNT { get; set; }
-        public decimal ACT_LOCAL_AMOUNT { get; set; }
-        public decimal ACT_ORG_AMOUNT { get; set; }
-        public decimal ACT_OTHER_AMOUNT { get; set; }
-        public string ACT_RCV_NAME { get; set; }
-        public string ACT_RCV_ROLE { get; set; }
-        public string ACT_RCV_GIVEN_NAME { get; set; }
-        public string ACT_RCV_ADDRESS { get; set; }
-        public string ACT_CONTROL_AUDITOR { get; set; }
-        public string COMPLETION_ORDER { get; set; }
+        public string CLAIM_SUBMITTED_DATE { get; set; }
+        public string CLAIM_DELIVERY_DATE { get; set; }
+        public decimal CLAIM_VIOLATION_AMOUNT { get; set; }
+        public string CLAIM_RCV_NAME { get; set; }
+        public string CLAIM_RCV_ROLE { get; set; }
+        public string CLAIM_RCV_GIVEN_NAME { get; set; }
+        public string CLAIM_RCV_ADDRESS { get; set; }
+        public string CLAIM_CONTROL_AUDITOR { get; set; }
+        public string COMPLETION_ORDER { get; set; }       
         public decimal COMPLETION_AMOUNT { get; set; }
         public decimal COMPLETION_STATE_AMOUNT { get; set; }
         public decimal COMPLETION_LOCAL_AMOUNT { get; set; }
         public decimal COMPLETION_ORG_AMOUNT { get; set; }
         public decimal COMPLETION_OTHER_AMOUNT { get; set; }
-        public decimal REMOVED_AMOUNT { get; set; }
         public decimal REMOVED_LAW_AMOUNT { get; set; }
-        public string REMOVED_LAW_DATE_NO { get; set; }
+        public string REMOVED_LAW_DATE { get; set; }
+        public string REMOVED_LAW_NO { get; set; }
         public decimal REMOVED_INVALID_AMOUNT { get; set; }
-        public string REMOVED_INVALID_DATE_NO { get; set; }
-        public decimal ACT_C2_AMOUNT { get; set; }
-        public decimal ACT_C2_NONEXPIRED { get; set; }
-        public decimal ACT_C2_EXPIRED { get; set; }
-        public int BENEFIT_FIN { get; set; }
+        public string REMOVED_INVALID_DATE { get; set; }
+        public string REMOVED_INVALID_NO { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        public decimal CLAIM_C2_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        public decimal CLAIM_C2_NONEXPIRED { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        public decimal CLAIM_C2_EXPIRED { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        public decimal BENEFIT_FIN { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        public int BENEFIT_NONFIN { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        public decimal BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
-        public int IS_ACTIVE { get; set; } = 1;
 
-        public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
+        public int IS_ACTIVE { get; set; } = 1;
+        public DateTime? CREATED_DATE { get; set; }
         public DateTime? UPDATED_DATE { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
@@ -80,7 +85,9 @@ namespace Audit.Models
         public List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();
         public List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
 
-        public BM1 SetXml(XElement xml)
+        public string title { get; set; }
+
+        public Report SetXml(XElement xml)
         {
             if (xml != null)
             {
@@ -96,7 +103,7 @@ namespace Audit.Models
                     STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
                 if (xml.Element("PERIOD_LABEL") != null)
                     PERIOD_LABEL = xml.Element("PERIOD_LABEL").Value;
-                
+
                 if (xml.Element("AUDIT_YEAR") != null)
                     AUDIT_YEAR = Convert.ToInt32(xml.Element("AUDIT_YEAR").Value);
                 if (xml.Element("AUDIT_TYPE") != null)
@@ -115,38 +122,31 @@ namespace Audit.Models
                     ORDER_DATE = xml.Element("ORDER_DATE").Value;
                 if (xml.Element("ORDER_NO") != null)
                     ORDER_NO = xml.Element("ORDER_NO").Value;
-                if (xml.Element("ACT_NO") != null)
-                    ACT_NO = xml.Element("ACT_NO").Value;
-                if (xml.Element("ACT_VIOLATION_DESC") != null)
-                    ACT_VIOLATION_DESC = xml.Element("ACT_VIOLATION_DESC").Value;
-                if (xml.Element("ACT_VIOLATION_TYPE") != null)
-                    ACT_VIOLATION_TYPE = Convert.ToInt32(xml.Element("ACT_VIOLATION_TYPE").Value);
+                
+                if (xml.Element("CLAIM_NO") != null)
+                    CLAIM_NO = xml.Element("CLAIM_NO").Value;
+                if (xml.Element("CLAIM_VIOLATION_DESC") != null)
+                    CLAIM_VIOLATION_DESC = xml.Element("CLAIM_VIOLATION_DESC").Value;
+                if (xml.Element("CLAIM_VIOLATION_TYPE") != null)
+                    CLAIM_VIOLATION_TYPE = Convert.ToInt32(xml.Element("CLAIM_VIOLATION_TYPE").Value);
                 if (xml.Element("VIOLATION_NAME") != null)
                     VIOLATION_NAME = xml.Element("VIOLATION_NAME").Value;
-                if (xml.Element("ACT_SUBMITTED_DATE") != null)
-                    ACT_SUBMITTED_DATE = xml.Element("ACT_SUBMITTED_DATE").Value;
-                if (xml.Element("ACT_DELIVERY_DATE") != null)
-                    ACT_DELIVERY_DATE = xml.Element("ACT_DELIVERY_DATE").Value;
-                if (xml.Element("ACT_AMOUNT") != null)
-                    ACT_AMOUNT = Convert.ToDecimal(xml.Element("ACT_AMOUNT").Value);
-                if (xml.Element("ACT_STATE_AMOUNT") != null)
-                    ACT_STATE_AMOUNT = Convert.ToDecimal(xml.Element("ACT_STATE_AMOUNT").Value);
-                if (xml.Element("ACT_LOCAL_AMOUNT") != null)
-                    ACT_LOCAL_AMOUNT = Convert.ToDecimal(xml.Element("ACT_LOCAL_AMOUNT").Value);
-                if (xml.Element("ACT_ORG_AMOUNT") != null)
-                    ACT_ORG_AMOUNT = Convert.ToDecimal(xml.Element("ACT_ORG_AMOUNT").Value);
-                if (xml.Element("ACT_OTHER_AMOUNT") != null)
-                    ACT_OTHER_AMOUNT = Convert.ToDecimal(xml.Element("ACT_OTHER_AMOUNT").Value);
-                if (xml.Element("ACT_RCV_NAME") != null)
-                    ACT_RCV_NAME = xml.Element("ACT_RCV_NAME").Value;
-                if (xml.Element("ACT_RCV_ROLE") != null)
-                    ACT_RCV_ROLE = xml.Element("ACT_RCV_ROLE").Value;
-                if (xml.Element("ACT_RCV_GIVEN_NAME") != null)
-                    ACT_RCV_GIVEN_NAME = xml.Element("ACT_RCV_GIVEN_NAME").Value;
-                if (xml.Element("ACT_RCV_ADDRESS") != null)
-                    ACT_RCV_ADDRESS = xml.Element("ACT_RCV_ADDRESS").Value;
-                if (xml.Element("ACT_CONTROL_AUDITOR") != null)
-                    ACT_CONTROL_AUDITOR = xml.Element("ACT_CONTROL_AUDITOR").Value;
+                if (xml.Element("CLAIM_SUBMITTED_DATE") != null)
+                    CLAIM_SUBMITTED_DATE = xml.Element("CLAIM_SUBMITTED_DATE").Value;
+                if (xml.Element("CLAIM_DELIVERY_DATE") != null)
+                    CLAIM_DELIVERY_DATE = xml.Element("CLAIM_DELIVERY_DATE").Value;
+                if (xml.Element("CLAIM_VIOLATION_AMOUNT") != null)
+                    CLAIM_VIOLATION_AMOUNT = Convert.ToDecimal(xml.Element("CLAIM_VIOLATION_AMOUNT").Value);
+                if (xml.Element("CLAIM_RCV_NAME") != null)
+                    CLAIM_RCV_NAME = xml.Element("CLAIM_RCV_NAME").Value;
+                if (xml.Element("CLAIM_RCV_ROLE") != null)
+                    CLAIM_RCV_ROLE = xml.Element("CLAIM_RCV_ROLE").Value;
+                if (xml.Element("CLAIM_RCV_GIVEN_NAME") != null)
+                    CLAIM_RCV_GIVEN_NAME = xml.Element("CLAIM_RCV_GIVEN_NAME").Value;
+                if (xml.Element("CLAIM_RCV_ADDRESS") != null)
+                    CLAIM_RCV_ADDRESS = xml.Element("CLAIM_RCV_ADDRESS").Value;
+                if (xml.Element("CLAIM_CONTROL_AUDITOR") != null)
+                    CLAIM_CONTROL_AUDITOR = xml.Element("CLAIM_CONTROL_AUDITOR").Value;
                 if (xml.Element("COMPLETION_ORDER") != null)
                     COMPLETION_ORDER = xml.Element("COMPLETION_ORDER").Value;
                 if (xml.Element("COMPLETION_AMOUNT") != null)
@@ -159,38 +159,46 @@ namespace Audit.Models
                     COMPLETION_ORG_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_ORG_AMOUNT").Value);
                 if (xml.Element("COMPLETION_OTHER_AMOUNT") != null)
                     COMPLETION_OTHER_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_OTHER_AMOUNT").Value);
-                if (xml.Element("REMOVED_AMOUNT") != null)
-                    REMOVED_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_AMOUNT").Value);
+                
                 if (xml.Element("REMOVED_LAW_AMOUNT") != null)
                     REMOVED_LAW_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_LAW_AMOUNT").Value);
-                if (xml.Element("REMOVED_LAW_DATE_NO") != null)
-                    REMOVED_LAW_DATE_NO = xml.Element("REMOVED_LAW_DATE_NO").Value;
+                if (xml.Element("REMOVED_LAW_DATE") != null)
+                    REMOVED_LAW_DATE = xml.Element("REMOVED_LAW_DATE").Value;
+                if (xml.Element("REMOVED_LAW_NO") != null)
+                    REMOVED_LAW_NO = xml.Element("REMOVED_LAW_NO").Value;
                 if (xml.Element("REMOVED_INVALID_AMOUNT") != null)
                     REMOVED_INVALID_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_INVALID_AMOUNT").Value);
-                if (xml.Element("REMOVED_INVALID_DATE_NO") != null)
-                    REMOVED_INVALID_DATE_NO = xml.Element("REMOVED_INVALID_DATE_NO").Value;
-                if (xml.Element("ACT_C2_AMOUNT") != null)
-                    ACT_C2_AMOUNT = Convert.ToDecimal(xml.Element("ACT_C2_AMOUNT").Value);
-                if (xml.Element("ACT_C2_NONEXPIRED") != null)
-                    ACT_C2_NONEXPIRED = Convert.ToDecimal(xml.Element("ACT_C2_NONEXPIRED").Value);
-                if (xml.Element("ACT_C2_EXPIRED") != null)
-                    ACT_C2_EXPIRED = Convert.ToDecimal(xml.Element("ACT_C2_EXPIRED").Value);
+                if (xml.Element("REMOVED_INVALID_DATE") != null)
+                    REMOVED_INVALID_DATE = xml.Element("REMOVED_INVALID_DATE").Value;
+                if (xml.Element("REMOVED_INVALID_NO") != null)
+                    REMOVED_INVALID_NO = xml.Element("REMOVED_INVALID_NO").Value;
+                if (xml.Element("CLAIM_C2_AMOUNT") != null)
+                    CLAIM_C2_AMOUNT = Convert.ToDecimal(xml.Element("CLAIM_C2_AMOUNT").Value);
+                if (xml.Element("CLAIM_C2_NONEXPIRED") != null)
+                    CLAIM_C2_NONEXPIRED = Convert.ToDecimal(xml.Element("CLAIM_C2_NONEXPIRED").Value);
+                if (xml.Element("CLAIM_C2_EXPIRED") != null)
+                    CLAIM_C2_EXPIRED = Convert.ToDecimal(xml.Element("CLAIM_C2_EXPIRED").Value);
+
                 if (xml.Element("BENEFIT_FIN") != null)
-                    BENEFIT_FIN = Convert.ToInt32(xml.Element("BENEFIT_FIN").Value);
+                    BENEFIT_FIN = Convert.ToDecimal(xml.Element("BENEFIT_FIN").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
                     BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value);
                 if (xml.Element("BENEFIT_NONFIN") != null)
-                    BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
+                    BENEFIT_NONFIN = Convert.ToDecimal(xml.Element("BENEFIT_NONFIN").Value);
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
+                if (xml.Element("title") != null)
+                    title = xml.Element("title").Value;
             }
+
+            
             return this;
         }
         public XElement ToXml()
         {
-            return new XElement("BM1",
+            return new XElement("BM2",
                        new XElement("ID", ID),
-                       new XElement("AUDIT_ID", AUDIT_ID),
+                       new XElement("ID", AUDIT_ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
                        new XElement("AUDIT_YEAR", AUDIT_YEAR),
@@ -200,40 +208,38 @@ namespace Audit.Models
                        new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
                        new XElement("ORDER_DATE", ORDER_DATE),
                        new XElement("ORDER_NO", ORDER_NO),
-                       new XElement("ACT_NO", ACT_NO),
-                       new XElement("ACT_VIOLATION_DESC", ACT_VIOLATION_DESC),
-                       new XElement("ACT_VIOLATION_TYPE", ACT_VIOLATION_TYPE),
-                       new XElement("ACT_SUBMITTED_DATE", ACT_SUBMITTED_DATE),
-                       new XElement("ACT_DELIVERY_DATE", ACT_DELIVERY_DATE),
-                       new XElement("ACT_AMOUNT", ACT_AMOUNT),
-                       new XElement("ACT_STATE_AMOUNT", ACT_STATE_AMOUNT),
-                       new XElement("ACT_LOCAL_AMOUNT", ACT_LOCAL_AMOUNT),
-                       new XElement("ACT_ORG_AMOUNT", ACT_ORG_AMOUNT),
-                       new XElement("ACT_OTHER_AMOUNT", ACT_OTHER_AMOUNT),
-                       new XElement("ACT_RCV_NAME", ACT_RCV_NAME),
-                       new XElement("ACT_RCV_ROLE", ACT_RCV_ROLE),
-                       new XElement("ACT_RCV_GIVEN_NAME", ACT_RCV_GIVEN_NAME),
-                       new XElement("ACT_RCV_ADDRESS", ACT_RCV_ADDRESS),
-                       new XElement("ACT_CONTROL_AUDITOR", ACT_CONTROL_AUDITOR),
+                       new XElement("CLAIM_NO", CLAIM_NO),
+                       new XElement("CLAIM_VIOLATION_DESC", CLAIM_VIOLATION_DESC),
+                       new XElement("CLAIM_VIOLATION_TYPE", CLAIM_VIOLATION_TYPE),
+                       new XElement("CLAIM_SUBMITTED_DATE", CLAIM_SUBMITTED_DATE),
+                       new XElement("CLAIM_DELIVERY_DATE", CLAIM_DELIVERY_DATE),
+                       new XElement("CLAIM_VIOLATION_AMOUNT", CLAIM_VIOLATION_AMOUNT),
+                       new XElement("CLAIM_RCV_NAME", CLAIM_RCV_NAME),
+                       new XElement("CLAIM_RCV_ROLE", CLAIM_RCV_ROLE),
+                       new XElement("CLAIM_RCV_GIVEN_NAME", CLAIM_RCV_GIVEN_NAME),
+                       new XElement("CLAIM_RCV_ADDRESS", CLAIM_RCV_ADDRESS),
+                       new XElement("CLAIM_CONTROL_AUDITOR", CLAIM_CONTROL_AUDITOR),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT),
                        new XElement("COMPLETION_STATE_AMOUNT", COMPLETION_STATE_AMOUNT),
                        new XElement("COMPLETION_LOCAL_AMOUNT", COMPLETION_LOCAL_AMOUNT),
                        new XElement("COMPLETION_ORG_AMOUNT", COMPLETION_ORG_AMOUNT),
                        new XElement("COMPLETION_OTHER_AMOUNT", COMPLETION_OTHER_AMOUNT),
-                       new XElement("REMOVED_AMOUNT", REMOVED_AMOUNT),
                        new XElement("REMOVED_LAW_AMOUNT", REMOVED_LAW_AMOUNT),
-                       new XElement("REMOVED_LAW_DATE_NO", REMOVED_LAW_DATE_NO),
+                       new XElement("REMOVED_LAW_DATE", REMOVED_LAW_DATE),
+                       new XElement("REMOVED_LAW_NO", REMOVED_LAW_NO),
                        new XElement("REMOVED_INVALID_AMOUNT", REMOVED_INVALID_AMOUNT),
-                       new XElement("REMOVED_INVALID_DATE_NO", REMOVED_INVALID_DATE_NO),
-                       new XElement("ACT_C2_AMOUNT", ACT_C2_AMOUNT),
-                       new XElement("ACT_C2_NONEXPIRED", ACT_C2_NONEXPIRED),
-                       new XElement("ACT_C2_EXPIRED", ACT_C2_EXPIRED),
+                       new XElement("REMOVED_INVALID_DATE", REMOVED_INVALID_DATE),
+                       new XElement("REMOVED_INVALID_NO", REMOVED_INVALID_NO),
+                       new XElement("CLAIM_C2_AMOUNT", CLAIM_C2_AMOUNT),
+                       new XElement("CLAIM_C2_NONEXPIRED", CLAIM_C2_NONEXPIRED),
+                       new XElement("CLAIM_C2_EXPIRED", CLAIM_C2_EXPIRED),
                        new XElement("BENEFIT_FIN", BENEFIT_FIN),
                        new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT),
                        new XElement("BENEFIT_NONFIN", BENEFIT_NONFIN),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE)
+                       new XElement("CREATED_DATE", CREATED_DATE),
+                       new XElement("title", title)
                        );
         }
     }

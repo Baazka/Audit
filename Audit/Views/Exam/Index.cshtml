@@ -33,18 +33,29 @@
             <label for="ViolationID" class="col-form-label">Алдаа:</label><br />
             @Html.ListBoxFor(model => model.ViolationIDs, Model.Violation, new { id = "violation" })
         </div>
-        @if (Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_ADD")) { 
+        @*@if (Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_ADD"))
+        {
+            <div class="form-group-sm ml-auto pr-2">
+                <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Organization.loadTemplate();">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Шинэ бүртгэл</span>
+                </a>
+            </div>
+        }*@
     <div class="form-group-sm ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Organization.loadTemplate();">
+        <br />
+        <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Exam.loadTemplate();">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
             <span class="text">Шинэ бүртгэл</span>
         </a>
     </div>
-        }
-        
-        <div class="form-group-sm pr-2">
+
+        <div class="form-group-sm">
+            <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -59,9 +70,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                    <table class="table table-sm table-bordered table-hover border-light datatable display" id="organizationlist" style="width:100%">
                         <thead>
-                            <tr>
+                            <tr class="bg-light">
                                 <th class="text-center">№</th>
                                 <th>Алба</th>
                                 <th>Регистр</th>
@@ -132,22 +143,14 @@
                             var tmp = '<div class="btn-group">';
                             var urledit = '<a href="#" class="btn btn-sm" onclick="Organization.edit(' + data.ORG_ID + ')"><i class="fa fa-edit text-warning"></i></a>';
                             var urldelete = '<a href="#" class="btn btn-sm" onclick="Organization.delete(' + data.ORG_ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                            if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_EDIT")')
+                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_EDIT")')*@
                                 tmp += urledit;
-                            if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_DELETE")')
+                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_DELETE")')*@
                                 tmp += urldelete;
                             tmp += "</div>";
                         return tmp;
-                    //return '<div class="btn-group">'+
-                    //            '<a class="btn btn-sm" href="#" onclick="Organization.edit('+data.ORG_ID+')">'+
-                    //                '<i class="fa fa-edit"></i>'+
-                    //            '</a>'+
-                    //            '<a class="btn btn-sm" href="#" onclick="Organization.delete('+data.ORG_ID+')">'+
-                    //                '<i class="fa fa-trash-alt" ></i> '+
-                    //            '</a> '+
-                    //        '</div>';
-                }
-            }
+                        }
+                    }
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -180,33 +183,33 @@
         $('#DeparmentID').change(function () {
             orgListInit();
         });
-        var Organization = {
+        var Exam = {
             OrgID: null,
         display: function (data) {
-            $("div#orgmodalcontainer").remove();
-            $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
+            $("div#exammodalcontainer").remove();
+            $('<div/>', { id: "exammodalcontainer" }).appendTo('body').append(data);
 
-            $('#OrgModal #ORG_OFFICE_ID').change(function () {
-                if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
-                    $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
-                var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
-                });
-                $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
+            $("#ExamModal").modal({ show: true });
+            //$('#OrgModal #ORG_OFFICE_ID').change(function () {
+            //    if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
+            //        $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
+            //    var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+            //        $(this).val($(this).val().split(':')[1]);
+            //    });
+            //    $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
 
-            });
+            //});
 
-            $('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
-                if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
-                    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
-                var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
-                });
-                $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
+            //$('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
+            //    if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
+            //        $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
+            //    var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+            //        $(this).val($(this).val().split(':')[1]);
+            //    });
+            //    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
 
-            });
+            //});
 
-            $("#OrgModal").modal({ show: true });
         },
         displayDelete: function (data) {
             $("div#orgmodaldeletecontainer").remove();
@@ -216,10 +219,10 @@
         },
         loadTemplate: function () {
             $.ajax({
-                    url: "@Url.Action("OrgAddEdit", "Home", new { Area = "" })",
+                    url: "@Url.Action("AddEdit", "Exam", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
-                        Organization.display(data);
+                        Exam.display(data);
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -230,35 +233,18 @@
                     }
                 });
         },
-        @*list: function () {
-            $.ajax({
-                url: "@Url.Action("OrgList","Home")",
-                type: "POST",
-                success: function (data, status, xhr) {
-                    $("#OrgList").html(data);
-                    initDataTable();
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
-                }
-            })
-        },*@
             edit: function (orgid) {
-                console.log("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
+                @*console.log("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
                 if ("@Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_CONFIRM")" !== "False")
                     isshow = true
                 else
-                    isshow = false
+                    isshow = false*@
             $.ajax({
                 url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
                 type: 'POST',
                 data: { orgid, isshow },
                 success: function (data, status, xhr) {
-                    Organization.progressResponse(data, status, xhr);
+                    Exam.progressResponse(data, status, xhr);
                 },
                 error: errorResponse,
                 beforeSend: function () {
@@ -270,13 +256,13 @@
             });
         },
         delete: function (orgid) {
-            Organization.OrgID = orgid;
+            Exam.OrgID = orgid;
                 $.ajax({
                 url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
                 type: 'GET',
                     data: { orgid },
                 success: function (data, status, xhr) {
-                    Organization.displayDelete(data);
+                    Exam.displayDelete(data);
                 },
                 error: errorResponse,
                 beforeSend: function () {
@@ -296,7 +282,7 @@
                     data: { orgid },
                     dataType: "json",
                     success: function (data, status, xhr) {
-                        Organization.progressResponse(data, status, xhr, true);
+                        Exam.progressResponse(data, status, xhr, true);
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -315,18 +301,18 @@
         progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
             var ct = xhr.getResponseHeader("content-type") || "";
             if (ct.indexOf("html") > -1) {
-                Organization.display(data);
+                Exam.display(data);
             }
             if (ct.indexOf('json') > -1) {
                 if (data.error) {
                     Message.error(data.message);
                 } else {
                     $('.modal-backdrop:first').remove()
-                    Organization.close();
+                    Exam.close();
 
                     if (deleted == true) {
                         if (!data.error)
-                            table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
+                            table.row($("tr[data-id='" + Exam.OrgID + "']")).remove().draw();
                     }
                     if (confirmed == false && deleted == false) {
                         orgListInit();
@@ -336,8 +322,6 @@
             }
         }
         }
-            //Organization.list();
-
         function addTab(type, regid, registerno) {
             var url, title;
             switch (type) {

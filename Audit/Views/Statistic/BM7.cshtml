@@ -26,8 +26,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM7', 'БМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын бүртгэл')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM7', 'БМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын бүртгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -39,9 +40,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM7" class="table table-bordered datatable display" style="width:100%">
+            <table id="BM7" class="table table-bordered table-hover datatable display">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Төрийн аудитын газар</th>
                         <th rowspan="3">Аудитын жил</th>
@@ -60,13 +61,13 @@
                         <th colspan="2" rowspan="2">Бусад</th>
                         <th colspan="2" rowspan="2">Алдаа зөрчлийн нийт дүн</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Улсын төсөв</th>
                         <th colspan="2">Орон нутгийн төсөв</th>
                         <th colspan="2">Улсын төсөв</th>
                         <th colspan="2">Орон нутгийн төсөв</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -129,39 +130,45 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": null, "name": null },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
                     { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
                     { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
                     { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
                     { "data": null, "name": null },
-                    { "data": "INCOME_STATE_COUNT", "name": "INCOME_STATE_COUNT" },
-                    { "data": "INCOME_STATE_AMOUNT", "name": "INCOME_STATE_AMOUNT" },
-                    { "data": "INCOME_LOCAL_COUNT", "name": "INCOME_LOCAL_COUNT" },
-                    { "data": "INCOME_LOCAL_NUMBER", "name": "INCOME_LOCAL_NUMBER" },
-                    { "data": "BUDGET_STATE_COUNT", "name": "BUDGET_STATE_COUNT" },
-                    { "data": "BUDGET_STATE_AMOUNT", "name": "BUDGET_STATE_AMOUNT" },
-                    { "data": "BUDGET_LOCAL_COUNT", "name": "BUDGET_LOCAL_COUNT" },
-                    { "data": "BUDGET_LOCAL_AMOUNT", "name": "BUDGET_LOCAL_AMOUNT" },
-                    { "data": "ACCOUNTANT_COUNT", "name": "ACCOUNTANT_COUNT" },
-                    { "data": "ACCOUNTANT_AMOUNT", "name": "ACCOUNTANT_AMOUNT" },
-                    { "data": "EFFICIENCY_COUNT", "name": "EFFICIENCY_COUNT" },
-                    { "data": "EFFICIENCY_AMOUNT", "name": "EFFICIENCY_AMOUNT" },
-                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
-                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
-                    { "data": "MONITORING_COUNT", "name": "MONITORING_COUNT" },
-                    { "data": "MONITORING_AMOUNT", "name": "MONITORING_AMOUNT" },
-                    { "data": "PURCHASE_COUNT", "name": "PURCHASE_COUNT" },
-                    { "data": "PURCHASE_AMOUNT", "name": "PURCHASE_AMOUNT" },
-                    { "data": "COST_COUNT", "name": "COST_COUNT" },
-                    { "data": "COST_AMOUNT", "name": "COST_AMOUNT" },
-                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT" },
-                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
-                    { "data": "ALL_COUNT", "name": "ALL_COUNT" },
-                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
+                    { "data": "INCOME_STATE_COUNT", "name": "INCOME_STATE_COUNT", "class": "text-right" },
+                    { "data": "INCOME_STATE_AMOUNT", "name": "INCOME_STATE_AMOUNT", "class": "text-right" },
+                    { "data": "INCOME_LOCAL_COUNT", "name": "INCOME_LOCAL_COUNT", "class": "text-right" },
+                    { "data": "INCOME_LOCAL_NUMBER", "name": "INCOME_LOCAL_NUMBER", "class": "text-right" },
+                    { "data": "BUDGET_STATE_COUNT", "name": "BUDGET_STATE_COUNT", "class": "text-right" },
+                    { "data": "BUDGET_STATE_AMOUNT", "name": "BUDGET_STATE_AMOUNT", "class": "text-right" },
+                    { "data": "BUDGET_LOCAL_COUNT", "name": "BUDGET_LOCAL_COUNT", "class": "text-right" },
+                    { "data": "BUDGET_LOCAL_AMOUNT", "name": "BUDGET_LOCAL_AMOUNT", "class": "text-right" },
+                    { "data": "ACCOUNTANT_COUNT", "name": "ACCOUNTANT_COUNT", "class": "text-right" },
+                    { "data": "ACCOUNTANT_AMOUNT", "name": "ACCOUNTANT_AMOUNT", "class": "text-right" },
+                    { "data": "EFFICIENCY_COUNT", "name": "EFFICIENCY_COUNT", "class": "text-right" },
+                    { "data": "EFFICIENCY_AMOUNT", "name": "EFFICIENCY_AMOUNT", "class": "text-right" },
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT", "class": "text-right" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right" },
+                    { "data": "MONITORING_COUNT", "name": "MONITORING_COUNT", "class": "text-right" },
+                    { "data": "MONITORING_AMOUNT", "name": "MONITORING_AMOUNT", "class": "text-right" },
+                    { "data": "PURCHASE_COUNT", "name": "PURCHASE_COUNT", "class": "text-right" },
+                    { "data": "PURCHASE_AMOUNT", "name": "PURCHASE_AMOUNT", "class": "text-right" },
+                    { "data": "COST_COUNT", "name": "COST_COUNT", "class": "text-right" },
+                    { "data": "COST_AMOUNT", "name": "COST_AMOUNT", "class": "text-right" },
+                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT", "class": "text-right" },
+                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT", "class": "text-right" },
+                    { "data": "ALL_COUNT", "name": "ALL_COUNT", "class": "text-right" },
+                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT", "class": "text-right" },
                 ],
+                columnDefs: [
+                    { width: 200, targets: 5 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
