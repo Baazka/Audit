@@ -575,6 +575,7 @@ namespace Audit.Models
             return this;
         }
     }
+
     public class OrganizationDelete
     {
         public int ORG_ID { get; set; }
@@ -596,107 +597,109 @@ namespace Audit.Models
         }
     }
 
-    public class Tab1
-    {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public double Data01 { get; set; }
-        public string Data02 { get; set; }
-        public string Data03 { get; set; }
-    }
+    //public class Tab1
+    //{
+    //    public string MD_CODE { get; set; }
+    //    public string MD_LAWS_NUM { get; set; }
+    //    public string MD_NAME { get; set; }
+    //    public string MD_TIME { get; set; }
 
-    public class Tab2
-    {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public string Data01 { get; set; }
-        public string Data02 { get; set; }
-        public string Data03 { get; set; }
-    }
+    //    [Required(ErrorMessage = "Үнэлгээ сонгоно уу")]
+    //    public double Data01 { get; set; }
+    //    public string Data02 { get; set; }
+    //    public string Data03 { get; set; }
+    //}
 
-    public class Tab3
-    {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public string Data01 { get; set; }
-        public string Data02 { get; set; }
-        public string Data03 { get; set; }
-    }
+    //public class Tab2
+    //{
+    //    public string MD_CODE { get; set; }
+    //    public string MD_LAWS_NUM { get; set; }
+    //    public string MD_NAME { get; set; }
+    //    public string MD_TIME { get; set; }
+    //    public string Data01 { get; set; }
+    //    public string Data02 { get; set; }
+    //    public string Data03 { get; set; }
+    //}
 
-    public class Tab4
-    {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public double Data01 { get; set; }
-        public string Data02 { get; set; }
-        public string Data03 { get; set; }
-    }
+    //public class Tab3
+    //{
+    //    public string MD_CODE { get; set; }
+    //    public string MD_LAWS_NUM { get; set; }
+    //    public string MD_NAME { get; set; }
+    //    public string MD_TIME { get; set; }
+    //    public string Data01 { get; set; }
+    //    public string Data02 { get; set; }
+    //    public string Data03 { get; set; }
+    //}
 
-    public class Tab5
-    {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public string Data01 { get; set; }
-        public string Data02 { get; set; }
-        public string Data03 { get; set; }
-    }
+    //public class Tab4
+    //{
+    //    public string MD_CODE { get; set; }
+    //    public string MD_LAWS_NUM { get; set; }
+    //    public string MD_NAME { get; set; }
+    //    public string MD_TIME { get; set; }
+    //    public double Data01 { get; set; }
+    //    public string Data02 { get; set; }
+    //    public string Data03 { get; set; }
+    //}
 
-    public class Tab6
-    {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public double Data01 { get; set; }
-        public string Data02 { get; set; }
-        public string Data03 { get; set; }
-    }
+    //public class Tab5
+    //{
+    //    public string MD_CODE { get; set; }
+    //    public string MD_LAWS_NUM { get; set; }
+    //    public string MD_NAME { get; set; }
+    //    public string MD_TIME { get; set; }
+    //    public string Data01 { get; set; }
+    //    public string Data02 { get; set; }
+    //    public string Data03 { get; set; }
+    //}
 
-    public class Tab7
-    {
-        public string MD_CODE { get; set; }
-        public string MD_LAWS_NUM { get; set; }
-        public string MD_NAME { get; set; }
-        public string MD_TIME { get; set; }
-        public string Data01 { get; set; }
-        public string Data02 { get; set; }
+    //public class Tab6
+    //{
+    //    public string MD_CODE { get; set; }
+    //    public string MD_LAWS_NUM { get; set; }
+    //    public string MD_NAME { get; set; }
+    //    public string MD_TIME { get; set; }
+    //    public double Data01 { get; set; }
+    //    public string Data02 { get; set; }
+    //    public string Data03 { get; set; }
+    //}
 
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime? Data03 { get; set; }
-    }
+    //public class Tab7
+    //{
+    //    public string MD_CODE { get; set; }
+    //    public string MD_LAWS_NUM { get; set; }
+    //    public string MD_NAME { get; set; }
+    //    public string MD_TIME { get; set; }
+    //    public string Data01 { get; set; }
+    //    public string Data02 { get; set; }
 
-    public class Tab8
-    {
-        public string PROJECT_NAME { get; set; }
-        public string PROJECT_NUMBER { get; set; }
-        public string PROJECT_START_DATE { get; set; }
-        public string PROJECT_END_DATE { get; set; }
-        public string PROJECT_PERCENT { get; set; }
-        public string PROJECT_TOTAL_BUDGET { get; set; }
-        public string PROJECT_ORG_FUND { get; set; }
-        public string PROJECT_ID { get; set; }
-        public int ORG_ID { get; set; }
+    //    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    //    public DateTime? Data03 { get; set; }
+    //}
 
-    }
-    public class Print1
-    {
-        public string MEDEELEH_TOO { get; set; }
-        public string MEDEELSEN_TOO { get; set; }
-        public string MEDEELEEGUI_TOO { get; set; }
-        public string HAMAARALGUI { get; set; }
-        public string HUGATSAA_HOTSROOSON { get; set; }
-        public string MEDEELSEN_PERCENT { get; set; }
-        public string HUGATSAA_HOTSROOSON_PERCENT { get; set; }
+    //public class Tab8
+    //{
+    //    public string PROJECT_NAME { get; set; }
+    //    public string PROJECT_NUMBER { get; set; }
+    //    public string PROJECT_START_DATE { get; set; }
+    //    public string PROJECT_END_DATE { get; set; }
+    //    public string PROJECT_PERCENT { get; set; }
+    //    public string PROJECT_TOTAL_BUDGET { get; set; }
+    //    public string PROJECT_ORG_FUND { get; set; }
+    //    public string PROJECT_ID { get; set; }
+    //    public int ORG_ID { get; set; }
 
-    }
+    //}
+    //public class Print1
+    //{
+    //    public string MEDEELEH_TOO { get; set; }
+    //    public string MEDEELSEN_TOO { get; set; }
+    //    public string MEDEELEEGUI_TOO { get; set; }
+    //    public string HAMAARALGUI { get; set; }
+    //    public string HUGATSAA_HOTSROOSON { get; set; }
+    //    public string MEDEELSEN_PERCENT { get; set; }
+    //    public string HUGATSAA_HOTSROOSON_PERCENT { get; set; }
+
+    //}
 }

@@ -19,7 +19,7 @@ namespace Audit.Controllers
     public class ShilendansController : Controller
     {
         // GET: Shilendans
-        Organization organization = new Organization();
+        Mirroracc organization = new Mirroracc();
         JavaScriptSerializer serializer = new JavaScriptSerializer();
         Dictionary<string, object> row;
         public ActionResult Index()
@@ -139,103 +139,18 @@ namespace Audit.Controllers
             return View(orgLists);
         }
 
-        public ActionResult OrgDetail(int orgid)
+        public ActionResult OrgDetail(int openid)
         {
             try
             {
-                XElement res = AppStatic.SystemController.OrgDetail(orgid);
-                if (res != null && res.Elements("OrgDetail") != null)
+                XElement res = AppStatic.SystemController.MirrorOrgDetail(openid);
+                if (res != null && res.Elements("MirrorOrgDetail") != null)
                 {
-                    organization = new Organization().FromXml(res.Element("OrgDetail"));
-                    //ubinfo
-                    XElement resUB = AppStatic.SystemController.OrgUB(organization.ORG_REGISTER_NO);
-                    if (resUB != null && resUB.Elements("UBList") != null)
-                    {
-                        organization.organizationUBs = (from item in resUB.Elements("UBList") select new OrganizationUB().FromXml(item)).ToList();
-                    }
-                    //mofinfo
-                    XElement resMOF = AppStatic.SystemController.OrgMOF(organization.ORG_REGISTER_NO);
-                    if (resMOF != null && resMOF.Elements("MOFList") != null)
-                    {
-                        organization.organizationMOFs = (from item in resMOF.Elements("MOFList") select new OrganizationMOF().FromXml(item)).ToList();
-                    }
+                    organization = new Mirroracc().FromXml(res.Element("MirrorOrgDetail"));
                 }
-                if (Globals.departments.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
-                {
-                    organization.departments = Globals.departments;
-                    organization.offices = Globals.offices;
-                    organization.subOffices = Globals.subOffices;
-                    organization.budgetTypes = Globals.budgetTypes;
-                    organization.activities = Globals.activities;
-                    organization.subBudgetTypes = Globals.subBudgetTypes;
-                    organization.committees = Globals.committees;
-                    organization.taxOffices = Globals.taxOffices;
-                    organization.costTypes = Globals.costTypes;
-                    organization.insuranceOffices = Globals.insuranceOffices;
-                    organization.finOffices = Globals.finOffices;
-                    organization.financingTypes = Globals.financingTypes;
-                    organization.banks = Globals.banks;
-                }
-                else
-                {
-                    XElement responseDepartment = SendLibraryRequest("Department");
-                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
-                    organization.departments = Globals.departments;
-
-                    XElement responseOffice = SendLibraryRequest("Office");
-                    Globals.offices = (from item in responseOffice.Elements("Library") select new Office().FromXml(item)).ToList();
-                    organization.offices = Globals.offices;
-
-                    XElement responseSubOffice = SendLibraryRequest("SubOffice");
-                    Globals.subOffices = (from item in responseSubOffice.Elements("Library") select new SubOffice().FromXml(item)).ToList();
-                    organization.subOffices = Globals.subOffices;
-
-                    XElement responseBudgetType = SendLibraryRequest("BudgetType");
-                    Globals.budgetTypes = (from item in responseBudgetType.Elements("Library") select new BudgetType().FromXml(item)).ToList();
-                    organization.budgetTypes = Globals.budgetTypes;
-
-                    XElement responseActivity = SendLibraryRequest("Activity");
-                    Globals.activities = (from item in responseActivity.Elements("Library") select new ActivityLib().FromXml(item)).ToList();
-                    organization.activities = Globals.activities;
-
-                    XElement responseSubBudgetType = SendLibraryRequest("SubBudgetType");
-                    Globals.subBudgetTypes = (from item in responseSubBudgetType.Elements("Library") select new SubBudgetType().FromXml(item)).ToList();
-                    organization.subBudgetTypes = Globals.subBudgetTypes;
-
-                    XElement responseCommittee = SendLibraryRequest("Committee");
-                    Globals.committees = (from item in responseCommittee.Elements("Library") select new Committee().FromXml(item)).ToList();
-                    organization.committees = Globals.committees;
-
-                    XElement responseTaxOffice = SendLibraryRequest("TaxOffice");
-                    Globals.taxOffices = (from item in responseTaxOffice.Elements("Library") select new TaxOffice().FromXml(item)).ToList();
-                    organization.taxOffices = Globals.taxOffices;
-
-                    XElement responseCostType = SendLibraryRequest("CostType");
-                    Globals.costTypes = (from item in responseCostType.Elements("Library") select new CostType().FromXml(item)).ToList();
-                    organization.costTypes = Globals.costTypes;
-
-                    XElement responseInsuranceOffice = SendLibraryRequest("InsuranceOffice");
-                    Globals.insuranceOffices = (from item in responseInsuranceOffice.Elements("Library") select new InsuranceOffice().FromXml(item)).ToList();
-                    organization.insuranceOffices = Globals.insuranceOffices;
-
-                    XElement responseFinOffice = SendLibraryRequest("FinOffice");
-                    Globals.finOffices = (from item in responseFinOffice.Elements("Library") select new FinOffice().FromXml(item)).ToList();
-                    organization.insuranceOffices = Globals.insuranceOffices;
-
-                    XElement responseFinancingType = SendLibraryRequest("FinancingType");
-                    Globals.financingTypes = (from item in responseFinancingType.Elements("Library") select new FinancingType().FromXml(item)).ToList();
-                    organization.financingTypes = Globals.financingTypes;
-
-                    XElement responseBank = SendLibraryRequest("Bank");
-                    Globals.banks = (from item in responseBank.Elements("Library") select new Bank().FromXml(item)).ToList();
-                    organization.banks = Globals.banks;
-
-                    return View(res);
-                }
-
                 
                 XElement tb1res = AppStatic.SystemController.Table1List();
-                XElement tblprojectlist = AppStatic.SystemController.TableProjectList(Convert.ToInt32(organization.ORG_ID));
+                XElement tblprojectlist = AppStatic.SystemController.TableProjectList(Convert.ToInt32(organization.OPEN_ID));
 
                 DataSet ds = new DataSet();
                 DataSet ds1 = new DataSet();
@@ -271,7 +186,7 @@ namespace Audit.Controllers
                                     PROJECT_TOTAL_BUDGET = table8[i].Field<string>("PROJECT_TOTAL_BUDGET"),
                                     PROJECT_ORG_FUND = table8[i].Field<string>("PROJECT_ORG_FUND"),
                                     PROJECT_ID = table8[i].Field<string>("PROJECT_ID"),
-                                    ORG_ID = orgid
+                                    ORG_ID = openid
                                 }
                             );
                     }
@@ -286,7 +201,7 @@ namespace Audit.Controllers
                 organization.tab7 = new List<Tab7>();
 
 
-                XElement MirrOrgDataLists = AppStatic.SystemController.MirrDataList(orgid);
+                XElement MirrOrgDataLists = AppStatic.SystemController.MirrDataList(openid);
                 DataSet DsTables = new DataSet();
 
                 StringReader sr1 = new StringReader(MirrOrgDataLists.ToString());
@@ -339,6 +254,8 @@ namespace Audit.Controllers
                     }
                     for (int i = 0; i < table4.Length; i++)
                     {
+                        Session["Print1Val1"] = DsTables.Tables["MirrDataList"].Rows[111].Field<string>("DATA02");
+                        Session["Print1Val2"] = DsTables.Tables["MirrDataList"].Rows[112].Field<string>("DATA02");
                         var md = Convert.ToInt32(table4[i].Field<string>("MD_CODE"));
                         organization.tab4.Add(
                                 new Tab4
@@ -348,7 +265,7 @@ namespace Audit.Controllers
                                     MD_NAME = table4[i].Field<string>("MD_NAME"),
                                     MD_TIME = table4[i].Field<string>("MD_TIME"),
                                     Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
-                                    Data02 =DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
+                                    Data02 =DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")                                    
                                 }
                             );
                     }
@@ -368,6 +285,8 @@ namespace Audit.Controllers
                     }
                     for (int i = 0; i < table6.Length; i++)
                     {
+                        Session["Print2Val1"] = DsTables.Tables["MirrDataList"].Rows[169].Field<string>("DATA02");
+                        Session["Print2Val2"] = DsTables.Tables["MirrDataList"].Rows[170].Field<string>("DATA02");
                         var md = Convert.ToInt32(table6[i].Field<string>("MD_CODE"));
                         organization.tab6.Add(
                                 new Tab6
@@ -409,7 +328,7 @@ namespace Audit.Controllers
                             MD_LAWS_NUM = table1[i].Field<string>("MD_LAWS_NUM"),
                             MD_NAME = table1[i].Field<string>("MD_NAME"),
                             MD_TIME = table1[i].Field<string>("MD_TIME"),
-                            Data01 = 0.00
+                            Data01 = 0
                         });
                     }
                     for (int i = 0; i < table2.Length; i++)
@@ -489,161 +408,18 @@ namespace Audit.Controllers
 
             return PartialView("AddShilenDans", organization);
         }
-        public ActionResult AddShilenDans(Organization organization)
+        public ActionResult AddShilenDans(Mirroracc organization)
         {
-            try
-            {
-
-                if (Globals.departments.Count > 0)
-                {
-                    organization.departments = Globals.departments;
-                }
-                else
-                {
-                    XElement responseDepartment = SendLibraryRequest("Department");
-                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
-                    organization.departments = Globals.departments;
-                }
-                if (Globals.offices.Count > 0)
-                {
-                    organization.offices = Globals.offices;
-                }
-                else
-                {
-                    XElement responseOffice = SendLibraryRequest("Office");
-                    Globals.offices = (from item in responseOffice.Elements("Library") select new Office().FromXml(item)).ToList();
-                    organization.offices = Globals.offices;
-                }
-                if (Globals.subOffices.Count > 0)
-                {
-                    organization.subOffices = Globals.subOffices;
-                }
-                else
-                {
-                    XElement responseSubOffice = SendLibraryRequest("SubOffice");
-                    Globals.subOffices = (from item in responseSubOffice.Elements("Library") select new SubOffice().FromXml(item)).ToList();
-                    organization.subOffices = Globals.subOffices;
-                }
-                if (Globals.budgetTypes.Count > 0)
-                {
-                    organization.budgetTypes = Globals.budgetTypes;
-                }
-                else
-                {
-                    XElement responseBudgetType = SendLibraryRequest("BudgetType");
-                    Globals.budgetTypes = (from item in responseBudgetType.Elements("Library") select new BudgetType().FromXml(item)).ToList();
-                    organization.budgetTypes = Globals.budgetTypes;
-                }
-                if (Globals.activities.Count > 0)
-                {
-                    organization.activities = Globals.activities;
-                }
-                else
-                {
-                    XElement responseActivity = SendLibraryRequest("Activity");
-                    Globals.activities = (from item in responseActivity.Elements("Library") select new ActivityLib().FromXml(item)).ToList();
-                    organization.activities = Globals.activities;
-                }
-                if (Globals.subBudgetTypes.Count > 0)
-                {
-                    organization.subBudgetTypes = Globals.subBudgetTypes;
-                }
-                else
-                {
-                    XElement responseSubBudgetType = SendLibraryRequest("SubBudgetType");
-                    Globals.subBudgetTypes = (from item in responseSubBudgetType.Elements("Library") select new SubBudgetType().FromXml(item)).ToList();
-                    organization.subBudgetTypes = Globals.subBudgetTypes;
-                }
-                if (Globals.committees.Count > 0)
-                {
-                    organization.committees = Globals.committees;
-                }
-                else
-                {
-                    XElement responseCommittee = SendLibraryRequest("Committee");
-                    Globals.committees = (from item in responseCommittee.Elements("Library") select new Committee().FromXml(item)).ToList();
-                    organization.committees = Globals.committees;
-                }
-                if (Globals.taxOffices.Count > 0)
-                {
-                    organization.taxOffices = Globals.taxOffices;
-                }
-                else
-                {
-                    XElement responseTaxOffice = SendLibraryRequest("TaxOffice");
-                    Globals.taxOffices = (from item in responseTaxOffice.Elements("Library") select new TaxOffice().FromXml(item)).ToList();
-                    organization.taxOffices = Globals.taxOffices;
-                }
-                if (Globals.costTypes.Count > 0)
-                {
-                    organization.costTypes = Globals.costTypes;
-                }
-                else
-                {
-                    XElement responseCostType = SendLibraryRequest("CostType");
-                    Globals.costTypes = (from item in responseCostType.Elements("Library") select new CostType().FromXml(item)).ToList();
-                    organization.costTypes = Globals.costTypes;
-                }
-                if (Globals.insuranceOffices.Count > 0)
-                {
-                    organization.insuranceOffices = Globals.insuranceOffices;
-                }
-                else
-                {
-                    XElement responseInsuranceOffice = SendLibraryRequest("InsuranceOffice");
-                    Globals.insuranceOffices = (from item in responseInsuranceOffice.Elements("Library") select new InsuranceOffice().FromXml(item)).ToList();
-                    organization.insuranceOffices = Globals.insuranceOffices;
-                }
-                if (Globals.financingTypes.Count > 0)
-                {
-                    organization.financingTypes = Globals.financingTypes;
-                }
-                else
-                {
-                    XElement responseFinancingType = SendLibraryRequest("FinancingType");
-                    Globals.financingTypes = (from item in responseFinancingType.Elements("Library") select new FinancingType().FromXml(item)).ToList();
-                    organization.financingTypes = Globals.financingTypes;
-                }
-                if (Globals.banks.Count > 0)
-                {
-                    organization.banks = Globals.banks;
-                }
-                else
-                {
-                    XElement responseBank = SendLibraryRequest("Bank");
-                    Globals.banks = (from item in responseBank.Elements("Library") select new Bank().FromXml(item)).ToList();
-                    organization.banks = Globals.banks;
-                }
-                if (Globals.finOffices.Count > 0)
-                {
-                    organization.finOffices = Globals.finOffices;
-                }
-                else
-                {
-                    XElement responseFinOffice = SendLibraryRequest("FinOffice");
-                    Globals.finOffices = (from item in responseFinOffice.Elements("Library") select new FinOffice().FromXml(item)).ToList();
-                    organization.finOffices = Globals.finOffices;
-                }
-
-                
-            }
-
-            
-
-            catch (Exception ex)
-            {
-                Globals.WriteErrorLog(ex);
-            }
             return PartialView(organization);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddShilenDans(Organization organization, string button)
+        public ActionResult AddShilenDans(Mirroracc organization, string button)
         {
             //if (TryValidateModel(organization.tab1[0].Data01))
             //{
-                if (organization.ORG_ID != 0)
+                if (organization.OPEN_ID != 0)
                 {
                     int YearCode = 2020;
                     DateTime InsDate = DateTime.Now;
@@ -663,11 +439,11 @@ namespace Audit.Controllers
                                     data01 = Convert.ToDouble(organization.tab1[i].Data01);
                                     data02 = " ";
                                     is_finish = 0;
-                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
-                                }
-                                ViewBag.Tabid = "#maygt1-1";
+                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                             }
-                            break;
+                                ViewBag.Tabid = "#maygt1-1";
+                        }
+                        break;
                         case "tab2save":
                             {
                                 for (int i = 0; i < organization.tab2.Count(); i++)
@@ -676,7 +452,7 @@ namespace Audit.Controllers
                                     data01 = Convert.ToDouble(organization.tab2[i].Data01);
                                     data02 = " ";
                                     is_finish = 0;
-                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                                 }
                                 ViewBag.Tabid = "#maygt1-2";
                             }
@@ -689,7 +465,7 @@ namespace Audit.Controllers
                                     data01 = Convert.ToDouble(organization.tab3[i].Data01);
                                     data02 = " ";
                                     is_finish = 0;
-                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                                 }
                                 ViewBag.Tabid = "#maygt1-3";
                             }
@@ -702,7 +478,7 @@ namespace Audit.Controllers
                                     data01 = Convert.ToDouble(organization.tab4[i].Data01);
                                     data02 = organization.tab4[i].Data02;
                                     is_finish = 1;
-                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                                 }
                                 ViewBag.Tabid = "#maygt1-4";
                             }
@@ -715,7 +491,7 @@ namespace Audit.Controllers
                                     data01 = Convert.ToDouble(organization.tab5[i].Data01);
                                     data02 = " ";
                                     is_finish = 0;
-                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                                 }
                                 ViewBag.Tabid = "#maygt2";
                             }
@@ -728,7 +504,7 @@ namespace Audit.Controllers
                                     data01 = Convert.ToDouble(organization.tab6[i].Data01);
                                     data02 = organization.tab6[i].Data02;
                                     is_finish = 1;
-                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.ORG_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
+                                    var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                                 }
                                 ViewBag.Tabid = "#maygt2";
                             }
@@ -753,7 +529,7 @@ namespace Audit.Controllers
                                     mdcodes = Convert.ToInt32(organization.tab7[i].MD_CODE);
                                     data01 = Convert.ToDouble(organization.tab7[i].Data01);
                                     data02 = organization.tab7[i].Data02;
-                                    var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.ORG_ID), project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund, mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num, project_id, project_is_active);
+                                    var result = AppStatic.SystemController.OrgProjectInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), project_name, project_num, project_start_date, project_end_date, project_percent, project_budget, project_fund, mdcodes, data01, data02, Convert.ToInt32(User.Identity.GetUserId()), InsDate, project_law_num, project_id, project_is_active);
                                 }
                                 ViewBag.ModalID = "#InsertProjectModal";
                             }
@@ -794,7 +570,7 @@ namespace Audit.Controllers
 
 
         [HttpPost]
-        public ActionResult OrgProjectEdit(Organization organization, string button)
+        public ActionResult OrgProjectEdit(Mirroracc organization, string button)
         {
             //if (ModelState.IsValid)
             //{
@@ -863,43 +639,6 @@ namespace Audit.Controllers
 
         }
 
-        public ActionResult OrgProjectDelete(Organization organization, int org_id, int pro_id)
-        {
-            var result = AppStatic.SystemController.OrgProjectDelete(org_id, pro_id);
-            Json(new { error = false, message = AppStatic.SystemController.Message });
-            ViewBag.Tabid = "#maygt3";
-            ViewBag.Results = AppStatic.SystemController.Message;
-
-            bool res = true;
-            try
-            {
-
-                if (res == true)
-                {
-                    //return View("Index", "Shilendans");
-                    return RedirectToAction("Index", "Shilendans");
-                    //return PartialView("AddShilenDans","", organization);
-                }
-                else
-                {
-                    return ViewBag.Results = AppStatic.SystemController.Message;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Globals.WriteErrorLog(ex);
-            }
-            //}
-            //else
-            //{
-            //    ViewBag.No = "Энэ мэдээлэл мэдээллийн санд байхгүй байна.";
-            //}
-
-            return PartialView(organization);
-
-        }
-
         public ActionResult OrgProjectEdit(int pro_id, int org_id)
         {
             Session["ProjectIDs"] = pro_id;
@@ -953,17 +692,48 @@ namespace Audit.Controllers
                 organization.print1.Add(
                         new Print1
                         {
-                            MEDEELEH_TOO = print1[i].Field<string>("MEDEELEH"),
+                            MEDEELEH_TOO = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
                             MEDEELSEN_TOO = print1[i].Field<string>("MEDEELSEN"),
                             MEDEELEEGUI_TOO = print1[i].Field<string>("MEDEELEEGUI"),
-                            HAMAARALGUI = print1[i].Field<string>("HOTSORCH_ORUULSAN"),
-                            HUGATSAA_HOTSROOSON = print1[i].Field<string>("HAMAARALGUI"),
-                            MEDEELSEN_PERCENT = print1[i].Field<string>("PRECENT"),
+                            HAMAARALGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                            HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
+                            MEDEELSEN_PERCENT = print1[i].Field<string>("PRECENT1"),
                             HUGATSAA_HOTSROOSON_PERCENT = print1[i].Field<string>("PRECENT2")
                         }
                     );
             }
            return View(organization);
+        }
+
+        public ActionResult Print2(Organization organization, int org_id)
+        {
+            XElement tblprojectlist = AppStatic.SystemController.Print2DataList(org_id);
+
+            DataSet print_ds = new DataSet();
+
+            StringReader print_sr = new StringReader(tblprojectlist.ToString());
+
+            print_ds.ReadXml(print_sr, XmlReadMode.InferSchema);
+
+            DataRow[] print1 = print_ds.Tables[0].Select();
+            organization.print1 = new List<Print1>();
+
+            for (int i = 0; i < print1.Length; i++)
+            {
+                organization.print1.Add(
+                        new Print1
+                        {
+                            MEDEELEH_TOO = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
+                            MEDEELSEN_TOO = print1[i].Field<string>("MEDEELSEN"),
+                            MEDEELEEGUI_TOO = print1[i].Field<string>("MEDEELEEGUI"),
+                            HAMAARALGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                            HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
+                            MEDEELSEN_PERCENT = print1[i].Field<string>("PRECENT1"),
+                            HUGATSAA_HOTSROOSON_PERCENT = print1[i].Field<string>("PRECENT2")
+                        }
+                    );
+            }
+            return View(organization);
         }
 
         public JsonResult OrgConfirm(int orgid)

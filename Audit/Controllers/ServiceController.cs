@@ -33,24 +33,12 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-                if(request.DeparmentID != null)
-                    elem.Add(new XElement("V_DEPARTMENT",  request.DeparmentID));
-                else
-                    elem.Add(new XElement("V_DEPARTMENT", null));
+                //if(request.DeparmentID != null)
+                //    elem.Add(new XElement("V_DEPARTMENT",  request.DeparmentID));
+                //else
+                //    elem.Add(new XElement("V_DEPARTMENT", null));
 
-                if (request.status != null)
-                {
-                    string ss = String.Join(",", request.status.Select(p => p.ToString()).ToArray());
-                    elem.Add(new XElement("V_STATUS", ss));
-                }
-                else
-                    elem.Add(new XElement("V_STATUS", null));
-
-                if (request.violation !=null)
-                    elem.Add(new XElement("V_VIOLATION", request.violation));
-                else
-                    elem.Add(new XElement("V_VIOLATION", null));
-
+                
                 if (request.budget_type != null)
                 {
                     string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
@@ -75,9 +63,9 @@ namespace Audit.Controllers
         }
 
         [HttpPost]
-        public OrgListResponse MirrorOrgList(OrgListRequest request)
+        public MirrorOrgListResponse MirrorOrgList(MirrorOrgListRequest request)
         {
-            OrgListResponse response = new OrgListResponse();
+            MirrorOrgListResponse response = new MirrorOrgListResponse();
             try
             {
                 XElement elem = new XElement("Request");
@@ -109,8 +97,8 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_BUDGET_TYPE", null));
 
                 XElement res = AppStatic.SystemController.MirrorOrgList(elem, User.GetClaimData("DepartmentID"));
-                if (res != null && res.Elements("OrgList") != null)
-                    response.data = (from item in res.Elements("OrgList") select new OrgList().FromXml(item)).ToList();
+                if (res != null && res.Elements("MirroraccOrgList") != null)
+                    response.data = (from item in res.Elements("MirroraccOrgList") select new MirroraccOrgList().FromXml(item)).ToList();
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
