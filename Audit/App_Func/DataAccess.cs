@@ -5870,32 +5870,34 @@ namespace Audit.App_Func
                 //Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT A.OPEN_ID, E.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, "+
+                cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
                                   "(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 107 AND IS_FINISH = 1 AND ORGID = A.OPEN_ID) IS_FINISH, " +
                                   "(SELECT IS_PRINT FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 107 AND IS_PRINT = 1 AND ORGID = A.OPEN_ID) IS_PRINT, " +
-                                  "C.USER_NAME, TO_CHAR(B.INSERTDATE, 'YYYY-MM-DD') INSERTDATE " +
+                                  "(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.ORGID = A.OPEN_ID GROUP BY K.USER_NAME) USER_NAME, " +
+                                  "(SELECT  TO_CHAR(J.INSERTDATE, 'YYYY-MM-DD') INSERTDATE FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID GROUP BY J.INSERTDATE) INSERTDATE " +
                                   "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
                                   "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B ON A.OPEN_ID = B.ORGID " +
-                                  "LEFT JOIN AUD_REG.SYSTEM_USER C ON B.INSERTUSERID = C.USER_ID " +
+                                  "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON A.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                   "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
-                                  "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE E ON A.OPEN_ENT_BUDGET_TYPE = E.BUDGET_TYPE_ID " +
-                                  "WHERE A.IS_ACTIVE = 1 AND (:DEP_ID = 2 OR (:DEP_ID !=2 AND A.OPEN_ENT_DEPARTMENT_ID = :DEP_ID)) "+
-                                  "AND UPPER(E.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                  "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                  "OR UPPER(C.USER_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(B.INSERTDATE) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                  "GROUP BY A.OPEN_ID, E.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, C.USER_NAME, B.INSERTDATE, IS_FINISH, IS_PRINT " +
+                                  "WHERE A.IS_ACTIVE = 1 AND (:DEPARTMENT_ID = 2 OR (:DEPARTMENT_ID !=2 AND A.OPEN_ENT_DEPARTMENT_ID = :DEPARTMENT_ID)) " +
+                                  "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                                  "OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                                  "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
+                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO " +
                                   "ORDER BY " +
                                   "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN A.OPEN_ID END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN D.DEPARTMENT_NAME END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'DESC' THEN D.DEPARTMENT_NAME END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'ASC' THEN E.BUDGET_SHORT_NAME END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'DESC' THEN E.BUDGET_SHORT_NAME END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'ASC' THEN C.BUDGET_SHORT_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'DESC' THEN C.BUDGET_SHORT_NAME END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'IS_FINISH' AND :ORDER_DIR = 'ASC' THEN IS_FINISH END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'IS_FINISH' AND :ORDER_DIR = 'DESC' THEN IS_FINISH END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'IS_PRINT' AND :ORDER_DIR = 'ASC' THEN IS_PRINT END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'IS_PRINT' AND :ORDER_DIR = 'DESC' THEN IS_PRINT END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN B.INSERTDATE END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN B.INSERTDATE END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'ASC' THEN USER_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'DESC' THEN USER_NAME END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN INSERTDATE END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN INSERTDATE END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'ASC' THEN A.OPEN_ENT_NAME END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'DESC' THEN A.OPEN_ENT_NAME END DESC " +
                                   "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
@@ -5945,7 +5947,7 @@ namespace Audit.App_Func
 
                 cmd.BindByName = true;
                 // Set parameters
-                cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
 
                 //cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":V_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS")?.Value, System.Data.ParameterDirection.Input);

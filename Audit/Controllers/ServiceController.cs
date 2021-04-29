@@ -33,12 +33,12 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-                //if(request.DeparmentID != null)
-                //    elem.Add(new XElement("V_DEPARTMENT",  request.DeparmentID));
-                //else
-                //    elem.Add(new XElement("V_DEPARTMENT", null));
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
 
-                
+
                 if (request.budget_type != null)
                 {
                     string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
@@ -83,10 +83,10 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-                if (request.DeparmentID != null)
-                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
-                else
-                    elem.Add(new XElement("V_DEPARTMENT", null));
+                //if (request.DeparmentID != null)
+                //    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                //else
+                //    elem.Add(new XElement("V_DEPARTMENT", null));
 
                 if (request.budget_type != null)
                 {
@@ -96,7 +96,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_BUDGET_TYPE", null));
 
-                XElement res = AppStatic.SystemController.MirrorOrgList(elem, User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.MirrorOrgList(elem, Convert.ToInt32(User.GetClaimData("DepartmentID")));
                 if (res != null && res.Elements("MirroraccOrgList") != null)
                     response.data = (from item in res.Elements("MirroraccOrgList") select new MirroraccOrgList().FromXml(item)).ToList();
 

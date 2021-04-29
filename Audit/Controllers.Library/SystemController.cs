@@ -2938,7 +2938,7 @@ namespace Audit.Controllers.Library
         #endregion
 
         #region Shilen 
-        public XElement MirrorOrgList(XElement element, string departmentID)
+        public XElement MirrorOrgList(XElement element, int departmentID)
         {
             try
             {
