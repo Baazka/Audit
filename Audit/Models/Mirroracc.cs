@@ -124,7 +124,7 @@ namespace Audit.Models
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
 
-        //[Required(ErrorMessage = "Үнэлгээ сонгоно уу")]
+        [Required(ErrorMessage = "Үнэлгээ сонгоно уу")]
         public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }

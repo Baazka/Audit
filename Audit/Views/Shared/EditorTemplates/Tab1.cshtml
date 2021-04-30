@@ -24,21 +24,21 @@
         <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
         <td class="text-center" style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>
-            @Html.DropDownListFor(model => model.Data01, new SelectList(
+            @*@Html.DropDownListFor(model => model.Data01, new SelectList(
                 new List<Object>{
                       new { value = 0 , text = "--Сонгоно уу--" },
                       new { value = 1 , text = "Мэдээлсэн" },
                       new { value = 2 , text = "Мэдээлээгүй" },
                       new { value = 3 , text = "Хугацаа хоцроосон" },
                       new { value = 4 , text = "Мэдээлэх шаардлагагүй, хамааралгүй" }
-                }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;", @required = "required", @data_val = "true", @data_val_required = "choose is a required field" })
-            @*@Html.DropDownListFor(m => m.Data01, new List<SelectListItem>
-                   { new SelectListItem{Text="Мэдээлсэн", Value="1"},
-                     new SelectListItem{Text="Мэдээлээгүй", Value="2"},
-                     new SelectListItem{Text="Хугацаа хоцроосон", Value="3"},
-                     new SelectListItem{Text="Мэдээлэх шаардлагагүй, хамааралгүй", Value="4"}}, "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
+                }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
             @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })*@
-
+            @Html.DropDownListFor(m => m.Data01, new List<SelectListItem>
+               { new SelectListItem{Text="Мэдээлсэн", Value="1"},
+                 new SelectListItem{Text="Мэдээлээгүй", Value="2"},
+                 new SelectListItem{Text="Хугацаа хоцроосон", Value="3"},
+                 new SelectListItem{Text="Мэдээлэх шаардлагагүй, хамааралгүй", Value="4"}}, "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
+        @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })
         </td>
     </tr>
 }
