@@ -313,6 +313,7 @@
     <Compile Include="Models\CM4.cs" />
     <Compile Include="Models\CM3.cs" />
     <Compile Include="Models\CM2.cs" />
+    <Compile Include="Models\Mirroracc.cs" />
     <Compile Include="Models\NM7.cs" />
     <Compile Include="Models\NM6.cs" />
     <Compile Include="Models\NM5.cs" />
@@ -2295,8 +2296,9 @@
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Report\Viewer.cshtml" />
     <Content Include="Views\Statistic\BM0Search.cshtml" />
-    <Content Include="Views\Exam\Index.cshtml" />
+    <Content Include="Views\Shilendans\Print2.cshtml" />
     <Content Include="Views\Exam\AddEdit.cshtml" />
+    <Content Include="Views\Exam\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

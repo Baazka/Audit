@@ -126,6 +126,7 @@ namespace Audit.App_Func
             functions.Add("BM0Search", (request) => DataAccess.BM0Search(request));
 
             functions.Add("MirrorOrgList", (request) => DataAccess.MirrorOrgList(request));
+            functions.Add("MirrorOrgDetail", (request) => DataAccess.MirrorOrgDetail(request));
             functions.Add("Table1List", (request) => DataAccess.Table1List(request));
             functions.Add("MirrorAccInsert", (request) => DataAccess.MirrorAccInsert(request));
             functions.Add("MirrDataList", (request) => DataAccess.MirrDataList(request));
@@ -134,7 +135,7 @@ namespace Audit.App_Func
             functions.Add("OrgProjectDataList", (request) => DataAccess.OrgProjectDataList(request));
             functions.Add("OrgProjectDelete", (request) => DataAccess.OrgProjectDelete(request));
             functions.Add("PrintDataList", (request) => DataAccess.PrintDataList(request));
-
+            functions.Add("Print2DataList", (request) => DataAccess.Print2DataList(request));
         }
     }
 }

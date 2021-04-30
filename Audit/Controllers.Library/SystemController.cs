@@ -2938,7 +2938,7 @@ namespace Audit.Controllers.Library
         #endregion
 
         #region Shilen 
-        public XElement MirrorOrgList(XElement element, string departmentID)
+        public XElement MirrorOrgList(XElement element, int departmentID)
         {
             try
             {
@@ -2974,7 +2974,41 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement MirrorOrgDetail(int openid)
+        {
+            try
+            {
+                ClearError();
 
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "MirrorOrgDetail"),
+                                               new XElement("Parameters",
+                                                   new XElement("OPEN_ID", openid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
         public XElement Table1List()
         {
             try
@@ -3054,6 +3088,41 @@ namespace Audit.Controllers.Library
 
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "PrintDataList"),
+                                               new XElement("Parameters",
+                                               new XElement("ORGID", orgid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        public XElement Print2DataList(int orgid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "Print2DataList"),
                                                new XElement("Parameters",
                                                new XElement("ORGID", orgid)));
 

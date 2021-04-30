@@ -108,12 +108,9 @@ div.ui-datepicker {
         border-width: 3.5px;
         border-top: none;
     }
-.table {
-    color: #5f5f5f;
-}
-.table-hover tbody tr:hover {
-    color: #5f5f5f;
-}
-.form-control {
-    color: #5f5f5f;
+
+@media print {
+    .noPrint {
+        display: none;
+    }
 }

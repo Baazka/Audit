@@ -8,12 +8,6 @@
     }).ToList();
     Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name");
 
-    //var violation = Model.violations.Select(c => new
-    //{
-    //    ID = c.VIOLATION_ID,
-    //    Name = c.VIOLATION_NAME
-    //}).ToList();
-    //Model.Violation = new MultiSelectList(violation, "ID", "Name");
 }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -24,14 +18,14 @@
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
         }*@
-        <div class="form-group-sm pr-2">
+        @*<div class="form-group-sm pr-2">
             <label for="StatusID" class="col-form-label">ТЕЗ:</label><br />
             @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "BudgetType" })
         </div>
         <div class="form-group-sm pr-2">
             <label for="ViolationID" class="col-form-label">ТТЗ/ТЕЗ:</label><br />
             @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "violation" })
-        </div>
+        </div>*@
     </div>
 </form>
 <div class="row mb-2">
@@ -40,7 +34,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
-                        <thead>
+                        <thead style="background-color:#f8f9fc;">
                             <tr>
                                 <th class="text-center">№</th>
                                 <th>ТЕЗ</th>
@@ -48,8 +42,10 @@
                                 <th width="20%">Харъяа аудитын байгууллагын нэр</th>
                                 <th>Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
                                 <th>Регистрийн дугаар</th>
-                                @*<th>СТАУС бүртгэлийн код</th>*@
-                                <th>Мэдээ оруулсан эсэх</th>
+                                <th>Мэдээлэл оруулсан эсэх</th>
+                                <th>Баримт хэвлэсэн эсэх</th>
+                                <th>Мэдээлэл оруулсан аудитор</th>
+                                <th>Мэдээлэл оруулсан өдөр</th>
                                 <th>Шилэн данс</th>
                             </tr>
                                 @*<th>МАЯГТ 1</th>
@@ -85,7 +81,7 @@
                     }
                 },
                 createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ORG_ID);
+                    $(row).attr('data-id', data.OPEN_ID);
                 },
 
                 "columns": [
@@ -95,22 +91,21 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "ORG_CONCENTRATOR_NAME", "name": "ORG_CONCENTRATOR_NAME" },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
+                    { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
-                    { "data": "ORG_NAME", "name": "ORG_NAME" },
-                    { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO", "sortable": false },
-                    { "data": "TAB1_IS_FINISH", "class": 'text-center', "width": '8%',
+                    { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
+                    { "data": "IS_FINISH", "class": 'text-center', "width": '8%',
                         render: function (data, type, row, meta) {
-                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
                         }
                     },
-                    //{
-                    //    "data": "TAB2_IS_FINISH", "class": 'text-center', "width": '8%',
-                    //    render: function (data, type, row, meta) {
-                    //        if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
-                    //    }
-                    //},
+                    {"data": "IS_PRINT", "class": 'text-center', "width": '8%',
+                        render: function (data, type, row, meta) {
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                        }
+                    },
                     //{
                     //    "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
                     //    render: function (data, type, row, meta) {
@@ -118,13 +113,15 @@
                     //    }
                     //},
                     /*{ "data": "ORG_CODE", "name": "ORG_CODE" },*/
+                    { "data": "USER_NAME", "name": "USER_NAME" },
+                    { "data": "INSERTDATE", "name": "INSERTDATE" },
                     { "data": null, "sortable": false, "class": 'text-center', "width": '10%',
                         render: function (data, type, row, meta) {
                                 return '<div class="btn-group">' +
-                                    '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.ORG_ID + ')">' +
+                                    '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.OPEN_ID + ')" style="vertival-align:middle;color: #4e73df;">' +
                                     '<i class="fa fa-edit"></i> Оруулах' +
                                     '</a>' +
-                                    '</div>';                            
+                                    '</div>';
                         }
                     }
                 ],
@@ -160,7 +157,7 @@
             orgListInit();
         });
         var Organization = {
-        OrgID:null,
+        OpenID:null,
         display: function (data) {
             $("div#orgmodalcontainer").remove();
             $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
@@ -183,11 +180,11 @@
                         }
                     });
             },
-        edit: function (orgid) {
+        edit: function (openid) {
                 $.ajax({
                     url: "@Url.Action("OrgDetail", "Shilendans", new { Area = "" })",
                     type: 'GET',
-                    data: { orgid },
+                    data: { openid },
                     success: function (data, status, xhr) {
                         Organization.progressResponse(data, status, xhr);
                     },
