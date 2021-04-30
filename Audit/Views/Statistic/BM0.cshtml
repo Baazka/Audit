@@ -200,17 +200,18 @@
                 });
                 $("#Bm0Modal #AUDIT_BUDGET_TYPE").append($options);
 
+                //FormType
+                if ($("#Bm0Modal #AUDIT_FORM_TYPE").children().length > 1)
+                    $("#Bm0Modal #AUDIT_FORM_TYPE option:not(:first)").remove();
+                var $options = $("#Bm0Modal #ddFormTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                    $(this).val($(this).val().split(':')[1]);
+                });
+                $("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
             });
 
             $('#Bm0Modal #AUDIT_FORM_TYPE').change(function () {
 
-                ////FormType
-                //if ($("#Bm0Modal #AUDIT_FORM_TYPE").children().length > 1)
-                //    $("#Bm0Modal #AUDIT_FORM_TYPE option:not(:first)").remove();
-                //var $options = $("#Bm0Modal #ddFormTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                //    $(this).val($(this).val().split(':')[1]);
-                //});
-                //$("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
+                
                 //ProsolType
                 if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
                     $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
