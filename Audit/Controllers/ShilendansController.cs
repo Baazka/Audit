@@ -506,7 +506,7 @@ namespace Audit.Controllers
                                     is_finish = 1;
                                     var result = AppStatic.SystemController.MirrorAccInsert(YearCode, Convert.ToInt32(organization.OPEN_ID), mdcodes, data01, data02, is_finish, Convert.ToInt32(User.Identity.GetUserId()), InsDate);
                                 }
-                                ViewBag.Tabid = "#maygt2";
+                                ViewBag.Tabid = "#maygt2-2";
                             }
                             break;
                         case "tab7save":

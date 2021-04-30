@@ -143,14 +143,14 @@
                         @if (Model.OPEN_ENT_GROUP_ID == 1 || Model.OPEN_ENT_GROUP_ID == 2) {
                         <li class="nav-item" role="presentation" style="width: 400px;">
                             <a class="nav-link" id="maygt1-tab" data-toggle="tab" href="#maygt1" role="tab" aria-selected="true">
-                                Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т хамаарах байгууллагад хөтлөх маягт @Html.DisplayFor(m=>m.OPEN_ENT_GROUP_ID)
+                                Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т хамаарах байгууллагад хөтлөх маягт
                             </a>
                         </li>
                         }else if (Model.OPEN_ENT_GROUP_ID == 3)
                         {
                         <li class="nav-item" role="presentation" style="width: 400px;">
                             <a class="nav-link" id="maygt2-tab" data-toggle="tab" href="#maygt2" role="tab" aria-selected="false">
-                                Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т хамаарах байгууллагад хөтлөх маягт @Html.DisplayFor(m => m.OPEN_ENT_GROUP_ID)
+                                Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т хамаарах байгууллагад хөтлөх маягт
                             </a>
                         </li>
                         }
@@ -162,340 +162,154 @@
                         @*}*@
                     </ul>
                     <div class="tab-content" id="myTabContent" style="background-color: #e7e7e5; padding:0 10px">
-                        <div class="tab-pane fade show active" id="maygt1" role="tabpanel" aria-labelledby="maygt1-tab">
-                            <fieldset>
-                                <div class="hidden text-danger error-msgs">
-                                    <ul></ul>
-                                </div>
-                                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-                                @*@Html.HiddenFor(m => m.ORG_ID)
-                    @Html.HiddenFor(m => m.ORGB_ID)
-                    @Html.HiddenFor(m => m.ORGB_ID2)
-                    @Html.HiddenFor(m => m.ORGP_ID)
-                    @Html.HiddenFor(m => m.ORGP_ID2)*@
 
-                                <div class="row">
+                            <div class="tab-pane fade" id="maygt1" role="tabpanel" aria-labelledby="maygt1-tab">
+                                <fieldset>
+                                    <div class="hidden text-danger error-msgs">
+                                        <ul></ul>
+                                    </div>
+                                    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                                    @*@Html.HiddenFor(m => m.ORG_ID)
+                                    @Html.HiddenFor(m => m.ORGB_ID)
+                                    @Html.HiddenFor(m => m.ORGB_ID2)
+                                    @Html.HiddenFor(m => m.ORGP_ID)
+                                    @Html.HiddenFor(m => m.ORGP_ID2)*@
 
-                                    <div class="col-md-4">
-                                        <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+                                    <div class="row">
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">ТЕЗ:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        <div class="col-md-4">
+                                            <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
+                                                                                    new List<Object>{
+                                                                    new { value = 99 , text = "2020.01.01-2020.12.31" },
+                                     }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        <div class="col-md-4">
+                                            <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан</p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
+                                        <div class="col-md-4">
+                                            <p style="color:#e7e7e5;">. </p>
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
-                                                                                               new List<Object>{
-                                                                new { value = 99 , text = "2020.01.01-2020.12.31" },
-                                                }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-4">
-                                        <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан</p>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <p style="color:#e7e7e5;">. </p>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="clearfix"></div>
-
-                                <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 6px 3px;">
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" id="maygt1_1-tab" data-toggle="tab" href="#maygt1-1" role="tab" aria-selected="true">
-                                                ХӨТЛӨХ МАЯГТ-1
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="maygt1_2-tab" data-toggle="tab" href="#maygt1-2" role="tab" aria-selected="false">
-                                                ХӨТЛӨХ МАЯГТ-2
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="maygt1_3-tab" data-toggle="tab" href="#maygt1-3" role="tab" aria-selected="false">
-                                                ХӨТЛӨХ МАЯГТ-3
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="maygt1_4-tab" data-toggle="tab" href="#maygt1-4" role="tab" aria-selected="false">
-                                                ЗӨРЧЛИЙН ШИЙДЭЛ
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                    <div class="tab-content" id="printdiv1">
-                                        <div class="tab-pane fade show active" id="maygt1-1" role="tabpanel" aria-labelledby="maygt1_1-tab">
-                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
-
-                                            <table class="table table-bordered" style="font-size:12px;">
-                                                <tr>
-                                                    <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
-                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
-                                                    <th class="text-center">ХУГАЦАА</th>
-                                                    <th>ҮНЭЛГЭЭ</th>
-                                                </tr>
-                                                @Html.EditorFor(t => t.tab1)
-                                            </table>
-
-                                            <div style="text-align: right">
-                                                @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
-                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                                <button type="submit" value="tab1save" name="button" id="tab1saving" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            </div>
-                                            <br>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="maygt1-2" role="tabpanel" aria-labelledby="maygt1_2-tab">
-                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
-
-                                            <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
-                                            <table class="table table-bordered" style="font-size:12px;">
-                                                <tr>
-                                                    <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
-                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
-                                                    <th class="text-center">ХУГАЦАА</th>
-                                                    <th>ҮНЭЛГЭЭ</th>
-                                                </tr>
-                                                @Html.EditorFor(t => t.tab2)
-                                            </table>
-
-                                            <div style="text-align: right">
-                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                                <button type="submit" value="tab2save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            </div>
-                                            <br>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="maygt1-3" role="tabpanel" aria-labelledby="maygt1_3-tab">
-                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
-
-                                            <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
-                                            <table class="table table-bordered" style="font-size:12px;">
-                                                <tr>
-                                                    <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
-                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
-                                                    <th class="text-center">ХУГАЦАА</th>
-                                                    <th>ҮНЭЛГЭЭ</th>
-                                                </tr>
-                                                @Html.EditorFor(t => t.tab3)
-                                            </table>
-
-                                            <div style="text-align: right">
-                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                                <button type="submit" value="tab3save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            </div>
-                                            <br>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="maygt1-4" role="tabpanel" aria-labelledby="maygt1_4-tab">
-                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
-
-                                            <table class="table table-bordered" style="font-size:12px;">
-                                                <tr>
-                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
-                                                    <th>ҮНЭЛГЭЭ</th>
-                                                </tr>
-                                                @Html.EditorFor(t => t.tab4)
-                                                <tr>
-                                                    <td>Шалгасан аудиторын нэр</td>
-                                                    <td><input type="text" value="@User.GetClaimData("USER_NAME")" style="width:100%;"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Аудиторын код</td>
-                                                    <td><input type="text" value="@User.Identity.Name.ToUpper()" style="width:100%;"></td>
-                                                </tr>
-                                            </table>
-
-                                            <div style="text-align: right">
-                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                                @Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.OPEN_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
-                                                @*<a href="#" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</a>*@
-                                                <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                            </div>
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-
-
-                        <div class="tab-pane fade" id="maygt2" role="tabpanel" aria-labelledby="maygt2-tab">
-                            <fieldset>
-                                <div class="hidden text-danger error-msgs">
-                                    <ul></ul>
-                                </div>
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(m => m.OPEN_ID)
-                                @*@Html.HiddenFor(m => m.ORGB_ID)
-                    @Html.HiddenFor(m => m.ORGB_ID2)
-                    @Html.HiddenFor(m => m.ORGP_ID)
-                    @Html.HiddenFor(m => m.ORGP_ID2)*@
-
-                                <div class="row">
-
-                                    <div class="col-md-4">
-                                        <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">ТЕЗ:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
-                                                                                                    new List<Object>{
-                                                                new { value = 99 , text = "2020.01.01-2020.12.31" },
-                             }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <p style="color:#e7e7e5;">. </p>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <hr />
                                     <div class="clearfix"></div>
 
-                                    <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
+                                    <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 6px 3px;">
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item" role="presentation">
-                                                <a class="nav-link active" id="maygt2_1-tab" data-toggle="tab" href="#maygt2-1" role="tab" aria-selected="true">
+                                                <a class="nav-link active" id="maygt1_1-tab" data-toggle="tab" href="#maygt1-1" role="tab" aria-selected="true">
                                                     ХӨТЛӨХ МАЯГТ-1
                                                 </a>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <a class="nav-link" id="maygt2_2-tab" data-toggle="tab" href="#maygt2-2" role="tab" aria-selected="false">
+                                                <a class="nav-link" id="maygt1_2-tab" data-toggle="tab" href="#maygt1-2" role="tab" aria-selected="false">
+                                                    ХӨТЛӨХ МАЯГТ-2
+                                                </a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" id="maygt1_3-tab" data-toggle="tab" href="#maygt1-3" role="tab" aria-selected="false">
+                                                    ХӨТЛӨХ МАЯГТ-3
+                                                </a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" id="maygt1_4-tab" data-toggle="tab" href="#maygt1-4" role="tab" aria-selected="false">
                                                     ЗӨРЧЛИЙН ШИЙДЭЛ
                                                 </a>
                                             </li>
                                         </ul>
 
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="maygt2-1" role="tabpanel" aria-labelledby="maygt2_1-tab">
-                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т заасан Хяналтын багц буюу түүнээс дээш хэмжээний хувьцааг нь төр, орон нутаг болон тэдгээрийн нэгдмэл сонирхолтой этгээд эзэмшиж байгаа компанид хөтлөх маягт-4</p>
+                                        <div class="tab-content" id="printdiv1">
+                                            <div class="tab-pane fade show active" id="maygt1-1" role="tabpanel" aria-labelledby="maygt1_1-tab">
+                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
+                                                <table class="table table-bordered" style="font-size:12px;">
+                                                    <tr>
+                                                        <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                                                        <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                        <th class="text-center">ХУГАЦАА</th>
+                                                        <th>ҮНЭЛГЭЭ</th>
+                                                    </tr>
+                                                    @Html.EditorFor(t => t.tab1)
+                                                </table>
+
+                                                <div style="text-align: right">
+                                                    @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
+                                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                    <button type="submit" value="tab1save" name="button" id="tab1saving" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                </div>
+                                                <br>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="maygt1-2" role="tabpanel" aria-labelledby="maygt1_2-tab">
+                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
                                                 <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
                                                 <table class="table table-bordered" style="font-size:12px;">
                                                     <tr>
@@ -504,24 +318,46 @@
                                                         <th class="text-center">ХУГАЦАА</th>
                                                         <th>ҮНЭЛГЭЭ</th>
                                                     </tr>
-                                                    @Html.EditorFor(t => t.tab5)
+                                                    @Html.EditorFor(t => t.tab2)
                                                 </table>
 
                                                 <div style="text-align: right">
                                                     <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                                    <button type="submit" value="tab5save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                    <button type="submit" value="tab2save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                 </div>
                                                 <br>
                                             </div>
 
-                                            <div class="tab-pane fade" id="maygt2-2" role="tabpanel" aria-labelledby="maygt2_2-tab">
-                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т заасан Хяналтын багц буюу түүнээс дээш хэмжээний хувьцааг нь төр, орон нутаг болон тэдгээрийн нэгдмэл сонирхолтой этгээд эзэмшиж байгаа компанид хөтлөх маягт-4</p>
+                                            <div class="tab-pane fade" id="maygt1-3" role="tabpanel" aria-labelledby="maygt1_3-tab">
+                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
+                                                <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
+                                                <table class="table table-bordered" style="font-size:12px;">
+                                                    <tr>
+                                                        <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                                                        <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                        <th class="text-center">ХУГАЦАА</th>
+                                                        <th>ҮНЭЛГЭЭ</th>
+                                                    </tr>
+                                                    @Html.EditorFor(t => t.tab3)
+                                                </table>
+
+                                                <div style="text-align: right">
+                                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                    <button type="submit" value="tab3save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                </div>
+                                                <br>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="maygt1-4" role="tabpanel" aria-labelledby="maygt1_4-tab">
+                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
                                                 <table class="table table-bordered" style="font-size:12px;">
                                                     <tr>
                                                         <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
                                                         <th>ҮНЭЛГЭЭ</th>
                                                     </tr>
-                                                    @Html.EditorFor(t => t.tab6)
+                                                    @Html.EditorFor(t => t.tab4)
                                                     <tr>
                                                         <td>Шалгасан аудиторын нэр</td>
                                                         <td><input type="text" value="@User.GetClaimData("USER_NAME")" style="width:100%;"></td>
@@ -534,163 +370,330 @@
 
                                                 <div style="text-align: right">
                                                     <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                                    @Html.ActionLink("Хэвлэх", "Print2", "Shilendans", new { org_id = Model.OPEN_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
-                                                    <button type="submit" value="tab6save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                    @Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.OPEN_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
+                                                    @*<a href="#" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</a>*@
+                                                    <button type="submit" value="tab4save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                                                 </div>
                                                 <br>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </fieldset>
-                        </div>
+                                </fieldset>
+                            </div>
 
-                        <div class="tab-pane fade" id="maygt3" role="tabpanel" aria-labelledby="maygt3-tab">
-                            <fieldset>
-                                <div class="hidden text-danger error-msgs">
-                                    <ul></ul>
-                                </div>
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(m => m.OPEN_ID)
-                                @*@Html.HiddenFor(m => m.ORGB_ID)
-                    @Html.HiddenFor(m => m.ORGB_ID2)
-                    @Html.HiddenFor(m => m.ORGP_ID)
-                    @Html.HiddenFor(m => m.ORGP_ID2)*@
-
-                                <div class="row">
-
-                                    <div class="col-md-4">
-                                        <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">ТЕЗ:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
-                                                                                                    new List<Object>{
-                                                                new { value = 99 , text = "2020.01.01-2020.12.31" },
-                             }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
-                                            </div>
-                                        </div>
+                            <div class="tab-pane fade" id="maygt2" role="tabpanel" aria-labelledby="maygt2-tab">
+                                <fieldset>
+                                    <div class="hidden text-danger error-msgs">
+                                        <ul></ul>
                                     </div>
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(m => m.OPEN_ID)
+                                    @*@Html.HiddenFor(m => m.ORGB_ID)
+                                    @Html.HiddenFor(m => m.ORGB_ID2)
+                                    @Html.HiddenFor(m => m.ORGP_ID)
+                                    @Html.HiddenFor(m => m.ORGP_ID2)*@
 
-                                    <div class="col-md-4">
-                                        <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
+                                    <div class="row">
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                        <div class="col-md-4">
+                                            <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
+                                                                                     new List<Object>{
+                                                                    new { value = 99 , text = "2020.01.01-2020.12.31" },
+              }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+
+                                        <div class="col-md-4">
+                                            <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+
+                                        <div class="col-md-4">
+                                            <p style="color:#e7e7e5;">. </p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-4">
-                                        <p style="color:#e7e7e5;">. </p>
+                                        <hr />
+                                        <div class="clearfix"></div>
 
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
-                                            <div class="col-sm-7">
-                                                @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link active" id="maygt2_1-tab" data-toggle="tab" href="#maygt2-1" role="tab" aria-selected="true">
+                                                        ХӨТЛӨХ МАЯГТ-1
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link" id="maygt2_2-tab" data-toggle="tab" href="#maygt2-2" role="tab" aria-selected="false">
+                                                        ЗӨРЧЛИЙН ШИЙДЭЛ
+                                                    </a>
+                                                </li>
+                                            </ul>
 
-                                    <hr />
-                                    <div class="clearfix"></div>
-
-                                    <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link active" id="maygt3_1-tab" data-toggle="tab" href="#maygt3-1" role="tab" aria-selected="true">
-                                                    МАЯГТ 6
-                                                </a>
-                                            </li>
-                                        </ul>
-
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="maygt3-1" role="tabpanel" aria-labelledby="maygt3_1-tab">
-                                                <p style="color: #000;font-size: 12px;text-align: center;margin-top: 10px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.4, 3.1.5-д заасан улс, орон нутгийн төсвийн хөрөнгөөр хөрөнгө оруулалт, төсөл, хөтөлбөр, арга хэмжээ, ажил, үйлчилгээ гүйцэтгэж байгаа аж ахуйн нэгж, байгууллага, төрийн чиг үүрэгт хамаарах ажил, үйлчилгээг хууль тогтоомж, гэрээний үндсэн дээр гүйцэтгэгчид хөтлөх маягт</p>
-
-                                                <div style="text-align: right; margin-top:6px;">
-                                                    <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" data-toggle="modal" data-target="#InsertProjectModal">Нэмэх</button>
-                                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
-                                                </div><br>
-
-                                                <div id="ReloadTables">
-                                                    <table class="table table-bordered reloadtable" id="reloadtable" style="font-size:12px;">
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="maygt2-1" role="tabpanel" aria-labelledby="maygt2_1-tab">
+                                                    <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т заасан Хяналтын багц буюу түүнээс дээш хэмжээний хувьцааг нь төр, орон нутаг болон тэдгээрийн нэгдмэл сонирхолтой этгээд эзэмшиж байгаа компанид хөтлөх маягт-4</p>
+                                                    <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
+                                                    <table class="table table-bordered" style="font-size:12px;">
                                                         <tr>
-                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Хэрэгжүүлж буй төсөл арга хэмжээний нэр</th>
-                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center" width="10%">Гэрээний дугаар</th>
-                                                            <th colspan="2" class="text-center">Хэрэгжүүлэх хугацаа /он сар өдөр/</th>
-                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Хэрэгжилтийн явц, үе шат /өссөн хувиар/</th>
-                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Нийт төсөвт өртөг /сая.төг/</th>
-                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Санхүүжилт өгсөн байгууллагын нэр /санхүүжилт олгосон Захиалагч байгууллага/</th>
-                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Үйлдэл</th>
-                                                        <tr>
-                                                            <th class="text-center">Эхлэх</th>
-                                                            <th class="text-center">Дуусах</th>
-
-                                                            @Html.EditorFor(t => t.tab8)
+                                                            <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                                                            <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                            <th class="text-center">ХУГАЦАА</th>
+                                                            <th>ҮНЭЛГЭЭ</th>
+                                                        </tr>
+                                                        @Html.EditorFor(t => t.tab5)
                                                     </table>
+
+                                                    <div style="text-align: right">
+                                                        <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                        <button type="submit" value="tab5save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                    </div>
+                                                    <br>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="maygt2-2" role="tabpanel" aria-labelledby="maygt2_2-tab">
+                                                    <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т заасан Хяналтын багц буюу түүнээс дээш хэмжээний хувьцааг нь төр, орон нутаг болон тэдгээрийн нэгдмэл сонирхолтой этгээд эзэмшиж байгаа компанид хөтлөх маягт-4</p>
+                                                    <table class="table table-bordered" style="font-size:12px;">
+                                                        <tr>
+                                                            <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                            <th>ҮНЭЛГЭЭ</th>
+                                                        </tr>
+                                                        @Html.EditorFor(t => t.tab6)
+                                                        <tr>
+                                                            <td>Шалгасан аудиторын нэр</td>
+                                                            <td><input type="text" value="@User.GetClaimData("USER_NAME")" style="width:100%;"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Аудиторын код</td>
+                                                            <td><input type="text" value="@User.Identity.Name.ToUpper()" style="width:100%;"></td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <div style="text-align: right">
+                                                        <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                        @Html.ActionLink("Хэвлэх", "Print2", "Shilendans", new { org_id = Model.OPEN_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
+                                                        <button type="submit" value="tab6save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                    </div>
+                                                    <br>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </fieldset>
+                                </fieldset>
+                            </div>
+                        
+                            <div class="tab-pane fade" id="maygt3" role="tabpanel" aria-labelledby="maygt3-tab">
+                                <fieldset>
+                                    <div class="hidden text-danger error-msgs">
+                                        <ul></ul>
+                                    </div>
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(m => m.OPEN_ID)
+                                    @*@Html.HiddenFor(m => m.ORGB_ID)
+                    @Html.HiddenFor(m => m.ORGB_ID2)
+                    @Html.HiddenFor(m => m.ORGP_ID)
+                    @Html.HiddenFor(m => m.ORGP_ID2)*@
+
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
+                                                                                                        new List<Object>{
+                                                                    new { value = 99 , text = "2020.01.01-2020.12.31" },
+                                 }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <p style="color:#e7e7e5;">. </p>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                                <div class="col-sm-7">
+                                                    @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+                                        <div class="clearfix"></div>
+
+                                        <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link active" id="maygt3_1-tab" data-toggle="tab" href="#maygt3-1" role="tab" aria-selected="true">
+                                                        МАЯГТ 6
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="maygt3-1" role="tabpanel" aria-labelledby="maygt3_1-tab">
+                                                    <p style="color: #000;font-size: 12px;text-align: center;margin-top: 10px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.4, 3.1.5-д заасан улс, орон нутгийн төсвийн хөрөнгөөр хөрөнгө оруулалт, төсөл, хөтөлбөр, арга хэмжээ, ажил, үйлчилгээ гүйцэтгэж байгаа аж ахуйн нэгж, байгууллага, төрийн чиг үүрэгт хамаарах ажил, үйлчилгээг хууль тогтоомж, гэрээний үндсэн дээр гүйцэтгэгчид хөтлөх маягт</p>
+
+                                                    <div style="text-align: right; margin-top:6px;">
+                                                        <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" data-toggle="modal" data-target="#InsertProjectModal">Нэмэх</button>
+                                                        <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                    </div><br>
+
+                                                    <div id="ReloadTables">
+                                                        <table class="table table-bordered reloadtable" id="reloadtable" style="font-size:12px;">
+                                                            <tr>
+                                                                <th rowspan="2" style="vertical-align:middle;" class="text-center">Хэрэгжүүлж буй төсөл арга хэмжээний нэр</th>
+                                                                <th rowspan="2" style="vertical-align:middle;" class="text-center" width="10%">Гэрээний дугаар</th>
+                                                                <th colspan="2" class="text-center">Хэрэгжүүлэх хугацаа /он сар өдөр/</th>
+                                                                <th rowspan="2" style="vertical-align:middle;" class="text-center">Хэрэгжилтийн явц, үе шат /өссөн хувиар/</th>
+                                                                <th rowspan="2" style="vertical-align:middle;" class="text-center">Нийт төсөвт өртөг /сая.төг/</th>
+                                                                <th rowspan="2" style="vertical-align:middle;" class="text-center">Санхүүжилт өгсөн байгууллагын нэр /санхүүжилт олгосон Захиалагч байгууллага/</th>
+                                                                <th rowspan="2" style="vertical-align:middle;" class="text-center">Үйлдэл</th>
+                                                            <tr>
+                                                                <th class="text-center">Эхлэх</th>
+                                                                <th class="text-center">Дуусах</th>
+
+                                                                @Html.EditorFor(t => t.tab8)
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
                         </div>
-                    </div>
                 </div>
 
                 </div>
         </div>
     </div>
 
+
+    /////////////////////////// Project add /////////////////////////////////////
     <div class="modal fade" id="InsertProjectModal" role="dialog">
         <div class="modal-dialog" style="max-width:100%;margin: 0 auto;">
             <!-- Modal content-->
@@ -863,15 +866,43 @@
 
 <script>
     $(document).ready(function () {
-        var tabid = '@(ViewBag.Tabid)';
         var bigtabid = '@Model.OPEN_ENT_GROUP_ID';
+        var tabid = '@(ViewBag.Tabid)';
 
-        //alert(tabid)
-        if (tabid != null && tabid != "") {
-            $('.nav a[href="' + tabid + '"]').tab('show');
+        if (bigtabid == 1 || bigtabid == 2) {
+            $('.nav a[href="#maygt1"]').tab('show');
         }
+        if (tabid == "#maygt1-1") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+        }
+        if (tabid == "#maygt1-2") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+            $('.nav a[href="#maygt1-2"]').tab('show');
+        }
+        if (tabid == "#maygt1-3") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+            $('.nav a[href="#maygt1-3"]').tab('show');
+        }
+        if (tabid == "#maygt1-4") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+            $('.nav a[href="#maygt1-4"]').tab('show');
+        }
+
         if (bigtabid == 3) {
             $('.nav a[href="#maygt2"]').tab('show');
+        }
+        if (tabid == "#maygt2") {
+            $('#maygt2').addClass('active');
+            $('#maygt2').addClass('show');
+        }
+        if (tabid == "#maygt2-2") {
+            $('#maygt2').addClass('active');
+            $('#maygt2').addClass('show');
+            $('.nav a[href="#maygt2-2"]').tab('show');
         }
     });
 </script>
