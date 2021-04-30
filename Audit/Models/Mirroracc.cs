@@ -11,7 +11,7 @@ namespace Audit.Models
     {
         public int OPEN_ID { get; set; }
         public bool IsShow { get; set; } = false;
-        public string OPEN_ENT_BUDGET_TYPE { get; set; }
+        public string BUDGET_SHORT_NAME { get; set; }
         public string OPEN_ENT_BUDGET_PARENT { get; set; }
         public string OPEN_ENT_NAME { get; set; }
         public string OPEN_HEAD_ROLE { get; set; }
@@ -37,8 +37,8 @@ namespace Audit.Models
         {
             if (elem.Element("OPEN_ID") != null)
                 OPEN_ID = Convert.ToInt32(elem.Element("OPEN_ID").Value);
-            if (elem.Element("OPEN_ENT_BUDGET_TYPE") != null)
-                OPEN_ENT_BUDGET_TYPE = elem.Element("OPEN_ENT_BUDGET_TYPE").Value;
+            if (elem.Element("BUDGET_SHORT_NAME") != null)
+                BUDGET_SHORT_NAME = elem.Element("BUDGET_SHORT_NAME").Value;
             if (elem.Element("OPEN_ENT_BUDGET_PARENT") != null)
                 OPEN_ENT_BUDGET_PARENT = elem.Element("OPEN_ENT_BUDGET_PARENT").Value;
             if (elem.Element("OPEN_ENT_NAME") != null)
@@ -64,7 +64,7 @@ namespace Audit.Models
         {
             return new XElement("Mirroracc",
                        new XElement("OPEN_ID", OPEN_ID),
-                       new XElement("OPEN_ENT_BUDGET_TYPE", OPEN_ENT_BUDGET_TYPE),
+                       new XElement("BUDGET_SHORT_NAME", BUDGET_SHORT_NAME),
                        new XElement("OPEN_ENT_BUDGET_PARENT", OPEN_ENT_BUDGET_PARENT),
                        new XElement("OPEN_ENT_NAME", OPEN_ENT_NAME),
                        new XElement("OPEN_HEAD_ROLE", OPEN_HEAD_ROLE),
@@ -72,7 +72,8 @@ namespace Audit.Models
                        new XElement("OPEN_HEAD_PHONE", OPEN_HEAD_PHONE),
                        new XElement("OPEN_ACC_ROLE", OPEN_ACC_ROLE),
                        new XElement("OPEN_ACC_NAME", OPEN_ACC_NAME),
-                       new XElement("OPEN_ACC_PHONE", OPEN_ACC_PHONE)
+                       new XElement("OPEN_ACC_PHONE", OPEN_ACC_PHONE),
+                       new XElement("OPEN_ENT_GROUP_ID", OPEN_ENT_GROUP_ID)
                        );
         }
     }
@@ -123,7 +124,7 @@ namespace Audit.Models
         public string MD_NAME { get; set; }
         public string MD_TIME { get; set; }
 
-        [Required(ErrorMessage = "Үнэлгээ сонгоно уу")]
+        //[Required(ErrorMessage = "Үнэлгээ сонгоно уу")]
         public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }

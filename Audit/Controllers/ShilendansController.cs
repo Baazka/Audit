@@ -165,7 +165,7 @@ namespace Audit.Controllers
                 DataRow[] table2 = ds.Tables[0].Select("TAB_ID = " + 2);
                 DataRow[] table3 = ds.Tables[0].Select("TAB_ID = " + 3);
                 DataRow[] table4 = ds.Tables[0].Select("TAB_ID = " + 4);
-                DataRow[] table5 = ds.Tables[0].Select("TAB_ID = " + 5);
+                DataRow[] table5 = ds.Tables[0].Select();
                 DataRow[] table6 = ds.Tables[0].Select("TAB_ID = " + 6);
                 DataRow[] table7 = ds.Tables[0].Select("TAB_ID = " + 7);
 

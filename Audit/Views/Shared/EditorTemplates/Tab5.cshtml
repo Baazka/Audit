@@ -59,3 +59,10 @@
         <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "text-right", @type = "number" })</td>
     </tr>
 }
+else
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(X => X.Data01)
+    @Html.HiddenFor(X => X.Data02)
+    @Html.HiddenFor(X => X.Data03)
+}
