@@ -159,15 +159,16 @@ namespace Audit.App_Func
             try
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE SYSTEM_USER SET USER_PASSWORD = :P_USER_NEWCODE, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE WHERE USER_ID = :P_USER_ID";
+                cmd.CommandText = "UPDATE AUD_REG.SYSTEM_USER SET USER_PASSWORD = :P_USER_NEWCODE, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE  WHERE USER_ID = :P_USER_ID";
 
                 // Set parameters
+                cmd.Parameters.Add(":P_USER_NEWCODE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_NEWCODE").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = request.Element("Parameters").Element("UPDATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_USER_ID", OracleDbType.Int32, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":P_USER_OLDCODE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_OLDCODE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":P_USER_NEWCODE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_NEWCODE").Value, System.Data.ParameterDirection.Input); 
-                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Date).Value = DateTime.Now.ToString("dd-MMM-yy");
-
+                //
+                
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
                 bool responseVal = rowsUpdated == 0 ? false : true;

@@ -704,7 +704,7 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult UserCodeChange(SystemUser user)
         {
-            if (AppStatic.SystemController.UserCodeChange(Convert.ToInt32(User.Identity.GetUserId()), user.UserOldPassword, user.UserPassword))
+            if (AppStatic.SystemController.UserCodeChange(Convert.ToInt32(User.Identity.GetUserId()), user.UserOldPassword, user.UserPassword, DateTime.Now.ToString("dd-MMM-yy")))
                 return Json(new { error = false, message = AppStatic.SystemController.Message });
 
             AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);

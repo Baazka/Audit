@@ -197,7 +197,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public bool UserCodeChange(int userid, string oldpass, string newpass)
+        public bool UserCodeChange(int userid, string oldpass, string newpass, string updated_date)
         {
             try
             {
@@ -210,7 +210,8 @@ namespace Audit.Controllers.Library
                                                new XElement("Parameters",
                                                    new XElement("USER_ID", userid),
                                                    new XElement("USER_OLDCODE", oldpass),
-                                                   new XElement("USER_NEWCODE", newpass)));
+                                                   new XElement("USER_NEWCODE", newpass),
+                                                   new XElement("UPDATED_DATE", updated_date)));
 
                 DataResponse response = GetDataResponse(requestXml);
 

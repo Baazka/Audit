@@ -40,7 +40,6 @@ namespace Audit.Models
         public string USER_TYPE_NAME { get; set; }
         public string USER_EMAIL { get; set; }
         public DateTime USER_REG_DATE { get; set; }
-
         public SystemUser FromXml(XElement elem)
         {
             if (elem.Element("USER_ID") != null)
