@@ -72,6 +72,7 @@ namespace Audit.Models
         public int WORKING_ADDITION_TIME { get; set; }
         public int EXEC_TYPE { get; set; }
         public int REFERENCE_TYPE { get; set; }
+        public int REFERENCE_COUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
         public DateTime? CREATED_DATE { get; set; }
@@ -172,6 +173,8 @@ namespace Audit.Models
                     WORKING_ADDITION_TIME = Convert.ToInt32(xml.Element("WORKING_ADDITION_TIME").Value);
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
+                if (xml.Element("REFERENCE_COUNT") != null)
+                    REFERENCE_COUNT = Convert.ToInt32(xml.Element("REFERENCE_COUNT").Value);
             }
             return this;
         }
@@ -198,6 +201,7 @@ namespace Audit.Models
                        new XElement("REFERENCE_RCV_GIVEN_NAME", REFERENCE_RCV_GIVEN_NAME),
                        new XElement("REFERENCE_RCV_ADDRESS", REFERENCE_RCV_ADDRESS),
                        new XElement("REFERENCE_CONTROL_AUDITOR", REFERENCE_CONTROL_AUDITOR),
+                       new XElement("REFERENCE_COUNT", REFERENCE_COUNT),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
                        new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),

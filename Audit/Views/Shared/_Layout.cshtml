@@ -114,10 +114,14 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Тохиргоо
+                                <a class="dropdown-item" href="#" onclick="User.display('@Url.Action("UserProfile", "Home", new { Area = "" })');">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Профайл
                                 </a>
+                                @*<a class="dropdown-item" href="#" onclick="User.displayPassword('@Url.Action("UserCodeChange", "Home", new { Area = "" })');">
+                                    <i class="fas fa-unlock-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Нууц үг солих
+                                </a>*@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="@Url.Action("Logout", "Authentication")">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -152,6 +156,8 @@
         <!-- End of Content Wrapper -->
 
     </div>
+    <div id="userProfile"></div>
+    <div id="userCode"></div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -169,7 +175,7 @@
 
     <script src="~/Plugins/multiselect/bootstrap-multiselect.min.js"></script>
     <script src="~/Plugins/noti/notifications.js"></script>
-    <script src="~/Scripts/Application.js"></script>
+    <script src="~/Scripts/Application.js" async></script>
     @Html.Raw(
         "<script type='text/javascript'>" +
         "var sessionTimeOut = " + (AppStatic.SessionTimeOut + 1) + ";" +
@@ -177,5 +183,63 @@
         "</script>"
     )
     @RenderSection("scripts", required: false)
+    <script>
+
+        var User = {
+            display: function (action) {
+                $.ajax({
+                    url: action,
+                    type: 'GET',
+                    success: function (data) {
+                        $("#userProfile").html(data);
+                        $('#UserModal').modal({ show: true });
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayPassword: function (action) {
+                $.ajax({
+                    url: action,
+                    type: 'GET',
+                    success: function (data) {
+                        $("#userCode").html(data);
+                        $('#UserCodeModal').modal({ show: true });
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            processResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf('html') > -1) {
+                    $("#userCode UserCodeModal").remove();
+
+                    $("#userCode").html(data);
+                    $('#UserCodeModal').modal({ show: true });
+
+                    //ModalForm.setErrorClass('UserCodeModal');
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (!data.error) {
+                        $('.modal-backdrop:first').remove();
+                        $('#UserCodeModal').modal('hide');
+                        Message.success(data.message);
+                    }
+                }
+            }
+        }
+
+    </script>
 </body>
 </html>

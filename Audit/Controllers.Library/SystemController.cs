@@ -197,6 +197,40 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public bool UserCodeChange(int userid, string oldpass, string newpass)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "UserCodeChange"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   new XElement("USER_OLDCODE", oldpass),
+                                                   new XElement("USER_NEWCODE", newpass)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public XElement OrgList(XElement element, string departmentID)
         {
             try

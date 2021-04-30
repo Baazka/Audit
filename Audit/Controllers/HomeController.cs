@@ -686,6 +686,30 @@ namespace Audit.Controllers
             return PartialView(item);
         }
 
+        public PartialViewResult UserProfile()
+        {
+            SystemUser user = new SystemUser();
+            XElement res = AppStatic.SystemController.UserProfile(User.Identity.GetUserId());
+            if (res != null && res.Elements("SystemUser") != null)
+                user = new SystemUser().FromXml(res.Element("SystemUser"));
+
+            return PartialView(user);
+        }
+
+        public PartialViewResult UserCodeChange()
+        {
+            SystemUser user = new SystemUser();
+            return PartialView(user);
+        }
+        [HttpPost]
+        public ActionResult UserCodeChange(SystemUser user)
+        {
+            if (AppStatic.SystemController.UserCodeChange(Convert.ToInt32(User.Identity.GetUserId()), user.UserOldPassword, user.UserPassword))
+                return Json(new { error = false, message = AppStatic.SystemController.Message });
+
+            AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
+            return PartialView("UserCodeChange", user);
+        }
         public static XElement SendLibraryRequest(string lib)
         {
             XElement elem = new XElement("lib");
