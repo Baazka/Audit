@@ -5879,7 +5879,7 @@ namespace Audit.App_Func
                                   "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B ON A.OPEN_ID = B.ORGID " +
                                   "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON A.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                   "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
-                                  "WHERE A.IS_ACTIVE = 1 AND (:DEPARTMENT_ID = 2 OR (:DEPARTMENT_ID !=2 AND A.OPEN_ENT_DEPARTMENT_ID = :DEPARTMENT_ID)) " +
+                                  "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND (:DEPARTMENT_ID IN (2, 101) OR (:DEPARTMENT_ID NOT IN(2, 101) AND A.OPEN_ENT_DEPARTMENT_ID = :DEPARTMENT_ID)) " +
                                   "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
@@ -5996,10 +5996,11 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OPEN_ID ,OPEN_ENT_BUDGET_TYPE, OPEN_ENT_BUDGET_PARENT, OPEN_ENT_NAME, OPEN_HEAD_ROLE, OPEN_HEAD_NAME, OPEN_HEAD_PHONE, OPEN_ACC_ROLE, OPEN_ACC_NAME, OPEN_ACC_PHONE, OPEN_ENT_GROUP_ID " +
-                                  "FROM AUD_MIRRORACC.OPENACC_ENTITY " +
-                                  "WHERE IS_ACTIVE = 1 " +
-                                  "AND OPEN_ID = :OPEN_ID";
+                cmd.CommandText = "SELECT A.OPEN_ID ,B.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, A.OPEN_ENT_NAME, A.OPEN_HEAD_ROLE, A.OPEN_HEAD_NAME, A.OPEN_HEAD_PHONE, A.OPEN_ACC_ROLE, A.OPEN_ACC_NAME, A.OPEN_ACC_PHONE, A.OPEN_ENT_GROUP_ID " +
+                                  "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
+                                  "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE B ON A.OPEN_ENT_BUDGET_TYPE = B.BUDGET_TYPE_ID " +
+                                  "WHERE A.IS_ACTIVE = 1 " +
+                                  "AND A.OPEN_ID = :OPEN_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":OPEN_ID", OracleDbType.Int32, request.Element("Parameters").Element("OPEN_ID").Value, System.Data.ParameterDirection.Input);
@@ -6126,8 +6127,18 @@ namespace Audit.App_Func
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["MirroraccConfig"]);
                 con.Open();
 
-                // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "F_ORG_PRINTED";
+
+                OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
+                    OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+                cmd.Parameters.Add(":OPEN_ID", OracleDbType.Int32, request.Element("Parameters").Element("ORGID")?.Value, System.Data.ParameterDirection.Input);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                // Create and execute the command
+                cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT CASE WHEN DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
                                        "CASE WHEN DATA01 = 1 THEN 1 ELSE NULL END MEDEELSEN," +
@@ -6152,7 +6163,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (37,39) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 39 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 37 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 37 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 39 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(37, 39) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(37, 39) THEN DATA01 END), 2) PRECENT2 " +
@@ -6162,7 +6173,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (38,40) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 40 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 38 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 38 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 40 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(38, 40) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(38, 40) THEN DATA01 END), 2) PRECENT2 " +
@@ -6172,7 +6183,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 43 THEN 0 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 43 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 43 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 43 THEN 0 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) / SUM(CASE WHEN MDCODE = 43 THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) / SUM(CASE WHEN MDCODE = 43 THEN DATA01 END), 2) PRECENT2 " +
@@ -6182,7 +6193,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 44 THEN 0 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 44 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 44 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 44 THEN 0 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) / SUM(CASE WHEN MDCODE = 44 THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) / SUM(CASE WHEN MDCODE = 44 THEN DATA01 END), 2) PRECENT2 " +
@@ -6192,7 +6203,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (46,48) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 48 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 46 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 46 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 48 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(46, 48) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(46, 48) THEN DATA01 END), 2) PRECENT2 " +
@@ -6202,7 +6213,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (47,49) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 49 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 47 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 47 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 49 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(47, 49) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(47, 49) THEN DATA01 END), 2) PRECENT2 " +
@@ -6212,7 +6223,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (53,55) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 55 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 53 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 53 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 55 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(53, 55) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(53, 55) THEN DATA01 END), 2) PRECENT2 " +
@@ -6222,7 +6233,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (54,56) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 56 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 54 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 54 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 56 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(54, 56) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(54, 56) THEN DATA01 END), 2) PRECENT2 " +
@@ -6232,7 +6243,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (60,62) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 62 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 60 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 60 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 62 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(60, 62) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 64 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(60, 62) THEN DATA01 END), 2) PRECENT2 " +
@@ -6242,7 +6253,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (61,63) THEN DATA01 END) MEDEELEH_TOO_HEMJEE,  " +
                                 "       SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 63 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 61 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 61 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 63 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(61, 63) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(61, 63) THEN DATA01 END), 2) PRECENT2 " +
@@ -6262,7 +6273,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (69,71) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 71 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 69 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 69 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 73 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 71 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(69, 71) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 73 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(69, 71) THEN DATA01 END), 2) PRECENT2 " +
@@ -6272,7 +6283,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (70,72) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 72 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 70 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 70 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 74 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 72 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(70, 72) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 74 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(70, 72) THEN DATA01 END), 2) PRECENT2 " +
@@ -6282,7 +6293,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (76,78) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 78 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 76 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 76 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 80 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 78 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(76, 78) THEN DATA01 END), 2) PRECENT1, " +
                                 "      ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 80 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(76, 78) THEN DATA01 END), 2) PRECENT2 " +
@@ -6292,7 +6303,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (77,79) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 79 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 77 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 77 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 81 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 79 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(77, 79) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 81 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(77, 79) THEN DATA01 END), 2) PRECENT2 " +
@@ -6302,17 +6313,17 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (83,85) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 85 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 83 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 83 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 87 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 85 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(83, 85) THEN DATA01 END), 2) PRECENT1, " +
-                                "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 87 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(83, 85) THEN DATA01 END), 2) PRECENT2 " +
+                                "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 85 THEN DATA01 END),  2) PRECENT1, " +
+                                "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 87 THEN DATA01 END), 2) PRECENT2 " +
                                 "      FROM AUD_MIRRORACC.SHILENDANSDATA " +
                                 "      WHERE ORGID = :ORGID " +
                                 "UNION ALL " +
                                 "SELECT SUM(CASE WHEN MDCODE IN (84,86) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 86 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 84 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 84 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 88 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 86 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(84, 86) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 88 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(84, 86) THEN DATA01 END), 2) PRECENT2 " +
@@ -6322,7 +6333,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (90,92) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 92 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 90 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 90 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 92 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(90, 92) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(90, 92) THEN DATA01 END), 2) PRECENT2 " +
@@ -6332,7 +6343,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (91,93) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 93 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 91 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 91 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 93 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(91, 93) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(91, 93) THEN DATA01 END), 2) PRECENT2 " +
@@ -6342,7 +6353,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (97,99) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 99 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 97 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 97 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 99 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(97, 99) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(97, 99) THEN DATA01 END), 2) PRECENT2 " +
@@ -6352,7 +6363,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (98,100) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 100 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 98 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 98 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 100 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(98, 100) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(98, 100) THEN DATA01 END), 2) PRECENT2 " +
@@ -6362,7 +6373,7 @@ namespace Audit.App_Func
                                 "SELECT SUM(CASE WHEN MDCODE IN (104,105) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                 "       SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) MEDEELSEN, " +
                                 "       SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) MEDEELEEGUI, " +
-                                "       SUM(CASE WHEN DATA01 = 104 THEN 0 END) SHAARDLAGAGUI, " +
+                                "       SUM(CASE WHEN MDCODE = 104 THEN 0 END) SHAARDLAGAGUI, " +
                                 "       SUM(CASE WHEN MDCODE = 106 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(104, 105) THEN DATA01 END), 2) PRECENT1, " +
                                 "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 106 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(104, 105) THEN DATA01 END), 2) PRECENT2 " +
@@ -6410,7 +6421,7 @@ namespace Audit.App_Func
                 cmd.CommandText = "SELECT SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                            "SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) MEDEELSEN, " +
                                            "SUM(CASE WHEN MDCODE = 118 THEN DATA01 END) MEDEELEEGUI, " +
-                                           "SUM(CASE WHEN DATA01 = 116 THEN 0 END) SHAARDLAGAGUI, " +
+                                           "SUM(CASE WHEN MDCODE = 116 THEN 0 END) SHAARDLAGAGUI, " +
                                            "SUM(CASE WHEN MDCODE = 120 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                            "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 118 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END), 2) PRECENT1, " +
                                            "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 120 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END), 2) PRECENT2 " +
@@ -6420,7 +6431,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (117,119) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 119 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 117 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 117 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 121 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 119 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(117, 119) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 121 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(117, 119) THEN DATA01 END), 2) PRECENT2 " +
@@ -6430,7 +6441,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (123,125) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 125 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 123 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 123 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 127 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 125 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(123, 125) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 127 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(123, 125) THEN DATA01 END), 2) PRECENT2 " +
@@ -6440,7 +6451,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (124,126) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 126 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 124 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 124 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 128 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 126 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(124, 126) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 128 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(124, 126) THEN DATA01 END), 2) PRECENT2 " +
@@ -6450,7 +6461,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (130,132) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 132 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 130 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 130 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 132 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(130, 132) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(130, 132) THEN DATA01 END), 2) PRECENT2 " +
@@ -6460,7 +6471,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (131,133) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 133 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 131 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 131 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 133 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(131, 133) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(131, 133) THEN DATA01 END), 2) PRECENT2 " +
@@ -6470,7 +6481,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (137,139) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 139 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 137 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 137 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 139 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(137, 139) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(137, 139) THEN DATA01 END), 2) PRECENT2 " +
@@ -6480,7 +6491,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (138,140) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 140 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 138 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 138 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 140 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(138, 140) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(138, 140) THEN DATA01 END), 2) PRECENT2 " +
@@ -6500,7 +6511,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (146,148) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 148 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 146 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 146 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 148 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(146, 148) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(146, 148) THEN DATA01 END), 2) PRECENT2 " +
@@ -6510,7 +6521,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (147,149) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 149 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 147 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 147 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 149 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(147, 149) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(147, 149) THEN DATA01 END), 2) PRECENT2 " +
@@ -6540,7 +6551,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (155,157) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 157 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 155 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 155 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 159 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 157 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(155, 157) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 159 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(155, 157) THEN DATA01 END), 2) PRECENT2 " +
@@ -6550,7 +6561,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (156,158) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 158 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 156 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 156 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 160 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 158 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(156, 158) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 160 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(156, 158) THEN DATA01 END), 2) PRECENT2 " +
@@ -6560,7 +6571,7 @@ namespace Audit.App_Func
                                     "SELECT SUM(CASE WHEN MDCODE IN (162,163) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
                                     "       SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) MEDEELSEN, " +
                                     "       SUM(CASE WHEN MDCODE = 163 THEN DATA01 END) MEDEELEEGUI, " +
-                                    "       SUM(CASE WHEN DATA01 = 162 THEN 0 END) SHAARDLAGAGUI, " +
+                                    "       SUM(CASE WHEN MDCODE = 162 THEN 0 END) SHAARDLAGAGUI, " +
                                     "       SUM(CASE WHEN MDCODE = 164 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 163 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(162, 163) THEN DATA01 END), 2) PRECENT1, " +
                                     "       ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 164 THEN DATA01 END) / SUM(CASE WHEN MDCODE IN(162, 163) THEN DATA01 END), 2) PRECENT2 " +
