@@ -213,13 +213,17 @@ namespace Audit.Models
     }
     public class Print1
     {
-        public string MEDEELEH_TOO { get; set; }
-        public string MEDEELSEN_TOO { get; set; }
-        public string MEDEELEEGUI_TOO { get; set; }
-        public string HAMAARALGUI { get; set; }
+        public string MD_CODE { get; set; }
+        public string MD_TIME { get; set; }
+        public string PARENT_NAME { get; set; }
+        public string MD_NAME { get; set; }
+        public string MEDEELEH_TOO_HEMJEE { get; set; }
+        public string MEDEELSEN { get; set; }
+        public string MEDEELEEGUI { get; set; }
+        public string SHAARDLAGAGUI { get; set; }
         public string HUGATSAA_HOTSROOSON { get; set; }
-        public string MEDEELSEN_PERCENT { get; set; }
-        public string HUGATSAA_HOTSROOSON_PERCENT { get; set; }
+        public string PRECENT1 { get; set; }
+        public string PRECENT2 { get; set; }
 
     }
 }

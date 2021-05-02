@@ -147,6 +147,9 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("MirrorOrgDetail") != null)
                 {
                     organization = new Mirroracc().FromXml(res.Element("MirrorOrgDetail"));
+                    Session["print_open_ent_name"] = organization.OPEN_ENT_NAME;
+                    Session["print_open_head_name"] = organization.OPEN_HEAD_NAME;
+                    Session["print_open_acc_name"] = organization.OPEN_ACC_NAME;
                 }
                 
                 XElement tb1res = AppStatic.SystemController.Table1List();
@@ -692,13 +695,17 @@ namespace Audit.Controllers
                 organization.print1.Add(
                         new Print1
                         {
-                            MEDEELEH_TOO = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
-                            MEDEELSEN_TOO = print1[i].Field<string>("MEDEELSEN"),
-                            MEDEELEEGUI_TOO = print1[i].Field<string>("MEDEELEEGUI"),
-                            HAMAARALGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                            MD_CODE = print1[i].Field<string>("MD_CODE"),
+                            MD_TIME = print1[i].Field<string>("MD_TIME"),
+                            PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
+                            MD_NAME = print1[i].Field<string>("MD_NAME"),
+                            MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
+                            MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
+                            MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
+                            SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
                             HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
-                            MEDEELSEN_PERCENT = print1[i].Field<string>("PRECENT1"),
-                            HUGATSAA_HOTSROOSON_PERCENT = print1[i].Field<string>("PRECENT2")
+                            PRECENT1 = print1[i].Field<string>("PRECENT1"),
+                            PRECENT2 = print1[i].Field<string>("PRECENT2")
                         }
                     );
             }
@@ -723,13 +730,17 @@ namespace Audit.Controllers
                 organization.print1.Add(
                         new Print1
                         {
-                            MEDEELEH_TOO = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
-                            MEDEELSEN_TOO = print1[i].Field<string>("MEDEELSEN"),
-                            MEDEELEEGUI_TOO = print1[i].Field<string>("MEDEELEEGUI"),
-                            HAMAARALGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                            MD_CODE = print1[i].Field<string>("MD_CODE"),
+                            MD_TIME = print1[i].Field<string>("MD_TIME"),
+                            PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
+                            MD_NAME = print1[i].Field<string>("MD_NAME"),
+                            MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
+                            MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
+                            MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
+                            SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
                             HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
-                            MEDEELSEN_PERCENT = print1[i].Field<string>("PRECENT1"),
-                            HUGATSAA_HOTSROOSON_PERCENT = print1[i].Field<string>("PRECENT2")
+                            PRECENT1 = print1[i].Field<string>("PRECENT1"),
+                            PRECENT2 = print1[i].Field<string>("PRECENT2")
                         }
                     );
             }
