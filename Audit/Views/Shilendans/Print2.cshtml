@@ -37,7 +37,7 @@
         <div class="col-md-6">
             <label>Аудитын код: ................................................................</label>
         </div>
-        <p class="col-md-12">Аудитад шалгагдагч /хамрагдагч/ байгууллагын нэр: ......................................................................................</p>
+        <p class="col-md-12">Аудитад шалгагдагч /хамрагдагч/ байгууллагын нэр: @Session["print_open_ent_name"].ToString()</p>
 
         <div class="col-md-6">
             <label>Шалгасан аудиторын нэр: @User.GetClaimData("USER_NAME").ToUpper()</label>
@@ -51,113 +51,41 @@
     </div>
     <div class="row">
 
-        <table class="table" style="color:#000;font-size:7px;border-right-style: hidden;margin:0;padding:0;border-bottom-style: hidden;font-family:'Times New Roman';width:58%;">
-            <tbody>
+        <table class="table" style="color:#000;margin:0;padding:0;font-family:'Times New Roman';width:100%;border-bottom-style: hidden;">
+            <thead style="font-size:10px;border-bottom-style:hidden;">
                 <tr>
-                    <td rowspan="2" style="background-color:#fbe4d5; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; height:66px; text-align:center; vertical-align:middle; white-space:normal; width:86px"><strong>Мэдээлэх хугацаа</strong></td>
-                    <td colspan="3" rowspan="2" style="background-color:#fbe4d5; border-bottom:.7px solid black; border-left:1px solid black; border-right:.7px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:nowrap; width:914px"><strong>Мэдээллийн агуулга</strong></td>
+                    <td rowspan="2" style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; height:80px; text-align:center; vertical-align:middle; white-space:normal;"><strong>Мэдээлэх хугацаа</strong></td>
+                    <td colspan="2" rowspan="2" style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:nowrap;width: 50%; "><strong>Мэдээллийн агуулга</strong></td>
+                    <td colspan="7" style="height:25px; background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Хэрэгжилтийн хувь, хэмжээ</strong></td>
                 </tr>
                 <tr>
-                </tr>
-                <tr>
-                    <td rowspan="17" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle; white-space:normal; width:86px">Шийдвэр гарснаас хойш 7 хоногийн дотор мэдээлэх&nbsp;</td>
-                    <td rowspan="8" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle; white-space:normal; width:258px">6.8.1. Засгийн газар, орон нутгийн өрийн бичиг, бусад санхүүгийн хэрэгсэл, Төр, хувийн хэвшлийн түншлэлийн гэрээ, концесс, Засгийн газар, орон нутгийн баталгаа, төсвийн өр, авлага үүсгэсэн аливаа шийдвэрийн мэдээлэл&nbsp;&nbsp;&nbsp;</td>
-                    <td rowspan="2" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle; white-space:normal; width:463px">3.2.5 Засгийн газар, орон нутгийн <strong>өрийн бичиг</strong>, бусад санхүүгийн хэрэгсэл, шийдвэрийн талаарх мэдээлэл</td>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн тоо</td>
-                </tr>
-                <tr>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн мөнгөн дүн</td>
-                </tr>
-                <tr>
-                    <td rowspan="2" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle; white-space:normal; width:463px">3.2.7. Төр, хувийн хэвшлийн түншлэлийн гэрээ,<strong> концессийн</strong> талаарх шийдвэрийн мэдээлэл</td>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн тоо</td>
-                </tr>
-                <tr>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн мөнгөн дүн</td>
-                </tr>
-                <tr>
-                    <td rowspan="2" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle; white-space:normal; width:463px">3.2.8. Засгийн газар, орон нутгийн баталгаа, Төрийн байгууллага, <strong>улсын төсөвтэй холбоотой үүссэн өрийн талаарх</strong> шийдвэр, мэдээлэл&nbsp;</td>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн тоо</td>
-                </tr>
-                <tr>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн мөнгөн дүн</td>
-                </tr>
-                <tr>
-                    <td rowspan="2" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle; white-space:normal; width:463px">3.2.8 Засгийн газар, орон нутгийн баталгаа, Төрийн байгууллага, <strong>улсын төсөвтэй холбоотой үүссэн авлагын талаарх </strong>шийдвэр,&nbsp; мэдээлэл&nbsp;</td>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн тоо</td>
-                </tr>
-                <tr>
-                    <td style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:193px">Нийт шийдвэрийн мөнгөн дүн</td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal; width:914px">6.8.2. Худалдан авах ажиллагааны төлөвлөгөө&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal; width:914px">6.8.2. Худалдан авах ажиллагааны тайлан&nbsp;</td>
-                </tr>
-                <tr>
-                    <td rowspan="4" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:258px">6.8.2. Тендер, худалдан авалтын ерөнхий мэдээлэл&nbsp;&nbsp;</td>
-                    <td colspan="2" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal; width:656px">Тендер шалгаруулсан худалдан авах ажиллагааны тоо&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal; width:656px">Тендер шалгаруулсан худалдан авах ажиллагааны мөнгөн дүн</td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal; width:656px">тендерт шалгарсан оролцогчийн талаарх товч мэдээллийг мэдээлээгүй тоо</td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal; width:656px">тендерт шалгараагүй оролцогчийн талаарх товч мэдээлэл, хуулийн үндэслэл, шалтгааныг мэдээлээгүй тоо</td>
-                </tr>
-                <tr>
-                    <td rowspan="2" style="background-color:white; border-bottom:.7px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:left; vertical-align:middle; white-space:normal; width:258px">6.8.3. Их хэмжээний хэлцэлд тооцогдохуйц баталгаа, батлан даалтын шийдвэрийн мэдээлэл</td>
-                    <td colspan="2" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:normal; width:656px">Нийт шийдвэрийн тоо&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:normal; width:656px">Нийт шийдвэрийн мөнгөн дүн</td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="background-color:white; border-bottom:1px solid black; border-left:none; border-right:.7px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal; width:914px">6.10 Нийтийн албанд нийтийн болон хувийн ашиг сонирхлыг зохицуулах, ашиг сонирхлын зөрчлөөс урьдчилан сэргийлэх тухай хуулийн 8.9 дүгээр зүйлд заасан мэдэгдэл</td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="background-color:white; border-bottom:1px solid black; border-left:1px solid black; border-right:.7px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:normal; width:1000px"><strong>Тухайн байгууллагын шилэн дансны нийт мэдээллийн дундаж хувь, хэмжээ</strong></td>
-                </tr>
-            </tbody>
-        </table>
-
-
-        <table class="table" style="color:#000;margin:0;padding:0;font-family:'Times New Roman';width:28%;">
-            <thead style="font-size:7px;">
-                <tr>
-                    <td colspan="7" style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:nowrap;"><strong>Хэрэгжилтийн хувь, хэмжээ</strong></td>
-                </tr>
-                <tr>
-                    <th style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:none; text-align:center; vertical-align:bottom; white-space:normal;vertical-align: middle;"><strong>Мэдээлэх тоо</strong></th>
-                    <th style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:bottom; white-space:normal;vertical-align: middle;"><strong>Мэдээлсэн тоо</strong></th>
-                    <th style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:bottom; white-space:normal;vertical-align: middle;"><strong>Мэдээлээгүй тоо</strong></th>
-                    <th style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:bottom; white-space:normal;vertical-align: middle;"><strong>Мэдээллийг оруулах шаардлагагүй буюу хамааралгүй</strong></th>
-                    <th style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:bottom; white-space:normal;vertical-align: middle;"><strong>Хугацаа хоцроосон мэдээллийн тоо</strong></th>
-                    <th style="background-color:yellow; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:bottom; white-space:normal;vertical-align: middle;"><strong>Мэдээлсэн байдлын хэрэгжилтийн хувь</strong></th>
-                    <th style="background-color:yellow; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:bottom; white-space:normal;vertical-align: middle;"><strong>Хугацаа хоцролтын хэрэгжилтийн хувь</strong></th>
+                    <td style="height:55px; background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle;"><strong>Мэдээлэх тоо, хэмжээ</strong></td>
+                    <td style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle;"><strong>Мэдээлсэн</strong></td>
+                    <td style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle;"><strong>Мэдээлээгүй</strong></td>
+                    <td style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle;"><strong>Тухайн мэдээллийг оруулах шаардлагагүй, хамааралгүй</strong></td>
+                    <td style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle;"><strong>Хугацаа хоцроосон</strong></td>
+                    <td style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle;"><strong>Мэдээлсэн байдлын хэрэгжилтийн хувь</strong></td>
+                    <td style="background-color:#fbe4d5; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:none; text-align:center; vertical-align:middle;"><strong>Хугацаа хоцролтын хэрэгжилтийн хувь</strong></td>
                 </tr>
             </thead>
-            <tbody style="font-size: 7px;color:#000;">
+            <tbody style="font-size: 10px;color:#000;">
                 @Html.EditorFor(t => t.print1)
             </tbody>
         </table>
 
-        <table class="table table-bordered" style="width:98%;color:#000;font-size:10px;">
+        <table class="table table-bordered" style="width:100%;color:#000;font-size:10px;">
             <tbody>
                 <tr>
-                    <td colspan="2" style="background-color:yellow; border-bottom:1px solid black; border-left:1px solid black; border-right:.7px solid black; border-top:1px solid black; height:30px; text-align:center; vertical-align:middle; white-space:normal;"><strong>Зөрчлийн шийдэл</strong></td>
-                    <td colspan="8" style="background-color:yellow; border-bottom:1px solid black; border-left:none; border-right:none; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:normal;">Албан шаардлага өгөх /зөвлөмж өгөх/ гэх мэт</td>
+                    <td colspan="2" style="background-color:yellow; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:normal;"><strong>Зөрчлийн шийдэл</strong></td>
+                    <td colspan="8" style="background-color:yellow; border-bottom:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:center; vertical-align:middle; white-space:normal;">Албан шаардлага өгөх /зөвлөмж өгөх/ гэх мэт</td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="background-color:yellow; border-bottom:1px solid black; border-left:1px solid black; border-right:.7px solid black; border-top:1px solid black; height:42px; text-align:left; vertical-align:middle; white-space:normal;"><strong>Тухайн байгууллагын санал</strong></td>
-                    <td colspan="8" style="background-color:yellow; border-bottom:1px solid black; border-left:none; border-right:none; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal;">@Session["Print2Val1"].ToString()</td>
+                    <td colspan="2" style="background-color:yellow; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal;"><strong>Тухайн байгууллагын санал</strong></td>
+                    <td colspan="8" style="background-color:yellow; border-bottom:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal;">@Session["Print2Val1"].ToString()</td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="background-color:yellow; border-bottom:1px solid black; border-left:1px solid black; border-right:.7px solid black; border-top:1px solid black; height:42px; text-align:left; vertical-align:middle; white-space:normal;"><strong>Тайлбар</strong></td>
-                    <td colspan="8" style="background-color:yellow; border-bottom:1px solid black; border-left:none; border-right:none; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal;">@Session["Print2Val2"].ToString()</td>
+                    <td colspan="2" style="background-color:yellow; border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal;"><strong>Тайлбар</strong></td>
+                    <td colspan="8" style="background-color:yellow; border-bottom:1px solid black; border-right:1px solid black; border-top:1px solid black; text-align:left; vertical-align:middle; white-space:normal;">@Session["Print2Val2"].ToString()</td>
                 </tr>
             </tbody>
         </table>
@@ -236,7 +164,7 @@
             Танилцаж зөвшөөрсөн:
         </div>
         <div class="col-md-2">
-            ................................................
+            @Session["print_open_head_name"].ToString()
         </div>
         <div class="col-md-2">
             ................................................
@@ -269,7 +197,7 @@
             Танилцаж зөвшөөрсөн:
         </div>
         <div class="col-md-2">
-            ................................................
+            @Session["print_open_acc_name"].ToString()
         </div>
         <div class="col-md-2">
             ................................................
