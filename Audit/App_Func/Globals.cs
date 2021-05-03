@@ -43,6 +43,7 @@ namespace Audit.App_Func
         public static List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
         public static List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
         public static List<REF_VIOLATION_TYPE> refviolationtypes { get; set; } = new List<REF_VIOLATION_TYPE>();
+        public static List<HAK> haks { get; set; } = new List<HAK>();
         #endregion
 
         static string SecurityKey = null;

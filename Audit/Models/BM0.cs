@@ -18,7 +18,7 @@ namespace Audit.Models
     {
         public int ID { get; set; }
         [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
-        public int OFFICE_ID { get; set; }
+        public int DEPARTMENT_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
@@ -34,7 +34,7 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_NO { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public string ORDER_DATE { get; set; }
+        public DateTime ORDER_DATE { get; set; }
         public int? AUDIT_FORM_TYPE { get; set; }
         public string FORM_TYPE_NAME { get; set; }
         public int? AUDIT_PROPOSAL_TYPE { get; set; }
@@ -49,8 +49,8 @@ namespace Audit.Models
         public int WORKING_DAY { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public int WORKING_ADDITION_TIME { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
-        public string AUDIT_DEPARTMENT { get; set; }
+        //[Required(ErrorMessage = "Утга оруулна уу.")]
+        //public string AUDIT_DEPARTMENT { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_LEAD { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
@@ -62,14 +62,25 @@ namespace Audit.Models
         public decimal AUDIT_SERVICE_PAY { get; set; }
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public DateTime? UPDATED_DATE { get; set; }
+
+        public string DEPARTMENT_SHORT_NAME { get; set; }
+        public string TEAM_DEPARTMENT_NAME { get; set; }
+        public int AUDIT_INCLUDED_COUNT { get; set; }
+        public string YEAR_LABEL { get; set; }
+        public int AUDIT_YEAR { get; set; }
+        public int AUDIT_DEPARTMENT_TYPE { get; set; }
+        public int AUDIT_DEPARTMENT_ID { get; set; }
+
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
+        public List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
 
         public List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();
         public List<REF_TOPIC_TYPE> topictypes { get; set; } = new List<REF_TOPIC_TYPE>();
         public List<REF_FORM_TYPE> formtypes { get; set; } = new List<REF_FORM_TYPE>();
         public List<REF_PROPOSAL_TYPE> proposaltypes { get; set; } = new List<REF_PROPOSAL_TYPE>();
         public List<REF_BUDGET_TYPE> refbudgettypes { get; set; } = new List<REF_BUDGET_TYPE>();
+        public List<HAK> haks { get; set; } = new List<HAK>();
 
         public BM0 SetXml(XElement xml)
         {
@@ -77,8 +88,8 @@ namespace Audit.Models
             {
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
-                if (xml.Element("OFFICE_ID") != null)
-                    OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
+                if (xml.Element("DEPARTMENT_ID") != null)
+                    DEPARTMENT_ID = Convert.ToInt32(xml.Element("DEPARTMENT_ID").Value);
                 if (xml.Element("DEPARTMENT_NAME") != null)
                     DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value;
                 if (xml.Element("STATISTIC_PERIOD") != null)
@@ -100,7 +111,7 @@ namespace Audit.Models
                 if (xml.Element("ORDER_NO") != null)
                     ORDER_NO = xml.Element("ORDER_NO").Value;
                 if (xml.Element("ORDER_DATE") != null)
-                    ORDER_DATE = xml.Element("ORDER_DATE").Value;
+                    ORDER_DATE = Convert.ToDateTime(xml.Element("ORDER_DATE").Value);
                 if (xml.Element("AUDIT_FORM_TYPE") != null)
                     AUDIT_FORM_TYPE = Convert.ToInt32(xml.Element("AUDIT_FORM_TYPE").Value);
                 if (xml.Element("FORM_TYPE_NAME") != null)
@@ -121,16 +132,28 @@ namespace Audit.Models
                     WORKING_DAY = Convert.ToInt32(xml.Element("WORKING_DAY").Value);
                 if (xml.Element("WORKING_ADDITION_TIME") != null)
                     WORKING_ADDITION_TIME = Convert.ToInt32(xml.Element("WORKING_ADDITION_TIME").Value);
-                if (xml.Element("AUDIT_DEPARTMENT") != null)
-                    AUDIT_DEPARTMENT = xml.Element("AUDIT_DEPARTMENT").Value;
+                //if (xml.Element("AUDIT_DEPARTMENT") != null)
+                //    AUDIT_DEPARTMENT = xml.Element("AUDIT_DEPARTMENT").Value;
                 if (xml.Element("AUDITOR_LEAD") != null)
-                    AUDITOR_LEAD = xml.Element("AUDITOR_LEAD").Value;
+                    AUDITOR_LEAD = xml.Element("AUDITOR_LEAD").Value.Replace(",","<br/>");
                 if (xml.Element("AUDITOR_MEMBER") != null)
-                    AUDITOR_MEMBER = xml.Element("AUDITOR_MEMBER").Value;
+                    AUDITOR_MEMBER = xml.Element("AUDITOR_MEMBER").Value.Replace(",", "<br/>");
                 if (xml.Element("AUDITOR_ENTRY") != null)
                     AUDITOR_ENTRY = xml.Element("AUDITOR_ENTRY").Value;
                 if (xml.Element("AUDIT_SERVICE_PAY") != null)
                     AUDIT_SERVICE_PAY = Convert.ToDecimal(xml.Element("AUDIT_SERVICE_PAY").Value);
+                if (xml.Element("AUDIT_INCLUDED_COUNT") != null)
+                    AUDIT_INCLUDED_COUNT = Convert.ToInt32(xml.Element("AUDIT_INCLUDED_COUNT").Value);
+                if (xml.Element("DEPARTMENT_SHORT_NAME") != null)
+                    DEPARTMENT_SHORT_NAME = xml.Element("DEPARTMENT_SHORT_NAME").Value;
+                if (xml.Element("TEAM_DEPARTMENT_NAME") != null)
+                    TEAM_DEPARTMENT_NAME = xml.Element("TEAM_DEPARTMENT_NAME").Value;
+                if (xml.Element("YEAR_LABEL") != null)
+                    YEAR_LABEL = xml.Element("YEAR_LABEL").Value;
+                if (xml.Element("AUDIT_DEPARTMENT_TYPE") != null)
+                    AUDIT_DEPARTMENT_TYPE = Convert.ToInt32(xml.Element("AUDIT_DEPARTMENT_TYPE").Value);
+                if (xml.Element("AUDIT_DEPARTMENT_ID") != null)
+                    AUDIT_DEPARTMENT_ID = Convert.ToInt32(xml.Element("AUDIT_DEPARTMENT_ID").Value);
             }
             return this;
         }
@@ -138,26 +161,30 @@ namespace Audit.Models
         {
             return new XElement("BM0",
                        new XElement("ID", ID),
-                       new XElement("OFFICE_ID", OFFICE_ID),
+                       new XElement("DEPARTMENT_ID", DEPARTMENT_ID),
+                       new XElement("AUDIT_YEAR", AUDIT_YEAR),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
                        new XElement("AUDIT_TYPE", AUDIT_TYPE),
                        new XElement("TOPIC_TYPE", TOPIC_TYPE),
                        new XElement("TOPIC_CODE", TOPIC_CODE),
                        new XElement("TOPIC_NAME", TOPIC_NAME),
                        new XElement("ORDER_NO", ORDER_NO),
-                       new XElement("ORDER_DATE", ORDER_DATE),
+                       new XElement("ORDER_DATE", ORDER_DATE.ToString("dd-MMM-yy")),
                        new XElement("AUDIT_FORM_TYPE", AUDIT_FORM_TYPE),
                        new XElement("AUDIT_PROPOSAL_TYPE", AUDIT_PROPOSAL_TYPE),
                        new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
+                       new XElement("AUDIT_INCLUDED_COUNT", AUDIT_INCLUDED_COUNT),
                        new XElement("AUDIT_INCLUDED_ORG", AUDIT_INCLUDED_ORG),
                        new XElement("WORKING_PERSON", WORKING_PERSON),
                        new XElement("WORKING_DAY", WORKING_DAY),
                        new XElement("WORKING_ADDITION_TIME", WORKING_ADDITION_TIME),
-                       new XElement("AUDIT_DEPARTMENT", AUDIT_DEPARTMENT),
+                       //new XElement("AUDIT_DEPARTMENT", AUDIT_DEPARTMENT),
                        new XElement("AUDITOR_LEAD", AUDITOR_LEAD),
                        new XElement("AUDITOR_MEMBER", AUDITOR_MEMBER),
                        new XElement("AUDITOR_ENTRY", AUDITOR_ENTRY),
                        new XElement("AUDIT_SERVICE_PAY", AUDIT_SERVICE_PAY),
+                       new XElement("AUDIT_DEPARTMENT_TYPE", AUDIT_DEPARTMENT_TYPE),
+                       new XElement("AUDIT_DEPARTMENT_ID", AUDIT_DEPARTMENT_ID),
                        new XElement("EXEC_TYPE", EXEC_TYPE),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE)

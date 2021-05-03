@@ -38,6 +38,24 @@
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split" onclick="BM0.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split" onclick="BM0.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM0', 'БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл')">
@@ -56,11 +74,12 @@
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
-                        <th colspan="13">Ерөнхий мэдээлэл</th>
-                        <th colspan="4">Аудитын багийн мэдээлэл</th>
-                        <th rowspan="3" class="text-center">Үйлдэл</th>
+                        <th colspan="17">Ерөнхий мэдээлэл</th>
+                        <th colspan="6">Аудитын багийн мэдээлэл</th>
                     </tr>
                     <tr class="bg-light">
+                        <th rowspan="2">Төрийн аудитын байгууллага</th>
+                        <th rowspan="2">Аудитын он</th>
                         <th rowspan="2">Аудитын төрөл</th>
                         <th rowspan="2">Сэдвийн үндэслэл</th>
                         <th rowspan="2">Сэдвийн код</th>
@@ -70,14 +89,18 @@
                         <th rowspan="2">Аудит хийсэн хэлбэр</th>
                         <th rowspan="2">Санал дүгнэлтийн төрөл</th>
                         <th rowspan="2">Төсөв захирагчийн ангилал</th>
-                        <th rowspan="2">Хамрагдсан байгууллагын жагсаалт</th>
+                        <th colspan="2">Хамрагдсан байгууллага</th>
                         <th colspan="3">Ажилласан</th>
-                        <th rowspan="2">Харьяа газар</th>
+                        <th rowspan="2">Аудитын үйлчилгээний төлбөр</th>
+                        <th rowspan="2">Багийн төрөл</th>
+                        <th rowspan="2">Гүйцэтгэгч газар</th>
                         <th rowspan="2">Багийн ахлах</th>
                         <th rowspan="2">Багийн гишүүд</th>
                         <th rowspan="2">Мэдээлэл оруулсан аудитор</th>
                     </tr>
                     <tr class="bg-light">
+                        <th>Тоо</th>
+                        <th>Жагсаалт</th>
                         <th>Хүн</th>
                         <th>Өдөр</th>
                         <th>Илүү цаг</th>
@@ -120,6 +143,8 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
                     { "data": "TOPIC_TYPE_NAME", "name": "TOPIC_TYPE_NAME" },
                     { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
@@ -129,31 +154,36 @@
                     { "data": "FORM_TYPE_NAME", "name": "FORM_TYPE_NAME" },
                     { "data": "PROPOSAL_TYPE_NAME", "name": "PROPOSAL_TYPE_NAME" },
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    { "data": "AUDIT_INCLUDED_COUNT", "name": "AUDIT_INCLUDED_COUNT" },
                     { "data": "AUDIT_INCLUDED_ORG", "name": "AUDIT_INCLUDED_ORG" },
                     { "data": "WORKING_PERSON", "name": "WORKING_PERSON", "class": "text-right" },
                     { "data": "WORKING_DAY", "name": "WORKING_DAY", "class": "text-right" },
                     { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME", "class": "text-right" },
-                    { "data": "AUDIT_DEPARTMENT", "name": "AUDIT_DEPARTMENT" },
+                    { "data": "AUDIT_SERVICE_PAY", "name": "AUDIT_SERVICE_PAY", "class": "text-right" },
+                    { "data": "DEPARTMENT_SHORT_NAME", "name": "DEPARTMENT_SHORT_NAME" },
+                    { "data": "TEAM_DEPARTMENT_NAME", "name": "TEAM_DEPARTMENT_NAME" },
                     { "data": "AUDITOR_LEAD", "name": "AUDITOR_LEAD" },
                     { "data": "AUDITOR_MEMBER", "name": "AUDITOR_MEMBER" },
                     { "data": "AUDITOR_ENTRY", "name": "AUDITOR_ENTRY" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM0.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM0.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="BM0.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="BM0.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 columnDefs: [
                     { width: 200, targets: 4 },
                     { width: 200, targets: 10 },
-                    
+                    { width: 150, targets: 20 },
+                    { width: 150, targets: 21 },
+                    { width: 150, targets: 22 },
                 ],
                 scrollX: true,
                 scrollCollapse: true,

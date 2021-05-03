@@ -70,6 +70,10 @@ namespace Audit.Models
         public string AUDITOR_LEAD { get; set; }
         public string AUDITOR_MEMBER { get; set; }
         public string AUDITOR_ENTRY { get; set; }
+        public string DEPARTMENT_SHORT_NAME { get; set; }
+        public string TEAM_DEPARTMENT_NAME { get; set; }
+        public int AUDIT_INCLUDED_COUNT { get; set; }
+        public string YEAR_LABEL { get; set; }
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
