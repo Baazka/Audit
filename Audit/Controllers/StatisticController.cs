@@ -66,6 +66,21 @@ namespace Audit.Controllers
             }
             return PartialView(bM0Search);
         }
+        public PartialViewResult SystemUserModal()
+        {
+            List<SystemUser> systemuser = new List<SystemUser>();
+            if (Globals.systemusers.Count != 0)
+                systemuser = Globals.systemusers;
+            else
+            {
+                XElement res = AppStatic.SystemController.SystemUser();
+                if (res != null && res.Elements("SystemUser") != null)
+                {
+                    systemuser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
+                }
+            }            
+            return PartialView(systemuser);
+        }
         public ActionResult BM0()
         {
             BM0VM res = new BM0VM();
@@ -99,6 +114,7 @@ namespace Audit.Controllers
             bm0.AUDITOR_ENTRY = User.GetClaimData("USER_NAME");
             bm0.DEPARTMENT_ID = Convert.ToInt32(User.GetClaimData("DepartmentID"));
             bm0.DEPARTMENT_NAME = User.GetClaimData("DepartmentName");
+            bm0.TEAM_DEPARTMENT_NAME = User.GetClaimData("DepartmentName");
             try
             {
                 if (Globals.departments.Count > 0)

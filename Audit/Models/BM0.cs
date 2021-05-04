@@ -34,7 +34,7 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ORDER_NO { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public DateTime ORDER_DATE { get; set; }
+        public string ORDER_DATE { get; set; }
         public int? AUDIT_FORM_TYPE { get; set; }
         public string FORM_TYPE_NAME { get; set; }
         public int? AUDIT_PROPOSAL_TYPE { get; set; }
@@ -51,8 +51,10 @@ namespace Audit.Models
         public int WORKING_ADDITION_TIME { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         //public string AUDIT_DEPARTMENT { get; set; }
+        public string[] AUDITOR_LEADS { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_LEAD { get; set; }
+        public string[] AUDITOR_MEMBERS { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_MEMBER { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
@@ -68,6 +70,7 @@ namespace Audit.Models
         public int AUDIT_INCLUDED_COUNT { get; set; }
         public string YEAR_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int AUDIT_DEPARTMENT_TYPE { get; set; }
         public int AUDIT_DEPARTMENT_ID { get; set; }
 
@@ -111,7 +114,7 @@ namespace Audit.Models
                 if (xml.Element("ORDER_NO") != null)
                     ORDER_NO = xml.Element("ORDER_NO").Value;
                 if (xml.Element("ORDER_DATE") != null)
-                    ORDER_DATE = Convert.ToDateTime(xml.Element("ORDER_DATE").Value);
+                    ORDER_DATE = Convert.ToDateTime(xml.Element("ORDER_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("AUDIT_FORM_TYPE") != null)
                     AUDIT_FORM_TYPE = Convert.ToInt32(xml.Element("AUDIT_FORM_TYPE").Value);
                 if (xml.Element("FORM_TYPE_NAME") != null)
@@ -169,7 +172,7 @@ namespace Audit.Models
                        new XElement("TOPIC_CODE", TOPIC_CODE),
                        new XElement("TOPIC_NAME", TOPIC_NAME),
                        new XElement("ORDER_NO", ORDER_NO),
-                       new XElement("ORDER_DATE", ORDER_DATE.ToString("dd-MMM-yy")),
+                       new XElement("ORDER_DATE", Convert.ToDateTime(ORDER_DATE).ToString("dd-MMM-yy")),
                        new XElement("AUDIT_FORM_TYPE", AUDIT_FORM_TYPE),
                        new XElement("AUDIT_PROPOSAL_TYPE", AUDIT_PROPOSAL_TYPE),
                        new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),
@@ -179,8 +182,8 @@ namespace Audit.Models
                        new XElement("WORKING_DAY", WORKING_DAY),
                        new XElement("WORKING_ADDITION_TIME", WORKING_ADDITION_TIME),
                        //new XElement("AUDIT_DEPARTMENT", AUDIT_DEPARTMENT),
-                       new XElement("AUDITOR_LEAD", AUDITOR_LEAD),
-                       new XElement("AUDITOR_MEMBER", AUDITOR_MEMBER),
+                       new XElement("AUDITOR_LEAD", AUDITOR_LEADS),
+                       new XElement("AUDITOR_MEMBER", AUDITOR_MEMBERS),
                        new XElement("AUDITOR_ENTRY", AUDITOR_ENTRY),
                        new XElement("AUDIT_SERVICE_PAY", AUDIT_SERVICE_PAY),
                        new XElement("AUDIT_DEPARTMENT_TYPE", AUDIT_DEPARTMENT_TYPE),

@@ -35,6 +35,7 @@ namespace Audit.Models
         public string USER_CODE { get; set; }
         public string USER_NAME { get; set; }
         public int USER_DEPARTMENT_ID { get; set; }
+        public int DEPARTMENT_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int USER_TYPE_ID { get; set; }
         public string USER_TYPE_NAME { get; set; }
@@ -50,6 +51,8 @@ namespace Audit.Models
                 this.USER_NAME = elem.Element("USER_NAME").Value;
             if (elem.Element("USER_DEPARTMENT_ID") != null)
                 this.USER_DEPARTMENT_ID = Convert.ToInt32(elem.Element("USER_DEPARTMENT_ID").Value);
+            if (elem.Element("DEPARTMENT_ID") != null)
+                this.DEPARTMENT_ID = Convert.ToInt32(elem.Element("DEPARTMENT_ID").Value);
             if (elem.Element("DEPARTMENT_NAME") != null)
                 this.DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
             if (elem.Element("USER_TYPE_ID") != null)
