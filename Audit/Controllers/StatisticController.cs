@@ -97,6 +97,8 @@ namespace Audit.Controllers
         {
             BM0 bm0 = new BM0();
             bm0.AUDITOR_ENTRY = User.GetClaimData("USER_NAME");
+            bm0.DEPARTMENT_ID = Convert.ToInt32(User.GetClaimData("DepartmentID"));
+            bm0.DEPARTMENT_NAME = User.GetClaimData("DepartmentName");
             try
             {
                 if (Globals.departments.Count > 0)
@@ -114,6 +116,14 @@ namespace Audit.Controllers
                     XElement responsePeriod = SendLibraryRequest("StatPeriod");
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     bm0.periods = Globals.periods;
+                }
+                if (Globals.refaudityears.Count > 0)
+                    bm0.refaudityears = Globals.refaudityears;
+                else
+                {
+                    XElement responseRefAuditYear = SendLibraryRequest("RefAuditYear");
+                    Globals.refaudityears = (from item in responseRefAuditYear.Elements("Library") select new REF_AUDIT_YEAR().FromXml(item)).ToList();
+                    bm0.refaudityears = Globals.refaudityears;
                 }
                 if (Globals.audittypes.Count > 0)
                     bm0.audittypes = Globals.audittypes;
@@ -154,6 +164,14 @@ namespace Audit.Controllers
                     XElement responseRefBudgetType = SendLibraryRequest("RefBudgetType");
                     Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
                     bm0.refbudgettypes = Globals.refbudgettypes;
+                }
+                if (Globals.haks.Count > 0)
+                    bm0.haks = Globals.haks;
+                else
+                {
+                    XElement responseHak = SendLibraryRequest("HAK");
+                    Globals.haks = (from item in responseHak.Elements("Library") select new HAK().FromXml(item)).ToList();
+                    bm0.haks = Globals.haks;
                 }
             }
             catch (Exception ex)
@@ -201,6 +219,14 @@ namespace Audit.Controllers
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     bm0.periods = Globals.periods;
                 }
+                if (Globals.refaudityears.Count > 0)
+                    bm0.refaudityears = Globals.refaudityears;
+                else
+                {
+                    XElement responseRefAuditYear = SendLibraryRequest("RefAuditYear");
+                    Globals.refaudityears = (from item in responseRefAuditYear.Elements("Library") select new REF_AUDIT_YEAR().FromXml(item)).ToList();
+                    bm0.refaudityears = Globals.refaudityears;
+                }
                 if (Globals.audittypes.Count > 0)
                     bm0.audittypes = Globals.audittypes;
                 else
@@ -240,6 +266,14 @@ namespace Audit.Controllers
                     XElement responseRefBudgetType = SendLibraryRequest("RefBudgetType");
                     Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
                     bm0.refbudgettypes = Globals.refbudgettypes;
+                }
+                if (Globals.haks.Count > 0)
+                    bm0.haks = Globals.haks;
+                else
+                {
+                    XElement responseHak = SendLibraryRequest("HAK");
+                    Globals.haks = (from item in responseHak.Elements("Library") select new HAK().FromXml(item)).ToList();
+                    bm0.haks = Globals.haks;
                 }
             }
             catch (Exception ex)
@@ -275,6 +309,14 @@ namespace Audit.Controllers
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     bm0.periods = Globals.periods;
                 }
+                if (Globals.refaudityears.Count > 0)
+                    bm0.refaudityears = Globals.refaudityears;
+                else
+                {
+                    XElement responseRefAuditYear = SendLibraryRequest("RefAuditYear");
+                    Globals.refaudityears = (from item in responseRefAuditYear.Elements("Library") select new REF_AUDIT_YEAR().FromXml(item)).ToList();
+                    bm0.refaudityears = Globals.refaudityears;
+                }
                 if (Globals.audittypes.Count > 0)
                     bm0.audittypes = Globals.audittypes;
                 else
@@ -314,6 +356,14 @@ namespace Audit.Controllers
                     XElement responseRefBudgetType = SendLibraryRequest("RefBudgetType");
                     Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
                     bm0.refbudgettypes = Globals.refbudgettypes;
+                }
+                if (Globals.refbudgettypes.Count > 0)
+                    bm0.refbudgettypes = Globals.refbudgettypes;
+                else
+                {
+                    XElement responseHak = SendLibraryRequest("HAK");
+                    Globals.haks = (from item in responseHak.Elements("Library") select new HAK().FromXml(item)).ToList();
+                    bm0.haks = Globals.haks;
                 }
                 return PartialView("BM0AddEdit", bm0);
             }

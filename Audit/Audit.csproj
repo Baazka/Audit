@@ -297,6 +297,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\N1.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\BM7.cs" />
     <Compile Include="Models\BM6.cs" />
@@ -2301,6 +2302,7 @@
     <Content Include="Views\Exam\Index.cshtml" />
     <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\Home\UserCodeChange.cshtml" />
+    <Content Include="Views\Shilendans\N1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

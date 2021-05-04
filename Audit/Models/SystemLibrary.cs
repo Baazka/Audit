@@ -338,4 +338,17 @@ namespace Audit.Models
             return this;
         }
     }
+    public class HAK
+    {
+        public int DEPARTMENT_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public HAK FromXml(XElement elem)
+        {
+            if (elem.Element("DEPARTMENT_ID") != null)
+                DEPARTMENT_ID = Convert.ToInt32(elem.Element("DEPARTMENT_ID").Value);
+            if (elem.Element("DEPARTMENT_NAME") != null)
+                DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
+            return this;
+        }
+    }
 }
