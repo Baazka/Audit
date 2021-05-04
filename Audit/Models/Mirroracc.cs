@@ -86,8 +86,9 @@ namespace Audit.Models
         public string DEPARTMENT_NAME { get; set; }
         public string OPEN_ENT_NAME { get; set; }
         public string OPEN_ENT_REGISTER_NO { get; set; }
-        public int IS_FINISH { get; set; }
-        public int IS_PRINT { get; set; }
+        public string MAYGT { get; set; }
+        public int IS_FINISHED { get; set; }
+        public int IS_PRINTED { get; set; }
         public string USER_NAME { get; set; }
         public string INSERTDATE { get; set; }
 
@@ -105,10 +106,12 @@ namespace Audit.Models
                 OPEN_ENT_NAME = elem.Element("OPEN_ENT_NAME").Value;
             if (elem.Element("OPEN_ENT_REGISTER_NO") != null)
                 OPEN_ENT_REGISTER_NO = elem.Element("OPEN_ENT_REGISTER_NO").Value;
-            if (elem.Element("IS_FINISH") != null)
-                IS_FINISH = Convert.ToInt32(elem.Element("IS_FINISH").Value);
-            if (elem.Element("IS_PRINT") != null)
-                IS_PRINT = Convert.ToInt32(elem.Element("IS_PRINT").Value);
+            if (elem.Element("MAYGT") != null)
+                MAYGT = elem.Element("MAYGT").Value;
+            if (elem.Element("IS_FINISHED") != null)
+                IS_FINISHED = Convert.ToInt32(elem.Element("IS_FINISHED").Value);
+            if (elem.Element("IS_PRINTED") != null)
+                IS_PRINTED = Convert.ToInt32(elem.Element("IS_PRINTED").Value);
             if (elem.Element("USER_NAME") != null)
                 USER_NAME = elem.Element("USER_NAME").Value;
             if (elem.Element("INSERTDATE") != null)

@@ -1,5 +1,6 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
+@using Audit.App_Func
 @{
     var budget_type = Model.budgetTypes.Select(c => new
     {
@@ -11,20 +12,17 @@
 }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
-        @*@if (Role.hasAdminRole(User))
+        @if (User.GetClaimData("DepartmentID") == "2" || User.GetClaimData("DepartmentID") == "101")
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
-        }*@
+        }
+
         @*<div class="form-group-sm pr-2">
-            <label for="StatusID" class="col-form-label">ТЕЗ:</label><br />
-            @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "BudgetType" })
-        </div>
-        <div class="form-group-sm pr-2">
-            <label for="ViolationID" class="col-form-label">ТТЗ/ТЕЗ:</label><br />
-            @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "violation" })
+                <label for="StatusID" class="col-form-label">ТЕЗ/ ТТЗ/ ТШЗ:</label><br />
+                @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "BudgetType" })
         </div>*@
     </div>
 </form>
@@ -38,17 +36,18 @@
                             <tr>
                                 <th class="text-center">№</th>
                                 <th>ТЕЗ</th>
-                                <th width="8%">ТТЗ/ТЕЗ</th>
+                                <th width="5%">ТТЗ/ТЕЗ</th>
                                 <th width="20%">Харъяа аудитын байгууллагын нэр</th>
-                                <th>Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                                <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
                                 <th>Регистрийн дугаар</th>
-                                <th>Мэдээлэл оруулсан эсэх</th>
-                                <th>Баримт хэвлэсэн эсэх</th>
+                                <th width="9%">Маягт1 / Маягт4</th>
+                                <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                                <th class="text-center">Баримт хэвлэсэн эсэх</th>
                                 <th>Мэдээлэл оруулсан аудитор</th>
                                 <th>Мэдээлэл оруулсан өдөр</th>
-                                <th>Шилэн данс</th>
+                                <th width="15%">Шилэн данс</th>
                             </tr>
-                                @*<th>МАЯГТ 1</th>
+                            @*<th>МАЯГТ 1</th>
                                 <th>МАЯГТ 4</th>
                                 <th>МАЯГТ 6</th>*@
                         </thead>
@@ -76,6 +75,7 @@
                     url: "/api/service/mirrororglist",
                     type: 'POST',
                     data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetType').val();
                         return data;
                     }
@@ -96,12 +96,13 @@
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
                     { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
-                    { "data": "IS_FINISH", "class": 'text-center', "width": '8%',
+                    { "data": "MAYGT", "name": "MAYGT" },
+                    { "data": "IS_FINISHED", "name": "IS_FINISHED", "class": 'text-center',
                         render: function (data, type, row, meta) {
                             if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
                         }
                     },
-                    {"data": "IS_PRINT", "class": 'text-center', "width": '8%',
+                    {"data": "IS_PRINTED", "name": "IS_PRINTED","class": 'text-center',
                         render: function (data, type, row, meta) {
                             if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
                         }

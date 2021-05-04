@@ -40,13 +40,13 @@
         <p class="col-md-12">Аудитад шалгагдагч /хамрагдагч/ байгууллагын нэр: @Session["print_open_ent_name"].ToString()</p>
 
         <div class="col-md-6">
-            <label>Шалгасан аудиторын нэр: @User.GetClaimData("USER_NAME").ToUpper()</label>
+            <label>Шалгасан аудиторын нэр: @User.GetClaimData("USER_NAME")</label>
         </div>
 
         <div class="col-md-6">
             <label>Аудиторын код: @User.Identity.Name.ToUpper()</label>
         </div>
-        <p class="col-md-12 text-right">Хамрах хугацаа: 2019.01.01-2019.12.31</p>
+        <p class="col-md-12 text-right">Хамрах хугацаа: 2020.01.01-2020.12.31</p>
 
     </div>
     <div class="row">
@@ -231,7 +231,7 @@
 </div>
 <br>
 @*<button type="button" id="printButton" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>*@
-<a href="/Shilendans/Index"  class="btn btn-sm btn-default bg-secondary text-white noPrint" style="background-color:#233772; color:#fff;font-weight:bold;margin-left:60px;">БУЦАХ</a>
+<a href="/shilendans/index?id=613ixrUIjMXQ2eTrm2it6Q=="  class="btn btn-sm btn-default bg-secondary text-white noPrint" style="background-color:#233772; color:#fff;font-weight:bold;margin-left:60px;">БУЦАХ</a>
 <button onclick="window.print()" class="btn btn-sm noPrint" style="background-color:#233772; color:#fff;font-weight:bold;margin-left:10px;">ХЭВЛЭХ</button>
 <br>
 <br>

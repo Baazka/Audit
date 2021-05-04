@@ -83,10 +83,10 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-                //if (request.DeparmentID != null)
-                //    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
-                //else
-                //    elem.Add(new XElement("V_DEPARTMENT", null));
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
 
                 if (request.budget_type != null)
                 {
