@@ -1306,9 +1306,11 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID FROM bm0_data WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT ID, STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID FROM BM0_DATA WHERE ID = :P_ID; " +
+                    "SELECT ID, AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID FROM BM0_TEAM_DATA WHERE AUDIT_ID = :P_ID; ";
 
                 // Set parameters
+                cmd.BindByName = true;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
 
                 DataTable dtTable = new DataTable();
