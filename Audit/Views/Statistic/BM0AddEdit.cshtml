@@ -1,5 +1,27 @@
 ﻿@model Audit.Models.BM0
+<style>
+    .heading-1 {
+        position: relative;
+    }
 
+        .heading-1:before {
+            content: "";
+            display: block;
+            border-top: solid 1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            top: 50%;
+            z-index: 0;
+        }
+
+        .heading-1 span {
+            background: #fff;
+            padding: 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+</style>
 <div class="modal fade" id="Bm0Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM0AddEdit", "Statistic", new { Area = "" },
@@ -31,249 +53,247 @@
                         @Html.HiddenFor(m => m.DEPARTMENT_ID)
                         <h6>Гүйцэтгэсэн аудитын шинэ бүртгэл</h6>
                         <hr />
-                        <div class="card mb-2">
-                            <div class="card-header">
-                                <h6 class="m-0 p-0">Ерөнхий мэдээлэл</h6>
+                        <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Тайлант хугацаа: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Тайлант хугацаа:</label>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                            </div>
-                                        </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.DEPARTMENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.DEPARTMENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын он: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Аудитын он:</label>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын төрөл: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.ValidationMessageFor(m => m.AUDIT_TYPE, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Аудитын төрөл:</label>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.AUDIT_TYPE, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Сэдвийн үндэслэл: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.TOPIC_TYPE, Model.topictypes.Where(m => m.TOPIC_AUDIT_TYPE_ID == Model.TOPIC_TYPE).Select(m => new SelectListItem { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @if (Model.topictypes.Count() > 0)
+                                        {
+                                            @Html.DropDownList("ddTopicTypeHidden", Model.topictypes.Select(m => new SelectListItem() { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_AUDIT_TYPE_ID.ToString() + ":" + m.TOPIC_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                        }
+                                        @Html.ValidationMessageFor(m => m.TOPIC_TYPE, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Сэдвийн үндэслэл:</label>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.TOPIC_TYPE, Model.topictypes.Where(m => m.TOPIC_AUDIT_TYPE_ID == Model.TOPIC_TYPE).Select(m => new SelectListItem { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @if (Model.topictypes.Count() > 0)
-                                                {
-                                                    @Html.DropDownList("ddTopicTypeHidden", Model.topictypes.Select(m => new SelectListItem() { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_AUDIT_TYPE_ID.ToString() + ":" + m.TOPIC_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                                }
-                                                @Html.ValidationMessageFor(m => m.TOPIC_TYPE, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Сэдвийн код: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.TOPIC_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.TOPIC_CODE, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Сэдвийн код:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.TOPIC_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.TOPIC_CODE, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Сэдвийн нэр: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextAreaFor(m => m.TOPIC_NAME, new { @class = "form-control form-control-sm", @rows = 3 })
+                                        @Html.ValidationMessageFor(m => m.TOPIC_NAME, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Сэдвийн нэр:</label>
-                                            <div class="col-sm-4">
-                                                @Html.TextAreaFor(m => m.TOPIC_NAME, new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.TOPIC_NAME, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Батлагдсан тушаалын дугаар: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.ORDER_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.ORDER_NO, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Батлагдсан тушаалын дугаар:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.ORDER_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORDER_NO, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Батлагдсан огноо: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.ORDER_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.ValidationMessageFor(m => m.ORDER_DATE, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Батлагдсан огноо:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.ORDER_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
-                                                @Html.ValidationMessageFor(m => m.ORDER_DATE, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Төсөв захирагчийн ангилал:</label>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @if (Model.refbudgettypes.Count() > 0)
-                                                {
-                                                    @Html.DropDownList("ddRefBudgetTypeHidden", Model.refbudgettypes.Select(m => new SelectListItem() { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_AUDIT_TYPE_ID.ToString() + ":" + m.BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                                }
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төсөв захирагчийн ангилал:</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @if (Model.refbudgettypes.Count() > 0)
+                                        {
+                                            @Html.DropDownList("ddRefBudgetTypeHidden", Model.refbudgettypes.Select(m => new SelectListItem() { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_AUDIT_TYPE_ID.ToString() + ":" + m.BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-2">
-                            <div class="card-header">
-                                <h6 class="m-0 p-0">Гүйцэтгэлийн мэдээлэл</h6>
+                        <h6 class="heading-1"><span>Гүйцэтгэлийн мэдээлэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудит хийсэн хэлбэр:</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @if (Model.formtypes.Count() > 0)
+                                        {
+                                            @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Аудит хийсэн хэлбэр:</label>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @if (Model.formtypes.Count() > 0)
-                                                {
-                                                    @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                                }
-                                            </div>
-                                        </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Санал дүгнэлтийн төрөл:</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @if (Model.proposaltypes.Count() > 0)
+                                        {
+                                            @Html.DropDownList("ddProposalTypeHidden", Model.proposaltypes.Select(m => new SelectListItem() { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_AUDIT_TYPE_ID.ToString() + ":" + m.PROPOSAL_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                        }
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Санал дүгнэлтийн төрөл:</label>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @if (Model.proposaltypes.Count() > 0)
-                                                {
-                                                    @Html.DropDownList("ddProposalTypeHidden", Model.proposaltypes.Select(m => new SelectListItem() { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_AUDIT_TYPE_ID.ToString() + ":" + m.PROPOSAL_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                                }
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хамрагдсан байгууллагын тоо: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.AUDIT_INCLUDED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_COUNT, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Хамрагдсан байгууллагын тоо:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.AUDIT_INCLUDED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                                @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_COUNT, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хамрагдсан байгууллагын жагсаалт: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextAreaFor(m => m.AUDIT_INCLUDED_ORG, new { @class = "form-control form-control-sm", @rows = 3 })
+                                        @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_ORG, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Хамрагдсан байгууллагын жагсаалт:</label>
-                                            <div class="col-sm-4">
-                                                @Html.TextAreaFor(m => m.AUDIT_INCLUDED_ORG, new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_ORG, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Ажилласан хүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.WORKING_PERSON, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Ажилласан хүн:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.WORKING_PERSON, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                                @Html.ValidationMessageFor(m => m.WORKING_PERSON, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Ажилласан өдөр:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.WORKING_DAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Ажилласан өдөр:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.WORKING_DAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                                @Html.ValidationMessageFor(m => m.WORKING_DAY, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Ажилласан илүү цаг:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.WORKING_ADDITION_TIME, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Ажилласан илүү цаг:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.WORKING_ADDITION_TIME, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                                @Html.ValidationMessageFor(m => m.WORKING_ADDITION_TIME, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Аудитын үйлчилгээний төлбөр:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal" } })
-                                                @Html.ValidationMessageFor(m => m.AUDIT_SERVICE_PAY, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын үйлчилгээний төлбөр:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal" } })
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-2">
-                            <div class="card-header">
-                                <h6 class="m-0 p-0">Аудитын багийн мэдээлэл</h6>
+                        <h6 class="heading-1"><span>Аудитын багийн мэдээлэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Багийн төрөл: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 1, new { id = "rbtab" })
+                                        @Html.Label("rbtab", "ТАБ")
+                                        @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 2, new { id = "rbhak" })
+                                        @Html.Label("rbhak", "ХАК")
+                                        @Html.ValidationMessageFor(m => m.AUDIT_DEPARTMENT_TYPE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Багийн төрөл:</label>
-                                            <div class="col-sm-4">
-                                                @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 1, new { id = "rbtab" })
-                                                @Html.Label("rbtab", "ТАБ")
-                                                @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 2, new { id = "rbhak" })
-                                                @Html.Label("rbhak", "ХАК")
-                                            </div>
-                                        </div>
+                            <div class="col-12 team_department d-none">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Гүйцэтгэгч газар: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.TEAM_DEPARTMENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Гүйцэтгэгч газар:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.TEAM_DEPARTMENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                            </div>
-                                            <div class="col-sm-4">
-                                                @Html.DropDownListFor(model => model.AUDIT_DEPARTMENT_ID, Model.haks.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12 team_audit d-none">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Гүйцэтгэгч газар: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.AUDIT_DEPARTMENT_ID, Model.haks.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.AUDITOR_LEAD, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
+                                    <div class="col-sm-4">
+                                        @Html.HiddenFor(m=>m.AUDITOR_LEADS)
+                                        @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.AUDITOR_MEMBER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserLeadPopup">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                            </svg>
+                                        </button>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label text-right">Мэдээлэл оруулсан аудитор:</label>
-                                            <div class="col-sm-4">
-                                                @Html.EditorFor(m => m.AUDITOR_ENTRY, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly="readonly" } })
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
+                                    <div class="col-sm-4">
+                                        @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
+                                        @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly="readonly" })
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserMemberPopup">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Мэдээлэл оруулсан аудитор:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.AUDITOR_ENTRY, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                     </div>
                                 </div>
                             </div>
@@ -308,6 +328,20 @@
           buttonImage: "@Url.Content("~/Images/calendar.png")",
           buttonImageOnly: true,
           buttonText: "Select date"
+      });
+      if ($('#AUDIT_DEPARTMENT_TYPE').val() == 1)
+          $('.team_department').removeClass('d-none');
+      if ($('#AUDIT_DEPARTMENT_TYPE').val() == 2)
+          $('.team_audit').removeClass('d-none');
+      $("input[name='AUDIT_DEPARTMENT_TYPE']").click(function () {
+          if (this.value == 1) {
+              $('.team_department').removeClass('d-none');
+              $('.team_audit').addClass('d-none');
+          }
+          else if (this.value == 2) {
+              $('.team_department').addClass('d-none');
+              $('.team_audit').removeClass('d-none');
+          }
       });
   //    $('.decimal').formatCurrency();
   //    $('.decimal').blur(function () {

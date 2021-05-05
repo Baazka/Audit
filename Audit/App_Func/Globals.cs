@@ -44,6 +44,8 @@ namespace Audit.App_Func
         public static List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
         public static List<REF_VIOLATION_TYPE> refviolationtypes { get; set; } = new List<REF_VIOLATION_TYPE>();
         public static List<HAK> haks { get; set; } = new List<HAK>();
+
+        public static List<SystemUser> systemusers { get; set; } = new List<SystemUser>();
         #endregion
 
         static string SecurityKey = null;

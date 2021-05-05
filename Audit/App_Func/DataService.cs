@@ -59,6 +59,7 @@ namespace Audit.App_Func
             functions.Add("DataSearch", (request) => DataAccess.DataSearch(request));
 
 
+            functions.Add("SystemUser", (request) => DataAccess.SystemUser(request));
             functions.Add("BM0", (request) => DataAccess.BM0(request));
             functions.Add("BM0Detail", (request) => DataAccess.BM0Detail(request));
             functions.Add("BM0Insert", (request) => DataAccess.BM0Insert(request));

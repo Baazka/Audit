@@ -2111,6 +2111,7 @@
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\jquery.maskMoney.js" />
+    <Content Include="Scripts\jquery.multiselect.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -2303,6 +2304,7 @@
     <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\Home\UserCodeChange.cshtml" />
     <Content Include="Views\Shilendans\N1.cshtml" />
+    <Content Include="Views\Statistic\SystemUserModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

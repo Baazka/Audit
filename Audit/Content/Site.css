@@ -108,6 +108,13 @@ div.ui-datepicker {
         border-width: 3.5px;
         border-top: none;
     }
+tr.row_selected td {
+    color: #fff;
+    background-color: #1cc88a;
+}
+.required {
+    color: red;
+}
 
 @media print {
     .noPrint {

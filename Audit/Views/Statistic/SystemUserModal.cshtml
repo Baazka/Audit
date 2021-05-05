@@ -1,0 +1,102 @@
+﻿@model List<Audit.Models.SystemUser>
+
+<div id="usermodal" class="modal fade bs-example-modal-lg modal-lvl1" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="max-width:90%;margin: 0 auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">Жагсаалт</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5">
+                        <select name="from[]" id="search" class="form-control form-control-sm" size="20" multiple="multiple">
+
+                            @if (Model.Count > 0)
+                            {
+                                foreach (var group in Model.GroupBy(m=>m.DEPARTMENT_ID))
+                                {
+                                    <optgroup label="@group.FirstOrDefault().DEPARTMENT_NAME">
+                                    @foreach (var item in group)
+                                        {
+                                        <option value="@item.USER_ID">@item.USER_CODE @item.USER_NAME</option>
+                                        }                                        
+                                    </optgroup>                                    
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-2">
+                        <button type="button" id="search_rightAll" class="btn btn-light btn-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                        <button type="button" id="search_rightSelected" class="btn btn-light btn-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                        <button type="button" id="search_leftSelected" class="btn btn-light btn-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
+                        </button>
+                        <button type="button" id="search_leftAll" class="btn btn-light btn-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="col-5">
+                        <select name="to[]" id="search_to" class="form-control form-control-sm" size="20" multiple="multiple"></select>
+                    </div>
+                </div>
+                <hr />
+                <div style="text-align: center">
+                    <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" onclick="Choose();">Хадгалах</button>
+                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#search').multiselect({
+            search: {
+                left: '<input type="text" name="q" class="form-control form-control-sm" placeholder="Хайх..." />',
+                //right: '<input type="text" name="q" class="form-control form-control-sm" placeholder="Хайх..." />',
+            },
+            fireSearch: function (value) {
+                return value.length > 3;
+            }
+        });
+    });
+    function Choose() {
+        var values = [];
+        var texts = [];
+        $("#search_to option").each(function () {
+            values.push($(this).val());
+            texts.push($(this).text());
+        });
+        if (BM0.type == 1) {
+            $("#Bm0Modal #AUDITOR_LEADS").val(values);
+            $("#Bm0Modal #AUDITOR_LEAD").val(texts.join("\n"));
+        }
+        if (BM0.type == 2) {
+            $("#Bm0Modal #AUDITOR_MEMBERS").val(values);
+            $("#Bm0Modal #AUDITOR_MEMBER").val(texts.join("\n"));
+        }
+        if ($("#search_to option").length == 0)
+            alert("Жагсаалт хоосон байна.");
+        else if ($("#search_to option").length > 50)
+            alert("Жагсаалт 50-с их байна.");
+        else
+            $('#usermodal').modal('hide');
+    }
+</script>

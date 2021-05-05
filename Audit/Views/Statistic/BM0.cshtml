@@ -4,11 +4,6 @@
     ViewBag.Title = "BM0";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .width {
-        width: 300px!important;
-    }
-</style>
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
@@ -29,6 +24,43 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+                БМ-1
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+                БМ-2
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+                БМ-3
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+                БМ-4
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+                БМ-5
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+                БМ-8
+            </a>
+        </div>
+
         <div class="form-group-sm ml-auto pr-2">
             <br />
             <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM0.loadTemplate();">
@@ -40,7 +72,7 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-warning btn-icon-split" onclick="BM0.edit();">
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM0.edit();">
                 <span class="icon text-white-50">
                     <i class="fas fa-edit"></i>
                 </span>
@@ -49,7 +81,7 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-danger btn-icon-split" onclick="BM0.delete();">
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM0.delete();">
                 <span class="icon text-white-50">
                     <i class="fas fa-trash-alt"></i>
                 </span>
@@ -114,11 +146,20 @@
 </div>
 
 @section scripts{
+    <script src="~/Scripts/jquery.multiselect.js"></script>
     <script>
         $(document).ready(function () {
             bm0ListInit();
         });
 
+        function rowselected() {
+            $("#BM0 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#BM0 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                BM0.bm0ID = this.getAttribute("data-id");
+            });
+        }
         function bm0ListInit(pagelength = 10) {
             BM0.table = $("#BM0").DataTable({
                 "serverSide": true,
@@ -135,7 +176,7 @@
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.ID);
                 },
-                
+
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center',
@@ -187,7 +228,7 @@
                 ],
                 scrollX: true,
                 scrollCollapse: true,
-                autoWidth: true, 
+                autoWidth: true,
                 "destroy": true,
                 "paging": true,
                 "pageLength": pagelength,
@@ -196,9 +237,12 @@
                 "info": true,
                 "stateSave": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
-
+            
         }
         $('#DeparmentID').change(function () {
             bm0ListInit();
@@ -208,6 +252,7 @@
         });
         var BM0 = {
             bm0ID: null,
+            type: null,
             table:null,
         display: function (data) {
             $("div#bm0modalcontainer").remove();
@@ -221,7 +266,7 @@
                     $(this).val($(this).val().split(':')[1]);
                 });
                 $("#Bm0Modal #TOPIC_TYPE").append($options);
-                
+
                 //BudgetType
                 if ($("#Bm0Modal #AUDIT_BUDGET_TYPE").children().length > 1)
                     $("#Bm0Modal #AUDIT_BUDGET_TYPE option:not(:first)").remove();
@@ -241,7 +286,7 @@
 
             $('#Bm0Modal #AUDIT_FORM_TYPE').change(function () {
 
-                
+
                 //ProsolType
                 if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
                     $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
@@ -251,8 +296,40 @@
                 $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
             });
             $("#Bm0Modal").modal({ show: true });
-            },
-            
+            $(".btnSystemUserLeadPopup").on('click', function () {
+                BM0.SystemUserList(1);
+            });
+            $(".btnSystemUserMemberPopup").on('click', function () {
+                BM0.SystemUserList(2);
+            });
+        },
+        displaySystemUserList: function (data) {
+            $("div#systemuserlistmodalcontainer").remove();
+            $('<div/>', { id: "systemuserlistmodalcontainer" }).appendTo('body').append(data);
+
+            $('#Bm0Modal').modal('hide');
+            $('#usermodal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                $('#Bm0Modal').modal('show');
+            });
+        },
+        SystemUserList: function (type) {
+            BM0.type = type;
+            $.ajax({
+                url: '@Url.Action("SystemUserModal", "Statistic", new { Area = "" })',
+                type: 'GET',
+                cache: false,
+                success: function (data) {
+                    BM0.displaySystemUserList(data);
+                },
+                error: errorResponse,
+                beforeSend: function () {
+                    Modal.show();
+                },
+                complete: function () {
+                    Modal.hide();
+                }
+            });
+        },
         loadTemplate: function () {
             $.ajax({
                     url: "@Url.Action("BM0AddEdit", "Statistic", new { Area = "" })",
@@ -269,7 +346,11 @@
                     }
                 });
         },
-        edit: function (id) {
+            edit: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                   var id = BM0.bm0ID;
             $.ajax({
                 url: "@Url.Action("BM0Detail", "Statistic", new { Area = "" })",
                 type: 'POST',
@@ -285,10 +366,15 @@
                     Modal.hide();
                 }
             });
+                }
+
         },
-        delete: function (id) {
-            BM0.bm0ID = id;
-            var r = confirm("Устгах уу!");
+            delete: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM0.bm0ID;
+                    var r = confirm("Устгах уу!");
             if (r) {
                 $.ajax({
                     url: "@Url.Action("BM0Delete", "Statistic", new { Area = "" })",
@@ -306,6 +392,9 @@
                     }
                 });
             }
+                }
+
+
         },
         close: function () {
             $("#Bm0Modal").modal("hide");
@@ -323,6 +412,8 @@
                     BM0.close();
                     bm0ListInit();
                     Message.success(data.message);
+                    BM0.bm0ID = null;
+                    $("#FilterForm .enableBtn").addClass("disabled")
                 }
             }
         }
