@@ -6839,7 +6839,7 @@ namespace Audit.App_Func
                                 "	   CASE WHEN A.DATA01 = 1 THEN 100 ELSE NULL END PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                 "INNER JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
-                                "WHERE A.ORGID = 9657 AND A.MDCODE IN(143, 144) " +
+                                "WHERE A.ORGID = :ORGID AND A.MDCODE IN(143, 144) " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
                                 "	   SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
