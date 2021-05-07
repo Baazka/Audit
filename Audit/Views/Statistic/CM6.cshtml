@@ -34,6 +34,24 @@
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="CM6.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CM6.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM6', 'СМ-6. Төсвийн төсөлд өгсөн санал')">
@@ -56,7 +74,6 @@
                         <th rowspan="4">Үзүүлэлт</th>
                         <th colspan="6">Боловсруулсан санал</th>
                         <th colspan="6">Хүлээн зөвшөөрөгдсөн санал</th>
-                        <th rowspan="4">Үйлдэл</th>
                     </tr>
                     <tr class="bg-light">
                         <th colspan="2">Бүгд</th>
@@ -96,7 +113,14 @@
         $(document).ready(function () {
             cm6ListInit();
         });
-
+        function rowselected() {
+            $("#CM6 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#CM6 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                CM6.cm6ID = this.getAttribute("data-id");
+            });
+        }
         function cm6ListInit(pagelength = 10) {
             CM6.table = $("#CM6").DataTable({
                 "serverSide": true,
@@ -134,18 +158,18 @@
                     { "data": "ACCEPTED_INCOMED_AMOUNT", "name": "ACCEPTED_INCOMED_AMOUNT", "class": "text-right" },
                     { "data": "ACCEPTED_COSTS_COUNT", "name": "ACCEPTED_COSTS_COUNT", "class": "text-right" },
                     { "data": "ACCEPTED_COSTS_AMOUNT", "name": "ACCEPTED_COSTS_AMOUNT", "class": "text-right" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM6.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM6.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="CM6.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="CM6.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -157,7 +181,10 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
         }
         $('#DeparmentID').change(function () {
@@ -168,15 +195,15 @@
         });
         var CM6 = {
             cm6ID: null,
-            table:null,
-        display: function (data) {
-            $("div#cm6modalcontainer").remove();
-            $('<div/>', { id: "cm6modalcontainer" }).appendTo('body').append(data);
+            table: null,
+            display: function (data) {
+                $("div#cm6modalcontainer").remove();
+                $('<div/>', { id: "cm6modalcontainer" }).appendTo('body').append(data);
 
-            $("#CM6Modal").modal({ show: true });
-        },
-        loadTemplate: function () {
-            $.ajax({
+                $("#CM6Modal").modal({ show: true });
+            },
+            loadTemplate: function () {
+                $.ajax({
                     url: "@Url.Action("CM6AddEdit", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
@@ -190,65 +217,76 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("CM6Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    CM6.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            edit: function () {
+                if (CM6.cm6ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = CM6.cm6ID;
+                    $.ajax({
+                        url: "@Url.Action("CM6Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            CM6.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            CM6.cm6ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("CM6Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        CM6.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            delete: function () {
+                if (CM6.cm6ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = CM6.cm6ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("CM6Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                CM6.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#CM6Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                CM6.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    CM6.close();
-                    cm6ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#CM6Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    CM6.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        CM6.close();
+                        cm6ListInit();
+                        Message.success(data.message);
+                        CM6.cm6ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             CM6.table.destroy();

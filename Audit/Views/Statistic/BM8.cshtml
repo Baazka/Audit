@@ -34,6 +34,24 @@
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM8.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM8.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM8', 'БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл')">
@@ -60,7 +78,6 @@
                         <th rowspan="2">Аудитын нэр</th>
                         <th rowspan="2">Төсөв захирагч</th>
                         <th colspan="4">Залруулсан алдаа</th>
-                        <th rowspan="2">Үйлдэл</th>
                     </tr>
                     <tr class="bg-light">
                         <th>Алдааны утга</th>
@@ -81,7 +98,14 @@
         $(document).ready(function () {
             bm8ListInit();
         });
-
+        function rowselected() {
+            $("#BM8 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#BM8 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                BM8.bm8ID = this.getAttribute("data-id");
+            });
+        }
         function bm8ListInit(pagelength = 10) {
             BM8.table = $("#BM8").DataTable({
                 "serverSide": true,
@@ -115,20 +139,18 @@
                     { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME", "sortable": false },
                     { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false, "class": "text-right" },
                     { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false, "class": "text-right" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM8.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM8.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_EDIT")')*@
-                            tmp += urledit;
-                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_DELETE")')*@
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="BM8.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="BM8.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -140,7 +162,10 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
 
         }
@@ -161,33 +186,33 @@
         $('#PeriodID').change(function () {
             bm8ListInit();
         });
-    var BM8 = {
-        bm8ID: null,
-        table: null,
-        display: function (data) {
-            $("div#bm8modalcontainer").remove();
-            $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
+        var BM8 = {
+            bm8ID: null,
+            table: null,
+            display: function (data) {
+                $("div#bm8modalcontainer").remove();
+                $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
 
-            $("#Bm8Modal").modal({ show: true });
+                $("#Bm8Modal").modal({ show: true });
 
-            $(".btnBM0listPopup").on('click', function () {
-                if ($('#OFFICE_ID').val() != null && $('#OFFICE_ID').val() != '')
-                    BM8.BM0List($('#OFFICE_ID').val());
-                else
-                    alert('Төрийн аудитын байгууллага сонгоно уу.');
-            });
-        },
-        displayBM0List: function (data) {
-            $("div#bm0listmodalcontainer").remove();
-            $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
+                $(".btnBM0listPopup").on('click', function () {
+                    if ($('#OFFICE_ID').val() != null && $('#OFFICE_ID').val() != '')
+                        BM8.BM0List($('#OFFICE_ID').val());
+                    else
+                        alert('Төрийн аудитын байгууллага сонгоно уу.');
+                });
+            },
+            displayBM0List: function (data) {
+                $("div#bm0listmodalcontainer").remove();
+                $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
 
-            $('#Bm8Modal').modal('hide');
-            $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
-                $('#Bm8Modal').modal('show');
-            });
-        },
-        BM0List: function (officeid) {
-            $.ajax({
+                $('#Bm8Modal').modal('hide');
+                $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#Bm8Modal').modal('show');
+                });
+            },
+            BM0List: function (officeid) {
+                $.ajax({
                     url: '@Url.Action("BM0Search", "Statistic", new { Area = "" })',
                     type: 'GET',
                     cache: false,
@@ -203,9 +228,9 @@
                         Modal.hide();
                     }
                 });
-        },
-        loadTemplate: function () {
-            $.ajax({
+            },
+            loadTemplate: function () {
+                $.ajax({
                     url: "@Url.Action("BM8AddEdit", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
@@ -219,65 +244,76 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    BM8.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            edit: function () {
+                if (BM8.bm8ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM8.bm8ID;
+                    $.ajax({
+                        url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM8.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            BM8.bm8ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("BM8Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        BM8.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            delete: function () {
+                if (BM8.bm8ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM8.bm8ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("BM8Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                BM8.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#Bm8Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                BM8.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    BM8.close();
-                    bm8ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#Bm8Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    BM8.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        BM8.close();
+                        bm8ListInit();
+                        Message.success(data.message);
+                        BM8.bm8ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             BM8.table.destroy();

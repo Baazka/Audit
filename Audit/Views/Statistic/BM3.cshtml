@@ -34,6 +34,24 @@
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM3.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM3.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM3', 'БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл')">
@@ -64,7 +82,6 @@
                         <th colspan="4">Зөвлөмжийн биелэлт</th>
                         <th colspan="4">Дараа онд шилжих үлдэгдэл</th>
                         <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
-                        <th rowspan="3" class="text-center">Үйлдэл</th>
                     </tr>
                     <tr class="bg-light">
                         <th rowspan="2">Огноо</th>
@@ -112,7 +129,14 @@
         $(document).ready(function () {
             bm3ListInit();
         });
-
+        function rowselected() {
+            $("#BM3 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#BM3 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                BM3.bm3ID = this.getAttribute("data-id");
+            });
+        }
         function bm3ListInit(pagelength = 10) {
             var table = $("#BM3").DataTable({
                 "serverSide": true,
@@ -168,18 +192,18 @@
                     //{ "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
                     //{ "data": "WORKING_DAY", "name": "WORKING_DAY" },
                     //{ "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM3.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM3.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="BM3.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="BM3.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 columnDefs: [
                     { width: 200, targets: 4 },
@@ -198,7 +222,10 @@
                 "info": true,
                 "stateSave": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
 
         }
@@ -221,31 +248,31 @@
         });
         var BM3 = {
             bm3ID: null,
-            table:null,
-        display: function (data) {
-            $("div#bm3modalcontainer").remove();
-            $('<div/>', { id: "bm3modalcontainer" }).appendTo('body').append(data);
+            table: null,
+            display: function (data) {
+                $("div#bm3modalcontainer").remove();
+                $('<div/>', { id: "bm3modalcontainer" }).appendTo('body').append(data);
 
-            $("#Bm3Modal").modal({ show: true });
+                $("#Bm3Modal").modal({ show: true });
 
-            $(".btnBM0listPopup").on('click', function () {
-                if ($('#OFFICE_ID').val() != null && $('#OFFICE_ID').val() != '')
-                    BM3.BM0List($('#OFFICE_ID').val());
-                else
-                    alert('Төрийн аудитын байгууллага сонгоно уу.');
-            });
-        },
-        displayBM0List: function (data) {
-            $("div#bm0listmodalcontainer").remove();
-            $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
+                $(".btnBM0listPopup").on('click', function () {
+                    if ($('#OFFICE_ID').val() != null && $('#OFFICE_ID').val() != '')
+                        BM3.BM0List($('#OFFICE_ID').val());
+                    else
+                        alert('Төрийн аудитын байгууллага сонгоно уу.');
+                });
+            },
+            displayBM0List: function (data) {
+                $("div#bm0listmodalcontainer").remove();
+                $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
 
-            $('#Bm3Modal').modal('hide');
-            $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
-                $('#Bm3Modal').modal('show');
-            });
-        },
-        BM0List: function (officeid) {
-            $.ajax({
+                $('#Bm3Modal').modal('hide');
+                $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#Bm3Modal').modal('show');
+                });
+            },
+            BM0List: function (officeid) {
+                $.ajax({
                     url: '@Url.Action("BM0Search", "Statistic", new { Area = "" })',
                     type: 'GET',
                     cache: false,
@@ -261,9 +288,9 @@
                         Modal.hide();
                     }
                 });
-        },
-        loadTemplate: function () {
-            $.ajax({
+            },
+            loadTemplate: function () {
+                $.ajax({
                     url: "@Url.Action("BM3AddEdit", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
@@ -277,65 +304,76 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("BM3Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    BM3.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            edit: function () {
+                if (BM3.bm3ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM3.bm3ID;
+                    $.ajax({
+                        url: "@Url.Action("BM3Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM3.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            BM3.bm3ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("BM3Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        BM3.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            delete: function () {
+                if (BM3.bm3ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM3.bm3ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("BM3Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                BM3.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#Bm3Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                BM3.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    BM3.close();
-                    bm3ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#Bm3Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    BM3.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        BM3.close();
+                        bm3ListInit();
+                        Message.success(data.message);
+                        BM3.bm3ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             BM3.table.destroy();

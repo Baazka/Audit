@@ -36,6 +36,24 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="CM7.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CM7.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM7', 'СМ-7. Дотоод аудит')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
@@ -55,7 +73,6 @@
                         <th colspan="8">Дотоод аудитын мэдээлэл</th>
                         <th rowspan="3">Шийдвэрлэсэн өргөдөл, гомдлын тоо</th>
                         <th rowspan="3">Зөвлөмжийн хэрэгжээгүй шалтгааны тайлбар</th>
-                        <th rowspan="3">Үйлдэл</th>
                     </tr>
                     <tr class="bg-light">
                         <th rowspan="2">Дотоод аудитад хамрагдсан нэгжийн нэр</th>
@@ -83,7 +100,14 @@
         $(document).ready(function () {
             cm7ListInit();
         });
-
+        function rowselected() {
+            $("#CM7 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#CM7 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                CM7.cm7ID = this.getAttribute("data-id");
+            });
+        }
         function cm7ListInit(pagelength = 10) {
             CM7.table = $("#CM7").DataTable({
                 "serverSide": true,
@@ -118,18 +142,18 @@
                     { "data": "COMP_PROGRESS", "name": "COMP_PROGRESS" },
                     { "data": "RESOLVED_COMPLAINT_COUNT", "name": "RESOLVED_COMPLAINT_COUNT" },
                     { "data": "REFERENCE_NOT_COMP", "name": "REFERENCE_NOT_COMP" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM7.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM7.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="CM7.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="CM7.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -141,7 +165,10 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
 
         }
@@ -153,15 +180,15 @@
         });
         var CM7 = {
             cm7ID: null,
-            table:null,
-        display: function (data) {
-            $("div#cm7modalcontainer").remove();
-            $('<div/>', { id: "cm7modalcontainer" }).appendTo('body').append(data);
+            table: null,
+            display: function (data) {
+                $("div#cm7modalcontainer").remove();
+                $('<div/>', { id: "cm7modalcontainer" }).appendTo('body').append(data);
 
-            $("#CM7Modal").modal({ show: true });
-        },
-        loadTemplate: function () {
-            $.ajax({
+                $("#CM7Modal").modal({ show: true });
+            },
+            loadTemplate: function () {
+                $.ajax({
                     url: "@Url.Action("CM7AddEdit", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
@@ -175,65 +202,76 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("CM7Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    CM7.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            edit: function () {
+                if (CM7.cm7ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = CM7.cm7ID;
+                    $.ajax({
+                        url: "@Url.Action("CM7Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            CM7.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            CM7.cm7ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("CM7Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        CM7.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            delete: function () {
+                if (CM7.cm7ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = CM7.cm7ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("CM7Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                CM7.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#CM7Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                CM7.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    CM7.close();
-                    cm7ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#CM7Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    CM7.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        CM7.close();
+                        cm7ListInit();
+                        Message.success(data.message);
+                        CM7.cm7ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             CM7.table.destroy();
