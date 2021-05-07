@@ -2,7 +2,22 @@
 @{
     Layout = null;
 }
-
+@if (Model.MD_CODE == "3") {
+<tr>
+    <td class="text-center" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.MD_TIME)</td>
+    <td class="text-left" style="border: 1px solid black;vertical-align:middle; font-weight:bold;">@Html.DisplayFor(x => x.PARENT_NAME)</td>
+    <td class="text-left" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
+    <td class="text-right print_currency" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.MEDEELEH_TOO_HEMJEE)</td>
+    <td class="text-right print_currency" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.MEDEELSEN)</td>
+    <td class="text-right print_currency" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.MEDEELEEGUI)</td>
+    <td class="text-right print_currency" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.SHAARDLAGAGUI)</td>
+    <td class="text-right print_currency" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.HUGATSAA_HOTSROOSON)</td>
+    <td class="text-right" style="border: 1px solid black;vertical-align:middle;font-weight:bold;">@Html.DisplayFor(x => x.PRECENT1)</td>
+    <td class="text-right" style="border: 1px solid black;vertical-align:middle;font-weight:bold;">@Html.DisplayFor(x => x.PRECENT2)</td>
+</tr>
+}
+else
+{ 
 <tr>
     <td class="text-center" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.MD_TIME)</td>
     <td class="text-left" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.PARENT_NAME)</td>
@@ -15,5 +30,5 @@
     <td class="text-right" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.PRECENT1)</td>
     <td class="text-right" style="border: 1px solid black;vertical-align:middle;">@Html.DisplayFor(x => x.PRECENT2)</td>
 </tr>
-
+}
 
