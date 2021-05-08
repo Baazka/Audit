@@ -44,11 +44,11 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDIT_INCLUDED_ORG { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int WORKING_PERSON { get; set; }
+        public int? WORKING_PERSON { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int WORKING_DAY { get; set; }
+        public int? WORKING_DAY { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int WORKING_ADDITION_TIME { get; set; }
+        public int? WORKING_ADDITION_TIME { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         //public string AUDIT_DEPARTMENT { get; set; }
         public string[] AUDITOR_LEADS { get; set; }
@@ -61,7 +61,7 @@ namespace Audit.Models
         public string AUDITOR_ENTRY { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
-        public decimal AUDIT_SERVICE_PAY { get; set; }
+        public decimal? AUDIT_SERVICE_PAY { get; set; }
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public DateTime? UPDATED_DATE { get; set; }
 
@@ -221,6 +221,28 @@ namespace Audit.Models
                     AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
                 if (xml.Element("AUDIT_BUDGET_TYPE") != null)
                     AUDIT_BUDGET_TYPE = Convert.ToInt32(xml.Element("AUDIT_BUDGET_TYPE").Value);
+            }
+            return this;
+        }
+    }
+    public class Team
+    {
+        public int ID { get; set; }
+        public int AUDIT_ID { get; set; }
+        public int TEAM_TYPE_ID { get; set; }
+        public int AUDITOR_ID { get; set; }
+        public Team SetXml(XElement xml)
+        {
+            if (xml != null)
+            {
+                if (xml.Element("ID") != null)
+                    ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("AUDIT_ID") != null)
+                    AUDIT_ID = Convert.ToInt32(xml.Element("AUDIT_ID").Value);
+                if (xml.Element("TEAM_TYPE_ID") != null)
+                    TEAM_TYPE_ID = Convert.ToInt32(xml.Element("TEAM_TYPE_ID").Value);
+                if (xml.Element("AUDITOR_ID") != null)
+                    AUDITOR_ID = Convert.ToInt32(xml.Element("AUDITOR_ID").Value);
             }
             return this;
         }

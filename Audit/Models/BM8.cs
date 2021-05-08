@@ -29,6 +29,8 @@ namespace Audit.Models
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
         public string AUDIT_BUDGET_TYPE { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string ORDER_NO { get; set; }
         public string CORRECTED_ERROR_DESC { get; set; }
         public int CORRECTED_ERROR_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }

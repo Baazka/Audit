@@ -1230,28 +1230,40 @@ namespace Audit.App_Func
                     "OR UPPER(SUS.USER_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(SUS.USER_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
                     "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN BM.DEPARTMENT_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN BM.DEPARTMENT_ID END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND: ORDER_DIR = 'ASC' THEN RD1.DEPARTMENT_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND: ORDER_DIR = 'DESC' THEN RD1.DEPARTMENT_NAME END DESC, " +
                     "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
                     "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_TYPE END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RAT.AUDIT_TYPE_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RAT.AUDIT_TYPE_NAME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RTT.TOPIC_TYPE_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RTT.TOPIC_TYPE_NAME END DESC, " +
                     "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC, " +
                     "CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_BUDGET_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_BUDGET_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_PROPOSAL_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_PROPOSAL_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_PROPOSAL_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT_ID END DESC " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_NAME' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'TOPIC_NAME' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_NAME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'ORDER_NO' AND: ORDER_DIR = 'ASC' THEN BM.ORDER_NO END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'ORDER_NO' AND: ORDER_DIR = 'DESC' THEN BM.ORDER_NO END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'ORDER_DATE' AND: ORDER_DIR = 'ASC' THEN BM.ORDER_DATE END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'ORDER_DATE' AND: ORDER_DIR = 'DESC' THEN BM.ORDER_DATE END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'FORM_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RFT.FORM_TYPE_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'FORM_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RFT.FORM_TYPE_NAME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'PROPOSAL_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RPT.PROPOSAL_TYPE_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'PROPOSAL_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RPT.PROPOSAL_TYPE_NAME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RBT.BUDGET_TYPE_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RBT.BUDGET_TYPE_NAME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_SHORT_NAME' AND: ORDER_DIR = 'ASC' THEN RDT.DEPARTMENT_SHORT_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'DEPARTMENT_SHORT_NAME' AND: ORDER_DIR = 'DESC' THEN RDT.DEPARTMENT_SHORT_NAME END DESC, " +
+                    "CASE WHEN :ORDER_NAME = 'TEAM_DEPARTMENT_NAME' AND: ORDER_DIR = 'ASC' THEN RD2.DEPARTMENT_NAME END ASC, " +
+                    "CASE WHEN :ORDER_NAME = 'TEAM_DEPARTMENT_NAME' AND: ORDER_DIR = 'DESC' THEN RD2.DEPARTMENT_NAME END DESC " +
+                    //"CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_PERSON END ASC, " +
+                    //"CASE WHEN :ORDER_NAME = 'WORKING_PERSON' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_PERSON END DESC, " +
+                    //"CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_DAY END ASC, " +
+                    //"CASE WHEN :ORDER_NAME = 'WORKING_DAY' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_DAY END DESC, " +
+                    //"CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'ASC' THEN BM.WORKING_ADDITION_TIME END ASC, " +
+                    //"CASE WHEN :ORDER_NAME = 'WORKING_ADDITION_TIME' AND: ORDER_DIR = 'DESC' THEN BM.WORKING_ADDITION_TIME END DESC, " +
+                    //"CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_DEPARTMENT_ID END ASC, " +
+                    //"CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_DEPARTMENT_ID END DESC " +
                     //"--CASE WHEN :ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_LEAD END ASC, " +
                     //"--CASE WHEN: ORDER_NAME = 'AUDITOR_LEAD' AND: ORDER_DIR = 'DESC' THEN BM.AUDITOR_LEAD END DESC, " +
                     //"--CASE WHEN: ORDER_NAME = 'AUDITOR_MEMBER' AND: ORDER_DIR = 'ASC' THEN BM.AUDITOR_MEMBER END ASC, " +
@@ -1307,21 +1319,41 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID FROM bm0_data WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT ID, STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID FROM BM0_DATA WHERE ID = :P_ID";
 
                 // Set parameters
+                cmd.BindByName = true;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
                 cmd.Dispose();
+
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT ID, AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID FROM BM0_TEAM_DATA WHERE AUDIT_ID = :P_ID";
+
+                // Set parameters
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTableTeam = new DataTable();
+                dtTableTeam.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
                 con.Close();
 
                 dtTable.TableName = "BM0Detail";
+                dtTableTeam.TableName = "TeamData";
+
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dtTable);
+                ds.Tables.Add(dtTableTeam);
 
                 StringWriter sw = new StringWriter();
-                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+                ds.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
                 response.CreateResponse(xmlResponseData);
@@ -1358,8 +1390,10 @@ namespace Audit.App_Func
                     "WHERE ID = :P_ID";
 
                 // Set parameters
-                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value; //lnNextVal;
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
+                cmd.Parameters.Add(":P_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("DEPARTMENT_ID")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_YEAR", OracleDbType.Int32).Value = elem.Element("AUDIT_YEAR")?.Value;
                 cmd.Parameters.Add(":P_AUDIT_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_TYPE")?.Value;
                 cmd.Parameters.Add(":P_TOPIC_TYPE", OracleDbType.Int32).Value = elem.Element("TOPIC_TYPE")?.Value;
                 cmd.Parameters.Add(":P_TOPIC_CODE", OracleDbType.Varchar2).Value = elem.Element("TOPIC_CODE")?.Value;
@@ -1369,25 +1403,64 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_AUDIT_FORM_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_FORM_TYPE") != null && elem.Element("AUDIT_FORM_TYPE").Value != "" ? elem.Element("AUDIT_FORM_TYPE").Value : null;
                 cmd.Parameters.Add(":P_AUDIT_PROPOSAL_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_PROPOSAL_TYPE") != null && elem.Element("AUDIT_PROPOSAL_TYPE").Value != "" ? elem.Element("AUDIT_PROPOSAL_TYPE").Value : null;
                 cmd.Parameters.Add(":P_AUDIT_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_BUDGET_TYPE") != null && elem.Element("AUDIT_BUDGET_TYPE").Value != "" ? elem.Element("AUDIT_BUDGET_TYPE").Value : null;
+                cmd.Parameters.Add(":P_AUDIT_INCLUDED_COUNT", OracleDbType.Int32).Value = elem.Element("AUDIT_INCLUDED_COUNT")?.Value;
                 cmd.Parameters.Add(":P_AUDIT_INCLUDED_ORG", OracleDbType.Varchar2).Value = elem.Element("AUDIT_INCLUDED_ORG")?.Value;
-                cmd.Parameters.Add(":P_WORKING_PERSON", OracleDbType.Int32).Value = elem.Element("WORKING_PERSON")?.Value;
-                cmd.Parameters.Add(":P_WORKING_DAY", OracleDbType.Int32).Value = elem.Element("WORKING_DAY")?.Value;
-                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("WORKING_ADDITION_TIME")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_DEPARTMENT", OracleDbType.Varchar2).Value = elem.Element("AUDIT_DEPARTMENT")?.Value;
-                cmd.Parameters.Add(":P_AUDITOR_LEAD", OracleDbType.Varchar2).Value = elem.Element("AUDITOR_LEAD")?.Value;
-                cmd.Parameters.Add(":P_AUDITOR_MEMBER", OracleDbType.Varchar2).Value = elem.Element("AUDITOR_MEMBER")?.Value;
-                cmd.Parameters.Add(":P_AUDITOR_ENTRY", OracleDbType.Varchar2).Value = elem.Element("AUDITOR_ENTRY")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_SERVICE_PAY", OracleDbType.Decimal).Value = elem.Element("AUDIT_SERVICE_PAY")?.Value;
-                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
-                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                cmd.Parameters.Add(":P_WORKING_PERSON", OracleDbType.Int32).Value = elem.Element("WORKING_PERSON") != null && elem.Element("WORKING_PERSON").Value != "" ? elem.Element("WORKING_PERSON").Value : null;
+                cmd.Parameters.Add(":P_WORKING_DAY", OracleDbType.Int32).Value = elem.Element("WORKING_DAY") != null && elem.Element("WORKING_DAY").Value != "" ? elem.Element("WORKING_DAY").Value : null;
+                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("P_WORKING_ADDITION_TIME") != null && elem.Element("P_WORKING_ADDITION_TIME").Value != "" ? elem.Element("P_WORKING_ADDITION_TIME").Value : null;
+                cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "2" ? elem.Element("AUDIT_DEPARTMENT_ID")?.Value : elem.Element("DEPARTMENT_ID")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_SERVICE_PAY", OracleDbType.Decimal).Value = elem.Element("AUDIT_SERVICE_PAY") != null && elem.Element("AUDIT_SERVICE_PAY").Value != "" ? elem.Element("AUDIT_SERVICE_PAY").Value : null;
+                cmd.Parameters.Add(":P_AUDITOR_ENTRY_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
+                cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
-                transaction.Commit();
-                bool responseVal = rowsUpdated == 0 ? false : true;
                 cmd.Dispose();
-                con.Close();
+                //Teams
+                string[] leads = elem.Element("AUDITOR_LEAD")?.Value.Split(',');
+                string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
 
+                // delete query add
+                for (int i = 0; i < leads.Count(); i++)
+                {
+
+                    OracleCommand cmdLead = con.CreateCommand();
+
+                    cmdLead.CommandType = CommandType.Text;
+                    cmdLead.CommandText = "INSERT INTO AUD_STAT.BM0_TEAM_DATA(AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID) " +
+                        "VALUES(:V_AUDIT_ID, :V_TEAM_TYPE_ID, :V_AUDITOR_ID)";
+
+                    cmdLead.BindByName = true;
+                    cmdLead.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                    cmdLead.Parameters.Add(":V_TEAM_TYPE_ID", OracleDbType.Int32).Value = 1;
+                    cmdLead.Parameters.Add(":V_AUDITOR_ID", OracleDbType.Int32).Value = Convert.ToInt32(leads[i]);
+
+                    cmdLead.ExecuteNonQuery();
+                    cmdLead.Dispose();
+                }
+                for (int i = 0; i < members.Count(); i++)
+                {
+
+                    OracleCommand cmdMember = con.CreateCommand();
+
+                    cmdMember.CommandType = CommandType.Text;
+                    cmdMember.CommandText = "INSERT INTO AUD_STAT.BM0_TEAM_DATA(AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID) " +
+                        "VALUES(:V_AUDIT_ID, :V_TEAM_TYPE_ID, :V_AUDITOR_ID)";
+                    cmdMember.BindByName = true;
+                    cmdMember.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                    cmdMember.Parameters.Add(":V_TEAM_TYPE_ID", OracleDbType.Int32).Value = 2;
+                    cmdMember.Parameters.Add(":V_AUDITOR_ID", OracleDbType.Int32).Value = Convert.ToInt32(members[i]); ;
+
+                    cmdMember.ExecuteNonQuery();
+                    cmdMember.Dispose();
+                }
+
+
+                transaction.Commit();
+                con.Close();
+                bool responseVal = rowsUpdated == 0 ? false : true;
                 response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
             catch (Exception ex)
@@ -1443,12 +1516,12 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_AUDIT_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_BUDGET_TYPE") != null && elem.Element("AUDIT_BUDGET_TYPE").Value != "" ? elem.Element("AUDIT_BUDGET_TYPE").Value : null;
                 cmd.Parameters.Add(":P_AUDIT_INCLUDED_COUNT", OracleDbType.Int32).Value = elem.Element("AUDIT_INCLUDED_COUNT")?.Value;
                 cmd.Parameters.Add(":P_AUDIT_INCLUDED_ORG", OracleDbType.Varchar2).Value = elem.Element("AUDIT_INCLUDED_ORG")?.Value;
-                cmd.Parameters.Add(":P_WORKING_PERSON", OracleDbType.Int32).Value = elem.Element("WORKING_PERSON")?.Value;
-                cmd.Parameters.Add(":P_WORKING_DAY", OracleDbType.Int32).Value = elem.Element("WORKING_DAY")?.Value;
-                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("WORKING_ADDITION_TIME")?.Value;
+                cmd.Parameters.Add(":P_WORKING_PERSON", OracleDbType.Int32).Value = elem.Element("WORKING_PERSON") != null && elem.Element("WORKING_PERSON").Value != "" ? elem.Element("WORKING_PERSON").Value : null;
+                cmd.Parameters.Add(":P_WORKING_DAY", OracleDbType.Int32).Value = elem.Element("WORKING_DAY") != null && elem.Element("WORKING_DAY").Value != "" ? elem.Element("WORKING_DAY").Value : null;
+                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("P_WORKING_ADDITION_TIME") != null && elem.Element("P_WORKING_ADDITION_TIME").Value != "" ? elem.Element("P_WORKING_ADDITION_TIME").Value : null; 
                 cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value;
                 cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value =="2"? elem.Element("AUDIT_DEPARTMENT_ID")?.Value: elem.Element("DEPARTMENT_ID")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_SERVICE_PAY", OracleDbType.Decimal).Value = elem.Element("AUDIT_SERVICE_PAY")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_SERVICE_PAY", OracleDbType.Decimal).Value = elem.Element("AUDIT_SERVICE_PAY") != null && elem.Element("AUDIT_SERVICE_PAY").Value != "" ? elem.Element("AUDIT_SERVICE_PAY").Value : null;
                 cmd.Parameters.Add(":P_AUDITOR_ENTRY_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
@@ -6020,7 +6093,7 @@ namespace Audit.App_Func
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
                                   "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, " +
-                                  "(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 107 AND IS_FINISH = 1 AND ORGID = A.OPEN_ID) IS_FINISHED, " +
+                                  "(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE IN(107, 165) AND IS_FINISH = 1 AND ORGID = A.OPEN_ID) IS_FINISHED, " +
                                   "(SELECT IS_PRINT FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 107 AND IS_PRINT = 1 AND ORGID = A.OPEN_ID) IS_PRINTED, " +
                                   "(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
                                   "(SELECT TO_CHAR(J.INSERTDATE, 'YYYY-MM-DD') INSERTDATE FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) INSERTDATE " +
@@ -6354,13 +6427,13 @@ namespace Audit.App_Func
                                 "WHERE A.ORGID = :ORGID AND A.MDCODE IN(32,33,34) " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME , AA.MD_NAME, " +
-                                "	  SUM(CASE WHEN MDCODE IN (37,39) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	  SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) MEDEELSEN, " +
-                                "	  SUM(CASE WHEN MDCODE = 39 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	  SUM(CASE WHEN MDCODE = 37 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	  SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	  ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 39 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(37, 39) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(37, 39) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	  ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(37, 39) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(37, 39) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "    SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "    SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 39 THEN DATA01 END) MEDEELSEN, " +
+                                "    SUM(CASE WHEN MDCODE = 39 THEN DATA01 END) MEDEELEEGUI, " +
+                                "    SUM(CASE WHEN MDCODE = 37 THEN NULL END) SHAARDLAGAGUI, " +
+                                "    SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "    ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 39 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "    ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 37) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 36) BB " +
@@ -6368,13 +6441,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (38,40) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 40 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 38 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 30 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(38, 40) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(38, 40) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(37, 39) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(38, 40) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 40 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 40 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 38 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 40 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 38) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 36) BB " +
@@ -6382,13 +6455,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	  SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	  SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) MEDEELSEN, " +
-                                "	  SUM(CASE WHEN MDCODE = 43 THEN 0 END) MEDEELEEGUI, " +
-                                "	  SUM(CASE WHEN MDCODE = 43 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	  SUM(CASE WHEN MDCODE = 43 THEN 0 END) HUGATSAA_HOTSROOSON, " +
-                                "	  ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT1, " +
-                                "	  ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT2 " +
+                                "    SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "    SUM(CASE WHEN MDCODE = 43 THEN DATA01 END) MEDEELSEN, " +
+                                "    SUM(CASE WHEN MDCODE = 43 THEN NULL END) MEDEELEEGUI, " +
+                                "    SUM(CASE WHEN MDCODE = 43 THEN NULL END) SHAARDLAGAGUI, " +
+                                "    SUM(CASE WHEN MDCODE = 43 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                                "    ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) PRECENT1, " +
+                                "    ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 43) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 36) BB " +
@@ -6396,13 +6469,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 44 THEN 0 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 44 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 44 THEN 0 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 44 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 44 THEN NULL END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 44 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 44 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) PRECENT1, " +
+                                "     ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 44) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 36) BB " +
@@ -6410,13 +6483,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (46,48) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 48 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 46 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 48 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(46, 48) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(46, 48) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(46, 48) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(46, 48) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 48 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 48 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 46 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 48 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 46) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 45) BB " +
@@ -6424,13 +6497,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (47,49) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 49 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 47 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 49 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(47, 49) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(47, 49) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(47, 49) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(47, 49) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 49 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 49 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 47 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 49 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 47) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 45) BB " +
@@ -6438,13 +6511,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (53,55) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 55 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 53 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 55 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(53, 55) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(53, 55) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(53, 55) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(53, 55) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 55 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 55 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 53 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 55 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 53) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 52) BB " +
@@ -6452,13 +6525,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (54,56) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 56 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 54 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 56 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(54, 56) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(54, 56) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(54, 56) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(54, 56) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 56 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 56 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 54 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 56 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 54) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 52) BB " +
@@ -6466,13 +6539,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (60,62) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 62 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 60 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 62 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(60, 62) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(60, 62) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 64 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(60, 62) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(60, 62) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 62 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 62 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 60 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 64 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 62 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 64 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 60) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 59) BB " +
@@ -6480,13 +6553,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (61,63) THEN DATA01 END) MEDEELEH_TOO_HEMJEE,  " +
-                                "	   SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 63 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 61 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 63 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(61,63) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(61,63) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(61,63) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(61,63) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 63 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 63 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 61 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 63 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 61) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 59) BB " +
@@ -6494,37 +6567,37 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT B.MD_CODE ,B.MD_TIME, CASE WHEN B.IS_PREW = 0 THEN B.MD_NAME END PARENT_NAME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME, " +
-                                "	   CASE WHEN A.DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
-                                "	   CASE WHEN A.DATA01 = 1 THEN 1 ELSE NULL END MEDEELSEN, " +
-                                "	   CASE WHEN A.DATA01 = 2 THEN 1 ELSE NULL END MEDEELEEGUI, " +
-                                "	   CASE WHEN A.DATA01 = 4 THEN 1 ELSE NULL END SHAARDLAGAGUI, " +
-                                "	   CASE WHEN A.DATA01 = 3 THEN 1 ELSE NULL END HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(CASE WHEN A.DATA01 IN(1, 3) THEN 100.00 ELSE 0 END, 2) PRECENT1, " +
-                                "	   ROUND(CASE WHEN A.DATA01 = 1 THEN 100.00 ELSE 0 END, 2) PRECENT2 " +
+                                "     CASE WHEN A.DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
+                                "     CASE WHEN A.DATA01 = 1 THEN 1 ELSE NULL END MEDEELSEN, " +
+                                "     CASE WHEN A.DATA01 = 2 THEN 1 ELSE NULL END MEDEELEEGUI, " +
+                                "     CASE WHEN A.DATA01 = 4 THEN 1 ELSE NULL END SHAARDLAGAGUI, " +
+                                "     CASE WHEN A.DATA01 = 3 THEN 1 ELSE NULL END HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(CASE WHEN A.DATA01 IN(1, 3) THEN 100.00 ELSE 0 END, 2) PRECENT1, " +
+                                "     ROUND(CASE WHEN A.DATA01 = 1 THEN 100.00 ELSE 0 END, 2) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                 "INNER JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
-                                "WHERE ORGID = :ORGID AND A.MDCODE IN(66) " +
+                                "WHERE ORGID = :ORGID AND A.MDCODE = 66 " +
                                 "UNION ALL " +
                                 "SELECT B.MD_CODE ,B.MD_TIME, CASE WHEN B.IS_PREW = 0 THEN B.MD_NAME END PARENT_NAME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME, " +
-                                "	   CASE WHEN A.DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
-                                "	   CASE WHEN A.DATA01 = 1 THEN 1 ELSE NULL END MEDEELSEN, " +
-                                "	   CASE WHEN A.DATA01 = 2 THEN 1 ELSE NULL END MEDEELEEGUI, " +
-                                "	   CASE WHEN A.DATA01 = 4 THEN 1 ELSE NULL END SHAARDLAGAGUI, " +
-                                "	   CASE WHEN A.DATA01 = 3 THEN 1 ELSE NULL END HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(CASE WHEN A.DATA01 IN(1, 3) THEN 100.00 ELSE 0 END, 2) PRECENT1, " +
-                                "	   ROUND(CASE WHEN A.DATA01 = 1 THEN 100.00 ELSE 0 END, 2) PRECENT2 " +
+                                "     CASE WHEN A.DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
+                                "     CASE WHEN A.DATA01 = 1 THEN 1 ELSE NULL END MEDEELSEN, " +
+                                "     CASE WHEN A.DATA01 = 2 THEN 1 ELSE NULL END MEDEELEEGUI, " +
+                                "     CASE WHEN A.DATA01 = 4 THEN 1 ELSE NULL END SHAARDLAGAGUI, " +
+                                "     CASE WHEN A.DATA01 = 3 THEN 1 ELSE NULL END HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(CASE WHEN A.DATA01 IN(1, 3) THEN 100.00 ELSE 0 END, 2) PRECENT1, " +
+                                "     ROUND(CASE WHEN A.DATA01 = 1 THEN 100.00 ELSE 0 END, 2) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                 "INNER JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
-                                "WHERE ORGID = :ORGID AND A.MDCODE IN(67) " +
+                                "WHERE ORGID = :ORGID AND A.MDCODE = 67 " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (69,71) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 71 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 69 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 73 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 71 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(69, 71) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(69, 71) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 73 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(69, 71) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(69, 71) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 71 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 71 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 69 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 73 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 71 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 73 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 69) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 68) BB " +
@@ -6532,13 +6605,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (70,72) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 72 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 70 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 74 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 72 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(70, 72) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(70, 72) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 74 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(70, 72) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(70, 72) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 72 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 72 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 70 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 74 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 72 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 74 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 70) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 68) BB " +
@@ -6546,13 +6619,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (76,78) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 78 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 76 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 80 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 78 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(76,78) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(76,78) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 80 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(76,78) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(76,78) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 78 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 78 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 76 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 80 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 78 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 80 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 76) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 75) BB " +
@@ -6560,13 +6633,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (77,79) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 79 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 77 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 81 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 79 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(77,79) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(77,79) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 81 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(77,79) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(77,79) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 79 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 79 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 77 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 81 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 79 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 81 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 77) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 75) BB " +
@@ -6574,13 +6647,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (83,85) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 85 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 83 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 87 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 85 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(83,85) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(83,85) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 87 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(83,85) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(83,85) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 85 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 85 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 83 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 87 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 85 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 87 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 83) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 82) BB " +
@@ -6588,13 +6661,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (84,86) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 86 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 84 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 88 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 86 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(84,86) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(84,86) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 88 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(84,86) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(84,86) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 86 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 86 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 84 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 88 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 86 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 88 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 84) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 82) BB " +
@@ -6602,13 +6675,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (90,92) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 92 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 90 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 92 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(90,92) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(90,92) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(90,92) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(90,92) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 92 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 92 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 90 THEN 0 END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 92 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 90) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 89) BB " +
@@ -6616,13 +6689,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (91,93) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 93 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 91 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 93 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(91, 93) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(91, 93) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(91, 93) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(91, 93) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 93 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 93 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 91 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 93 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE  = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 91) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 89) BB " +
@@ -6630,13 +6703,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (97,99) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 99 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 97 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 99 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(97,99) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(97,99) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(97,99) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(97,99) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 99 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 99 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 97 THEN 0 END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 99 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 97) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 96) BB " +
@@ -6644,13 +6717,13 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (98,100) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 100 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 98 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 100 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(98, 100) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(98, 100) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(98, 100) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(98, 100) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 100 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 100 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 98 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 100 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 98) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 96) BB " +
@@ -6658,18 +6731,73 @@ namespace Audit.App_Func
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
                                 "UNION ALL " +
                                 "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                                "	   SUM(CASE WHEN MDCODE IN (104,105) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                                "	   SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) MEDEELSEN, " +
-                                "	   SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) MEDEELEEGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 104 THEN 0 END) SHAARDLAGAGUI, " +
-                                "	   SUM(CASE WHEN MDCODE = 106 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                                "		 ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 105 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(104, 105) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(104, 105) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 106 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(104, 105) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(104, 105) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
+                                "     SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "     SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) MEDEELSEN, " +
+                                "     SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) MEDEELEEGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 104 THEN NULL END) SHAARDLAGAGUI, " +
+                                "     SUM(CASE WHEN MDCODE = 106 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 105 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "     ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 106 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
                                 "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
                                 "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 104) AA, " +
                                 "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 103) BB " +
                                 "WHERE ORGID = :ORGID " +
-                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME";
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEH_TOO_HEMJEE, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELSEN, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEEGUI, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) SHAARDLAGAGUI, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                                "SUM(CASE WHEN DATA01 IN(1, 3) AND MDCODE IN(1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 31, 32, 33, 34, 35, 66, 67) THEN 100 ELSE NULL END) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 39 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 40 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) + " +
+                                "ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 48 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 49 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 55 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 56 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 62 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 63 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 71 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 72 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 78 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 79 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 85 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 86 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 92 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 93 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 99 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 100 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 105 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "SUM(CASE WHEN DATA01 = 1 AND MDCODE IN(1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 31, 32, 33, 34, 35, 66, 67) THEN 100 ELSE NULL END) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) + " +
+                                "ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 64 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 73 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 69 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 74 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 70 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 80 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 76 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 81 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 77 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 87 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 83 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 88 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 84 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 106 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 104 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, 'Тухайн байгууллагын шилэн дансны нийт мэдээллийн дундаж хувь, хэмжээ' AS PARENT_NAME, MD_TIME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 3) AA " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME";
 
                 // Set parameters
                 cmd.Parameters.Add(":ORGID", OracleDbType.Varchar2, request.Element("Parameters").Element("ORGID").Value, System.Data.ParameterDirection.Input);
@@ -6706,230 +6834,283 @@ namespace Audit.App_Func
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["MirroraccConfig"]);
                 con.Open();
 
-                // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "F_ORG_PRINTED";
+
+                OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
+                    OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+                cmd.Parameters.Add(":OPEN_ID", OracleDbType.Int32, request.Element("Parameters").Element("ORGID")?.Value, System.Data.ParameterDirection.Input);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                // Create and execute the command
+                cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 118 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 116 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 120 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 118 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 120 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(116, 118) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 116) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 115) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (117,119) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 119 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 117 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 121 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 119 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(117, 119) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(117, 119) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 121 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(117, 119) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(117, 119) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 117) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 115) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (123,125) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 125 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 123 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 127 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 125 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(123, 125) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(123, 125) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 127 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(123, 125) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(123, 125) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 123) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 122) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (124,126) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 126 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 124 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 128 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 126 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(124, 126) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(124, 126) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 128 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(124, 126) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(124, 126) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 124) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 122) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (130,132) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 132 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 130 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 132 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(130, 132) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(130, 132) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(130, 132) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(130, 132) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 130) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 129) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (131,133) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 133 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 131 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 133 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(131, 133) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(131, 133) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(131, 133) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(131, 133) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 131) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 129) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (137,139) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 139 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 137 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 139 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(137, 139) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(137, 139) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(137, 139) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(137, 139) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 137) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 136) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (138,140) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 140 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 138 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 140 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(138, 140) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(138, 140) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(138, 140) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(138, 140) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 138) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 136) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT B.MD_CODE ,B.MD_TIME, CASE WHEN B.IS_PREW = 0 THEN B.MD_NAME END PARENT_NAME, B.MD_LAWS_NUM || ' ' || B.MD_NAME AS MD_NAME, " +
-                "	   CASE WHEN A.DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
-                "	   CASE WHEN A.DATA01 = 1 THEN 1 ELSE NULL END MEDEELSEN, " +
-                "	   CASE WHEN A.DATA01 = 2 THEN 1 ELSE NULL END MEDEELEEGUI, " +
-                "	   CASE WHEN A.DATA01 = 4 THEN 1 ELSE 0 END SHAARDLAGAGUI, " +
-                "	   CASE WHEN A.DATA01 = 3 THEN 1 ELSE NULL END HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(CASE WHEN A.DATA01 IN(1, 3) THEN 100.00 ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(CASE WHEN A.DATA01 = 1 THEN 100.00 ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA A  " +
-                "INNER JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
-                "WHERE A.ORGID = 9657 AND A.MDCODE IN(143, 144) " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (146,148) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 148 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 146 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 148 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(146, 148) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(146, 148) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(146, 148) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(146, 148) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 146) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (147,149) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 149 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 147 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 149 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(147, 149) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(147, 149) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(147, 149) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(147, 149) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 147) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (152) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 152 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 152 THEN NULL END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN DATA01 = 152 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 152 THEN NULL END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 152) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (153) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 153 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 153 THEN NULL END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN DATA01 = 153 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 153 THEN NULL END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN DATA01 ELSE NULL END), 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 153) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (155,157) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 157 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 155 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 159 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 157 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(155, 157) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(155, 157) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 159 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(155, 157) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(155, 157) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 155) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 154) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (156,158) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 158 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 156 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 160 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 158 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(156, 158) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(156, 158) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 160 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(156, 158) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(156, 158) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 156) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 154) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
-                "UNION ALL " +
-                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
-                "	   SUM(CASE WHEN MDCODE IN (162,163) THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
-                "	   SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) MEDEELSEN, " +
-                "	   SUM(CASE WHEN MDCODE = 163 THEN DATA01 END) MEDEELEEGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 162 THEN 0 END) SHAARDLAGAGUI, " +
-                "	   SUM(CASE WHEN MDCODE = 164 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 163 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE IN(162, 163) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(162, 163) THEN DATA01 END) ELSE NULL END, 2) PRECENT1, " +
-                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 164 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE IN(162, 163) THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE IN(162, 163) THEN DATA01 END) ELSE NULL END, 2) PRECENT2 " +
-                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 162) AA, " +
-                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 161) BB " +
-                "WHERE ORGID = :ORGID " +
-                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME ";
+                                "	   SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 118 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 118 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 116 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 120 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 118 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 120 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 116) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 115) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 119 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 119 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 117 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 121 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 119 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 121 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 117) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 115) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 125 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 125 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 123 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 127 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 125 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 127 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 123) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 122) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 126 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 126 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 124 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 128 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 126 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 128 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 124) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 122) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 132 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 132 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 130 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 132 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 130) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 129) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 133 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 133 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 131 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 133 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 131) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 129) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 139 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 139 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 137 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 139 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 137) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 136) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 140 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 140 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 138 THEN 0 END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 140 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 138) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 136) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT B.MD_CODE ,B.MD_TIME, CASE WHEN B.IS_PREW = 0 THEN B.MD_NAME END PARENT_NAME, B.MD_LAWS_NUM || ' ' || B.MD_NAME AS MD_NAME, " +
+                                "	   CASE WHEN A.DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
+                                "	   CASE WHEN A.DATA01 = 1 THEN 1 ELSE NULL END MEDEELSEN, " +
+                                "	   CASE WHEN A.DATA01 = 2 THEN 1 ELSE NULL END MEDEELEEGUI, " +
+                                "	   CASE WHEN A.DATA01 = 4 THEN 1 ELSE 0 END SHAARDLAGAGUI, " +
+                                "	   CASE WHEN A.DATA01 = 3 THEN 1 ELSE NULL END HUGATSAA_HOTSROOSON, " +
+                                "	   CASE WHEN A.DATA01 IN(1, 3) THEN 100 ELSE NULL END PRECENT1, " +
+                                "	   CASE WHEN A.DATA01 = 1 THEN 100 ELSE NULL END PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                                "INNER JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
+                                "WHERE A.ORGID = :ORGID AND A.MDCODE IN(143, 144) " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 148 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 148 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 146 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 148 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 146) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 149 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 149 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 147 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 149 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 147) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 152 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 152 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 152 THEN NULL END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN DATA01 = 152 THEN 0 END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 152 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                                "	   SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) PRECENT1, " +
+                                "	   SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 152) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 153 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 153 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 153 THEN NULL END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN DATA01 = 153 THEN 0 END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 153 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                                "	   SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END) PRECENT1, " +
+                                "	   SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 153) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 145) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 157 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 157 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 155 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 159 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 157 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 159 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 155) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 154) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 158 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 158 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 156 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 160 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 158 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 160 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 156) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 154) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
+                                "	   SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
+                                "	   SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) - SUM(CASE WHEN MDCODE = 163 THEN DATA01 END) MEDEELSEN, " +
+                                "	   SUM(CASE WHEN MDCODE = 163 THEN DATA01 END) MEDEELEEGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 162 THEN NULL END) SHAARDLAGAGUI, " +
+                                "	   SUM(CASE WHEN MDCODE = 164 THEN DATA01 END) HUGATSAA_HOTSROOSON, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 163 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "	   ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 164 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, MD_LAWS_NUM || ' ' || MD_NAME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 162) AA, " +
+                                "(SELECT MD_LAWS_NUM || ' ' || MD_NAME AS PARENT_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 161) BB " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME " +
+                                "UNION ALL " +
+                                "SELECT AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEH_TOO_HEMJEE, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) - SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) MEDEELSEN, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEEGUI, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) SHAARDLAGAGUI, " +
+                                "SUM(CASE WHEN MDCODE = 3 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                                "SUM(CASE WHEN DATA01 IN(1, 3) AND MDCODE IN(143, 144) THEN 100 ELSE NULL END) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 118 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 119 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 125 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 126 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 132 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 133 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 139 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 140 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 148 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 149 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) + " +
+                                "SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 157 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 158 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 163 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                                "SUM(CASE WHEN DATA01 = 1 AND MDCODE IN(143, 144) THEN 100 ELSE NULL END) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 120 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 121 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 117 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 127 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 123 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 128 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 124 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) + " +
+                                "SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 159 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 155 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 160 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 156 THEN DATA01 END) ELSE NULL END, 1) + " +
+                                "ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 164 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 162 THEN DATA01 END) ELSE NULL END, 1) PERCENT2 " +
+                                "FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                                "(SELECT MD_CODE, MD_TIME, 'Тухайн байгууллагын шилэн дансны нийт мэдээллийн дундаж хувь, хэмжээ' AS PARENT_NAME, MD_TIME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 3) AA " +
+                                "WHERE ORGID = :ORGID " +
+                                "GROUP BY AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME";
 
                 // Set parameters
                 cmd.Parameters.Add(":ORGID", OracleDbType.Varchar2, request.Element("Parameters").Element("ORGID").Value, System.Data.ParameterDirection.Input);

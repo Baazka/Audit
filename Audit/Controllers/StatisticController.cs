@@ -308,6 +308,10 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("BM0Detail") != null)
                 {
                     bm0 = new BM0().SetXml(res.Element("BM0Detail"));
+                    List<Team> users = new List<Team>();
+                    users = (from item in res.Elements("TeamData") select new Team().SetXml(item)).ToList();
+                    bm0.AUDITOR_LEADS = users.Where(m => m.TEAM_TYPE_ID == 1).Select(m => m.AUDITOR_ID.ToString()).ToArray();
+                    bm0.AUDITOR_MEMBERS = users.Where(m => m.TEAM_TYPE_ID == 2).Select(m => m.AUDITOR_ID.ToString()).ToArray();
                 }
                 if (Globals.departments.Count > 0)
                     bm0.departments = Globals.departments;
@@ -373,8 +377,8 @@ namespace Audit.Controllers
                     Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
                     bm0.refbudgettypes = Globals.refbudgettypes;
                 }
-                if (Globals.refbudgettypes.Count > 0)
-                    bm0.refbudgettypes = Globals.refbudgettypes;
+                if (Globals.haks.Count > 0)
+                    bm0.haks = Globals.haks;
                 else
                 {
                     XElement responseHak = SendLibraryRequest("HAK");

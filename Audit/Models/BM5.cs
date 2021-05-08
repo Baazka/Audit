@@ -31,10 +31,8 @@ namespace Audit.Models
         public string AUDIT_NAME { get; set; }
         public int AUDIT_BUDGET_TYPE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-        //[Required(ErrorMessage = "Утга оруулна уу.")]
-        //public string ORDER_DATE { get; set; }
-        //[Required(ErrorMessage = "Утга оруулна уу.")]
-        //public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string ORDER_NO { get; set; }
 
         public string LAW_RESPONDANT_NAME { get; set; }
         public string LAW_VIOLATION_DESC { get; set; }
