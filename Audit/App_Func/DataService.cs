@@ -138,6 +138,8 @@ namespace Audit.App_Func
             functions.Add("OrgProjectDelete", (request) => DataAccess.OrgProjectDelete(request));
             functions.Add("PrintDataList", (request) => DataAccess.PrintDataList(request));
             functions.Add("Print2DataList", (request) => DataAccess.Print2DataList(request));
+
+            functions.Add("N1", (request) => DataAccess.ReportN1(request));
         }
     }
 }

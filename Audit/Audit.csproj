@@ -2303,8 +2303,8 @@
     <Content Include="Views\Exam\Index.cshtml" />
     <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\Home\UserCodeChange.cshtml" />
-    <Content Include="Views\Shilendans\N1.cshtml" />
     <Content Include="Views\Statistic\SystemUserModal.cshtml" />
+    <Content Include="Views\Report\N1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

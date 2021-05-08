@@ -1195,5 +1195,244 @@ namespace Audit.Controllers
             }
             return response;
         }
+        [HttpPost]
+        public N1ListResponse N1List(N1ListRequest request)
+        {
+            N1ListResponse response = new N1ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                //if (request.order.Count > 0)
+                //{
+                //    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                //    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                //}
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", null));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.N1(elem, User.GetClaimData("USER_TYPE")); 
+                if (res != null && res.Elements("N1") != null)
+                {
+                    List<N1> n1 = new List<N1>();
+                    //n1 = (from item in res.Elements("N1") select new N1().SetXml(item)).ToList();
+                    List<N1> n1Detial = new List<N1>();
+                    N1 title = new N1();
+                  
+                    
+                    List<N1> n2 = new List<N1>();
+                    n1 =(from item in res.Elements("N1Footer") select new N1().SetXml(item)).ToList();
+                    n2 = (from item in res.Elements("N1") select new N1().SetXml(item)).ToList();
+                    N1 nFooter = new N1();
+
+                    foreach (N1 n in n2)
+                    {
+                        nFooter = n1.Find(a => (a.ORGID.Equals(n.ORGID)));
+                        if(nFooter != null)
+                        {
+                            n1Detial.Add(setMd(nFooter, n));
+                        }
+                    }
+                    List<N1> typeNeg = new List<N1>();
+                    List<N1> typeHoyor = new List<N1>();
+                    List<N1> typeGurav= new List<N1>();
+
+                    List<N1> temp = new List<N1>();
+                    List<N1> temp2 = new List<N1>();
+                    List<N1> temp3 = new List<N1>();
+
+                    typeNeg = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
+                    typeHoyor = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
+                    typeGurav = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн шууд захирагч"));
+
+                    if (typeNeg.Count > 0)
+                    {
+                        title.ORGNAME = "Төсвийн ерөнхийлөн захирагч";
+                        temp.Add(title);
+                        temp.AddRange(typeNeg);
+                        typeNeg = temp;
+                        
+                    }
+
+                    if (typeHoyor.Count > 0)
+                    {
+                        title.ORGNAME = "Төсвийн төвлөрүүлэн захирагч";
+                        temp2.Add(title);
+                        temp2.AddRange(typeHoyor);
+                        typeHoyor = temp2;
+
+                    }
+
+                    if (typeGurav.Count > 0)
+                    {
+                        title.ORGNAME = "Төсвийн шууд захирагч";
+                        temp3.Add(title);
+                        temp3.AddRange(typeGurav);
+                        typeGurav = temp3;
+
+                    }
+
+                    List<N1> types = new List<N1>();
+                    types.AddRange(typeNeg);
+                    types.AddRange(typeHoyor);
+                    types.AddRange(typeGurav);
+
+                    N1 Medeelsen = new N1();
+                    N1 Medeeleegui = new N1();
+                    N1 HugtsaaHotsorson = new N1();
+                    N1 Shaardlaggui = new N1();
+
+                    N1 Niit = new N1();
+                    N1 bodolt1 = new N1();
+                    N1 bodolt2 = new N1();
+                   
+                    n1 = (from item in res.Elements("N1Footer") select new N1().SetXml(item)).ToList();
+                    var typ = typeof(N1);
+                    var orgname = typ.GetProperty("ORGNAME");
+                    decimal total = 0;
+                    decimal math1 = 0;
+                    decimal math2 = 0;
+                    decimal count = 0;
+                    foreach (N1 n in n1)
+                    {
+                        
+                        for (int i = 1; i <= 35; i++)
+                        {
+                            var prop = typ.GetProperty("MD" + i);
+                            string value = prop.GetValue(n) != null ? prop.GetValue(n).ToString() : "";
+                            if(value != "")
+                             
+                            {
+                                switch (value)
+                                {
+                                    case "1":
+                                        count = Convert.ToInt32(prop.GetValue(Medeelsen)) + 1;
+                                        prop.SetValue(Medeelsen, count.ToString());
+                                        orgname.SetValue(Medeelsen, "Мэдээлсэн");
+                                        break;
+                                    case "2":
+                                        count = Convert.ToInt32(prop.GetValue(Medeeleegui)) + 1;
+                                        prop.SetValue(Medeeleegui, count.ToString());
+                                        orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
+                                        break;
+                                    case "3":
+                                        count = Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + 1;
+                                        prop.SetValue(HugtsaaHotsorson, count.ToString());
+                                        orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
+                                        break;
+                                    case "4":
+                                        count = Convert.ToInt32(prop.GetValue(Shaardlaggui)) + 1;
+                                        prop.SetValue(Shaardlaggui, count.ToString());
+                                        orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
+                                        break;
+                                    default:
+                                        break;
+
+                                }
+                                total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
+                                prop.SetValue(Niit, total.ToString());
+                                orgname.SetValue(Niit, "НИЙТ ДҮН");
+
+                                if (total != 0)
+                                {
+                                    math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
+                                    prop.SetValue(bodolt1, String.Format("{0:0.00}", math1));
+                                    orgname.SetValue(bodolt1, "Тухайн мэдээллийг мэдээлсэн хувь");
+                                    Console.WriteLine(String.Format("{0:0.00}", math1.ToString()));
+                                }
+
+                                if (total != 0)
+                                {
+                                    math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
+                                    prop.SetValue(bodolt2, String.Format("{0:0.00}", math2));
+                                    orgname.SetValue(bodolt2, "Тухайн мэдээллийг хугацаа хоцроож мэдээлсэн хувь");
+                                }
+                            }    
+                          
+                        }
+                    }
+                    n1Detial = types;
+                    n1Detial.Add(Niit);
+                    n1Detial.Add(Medeelsen);
+                    n1Detial.Add(Medeeleegui);
+                    n1Detial.Add(HugtsaaHotsorson);
+                    n1Detial.Add(Shaardlaggui);
+                    n1Detial.Add(bodolt1);
+                    n1Detial.Add(bodolt2);
+
+                    response.data = n1Detial;
+                }
+
+
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+       public N1 setMd(N1 param1, N1 param2)
+        {
+            param1.MD1 = param2.MD1;
+            param1.MD2 = param2.MD2;
+            param1.MD3 = param2.MD3;
+            param1.MD4 = param2.MD4;
+            param1.MD5 = param2.MD5;
+            param1.MD6 = param2.MD6;
+            param1.MD7 = param2.MD7;
+            param1.MD8 = param2.MD8;
+            param1.MD9 = param2.MD9;
+            param1.MD10 = param2.MD10;
+            param1.MD11 = param2.MD11;
+            param1.MD12 = param2.MD12;
+            param1.MD13 = param2.MD13;
+            param1.MD14 = param2.MD14;
+            param1.MD15 = param2.MD15;
+            param1.MD16 = param2.MD16;
+            param1.MD17 = param2.MD17;
+            param1.MD18 = param2.MD18;
+            param1.MD19 = param2.MD19;
+            param1.MD20 = param2.MD20;
+            param1.MD21 = param2.MD21;
+            param1.MD22 = param2.MD22;
+            param1.MD23 = param2.MD23;
+            param1.MD24 = param2.MD24;
+            param1.MD25 = param2.MD25;
+            param1.MD26 = param2.MD26;
+            param1.MD27 = param2.MD27;
+            param1.MD28 = param2.MD28;
+            param1.MD29 = param2.MD29;
+            param1.MD30 = param2.MD30;
+            param1.MD31 = param2.MD31;
+            param1.MD32 = param2.MD32;
+            param1.MD33 = param2.MD33;
+            param1.MD34 = param2.MD34;
+            param1.MD35 = param2.MD35;
+            param1.OPEN_HEAD_ROLE = param1.OPEN_HEAD_ROLE + " " + param1.OPEN_HEAD_NAME + " " + param1.OPEN_HEAD_PHONE;
+            param1.OPEN_ACC_ROLE = param1.OPEN_ACC_ROLE + " " + param1.OPEN_ACC_NAME + " " + param1.OPEN_ACC_PHONE;
+
+
+            return param1;
+
+        }
+
+            
     }
 }
