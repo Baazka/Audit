@@ -1210,6 +1210,15 @@ namespace Audit.Controllers
                 //    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
                 //    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
                 //}
+                if (request.Mayagt != null)
+                {
+                    if (request.Mayagt == "1")
+                        elem.Add(new XElement("V_Mayagt", request.Mayagt = "1,2"));
+                    if (request.Mayagt == "2")
+                        elem.Add(new XElement("V_Mayagt", request.Mayagt = "3"));
+                }
+                else
+                    elem.Add(new XElement("V_Mayagt", null));
 
                 if (!string.IsNullOrEmpty(request.search.value))
                     elem.Add(new XElement("Search", request.search.value));
@@ -1366,6 +1375,35 @@ namespace Audit.Controllers
                           
                         }
                     }
+                    if (Niit.ORGNAME == null)
+                    {
+                        orgname.SetValue(Niit, "НИЙТ ДҮН");
+                    }
+                    if (Medeelsen.ORGNAME == null)
+                    {
+                        orgname.SetValue(Medeelsen, "Мэдээлсэн");
+                    }
+                    if (Medeeleegui.ORGNAME == null)
+                    {
+                        orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
+                    }
+                    if (HugtsaaHotsorson.ORGNAME == null)
+                    {
+                        orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
+                    }
+                    if (Shaardlaggui.ORGNAME == null)
+                    {
+                        orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
+                    }
+                    if (bodolt1.ORGNAME == null)
+                    {
+                        orgname.SetValue(bodolt1, "Тухайн мэдээллийг мэдээлсэн хувь");
+                    }
+                    if (bodolt2.ORGNAME == null)
+                    {
+                        orgname.SetValue(bodolt2, "Тухайн мэдээллийг хугацаа хоцроож мэдээлсэн хувь");
+                    }
+
                     n1Detial = types;
                     n1Detial.Add(Niit);
                     n1Detial.Add(Medeelsen);

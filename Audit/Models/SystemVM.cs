@@ -1155,6 +1155,7 @@ namespace Audit.Models
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
+        public string Mayagt { get; set; }
     }
     public class N1ListResponse : DataTableAjaxResponModel
     {

@@ -7380,7 +7380,20 @@ namespace Audit.App_Func
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
-                // Create and execute the command
+
+                string mayagt = null;
+
+                if(req.Element("V_Mayagt")?.Value != "")
+                {
+                    mayagt = req.Element("V_Mayagt")?.Value;
+                }
+                else
+                {
+                    mayagt = "1,2,3,4,5";
+                }
+                
+
+
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = " WITH negtgel1 AS(" +
@@ -7388,7 +7401,7 @@ namespace Audit.App_Func
                                     "SELECT ORGID,  INSERTUSERID,MDCODE,DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                     "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                     "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
-                                    "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' " +
+                                    "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN ("+ mayagt + ") " +
                                     ") D " +
                                     "PIVOT (" +
                                     "MAX(DATA01)" +
@@ -7435,7 +7448,7 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
-
+                cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -7447,7 +7460,7 @@ namespace Audit.App_Func
                                         "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A "+
                                         "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID "+
                                         "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID "+
-                                        "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' " +
+                                        "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
 
                                         ") D " +
                                         "PIVOT ( " +
@@ -7462,6 +7475,8 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
+
 
                 DataTable dtTable2 = new DataTable();
                 dtTable2.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
