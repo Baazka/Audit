@@ -1360,16 +1360,15 @@ namespace Audit.Controllers
                                 if (total != 0)
                                 {
                                     math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
-                                    prop.SetValue(bodolt1, String.Format("{0:0.00}", math1));
-                                    orgname.SetValue(bodolt1, "Тухайн мэдээллийг мэдээлсэн хувь");
-                                    Console.WriteLine(String.Format("{0:0.00}", math1.ToString()));
+                                    prop.SetValue(bodolt1, String.Format("{0:0.0}", math1));
+                                    orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                 }
 
                                 if (total != 0)
                                 {
                                     math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
-                                    prop.SetValue(bodolt2, String.Format("{0:0.00}", math2));
-                                    orgname.SetValue(bodolt2, "Тухайн мэдээллийг хугацаа хоцроож мэдээлсэн хувь");
+                                    prop.SetValue(bodolt2, String.Format("{0:0.0}", math2));
+                                    orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                 }
                             }    
                           
@@ -1397,11 +1396,11 @@ namespace Audit.Controllers
                     }
                     if (bodolt1.ORGNAME == null)
                     {
-                        orgname.SetValue(bodolt1, "Тухайн мэдээллийг мэдээлсэн хувь");
+                        orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                     }
                     if (bodolt2.ORGNAME == null)
                     {
-                        orgname.SetValue(bodolt2, "Тухайн мэдээллийг хугацаа хоцроож мэдээлсэн хувь");
+                        orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                     }
 
                     n1Detial = types;
