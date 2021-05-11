@@ -715,7 +715,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public  XElement BM0Search(int officeid)
+        public  XElement BM0Search(int officeid, int periodid)
         {
             try
             {
@@ -726,7 +726,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM0Search"),
                                                new XElement("Parameters",
-                                                   new XElement("OFFICE_ID", officeid)));
+                                                   new XElement("OFFICE_ID", officeid),
+                                                   new XElement("PERIOD_ID", periodid)));
 
                 DataResponse response = GetDataResponse(requestXml);
 

@@ -85,21 +85,17 @@ namespace Audit.Models
     }
     public class BM1ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int AUDIT_ID { get; set; }
-        public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
-        public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-        public int AUDIT_YEAR { get; set; }
-        public int AUDIT_TYPE { get; set; }
+        public string YEAR_LABEL { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
-        public int AUDIT_BUDGET_TYPE { get; set; }
-        public string BUDGET_TYPE_NAME { get; set; }
-        public string ORDER_DATE { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
+
         public string ACT_NO { get; set; }
         public string ACT_VIOLATION_DESC { get; set; }
         public int ACT_VIOLATION_TYPE { get; set; }
@@ -144,21 +140,16 @@ namespace Audit.Models
     }
     public class BM2ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int AUDIT_ID { get; set; }
-        public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
-        public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-        public int AUDIT_YEAR { get; set; }
-        public int AUDIT_TYPE { get; set; }
+        public string YEAR_LABEL { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
-        public int AUDIT_BUDGET_TYPE { get; set; }
-        public string BUDGET_TYPE_NAME { get; set; }
-        public string ORDER_DATE { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
 
         public string CLAIM_NO { get; set; }
         public string CLAIM_VIOLATION_DESC { get; set; }
@@ -201,16 +192,16 @@ namespace Audit.Models
     }
     public class BM3ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int AUDIT_YEAR { get; set; }
-        public int AUDIT_TYPE { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string PERIOD_LABEL { get; set; }
+        public string YEAR_LABEL { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
-        public int AUDIT_BUDGET_TYPE { get; set; }
-        public string BUDGET_TYPE_NAME { get; set; }
-        public string ORDER_DATE { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
 
         public string REFERENCE_DESC { get; set; }
         public string VIOLATION_NAME { get; set; }
@@ -239,7 +230,6 @@ namespace Audit.Models
         public int WORKING_PERSON { get; set; }
         public int WORKING_DAY { get; set; }
         public int WORKING_ADDITION_TIME { get; set; }
-        public int EXEC_TYPE { get; set; }
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
@@ -251,16 +241,16 @@ namespace Audit.Models
     }
     public class BM4ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int AUDIT_YEAR { get; set; }
-        public int AUDIT_TYPE { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string PERIOD_LABEL { get; set; }
+        public string YEAR_LABEL { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
-        public int AUDIT_BUDGET_TYPE { get; set; }
-        public string BUDGET_TYPE_NAME { get; set; }
-        public string ORDER_DATE { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
 
         public string PROPOSAL_NO { get; set; }
         public string PROPOSAL_VIOLATION_DESC { get; set; }
@@ -283,8 +273,6 @@ namespace Audit.Models
         public int COMPLETION_PROGRESS { get; set; }
         public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
 
-        public int EXEC_TYPE { get; set; }
-
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -295,16 +283,16 @@ namespace Audit.Models
     }
     public class BM5ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int AUDIT_YEAR { get; set; }
-        public int AUDIT_TYPE { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string PERIOD_LABEL { get; set; }
+        public string YEAR_LABEL { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
-        public int AUDIT_BUDGET_TYPE { get; set; }
-        public string BUDGET_TYPE_NAME { get; set; }
-        public string ORDER_DATE { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
 
         public string LAW_RESPONDANT_NAME { get; set; }
         public string LAW_VIOLATION_DESC { get; set; }
@@ -323,8 +311,6 @@ namespace Audit.Models
         public int COMPLETION_INVALID { get; set; }
         public decimal COMPLETION_INVALID_AMOUNT { get; set; }
 
-        public int EXEC_TYPE { get; set; }
-
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -335,11 +321,16 @@ namespace Audit.Models
     }
     public class BM6ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string PERIOD_LABEL { get; set; }
+        public string YEAR_LABEL { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
 
         public int VIOLATION_COUNT { get; set; }
         public decimal VIOLATION_AMOUNT { get; set; }
@@ -364,8 +355,6 @@ namespace Audit.Models
         public int OTHER_COUNT { get; set; }
         public decimal OTHER_AMOUNT { get; set; }
 
-        public int EXEC_TYPE { get; set; }
-
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -376,11 +365,16 @@ namespace Audit.Models
     }
     public class BM7ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string PERIOD_LABEL { get; set; }
+        public string YEAR_LABEL { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
 
         public int INCOME_STATE_COUNT { get; set; }
         public decimal INCOME_STATE_AMOUNT { get; set; }
@@ -407,8 +401,6 @@ namespace Audit.Models
         public int ALL_COUNT { get; set; }
         public decimal ALL_AMOUNT { get; set; }
 
-        public int EXEC_TYPE { get; set; }
-
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
@@ -420,23 +412,22 @@ namespace Audit.Models
 
     public class BM8ListRequest : DataTableAjaxPostModel
     {
-        public int ID { get; set; }
-        public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
-        public string STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-        public string AUDIT_YEAR { get; set; }
-        public string AUDIT_TYPE { get; set; }
-        public string AUDIT_CODE { get; set; }
-        public string AUDIT_NAME { get; set; }
-        public string AUDIT_BUDGET_TYPE { get; set; }
+        public string YEAR_LABEL { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+        public string ORDER_NO { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
+
         public string CORRECTED_ERROR_DESC { get; set; }
         public int CORRECTED_ERROR_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         public string CORRECTED_COUNT { get; set; }
         public string CORRECTED_AMOUNT { get; set; }
-        public string EXEC_TYPE { get; set; }
-        public string CREATED_DATE { get; set; }
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
