@@ -1093,19 +1093,17 @@ namespace Audit.Models
     }
     public class N1ListRequest : DataTableAjaxPostModel
     {
-
-
         public string ORGID { get; set; }
+        //[Required(ErrorMessage = "N1 сонгоно уу.")]
         public string INSERTUSERID { get; set; }
         public string ORGNAME { get; set; }
         public string ORGTYPE { get; set; }
-        public string ORGP_ROLE { get; set; }
-        public string ORGP_FIRSTNAME { get; set; }
-        public int ORGP_PHONE { get; set; }
-        public string ORGP_ROLE2 { get; set; }
-        public string ORGP_FIRSTNAME2 { get; set; }
-        public string ORGP_PHONE2 { get; set; }
-        public string FooterType { get; set; }
+        public string OPEN_HEAD_ROLE { get; set; }
+        public string OPEN_HEAD_NAME { get; set; }
+        public int OPEN_HEAD_PHONE { get; set; }
+        public string OPEN_ACC_ROLE { get; set; }
+        public string OPEN_ACC_NAME { get; set; }
+        public Decimal OPEN_ACC_PHONE { get; set; }
 
 
         public int MD1 { get; set; }
@@ -1148,6 +1146,7 @@ namespace Audit.Models
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
 
+        public string Mayagt { get; set; }
     }
     public class N1ListResponse : DataTableAjaxResponModel
     {
