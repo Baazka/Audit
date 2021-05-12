@@ -143,3 +143,5 @@ function countdown() {
         setTimeout('countdown()', 1000);
     }
 }
+
+var bmbtns;

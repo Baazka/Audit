@@ -347,7 +347,7 @@
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: id, type: 1 },
                         success: function (data, status, xhr) {
                             BM1.progressResponse(data, status, xhr);
                         },
@@ -369,7 +369,7 @@
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: id, type: 2 },
                         success: function (data, status, xhr) {
                             BM1.progressResponse(data, status, xhr);
                         },
