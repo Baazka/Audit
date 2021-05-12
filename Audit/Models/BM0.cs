@@ -44,11 +44,11 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDIT_INCLUDED_ORG { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int WORKING_PERSON { get; set; }
+        public int? WORKING_PERSON { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int WORKING_DAY { get; set; }
+        public int? WORKING_DAY { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int WORKING_ADDITION_TIME { get; set; }
+        public int? WORKING_ADDITION_TIME { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         //public string AUDIT_DEPARTMENT { get; set; }
         public string[] AUDITOR_LEADS { get; set; }
@@ -61,7 +61,7 @@ namespace Audit.Models
         public string AUDITOR_ENTRY { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
-        public decimal AUDIT_SERVICE_PAY { get; set; }
+        public decimal? AUDIT_SERVICE_PAY { get; set; }
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public DateTime? UPDATED_DATE { get; set; }
 
@@ -197,30 +197,61 @@ namespace Audit.Models
     public class BM0Search
     {
         public int ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string YEAR_LABEL { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public string TOPIC_TYPE_NAME { get; set; }
         public string TOPIC_CODE  { get; set; }
         public string TOPIC_NAME { get; set; }
-        public string ORDER_DATE { get; set; }
         public string ORDER_NO { get; set; }
-        public string AUDIT_TYPE { get; set; }
-        public int? AUDIT_BUDGET_TYPE { get; set; }
+        public string ORDER_DATE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public BM0Search SetXml(XElement xml)
         {
             if (xml != null)
             {
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("DEPARTMENT_NAME") != null)
+                    DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("YEAR_LABEL") != null)
+                    YEAR_LABEL = xml.Element("YEAR_LABEL").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("AUDIT_TYPE_NAME") != null)
+                    AUDIT_TYPE_NAME = xml.Element("AUDIT_TYPE_NAME").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("TOPIC_TYPE_NAME") != null)
+                    TOPIC_TYPE_NAME = xml.Element("TOPIC_TYPE_NAME").Value.Replace("\n", "").Replace("\r", "");
                 if (xml.Element("TOPIC_CODE") != null)
                     TOPIC_CODE = xml.Element("TOPIC_CODE").Value.Replace("\n", "").Replace("\r", "");
                 if (xml.Element("TOPIC_NAME") != null)
                     TOPIC_NAME = xml.Element("TOPIC_NAME").Value.Replace("\n", "").Replace("\r", "");
-                if (xml.Element("ORDER_DATE") != null)
-                    ORDER_DATE = xml.Element("ORDER_DATE").Value.Replace("\n", "").Replace("\r", "");
                 if (xml.Element("ORDER_NO") != null)
                     ORDER_NO = xml.Element("ORDER_NO").Value.Replace("\n", "").Replace("\r", "");
-                if (xml.Element("AUDIT_TYPE") != null)
-                    AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
-                if (xml.Element("AUDIT_BUDGET_TYPE") != null)
-                    AUDIT_BUDGET_TYPE = Convert.ToInt32(xml.Element("AUDIT_BUDGET_TYPE").Value);
+                if (xml.Element("ORDER_DATE") != null)
+                    ORDER_DATE = Convert.ToDateTime(xml.Element("ORDER_DATE").Value.Replace("\n", "").Replace("\r", "")).ToString("yyyy.MM.dd");
+                if (xml.Element("BUDGET_TYPE_NAME") != null)
+                    BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value.Replace("\n", "").Replace("\r", "");
+            }
+            return this;
+        }
+    }
+    public class Team
+    {
+        public int ID { get; set; }
+        public int AUDIT_ID { get; set; }
+        public int TEAM_TYPE_ID { get; set; }
+        public int AUDITOR_ID { get; set; }
+        public Team SetXml(XElement xml)
+        {
+            if (xml != null)
+            {
+                if (xml.Element("ID") != null)
+                    ID = Convert.ToInt32(xml.Element("ID").Value);
+                if (xml.Element("AUDIT_ID") != null)
+                    AUDIT_ID = Convert.ToInt32(xml.Element("AUDIT_ID").Value);
+                if (xml.Element("TEAM_TYPE_ID") != null)
+                    TEAM_TYPE_ID = Convert.ToInt32(xml.Element("TEAM_TYPE_ID").Value);
+                if (xml.Element("AUDITOR_ID") != null)
+                    AUDITOR_ID = Convert.ToInt32(xml.Element("AUDITOR_ID").Value);
             }
             return this;
         }

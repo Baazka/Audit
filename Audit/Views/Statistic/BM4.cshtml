@@ -34,6 +34,24 @@
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM4.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM4.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM4', 'БМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын бүртгэл')">
@@ -62,7 +80,6 @@
                         <th rowspan="3">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал</th>
                         <th rowspan="3">Хариуцлага тооцсон баримтын огноо, дугаар</th>
                         <th colspan="4">Албан тушаалтанд хариуцлага тооцуулах саналын хэрэгжилт</th>
-                        <th rowspan="3">Үйлдэл</th>
                     </tr>
                     <tr class="bg-light">
                         <th rowspan="2">Огноо</th>
@@ -103,7 +120,14 @@
         $(document).ready(function () {
             bm4ListInit();
         });
-
+        function rowselected() {
+            $("#BM4 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#BM4 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                BM4.bm4ID = this.getAttribute("data-id");
+            });
+        }
         function bm4ListInit(pagelength = 10) {
             var table = $("#BM4").DataTable({
                 "serverSide": true,
@@ -152,18 +176,18 @@
                     { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
                     { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS", "class": "text-right" },
                     { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM4.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM4.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="BM4.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="BM4.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 columnDefs: [
                     { width: 200, targets: 4 },
@@ -183,18 +207,24 @@
                 "info": true,
                 "stateSave": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
 
         }
-        function Choose(id, code, name, orderdate, orderno, audittype, auditbudgettype) {
-            $("#Bm4Modal input#AUDIT_ID").val(id);
-            $("#Bm4Modal #AUDIT_TYPE").val(audittype);
-            $("#Bm4Modal input#AUDIT_CODE").val(code);
-            $("#Bm4Modal input#AUDIT_NAME").val(name);
-            $("#Bm4Modal input#ORDER_DATE").val(orderdate);
-            $("#Bm4Modal input#ORDER_NO").val(orderno);
-            $("#Bm4Modal #AUDIT_BUDGET_TYPE").val(auditbudgettype);
+        function Choose(id, department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
+            $("#Bm4Modal #AUDIT_ID").val(id);
+            $("#Bm4Modal #DEPARTMENT_NAME").val(department);
+            $("#Bm4Modal #YEAR_LABEL").val(year);
+            $("#Bm4Modal #AUDIT_TYPE_NAME").val(audittype);
+            $("#Bm4Modal #TOPIC_TYPE_NAME").val(topictype);
+            $("#Bm4Modal #TOPIC_CODE").val(code);
+            $("#Bm4Modal #TOPIC_NAME").val(name);
+            $("#Bm4Modal #ORDER_NO").val(orderno);
+            $("#Bm4Modal #ORDER_DATE").val(orderdate);
+            $("#Bm4Modal #BUDGET_TYPE_NAME").val(budgettype);
 
             $('#BM0ListModel').modal('hide');
         }
@@ -206,34 +236,34 @@
         });
         var BM4 = {
             bm4ID: null,
-            table:null,
-        display: function (data) {
-            $("div#bm4modalcontainer").remove();
-            $('<div/>', { id: "bm4modalcontainer" }).appendTo('body').append(data);
+            table: null,
+            display: function (data) {
+                $("div#bm4modalcontainer").remove();
+                $('<div/>', { id: "bm4modalcontainer" }).appendTo('body').append(data);
 
-            $("#Bm4Modal").modal({ show: true });
-            $(".btnBM0listPopup").on('click', function () {
-                if ($('#OFFICE_ID').val() != null && $('#OFFICE_ID').val() != '')
-                    BM4.BM0List($('#OFFICE_ID').val());
-                else
-                    alert('Төрийн аудитын байгууллага сонгоно уу.');
-            });
-        },
-        displayBM0List: function (data) {
-            $("div#bm0listmodalcontainer").remove();
-            $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
+                $("#Bm4Modal").modal({ show: true });
+                $(".btnBM0listPopup").on('click', function () {
+                    if ($('#STATISTIC_PERIOD').val() != null && $('#STATISTIC_PERIOD').val() != '')
+                        BM4.BM0List($('#STATISTIC_PERIOD').val());
+                    else
+                        alert('Тайлант хугацаа сонгоно уу.');
+                });
+            },
+            displayBM0List: function (data) {
+                $("div#bm0listmodalcontainer").remove();
+                $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
 
-            $('#Bm4Modal').modal('hide');
-            $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
-                $('#Bm4Modal').modal('show');
-            });
-        },
-        BM0List: function (officeid) {
-            $.ajax({
+                $('#Bm4Modal').modal('hide');
+                $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#Bm4Modal').modal('show');
+                });
+            },
+            BM0List: function (periodid) {
+                $.ajax({
                     url: '@Url.Action("BM0Search", "Statistic", new { Area = "" })',
                     type: 'GET',
                     cache: false,
-                    data: { officeid },
+                    data: { periodid },
                     success: function (data) {
                         BM4.displayBM0List(data);
                     },
@@ -245,9 +275,9 @@
                         Modal.hide();
                     }
                 });
-        },
-        loadTemplate: function () {
-            $.ajax({
+            },
+            loadTemplate: function () {
+                $.ajax({
                     url: "@Url.Action("BM4AddEdit", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
@@ -261,65 +291,75 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("BM4Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    BM4.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            edit: function () {
+                if (BM4.bm4ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    $.ajax({
+                        url: "@Url.Action("BM4Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM4.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            BM4.bm4ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("BM4Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        BM4.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            delete: function () {
+                if (BM4.bm4ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM4.bm4ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("BM4Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                BM4.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#Bm4Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                BM4.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    BM4.close();
-                    bm4ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#Bm4Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    BM4.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        BM4.close();
+                        bm4ListInit();
+                        Message.success(data.message);
+                        BM4.bm4ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             BM4.table.destroy();

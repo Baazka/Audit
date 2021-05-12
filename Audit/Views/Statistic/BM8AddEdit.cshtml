@@ -17,7 +17,7 @@
         {
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">BM8 бүртгэл</h6>
+                    <h6 class="modal-title" id="exampleModalLabel">БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
                 </div>
                 <div class="modal-body">
@@ -27,124 +27,142 @@
                         </div>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.ID)
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Төрийн аудитын байгууллага:</label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.OFFICE_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                    @Html.ValidationMessageFor(m => m.OFFICE_ID, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Он:</label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">BM0:</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group input-group-sm">
-                                        @Html.EditorFor(m => m.AUDIT_ID, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                </svg>
-                                            </button>
+                        @Html.HiddenFor(m => m.AUDIT_ID)
+                        @Html.HiddenFor(m => m.CREATED_DATE)
+                        <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Тайлант хугацаа: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group row">
+                                            <div class="col-sm-8">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    @Html.ValidationMessageFor(m => m.AUDIT_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.DEPARTMENT_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын он: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.YEAR_LABEL, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын төрөл: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.AUDIT_TYPE_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Сэдвийн үндэслэл: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(model => model.TOPIC_TYPE_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын код: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.TOPIC_CODE, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын нэр: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextAreaFor(m => m.TOPIC_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly", @rows = 3 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Батлагдсан тушаалын дугаар: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.ORDER_NO, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Батлагдсан огноо: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.ORDER_DATE, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төсөв захирагч:</label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.BUDGET_TYPE_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>                           
+                        </div>
+                        <h6 class="heading-1"><span>Залруулсан алдаа</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Алдааны утга:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CORRECTED_ERROR_DESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.CORRECTED_ERROR_DESC, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Алдааны ангилал:</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.CORRECTED_ERROR_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm text-right" })
+                                        @Html.ValidationMessageFor(m => m.CORRECTED_ERROR_TYPE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CORRECTED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder="0" } })
+                                        @Html.ValidationMessageFor(m => m.CORRECTED_COUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CORRECTED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00" } })
+                                        @Html.ValidationMessageFor(m => m.CORRECTED_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Аудитын он:</label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Аудитын төрөл:</label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @readonly = "readonly" })
-                                    @Html.ValidationMessageFor(m => m.AUDIT_TYPE, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Аудитын код:</label>
-                                <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
-                                    @Html.ValidationMessageFor(m => m.AUDIT_CODE, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Аудитын нэр:</label>
-                                <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.AUDIT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
-                                    @Html.ValidationMessageFor(m => m.AUDIT_NAME, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Төсөв захирагч / Сэдвийн ангилал:</label>
-                                <div class="col-sm-8">
-                                    @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                    @Html.ValidationMessageFor(m => m.AUDIT_BUDGET_TYPE, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>                        
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Алдааны утга:</label>
-                                <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.CORRECTED_ERROR_DESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    @Html.ValidationMessageFor(m => m.CORRECTED_ERROR_DESC, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Алдааны ангилал:</label>
-                                <div class="col-sm-8">
-                                   @* @Html.EditorFor(m => m.CORRECTED_ERROR_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })*@
-                                    @Html.DropDownListFor(model => model.CORRECTED_ERROR_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm text-right" })
-                                    @Html.ValidationMessageFor(m => m.CORRECTED_ERROR_TYPE, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Тоо:</label>
-                                <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.CORRECTED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    @Html.ValidationMessageFor(m => m.CORRECTED_COUNT, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Дүн:</label>
-                                <div class="col-sm-8">
-                                    @Html.EditorFor(m => m.CORRECTED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                    @Html.ValidationMessageFor(m => m.CORRECTED_AMOUNT, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>

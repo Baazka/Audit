@@ -26,37 +26,37 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM1();">
                 БМ-1
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM2();">
                 БМ-2
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM3();">
                 БМ-3
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM4();">
                 БМ-4
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM5();">
                 БМ-5
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM8();">
                 БМ-8
             </a>
         </div>
@@ -102,7 +102,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM0" class="table table-bordered table-hover datatable display" >
+            <table id="BM0" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -195,17 +195,17 @@
                     { "data": "FORM_TYPE_NAME", "name": "FORM_TYPE_NAME" },
                     { "data": "PROPOSAL_TYPE_NAME", "name": "PROPOSAL_TYPE_NAME" },
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "AUDIT_INCLUDED_COUNT", "name": "AUDIT_INCLUDED_COUNT" },
-                    { "data": "AUDIT_INCLUDED_ORG", "name": "AUDIT_INCLUDED_ORG" },
-                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON", "class": "text-right" },
-                    { "data": "WORKING_DAY", "name": "WORKING_DAY", "class": "text-right" },
-                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME", "class": "text-right" },
-                    { "data": "AUDIT_SERVICE_PAY", "name": "AUDIT_SERVICE_PAY", "class": "text-right" },
+                    { "data": "AUDIT_INCLUDED_COUNT", "name": "AUDIT_INCLUDED_COUNT", "sortable": false },
+                    { "data": "AUDIT_INCLUDED_ORG", "name": "AUDIT_INCLUDED_ORG", "sortable": false  },
+                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON", "class": "text-right", "sortable": false  },
+                    { "data": "WORKING_DAY", "name": "WORKING_DAY", "class": "text-right", "sortable": false  },
+                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME", "class": "text-right", "sortable": false  },
+                    { "data": "AUDIT_SERVICE_PAY", "name": "AUDIT_SERVICE_PAY", "class": "text-right", "sortable": false  },
                     { "data": "DEPARTMENT_SHORT_NAME", "name": "DEPARTMENT_SHORT_NAME" },
                     { "data": "TEAM_DEPARTMENT_NAME", "name": "TEAM_DEPARTMENT_NAME" },
-                    { "data": "AUDITOR_LEAD", "name": "AUDITOR_LEAD" },
-                    { "data": "AUDITOR_MEMBER", "name": "AUDITOR_MEMBER" },
-                    { "data": "AUDITOR_ENTRY", "name": "AUDITOR_ENTRY" },
+                    { "data": "AUDITOR_LEAD", "name": "AUDITOR_LEAD", "sortable": false  },
+                    { "data": "AUDITOR_MEMBER", "name": "AUDITOR_MEMBER", "sortable": false  },
+                    { "data": "AUDITOR_ENTRY", "name": "AUDITOR_ENTRY", "sortable": false },
                     //{
                     //    "data": null, "sortable": false, "class": 'text-center',
                     //    render: function (data, type, row, meta) {
@@ -242,7 +242,6 @@
                     rowselected();
                 }
             });
-            
         }
         $('#DeparmentID').change(function () {
             bm0ListInit();
@@ -253,85 +252,121 @@
         var BM0 = {
             bm0ID: null,
             type: null,
-            table:null,
-        display: function (data) {
-            $("div#bm0modalcontainer").remove();
-            $('<div/>', { id: "bm0modalcontainer" }).appendTo('body').append(data);
+            table: null,
+            display: function (data) {
+                $("div#bm0modalcontainer").remove();
+                $('<div/>', { id: "bm0modalcontainer" }).appendTo('body').append(data);
 
-            $('#Bm0Modal #AUDIT_TYPE').change(function () {
-                //TopicType
-                if ($("#Bm0Modal #TOPIC_TYPE").children().length > 1)
-                    $("#Bm0Modal #TOPIC_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddTopicTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
+                $('#Bm0Modal #AUDIT_TYPE').change(function () {
+                    //TopicType
+                    if ($("#Bm0Modal #TOPIC_TYPE").children().length > 1)
+                        $("#Bm0Modal #TOPIC_TYPE option:not(:first)").remove();
+                    var $options = $("#Bm0Modal #ddTopicTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+                    $("#Bm0Modal #TOPIC_TYPE").append($options);
+
+                    //BudgetType
+                    if ($("#Bm0Modal #AUDIT_BUDGET_TYPE").children().length > 1)
+                        $("#Bm0Modal #AUDIT_BUDGET_TYPE option:not(:first)").remove();
+                    var $options = $("#Bm0Modal #ddRefBudgetTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+                    $("#Bm0Modal #AUDIT_BUDGET_TYPE").append($options);
+
+                    //FormType
+                    if ($("#Bm0Modal #AUDIT_FORM_TYPE").children().length > 1)
+                        $("#Bm0Modal #AUDIT_FORM_TYPE option:not(:first)").remove();
+                    var $options = $("#Bm0Modal #ddFormTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+                    $("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
                 });
-                $("#Bm0Modal #TOPIC_TYPE").append($options);
 
-                //BudgetType
-                if ($("#Bm0Modal #AUDIT_BUDGET_TYPE").children().length > 1)
-                    $("#Bm0Modal #AUDIT_BUDGET_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddRefBudgetTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
+                $('#Bm0Modal #AUDIT_FORM_TYPE').change(function () {
+
+
+                    //ProsolType
+                    if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
+                        $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
+                    var $options = $("#Bm0Modal #ddProposalTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+                    $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
                 });
-                $("#Bm0Modal #AUDIT_BUDGET_TYPE").append($options);
-
-                //FormType
-                if ($("#Bm0Modal #AUDIT_FORM_TYPE").children().length > 1)
-                    $("#Bm0Modal #AUDIT_FORM_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddFormTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
+                $("#Bm0Modal").modal({ show: true });
+                $(".btnSystemUserLeadPopup").on('click', function () {
+                    BM0.SystemUserList(1);
                 });
-                $("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
-            });
-
-            $('#Bm0Modal #AUDIT_FORM_TYPE').change(function () {
-
-
-                //ProsolType
-                if ($("#Bm0Modal #AUDIT_PROPOSAL_TYPE").children().length > 1)
-                    $("#Bm0Modal #AUDIT_PROPOSAL_TYPE option:not(:first)").remove();
-                var $options = $("#Bm0Modal #ddProposalTypeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
+                $(".btnSystemUserMemberPopup").on('click', function () {
+                    BM0.SystemUserList(2);
                 });
-                $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
-            });
-            $("#Bm0Modal").modal({ show: true });
-            $(".btnSystemUserLeadPopup").on('click', function () {
-                BM0.SystemUserList(1);
-            });
-            $(".btnSystemUserMemberPopup").on('click', function () {
-                BM0.SystemUserList(2);
-            });
-        },
-        displaySystemUserList: function (data) {
-            $("div#systemuserlistmodalcontainer").remove();
-            $('<div/>', { id: "systemuserlistmodalcontainer" }).appendTo('body').append(data);
+            },
+            displaySystemUserList: function (data) {
+                $("div#systemuserlistmodalcontainer").remove();
+                $('<div/>', { id: "systemuserlistmodalcontainer" }).appendTo('body').append(data);
 
-            $('#Bm0Modal').modal('hide');
-            $('#usermodal').modal({ show: true }).on('hidden.bs.modal', function (e) {
-                $('#Bm0Modal').modal('show');
-            });
-        },
-        SystemUserList: function (type) {
-            BM0.type = type;
-            $.ajax({
-                url: '@Url.Action("SystemUserModal", "Statistic", new { Area = "" })',
-                type: 'GET',
-                cache: false,
-                success: function (data) {
-                    BM0.displaySystemUserList(data);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
-                }
-            });
-        },
-        loadTemplate: function () {
-            $.ajax({
+                $('#Bm0Modal').modal('hide');
+                $('#usermodal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#Bm0Modal').modal('show');
+                });
+            },
+            displayBM1: function (data) {
+                $("div#bm1modalcontainer").remove();
+                $('<div/>', { id: "bm1modalcontainer" }).appendTo('body').append(data);
+
+                $("#Bm1Modal").modal({ show: true });
+            },
+            displayBM2: function (data) {
+                $("div#bm2modalcontainer").remove();
+                $('<div/>', { id: "bm2modalcontainer" }).appendTo('body').append(data);
+
+                $("#Bm2Modal").modal({ show: true });
+            },
+            displayBM3: function (data) {
+                $("div#bm3modalcontainer").remove();
+                $('<div/>', { id: "bm3modalcontainer" }).appendTo('body').append(data);
+
+                $("#Bm3Modal").modal({ show: true });
+            },
+            displayBM4: function (data) {
+                $("div#bm4modalcontainer").remove();
+                $('<div/>', { id: "bm4modalcontainer" }).appendTo('body').append(data);
+
+                $("#Bm4Modal").modal({ show: true });
+            },
+            displayBM5: function (data) {
+                $("div#bm5modalcontainer").remove();
+                $('<div/>', { id: "bm5modalcontainer" }).appendTo('body').append(data);
+
+                $("#Bm5Modal").modal({ show: true });
+            },
+            displayBM8: function (data) {
+                $("div#bm8modalcontainer").remove();
+                $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
+
+                $("#Bm8Modal").modal({ show: true });
+            },
+            SystemUserList: function (type) {
+                BM0.type = type;
+                $.ajax({
+                    url: '@Url.Action("SystemUserModal", "Statistic", new { Area = "" })',
+                    type: 'GET',
+                    cache: false,
+                    success: function (data) {
+                        BM0.displaySystemUserList(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            loadTemplate: function () {
+                $.ajax({
                     url: "@Url.Action("BM0AddEdit", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
@@ -345,79 +380,214 @@
                         Modal.hide();
                     }
                 });
-        },
+            },
             edit: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                   var id = BM0.bm0ID;
-            $.ajax({
-                url: "@Url.Action("BM0Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    BM0.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+                    var id = BM0.bm0ID;
+                    $.ajax({
+                        url: "@Url.Action("BM0Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-                }
-
-        },
+            },
             delete: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
                     var id = BM0.bm0ID;
                     var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("BM0Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        BM0.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("BM0Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                BM0.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
                 }
-
-
-        },
-        close: function () {
-            $("#Bm0Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                BM0.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    BM0.close();
-                    bm0ListInit();
-                    Message.success(data.message);
-                    BM0.bm0ID = null;
-                    $("#FilterForm .enableBtn").addClass("disabled")
+            },
+            editBM1: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM0.bm0ID;
+                    $.ajax({
+                        url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            editBM2: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM0.bm0ID;
+                    $.ajax({
+                        url: "@Url.Action("BM2Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            editBM3: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM0.bm0ID;
+                    $.ajax({
+                        url: "@Url.Action("BM3Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            editBM4: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM0.bm0ID;
+                    $.ajax({
+                        url: "@Url.Action("BM4Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            editBM5: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM0.bm0ID;
+                    $.ajax({
+                        url: "@Url.Action("BM5Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            editBM8: function () {
+                if (BM0.bm0ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM0.bm0ID;
+                    $.ajax({
+                        url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            close: function () {
+                $("#Bm0Modal").modal("hide");
+                $("#Bm1Modal").modal("hide");
+                $("#Bm2Modal").modal("hide");
+                $("#Bm3Modal").modal("hide");
+                $("#Bm4Modal").modal("hide");
+                $("#Bm5Modal").modal("hide");
+                $("#Bm8Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    BM0.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        BM0.close();
+                        bm0ListInit();
+                        Message.success(data.message);
+                        BM0.bm0ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled")
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             BM0.table.destroy();

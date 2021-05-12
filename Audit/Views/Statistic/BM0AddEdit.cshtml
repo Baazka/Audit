@@ -1,27 +1,5 @@
 ﻿@model Audit.Models.BM0
-<style>
-    .heading-1 {
-        position: relative;
-    }
 
-        .heading-1:before {
-            content: "";
-            display: block;
-            border-top: solid 1px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            height: 1px;
-            position: absolute;
-            top: 50%;
-            z-index: 0;
-        }
-
-        .heading-1 span {
-            background: #fff;
-            padding: 0 10px;
-            position: relative;
-            z-index: 1;
-        }
-</style>
 <div class="modal fade" id="Bm0Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM0AddEdit", "Statistic", new { Area = "" },
@@ -198,7 +176,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Ажилласан хүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.WORKING_PERSON, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.WORKING_PERSON, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +184,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Ажилласан өдөр:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.WORKING_DAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.WORKING_DAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +192,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Ажилласан илүү цаг:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.WORKING_ADDITION_TIME, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.WORKING_ADDITION_TIME, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +200,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Аудитын үйлчилгээний төлбөр:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal" } })
+                                        @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal", @placeholder = "0.00" } })
                                     </div>
                                 </div>
                             </div>
@@ -329,9 +307,9 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
-      if ($('#AUDIT_DEPARTMENT_TYPE').val() == 1)
+      if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1)
           $('.team_department').removeClass('d-none');
-      if ($('#AUDIT_DEPARTMENT_TYPE').val() == 2)
+      else
           $('.team_audit').removeClass('d-none');
       $("input[name='AUDIT_DEPARTMENT_TYPE']").click(function () {
           if (this.value == 1) {

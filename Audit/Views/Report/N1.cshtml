@@ -1,0 +1,385 @@
+﻿
+
+@using Audit.Models
+@model Audit.Models.N1VM
+@{ ViewBag.Title = "ReportN1";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<style>
+   
+
+    .vertical {
+        writing-mode: vertical-lr;
+        -ms-writing-mode: tb-rl;
+        transform: rotate(180deg);
+    }
+</style>
+<div class="d-flex">
+    <a href="@Url.Action("Index","Report")" class="btn btn-sm btn-light mr-2">
+        <span class="icon text-gray-600">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+    </a>
+    <h4>Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт-1.1</h4>
+</div>
+<br />
+<center><h6>Төсвийн ерөнхийлөн захирагчийн төсвийн багцад харъяалагдах компани, ААН байгууллагын тоо: </h6></center>
+<hr class="sidebar-divider">
+
+
+
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="N1ListInit(pagelength = 10,1);">
+                Маягт-1
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="N1ListInit(pagelength = 10,2);">
+                Маягт-2
+            </a>
+        </div>
+
+        <div class="form-group-sm ml-auto pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="N1exportXLSX" onclick="exportFileExcel('ReportN1', 'Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт-1.1 ')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+        @*<div class="container">
+            <div class="row">
+                <div class="col-6 col-sm-4">ТЕЗ</div>
+                <div class="col-6 col-sm-4">НЗД</div>
+                <div class="w-100"></div>
+                <div class="col-6 col-sm-4">ТТЗ/ТЕЗ</div>
+                <div class="col-6 col-sm-4">НЗД</div>
+                <div class="w-100"></div>
+                <div class="col-6 col-sm-4">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</div>
+                <div class="col-6 col-sm-4">Баянзүрх сургууль</div>
+            </div>
+        </div>*@
+
+
+
+
+
+
+
+        @*<div class="form-group-sm ml-auto pr-2">
+            <br />
+            <p>Хамрах хугацаа: </p>
+        </div>*@
+        
+       </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="ReportN1" class=" table table-bordered table-hover datatable display">
+                <thead>
+                    <tr class="bg-light">
+                        <th rowspan="2" class="text-center">№</th>
+                        <th rowspan="2" class="text-center">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</th>
+                        <th colspan="3">I/10</th>
+                        <th colspan="16">Дараа сарын 8/Улирал бүр</th>
+                        <th colspan="1">VIII/15</th>
+                        <th colspan="1">IV/25</th>
+                        <th colspan="1">IX/15</th>
+                        <th colspan="1">VIII/15</th>
+                        <th colspan="2">IV/25</th>
+                        <th colspan="1">VII/01</th>
+                        <th colspan="4">Улирал бүр</th>
+                        <th colspan="1">Тухай бүр</th>
+                        <th colspan="2">Мэдээлэл байршуулах албан тушаалтан  </th>
+                    </tr>
+
+                    <tr class="bg-light">
+                        <th><span class="vertical">6.1.1 Тухайн жилийн төсөв</span></th>
+                        <th><span class="vertical">6.1.1. ОНХС-ийн төлөвлөгөө</span> </th>
+                        <th><span class="vertical">6.1.1. ХАА-ны төлөвлөгөө </span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 1-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 2-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 3-р сар</span></th>
+                        <th><span class="vertical">6.1.2.Төсвийн гүйцэтгэл 1-р улирал</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 4-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 5-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 6-р сар</span></th>
+                        <th><span class="vertical">6.1.2.Төсвийн гүйцэтгэл 2-р улирал</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 7-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 8-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 9-р сар</span></th>
+                        <th><span class="vertical">6.1.2.Төсвийн гүйцэтгэл 3-р улирал</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 10-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 11-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 12-р сар</span></th>
+                        <th><span class="vertical">6.1.2. Төсвийн гүйцэтгэл 4-р улирал</span></th>
+                        <th>6.1.2. Хагас жилийн төсвийн гүйцэтгэл </th>
+                        <th>6.1.2.Өмнөх оны төсвийн гүйцэтгэл</th>
+                        <th>6.1.3. Дараа жилийн төсвийн төсөл </th>
+                        <th>6.1.4. Санхүүгийн тайлан /хагас жил/</th>
+                        <th>6.1.4. Санхүүгийн тайлан /жилийн эцсийн/</th>
+                        <th>6.1.5. ТЕЗ-ын төсвийн багцад хийсэн аудитын дүгнэлт</th>
+                        <th>6.1.5. Аудитын тайлан, дүгнэлтэд тусгагдсан асуудлаар авч хэрэгжүүлсэн арга хэмжээ</th>
+                        <th>6.1.6. Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал</th>
+                        <th>6.1.6. Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал</th>
+                        <th>6.1.6. Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал</th>
+                        <th>6.1.6. Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал</th>
+                        <th>6.1.7 Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт</th>
+                        <th>Төсөв захирагчийн албан тушаал, нэр, холбоо барих утас</th>
+                        <th>Нягтлан бодогчийн албан тушаал, нэр, холбоо барих утас </th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                </tbody>
+                @*<tfoot>
+                    <tr>
+                        <th colspan="1" style="text-align:right">Total:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>*@
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            
+            N1ListInit();
+        });
+
+     
+
+        function N1ListInit(pagelength = 10, mayagt) {
+            var count = 0
+            N1.table = $("#ReportN1").DataTable({
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/N1List",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.Mayagt = mayagt;
+                        count = 0;
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ORGID);
+                    //var api = this.api(), data;
+                    
+                    //$(api.column(1).footer()).html(
+                    //     data.MD1 
+                    //);
+                },
+              
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            
+                           
+                            if (data.ORGNAME === "НИЙТ ДҮН") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлсэн") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлээгүй") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Хугацаа хоцроосон") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Хугацаа хоцролтын хэрэгжилтийн хувь") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Төсвийн ерөнхийлөн захирагч") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Төсвийн төвлөрүүлэн захирагч") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Төсвийн шууд захирагч") {
+                                return "";
+                            }
+
+                            else
+                              
+                                return count = count + 1;
+                               
+                        }
+                    },
+                    { "data": "ORGNAME", "name": "ORGNAME"},
+                    { "data": "MD1", "name": "MD1", "class": "text-center"},
+                    { "data": "MD2", "name": "MD2", "class": "text-center"},
+                    { "data": "MD35", "name": "MD35", "class": "text-center"},
+                    { "data": "MD4", "name": "MD4", "class": "text-center"},
+                    { "data": "MD5", "name": "MD5", "class": "text-center"},
+                    { "data": "MD6", "name": "MD6", "class": "text-center"},
+                    { "data": "MD7", "name": "MD7", "class": "text-center"},
+                    { "data": "MD8", "name": "MD8", "class": "text-center"},
+                    { "data": "MD9", "name": "MD9", "class": "text-center"},
+                    { "data": "MD10", "name": "MD10", "class": "text-center"},
+                    { "data": "MD11", "name": "MD11", "class": "text-center"},
+                    { "data": "MD12", "name": "MD12", "class": "text-center"},
+                    { "data": "MD13", "name": "MD13", "class": "text-center"},
+                    { "data": "MD14", "name": "MD14", "class": "text-center"},
+                    { "data": "MD15", "name": "MD15", "class": "text-center"},
+                    { "data": "MD16", "name": "MD16", "class": "text-center"},
+                    { "data": "MD17", "name": "MD17", "class": "text-center"},
+                    { "data": "MD18", "name": "MD18", "class": "text-center"},
+                    { "data": "MD19", "name": "MD19", "class": "text-center"},
+                    { "data": "MD20", "name": "MD20", "class": "text-center"},
+                    { "data": "MD21", "name": "MD21", "class": "text-center"},
+                    { "data": "MD22", "name": "MD22", "class": "text-center"},
+                    { "data": "MD23", "name": "MD23", "class": "text-center"},
+                    { "data": "MD24", "name": "MD24", "class": "text-center"},
+                    { "data": "MD25", "name": "MD25", "class": "text-center"},
+                    { "data": "MD26", "name": "MD26", "class": "text-center"},
+                    { "data": "MD28", "name": "MD28", "class": "text-center"},
+                    { "data": "MD29", "name": "MD29", "class": "text-center"},
+                    { "data": "MD30", "name": "MD30", "class": "text-center"},
+                    { "data": "MD31", "name": "MD31", "class": "text-center"},
+                    { "data": "MD32", "name": "MD32", "class": "text-center"},
+                    { "data": "OPEN_HEAD_ROLE", "name": "OPEN_HEAD_NAME" },
+                    { "data": "OPEN_ACC_ROLE", "name": "OPEN_HEAD_PHONE" },
+                ],
+                columnDefs: [
+                    { width: 10, targets: 1 },
+                    { width: "1px" , targets: 2 },
+                    { width: 200, targets: 10 },
+
+                ],
+
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
+                "destroy": true,
+                "paging": false,
+                "pageLength": pagelength,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                lengthChange: true,
+                "language": datatables.language,
+                "ordering": false,
+             
+               
+            });
+
+        }
+
+        $('#DeparmentID').change(function () {
+            N1ListInit();
+        });
+       
+
+        var N1 = {
+            N1ID: null,
+            table:null,
+        display: function (data) {
+           
+            
+            },
+
+        
+     
+   
+        close: function () {
+            $("#Bm0Modal").modal("hide");
+        },
+        //progressResponse: function (data, status, xhr) {
+        //    var ct = xhr.getResponseHeader("content-type") || "";
+        //    if (ct.indexOf("html") > -1) {
+        //        N1.display(data);
+        //    }
+        //    if (ct.indexOf('json') > -1) {
+        //        if (data.error) {
+        //            Message.error(data.message);b
+        //        } else {
+        //            $('.modal-backdrop:first').remove()
+        //            N1.close();
+        //            N1ListInit();
+        //            Message.success(data.message);
+        //        }
+        //    }
+        //}
+    }
+        function exportFileExcel(tableid, excelname,) {
+            $('#N1exportXLSX').addClass('disabled');
+            N1.table.destroy();
+            N1ListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                N1.table.destroy();
+                N1ListInit();
+                $('#N1exportXLSX').removeClass('disabled');
+            }, 5000
+            )
+        }
+    </script>
+}
+
+
+
