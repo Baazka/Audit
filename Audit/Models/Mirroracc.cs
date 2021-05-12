@@ -120,6 +120,48 @@ namespace Audit.Models
         }
     }
 
+    public class MirroraccHakOrgList
+    {
+        public int OPEN_ID { get; set; }
+        public string BUDGET_SHORT_NAME { get; set; }
+        public string OPEN_ENT_BUDGET_PARENT { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
+        public string OPEN_ENT_NAME { get; set; }
+        public string OPEN_ENT_REGISTER_NO { get; set; }
+        public string MAYGT { get; set; }
+        public int IS_FINISHED { get; set; }
+        public int IS_PRINTED { get; set; }
+        public string USER_NAME { get; set; }
+        public string INSERTDATE { get; set; }
+
+        public MirroraccHakOrgList FromXml(XElement elem)
+        {
+            if (elem.Element("OPEN_ID") != null)
+                OPEN_ID = Convert.ToInt32(elem.Element("OPEN_ID").Value);
+            if (elem.Element("BUDGET_SHORT_NAME") != null)
+                BUDGET_SHORT_NAME = elem.Element("BUDGET_SHORT_NAME").Value;
+            if (elem.Element("OPEN_ENT_BUDGET_PARENT") != null)
+                OPEN_ENT_BUDGET_PARENT = elem.Element("OPEN_ENT_BUDGET_PARENT").Value;
+            if (elem.Element("DEPARTMENT_NAME") != null)
+                DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
+            if (elem.Element("OPEN_ENT_NAME") != null)
+                OPEN_ENT_NAME = elem.Element("OPEN_ENT_NAME").Value;
+            if (elem.Element("OPEN_ENT_REGISTER_NO") != null)
+                OPEN_ENT_REGISTER_NO = elem.Element("OPEN_ENT_REGISTER_NO").Value;
+            if (elem.Element("MAYGT") != null)
+                MAYGT = elem.Element("MAYGT").Value;
+            if (elem.Element("IS_FINISHED") != null)
+                IS_FINISHED = Convert.ToInt32(elem.Element("IS_FINISHED").Value);
+            if (elem.Element("IS_PRINTED") != null)
+                IS_PRINTED = Convert.ToInt32(elem.Element("IS_PRINTED").Value);
+            if (elem.Element("USER_NAME") != null)
+                USER_NAME = elem.Element("USER_NAME").Value;
+            if (elem.Element("INSERTDATE") != null)
+                INSERTDATE = elem.Element("INSERTDATE").Value;
+            return this;
+        }
+    }
+
     public class Tab1
     {
         public string MD_CODE { get; set; }

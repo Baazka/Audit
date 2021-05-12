@@ -2306,6 +2306,7 @@
     <Content Include="Views\Statistic\SystemUserModal.cshtml" />
     <Content Include="Views\Report\N1.cshtml" />
     <Content Include="Views\Statistic\BM1AddEditCompletion.cshtml" />
+    <Content Include="Views\Report\Report1N2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

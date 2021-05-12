@@ -6137,6 +6137,157 @@ namespace Audit.App_Func
             return response;
         }
 
+        public static DataResponse MirrorHakOrgList(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
+                con.Open();
+
+                XElement req = request.Element("Parameters").Element("Request");
+
+                //RowCount
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "F_OPEN_HAK_ORG_COUNT";
+
+                OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
+                    OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
+                cmd.Parameters.Add(":UserID", OracleDbType.Int32, request.Element("Parameters").Element("UserID")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                //cmd.Parameters.Add(":P_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS") != null && !string.IsNullOrEmpty(req.Element("V_STATUS").Value) ? req.Element("V_STATUS")?.Value : null, System.Data.ParameterDirection.Input);
+                //cmd.Parameters.Add(":P_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION") != null && !string.IsNullOrEmpty(req.Element("V_VIOLATION").Value) ? req.Element("V_VIOLATION")?.Value.Replace(",", "%") : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+
+                //Create and execute the command
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
+                                  "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, " +
+                                  "(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE IN(107, 165) AND IS_FINISH = 1 AND ORGID = A.OPEN_ID) IS_FINISHED, " +
+                                  "(SELECT IS_PRINT FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 107 AND IS_PRINT = 1 AND ORGID = A.OPEN_ID) IS_PRINTED, " +
+                                  "(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
+                                  "(SELECT TO_CHAR(J.INSERTDATE, 'YYYY-MM-DD') INSERTDATE FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) INSERTDATE " +
+                                  "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
+                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B ON A.OPEN_ID = B.ORGID " +
+                                  "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON A.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
+                                  "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
+                                  "INNER JOIN AUD_REG.SYSTEM_USER_DEPARTMENT E ON A.OPEN_ENT_DEPARTMENT_ID = E.DEP_ID " +
+                                  "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND E.DEP_USER_ID = :UserID AND IS_FINISH IS NULL " +
+                                  "AND (:V_DEPARTMENT IS NULL OR A.OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
+                                  "AND (:V_BUDGET_TYPE IS NULL OR (A.OPEN_ENT_BUDGET_TYPE IN (:V_BUDGET_TYPE))) " +
+                                  "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                                  "OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                                  "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
+                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID " +
+                                  "ORDER BY " +
+                                  "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN D.DEPARTMENT_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN D.DEPARTMENT_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'DESC' THEN D.DEPARTMENT_NAME END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'ASC' THEN C.BUDGET_SHORT_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'DESC' THEN C.BUDGET_SHORT_NAME END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'MAYGT' AND :ORDER_DIR = 'ASC' THEN MAYGT END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'MAYGT' AND :ORDER_DIR = 'DESC' THEN MAYGT END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'ASC' THEN IS_FINISHED END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'DESC' THEN IS_FINISHED END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'ASC' THEN IS_PRINTED END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'DESC' THEN IS_PRINTED END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'ASC' THEN USER_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'DESC' THEN USER_NAME END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN INSERTDATE END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN INSERTDATE END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'ASC' THEN A.OPEN_ENT_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'DESC' THEN A.OPEN_ENT_NAME END DESC " +
+                                  "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
+                                  "FETCH NEXT: PAGESIZE ROWS ONLY";
+
+                //"SELECT R1.ORG_ID, R1.ORG_DEPARTMENT_ID, RD.DEPARTMENT_NAME, R1.ORG_REGISTER_NO, R1.ORG_NAME, R1.ORG_CODE, R1.ORG_BUDGET_TYPE_ID, RB.BUDGET_TYPE_NAME, R1.ORG_CONCENTRATOR_ID, R2.ORG_NAME AS RG_CONCENTRATOR_NAME, R1.VIOLATION_DETAIL, R1.ORG_STATUS_ID, RS.STATUS_NAME, R1.INFORMATION_DETAIL, " +
+                //"(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 109 AND IS_FINISH = 1 AND ORGID = R1.ORG_ID) TAB1_IS_FINISH, " +
+                //"(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 165 AND IS_FINISH = 1 AND ORGID = R1.ORG_ID) TAB2_IS_FINISH, " +
+                //"(SELECT PROJECT_IS_ACTIVE FROM AUD_MIRRORACC.ORG_PROJECT_LIST WHERE MDCODE = 172 AND PROJECT_IS_ACTIVE = 1 AND ORGID = R1.ORG_ID) TAB3_IS_FINISH " +
+                //"FROM AUD_REG.REG_ORGANIZATION R1 " +
+                //"INNER JOIN AUD_REG.REF_DEPARTMENT RD ON R1.ORG_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                //"INNER JOIN AUD_REG.REF_BUDGET_TYPE RB ON R1.ORG_BUDGET_TYPE_ID = RB.BUDGET_TYPE_ID " +
+                //"LEFT JOIN AUD_REG.REG_ORGANIZATION R2 ON R1.ORG_CONCENTRATOR_ID = R2.ORG_ID " +
+                //"INNER JOIN AUD_REG.REF_STATUS RS ON R1.ORG_STATUS_ID = RS.STATUS_ID " +
+                //"WHERE R1.IS_ACTIVE = 1 AND (:DEP_ID = 2 OR (:DEP_ID !=2 AND R1.ORG_DEPARTMENT_ID = :DEP_ID)) " +
+                //"AND (:V_DEPARTMENT IS NULL OR R1.ORG_DEPARTMENT_ID = :V_DEPARTMENT) " +
+                //"AND (:V_STATUS IS NULL OR (R1.ORG_STATUS_ID IN (:V_STATUS))) " +
+                //"AND (:V_BUDGET_TYPE IS NULL OR (R1.ORG_BUDGET_TYPE_ID IN (:V_BUDGET_TYPE))) " +
+                //"AND (:V_VIOLATION IS NULL OR (R1.VIOLATION_DETAIL LIKE '%'||:V_VIOLATION||'%')) " +
+                //"AND (:V_SEARCH IS NULL OR UPPER(RD.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                //"OR UPPER(R1.ORG_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(R1.ORG_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                //"OR UPPER(R1.ORG_CODE) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RB.BUDGET_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                //"OR UPPER(R1.VIOLATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(R1.INFORMATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                //"OR UPPER(RS.STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
+                //"ORDER BY " +
+                //"CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN R1.ORG_ID END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN RD.DEPARTMENT_NAME END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'DESC' THEN RD.DEPARTMENT_NAME END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'ORG_REGISTER_NO' AND :ORDER_DIR = 'ASC' THEN R1.ORG_REGISTER_NO END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'ORG_REGISTER_NO' AND :ORDER_DIR = 'DESC' THEN R1.ORG_REGISTER_NO END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'ORG_NAME' AND :ORDER_DIR = 'ASC' THEN R1.ORG_NAME END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'ORG_NAME' AND :ORDER_DIR = 'DESC' THEN R1.ORG_NAME END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'ORG_CODE' AND :ORDER_DIR = 'ASC' THEN R1.ORG_CODE END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'ORG_CODE' AND :ORDER_DIR = 'DESC' THEN R1.ORG_CODE END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND :ORDER_DIR = 'ASC' THEN RB.BUDGET_TYPE_NAME END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND :ORDER_DIR = 'DESC' THEN RB.BUDGET_TYPE_NAME END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'CONCENTRATOR_NAME' AND :ORDER_DIR = 'ASC' THEN R2.ORG_NAME END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'CONCENTRATOR_NAME' AND :ORDER_DIR = 'DESC' THEN R2.ORG_NAME END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'VIOLATION_DETAIL' AND :ORDER_DIR = 'ASC' THEN R1.VIOLATION_DETAIL END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'VIOLATION_DETAIL' AND :ORDER_DIR = 'DESC' THEN R1.VIOLATION_DETAIL END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'STATUS_NAME' AND :ORDER_DIR = 'ASC' THEN RS.STATUS_NAME END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'STATUS_NAME' AND :ORDER_DIR = 'DESC' THEN RS.STATUS_NAME END DESC, " +
+                //"CASE WHEN :ORDER_NAME = 'INFORMATION_DETAIL' AND :ORDER_DIR = 'ASC' THEN R1.INFORMATION_DETAIL END ASC, " +
+                //"CASE WHEN :ORDER_NAME = 'INFORMATION_DETAIL' AND :ORDER_DIR = 'DESC' THEN R1.INFORMATION_DETAIL END DESC " +
+                //"OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
+                //"FETCH NEXT :PAGESIZE ROWS ONLY";
+
+                cmd.BindByName = true;
+                // Set parameters
+                cmd.Parameters.Add(":UserID", OracleDbType.Int32, request.Element("Parameters").Element("UserID").Value, System.Data.ParameterDirection.Input);
+
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                //cmd.Parameters.Add(":V_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS")?.Value, System.Data.ParameterDirection.Input);
+                //cmd.Parameters.Add(":V_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION")?.Value.Replace(",", "%"), System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_BUDGET_TYPE", OracleDbType.Varchar2, req.Element("V_BUDGET_TYPE")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "MirroraccHakOrgList";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                xmlResponseData.Add(new XElement("RowCount", retParam.Value));
+                response.CreateResponse(xmlResponseData);
+
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+
         public static DataResponse MirrorOrgDetail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -7423,6 +7574,181 @@ namespace Audit.App_Func
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
                 // xmlResponseData.Add(new XElement("RowCount", count));
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+
+        public static DataResponse Report1N2(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+                XElement req = request.Element("Parameters").Element("Request");
+                
+
+                OracleCommand cmd = con.CreateCommand();
+             
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "WITH negtgel2 AS(" +
+                                "SELECT* FROM( " +
+                                "SELECT ORGID, INSERTUSERID, MDCODE, DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                                "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
+                                "WHERE MDCODE BETWEEN 33 AND 169 AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +
+                                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' " +
+                                ") D " +
+                                "PIVOT( " +
+                                "MAX(DATA01) " +
+                                "FOR MDCODE IN(33 MD33, 34 MD34, 37 MD37, 38 MD38, 39 MD39, 40 MD40, 41 MD41, 42 MD42, 43 MD43, 44 MD44, 45 MD45, 46 MD46, 47 MD47, 48 MD48, 49 MD49, 50 MD50, 51 MD51, 52 MD52, 53 MD53, 54 MD54, 55 MD55, 56 MD56, 57 MD57, 58 MD58, 59 MD59, 60 MD60, 61 MD61, 62 MD62, 63 MD63, 64 MD64, 65 MD65, 66 MD66, 67 MD67, 68 MD68, 69 MD69, 70 MD70, 71 MD71, 72 MD72, 73 MD73, 74 MD74, 75 MD75, 76 MD76, 77 MD77, 78 MD78, 79 MD79, 80 MD80, 81 MD81, 82 MD82, 83 MD83, 84 MD84, 85 MD85, 86 MD86, 87 MD87, 88 MD88, 89 MD89, 90 MD90, 91 MD91, 92 MD92, 93 MD93, 94 MD94, 95 MD95, 96 MD96, 97 MD97, 98 MD98, 99 MD99, 100 MD100, 101 MD101, 102 MD102, 103 MD103, 104 MD104, 105 MD105, 106 MD106, 158 MD158, 159 MD159, 160 MD160, 161 Md161, 162 MD162, 165 MD165, 166 MD166, 167 MD167, 168 MD168, 169 MD169) " +
+                                ") P1 " +
+                                ") " +
+                                "SELECT ORGID, " +
+                                "COUNT(CASE WHEN MD33 = 1 THEN 1 WHEN MD33 = 2 THEN 1 WHEN MD33 = 3 THEN 1 WHEN MD33 = 4 THEN 1  END) MD33, " +
+                                "COUNT(CASE WHEN MD34 = 1 THEN 1 WHEN MD34 = 2 THEN 1 WHEN MD34 = 3 THEN 1 WHEN MD34 = 4 THEN 1  END) MD34, " +
+                                "COUNT(CASE WHEN MD37 = 1 THEN 1 WHEN MD37 = 2 THEN 1 WHEN MD37 = 3 THEN 1 WHEN MD37 = 4 THEN 1  END) MD37, " +
+                                "COUNT(CASE WHEN MD38 = 1 THEN 1 WHEN MD38 = 2 THEN 1 WHEN MD38 = 3 THEN 1 WHEN MD38 = 4 THEN 1  END) MD38, " +
+                                "COUNT(CASE WHEN MD39 = 1 THEN 1 WHEN MD39 = 2 THEN 1 WHEN MD39 = 3 THEN 1 WHEN MD39 = 4 THEN 1  END) MD39, " +
+                                "COUNT(CASE WHEN MD40 = 1 THEN 1 WHEN MD40 = 2 THEN 1 WHEN MD40 = 3 THEN 1 WHEN MD40 = 4 THEN 1  END) MD40, " +
+                                "COUNT(CASE WHEN MD41 = 1 THEN 1 WHEN MD41 = 2 THEN 1 WHEN MD41 = 3 THEN 1 WHEN MD41 = 4 THEN 1  END) MD41, " +
+                                "COUNT(CASE WHEN MD42 = 1 THEN 1 WHEN MD42 = 2 THEN 1 WHEN MD42 = 3 THEN 1 WHEN MD42 = 4 THEN 1  END) MD42, " +
+                                "COUNT(CASE WHEN MD43 = 1 THEN 1 WHEN MD43 = 2 THEN 1 WHEN MD43 = 3 THEN 1 WHEN MD43 = 4 THEN 1  END) MD43, " +
+                                "COUNT(CASE WHEN MD44 = 1 THEN 1 WHEN MD44 = 2 THEN 1 WHEN MD44 = 3 THEN 1 WHEN MD44 = 4 THEN 1  END) MD44, " +
+                                "COUNT(CASE WHEN MD45 = 1 THEN 1 WHEN MD45 = 2 THEN 1 WHEN MD45 = 3 THEN 1 WHEN MD45 = 4 THEN 1  END) MD45, " +
+                                "COUNT(CASE WHEN MD46 = 1 THEN 1 WHEN MD46 = 2 THEN 1 WHEN MD46 = 3 THEN 1 WHEN MD46 = 4 THEN 1  END) MD46, " +
+                                "COUNT(CASE WHEN MD47 = 1 THEN 1 WHEN MD47 = 2 THEN 1 WHEN MD47 = 3 THEN 1 WHEN MD47 = 4 THEN 1  END) MD47, " +
+                                "COUNT(CASE WHEN MD48 = 1 THEN 1 WHEN MD48 = 2 THEN 1 WHEN MD48 = 3 THEN 1 WHEN MD48 = 4 THEN 1  END) MD48, " +
+                                "COUNT(CASE WHEN MD49 = 1 THEN 1 WHEN MD49 = 2 THEN 1 WHEN MD49 = 3 THEN 1 WHEN MD49 = 4 THEN 1  END) MD49, " +
+                                "COUNT(CASE WHEN MD50 = 1 THEN 1 WHEN MD50 = 2 THEN 1 WHEN MD50 = 3 THEN 1 WHEN MD50 = 4 THEN 1  END) MD50, " +
+                                "COUNT(CASE WHEN MD51 = 1 THEN 1 WHEN MD51 = 2 THEN 1 WHEN MD51 = 3 THEN 1 WHEN MD51 = 4 THEN 1  END) MD51, " +
+                                "COUNT(CASE WHEN MD52 = 1 THEN 1 WHEN MD52 = 2 THEN 1 WHEN MD52 = 3 THEN 1 WHEN MD52 = 4 THEN 1  END) MD52, " +
+                                "COUNT(CASE WHEN MD53 = 1 THEN 1 WHEN MD53 = 2 THEN 1 WHEN MD53 = 3 THEN 1 WHEN MD53 = 4 THEN 1  END) MD53, " +
+                                "COUNT(CASE WHEN MD54 = 1 THEN 1 WHEN MD54 = 2 THEN 1 WHEN MD54 = 3 THEN 1 WHEN MD54 = 4 THEN 1  END) MD54, " +
+                                "COUNT(CASE WHEN MD55 = 1 THEN 1 WHEN MD55 = 2 THEN 1 WHEN MD55 = 3 THEN 1 WHEN MD55 = 4 THEN 1  END) MD55, " +
+                                "COUNT(CASE WHEN MD56 = 1 THEN 1 WHEN MD56 = 2 THEN 1 WHEN MD56 = 3 THEN 1 WHEN MD56 = 4 THEN 1  END) MD56, " +
+                                "COUNT(CASE WHEN MD57 = 1 THEN 1 WHEN MD57 = 2 THEN 1 WHEN MD57 = 3 THEN 1 WHEN MD57 = 4 THEN 1  END) MD57, " +
+                                "COUNT(CASE WHEN MD58 = 1 THEN 1 WHEN MD58 = 2 THEN 1 WHEN MD58 = 3 THEN 1 WHEN MD58 = 4 THEN 1  END) MD58, " +
+                                "COUNT(CASE WHEN MD59 = 1 THEN 1 WHEN MD59 = 2 THEN 1 WHEN MD59 = 3 THEN 1 WHEN MD59 = 4 THEN 1  END) MD59, " +
+                                "COUNT(CASE WHEN MD60 = 1 THEN 1 WHEN MD60 = 2 THEN 1 WHEN MD60 = 3 THEN 1 WHEN MD60 = 4 THEN 1  END) MD60, " +
+                                "COUNT(CASE WHEN MD61 = 1 THEN 1 WHEN MD61 = 2 THEN 1 WHEN MD61 = 3 THEN 1 WHEN MD61 = 4 THEN 1  END) MD61, " +
+                                "COUNT(CASE WHEN MD62 = 1 THEN 1 WHEN MD62 = 2 THEN 1 WHEN MD62 = 3 THEN 1 WHEN MD62 = 4 THEN 1  END) MD62, " +
+                                "COUNT(CASE WHEN MD63 = 1 THEN 1 WHEN MD63 = 2 THEN 1 WHEN MD63 = 3 THEN 1 WHEN MD63 = 4 THEN 1  END) MD63, " +
+                                "COUNT(CASE WHEN MD64 = 1 THEN 1 WHEN MD64 = 2 THEN 1 WHEN MD64 = 3 THEN 1 WHEN MD64 = 4 THEN 1  END) MD64, " +
+                                "COUNT(CASE WHEN MD65 = 1 THEN 1 WHEN MD65 = 2 THEN 1 WHEN MD65 = 3 THEN 1 WHEN MD65 = 4 THEN 1  END) MD65, " +
+                                "COUNT(CASE WHEN MD66 = 1 THEN 1 WHEN MD66 = 2 THEN 1 WHEN MD66 = 3 THEN 1 WHEN MD66 = 4 THEN 1  END) MD66, " +
+                                "COUNT(CASE WHEN MD67 = 1 THEN 1 WHEN MD67 = 2 THEN 1 WHEN MD67 = 3 THEN 1 WHEN MD67 = 4 THEN 1  END) MD67, " +
+                                "COUNT(CASE WHEN MD68 = 1 THEN 1 WHEN MD68 = 2 THEN 1 WHEN MD68 = 3 THEN 1 WHEN MD68 = 4 THEN 1  END) MD68, " +
+                                "COUNT(CASE WHEN MD69 = 1 THEN 1 WHEN MD69 = 2 THEN 1 WHEN MD69 = 3 THEN 1 WHEN MD69 = 4 THEN 1  END) MD69, " +
+                                "COUNT(CASE WHEN MD70 = 1 THEN 1 WHEN MD70 = 2 THEN 1 WHEN MD70 = 3 THEN 1 WHEN MD70 = 4 THEN 1  END) MD70, " +
+                                "COUNT(CASE WHEN MD71 = 1 THEN 1 WHEN MD71 = 2 THEN 1 WHEN MD71 = 3 THEN 1 WHEN MD71 = 4 THEN 1  END) MD71, " +
+                                "COUNT(CASE WHEN MD72 = 1 THEN 1 WHEN MD72 = 2 THEN 1 WHEN MD72 = 3 THEN 1 WHEN MD72 = 4 THEN 1  END) MD72, " +
+                                "COUNT(CASE WHEN MD73 = 1 THEN 1 WHEN MD73 = 2 THEN 1 WHEN MD73 = 3 THEN 1 WHEN MD73 = 4 THEN 1  END) MD73, " +
+                                "COUNT(CASE WHEN MD74 = 1 THEN 1 WHEN MD74 = 2 THEN 1 WHEN MD74 = 3 THEN 1 WHEN MD74 = 4 THEN 1  END) MD74, " +
+                                "COUNT(CASE WHEN MD75 = 1 THEN 1 WHEN MD75 = 2 THEN 1 WHEN MD75 = 3 THEN 1 WHEN MD75 = 4 THEN 1  END) MD75, " +
+                                "COUNT(CASE WHEN MD76 = 1 THEN 1 WHEN MD76 = 2 THEN 1 WHEN MD76 = 3 THEN 1 WHEN MD76 = 4 THEN 1  END) MD76, " +
+                                "COUNT(CASE WHEN MD77 = 1 THEN 1 WHEN MD77 = 2 THEN 1 WHEN MD77 = 3 THEN 1 WHEN MD77 = 4 THEN 1  END) MD77, " +
+                                "COUNT(CASE WHEN MD78 = 1 THEN 1 WHEN MD78 = 2 THEN 1 WHEN MD78 = 3 THEN 1 WHEN MD78 = 4 THEN 1  END) MD78, " +
+                                "COUNT(CASE WHEN MD79 = 1 THEN 1 WHEN MD79 = 2 THEN 1 WHEN MD79 = 3 THEN 1 WHEN MD79 = 4 THEN 1  END) MD79, " +
+                                "COUNT(CASE WHEN MD80 = 1 THEN 1 WHEN MD80 = 2 THEN 1 WHEN MD80 = 3 THEN 1 WHEN MD80 = 4 THEN 1  END) MD80, " +
+                                "COUNT(CASE WHEN MD81 = 1 THEN 1 WHEN MD81 = 2 THEN 1 WHEN MD81 = 3 THEN 1 WHEN MD81 = 4 THEN 1  END) MD81, " +
+                                "COUNT(CASE WHEN MD82 = 1 THEN 1 WHEN MD82 = 2 THEN 1 WHEN MD82 = 3 THEN 1 WHEN MD82 = 4 THEN 1  END) MD82, " +
+                                "COUNT(CASE WHEN MD83 = 1 THEN 1 WHEN MD83 = 2 THEN 1 WHEN MD83 = 3 THEN 1 WHEN MD83 = 4 THEN 1  END) MD83, " +
+                                "COUNT(CASE WHEN MD84 = 1 THEN 1 WHEN MD84 = 2 THEN 1 WHEN MD84 = 3 THEN 1 WHEN MD84 = 4 THEN 1  END) MD84, " +
+                                "COUNT(CASE WHEN MD85 = 1 THEN 1 WHEN MD85 = 2 THEN 1 WHEN MD85 = 3 THEN 1 WHEN MD85 = 4 THEN 1  END) MD85, " +
+                                "COUNT(CASE WHEN MD86 = 1 THEN 1 WHEN MD86 = 2 THEN 1 WHEN MD86 = 3 THEN 1 WHEN MD86 = 4 THEN 1  END) MD86, " +
+                                "COUNT(CASE WHEN MD87 = 1 THEN 1 WHEN MD87 = 2 THEN 1 WHEN MD87 = 3 THEN 1 WHEN MD87 = 4 THEN 1  END) MD87, " +
+                                "COUNT(CASE WHEN MD88 = 1 THEN 1 WHEN MD88 = 2 THEN 1 WHEN MD88 = 3 THEN 1 WHEN MD88 = 4 THEN 1  END) MD88, " +
+                                "COUNT(CASE WHEN MD89 = 1 THEN 1 WHEN MD89 = 2 THEN 1 WHEN MD89 = 3 THEN 1 WHEN MD89 = 4 THEN 1  END) MD89, " +
+                                "COUNT(CASE WHEN MD90 = 1 THEN 1 WHEN MD90 = 2 THEN 1 WHEN MD90 = 3 THEN 1 WHEN MD90 = 4 THEN 1  END) MD90, " +
+                                "COUNT(CASE WHEN MD91 = 1 THEN 1 WHEN MD91 = 2 THEN 1 WHEN MD91 = 3 THEN 1 WHEN MD91 = 4 THEN 1  END) MD91, " +
+                                "COUNT(CASE WHEN MD92 = 1 THEN 1 WHEN MD92 = 2 THEN 1 WHEN MD92 = 3 THEN 1 WHEN MD92 = 4 THEN 1  END) MD92, " +
+                                "COUNT(CASE WHEN MD93 = 1 THEN 1 WHEN MD93 = 2 THEN 1 WHEN MD93 = 3 THEN 1 WHEN MD93 = 4 THEN 1  END) MD93, " +
+                                "COUNT(CASE WHEN MD94 = 1 THEN 1 WHEN MD94 = 2 THEN 1 WHEN MD94 = 3 THEN 1 WHEN MD94 = 4 THEN 1  END) MD94, " +
+                                "COUNT(CASE WHEN MD95 = 1 THEN 1 WHEN MD95 = 2 THEN 1 WHEN MD95 = 3 THEN 1 WHEN MD95 = 4 THEN 1  END) MD95, " +
+                                "COUNT(CASE WHEN MD96 = 1 THEN 1 WHEN MD96 = 2 THEN 1 WHEN MD96 = 3 THEN 1 WHEN MD96 = 4 THEN 1  END) MD96, " +
+                                "COUNT(CASE WHEN MD97 = 1 THEN 1 WHEN MD97 = 2 THEN 1 WHEN MD97 = 3 THEN 1 WHEN MD97 = 4 THEN 1  END) MD97, " +
+                                "COUNT(CASE WHEN MD98 = 1 THEN 1 WHEN MD98 = 2 THEN 1 WHEN MD98 = 3 THEN 1 WHEN MD98 = 4 THEN 1  END) MD98, " +
+                                "COUNT(CASE WHEN MD99 = 1 THEN 1 WHEN MD99 = 2 THEN 1 WHEN MD99 = 3 THEN 1 WHEN MD99 = 4 THEN 1  END) MD99, " +
+                                "COUNT(CASE WHEN MD100 = 1 THEN 1 WHEN MD100 = 2 THEN 1 WHEN MD100 = 3 THEN 1 WHEN MD100 = 4 THEN 1  END) MD100, " +
+                                "COUNT(CASE WHEN MD101 = 1 THEN 1 WHEN MD101 = 2 THEN 1 WHEN MD101 = 3 THEN 1 WHEN MD101 = 4 THEN 1  END) MD101, " +
+                                "COUNT(CASE WHEN MD102 = 1 THEN 1 WHEN MD102 = 2 THEN 1 WHEN MD102 = 3 THEN 1 WHEN MD102 = 4 THEN 1  END) MD102, " +
+                                "COUNT(CASE WHEN MD103 = 1 THEN 1 WHEN MD103 = 2 THEN 1 WHEN MD103 = 3 THEN 1 WHEN MD103 = 4 THEN 1  END) MD103, " +
+                                "COUNT(CASE WHEN MD104 = 1 THEN 1 WHEN MD104 = 2 THEN 1 WHEN MD104 = 3 THEN 1 WHEN MD104 = 4 THEN 1  END) MD104, " +
+                                "COUNT(CASE WHEN MD105 = 1 THEN 1 WHEN MD105 = 2 THEN 1 WHEN MD105 = 3 THEN 1 WHEN MD105 = 4 THEN 1  END) MD105, " +
+                                "COUNT(CASE WHEN MD106 = 1 THEN 1 WHEN MD106 = 2 THEN 1 WHEN MD106 = 3 THEN 1 WHEN MD106 = 4 THEN 1  END) MD106, " +
+                                "COUNT(CASE WHEN MD158 = 1 THEN 1 WHEN MD158 = 2 THEN 1 WHEN MD158 = 3 THEN 1 WHEN MD158 = 4 THEN 1  END) MD158, " +
+                                "COUNT(CASE WHEN MD159 = 1 THEN 1 WHEN MD159 = 2 THEN 1 WHEN MD159 = 3 THEN 1 WHEN MD159 = 4 THEN 1  END) MD159, " +
+                                "COUNT(CASE WHEN MD160 = 1 THEN 1 WHEN MD160 = 2 THEN 1 WHEN MD160 = 3 THEN 1 WHEN MD160 = 4 THEN 1  END) MD160, " +
+                                "COUNT(CASE WHEN MD161 = 1 THEN 1 WHEN MD161 = 2 THEN 1 WHEN MD161 = 3 THEN 1 WHEN MD161 = 4 THEN 1  END) MD161, " +
+                                "COUNT(CASE WHEN MD162 = 1 THEN 1 WHEN MD162 = 2 THEN 1 WHEN MD162 = 3 THEN 1 WHEN MD162 = 4 THEN 1  END) MD162, " +
+                                "COUNT(CASE WHEN MD165 = 1 THEN 1 WHEN MD165 = 2 THEN 1 WHEN MD165 = 3 THEN 1 WHEN MD165 = 4 THEN 1  END) MD165, " +
+                                "COUNT(CASE WHEN MD166 = 1 THEN 1 WHEN MD166 = 2 THEN 1 WHEN MD166 = 3 THEN 1 WHEN MD166 = 4 THEN 1  END) MD166, " +
+                                "COUNT(CASE WHEN MD167 = 1 THEN 1 WHEN MD167 = 2 THEN 1 WHEN MD167 = 3 THEN 1 WHEN MD167 = 4 THEN 1  END) MD167, " +
+                                "COUNT(CASE WHEN MD168 = 1 THEN 1 WHEN MD168 = 2 THEN 1 WHEN MD168 = 3 THEN 1 WHEN MD168 = 4 THEN 1  END) MD168, " +
+                                "COUNT(CASE WHEN MD169 = 1 THEN 1 WHEN MD169 = 2 THEN 1 WHEN MD169 = 3 THEN 1 WHEN MD169 = 4 THEN 1  END) MD169 " +
+                                "FROM negtgel2 " +
+                                "GROUP BY ORGID";
+               
+
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+                dtTable.TableName = "Report1N2";
+
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "WITH Negtgel2 AS( " +
+                               "SELECT* FROM( " +
+                               "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01, ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE, ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                               "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
+                               "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
+                               "WHERE MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,158,159,160,161,162,165,166,167,168,169) " +
+                               "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +
+                               //"AND rop.OPEN_ENT_NAME like '%ИТХ/ДЭЛГЭРХААН/%' " +
+                               ") D " +
+                               "PIVOT( " +
+                               "MAX(DATA01) " +
+                               "FOR MDCODE IN(33 MD33, 34 MD34, 37 MD37, 38 MD38, 39 MD39, 40 MD40, 41 MD41, 42 MD42, 43 MD43, 44 MD44, 45 MD45, 46 MD46, 47 MD47, 48 MD48, 49 MD49, 56 MD56, 57 MD57, 58 MD58, 59 MD59, 60 MD60, 61 MD61, 62 MD62, 50 MD50, 51 MD51, 52 MD52, 53 MD53, 54 MD54, 55 MD55, 63 MD63, 64 MD64, 65 MD65, 66 MD66, 67 MD67, 68 MD68, 69 MD69, 70 MD70, 71 MD71, 72 MD72, 73 MD73, 74 MD74, 75 MD75, 76 MD76, 77 MD77, 78 MD78, 79 MD79, 80 MD80, 81 MD81, 82 MD82, 83 MD83, 84 MD84, 85 MD85, 86 MD86, 87 MD87, 88 MD88, 89 MD89, 90 MD90, 91 MD91, 92 MD92, 93 MD93, 94 MD94, 95 MD95, 96 MD96, 97 MD97, 98 MD98, 99 MD99, 100 MD100, 101 MD101, 102 MD102, 103 MD103, 104 MD104, 105 MD105, 106 MD106, 158 MD158, 159 MD159, 160 MD160, 161 Md161, 162 MD162, 165 MD165, 166 MD166, 167 MD167, 168 MD168, 169 MD169) " +
+                               ") P1 " +
+                               ") " +
+                               "SELECT ORGID, ORGNAME, ORGTYPE, INSERTUSERID, " +
+                               "MD33, MD34, MD37, MD38, MD39, MD40, MD41, MD42, MD43, MD44, MD45, MD46, MD47, MD48, MD49, MD56, MD57, MD58, MD59, MD60, MD61, MD62, MD50, MD51, MD52, MD53, MD54, MD55, MD63, MD64, MD65, MD66, MD67, MD68, MD69, MD70, MD71, MD72, MD73, MD74, MD75, MD76, MD77, MD78, MD79, MD80, MD81, MD82, MD83, MD84, MD85, MD86, MD87, MD88, MD89, MD90, MD91, MD92, MD93, MD94, MD95, MD96, MD97, MD98, MD99, MD100, MD101, MD102, MD103, MD104, MD105, MD106, MD158, MD159, MD160, Md161, MD162, MD165, MD166, MD167, MD168, MD169 " +
+                               "FROM Negtgel2";
+
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+                
+
+                DataTable dtTable2 = new DataTable();
+                dtTable2.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+                dtTable2.TableName = "Report1N2Footer";
+
+                DataSet dataSet = new DataSet();
+                dataSet.Tables.Add(dtTable);
+                dataSet.Tables.Add(dtTable2);
+                cmd.Dispose();
+                con.Close();
+
+
+
+                StringWriter sw = new StringWriter();
+                dataSet.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
