@@ -52,7 +52,16 @@
                 </span>
                 <span class="text">Устгах</span>
             </a>
-        </div>        
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM1.completion();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Биелэлт</span>
+            </a>
+        </div>
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
@@ -157,6 +166,7 @@
                 $("#BM1 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 BM1.bm1ID = this.getAttribute("data-id");
+                BM1.rowdata = BM1.table.row(this).data();
             });
         }
         function bm1ListInit(pagelength = 10) {
@@ -251,16 +261,16 @@
             });
         }
         function Choose(id, department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
-            $("#Bm1Modal #AUDIT_ID").val(id);
-            $("#Bm1Modal #DEPARTMENT_NAME").val(department);
-            $("#Bm1Modal #YEAR_LABEL").val(year);
-            $("#Bm1Modal #AUDIT_TYPE_NAME").val(audittype);
-            $("#Bm1Modal #TOPIC_TYPE_NAME").val(topictype);
-            $("#Bm1Modal #TOPIC_CODE").val(code);
-            $("#Bm1Modal #TOPIC_NAME").val(name);
-            $("#Bm1Modal #ORDER_NO").val(orderno);
-            $("#Bm1Modal #ORDER_DATE").val(orderdate);
-            $("#Bm1Modal #BUDGET_TYPE_NAME").val(budgettype);
+            $("#AUDIT_ID").val(id);
+            $("#DEPARTMENT_NAME").val(department);
+            $("#YEAR_LABEL").val(year);
+            $("#AUDIT_TYPE_NAME").val(audittype);
+            $("#TOPIC_TYPE_NAME").val(topictype);
+            $("#TOPIC_CODE").val(code);
+            $("#TOPIC_NAME").val(name);
+            $("#ORDER_NO").val(orderno);
+            $("#ORDER_DATE").val(orderdate);
+            $("#BUDGET_TYPE_NAME").val(budgettype);
 
             $('#BM0ListModel').modal('hide');
         }
@@ -273,6 +283,7 @@
         var BM1 = {
             bm1ID: null,
             table: null,
+            rowdata: null,
             display: function (data) {
                 $("div#bm1modalcontainer").remove();
                 $('<div/>', { id: "bm1modalcontainer" }).appendTo('body').append(data);
@@ -329,6 +340,28 @@
                 });
             },
             edit: function () {
+                if (BM1.bm1ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM1.bm1ID;
+                    $.ajax({
+                        url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            BM1.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            completion: function () {
                 if (BM1.bm1ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {

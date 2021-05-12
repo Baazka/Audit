@@ -37,19 +37,17 @@
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
-                                    @if (Model.ID == 0) {
-                                <div class="col-4">
-                                    <div class="form-group row">
-                                        <div class="col-sm-8">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                </svg>
-                                            </button>
+                                    <div class="col-4">
+                                        <div class="form-group row">
+                                            <div class="col-sm-8">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                    }                                    
                                 </div>
                             </div>
                             <div class="col-12">
@@ -502,20 +500,17 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
-
-      setTimeout(function () { Choose(@Html.Raw(Model.ID), BM1.rowdata.DEPARTMENT_NAME, BM1.rowdata.YEAR_LABEL, BM1.rowdata.AUDIT_TYPE_NAME, BM1.rowdata.TOPIC_TYPE_NAME, BM1.rowdata.TOPIC_CODE, BM1.rowdata.TOPIC_NAME, BM1.rowdata.ORDER_NO, BM1.rowdata.ORDER_DATE, BM1.rowdata.BUDGET_TYPE_NAME); }, 1000);
-
       calculateSum1();
       calculateSum2();
       calculateSum3();
       calculateSum4();
-
+      
       //$(".decimal").on('keyup', function (evt) {
       //    if (evt.which != 110 && evt.which != 190) {
       //        $(".decimal").formatCurrency();
       //    }
       //});
-
+      
       //$('.number').keyup(function (event) {
 
       //    // skip for arrow keys
