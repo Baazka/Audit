@@ -50,6 +50,25 @@ namespace Audit.Models
         public List<MirroraccOrgList> data { get; set; } = new List<MirroraccOrgList>();
     }
 
+    public class MirrorHakOrgListRequest : DataTableAjaxPostModel
+    {
+        public int OPEN_ID { get; set; }
+        public string OPEN_ENT_BUDGET_TYPE { get; set; }
+        public string OPEN_ENT_BUDGET_PARENT { get; set; }
+        public string OPEN_ENT_DEPARTMENT_ID { get; set; }
+        public string OPEN_ENT_NAME { get; set; }
+        public string OPEN_ENT_REGISTER_NO { get; set; }
+        public int TAB3_IS_FINISH { get; set; }
+        public int[] status { get; set; }
+        public List<string> violation { get; set; }
+        public int? DeparmentID { get; set; }
+        public int[] budget_type { get; set; }
+    }
+    public class MirrorHakOrgListResponse : DataTableAjaxResponModel
+    {
+        public List<MirroraccHakOrgList> data { get; set; } = new List<MirroraccHakOrgList>();
+    }
+
     public class BM0ListRequest : DataTableAjaxPostModel
     {
         public int ID { get; set; }

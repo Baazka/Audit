@@ -128,6 +128,7 @@ namespace Audit.App_Func
             functions.Add("BM0Search", (request) => DataAccess.BM0Search(request));
 
             functions.Add("MirrorOrgList", (request) => DataAccess.MirrorOrgList(request));
+            functions.Add("MirrorHakOrgList", (request) => DataAccess.MirrorHakOrgList(request));
             functions.Add("MirrorOrgDetail", (request) => DataAccess.MirrorOrgDetail(request));
             functions.Add("Table1List", (request) => DataAccess.Table1List(request));
             functions.Add("MirrorAccInsert", (request) => DataAccess.MirrorAccInsert(request));
