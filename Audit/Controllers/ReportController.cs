@@ -80,6 +80,33 @@ namespace Audit.Controllers
             }
             return View(res);
         }
+        public ActionResult N2()
+        {
+            N1VM res = new N1VM();
+            try
+            {
+                if (Globals.departments.Count > 0 || Globals.periods.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
+        }
         public PartialViewResult Viewer(string name,string title)
         {
             
