@@ -432,6 +432,84 @@ namespace Audit.Controllers
             }
             return View(res);
         }
+        public ActionResult BM1Detail(int id, bool isbm0 = false, bool iscompletion = false)
+        {
+            BM1 bm1 = new BM1();
+            try
+            {
+                if (!isbm0)
+                {
+                    XElement res = AppStatic.SystemController.BM1Detail(id);
+                    if (res != null && res.Elements("BM1Detail") != null)
+                    {
+                        bm1 = new BM1().SetXml(res.Element("BM1Detail"));
+                    }
+                }
+                else
+                {
+                    bm1.AUDIT_ID = id;
+                }
+
+
+                if (Globals.departments.Count > 0)
+                    bm1.departments = Globals.departments;
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    bm1.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                    bm1.periods = Globals.periods;
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    bm1.periods = Globals.periods;
+                }
+                if (Globals.refaudityears.Count > 0)
+                    bm1.refaudityears = Globals.refaudityears;
+                else
+                {
+                    XElement responseRefAuditYear = SendLibraryRequest("RefAuditYear");
+                    Globals.refaudityears = (from item in responseRefAuditYear.Elements("Library") select new REF_AUDIT_YEAR().FromXml(item)).ToList();
+                    bm1.refaudityears = Globals.refaudityears;
+                }
+                if (Globals.refviolationtypes.Count > 0)
+                    bm1.refviolationtypes = Globals.refviolationtypes;
+                else
+                {
+                    XElement responseRefViolationType = SendLibraryRequest("RefViolationType");
+                    Globals.refviolationtypes = (from item in responseRefViolationType.Elements("Library") select new REF_VIOLATION_TYPE().FromXml(item)).ToList();
+                    bm1.refviolationtypes = Globals.refviolationtypes;
+                }
+                if (Globals.audittypes.Count > 0)
+                    bm1.audittypes = Globals.audittypes;
+                else
+                {
+                    XElement responseRefAuditType = SendLibraryRequest("RefAuditType");
+                    Globals.audittypes = (from item in responseRefAuditType.Elements("Library") select new REF_AUDIT_TYPE().FromXml(item)).ToList();
+                    bm1.audittypes = Globals.audittypes;
+                }
+                if (Globals.refbudgettypes.Count > 0)
+                    bm1.refbudgettypes = Globals.refbudgettypes;
+                else
+                {
+                    XElement responseRefBudgetType = SendLibraryRequest("RefBudgetType");
+                    Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
+                    bm1.refbudgettypes = Globals.refbudgettypes;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            if (!isbm0)
+            {
+                return PartialView(!iscompletion ? "BM1AddEdit" : "BM1AddEditCompletion", bm1);
+            }
+            return PartialView("BM1Add", bm1);
+        }
         public ActionResult BM1AddEdit()
         {
             BM1 bm1 = new BM1();
@@ -571,25 +649,18 @@ namespace Audit.Controllers
             return PartialView(bm1);
 
         }
-        public ActionResult BM1Detail(int id, bool isbm0 = false)
+        [HttpPost]
+        public ActionResult BM1AddEditCompletion(BM1 bm1)
         {
-            BM1 bm1 = new BM1();
+            if (ModelState.IsValid)
+            {
+                if (AppStatic.SystemController.BM1UpdateCompletion(Convert.ToInt32(User.Identity.GetUserId()), bm1.ToXml()))
+                    return Json(new { error = false, message = AppStatic.SystemController.Message });
+                else
+                    AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
+            }
             try
             {
-                if (!isbm0)
-                {
-                    XElement res = AppStatic.SystemController.BM1Detail(id);
-                    if (res != null && res.Elements("BM1Detail") != null)
-                    {
-                        bm1 = new BM1().SetXml(res.Element("BM1Detail"));
-                    }
-                }
-                else
-                {
-                    bm1.AUDIT_ID = id;
-                }
-                
-
                 if (Globals.departments.Count > 0)
                     bm1.departments = Globals.departments;
                 else
@@ -628,7 +699,7 @@ namespace Audit.Controllers
                 {
                     XElement responseRefAuditType = SendLibraryRequest("RefAuditType");
                     Globals.audittypes = (from item in responseRefAuditType.Elements("Library") select new REF_AUDIT_TYPE().FromXml(item)).ToList();
-                    bm1.audittypes = Globals.audittypes;                    
+                    bm1.audittypes = Globals.audittypes;
                 }
                 if (Globals.refbudgettypes.Count > 0)
                     bm1.refbudgettypes = Globals.refbudgettypes;
@@ -643,8 +714,9 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
-            return PartialView(!isbm0 ? "BM1AddEdit": "BM1Add", bm1);
-        }
+            return PartialView(bm1);
+
+        }        
         [HttpPost]
         public ActionResult BM1Add(BM1 bm1)
         {

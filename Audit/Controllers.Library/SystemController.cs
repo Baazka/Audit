@@ -1026,6 +1026,39 @@ namespace Audit.Controllers.Library
 
             return false;
         }
+        public bool BM1UpdateCompletion(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM1UpdateCompletion"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
         public bool BM1Insert(int userid, XElement element)
         {
             try
