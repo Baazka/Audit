@@ -715,7 +715,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public  XElement BM0Search(int officeid)
+        public  XElement BM0Search(int officeid, int periodid)
         {
             try
             {
@@ -726,7 +726,8 @@ namespace Audit.Controllers.Library
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM0Search"),
                                                new XElement("Parameters",
-                                                   new XElement("OFFICE_ID", officeid)));
+                                                   new XElement("OFFICE_ID", officeid),
+                                                   new XElement("PERIOD_ID", periodid)));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -2019,42 +2020,7 @@ namespace Audit.Controllers.Library
 
             return false;
         }
-        public XElement N1(XElement element, string usertype)
-        {
-            try
-            {
-                ClearError();
-
-                if (!this.IsValid) { return null; }
-
-                XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "N1"),
-                                               new XElement("Parameters",
-                                                   new XElement("USER_TYPE", usertype),
-                                                   element));
-
-                DataResponse response = GetDataResponse(requestXml);
-
-                if (!response.Status)
-                {
-                    this.AddError(response.Code, response.Message);
-                }
-
-                Message = response.Message;
-                Status = response.Status;
-
-                if (response.Status)
-                {
-                    return response.XmlData;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.AddError(ex);
-            }
-
-            return null;
-        }
+        
         #endregion
         #region NM
         public XElement NM1(XElement element, string usertype)
@@ -3078,6 +3044,44 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+
+        public XElement MirrorHakOrgList(XElement element, int UserID)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "MirrorHakOrgList"),
+                                               new XElement("Parameters",
+                                                   new XElement("UserID", UserID),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+
         public XElement MirrorOrgDetail(int openid)
         {
             try
@@ -3449,5 +3453,83 @@ namespace Audit.Controllers.Library
         }
 
         #endregion'
+
+
+        #region Tailan
+        public XElement N1(XElement element, string usertype)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "N1"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+
+        public XElement Report1N2(XElement element, string usertype)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "Report1N2"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_TYPE", usertype),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+        #endregion
+
     }
 }
