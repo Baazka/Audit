@@ -296,6 +296,12 @@
                         alert('Тайлант хугацаа сонгоно уу.');
                 });
             },
+            displayCompletion: function (data) {
+                $("div#Bm1ModalCompletioncontainer").remove();
+                $('<div/>', { id: "Bm1ModalCompletioncontainer" }).appendTo('body').append(data);
+
+                $("#Bm1ModalCompletion").modal({ show: true });
+            },
             displayBM0List: function (data) {
                 $("div#bm0listmodalcontainer").remove();
                 $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
@@ -347,7 +353,7 @@
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id: id, type: 1 },
+                        data: { id: id, isbm0: false, iscompletion: false },
                         success: function (data, status, xhr) {
                             BM1.progressResponse(data, status, xhr);
                         },
@@ -369,7 +375,7 @@
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id: id, type: 2 },
+                        data: { id: id, isbm0: false, iscompletion: true },
                         success: function (data, status, xhr) {
                             BM1.progressResponse(data, status, xhr);
                         },
@@ -411,10 +417,13 @@
             close: function () {
                 $("#Bm1Modal").modal("hide");
             },
-            progressResponse: function (data, status, xhr) {
+            progressResponse: function (data, status, xhr, iscompletion=false) {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
-                    BM1.display(data);
+                    if (iscompletion)
+                        BM1.display(data);
+                    else
+                        BM1.displayCompletion(data);
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {

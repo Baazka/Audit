@@ -69,6 +69,7 @@ namespace Audit.App_Func
             functions.Add("BM1Detail", (request) => DataAccess.BM1Detail(request));
             functions.Add("BM1Insert", (request) => DataAccess.BM1Insert(request));
             functions.Add("BM1Update", (request) => DataAccess.BM1Update(request));
+            functions.Add("BM1UpdateCompletion", (request) => DataAccess.BM1UpdateCompletion(request));
             functions.Add("BM1Delete", (request) => DataAccess.BM1Delete(request));
             functions.Add("BM2", (request) => DataAccess.BM2(request));
             functions.Add("BM2Detail", (request) => DataAccess.BM2Detail(request));
