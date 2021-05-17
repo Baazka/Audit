@@ -6180,7 +6180,7 @@ namespace Audit.App_Func
                                   "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON A.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                   "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
                                   "INNER JOIN AUD_REG.SYSTEM_USER_DEPARTMENT E ON A.OPEN_ENT_DEPARTMENT_ID = E.DEP_ID " +
-                                  "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND E.DEP_USER_ID = :UserID " +
+                                  "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND E.DEP_USER_ID = :UserID AND IS_FINISH IS NULL OR B.INSERTUSERID = :UserID " +
                                   "AND (:V_DEPARTMENT IS NULL OR A.OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                   "AND (:V_BUDGET_TYPE IS NULL OR (A.OPEN_ENT_BUDGET_TYPE IN (:V_BUDGET_TYPE))) " +
                                   "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +

@@ -16,11 +16,32 @@
             <label for="DeparmentID" class="col-form-label">Алба:</label>
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div> 
-        } 
+        }
         @*<div class="form-group-sm pr-2">
             <label for="StatusID" class="col-form-label">ТЕЗ/ ТТЗ/ ТШЗ:</label><br />
             @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "BudgetType" })
         </div>*@ 
+        @*@if (User.GetClaimData("USER_TYPE") == "Hak_User")
+        {
+        <div class="form-group-sm pr-2">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('hakorganizationlist', 'Шилэн дансны шалгагдагч этгээдийн жагсаалт')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+        }
+        else {
+        <div>
+        <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шилэн дансны шалгагдагч этгээдийн жагсаалт')">
+            <span class="icon text-white-50">
+                <i class="fas fa-file-excel"></i>
+            </span>
+            <span class="text">Excel</span>
+        </a>
+        </div>
+        }*@
     </div>
 </form>
 <div class="row mb-2">
@@ -86,8 +107,7 @@
 
 @section scripts{
     <script>
-
-        $(document).ready(function () {          
+        $(document).ready(function () {        
                 HakorgListInit();
                 orgListInit();
         })
@@ -162,12 +182,11 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
-
+                    "language": datatables.language
             });
         }
         function HakorgListInit(pagelength = 10) {
-            haktable = $("#hakorganizationlist").DataTable({
+            haktable = $("#hakorganizationlist").DataTable({               
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -182,7 +201,6 @@
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.OPEN_ID);
                 },
-
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center', "type": "lower-letter",
@@ -239,7 +257,6 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language
-
             });
         }
         $('#BudgetType').multiselect({
