@@ -27,30 +27,39 @@ namespace Audit.Controllers
 
         public ActionResult Index()
         {
-            //ReportViewer ReportViewer1 = new ReportViewer();
-            /*viewer.ProcessingMode = ProcessingMode.Local;
-            LocalReport localReport = viewer.LocalReport;
-            localReport.ReportPath = System.Web.HttpContext.Current.Server.MapPath(@"\Audit.Report\\Reports\report1.rdl");
-            viewer.SizeToReportContent = true;
-            viewer.AsyncRendering = true;
-            ViewBag.ReportViewer = viewer;*/
-            /* ReportViewer reportViewer = new ReportViewer();
-             reportViewer.ProcessingMode = ProcessingMode.Local;
-             reportViewer.SizeToReportContent = true;
-             reportViewer.Width = Unit.Percentage(900);
-             reportViewer.Height = Unit.Percentage(900);
-             reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\ReportTest.rdl";
-             ViewBag.ReportViewer = reportViewer;
-             XElement resUB = AppStatic.SystemController.Negtgel1("123");
-             if (resUB != null && resUB.Elements("V_TESTVIEW") != null)
-             {
-                 List<Tailan> tailan = (from item in resUB.Elements("V_TESTVIEW") select new Tailan().SetXml(item)).ToList();
-             }
-             //reportViewer.LocalReport.DataSources.Add(new ReportDataSource(,"DataSet1", tailan));
+            try
+            {
+            XElement responseDepartment = SendLibraryRequest("Department");
+            Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                //ReportViewer ReportViewer1 = new ReportViewer();
+                /*viewer.ProcessingMode = ProcessingMode.Local;
+                LocalReport localReport = viewer.LocalReport;
+                localReport.ReportPath = System.Web.HttpContext.Current.Server.MapPath(@"\Audit.Report\\Reports\report1.rdl");
+                viewer.SizeToReportContent = true;
+                viewer.AsyncRendering = true;
+                ViewBag.ReportViewer = viewer;*/
+                /* ReportViewer reportViewer = new ReportViewer();
+                 reportViewer.ProcessingMode = ProcessingMode.Local;
+                 reportViewer.SizeToReportContent = true;
+                 reportViewer.Width = Unit.Percentage(900);
+                 reportViewer.Height = Unit.Percentage(900);
+                 reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\ReportTest.rdl";
+                 ViewBag.ReportViewer = reportViewer;
+                 XElement resUB = AppStatic.SystemController.Negtgel1("123");
+                 if (resUB != null && resUB.Elements("V_TESTVIEW") != null)
+                 {
+                     List<Tailan> tailan = (from item in resUB.Elements("V_TESTVIEW") select new Tailan().SetXml(item)).ToList();
+                 }
+                 //reportViewer.LocalReport.DataSources.Add(new ReportDataSource(,"DataSet1", tailan));
 
 
 
-             //con.Close();*/
+                 //con.Close();*/
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
             return View();
         }
         public ActionResult N1()
@@ -81,6 +90,33 @@ namespace Audit.Controllers
             return View(res);
         }
         public ActionResult Report1N2()
+        {
+            N1VM res = new N1VM();
+            try
+            {
+                if (Globals.departments.Count > 0 || Globals.periods.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
+        }
+        public ActionResult N2()
         {
             N1VM res = new N1VM();
             try
