@@ -1660,7 +1660,7 @@ namespace Audit.Controllers
                                     if (total != 0)
                                     {
                                         math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
-                                              .SetValue(bodolt2, String.Format("{0:0.0}", math2));
+                                        prop.SetValue(bodolt2, String.Format("{0:0.0}", math2));
                                         orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                     }
                                 }
