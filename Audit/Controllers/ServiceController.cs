@@ -1278,7 +1278,7 @@ namespace Audit.Controllers
                 if (request.DeparmentID != null)
                     elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
                 else
-                    elem.Add(new XElement("V_DEPARTMENT", null));
+                    elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
 
                 if (request.PeriodID != null)
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
