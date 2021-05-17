@@ -144,45 +144,7 @@
                 </thead>
                 <tbody>
                 </tbody>
-                @*<tfoot>
-                    <tr>
-                        <th colspan="1" style="text-align:right">Total:</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>*@
+               
             </table>
         </div>
     </div>
@@ -311,7 +273,7 @@
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
-                "info": true,
+                "info": false,
                 "stateSave": false,
                 lengthChange: true,
                 "language": datatables.language,
@@ -366,7 +328,7 @@
      
    
         close: function () {
-            $("#Bm0Modal").modal("hide");
+            $("#ReportN1").modal("hide");
         },
         //progressResponse: function (data, status, xhr) {
         //    var ct = xhr.getResponseHeader("content-type") || "";

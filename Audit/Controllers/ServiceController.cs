@@ -1312,8 +1312,7 @@ namespace Audit.Controllers
                     List<N1> typeGurav= new List<N1>();
 
                     List<N1> temp = new List<N1>();
-                    List<N1> temp2 = new List<N1>();
-                    List<N1> temp3 = new List<N1>();
+                   
 
                     typeNeg = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
                     typeHoyor = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
@@ -1321,32 +1320,39 @@ namespace Audit.Controllers
 
                     if (typeNeg.Count > 0)
                     {
+                        title = new N1();
                         title.ORGNAME = "Төсвийн ерөнхийлөн захирагч";
                         temp.Add(title);
                         temp.AddRange(typeNeg);
                         typeNeg = temp;
+                        temp = new List<N1>(); 
                         
                     }
 
                     if (typeHoyor.Count > 0)
                     {
+                        title = new N1();
                         title.ORGNAME = "Төсвийн төвлөрүүлэн захирагч";
-                        temp2.Add(title);
-                        temp2.AddRange(typeHoyor);
-                        typeHoyor = temp2;
+                        temp.Add(title);
+                        temp.AddRange(typeHoyor);
+                        typeHoyor = temp;
+                        temp = new List<N1>(); 
 
                     }
 
                     if (typeGurav.Count > 0)
                     {
+                        title = new N1();
                         title.ORGNAME = "Төсвийн шууд захирагч";
-                        temp3.Add(title);
-                        temp3.AddRange(typeGurav);
-                        typeGurav = temp3;
+                        temp.Add(title);
+                        temp.AddRange(typeGurav);
+                        typeGurav = temp;
+                        temp = new List<N1>(); 
 
                     }
 
                     List<N1> types = new List<N1>();
+
                     types.AddRange(typeNeg);
                     types.AddRange(typeHoyor);
                     types.AddRange(typeGurav);
@@ -1452,7 +1458,7 @@ namespace Audit.Controllers
                     {
                         orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                     }
-
+                    
                     n1Detial = types;
                     n1Detial.Add(Niit);
                     n1Detial.Add(Medeelsen);
@@ -1473,6 +1479,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+          
             return response;
         }
 
@@ -1597,59 +1604,75 @@ namespace Audit.Controllers
                     decimal math1 = 0;
                     decimal math2 = 0;
                     decimal count = 0;
+
+                    string[] key = {"MD33","MD34","MD37","MD38","MD39","MD40","MD41","MD42","MD43","MD44","MD46","MD47","MD48","MD49","MD50","MD51","MD60","MD61","MD62","MD63","MD64","MD65","MD53","MD54","MD55","MD56",
+                                    "MD57","MD58","MD66","MD67","MD69","MD70","MD71","MD72","MD73","MD74","MD76","MD77","MD78","MD79","MD80","MD81","MD83","MD84","MD85","MD86","MD87","MD88","MD90","MD91","MD92","MD93","MD94",
+                                    "MD95","MD97","MD98","MD99","MD100","MD101","MD102","MD161","MD105","MD106","MD165","MD166","MD167","MD168","MD169" };
+
                     foreach (N1 n in n1)
                     {
 
-                        for (int i = 33; i <= 106; i++)
+                        for (int i = 0; i <= key.Length; i++)
                         {
-                            var prop = typ.GetProperty("MD" + i);
+                            var prop = typ.GetProperty(key[i]);
                             string value = prop.GetValue(n) != null ? prop.GetValue(n).ToString() : "";
-                            if (value != "")
+                            if (key[i].Equals("MD33") || key[i].Equals("MD34") || key[i].Equals("MD40") || key[i].Equals("MD44") || key[i].Equals("MD66") || key[i].Equals("MD67")) {
+                                if (value != "")
 
+                                {
+                                    switch (value)
+                                    {
+                                        case "1":
+                                            count = Convert.ToInt32(prop.GetValue(Medeelsen)) + 1;
+                                            prop.SetValue(Medeelsen, count.ToString());
+                                            orgname.SetValue(Medeelsen, "Мэдээлсэн");
+                                            break;
+                                        case "2":
+                                            count = Convert.ToInt32(prop.GetValue(Medeeleegui)) + 1;
+                                            prop.SetValue(Medeeleegui, count.ToString());
+                                            orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
+                                            break;
+                                        case "3":
+                                            count = Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + 1;
+                                            prop.SetValue(HugtsaaHotsorson, count.ToString());
+                                            orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
+                                            break;
+                                        case "4":
+                                            count = Convert.ToInt32(prop.GetValue(Shaardlaggui)) + 1;
+                                            prop.SetValue(Shaardlaggui, count.ToString());
+                                            orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
+                                            break;
+                                        default:
+                                            break;
+
+                                    }
+                                    total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
+                                    prop.SetValue(Niit, total.ToString());
+                                    orgname.SetValue(Niit, "НИЙТ ДҮН");
+
+                                    if (total != 0)
+                                    {
+                                        math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
+                                        prop.SetValue(bodolt1, String.Format("{0:0.0}", math1));
+                                        orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
+                                    }
+
+                                    if (total != 0)
+                                    {
+                                        math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
+                                              .SetValue(bodolt2, String.Format("{0:0.0}", math2));
+                                        orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
+                                    }
+                                }
+                            }
+                            else if(key[i].Equals("MD37") || key[i].Equals("MD38") || key[i].Equals("MD39") || key[i].Equals("MD40") || key[i].Equals("MD41") || key[i].Equals("MD42") || key[i].Equals("MD43") || key[i].Equals("MD44"))
                             {
-                                switch (value)
-                                {
-                                    case "1":
-                                        count = Convert.ToInt32(prop.GetValue(Medeelsen)) + 1;
-                                        prop.SetValue(Medeelsen, count.ToString());
-                                        orgname.SetValue(Medeelsen, "Мэдээлсэн");
-                                        break;
-                                    case "2":
-                                        count = Convert.ToInt32(prop.GetValue(Medeeleegui)) + 1;
-                                        prop.SetValue(Medeeleegui, count.ToString());
-                                        orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
-                                        break;
-                                    case "3":
-                                        count = Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + 1;
-                                        prop.SetValue(HugtsaaHotsorson, count.ToString());
-                                        orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
-                                        break;
-                                    case "4":
-                                        count = Convert.ToInt32(prop.GetValue(Shaardlaggui)) + 1;
-                                        prop.SetValue(Shaardlaggui, count.ToString());
-                                        orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
-                                        break;
-                                    default:
-                                        break;
+                                total = Convert.ToInt32(prop.GetValue(Medeelsen));
 
-                                }
+                            }
+                            else
+                            {
                                 total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
-                                prop.SetValue(Niit, total.ToString());
-                                orgname.SetValue(Niit, "НИЙТ ДҮН");
-
-                                if (total != 0)
-                                {
-                                    math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
-                                    prop.SetValue(bodolt1, String.Format("{0:0.0}", math1));
-                                    orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
-                                }
-
-                                if (total != 0)
-                                {
-                                    math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
-                                    prop.SetValue(bodolt2, String.Format("{0:0.0}", math2));
-                                    orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
-                                }
                             }
 
                         }
