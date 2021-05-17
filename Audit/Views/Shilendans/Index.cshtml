@@ -1,15 +1,13 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
 @using Audit.App_Func
-@{
-    var budget_type = Model.budgetTypes.Select(c => new
-    {
-        ID = c.BUDGET_TYPE_ID,
-        Name = c.BUDGET_TYPE_NAME
-    }).ToList();
-    Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name");
-
-}
+@using Microsoft.AspNet.Identity;
+@{ var budget_type = Model.budgetTypes.Select(c => new
+                {
+                    ID = c.BUDGET_TYPE_ID,
+                    Name = c.BUDGET_TYPE_NAME
+                }).ToList();
+                Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name"); }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
         @if (User.GetClaimData("DepartmentID") == "2" || User.GetClaimData("DepartmentID") == "101")
@@ -18,32 +16,11 @@
             <label for="DeparmentID" class="col-form-label">Алба:</label>
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div> 
-        }
+        } 
         @*<div class="form-group-sm pr-2">
             <label for="StatusID" class="col-form-label">ТЕЗ/ ТТЗ/ ТШЗ:</label><br />
             @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "BudgetType" })
         </div>*@ 
-        @*@if (User.GetClaimData("USER_TYPE") == "Hak_User")
-        {
-        <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('hakorganizationlist', 'Шилэн дансны шалгагдагч этгээдийн жагсаалт')">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-excel"></i>
-                </span>
-                <span class="text">Excel</span>
-            </a>
-        </div>
-        }
-        else {
-        <div>
-        <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шилэн дансны шалгагдагч этгээдийн жагсаалт')">
-            <span class="icon text-white-50">
-                <i class="fas fa-file-excel"></i>
-            </span>
-            <span class="text">Excel</span>
-        </a>
-        </div>
-        }*@
     </div>
 </form>
 <div class="row mb-2">
@@ -51,29 +28,56 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
-                        <thead style="background-color:#f8f9fc;">
-                            <tr>
-                                <th class="text-center">№</th>
-                                <th>ТЕЗ</th>
-                                <th width="5%">ТТЗ/ТЕЗ</th>
-                                <th width="20%">Харъяа аудитын байгууллагын нэр</th>
-                                <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
-                                <th>Регистрийн дугаар</th>
-                                <th width="9%">Маягт1 / Маягт4</th>
-                                <th class="text-center">Мэдээлэл оруулсан эсэх</th>
-                                <th class="text-center">Баримт хэвлэсэн эсэх</th>
-                                <th>Мэдээлэл оруулсан аудитор</th>
-                                <th>Мэдээлэл оруулсан өдөр</th>
-                                <th width="15%">Шилэн данс</th>
-                            </tr>
-                            @*<th>МАЯГТ 1</th>
-                                <th>МАЯГТ 4</th>
-                                <th>МАЯГТ 6</th>*@
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    @if (User.GetClaimData("USER_TYPE") == "Hak_User")
+                    {
+                        <table class="table table-bordered datatable display" id="hakorganizationlist" style="width:100%">
+                            <thead style="background-color:#f8f9fc;">
+                                <tr>
+                                    <th class="text-center">№</th>
+                                    <th>ТЕЗ</th>
+                                    <th width="5%">ТТЗ/ТЕЗ</th>
+                                    <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                                    <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                                    <th>Регистрийн дугаар</th>
+                                    <th width="9%">Маягт1 / Маягт4</th>
+                                    <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                                    <th class="text-center">Баримт хэвлэсэн эсэх</th>
+                                    <th>Мэдээлэл оруулсан аудитор</th>
+                                    <th>Мэдээлэл оруулсан өдөр</th>
+                                    <th width="15%">Шилэн данс</th>
+                                </tr>
+                                @*<th>МАЯГТ 1</th>
+                                    <th>МАЯГТ 4</th>
+                                    <th>МАЯГТ 6</th>*@
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table> }
+                                    else
+                                    {
+                        <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                            <thead style="background-color:#f8f9fc;">
+                                <tr>
+                                    <th class="text-center">№</th>
+                                    <th>ТЕЗ</th>
+                                    <th width="5%">ТТЗ/ТЕЗ</th>
+                                    <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                                    <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                                    <th>Регистрийн дугаар</th>
+                                    <th width="9%">Маягт1 / Маягт4</th>
+                                    <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                                    <th class="text-center">Баримт хэвлэсэн эсэх</th>
+                                    <th>Мэдээлэл оруулсан аудитор</th>
+                                    <th>Мэдээлэл оруулсан өдөр</th>
+                                    <th width="15%">Шилэн данс</th>
+                                </tr>
+                                @*<th>МАЯГТ 1</th>
+                                    <th>МАЯГТ 4</th>
+                                    <th>МАЯГТ 6</th>*@
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>}
                 </div>
             </div>
         </div>
@@ -82,11 +86,13 @@
 
 @section scripts{
     <script>
-        $(document).ready(function () {        
+
+        $(document).ready(function () {          
                 HakorgListInit();
                 orgListInit();
         })
         var table;
+        var haktable;
         function orgListInit(pagelength = 10) {
                 table = $("#organizationlist").DataTable({
                 "serverSide": true,
@@ -156,11 +162,12 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                    "language": datatables.language
+                "language": datatables.language
+
             });
         }
         function HakorgListInit(pagelength = 10) {
-            haktable = $("#hakorganizationlist").DataTable({               
+            haktable = $("#hakorganizationlist").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -175,6 +182,7 @@
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.OPEN_ID);
                 },
+
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center', "type": "lower-letter",
@@ -231,6 +239,7 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language
+
             });
         }
         $('#BudgetType').multiselect({
