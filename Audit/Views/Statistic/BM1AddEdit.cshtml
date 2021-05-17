@@ -825,6 +825,9 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
+
+      setTimeout(function () { Choose(@Html.Raw(Model.AUDIT_ID), BM1.rowdata.DEPARTMENT_NAME, BM1.rowdata.YEAR_LABEL, BM1.rowdata.AUDIT_TYPE_NAME, BM1.rowdata.TOPIC_TYPE_NAME, BM1.rowdata.TOPIC_CODE, BM1.rowdata.TOPIC_NAME, BM1.rowdata.ORDER_NO, BM1.rowdata.ORDER_DATE, BM1.rowdata.BUDGET_TYPE_NAME); }, 1000);
+
       calculateSum1();
       calculateSum2();
       calculateSum3();
