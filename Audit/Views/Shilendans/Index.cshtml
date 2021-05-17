@@ -1,13 +1,15 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
 @using Audit.App_Func
-@using Microsoft.AspNet.Identity;
-@{ var budget_type = Model.budgetTypes.Select(c => new
-                {
-                    ID = c.BUDGET_TYPE_ID,
-                    Name = c.BUDGET_TYPE_NAME
-                }).ToList();
-                Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name"); }
+@{
+    var budget_type = Model.budgetTypes.Select(c => new
+    {
+        ID = c.BUDGET_TYPE_ID,
+        Name = c.BUDGET_TYPE_NAME
+    }).ToList();
+    Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name");
+
+}
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
         @if (User.GetClaimData("DepartmentID") == "2" || User.GetClaimData("DepartmentID") == "101")
@@ -49,56 +51,29 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    @if (User.GetClaimData("USER_TYPE") == "Hak_User")
-                    {
-                        <table class="table table-bordered datatable display" id="hakorganizationlist" style="width:100%">
-                            <thead style="background-color:#f8f9fc;">
-                                <tr>
-                                    <th class="text-center">№</th>
-                                    <th>ТЕЗ</th>
-                                    <th width="5%">ТТЗ/ТЕЗ</th>
-                                    <th width="20%">Харъяа аудитын байгууллагын нэр</th>
-                                    <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
-                                    <th>Регистрийн дугаар</th>
-                                    <th width="9%">Маягт1 / Маягт4</th>
-                                    <th class="text-center">Мэдээлэл оруулсан эсэх</th>
-                                    <th class="text-center">Баримт хэвлэсэн эсэх</th>
-                                    <th>Мэдээлэл оруулсан аудитор</th>
-                                    <th>Мэдээлэл оруулсан өдөр</th>
-                                    <th width="15%">Шилэн данс</th>
-                                </tr>
-                                @*<th>МАЯГТ 1</th>
-                                    <th>МАЯГТ 4</th>
-                                    <th>МАЯГТ 6</th>*@
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table> }
-                                    else
-                                    {
-                        <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
-                            <thead style="background-color:#f8f9fc;">
-                                <tr>
-                                    <th class="text-center">№</th>
-                                    <th>ТЕЗ</th>
-                                    <th width="5%">ТТЗ/ТЕЗ</th>
-                                    <th width="20%">Харъяа аудитын байгууллагын нэр</th>
-                                    <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
-                                    <th>Регистрийн дугаар</th>
-                                    <th width="9%">Маягт1 / Маягт4</th>
-                                    <th class="text-center">Мэдээлэл оруулсан эсэх</th>
-                                    <th class="text-center">Баримт хэвлэсэн эсэх</th>
-                                    <th>Мэдээлэл оруулсан аудитор</th>
-                                    <th>Мэдээлэл оруулсан өдөр</th>
-                                    <th width="15%">Шилэн данс</th>
-                                </tr>
-                                @*<th>МАЯГТ 1</th>
-                                    <th>МАЯГТ 4</th>
-                                    <th>МАЯГТ 6</th>*@
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>}
+                    <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                        <thead style="background-color:#f8f9fc;">
+                            <tr>
+                                <th class="text-center">№</th>
+                                <th>ТЕЗ</th>
+                                <th width="5%">ТТЗ/ТЕЗ</th>
+                                <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                                <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                                <th>Регистрийн дугаар</th>
+                                <th width="9%">Маягт1 / Маягт4</th>
+                                <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                                <th class="text-center">Баримт хэвлэсэн эсэх</th>
+                                <th>Мэдээлэл оруулсан аудитор</th>
+                                <th>Мэдээлэл оруулсан өдөр</th>
+                                <th width="15%">Шилэн данс</th>
+                            </tr>
+                            @*<th>МАЯГТ 1</th>
+                                <th>МАЯГТ 4</th>
+                                <th>МАЯГТ 6</th>*@
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -112,7 +87,6 @@
                 orgListInit();
         })
         var table;
-        var haktable;
         function orgListInit(pagelength = 10) {
                 table = $("#organizationlist").DataTable({
                 "serverSide": true,

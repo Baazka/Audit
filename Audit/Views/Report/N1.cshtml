@@ -12,6 +12,9 @@
         -ms-writing-mode: tb-rl;
         transform: rotate(180deg);
     }
+    .tableBorder {
+        border-right-color: transparent !important;
+    }
 </style>
 <div class="d-flex">
     <a href="@Url.Action("Index","Report")" class="btn btn-sm btn-light mr-2">
@@ -141,45 +144,7 @@
                 </thead>
                 <tbody>
                 </tbody>
-                @*<tfoot>
-                    <tr>
-                        <th colspan="1" style="text-align:right">Total:</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>*@
+               
             </table>
         </div>
     </div>
@@ -198,10 +163,7 @@
         function N1ListInit(pagelength = 10, mayagt) {
             var count = 0
             N1.table = $("#ReportN1").DataTable({
-                fixedHeader: {
-                    header: true,
-                    footer: true
-                },
+                
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -216,19 +178,14 @@
                 },
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.ORGID);
-                    //var api = this.api(), data;
                     
-                    //$(api.column(1).footer()).html(
-                    //     data.MD1 
-                    //);
                 },
               
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            
-                           
+                                          
                             if (data.ORGNAME === "НИЙТ ДҮН") {
                                 return "";
                             }
@@ -266,7 +223,7 @@
                                
                         }
                     },
-                    { "data": "ORGNAME", "name": "ORGNAME"},
+                    { "data": "ORGNAME", "name": "ORGNAME" },
                     { "data": "MD1", "name": "MD1", "class": "text-center"},
                     { "data": "MD2", "name": "MD2", "class": "text-center"},
                     { "data": "MD35", "name": "MD35", "class": "text-center"},
@@ -316,11 +273,38 @@
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
-                "info": true,
+                "info": false,
                 "stateSave": false,
                 lengthChange: true,
                 "language": datatables.language,
                 "ordering": false,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.ORGNAME === "НИЙТ ДҮН" || data.ORGNAME === "Мэдээлсэн"
+                            || data.ORGNAME === "Мэдээлээгүй" || data.ORGNAME === "Хугацаа хоцроосон" || data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь" ||
+                            data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй" || data.ORGNAME === "Хугацаа хоцролтын хэрэгжилтийн хувь") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+
+                            });
+                        } else if (data.ORGNAME === "Төсвийн ерөнхийлөн захирагч" || data.ORGNAME === "Төсвийн төвлөрүүлэн захирагч" || data.ORGNAME === "Төсвийн шууд захирагч") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                     $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+                                if (index !== 34)
+                                    $('td', row).eq(index).addClass('tableBorder');
+
+                            });
+                        }
+                    }
+                },
              
                
             });
@@ -344,7 +328,7 @@
      
    
         close: function () {
-            $("#Bm0Modal").modal("hide");
+            $("#ReportN1").modal("hide");
         },
         //progressResponse: function (data, status, xhr) {
         //    var ct = xhr.getResponseHeader("content-type") || "";

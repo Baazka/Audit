@@ -26,37 +26,37 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM1();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM1();">
                 БМ-1
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM2();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM2();">
                 БМ-2
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM3();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM3();">
                 БМ-3
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM4();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM4();">
                 БМ-4
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM5();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM5();">
                 БМ-5
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM8();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM8();">
                 БМ-8
             </a>
         </div>
@@ -220,7 +220,7 @@
                     //}
                 ],
                 columnDefs: [
-                    { width: 200, targets: 4 },
+                    { width: 200, targets: 6 },
                     { width: 200, targets: 10 },
                     { width: 150, targets: 20 },
                     { width: 150, targets: 21 },
@@ -569,31 +569,10 @@
                 $("#Bm5Modal").modal("hide");
                 $("#Bm8Modal").modal("hide");
             },
-            progressResponse: function (data, status, xhr, name = "BM0") {
+            progressResponse: function (data, status, xhr) {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
-                    switch (name) {
-                        case "BM1":
-                            BM0.displayBM1(data);
-                            break;
-                        case "BM2":
-                            BM0.displayBM2(data);
-                            break;
-                        case "BM3":
-                            BM0.displayBM3(data);
-                            break;
-                        case "BM4":
-                            BM0.displayBM4(data);
-                            break;
-                        case "BM5":
-                            BM0.displayBM5(data);
-                            break;
-                        case "BM8":
-                            BM0.displayBM8(data);
-                            break;
-                        default:
-                            BM0.display(data);
-                    }                    
+                    BM0.display(data);
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {

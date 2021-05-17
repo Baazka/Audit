@@ -16,14 +16,10 @@
                             <thead>
                                 <tr class="text-center table-header-footer">
                                     <td>№</td>
-                                    <td>Төрийн аудитын байгууллага</td>
-                                    <td>Аудитын он</td>
-                                    <td>Аудитын төрөл</td>
-                                    <td>Сэдвийн үндэслэл</td>
                                     <td>Код</td>
                                     <td>Нэр</td>
-                                    <td>Дугаар</td>
                                     <td>Огноо</td>
+                                    <td>Дугаар</td>
                                     <td></td>
                                 </tr>
                             </thead>
@@ -35,15 +31,11 @@
                                     counter++;
                                 <tr>
                                     <td>@counter</td>
-                                    <td>@item.DEPARTMENT_NAME</td>
-                                    <td>@item.YEAR_LABEL</td>
-                                    <td>@item.AUDIT_TYPE_NAME</td>
-                                    <td>@item.TOPIC_TYPE_NAME</td>
                                     <td>@item.TOPIC_CODE</td>
                                     <td>@item.TOPIC_NAME</td>
-                                    <td>@item.ORDER_NO</td>
                                     <td>@item.ORDER_DATE</td>
-                                    <td><a onclick="Choose(@item.ID, '@item.DEPARTMENT_NAME', '@item.YEAR_LABEL', '@item.AUDIT_TYPE_NAME', '@item.TOPIC_TYPE_NAME', '@item.TOPIC_CODE', '@item.TOPIC_NAME', '@item.ORDER_NO', '@item.ORDER_DATE', '@item.BUDGET_TYPE_NAME')" style="cursor:pointer; text-decoration:underline;">Сонгох</a></td>
+                                    <td>@item.ORDER_NO</td>
+                                    <td><a onclick="Choose(@item.ID, '@item.TOPIC_CODE','@item.TOPIC_NAME','@item.ORDER_DATE','@item.ORDER_NO','@item.AUDIT_TYPE', @item.AUDIT_BUDGET_TYPE)" style="cursor:pointer; text-decoration:underline;">Сонгох</a></td>
                                 </tr>
                                 }
                             }

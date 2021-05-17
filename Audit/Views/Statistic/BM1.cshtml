@@ -52,16 +52,7 @@
                 </span>
                 <span class="text">Устгах</span>
             </a>
-        </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM1.completion();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-check"></i>
-                </span>
-                <span class="text">Биелэлт</span>
-            </a>
-        </div>
+        </div>        
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
@@ -84,13 +75,12 @@
                         <th rowspan="4">Аудитын төрөл</th>
                         <th rowspan="4">Аудитын код</th>
                         <th rowspan="4">Аудитын нэр</th>
-                        <th rowspan="4">Сэдвийн ангилал</th>
+                        <th rowspan="4">Төсөв захирагч / Сэдвийн ангилал</th>
                         <th colspan="2">Батлагдсан тушаал</th>
-                        <th rowspan="4">Төсөв захирагч</th>
-                        <th colspan="16">Төлбөрийн актын мэдээлэл</th>
+                        <th colspan="14">Төлбөрийн актын мэдээлэл</th>
                         <th rowspan="4">Төлбөрийн актын хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог, нэр, албан тушаал</th>
-                        <th colspan="7">Төлбөрийн актын биелэлт</th>
-                        <th colspan="7">Бүртгэлээс хасагдсан</th>
+                        <th colspan="6">Төлбөрийн актын биелэлт</th>
+                        <th colspan="5">Бүртгэлээс хасагдсан</th>
                         <th rowspan="4">Дараа онд шилжих үлдэгдлийн дүн</th>
                         <th colspan="2" rowspan="2">Үүнээс</th>
                         <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
@@ -98,20 +88,18 @@
                     <tr class="bg-light">
                         <th rowspan="3">Огноо</th>
                         <th rowspan="3">Дугаар</th>
-                        <th rowspan="3">Төлбөрийн актын огноо</th>
-                        <th rowspan="3">Төлбөрийн актын дугаар</th>
+                        <th rowspan="3">Төлбөрийн актын дугаар, огноо</th>
                         <th rowspan="3">Илрүүлсэн зөрчлийн товч утга</th>
                         <th rowspan="3">Зөрчлийн ангилал</th>
                         <th colspan="2">Хугацаа (он, сар, өдөр)</th>
                         <th colspan="5">Төлбөрийн дүн</th>
-                        <th colspan="5">Төлбөрийн актыг хүлээн авсан</th>
-                        <th rowspan="3">Төлбөрийн баримтын дугаар</th>
+                        <th colspan="4">Төлбөрийн актыг хүлээн авсан</th>
                         <th rowspan="3">Төлбөрийн баримтын нэр, огноо, дугаар</th>
                         <th rowspan="3">Дүн</th>
                         <th colspan="4">Үүнээс</th>
                         <th rowspan="3">Дүн</th>
-                        <th colspan="3">Хуулийн байгууллагад шилжүүлсэн</th>
-                        <th colspan="3">Тушаалаар хүчингүй болгосон</th>
+                        <th colspan="2">Хуулийн байгууллагад шилжүүлсэн</th>
+                        <th colspan="2">Тушаалаар хүчингүй болгосон</th>
                         <th colspan="2">Санхүүгийн</th>
                         <th rowspan="3">Санхүүгийн бус үр өгөөжийн тоо</th>
                     </tr>
@@ -123,18 +111,15 @@
                         <th rowspan="2">Байгууллагын нэр</th>
                         <th rowspan="2">Албан тушаал</th>
                         <th rowspan="2">Овог нэр</th>
-                        <th rowspan="2">Утас</th>
-                        <th rowspan="2">Холбоо барих хаяг</th>
+                        <th rowspan="2">Холбоо барих хаяг, утас</th>
                         <th rowspan="2">Улсын төсөвт</th>
                         <th rowspan="2">Орон нутгийн төсөвт</th>
                         <th rowspan="2">Тухайн байгууллагад</th>
                         <th rowspan="2">Бусад</th>
                         <th rowspan="2">Дүн</th>
-                        <th rowspan="2">Огноо</th>
-                        <th rowspan="2">Дугаар</th>
+                        <th rowspan="2">Огноо, Дугаар</th>
                         <th rowspan="2">Дүн</th>
-                        <th rowspan="2">Огноо</th>
-                        <th rowspan="2">Дугаар</th>
+                        <th rowspan="2">Огноо, Дугаар</th>
                         <th rowspan="2">Хугацаа болоогүй</th>
                         <th rowspan="2">Хугацаа хэтэрсэн</th>
                         <th rowspan="2">Тоо</th>
@@ -155,10 +140,9 @@
 </div>
 
 @section scripts{
-    <script>
-
+    <script>        
         $(document).ready(function () {
-            bm1ListInit();
+            bm1ListInit();           
         });
         function rowselected() {
             $("#BM1 tbody tr").on('click', function (event) {
@@ -166,7 +150,6 @@
                 $("#BM1 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 BM1.bm1ID = this.getAttribute("data-id");
-                BM1.rowdata = BM1.table.row(this).data();
             });
         }
         function bm1ListInit(pagelength = 10) {
@@ -192,15 +175,13 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
+                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
-                    { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
-                    { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
-                    { "data": "TOPIC_TYPE_NAME", "name": "TOPIC_TYPE_NAME" },
+                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
+                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "ORDER_DATE", "name": "ORDER_DATE" },
                     { "data": "ORDER_NO", "name": "ORDER_NO" },
-                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "ACT_DATE", "name": "ACT_DATE" },
                     { "data": "ACT_NO", "name": "ACT_NO" },
                     { "data": "ACT_VIOLATION_DESC", "name": "ACT_VIOLATION_DESC" },
                     { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME" },
@@ -214,10 +195,8 @@
                     { "data": "ACT_RCV_NAME", "name": "ACT_RCV_NAME" },
                     { "data": "ACT_RCV_ROLE", "name": "ACT_RCV_ROLE" },
                     { "data": "ACT_RCV_GIVEN_NAME", "name": "ACT_RCV_GIVEN_NAME" },
-                    { "data": "ACT_RCV_PHONE", "name": "ACT_RCV_PHONE" },
                     { "data": "ACT_RCV_ADDRESS", "name": "ACT_RCV_ADDRESS" },
                     { "data": "ACT_CONTROL_AUDITOR", "name": "ACT_CONTROL_AUDITOR" },
-                    { "data": "COMPLETION_DATE", "name": "COMPLETION_DATE" },
                     { "data": "COMPLETION_ORDER", "name": "COMPLETION_ORDER" },
                     { "data": "COMPLETION_AMOUNT", "name": "COMPLETION_AMOUNT", "class": "text-right" },
                     { "data": "COMPLETION_STATE_AMOUNT", "name": "COMPLETION_STATE_AMOUNT", "class": "text-right" },
@@ -226,22 +205,33 @@
                     { "data": "COMPLETION_OTHER_AMOUNT", "name": "COMPLETION_OTHER_AMOUNT", "class": "text-right" },
                     { "data": "REMOVED_AMOUNT", "name": "REMOVED_AMOUNT", "class": "text-right" },
                     { "data": "REMOVED_LAW_AMOUNT", "name": "REMOVED_LAW_AMOUNT", "class": "text-right" },
-                    { "data": "REMOVED_LAW_DATE", "name": "REMOVED_LAW_DATE" },
-                    { "data": "REMOVED_LAW_NO", "name": "REMOVED_LAW_NO" },
+                    { "data": "REMOVED_LAW_DATE_NO", "name": "REMOVED_LAW_DATE_NO" },
                     { "data": "REMOVED_INVALID_AMOUNT", "name": "REMOVED_INVALID_AMOUNT", "class": "text-right" },
-                    { "data": "REMOVED_INVALID_DATE", "name": "REMOVED_INVALID_DATE" },
-                    { "data": "REMOVED_INVALID_NO", "name": "REMOVED_INVALID_NO" },
+                    { "data": "REMOVED_INVALID_DATE_NO", "name": "REMOVED_INVALID_DATE_NO" },
                     { "data": "ACT_C2_AMOUNT", "name": "ACT_C2_AMOUNT", "class": "text-right" },
                     { "data": "ACT_C2_NONEXPIRED", "name": "ACT_C2_NONEXPIRED", "class": "text-right" },
                     { "data": "ACT_C2_EXPIRED", "name": "ACT_C2_EXPIRED", "class": "text-right" },
                     { "data": "BENEFIT_FIN", "name": "BENEFIT_FIN", "class": "text-right" },
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT", "class": "text-right" },
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN", "class": "text-right" },
+                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="BM1.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="BM1.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 columnDefs: [
                     { width: 200, targets: 4 },
-                    { width: 300, targets: 11 },
-                    { width: 100, targets: 12 },
+                    { width: 300, targets: 9 },
+                    { width: 100, targets: 10 },
                 ],
                 scrollX: true,
                 scrollCollapse: true,
@@ -260,17 +250,14 @@
                 }
             });
         }
-        function Choose(id, department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
-            $("#AUDIT_ID").val(id);
-            $("#DEPARTMENT_NAME").val(department);
-            $("#YEAR_LABEL").val(year);
-            $("#AUDIT_TYPE_NAME").val(audittype);
-            $("#TOPIC_TYPE_NAME").val(topictype);
-            $("#TOPIC_CODE").val(code);
-            $("#TOPIC_NAME").val(name);
-            $("#ORDER_NO").val(orderno);
-            $("#ORDER_DATE").val(orderdate);
-            $("#BUDGET_TYPE_NAME").val(budgettype);
+        function Choose (id, code, name, orderdate, orderno, audittype, auditbudgettype) {
+            $("#Bm1Modal input#AUDIT_ID").val(id);
+            $("#Bm1Modal #AUDIT_TYPE").val(audittype);
+            $("#Bm1Modal input#AUDIT_CODE").val(code);
+            $("#Bm1Modal input#AUDIT_NAME").val(name);
+            $("#Bm1Modal input#ORDER_DATE").val(orderdate);
+            $("#Bm1Modal input#ORDER_NO").val(orderno);
+            $("#Bm1Modal #AUDIT_BUDGET_TYPE").val(auditbudgettype);
 
             $('#BM0ListModel').modal('hide');
         }
@@ -283,18 +270,24 @@
         var BM1 = {
             bm1ID: null,
             table: null,
-            rowdata: null,
             display: function (data) {
                 $("div#bm1modalcontainer").remove();
                 $('<div/>', { id: "bm1modalcontainer" }).appendTo('body').append(data);
 
                 $("#Bm1Modal").modal({ show: true });
+
                 $(".btnBM0listPopup").on('click', function () {
-                    if ($('#STATISTIC_PERIOD').val() != null && $('#STATISTIC_PERIOD').val() != '')
-                        BM1.BM0List($('#STATISTIC_PERIOD').val());
+                    if ($('#OFFICE_ID').val() != null && $('#OFFICE_ID').val() != '')
+                        BM1.BM0List($('#OFFICE_ID').val());
                     else
-                        alert('Тайлант хугацаа сонгоно уу.');
+                        alert('Төрийн аудитын байгууллага сонгоно уу.');
                 });
+            },
+            displayCompletion: function (data) {
+                $("div#Bm1ModalCompletioncontainer").remove();
+                $('<div/>', { id: "Bm1ModalCompletioncontainer" }).appendTo('body').append(data);
+
+                $("#Bm1ModalCompletion").modal({ show: true });
             },
             displayBM0List: function (data) {
                 $("div#bm0listmodalcontainer").remove();
@@ -305,12 +298,12 @@
                     $('#Bm1Modal').modal('show');
                 });
             },
-            BM0List: function (periodid) {
+            BM0List: function (officeid) {
                 $.ajax({
                     url: '@Url.Action("BM0Search", "Statistic", new { Area = "" })',
                     type: 'GET',
                     cache: false,
-                    data: { periodid},
+                    data: { officeid },
                     success: function (data) {
                         BM1.displayBM0List(data);
                     },
@@ -347,7 +340,7 @@
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: id, isbm0: false, iscompletion: false },
                         success: function (data, status, xhr) {
                             BM1.progressResponse(data, status, xhr);
                         },
@@ -369,7 +362,7 @@
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: id, isbm0: false, iscompletion: true },
                         success: function (data, status, xhr) {
                             BM1.progressResponse(data, status, xhr);
                         },
@@ -411,10 +404,13 @@
             close: function () {
                 $("#Bm1Modal").modal("hide");
             },
-            progressResponse: function (data, status, xhr) {
+            progressResponse: function (data, status, xhr, iscompletion=false) {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
-                    BM1.display(data);
+                    if (iscompletion)
+                        BM1.display(data);
+                    else
+                        BM1.displayCompletion(data);
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {
@@ -445,6 +441,6 @@
             }, 5000
             )
         }
-
+        
     </script>
 } 

@@ -59,7 +59,7 @@ namespace Audit.Controllers
         public PartialViewResult BM0Search(int periodid)
         {
             List<BM0Search> bM0Search = new List<BM0Search>();
-            XElement res = AppStatic.SystemController.BM0Search(Convert.ToInt32(User.GetClaimData("DepartmentID")), periodid);
+            XElement res = AppStatic.SystemController.BM0Search(Convert.ToInt32(User.GetClaimData("DepartmentID")) ,periodid);
             if (res != null && res.Elements("BM0Search") != null)
             {
                 bM0Search = (from item in res.Elements("BM0Search") select new BM0Search().SetXml(item)).ToList();
