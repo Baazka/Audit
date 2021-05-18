@@ -52,6 +52,15 @@
                 <span class="text">Устгах</span>
             </a>
         </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM2.completion();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Биелэлт</span>
+            </a>
+        </div>
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM2', 'БМ-2. Төрийн аудитын газрын аудитор болон багийн албан шаардлагын бүртгэл')">
@@ -172,7 +181,7 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
+                    { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
                     { "data": "TOPIC_TYPE_NAME", "name": "TOPIC_TYPE_NAME" },
                     { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
@@ -314,7 +323,7 @@
             },
             loadTemplate: function () {
                 $.ajax({
-                    url: "@Url.Action("BM2AddEdit", "Statistic", new { Area = "" })",
+                    url: "@Url.Action("BM2Add", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
                         BM2.display(data);
@@ -332,11 +341,33 @@
                 if (BM2.bm2ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
+                     var audit_id = BM2.bm2ID;
+                    $.ajax({
+                        url: "@Url.Action("BM2Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id: audit_id, isbm0: false },
+                        success: function (data, status, xhr) {
+                            BM2.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            completion: function () {
+                if (BM2.bm2ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
                     var id = BM2.bm2ID;
                     $.ajax({
                         url: "@Url.Action("BM2Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: id, isbm0: false, iscompletion: true },
                         success: function (data, status, xhr) {
                             BM2.progressResponse(data, status, xhr);
                         },

@@ -515,7 +515,7 @@ namespace Audit.Controllers
             BM1 bm1 = new BM1();
             try
             {
-                if (Globals.departments.Count > 0)
+                if (Globals.departments.Count > 0) 
                     bm1.departments = Globals.departments;
                 else
                 {
@@ -568,7 +568,6 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
-
             return PartialView(bm1);
         }
         [HttpPost]
@@ -589,6 +588,7 @@ namespace Audit.Controllers
                         return Json(new { error = false, message = AppStatic.SystemController.Message });
                     else
                         AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
+
                 }
             }
             try
@@ -974,16 +974,93 @@ namespace Audit.Controllers
             return PartialView(bm2);
 
         }
-        public ActionResult BM2Detail(int id)
+        [HttpPost]
+        public ActionResult BM2AddEditCompletion(BM2 bm2)
+        {
+            if (ModelState.IsValid)
+            {
+                if (AppStatic.SystemController.BM2UpdateCompletion(Convert.ToInt32(User.Identity.GetUserId()), bm2.ToXml()))
+                    return Json(new { error = false, message = AppStatic.SystemController.Message });
+                else
+                    AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
+            }
+            try
+            {
+                if (Globals.departments.Count > 0)
+                    bm2.departments = Globals.departments;
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    bm2.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                    bm2.periods = Globals.periods;
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    bm2.periods = Globals.periods;
+                }
+                if (Globals.refaudityears.Count > 0)
+                    bm2.refaudityears = Globals.refaudityears;
+                else
+                {
+                    XElement responseRefAuditYear = SendLibraryRequest("RefAuditYear");
+                    Globals.refaudityears = (from item in responseRefAuditYear.Elements("Library") select new REF_AUDIT_YEAR().FromXml(item)).ToList();
+                    bm2.refaudityears = Globals.refaudityears;
+                }
+                if (Globals.refviolationtypes.Count > 0)
+                    bm2.refviolationtypes = Globals.refviolationtypes;
+                else
+                {
+                    XElement responseRefViolationType = SendLibraryRequest("RefViolationType");
+                    Globals.refviolationtypes = (from item in responseRefViolationType.Elements("Library") select new REF_VIOLATION_TYPE().FromXml(item)).ToList();
+                    bm2.refviolationtypes = Globals.refviolationtypes;
+                }
+                if (Globals.audittypes.Count > 0)
+                    bm2.audittypes = Globals.audittypes;
+                else
+                {
+                    XElement responseRefAuditType = SendLibraryRequest("RefAuditType");
+                    Globals.audittypes = (from item in responseRefAuditType.Elements("Library") select new REF_AUDIT_TYPE().FromXml(item)).ToList();
+                    bm2.audittypes = Globals.audittypes;
+                }
+                if (Globals.refbudgettypes.Count > 0)
+                    bm2.refbudgettypes = Globals.refbudgettypes;
+                else
+                {
+                    XElement responseRefBudgetType = SendLibraryRequest("RefBudgetType");
+                    Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
+                    bm2.refbudgettypes = Globals.refbudgettypes;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return PartialView(bm2);
+
+        }
+
+        public ActionResult BM2Detail(int id, bool isbm0 = false, bool iscompletion = false)
         {
             BM2 bm2 = new BM2();
             try
             {
-                XElement res = AppStatic.SystemController.BM2Detail(id);
-                if (res != null && res.Elements("BM2Detail") != null)
+                if (!isbm0)
                 {
-                    bm2 = new BM2().SetXml(res.Element("BM2Detail"));
+                    XElement res = AppStatic.SystemController.BM2Detail(id);
+                    if (res != null && res.Elements("BM2Detail") != null)
+                    {
+                        bm2 = new BM2().SetXml(res.Element("BM2Detail"));
+                    }
                 }
+                else
+                {
+                    bm2.AUDIT_ID = id;
+                }
+
 
                 if (Globals.departments.Count > 0)
                     bm2.departments = Globals.departments;
@@ -1033,13 +1110,80 @@ namespace Audit.Controllers
                     Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
                     bm2.refbudgettypes = Globals.refbudgettypes;
                 }
-                return PartialView("BM2AddEdit", bm2);
             }
             catch (Exception ex)
             {
                 Globals.WriteErrorLog(ex);
             }
-            return PartialView("BM2AddEdit", bm2);
+            if (!isbm0)
+            {
+                return PartialView(!iscompletion ? "BM2AddEdit" : "BM2AddEditCompletion", bm2);
+            }
+            return PartialView("BM2Add", bm2);
+        }
+        [HttpGet]
+        public ActionResult BM2Add()
+        {
+            BM2 bm2 = new BM2();
+
+            try
+            {
+                if (Globals.departments.Count > 0)
+                    bm2.departments = Globals.departments;
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    bm2.departments = Globals.departments;
+                }
+                if (Globals.periods.Count > 0)
+                    bm2.periods = Globals.periods;
+                else
+                {
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    bm2.periods = Globals.periods;
+                }
+                if (Globals.refaudityears.Count > 0)
+                    bm2.refaudityears = Globals.refaudityears;
+                else
+                {
+                    XElement responseRefAuditYear = SendLibraryRequest("RefAuditYear");
+                    Globals.refaudityears = (from item in responseRefAuditYear.Elements("Library") select new REF_AUDIT_YEAR().FromXml(item)).ToList();
+                    bm2.refaudityears = Globals.refaudityears;
+                }
+                if (Globals.refviolationtypes.Count > 0)
+                    bm2.refviolationtypes = Globals.refviolationtypes;
+                else
+                {
+                    XElement responseRefViolationType = SendLibraryRequest("RefViolationType");
+                    Globals.refviolationtypes = (from item in responseRefViolationType.Elements("Library") select new REF_VIOLATION_TYPE().FromXml(item)).ToList();
+                    bm2.refviolationtypes = Globals.refviolationtypes;
+                }
+                if (Globals.audittypes.Count > 0)
+                    bm2.audittypes = Globals.audittypes;
+                else
+                {
+                    XElement responseRefAuditType = SendLibraryRequest("RefAuditType");
+                    Globals.audittypes = (from item in responseRefAuditType.Elements("Library") select new REF_AUDIT_TYPE().FromXml(item)).ToList();
+                    bm2.audittypes = Globals.audittypes;
+                }
+                if (Globals.refbudgettypes.Count > 0)
+                    bm2.refbudgettypes = Globals.refbudgettypes;
+                else
+                {
+                    XElement responseRefBudgetType = SendLibraryRequest("RefBudgetType");
+                    Globals.refbudgettypes = (from item in responseRefBudgetType.Elements("Library") select new REF_BUDGET_TYPE().FromXml(item)).ToList();
+                    bm2.refbudgettypes = Globals.refbudgettypes;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+
+            return PartialView(bm2);
+
         }
         [HttpPost]
         public JsonResult BM2Delete(int id)

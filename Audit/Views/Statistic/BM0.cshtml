@@ -468,11 +468,11 @@
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
                         url: "@Url.Action("BM2Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: audit_id, isbm0: true },
                         success: function (data, status, xhr) {
                             BM0.progressResponse(data, status, xhr);
                         },
