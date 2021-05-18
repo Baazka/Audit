@@ -1278,7 +1278,7 @@ namespace Audit.Controllers
                 if (request.DeparmentID != null)
                     elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
                 else
-                    elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+                    elem.Add(new XElement("V_DEPARTMENT", null));
 
                 if (request.PeriodID != null)
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
@@ -1312,7 +1312,8 @@ namespace Audit.Controllers
                     List<N1> typeGurav= new List<N1>();
 
                     List<N1> temp = new List<N1>();
-                   
+                    List<N1> temp2 = new List<N1>();
+                    List<N1> temp3 = new List<N1>();
 
                     typeNeg = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
                     typeHoyor = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
@@ -1320,39 +1321,32 @@ namespace Audit.Controllers
 
                     if (typeNeg.Count > 0)
                     {
-                        title = new N1();
                         title.ORGNAME = "Төсвийн ерөнхийлөн захирагч";
                         temp.Add(title);
                         temp.AddRange(typeNeg);
                         typeNeg = temp;
-                        temp = new List<N1>(); 
                         
                     }
 
                     if (typeHoyor.Count > 0)
                     {
-                        title = new N1();
                         title.ORGNAME = "Төсвийн төвлөрүүлэн захирагч";
-                        temp.Add(title);
-                        temp.AddRange(typeHoyor);
-                        typeHoyor = temp;
-                        temp = new List<N1>(); 
+                        temp2.Add(title);
+                        temp2.AddRange(typeHoyor);
+                        typeHoyor = temp2;
 
                     }
 
                     if (typeGurav.Count > 0)
                     {
-                        title = new N1();
                         title.ORGNAME = "Төсвийн шууд захирагч";
-                        temp.Add(title);
-                        temp.AddRange(typeGurav);
-                        typeGurav = temp;
-                        temp = new List<N1>(); 
+                        temp3.Add(title);
+                        temp3.AddRange(typeGurav);
+                        typeGurav = temp3;
 
                     }
 
                     List<N1> types = new List<N1>();
-
                     types.AddRange(typeNeg);
                     types.AddRange(typeHoyor);
                     types.AddRange(typeGurav);
@@ -1458,7 +1452,7 @@ namespace Audit.Controllers
                     {
                         orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                     }
-                    
+
                     n1Detial = types;
                     n1Detial.Add(Niit);
                     n1Detial.Add(Medeelsen);
@@ -1479,7 +1473,6 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
-          
             return response;
         }
 

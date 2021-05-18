@@ -307,7 +307,7 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
-      if ($("input[name='AUDIT_DEPARTMENT_TYPE']").val() == 1)
+      if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1)
           $('.team_department').removeClass('d-none');
       else
           $('.team_audit').removeClass('d-none');
