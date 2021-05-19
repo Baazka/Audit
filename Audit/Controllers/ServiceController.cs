@@ -1409,21 +1409,21 @@ namespace Audit.Controllers
                                         break;
 
                                 }
-                                total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
+                                total = Convert.ToDecimal(prop.GetValue(Medeelsen)) + Convert.ToDecimal(prop.GetValue(Medeeleegui)) + Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) + Convert.ToDecimal(prop.GetValue(Shaardlaggui));
                                 prop.SetValue(Niit, total.ToString());
                                 orgname.SetValue(Niit, "НИЙТ ДҮН");
 
                                 if (total != 0)
                                 {
-                                    math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
-                                    prop.SetValue(bodolt1, String.Format("{0:0.0}", math1));
+                                    math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                    prop.SetValue(bodolt1, String.Format("{0:0.#}", math1));
                                     orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                 }
 
                                 if (total != 0)
                                 {
-                                    math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
-                                    prop.SetValue(bodolt2, String.Format("{0:0.0}", math2));
+                                    math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                    prop.SetValue(bodolt2, String.Format("{0:0.#}", math2));
                                     orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                 }
                             }    
@@ -1650,21 +1650,21 @@ namespace Audit.Controllers
                                             break;
 
                                     }
-                                    total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
+                                    total = Convert.ToDecimal(prop.GetValue(Medeelsen)) + Convert.ToDecimal(prop.GetValue(Medeeleegui)) + Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) + Convert.ToDecimal(prop.GetValue(Shaardlaggui));
                                     prop.SetValue(Niit, total.ToString());
                                     orgname.SetValue(Niit, "НИЙТ ДҮН");
 
                                     if (total != 0)
                                     {
-                                        math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui) == null? 0 : prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson) == null? 0 : prop.GetValue(HugtsaaHotsorson));
-                                        prop.SetValue(bodolt1, String.Format("{0:0.0}", math1));
+                                        math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                        prop.SetValue(bodolt1, String.Format("{0:0.#}", math1));
                                         orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                     }
 
                                     if (total != 0)
                                     {
-                                        math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson) == null? 0 : prop.GetValue(HugtsaaHotsorson));
-                                        prop.SetValue(bodolt2, String.Format("{0:0.0}", math2));
+                                        math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                        prop.SetValue(bodolt2, String.Format("{0:0.#}", math2));
                                         orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                     }
                                 }
@@ -1674,7 +1674,7 @@ namespace Audit.Controllers
                                 String test = (string)prop.GetValue(Niit);
                                 decimal tempToo2 =!String.IsNullOrEmpty(test) ? Convert.ToDecimal(prop.GetValue(Niit)) : 0;
                                 total = tempToo2 + tempToo;
-                                prop.SetValue(Niit, total != 0 ? String.Format("{0:0.0}", total) : "");
+                                prop.SetValue(Niit, total != 0 ? String.Format("{0.0.#}", total) : "");
                                 orgname.SetValue(Niit, "НИЙТ ДҮН");
                                 //math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
 
@@ -1712,13 +1712,13 @@ namespace Audit.Controllers
                     }
 
                     math1 = 100 - (!String.IsNullOrEmpty(Niit.MD39)? Convert.ToDecimal(Niit.MD39):0) * 100 /  Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD37)?Niit.MD37:"1");
-                    bodolt1.MD37 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    bodolt1.MD37 = math1 != 0 ? String.Format("{0.0.#}", math1) : "";
                     math1 = 100 - (!String.IsNullOrEmpty(Niit.MD40) ? Convert.ToDecimal(Niit.MD40) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD38) ? Niit.MD38 : "1");
-                    bodolt1.MD38 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    bodolt1.MD38 = math1 != 0 ? String.Format("{0.0.#}", math1) : "";
                     math1 = 100 - (!String.IsNullOrEmpty(Niit.MD42) ? Convert.ToDecimal(Niit.MD42) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD38) ? Niit.MD38 : "1");
-                    bodolt2.MD42 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    bodolt2.MD42 = math1 != 0 ? String.Format("{0.0.#}", math1) : "";
                     math1 = 100 - (!String.IsNullOrEmpty(Niit.MD41) ? Convert.ToDecimal(Niit.MD41) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD37) ? Niit.MD37 : "1");
-                    bodolt2.MD41 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    bodolt2.MD41 = math1 != 0 ? String.Format("{0.0.#}", math1) : "";
                     List<string> list = new List<string>(key);
                     list.RemoveAt(list.IndexOf("66"));
                     list.RemoveAt(list.IndexOf("67"));
@@ -1736,9 +1736,9 @@ namespace Audit.Controllers
 
 
                         math1 = 100 - (!String.IsNullOrEmpty(niitMedeeleeguiStr) ? Convert.ToDecimal(niitMedeeleeguiStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenStr) ? niitMedeelsenStr : "1");
-                        niitMedeeleegui.SetValue(bodolt1, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitMedeeleegui.SetValue(bodolt1, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
                         math1 = 100 - (!String.IsNullOrEmpty(niitMedeeleeguiMunguStr) ? Convert.ToDecimal(niitMedeeleeguiMunguStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenMunguStr) ? niitMedeelsenMunguStr : "1");
-                        niitMedeeleeguiMungu.SetValue(bodolt1, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitMedeeleeguiMungu.SetValue(bodolt1, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
 
                         var niitKhugtsaaToo = typ.GetProperty("MD" + list[i + 4]);
                         string niitKhugtsaaTooStr = niitKhugtsaaToo.GetValue(Niit) != null ? niitKhugtsaaToo.GetValue(Niit).ToString() : "0";
@@ -1749,9 +1749,9 @@ namespace Audit.Controllers
 
 
                         math1 = 100 - (!String.IsNullOrEmpty(niitKhugtsaaTooStr) ? Convert.ToDecimal(niitKhugtsaaTooStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenStr) ? niitMedeelsenStr : "1");
-                        niitKhugtsaaToo.SetValue(bodolt2, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitKhugtsaaToo.SetValue(bodolt2, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
                         math1 = 100 - (!String.IsNullOrEmpty(niitKhugtsaaMunguStr) ? Convert.ToDecimal(niitKhugtsaaMunguStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenMunguStr) ? niitMedeelsenMunguStr : "1");
-                        niitKhugtsaaMungu.SetValue(bodolt2, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitKhugtsaaMungu.SetValue(bodolt2, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
                         i += 6;
                     }
 
@@ -1951,15 +1951,15 @@ namespace Audit.Controllers
 
                                     if (total != 0)
                                     {
-                                        math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui) == null ? 0 : prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson) == null ? 0 : prop.GetValue(HugtsaaHotsorson));
-                                        prop.SetValue(bodolt1, String.Format("{0:0.0}", math1));
+                                        math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                        prop.SetValue(bodolt1, String.Format("{0:0.#}", math1));
                                         orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                     }
 
                                     if (total != 0)
                                     {
-                                        math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson) == null ? 0 : prop.GetValue(HugtsaaHotsorson));
-                                        prop.SetValue(bodolt2, String.Format("{0:0.0}", math2));
+                                        math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                        prop.SetValue(bodolt2, String.Format("{0:0.#}", math2));
                                         orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                     }
                                 }
@@ -1969,7 +1969,7 @@ namespace Audit.Controllers
                             String test = (string)prop.GetValue(Niit);
                             decimal tempToo2 = !String.IsNullOrEmpty(test) ? Convert.ToDecimal(prop.GetValue(Niit)) : 0;
                             total = tempToo2 + tempToo;
-                            prop.SetValue(Niit, total != 0 ? String.Format("{0:0.0}", total) : "");
+                            prop.SetValue(Niit, total != 0 ? String.Format("{0.0.#}", total) : "");
                             orgname.SetValue(Niit, "НИЙТ ДҮН");
                             //math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
 
@@ -2028,9 +2028,9 @@ namespace Audit.Controllers
 
 
                         math1 = 100 - (!String.IsNullOrEmpty(niitMedeeleeguiStr) ? Convert.ToDecimal(niitMedeeleeguiStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenStr) ? niitMedeelsenStr : "1");
-                        niitMedeeleegui.SetValue(bodolt1, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitMedeeleegui.SetValue(bodolt1, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
                         math1 = 100 - (!String.IsNullOrEmpty(niitMedeeleeguiMunguStr) ? Convert.ToDecimal(niitMedeeleeguiMunguStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenMunguStr) ? niitMedeelsenMunguStr : "1");
-                        niitMedeeleeguiMungu.SetValue(bodolt1, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitMedeeleeguiMungu.SetValue(bodolt1, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
 
                         var niitKhugtsaaToo = typ.GetProperty("MD" + key2[i + 4]);
                         string niitKhugtsaaTooStr = niitKhugtsaaToo.GetValue(Niit) != null ? niitKhugtsaaToo.GetValue(Niit).ToString() : "0";
@@ -2041,15 +2041,15 @@ namespace Audit.Controllers
 
 
                         math1 = 100 - (!String.IsNullOrEmpty(niitKhugtsaaTooStr) ? Convert.ToDecimal(niitKhugtsaaTooStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenStr) ? niitMedeelsenStr : "1");
-                        niitKhugtsaaToo.SetValue(bodolt2, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitKhugtsaaToo.SetValue(bodolt2, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
                         math1 = 100 - (!String.IsNullOrEmpty(niitKhugtsaaMunguStr) ? Convert.ToDecimal(niitKhugtsaaMunguStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenMunguStr) ? niitMedeelsenMunguStr : "1");
-                        niitKhugtsaaMungu.SetValue(bodolt2, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        niitKhugtsaaMungu.SetValue(bodolt2, math1 != 0 ? String.Format("{0.0.#}", math1) : "");
                         i += 6;
                     }
                     math1 = 100 - (!String.IsNullOrEmpty(Niit.MD105) ? Convert.ToDecimal(Niit.MD105) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD104) ? Niit.MD104 : "1");
-                    bodolt1.MD104 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    bodolt1.MD104 = math1 != 0 ? String.Format("{0.0.#}", math1) : "";
                     math1 = 100 - (!String.IsNullOrEmpty(Niit.MD106) ? Convert.ToDecimal(Niit.MD106) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD104) ? Niit.MD104 : "1");
-                    bodolt2.MD106 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    bodolt2.MD106 = math1 != 0 ? String.Format("{0.0.#}", math1) : "";
                     
 
                     n1Detial = types;

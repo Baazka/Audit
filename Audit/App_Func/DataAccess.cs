@@ -7875,7 +7875,7 @@ namespace Audit.App_Func
                                "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                "WHERE MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,158,159,160,161,162,165,166,167,168,169) " +
                                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +
-                               //"AND rop.OPEN_ENT_NAME like '%ИТХ/ДЭЛГЭРХААН/%' " +
+                               
                                ") D " +
                                "PIVOT( " +
                                "MAX(DATA01) " +
