@@ -197,6 +197,7 @@ namespace Audit.Models
         public string MD108 { get; set; }
         public string MD109 { get; set; }
         public string MD110 { get; set; }
+        public string MD111 { get; set; }
         public string MD113 { get; set; }
 
 
@@ -546,6 +547,8 @@ namespace Audit.Models
                     MD109 = xml.Element("MD109").Value != "0" ? xml.Element("MD109").Value.ToString() : "";
                 if (xml.Element("MD110") != null)
                     MD110 = xml.Element("MD110").Value != "0" ? xml.Element("MD110").Value.ToString() : "";
+                if (xml.Element("MD111") != null)
+                    MD111 = xml.Element("MD111").Value != "0" ? xml.Element("MD111").Value.ToString() : "";
                 if (xml.Element("MD113") != null)
                     MD113 = xml.Element("MD113").Value != "0" ? xml.Element("MD113").Value.ToString() : "";
 

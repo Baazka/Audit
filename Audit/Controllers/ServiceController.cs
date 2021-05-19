@@ -1415,14 +1415,14 @@ namespace Audit.Controllers
 
                                 if (total != 0)
                                 {
-                                    math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                    math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
                                     prop.SetValue(bodolt1, String.Format("{0:0.#}", math1));
                                     orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                 }
 
                                 if (total != 0)
                                 {
-                                    math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                    math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
                                     prop.SetValue(bodolt2, String.Format("{0:0.#}", math2));
                                     orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                 }
@@ -1656,14 +1656,14 @@ namespace Audit.Controllers
 
                                     if (total != 0)
                                     {
-                                        math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                        math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
                                         prop.SetValue(bodolt1, String.Format("{0:0.#}", math1));
                                         orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                     }
 
                                     if (total != 0)
                                     {
-                                        math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / total - Convert.ToDecimal(prop.GetValue(Shaardlaggui));
+                                        math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
                                         prop.SetValue(bodolt2, String.Format("{0:0.#}", math2));
                                         orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                     }
@@ -1793,7 +1793,7 @@ namespace Audit.Controllers
                 elem.Add(new XElement("PageNumber", request.start));*/
            
 
-                elem.Add(new XElement("V_Mayagt", request.Mayagt = "1,2"));
+                elem.Add(new XElement("V_Mayagt", request.Mayagt = "3,4"));
                 /*elem.Add(new XElement("V_Mayagt", request.Mayagt = "3"));*/
 
 
