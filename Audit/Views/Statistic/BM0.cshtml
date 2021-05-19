@@ -332,10 +332,10 @@
                 $("#Bm1AddModal").modal({ show: true });
             },
             displayBM2: function (data) {
-                $("div#bm2modalcontainer").remove();
-                $('<div/>', { id: "bm2modalcontainer" }).appendTo('body').append(data);
+                $("div#bm2modalcontainerBM0").remove();
+                $('<div/>', { id: "bm2modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm2Modal").modal({ show: true });
+                $("#Bm2ModalBM0").modal({ show: true });
             },
             displayBM3: function (data) {
                 $("div#bm3modalcontainer").remove();
@@ -470,11 +470,11 @@
                 else {
                     var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM2Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id: audit_id, isbm0: true },
+                        url: "@Url.Action("BM2AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM2");
                         },
                         error: errorResponse,
                         beforeSend: function () {

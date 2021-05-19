@@ -2311,6 +2311,7 @@
     <Content Include="Views\Report\ReportN2.cshtml" />
     <Content Include="Views\Statistic\BM2Add.cshtml" />
     <Content Include="Views\Statistic\BM2AddEditCompletion.cshtml" />
+    <Content Include="Views\Statistic\BM2AddBM0.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

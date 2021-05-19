@@ -1316,6 +1316,66 @@ namespace Audit.App_Func
 
             return response;
         }
+
+        public static DataResponse BM0SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, RD1.DEPARTMENT_NAME, RAY.YEAR_LABEL, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, RFT.FORM_TYPE_NAME, RPT.PROPOSAL_TYPE_NAME, RBT.BUDGET_TYPE_NAME, BM.AUDIT_INCLUDED_COUNT, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_SERVICE_PAY, RDT.DEPARTMENT_SHORT_NAME, RD2.DEPARTMENT_NAME AS TEAM_DEPARTMENT_NAME, (SELECT LISTAGG(SU.USER_CODE||'-'||SU.USER_NAME,',') WITHIN GROUP (ORDER BY TD.ID) " +
+                    "FROM AUD_STAT.BM0_TEAM_DATA TD " +
+                    "INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID " +
+                    "WHERE TD.TEAM_TYPE_ID = 1 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_LEAD, " +
+                    "(SELECT LISTAGG(SU.USER_CODE || '-' || SU.USER_NAME, ',') WITHIN GROUP(ORDER BY TD.ID) " +
+                    "FROM AUD_STAT.BM0_TEAM_DATA TD INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID " +
+                    "WHERE TD.TEAM_TYPE_ID = 2 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_MEMBER, " +
+                    "SUS.USER_CODE || '-' || SUS.USER_NAME AS AUDITOR_ENTRY " +
+                    "FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON BM.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON BM.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON BM.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_FORM_TYPE RFT ON BM.AUDIT_FORM_TYPE = RFT.FORM_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_PROPOSAL_TYPE RPT ON BM.AUDIT_PROPOSAL_TYPE = RPT.PROPOSAL_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON BM.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_DEPARTMENT_TYPE RDT ON BM.AUDIT_DEPARTMENT_TYPE = RDT.DEPARTMENT_TYPE_ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD1 ON BM.DEPARTMENT_ID = RD1.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD2 ON BM.AUDIT_DEPARTMENT_ID = RD2.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_REG.SYSTEM_USER SUS ON BM.AUDITOR_ENTRY_ID = SUS.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM0SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM0Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2173,6 +2233,54 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM2SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_DATE, B.ORDER_NO, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM2_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM2SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM2Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2228,38 +2336,83 @@ namespace Audit.App_Func
         {
             DataResponse response = new DataResponse();
 
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
             try
             {
-                // Open a connection to the database
-                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
-                con.Open();
+                XElement elem = request.Element("Parameters").Element("BM2");
 
-                // Create and execute the command
-                OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, CLAIM_NO, CLAIM_VIOLATION_DESC, CLAIM_VIOLATION_TYPE, CLAIM_SUBMITTED_DATE, CLAIM_DELIVERY_DATE, CLAIM_VIOLATION_AMOUNT, CLAIM_RCV_NAME, CLAIM_RCV_ROLE, CLAIM_RCV_GIVEN_NAME, CLAIM_RCV_ADDRESS, CLAIM_CONTROL_AUDITOR, COMPLETION_ORDER, COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT, REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE, REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE, REMOVED_INVALID_NO, CLAIM_C2_AMOUNT, CLAIM_C2_NONEXPIRED, CLAIM_C2_EXPIRED, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN, EXEC_TYPE, CREATED_DATE, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID "+ 
-                            "FROM AUD_STAT.BM2_DATA "+
-                            "WHERE ID =:P_ID";
+                cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA " +
+                    " SET COMPLETION_DATE = :P_COMPLETION_DATE, " +
+                    " COMPLETION_ORDER = :P_COMPLETION_ORDER, " +
+                    " COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT," +
+                    " COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT,  " +
+                    " COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT," +
+                    " COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT," +
+                    " COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT," +
+                    " REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT," +
+                    " REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE," +
+                    " REMOVED_LAW_NO = :P_REMOVED_LAW_NO," +
+                    " REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT," +
+                    " REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE," +
+                    " REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO," +
+                    " CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT," +
+                    " CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED," +
+                    " CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, " +
+                    " BENEFIT_FIN = :P_BENEFIT_FIN, " +
+                    " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, " +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN " +
+                    " WHERE ID = :P_ID";
+               
 
                 // Set parameters
-                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
 
-                DataTable dtTable = new DataTable();
-                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
+                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_EXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
                 cmd.Dispose();
                 con.Close();
 
-                dtTable.TableName = "BM2Detail";
-
-                StringWriter sw = new StringWriter();
-                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
-
-                XElement xmlResponseData = XElement.Parse(sw.ToString());
-                response.CreateResponse(xmlResponseData);
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 response.CreateResponse(ex);
             }
 
@@ -2284,8 +2437,44 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM2");
+
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA SET AUDIT_ID = :P_AUDIT_ID, CLAIM_DATE = :P_CLAIM_DATE, CLAIM_NO = :P_CLAIM_NO, CLAIM_VIOLATION_DESC = :P_CLAIM_VIOLATION_DESC, CLAIM_VIOLATION_TYPE = :P_CLAIM_VIOLATION_TYPE, CLAIM_SUBMITTED_DATE = :P_CLAIM_SUBMITTED_DATE, CLAIM_DELIVERY_DATE = :P_CLAIM_DELIVERY_DATE, CLAIM_VIOLATION_AMOUNT = :P_CLAIM_VIOLATION_AMOUNT, CLAIM_RCV_NAME = :P_CLAIM_RCV_NAME, CLAIM_RCV_ROLE = :P_CLAIM_RCV_ROLE, CLAIM_RCV_GIVEN_NAME = :P_CLAIM_RCV_GIVEN_NAME, CLAIM_RCV_PHONE = :P_CLAIM_RCV_PHONE, CLAIM_RCV_ADDRESS = :P_CLAIM_RCV_ADDRESS, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT, CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED, CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE WHERE ID = :P_ID";
+                cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA SET " +
+                    " AUDIT_ID = :P_AUDIT_ID, " +
+                    " CLAIM_DATE = :P_CLAIM_DATE, " +
+                    " CLAIM_NO = :P_CLAIM_NO, " +
+                    " CLAIM_VIOLATION_DESC = :P_CLAIM_VIOLATION_DESC, " +
+                    " CLAIM_VIOLATION_TYPE = :P_CLAIM_VIOLATION_TYPE, " +
+                    " CLAIM_SUBMITTED_DATE = :P_CLAIM_SUBMITTED_DATE, " +
+                    " CLAIM_DELIVERY_DATE = :P_CLAIM_DELIVERY_DATE, " +
+                    " CLAIM_VIOLATION_AMOUNT = :P_CLAIM_VIOLATION_AMOUNT, " +
+                    " CLAIM_RCV_NAME = :P_CLAIM_RCV_NAME, " +
+                    " CLAIM_RCV_ROLE = :P_CLAIM_RCV_ROLE, " +
+                    " CLAIM_RCV_GIVEN_NAME = :P_CLAIM_RCV_GIVEN_NAME, " +
+                    " CLAIM_RCV_PHONE = :P_CLAIM_RCV_PHONE, " +
+                    " CLAIM_RCV_ADDRESS = :P_CLAIM_RCV_ADDRESS, " +
+                    " COMPLETION_DATE = :P_COMPLETION_DATE, " +
+                    " COMPLETION_ORDER = :P_COMPLETION_ORDER, " +
+                    " COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, " +
+                    " COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT, " +
+                    " COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, " +
+                    " COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, " +
+                    " COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, " +
+                    " REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, " +
+                    " REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, " +
+                    " REMOVED_LAW_NO = :P_REMOVED_LAW_NO, " +
+                    " REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, " +
+                    " REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, " +
+                    " REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, " +
+                    " CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT, " +
+                    " CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED, " +
+                    " CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, " +
+                    " BENEFIT_FIN = :P_BENEFIT_FIN, " +
+                    " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, " +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN, " +
+                    " UPDATED_BY = :P_UPDATED_BY, " +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
+                    " WHERE ID = :P_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -2301,7 +2490,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_CLAIM_RCV_GIVEN_NAME", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_GIVEN_NAME")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ADDRESS")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                //cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
@@ -2325,6 +2514,8 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
+
+
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
                 bool responseVal = rowsUpdated == 0 ? false : true;
@@ -2340,6 +2531,79 @@ namespace Audit.App_Func
             }
 
             return response;
+            //DataResponse response = new DataResponse();
+
+            //// Open a connection to the database
+            //OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            //con.Open();
+
+            //// Create and execute the command
+            //OracleCommand cmd = con.CreateCommand();
+            //OracleTransaction transaction;
+
+            //// Start a local transaction
+            //transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            //// Assign transaction object for a pending local transaction
+            //cmd.Transaction = transaction;
+            //try
+            //{
+            //    XElement elem = request.Element("Parameters").Element("BM2");
+            //    cmd.CommandType = CommandType.Text;
+            //    cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA SET AUDIT_ID = :P_AUDIT_ID, CLAIM_DATE = :P_CLAIM_DATE, CLAIM_NO = :P_CLAIM_NO, CLAIM_VIOLATION_DESC = :P_CLAIM_VIOLATION_DESC, CLAIM_VIOLATION_TYPE = :P_CLAIM_VIOLATION_TYPE, CLAIM_SUBMITTED_DATE = :P_CLAIM_SUBMITTED_DATE, CLAIM_DELIVERY_DATE = :P_CLAIM_DELIVERY_DATE, CLAIM_VIOLATION_AMOUNT = :P_CLAIM_VIOLATION_AMOUNT, CLAIM_RCV_NAME = :P_CLAIM_RCV_NAME, CLAIM_RCV_ROLE = :P_CLAIM_RCV_ROLE, CLAIM_RCV_GIVEN_NAME = :P_CLAIM_RCV_GIVEN_NAME, CLAIM_RCV_PHONE = :P_CLAIM_RCV_PHONE, CLAIM_RCV_ADDRESS = :P_CLAIM_RCV_ADDRESS, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT, CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED, CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE WHERE ID = :P_ID";
+
+            //    // Set parameters
+            //    cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DATE")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_NO", OracleDbType.Varchar2).Value = elem.Element("CLAIM_NO")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_VIOLATION_DESC", OracleDbType.Varchar2).Value = elem.Element("CLAIM_VIOLATION_DESC")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("CLAIM_VIOLATION_TYPE")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_SUBMITTED_DATE")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DELIVERY_DATE")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_VIOLATION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_VIOLATION_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_NAME")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ROLE")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_RCV_GIVEN_NAME", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_GIVEN_NAME")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_PHONE")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ADDRESS")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+            //    cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+            //    cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+            //    cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
+            //    cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value;
+            //    cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
+            //    cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_NONEXPIRED")?.Value;
+            //    cmd.Parameters.Add(":P_CLAIM_C2_EXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_EXPIRED")?.Value;
+            //    cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
+            //    cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
+            //    cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
+            //    cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+            //    cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+            //    cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+            //    int rowsUpdated = cmd.ExecuteNonQuery();
+            //    transaction.Commit();
+            //    bool responseVal = rowsUpdated == 0 ? false : true;
+            //    cmd.Dispose();
+            //    con.Close();
+
+            //    response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            //}
+            //catch (Exception ex)
+            //{
+            //    transaction.Rollback();
+            //    response.CreateResponse(ex);
+            //}
+
+            //return response;
         }
         public static DataResponse BM2Insert(XElement request)
         {
@@ -2376,29 +2640,11 @@ namespace Audit.App_Func
                     " CLAIM_RCV_PHONE, " +
                     " CLAIM_RCV_ADDRESS, " +
                     " CLAIM_CONTROL_AUDITOR_ID, " +
-                    " COMPLETION_DATE, " +
-                    " COMPLETION_ORDER, " +
-                    " COMPLETION_AMOUNT, " +
-                    " COMPLETION_STATE_AMOUNT, " +
-                    " COMPLETION_LOCAL_AMOUNT," +
-                    " COMPLETION_ORG_AMOUNT, " +
-                    " COMPLETION_OTHER_AMOUNT," +
-                    " REMOVED_LAW_AMOUNT," +
-                    " REMOVED_LAW_DATE, " +
-                    " REMOVED_LAW_NO," +
-                    " REMOVED_INVALID_AMOUNT," +
-                    " REMOVED_INVALID_DATE," +
-                    " REMOVED_INVALID_NO," +
-                    " CLAIM_C2_AMOUNT," +
-                    " CLAIM_C2_NONEXPIRED," +
-                    " CLAIM_C2_EXPIRED," +
-                    " BENEFIT_FIN," +
-                    " BENEFIT_FIN_AMOUNT," +
-                    " BENEFIT_NONFIN," +
                     " IS_ACTIVE," +
                     " CREATED_BY, " +
                     " CREATED_DATE " +
                     ") " +
+
                     "VALUES(:P_AUDIT_ID, " +
                     " :P_CLAIM_DATE, " +
                     " :P_CLAIM_NO, " +
@@ -2413,25 +2659,6 @@ namespace Audit.App_Func
                     " :P_CLAIM_RCV_PHONE," +
                     " :P_CLAIM_RCV_ADDRESS," +
                     " :P_CLAIM_CONTROL_AUDITOR_ID," +
-                    " :P_COMPLETION_DATE," +
-                    " :P_COMPLETION_ORDER," +
-                    " :P_COMPLETION_AMOUNT," +
-                    " :P_COMPLETION_STATE_AMOUNT," +
-                    " :P_COMPLETION_LOCAL_AMOUNT," +
-                    " :P_COMPLETION_ORG_AMOUNT," +
-                    " :P_COMPLETION_OTHER_AMOUNT," +
-                    " :P_REMOVED_LAW_AMOUNT," +
-                    " :P_REMOVED_LAW_DATE," +
-                    " :P_REMOVED_LAW_NO," +
-                    " :P_REMOVED_INVALID_AMOUNT," +
-                    " :P_REMOVED_INVALID_DATE," +
-                    " :P_REMOVED_INVALID_NO," +
-                    " :P_CLAIM_C2_AMOUNT," +
-                    " :P_CLAIM_C2_NONEXPIRED," +
-                    " :P_CLAIM_C2_EXPIRED," +
-                    " :P_BENEFIT_FIN," +
-                    " :P_BENEFIT_FIN_AMOUNT," +
-                    " :P_BENEFIT_NONFIN," +
                     " :P_IS_ACTIVE," +
                     " :P_CREATED_BY, " +
                     " :P_CREATED_DATE " +
@@ -2439,7 +2666,7 @@ namespace Audit.App_Func
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DATE")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DATE")?.Value == "0" ? null : elem.Element("CLAIM_DATE")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_NO", OracleDbType.Varchar2).Value = elem.Element("CLAIM_NO")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_VIOLATION_DESC", OracleDbType.Varchar2).Value = elem.Element("CLAIM_VIOLATION_DESC")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("CLAIM_VIOLATION_TYPE")?.Value;
@@ -2452,25 +2679,6 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_CLAIM_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_C2_EXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;

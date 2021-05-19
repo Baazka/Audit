@@ -3,13 +3,13 @@
 
 <div class="modal fade" id="Bm2Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
-        @using (Ajax.BeginForm("BM1Add", "Statistic", new { Area = "" },
+        @using (Ajax.BeginForm("BM2Add", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
-                       UpdateTargetId = "Bm2Modalcontainer",
+                       UpdateTargetId = "bm2modalcontainer",
                        OnBegin = "Modal.show()",
                        OnComplete = "Modal.hide(); $('#Bm2Modal').modal({ show: true }); $('.modal-backdrop:first').remove()",
-                       OnSuccess = "BM2.progressResponse(data, status, xhr)",
+                       OnSuccess = "BM2.progressResponse(data, status, xhr, 'BM2')",
                        OnFailure = "errorResponse",
                        HttpMethod = "Post",
                        InsertionMode = InsertionMode.Replace
@@ -27,7 +27,7 @@
                             <ul></ul>
                         </div>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(m => m.ID)
+                        @*@Html.HiddenFor(m => m.ID)*@
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
@@ -38,17 +38,21 @@
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <div class="col-sm-8">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                    </svg>
-                                                </button>
+                                    @*@if (Model.Button == true)
+                                    {*@
+                                        <div class="col-4">
+                                            <div class="form-group row">
+                                                <div class="col-sm-8">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @*}*@
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -129,8 +133,9 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо:</label>   
                                     <div class="col-sm-4">
+                                        @*<input class="form-control form-control-sm datepicker"/>*@
                                         @Html.EditorFor(m => m.CLAIM_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
                                     </div>
                                 </div>
@@ -234,36 +239,7 @@
                                 </div>*@
                         </div>
                        
-                        <h6 class="heading-1"><span>Хүлээн зөвшөөрүүлсэн үр өгөөж</span></h6>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн тоо:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                        @Html.ValidationMessageFor(m => m.BENEFIT_FIN, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                        @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн бус үр өгөөжийн тоо:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                        @Html.ValidationMessageFor(m => m.BENEFIT_NONFIN, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>

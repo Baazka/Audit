@@ -922,6 +922,42 @@ namespace Audit.Controllers.Library
 
             return false;
         }
+        public XElement BM0SelectAdd(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM0SelectAdd"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+
+        }
         public XElement BM1(XElement element, string usertype)
         {
             try
@@ -1161,6 +1197,42 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+        }
+        public XElement BM2SelectAdd(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM2SelectAdd"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+
         }
         public XElement BM2Detail(int id)
         {

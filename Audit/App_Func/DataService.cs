@@ -61,6 +61,7 @@ namespace Audit.App_Func
 
             functions.Add("SystemUser", (request) => DataAccess.SystemUser(request));
             functions.Add("BM0", (request) => DataAccess.BM0(request));
+            functions.Add("BM0SelectAdd", (request) => DataAccess.BM0SelectAdd(request));
             functions.Add("BM0Detail", (request) => DataAccess.BM0Detail(request));
             functions.Add("BM0Insert", (request) => DataAccess.BM0Insert(request));
             functions.Add("BM0Update", (request) => DataAccess.BM0Update(request));
@@ -72,6 +73,7 @@ namespace Audit.App_Func
             functions.Add("BM1UpdateCompletion", (request) => DataAccess.BM1UpdateCompletion(request));
             functions.Add("BM1Delete", (request) => DataAccess.BM1Delete(request));
             functions.Add("BM2", (request) => DataAccess.BM2(request));
+            functions.Add("BM2SelectAdd", (request) => DataAccess.BM2SelectAdd(request));
             functions.Add("BM2Detail", (request) => DataAccess.BM2Detail(request));
             functions.Add("BM2Insert", (request) => DataAccess.BM2Insert(request));
             functions.Add("BM2Update", (request) => DataAccess.BM2Update(request));

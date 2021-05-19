@@ -30,8 +30,8 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
-                        
-                        
+
+
                         <h6 class="heading-1"><span>Албан шаардлагын биелэлт</span></h6>
                         <div class="row">
                             <div class="col-12">
@@ -169,7 +169,37 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <h6 class="heading-1"><span>Хүлээн зөвшөөрүүлсэн үр өгөөж</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.BENEFIT_FIN, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн бус үр өгөөжийн тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.BENEFIT_NONFIN, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>

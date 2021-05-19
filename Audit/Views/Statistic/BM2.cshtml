@@ -202,6 +202,7 @@
                     { "data": "CLAIM_RCV_PHONE", "name": "CLAIM_RCV_PHONE" },
                     { "data": "CLAIM_RCV_ADDRESS", "name": "CLAIM_RCV_ADDRESS" },
                     { "data": "CLAIM_CONTROL_AUDITOR", "name": "CLAIM_CONTROL_AUDITOR" },
+
                     { "data": "COMPLETION_DATE", "name": "COMPLETION_DATE" },
                     { "data": "COMPLETION_ORDER", "name": "COMPLETION_ORDER" },
                     { "data": "COMPLETION_AMOUNT", "name": "COMPLETION_AMOUNT", "class": "text-right" },
@@ -218,6 +219,7 @@
                     { "data": "CLAIM_C2_AMOUNT", "name": "CLAIM_C2_AMOUNT", "class": "text-right" },
                     { "data": "CLAIM_C2_NONEXPIRED", "name": "CLAIM_C2_NONEXPIRED", "class": "text-right" },
                     { "data": "CLAIM_C2_EXPIRED", "name": "CLAIM_C2_EXPIRED", "class": "text-right" },
+
                     { "data": "BENEFIT_FIN", "name": "BENEFIT_FIN", "class": "text-right" },
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT", "class": "text-right" },
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN", "class": "text-right" },
@@ -322,9 +324,12 @@
                 });
             },
             loadTemplate: function () {
+                var audit_id;
+                BM2.bm2ID != null ? audit_id = BM2.bm2ID : audit_id = 0;
                 $.ajax({
                     url: "@Url.Action("BM2Add", "Statistic", new { Area = "" })",
                     type: 'GET',
+                    data: { id: audit_id },
                     success: function (data) {
                         BM2.display(data);
                     },
