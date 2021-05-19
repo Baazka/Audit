@@ -22,7 +22,7 @@ namespace Audit.App_Func
             {
                 SqlCommand cmd = new SqlCommand("LibraryList");
                 cmd.Parameters.Add("@LibraryList", SqlDbType.Xml).Value = request.Element("Parameters").Element("LibraryList").ToString();
-                
+
                 DataSet ds = DataConnection.GetDataSet(cmd);
 
                 ds.DataSetName = "ResponseData";
@@ -83,7 +83,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0? true:false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 if (responseVal)
                 {
@@ -169,7 +169,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_USER_ID", OracleDbType.Int32, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":P_USER_OLDCODE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_OLDCODE").Value, System.Data.ParameterDirection.Input);
                 //
-                
+
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
                 bool responseVal = rowsUpdated == 0 ? false : true;
@@ -250,7 +250,7 @@ namespace Audit.App_Func
                     cmd.CommandText = "SELECT VIOLATION_ID, VIOLATION_NAME FROM AUD_STAT.REF_VIOLATION_TYPE WHERE IS_ACTIVE = 1 ORDER BY VIOLATION_ID ASC";
                 else if (libName == "HAK")
                     cmd.CommandText = "SELECT DEPARTMENT_ID, DEPARTMENT_NAME FROM AUD_ORG.REF_DEPARTMENT WHERE DEPARTMENT_TYPE = 2 AND IS_ACTIVE = 1 ORDER BY DEPARTMENT_NAME ASC";
-                
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -284,10 +284,10 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT SM.ID MENU_ID, SM.MENU_NAME, SM.MENU_ROUTE FROM AUD_REG.SYSTEM_USER SU "+
-                            "INNER JOIN AUD_REG.SYSTEM_USER_TYPE SUT ON SU.USER_TYPE_ID = SUT.USER_TYPE_ID "+
-                            "INNER JOIN AUD_REG.USER_ROLE UR ON SU.USER_ID = UR.USER_ID AND UR.ROLE_TYPE = 1 "+
-                            "INNER JOIN AUD_REG.SYSTEM_MENU SM ON UR.ROLE_ID = SM.ID "+
+                cmd.CommandText = "SELECT SM.ID MENU_ID, SM.MENU_NAME, SM.MENU_ROUTE FROM AUD_REG.SYSTEM_USER SU " +
+                            "INNER JOIN AUD_REG.SYSTEM_USER_TYPE SUT ON SU.USER_TYPE_ID = SUT.USER_TYPE_ID " +
+                            "INNER JOIN AUD_REG.USER_ROLE UR ON SU.USER_ID = UR.USER_ID AND UR.ROLE_TYPE = 1 " +
+                            "INNER JOIN AUD_REG.SYSTEM_MENU SM ON UR.ROLE_ID = SM.ID " +
                             "WHERE SU.USER_ID = :P_ID ORDER BY SM.ID";
 
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("USER_ID")?.Value, System.Data.ParameterDirection.Input);
@@ -367,7 +367,7 @@ namespace Audit.App_Func
                 con.Open();
 
                 XElement req = request.Element("Parameters").Element("Request");
-                
+
                 //RowCount
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -376,7 +376,7 @@ namespace Audit.App_Func
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
                     OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
                 cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID")?.Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value  :null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS") != null && !string.IsNullOrEmpty(req.Element("V_STATUS").Value) ? req.Element("V_STATUS")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION") != null && !string.IsNullOrEmpty(req.Element("V_VIOLATION").Value) ? req.Element("V_VIOLATION")?.Value.Replace(",", "%") : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
@@ -431,7 +431,7 @@ namespace Audit.App_Func
                 // Set parameters
                 cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
 
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT")!=null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value :null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS") != null && !string.IsNullOrEmpty(req.Element("V_STATUS").Value) ? req.Element("V_STATUS")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION") != null && !string.IsNullOrEmpty(req.Element("V_VIOLATION").Value) ? req.Element("V_VIOLATION")?.Value.Replace(",", "%") : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_BUDGET_TYPE", OracleDbType.Varchar2, req.Element("V_BUDGET_TYPE")?.Value, System.Data.ParameterDirection.Input);
@@ -444,7 +444,7 @@ namespace Audit.App_Func
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
-                cmd.Dispose();                
+                cmd.Dispose();
                 con.Close();
 
                 dtTable.TableName = "OrgList";
@@ -481,7 +481,7 @@ namespace Audit.App_Func
                     "RO.ORG_SUB_OFFICE_ID, RO.ORG_ADDRESS, RO.ORG_WEBSITE, RO.ORG_EMAIL, RO.ORG_PHONE, RO.ORG_FAX," +
                     "ROB.ORGB_ID, ROB.ORGB_BANK_ID, ROB.ORGB_BANK_ACCOUNT, ROB.ORGB_DESCRIPTION," +
                     "ROB2.ORGB_ID ORGB_ID2, ROB2.ORGB_BANK_ID ORGB_BANK_ID2, ROB2.ORGB_BANK_ACCOUNT ORGB_BANK_ACCOUNT2, ROB2.ORGB_DESCRIPTION ORGB_DESCRIPTION2, " +
-                    "ROP.ORGP_ID, ROP.ORGP_ROLE, ROP.ORGP_ROLE_DATE, ROP.ORGP_REGISTER_NO, ROP.ORGP_LASTNAME, ROP.ORGP_FIRSTNAME, ROP.ORGP_PHONE, ROP.ORGP_EMAIL, ROP.ORGP_EXPERIENCE_YEAR, ROP.ORGP_PROFESSION, "+
+                    "ROP.ORGP_ID, ROP.ORGP_ROLE, ROP.ORGP_ROLE_DATE, ROP.ORGP_REGISTER_NO, ROP.ORGP_LASTNAME, ROP.ORGP_FIRSTNAME, ROP.ORGP_PHONE, ROP.ORGP_EMAIL, ROP.ORGP_EXPERIENCE_YEAR, ROP.ORGP_PROFESSION, " +
                     "ROP2.ORGP_ID ORGP_ID2, ROP2.ORGP_ROLE ORGP_ROLE2, ROP2.ORGP_ROLE_DATE ORGP_ROLE_DATE2, ROP2.ORGP_REGISTER_NO ORGP_REGISTER_NO2, ROP2.ORGP_LASTNAME ORGP_LASTNAME2, ROP2.ORGP_FIRSTNAME ORGP_FIRSTNAME2, ROP2.ORGP_PHONE ORGP_PHONE2, ROP2.ORGP_EMAIL ORGP_EMAIL2, ROP2.ORGP_EXPERIENCE_YEAR ORGP_EXPERIENCE_YEAR2, ROP2.ORGP_PROFESSION ORGP_PROFESSION2, " +
                     "RO.ORG_BUDGET_TYPE_ID, RB.BUDGET_TYPE_NAME, RO.ORG_ACTIVITY_ID, RO.ORG_SUB_BUDGET_TYPE_ID, RO.ORG_COMMITTEE_ID, RO.ORG_TAX_OFFICE_ID, RO.ORG_COST_TYPE_ID, RO.ORG_INSURANCE_OFFICE_ID, RO.ORG_FINANCING_TYPE_ID " +
                     "FROM AUD_REG.REG_ORGANIZATION RO " +
@@ -531,7 +531,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT UB_ID, UB_REGISTER_NO ,UB_NAME ,UB_DOCUMENT_NO ,UB_REG_DATE ,UB_CATEGORY "+
+                cmd.CommandText = "SELECT UB_ID, UB_REGISTER_NO ,UB_NAME ,UB_DOCUMENT_NO ,UB_REG_DATE ,UB_CATEGORY " +
                         "FROM AUD_REG.UBEG_REGISTRATION WHERE UPPER(TRIM(UB_REGISTER_NO)) = :REG_NO";
 
                 // Set parameters
@@ -571,7 +571,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT MOF_ID, MOF_REGISTER_NO, MOF_NAME, MOF_TEZ, MOF_TTZ, MOF_TSHZ, MOF_SALBAR, MOF_BUDGET_TYPE, MOF_AIMAG, MOF_SUM, MOF_MAIN_ACCOUNT, MOF_EXTEND_ACCOUNT " +  
+                cmd.CommandText = "SELECT MOF_ID, MOF_REGISTER_NO, MOF_NAME, MOF_TEZ, MOF_TTZ, MOF_TSHZ, MOF_SALBAR, MOF_BUDGET_TYPE, MOF_AIMAG, MOF_SUM, MOF_MAIN_ACCOUNT, MOF_EXTEND_ACCOUNT " +
                     "FROM AUD_REG.MOF_REGISTRATION WHERE UPPER(TRIM(MOF_REGISTER_NO)) = :REG_NO";
 
                 // Set parameters
@@ -611,8 +611,8 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME , "+
-                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME , "+
+                cmd.CommandText = "SELECT GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME , " +
+                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME , " +
                 " ELEMENT ,ELEMENT_NAME ,DIVISION ,DIVISION_NAME ,REGION FROM AUD_REG.TAX_REGISTRATION WHERE GDSR_NUMBER = :REG_NO";
 
                 // Set parameters
@@ -732,8 +732,8 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT TAX_ID, GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME ,"+
-                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME ,"+
+                cmd.CommandText = "SELECT TAX_ID, GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME ," +
+                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME ," +
                 " ELEMENT ,ELEMENT_NAME ,DIVISION ,DIVISION_NAME ,REGION FROM AUD_REG.TAX_REGISTRATION WHERE TAX_ID = :REG_ID";
 
                 // Set parameters
@@ -778,24 +778,24 @@ namespace Audit.App_Func
 
                 // Set parameters
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val", OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
-                    
+
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = elem.Element("ORG_ID").Value;
                 cmd.Parameters.Add(":P_ORGBID1", OracleDbType.Int32).Value = elem.Element("ORGB_ID").Value;
                 cmd.Parameters.Add(":P_ORGBID2", OracleDbType.Int32).Value = elem.Element("ORGB_ID2").Value;
                 cmd.Parameters.Add(":P_ORGPID1", OracleDbType.Int32).Value = elem.Element("ORGP_ID").Value;
                 cmd.Parameters.Add(":P_ORGPID2", OracleDbType.Int32).Value = elem.Element("ORGP_ID2").Value;
 
-                cmd.Parameters.Add(":P_ORGCODE", OracleDbType.Varchar2).Value = elem.Element("ORG_CODE")?.Value;                
-                cmd.Parameters.Add(":P_ORGREGNO", OracleDbType.Int32).Value = elem.Element("ORG_REGISTER_NO")?.Value;               
-                cmd.Parameters.Add(":P_UBNUMBER", OracleDbType.Varchar2).Value = elem.Element("ORG_REGISTER_NUMBER")?.Value;                
+                cmd.Parameters.Add(":P_ORGCODE", OracleDbType.Varchar2).Value = elem.Element("ORG_CODE")?.Value;
+                cmd.Parameters.Add(":P_ORGREGNO", OracleDbType.Int32).Value = elem.Element("ORG_REGISTER_NO")?.Value;
+                cmd.Parameters.Add(":P_UBNUMBER", OracleDbType.Varchar2).Value = elem.Element("ORG_REGISTER_NUMBER")?.Value;
                 cmd.Parameters.Add(":P_ORGNAME", OracleDbType.Varchar2).Value = elem.Element("ORG_NAME")?.Value;
-                cmd.Parameters.Add(":P_ORGDATE", OracleDbType.Varchar2).Value = elem.Element("ORG_REG_DATE")?.Value;                
-                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_OFFICE_ID")?.Value;                
-                cmd.Parameters.Add(":P_SUBOFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_SUB_OFFICE_ID")?.Value;                
-                cmd.Parameters.Add(":P_ORGADDRESS", OracleDbType.Varchar2).Value = elem.Element("ORG_ADDRESS")?.Value;                
-                cmd.Parameters.Add(":P_WEB", OracleDbType.Varchar2).Value = elem.Element("ORG_WEBSITE")?.Value;                
-                cmd.Parameters.Add(":P_EMAIL", OracleDbType.Varchar2).Value = elem.Element("ORG_EMAIL")?.Value;                
-                cmd.Parameters.Add(":P_ORGPHONE", OracleDbType.Varchar2).Value = elem.Element("ORG_PHONE")?.Value;                
+                cmd.Parameters.Add(":P_ORGDATE", OracleDbType.Varchar2).Value = elem.Element("ORG_REG_DATE")?.Value;
+                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_OFFICE_ID")?.Value;
+                cmd.Parameters.Add(":P_SUBOFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_SUB_OFFICE_ID")?.Value;
+                cmd.Parameters.Add(":P_ORGADDRESS", OracleDbType.Varchar2).Value = elem.Element("ORG_ADDRESS")?.Value;
+                cmd.Parameters.Add(":P_WEB", OracleDbType.Varchar2).Value = elem.Element("ORG_WEBSITE")?.Value;
+                cmd.Parameters.Add(":P_EMAIL", OracleDbType.Varchar2).Value = elem.Element("ORG_EMAIL")?.Value;
+                cmd.Parameters.Add(":P_ORGPHONE", OracleDbType.Varchar2).Value = elem.Element("ORG_PHONE")?.Value;
                 cmd.Parameters.Add(":P_FAX", OracleDbType.Varchar2).Value = elem.Element("ORG_FAX")?.Value;
 
                 cmd.Parameters.Add(":P_BANKID1", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID")?.Value;
@@ -834,7 +834,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_WYEAR2", OracleDbType.Varchar2).Value = elem.Element("ORGP_EXPERIENCE_YEAR2")?.Value;
                 cmd.Parameters.Add(":P_PROF1", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION")?.Value;
                 cmd.Parameters.Add(":P_PROF2", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION2")?.Value;
-                
+
                 cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
 
                 cmd.ExecuteNonQuery();
@@ -843,7 +843,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
@@ -931,7 +931,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
@@ -1010,7 +1010,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
                 string responseMsg = "";
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
                 if (responseVal)
                     responseMsg = "Баталгаажууллаа.";
                 else
@@ -1058,7 +1058,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Устгалаа");
             }
@@ -1398,7 +1398,7 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM0");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "UPDATE AUD_STAT.BM0_DATA SET OFFICE_ID = :P_OFFICE_ID, STATISTIC_PERIOD = :P_STATISTIC_PERIOD, AUDIT_TYPE = :P_AUDIT_TYPE, TOPIC_TYPE = :P_TOPIC_TYPE, TOPIC_CODE = :P_TOPIC_CODE, TOPIC_NAME = :P_TOPIC_NAME, ORDER_NO = :P_ORDER_NO, ORDER_DATE = :P_ORDER_DATE, AUDIT_FORM_TYPE = :P_AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE = :P_AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE = :P_AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_ORG = :P_AUDIT_INCLUDED_ORG, WORKING_PERSON = :P_WORKING_PERSON, WORKING_DAY = :P_WORKING_DAY, WORKING_ADDITION_TIME = :P_WORKING_ADDITION_TIME, AUDIT_DEPARTMENT = :P_AUDIT_DEPARTMENT, AUDITOR_LEAD = :P_AUDITOR_LEAD, AUDITOR_MEMBER = :P_AUDITOR_MEMBER, AUDITOR_ENTRY = :P_AUDITOR_ENTRY, AUDIT_SERVICE_PAY = :P_AUDIT_SERVICE_PAY, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
@@ -1509,7 +1509,7 @@ namespace Audit.App_Func
                 int lnNextVal = Convert.ToInt32(cmd2.ExecuteScalar());
 
                 XElement elem = request.Element("Parameters").Element("BM0");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "INSERT INTO AUD_STAT.BM0_DATA (ID,STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
                     "VALUES(:P_ID, :P_STATISTIC_PERIOD, :P_DEPARTMENT_ID, :P_AUDIT_YEAR, :P_AUDIT_TYPE, :P_TOPIC_TYPE, :P_TOPIC_CODE, :P_TOPIC_NAME, :P_ORDER_NO, :P_ORDER_DATE, :P_AUDIT_FORM_TYPE, :P_AUDIT_PROPOSAL_TYPE, :P_AUDIT_BUDGET_TYPE, :P_AUDIT_INCLUDED_COUNT, :P_AUDIT_INCLUDED_ORG, :P_WORKING_PERSON, :P_WORKING_DAY, :P_WORKING_ADDITION_TIME, :P_AUDIT_DEPARTMENT_TYPE, :P_AUDIT_DEPARTMENT_ID, :P_AUDIT_SERVICE_PAY, :P_AUDITOR_ENTRY_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
@@ -1532,9 +1532,9 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_AUDIT_INCLUDED_ORG", OracleDbType.Varchar2).Value = elem.Element("AUDIT_INCLUDED_ORG")?.Value;
                 cmd.Parameters.Add(":P_WORKING_PERSON", OracleDbType.Int32).Value = elem.Element("WORKING_PERSON") != null && elem.Element("WORKING_PERSON").Value != "" ? elem.Element("WORKING_PERSON").Value : null;
                 cmd.Parameters.Add(":P_WORKING_DAY", OracleDbType.Int32).Value = elem.Element("WORKING_DAY") != null && elem.Element("WORKING_DAY").Value != "" ? elem.Element("WORKING_DAY").Value : null;
-                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("P_WORKING_ADDITION_TIME") != null && elem.Element("P_WORKING_ADDITION_TIME").Value != "" ? elem.Element("P_WORKING_ADDITION_TIME").Value : null; 
+                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("P_WORKING_ADDITION_TIME") != null && elem.Element("P_WORKING_ADDITION_TIME").Value != "" ? elem.Element("P_WORKING_ADDITION_TIME").Value : null;
                 cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value =="2"? elem.Element("AUDIT_DEPARTMENT_ID")?.Value: elem.Element("DEPARTMENT_ID")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "2" ? elem.Element("AUDIT_DEPARTMENT_ID")?.Value : elem.Element("DEPARTMENT_ID")?.Value;
                 cmd.Parameters.Add(":P_AUDIT_SERVICE_PAY", OracleDbType.Decimal).Value = elem.Element("AUDIT_SERVICE_PAY") != null && elem.Element("AUDIT_SERVICE_PAY").Value != "" ? elem.Element("AUDIT_SERVICE_PAY").Value : null;
                 cmd.Parameters.Add(":P_AUDITOR_ENTRY_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
@@ -1547,7 +1547,7 @@ namespace Audit.App_Func
                 string[] leads = elem.Element("AUDITOR_LEAD")?.Value.Split(',');
                 string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
 
-                for(int i = 0; i < leads.Count(); i++)
+                for (int i = 0; i < leads.Count(); i++)
                 {
 
                     OracleCommand cmdLead = con.CreateCommand();
@@ -1651,7 +1651,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(BM.ID) "+
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
                     "FROM AUD_STAT.BM1_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -1826,7 +1826,7 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM1");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "UPDATE AUD_STAT.BM1_DATA SET COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT,  COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_AMOUNT = :P_REMOVED_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, ACT_C2_AMOUNT = :P_ACT_C2_AMOUNT, ACT_C2_NONEXPIRED = :P_ACT_C2_NONEXPIRED, ACT_C2_EXPIRED = :P_ACT_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
@@ -1954,7 +1954,7 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM1");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "INSERT INTO AUD_STAT.BM1_DATA(AUDIT_ID, ACT_DATE, ACT_NO, ACT_VIOLATION_DESC, ACT_VIOLATION_TYPE, ACT_SUBMITTED_DATE, ACT_DELIVERY_DATE, ACT_AMOUNT, ACT_STATE_AMOUNT, ACT_LOCAL_AMOUNT, ACT_ORG_AMOUNT, ACT_OTHER_AMOUNT, ACT_RCV_NAME, ACT_RCV_ROLE, ACT_RCV_GIVEN_NAME, ACT_RCV_PHONE, ACT_RCV_ADDRESS, ACT_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
                     "VALUES (:P_AUDIT_ID, :P_ACT_DATE, :P_ACT_NO, :P_ACT_VIOLATION_DESC, :P_ACT_VIOLATION_TYPE, :P_ACT_SUBMITTED_DATE, :P_ACT_DELIVERY_DATE, :P_ACT_AMOUNT, :P_ACT_STATE_AMOUNT, :P_ACT_LOCAL_AMOUNT, :P_ACT_ORG_AMOUNT, :P_ACT_OTHER_AMOUNT, :P_ACT_RCV_NAME, :P_ACT_RCV_ROLE, :P_ACT_RCV_GIVEN_NAME, :P_ACT_RCV_PHONE, :P_ACT_RCV_ADDRESS, :P_ACT_CONTROL_AUDITOR_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
@@ -1978,7 +1978,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_ACT_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_ACT_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                
+
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -2853,7 +2853,7 @@ namespace Audit.App_Func
                     "CASE WHEN :ORDER_NAME = 'COMPLETION_ORDER' AND :ORDER_DIR = 'ASC' THEN BM.COMPLETION_ORDER END ASC, " +
                     "CASE WHEN :ORDER_NAME = 'COMPLETION_ORDER' AND :ORDER_DIR = 'DESC' THEN BM.COMPLETION_ORDER END DESC, " +
                     "CASE WHEN :ORDER_NAME = 'PROPOSAL_VIOLATION_TYPE' AND :ORDER_DIR = 'ASC' THEN BM.PRO_VIOLATION_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PROPOSAL_VIOLATION_TYPE' AND :ORDER_DIR = 'DESC' THEN BM.PRO_VIOLATION_TYPE END DESC " + 
+                    "CASE WHEN :ORDER_NAME = 'PROPOSAL_VIOLATION_TYPE' AND :ORDER_DIR = 'DESC' THEN BM.PRO_VIOLATION_TYPE END DESC " +
                     "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                     "FETCH NEXT :PAGESIZE ROWS ONLY";
 
@@ -3715,7 +3715,7 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value  :null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -3802,7 +3802,7 @@ namespace Audit.App_Func
             cmd.Transaction = transaction;
             try
             {
-                XElement elem = request.Element("Parameters").Element("BM8");                
+                XElement elem = request.Element("Parameters").Element("BM8");
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET OCORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
@@ -3855,7 +3855,7 @@ namespace Audit.App_Func
                 cmd.CommandText = "INSERT INTO AUD_STAT.BM8_DATA(AUDIT_ID, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
                     "VALUES (:P_AUDIT_ID, :P_CORRECTED_ERROR_DESC, :P_CORRECTED_ERROR_TYPE, :P_CORRECTED_COUNT, :P_CORRECTED_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
                 // Set parameters
-                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;                
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("P_CORRECTED_ERROR_DESC") != null && !string.IsNullOrEmpty(elem.Element("P_CORRECTED_ERROR_DESC").Value) ? elem.Element("CORRECTED_ERROR_DESC").Value : null;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_ERROR_TYPE").Value) ? elem.Element("CORRECTED_ERROR_TYPE").Value : null;
                 cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_COUNT").Value) ? elem.Element("CORRECTED_COUNT").Value : null;
@@ -3863,7 +3863,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
-                
+
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
                 bool responseVal = rowsUpdated == 0 ? false : true;
@@ -3899,7 +3899,7 @@ namespace Audit.App_Func
             try
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA "+
+                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA " +
                     "SET IS_ACTIVE = 0, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
@@ -3965,7 +3965,7 @@ namespace Audit.App_Func
 
             return response;
         }
-       
+
         #endregion
         #region NM
         public static DataResponse NM1(XElement request)
@@ -4017,7 +4017,7 @@ namespace Audit.App_Func
                     "ORDER BY " +
                     "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
                     "CASE WHEN :ORDER_NAME IS NOT NULL AND: ORDER_DIR = 'ASC' THEN 'NM.' ||:ORDER_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME IS NOT NULL AND: ORDER_DIR = 'DESC' THEN 'NM.' ||:ORDER_NAME END DESC " + 
+                    "CASE WHEN :ORDER_NAME IS NOT NULL AND: ORDER_DIR = 'DESC' THEN 'NM.' ||:ORDER_NAME END DESC " +
                     "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                     "FETCH NEXT :PAGESIZE ROWS ONLY";
 
@@ -5685,7 +5685,7 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND CM.STATISTIC_PERIOD = :V_PERIOD"; 
+                    "AND CM.STATISTIC_PERIOD = :V_PERIOD";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -7367,7 +7367,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
             }
@@ -7396,7 +7396,7 @@ namespace Audit.App_Func
 
                 // Set parameters
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val", OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
-               
+
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = request.Element("Parameters").Element("ORG_ID")?.Value;
                 cmd.Parameters.Add(":P_PROID", OracleDbType.Int32).Value = request.Element("Parameters").Element("PRO_ID")?.Value;
 
@@ -7407,7 +7407,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай устгалаа");
             }
@@ -7463,7 +7463,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
             }
@@ -7492,7 +7492,7 @@ namespace Audit.App_Func
 
                 string mayagt = null;
 
-                if(req.Element("V_Mayagt")?.Value != "")
+                if (req.Element("V_Mayagt")?.Value != "")
                 {
                     mayagt = req.Element("V_Mayagt")?.Value;
                 }
@@ -7500,17 +7500,17 @@ namespace Audit.App_Func
                 {
                     mayagt = "1,2,3,4,5";
                 }
-                
+
 
 
                 OracleCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                /*cmd.CommandType = CommandType.Text;
                 cmd.CommandText = " WITH negtgel1 AS(" +
                                     "SELECT * FROM (" +
                                     "SELECT ORGID,  INSERTUSERID,MDCODE,DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                     "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                     "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
-                                    "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN ("+ mayagt + ") " +
+                                    "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
                                     ") D " +
                                     "PIVOT (" +
                                     "MAX(DATA01)" +
@@ -7561,14 +7561,14 @@ namespace Audit.App_Func
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
-                dtTable.TableName = "N1";
+                dtTable.TableName = "N1";*/
 
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "WITH negtgel1 AS( "+
+                cmd.CommandText = "WITH negtgel1 AS( " +
                                         "SELECT * FROM (" +
-                                        "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A "+
-                                        "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID "+
-                                        "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID "+
+                                        "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                                        "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
+                                        "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                         "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
 
                                         ") D " +
@@ -7592,7 +7592,7 @@ namespace Audit.App_Func
                 dtTable2.TableName = "N1Footer";
 
                 DataSet dataSet = new DataSet();
-                dataSet.Tables.Add(dtTable);
+               /* dataSet.Tables.Add(dtTable);*/
                 dataSet.Tables.Add(dtTable2);
                 cmd.Dispose();
                 con.Close();
@@ -7625,12 +7625,12 @@ namespace Audit.App_Func
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
-                
+
 
                 OracleCommand cmd = con.CreateCommand();
-             
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText ="WITH negtgel2 AS( " +
+
+                /*cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "WITH negtgel2 AS( " +
                                " SELECT* FROM( " +
                                " SELECT ORGID, INSERTUSERID, MDCODE, DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                " LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID  " +
@@ -7734,11 +7734,11 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+*/
 
-
-                DataTable dtTable = new DataTable();
+               /* DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
-                dtTable.TableName = "Report1N2";
+                dtTable.TableName = "Report1N2";*/
 
 
                 cmd.CommandType = CommandType.Text;
@@ -7763,15 +7763,102 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
-                
+
 
                 DataTable dtTable2 = new DataTable();
                 dtTable2.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
                 dtTable2.TableName = "Report1N2Footer";
 
                 DataSet dataSet = new DataSet();
-                dataSet.Tables.Add(dtTable);
+                /*dataSet.Tables.Add(dtTable);*/
                 dataSet.Tables.Add(dtTable2);
+                cmd.Dispose();
+                con.Close();
+
+
+
+                StringWriter sw = new StringWriter();
+                dataSet.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse ReportN2(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+                XElement req = request.Element("Parameters").Element("Request");
+
+
+                OracleCommand cmd = con.CreateCommand();
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = " WITH Negtgel2 AS( " +
+                " SELECT * FROM ( " +
+                " SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                " LEFT  JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
+                " LEFT  JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID  " +
+                "         WHERE MDCODE IN(116,117,118,119,120,121, " +
+                " 123,124,125,126,127,128, " +
+                " 130,131,132,133,134,135, " +
+                " 137,138,139,140,141,142, " +
+                " 143, " +
+                " 144, " +
+                " 146,147,148,149,150,151,152,153, " +
+                " 155,156,157,158,159,160, " +
+                " 104,105,106, " +
+                " 107,108,109,110,111,112,113) " +
+                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +
+                " ) D  " +
+                " PIVOT ( " +
+                " MAX(DATA01) " +
+                " FOR MDCODE IN (116 MD116,117 MD117,118 MD118,119 MD119,120 MD120,121 MD121,  " +
+                " 123 MD123,124 MD124,125 MD125,126 MD126,127 MD127,128 MD128, " +
+                " 130 MD130,131 MD131,132 MD132,133 MD133,134 MD134,135 MD135, " +
+                " 137 MD137,138 MD138,139 MD139,140 MD140,141 MD141,142 MD142, " +
+                " 143 MD143, " +
+                " 144 MD144, " +
+                " 146 MD146,147 MD147,148 MD148,149 MD149,150 MD150,151 MD151,152 MD152,153 MD153, " +
+                " 155 MD155,156 MD156,157 MD157,158 MD158,159 MD159,160 MD160, " +
+                " 104 MD104,105 MD105,106 MD106, " +
+                " 107 MD107,108 MD108,109 MD109,110 MD110,111 MD111,112 MD112,113 MD113) " +
+                " ) P1 " +
+                " ) " +
+                " SELECT ORGID, YEARCODE, INSERTUSERID, ORGNAME, ORGTYPE,OPEN_HEAD_ROLE,OPEN_HEAD_NAME,OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME , OPEN_ACC_PHONE,  " +
+                " MD116,MD117,MD118,MD119,MD120,MD121,MD123,MD124,MD125,MD126,MD127,MD128,MD130,MD131,MD132,MD133,MD134,MD135,MD137,MD138,MD139,MD140,MD141,MD142,MD143,MD144,MD146,MD147,MD148,MD149,MD150,MD151,MD152,MD153, " +
+                " MD155,MD156,MD157,MD158,MD159,MD160,MD104,MD105,MD106,MD107,MD108,MD109,MD110,MD111,MD112,MD113 " +
+                " FROM Negtgel2";
+
+
+
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+                dtTable.TableName = "ReportN2";
+
+
+               
+
+                DataSet dataSet = new DataSet();
+                dataSet.Tables.Add(dtTable);
+               
                 cmd.Dispose();
                 con.Close();
 

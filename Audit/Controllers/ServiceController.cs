@@ -1296,17 +1296,17 @@ namespace Audit.Controllers
                     
                     List<N1> n2 = new List<N1>();
                     n1 =(from item in res.Elements("N1Footer") select new N1().SetXml(item)).ToList();
-                    n2 = (from item in res.Elements("N1") select new N1().SetXml(item)).ToList();
+                   // n2 = (from item in res.Elements("N1") select new N1().SetXml(item)).ToList();
                     N1 nFooter = new N1();
 
-                    foreach (N1 n in n2)
+                  /*  foreach (N1 n in n2)
                     {
                         nFooter = n1.Find(a => (a.ORGID.Equals(n.ORGID)));
                         if(nFooter != null)
                         {
                             n1Detial.Add(setMd(nFooter, n));
                         }
-                    }
+                    }*/
                     List<N1> typeNeg = new List<N1>();
                     List<N1> typeHoyor = new List<N1>();
                     List<N1> typeGurav= new List<N1>();
@@ -1315,9 +1315,9 @@ namespace Audit.Controllers
                     List<N1> temp2 = new List<N1>();
                     List<N1> temp3 = new List<N1>();
 
-                    typeNeg = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
-                    typeHoyor = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
-                    typeGurav = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн шууд захирагч"));
+                    typeNeg = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
+                    typeHoyor = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
+                    typeGurav = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн шууд захирагч"));
 
                     if (typeNeg.Count > 0)
                     {
@@ -1360,7 +1360,7 @@ namespace Audit.Controllers
                     N1 bodolt1 = new N1();
                     N1 bodolt2 = new N1();
                    
-                    n1 = (from item in res.Elements("N1Footer") select new N1().SetXml(item)).ToList();
+                    //n1 = (from item in res.Elements("N1Footer") select new N1().SetXml(item)).ToList();
                     var typ = typeof(N1);
                     var orgname = typ.GetProperty("ORGNAME");
                     decimal total = 0;
@@ -1369,7 +1369,9 @@ namespace Audit.Controllers
                     decimal count = 0;
                     foreach (N1 n in n1)
                     {
-                        
+                        n.OPEN_HEAD_ROLE = n.OPEN_HEAD_ROLE + " " + n.OPEN_HEAD_NAME + " " + n.OPEN_HEAD_PHONE;
+                        n.OPEN_ACC_ROLE = n.OPEN_ACC_ROLE + " " + n.OPEN_ACC_NAME + " " + n.OPEN_ACC_PHONE;
+
                         for (int i = 1; i <= 35; i++)
                         {
                             var prop = typ.GetProperty("MD" + i);
@@ -1383,21 +1385,25 @@ namespace Audit.Controllers
                                         count = Convert.ToInt32(prop.GetValue(Medeelsen)) + 1;
                                         prop.SetValue(Medeelsen, count.ToString());
                                         orgname.SetValue(Medeelsen, "Мэдээлсэн");
+                                        prop.SetValue(n, "1");
                                         break;
                                     case "2":
                                         count = Convert.ToInt32(prop.GetValue(Medeeleegui)) + 1;
                                         prop.SetValue(Medeeleegui, count.ToString());
                                         orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
+                                        prop.SetValue(n, "1");
                                         break;
                                     case "3":
                                         count = Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + 1;
                                         prop.SetValue(HugtsaaHotsorson, count.ToString());
                                         orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
+                                        prop.SetValue(n, "1");
                                         break;
                                     case "4":
                                         count = Convert.ToInt32(prop.GetValue(Shaardlaggui)) + 1;
                                         prop.SetValue(Shaardlaggui, count.ToString());
                                         orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
+                                        prop.SetValue(n, "1");
                                         break;
                                     default:
                                         break;
@@ -1475,7 +1481,7 @@ namespace Audit.Controllers
             }
             return response;
         }
-
+        [HttpPost]
         public N1ListResponse Report1N2List(N1ListRequest request)
         {
             N1ListResponse response = new N1ListResponse();
@@ -1521,17 +1527,17 @@ namespace Audit.Controllers
 
                     List<N1> n2 = new List<N1>();
                     n1 = (from item in res.Elements("Report1N2Footer") select new N1().SetXml(item)).ToList();
-                    n2 = (from item in res.Elements("Report1N2") select new N1().SetXml(item)).ToList();
+                   // n2 = (from item in res.Elements("Report1N2") select new N1().SetXml(item)).ToList();
                     N1 nFooter = new N1();
 
-                    foreach (N1 n in n2)
+                 /*   foreach (N1 n in n2)
                     {
                         nFooter = n1.Find(a => (a.ORGID.Equals(n.ORGID)));
                         if (nFooter != null)
                         {
                             n1Detial.Add(setMd(nFooter, n));
                         }
-                    }
+                    }*/
                     List<N1> typeNeg = new List<N1>();
                     List<N1> typeHoyor = new List<N1>();
                     List<N1> typeGurav = new List<N1>();
@@ -1540,9 +1546,9 @@ namespace Audit.Controllers
                     List<N1> temp2 = new List<N1>();
                     List<N1> temp3 = new List<N1>();
 
-                    typeNeg = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
-                    typeHoyor = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
-                    typeGurav = n1Detial.FindAll(a => a.ORGTYPE.Equals("Төсвийн шууд захирагч"));
+                    typeNeg = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
+                    typeHoyor = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
+                    typeGurav = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн шууд захирагч"));
 
                     if (typeNeg.Count > 0)
                     {
@@ -1588,7 +1594,7 @@ namespace Audit.Controllers
                     N1 bodolt1 = new N1();
                     N1 bodolt2 = new N1();
 
-                    n1 = (from item in res.Elements("Report1N2Footer") select new N1().SetXml(item)).ToList();
+                   // n1 = (from item in res.Elements("Report1N2Footer") select new N1().SetXml(item)).ToList();
                     var typ = typeof(N1);
                     var orgname = typ.GetProperty("ORGNAME");
                     decimal total = 0;
@@ -1602,7 +1608,8 @@ namespace Audit.Controllers
 
                     foreach (N1 n in n1)
                     {
-
+                        n.OPEN_HEAD_ROLE = n.OPEN_HEAD_ROLE + " " + n.OPEN_HEAD_NAME + " " + n.OPEN_HEAD_PHONE;
+                        n.OPEN_ACC_ROLE = n.OPEN_ACC_ROLE + " " + n.OPEN_ACC_NAME + " " + n.OPEN_ACC_PHONE;
                         for (int i = 0; i < key.Length; i++)
                          
                         {
@@ -1619,21 +1626,25 @@ namespace Audit.Controllers
                                             count = Convert.ToInt32(prop.GetValue(Medeelsen)) + 1;
                                             prop.SetValue(Medeelsen, count.ToString());
                                             orgname.SetValue(Medeelsen, "Мэдээлсэн");
+                                            prop.SetValue(n, "1");
                                             break;
                                         case "2":
                                             count = Convert.ToInt32(prop.GetValue(Medeeleegui)) + 1;
                                             prop.SetValue(Medeeleegui, count.ToString());
                                             orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
+                                            prop.SetValue(n, "1");
                                             break;
                                         case "3":
                                             count = Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + 1;
                                             prop.SetValue(HugtsaaHotsorson, count.ToString());
                                             orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
+                                            prop.SetValue(n, "1");
                                             break;
                                         case "4":
                                             count = Convert.ToInt32(prop.GetValue(Shaardlaggui)) + 1;
                                             prop.SetValue(Shaardlaggui, count.ToString());
                                             orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
+                                            prop.SetValue(n, "1");
                                             break;
                                         default:
                                             break;
@@ -1745,7 +1756,7 @@ namespace Audit.Controllers
                     }
 
 
-                        n1Detial = types;
+                    n1Detial = types;
                     n1Detial.Add(Niit);
                     n1Detial.Add(Medeelsen);
                     n1Detial.Add(Medeeleegui);
@@ -1767,7 +1778,303 @@ namespace Audit.Controllers
             }
             return response;
         }
-        public N1 setMd(N1 param1, N1 param2)
+        [HttpPost]
+        public N1ListResponse ReportN2List(N1ListRequest request)
+        {
+            N1ListResponse response = new N1ListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                /*elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));*/
+           
+
+                elem.Add(new XElement("V_Mayagt", request.Mayagt = "1,2"));
+                /*elem.Add(new XElement("V_Mayagt", request.Mayagt = "3"));*/
+
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+                if (request.DeparmentID != null)
+                    elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                else
+                    elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+
+                if (request.PeriodID != null)
+                    elem.Add(new XElement("V_PERIOD", request.PeriodID));
+                else
+                    elem.Add(new XElement("V_PERIOD", null));
+
+                XElement res = AppStatic.SystemController.ReportN2(elem, User.GetClaimData("USER_TYPE"));
+                if (res != null && res.Elements("ReportN2") != null)
+                {
+                    List<N1> n1 = new List<N1>();
+                    //n1 = (from item in res.Elements("N1") select new N1().SetXml(item)).ToList();
+                    List<N1> n1Detial = new List<N1>();
+                    N1 title = new N1();
+
+
+                    List<N1> n2 = new List<N1>();
+                    n1 = (from item in res.Elements("ReportN2") select new N1().SetXml(item)).ToList();
+                    
+                    
+
+                    List<N1> typeNeg = new List<N1>();
+                    List<N1> typeHoyor = new List<N1>();
+                    List<N1> typeGurav = new List<N1>();
+
+                    List<N1> temp = new List<N1>();
+                    List<N1> temp2 = new List<N1>();
+                    List<N1> temp3 = new List<N1>();
+
+                    typeNeg = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн ерөнхийлөн захирагч"));
+                    typeHoyor = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн төвлөрүүлэн захирагч"));
+                    typeGurav = n1.FindAll(a => a.ORGTYPE.Equals("Төсвийн шууд захирагч"));
+
+                    if (typeNeg.Count > 0)
+                    {
+                        title = new N1();
+                        title.ORGNAME = "Төсвийн ерөнхийлөн захирагч";
+                        temp.Add(title);
+                        temp.AddRange(typeNeg);
+                        typeNeg = temp;
+
+                    }
+
+                    if (typeHoyor.Count > 0)
+                    {
+                        title = new N1();
+                        title.ORGNAME = "Төсвийн төвлөрүүлэн захирагч";
+                        temp2.Add(title);
+                        temp2.AddRange(typeHoyor);
+                        typeHoyor = temp2;
+
+                    }
+
+                    if (typeGurav.Count > 0)
+                    {
+                        title = new N1();
+                        title.ORGNAME = "Төсвийн шууд захирагч";
+                        temp3.Add(title);
+                        temp3.AddRange(typeGurav);
+                        typeGurav = temp3;
+
+                    }
+
+                    List<N1> types = new List<N1>();
+                    types.AddRange(typeNeg);
+                    types.AddRange(typeHoyor);
+                    types.AddRange(typeGurav);
+
+                    N1 Medeelsen = new N1();
+                    N1 Medeeleegui = new N1();
+                    N1 HugtsaaHotsorson = new N1();
+                    N1 Shaardlaggui = new N1();
+
+                    N1 Niit = new N1();
+                    N1 bodolt1 = new N1();
+                    N1 bodolt2 = new N1();
+
+                   // n1 = (from item in res.Elements("Report1N2Footer") select new N1().SetXml(item)).ToList();
+                    var typ = typeof(N1);
+                    var orgname = typ.GetProperty("ORGNAME");
+                    decimal total = 0;
+                    decimal math1 = 0;
+                    decimal math2 = 0;
+                    decimal count = 0;
+
+                    string[] key = {"116","117","118","119","120","121",
+                                    "123","124","125","126","127","128",
+                                    "130","131","132","133","134","135",
+                                    "137","138","139","140","141","142",
+                                    "143",
+                                    "144",
+                                    "146","147","148","149","150","151","152","153",
+                                    "155","156","157","158","159","160",
+                                    "104","105","106",
+                                    "107","108","109","110","113" };
+
+                    foreach (N1 n in n1)
+                    {
+                        n.OPEN_HEAD_ROLE = n.OPEN_HEAD_ROLE + " " + n.OPEN_HEAD_NAME + " " + n.OPEN_HEAD_PHONE;
+                        n.OPEN_ACC_ROLE = n.OPEN_ACC_ROLE + " " + n.OPEN_ACC_NAME + " " + n.OPEN_ACC_PHONE;
+                        for (int i = 0; i < key.Length; i++)
+
+                        {
+                           
+                            var prop = typ.GetProperty("MD" + key[i]);
+                            string value = prop.GetValue(n) != null ? prop.GetValue(n).ToString() : "0";
+                            if (key[i].Equals("143") || key[i].Equals("144") )
+                            {
+                                if (value != "")
+
+                                {
+                                    switch (value)
+                                    {
+                                        case "1":
+                                            count = Convert.ToInt32(prop.GetValue(Medeelsen)) + 1;
+                                            prop.SetValue(Medeelsen, count.ToString());
+                                            orgname.SetValue(Medeelsen, "Мэдээлсэн");
+                                            prop.SetValue(n, "1");
+                                            break;
+                                        case "2":
+                                            count = Convert.ToInt32(prop.GetValue(Medeeleegui)) + 1;
+                                            prop.SetValue(Medeeleegui, count.ToString());
+                                            orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
+                                            prop.SetValue(n, "1");
+                                            break;
+                                        case "3":
+                                            count = Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + 1;
+                                            prop.SetValue(HugtsaaHotsorson, count.ToString());
+                                            orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
+                                            prop.SetValue(n, "1");
+                                            break;
+                                        case "4":
+                                            count = Convert.ToInt32(prop.GetValue(Shaardlaggui)) + 1;
+                                            prop.SetValue(Shaardlaggui, count.ToString());
+                                            orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
+                                            prop.SetValue(n, "1");
+                                            break;
+                                        default:
+                                            break;
+
+                                    }
+                                   
+                                    total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
+                                    prop.SetValue(Niit, total.ToString());
+                                    orgname.SetValue(Niit, "НИЙТ ДҮН");
+                                    prop.SetValue(n, "1");
+
+                                    if (total != 0)
+                                    {
+                                        math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui) == null ? 0 : prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson) == null ? 0 : prop.GetValue(HugtsaaHotsorson));
+                                        prop.SetValue(bodolt1, String.Format("{0:0.0}", math1));
+                                        orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
+                                    }
+
+                                    if (total != 0)
+                                    {
+                                        math2 = 100 - 100 * Convert.ToInt32(prop.GetValue(Shaardlaggui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson) == null ? 0 : prop.GetValue(HugtsaaHotsorson));
+                                        prop.SetValue(bodolt2, String.Format("{0:0.0}", math2));
+                                        orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
+                                    }
+                                }
+                            }
+
+                            decimal tempToo = !String.IsNullOrEmpty(value) ? Convert.ToDecimal(value) : 0;
+                            String test = (string)prop.GetValue(Niit);
+                            decimal tempToo2 = !String.IsNullOrEmpty(test) ? Convert.ToDecimal(prop.GetValue(Niit)) : 0;
+                            total = tempToo2 + tempToo;
+                            prop.SetValue(Niit, total != 0 ? String.Format("{0:0.0}", total) : "");
+                            orgname.SetValue(Niit, "НИЙТ ДҮН");
+                            //math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
+
+
+
+                        }
+                    }
+                    if (Niit.ORGNAME == null)
+                    {
+                        orgname.SetValue(Niit, "НИЙТ ДҮН");
+                    }
+                    if (Medeelsen.ORGNAME == null)
+                    {
+                        orgname.SetValue(Medeelsen, "Мэдээлсэн");
+                    }
+                    if (Medeeleegui.ORGNAME == null)
+                    {
+                        orgname.SetValue(Medeeleegui, "Мэдээлээгүй");
+                    }
+                    if (HugtsaaHotsorson.ORGNAME == null)
+                    {
+                        orgname.SetValue(HugtsaaHotsorson, "Хугацаа хоцроосон");
+                    }
+                    if (Shaardlaggui.ORGNAME == null)
+                    {
+                        orgname.SetValue(Shaardlaggui, "Мэдээлэх шаардлагагүй, хамааралгүй");
+                    }
+                    if (bodolt1.ORGNAME == null)
+                    {
+                        orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
+                    }
+                    if (bodolt2.ORGNAME == null)
+                    {
+                        orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
+                    }
+
+                    
+                    string[] key2 = {"116","117","118","119","120","121",
+                                    "123","124","125","126","127","128",
+                                    "130","131","132","133","134","135",
+                                    "137","138","139","140","141","142",
+                                    "146","147","148","149","150","151",
+                                    "155","156","157","158","159","160",
+                                    };
+                    for (int i = 0; i < key2.Length;)
+                    {
+
+                        var niitMedeeleegui = typ.GetProperty("MD" + key2[i + 2]);
+                        string niitMedeeleeguiStr = niitMedeeleegui.GetValue(Niit) != null ? niitMedeeleegui.GetValue(Niit).ToString() : "0";
+                        var niitMedeelsen = typ.GetProperty("MD" + key2[i]);
+                        string niitMedeelsenStr = niitMedeelsen.GetValue(Niit) != null ? niitMedeelsen.GetValue(Niit).ToString() : "0";
+                        var niitMedeeleeguiMungu = typ.GetProperty("MD" + key2[i + 3]);
+                        string niitMedeeleeguiMunguStr = niitMedeeleeguiMungu.GetValue(Niit) != null ? niitMedeeleeguiMungu.GetValue(Niit).ToString() : "0";
+                        var niitMedeelsenMungu = typ.GetProperty("MD" + key2[i + 1]);
+                        string niitMedeelsenMunguStr = niitMedeelsenMungu.GetValue(Niit) != null ? niitMedeelsenMungu.GetValue(Niit).ToString() : "0";
+
+
+                        math1 = 100 - (!String.IsNullOrEmpty(niitMedeeleeguiStr) ? Convert.ToDecimal(niitMedeeleeguiStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenStr) ? niitMedeelsenStr : "1");
+                        niitMedeeleegui.SetValue(bodolt1, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        math1 = 100 - (!String.IsNullOrEmpty(niitMedeeleeguiMunguStr) ? Convert.ToDecimal(niitMedeeleeguiMunguStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenMunguStr) ? niitMedeelsenMunguStr : "1");
+                        niitMedeeleeguiMungu.SetValue(bodolt1, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+
+                        var niitKhugtsaaToo = typ.GetProperty("MD" + key2[i + 4]);
+                        string niitKhugtsaaTooStr = niitKhugtsaaToo.GetValue(Niit) != null ? niitKhugtsaaToo.GetValue(Niit).ToString() : "0";
+
+                        var niitKhugtsaaMungu = typ.GetProperty("MD" + key2[i + 5]);
+                        string niitKhugtsaaMunguStr = niitKhugtsaaMungu.GetValue(Niit) != null ? niitKhugtsaaMungu.GetValue(Niit).ToString() : "0";
+
+
+
+                        math1 = 100 - (!String.IsNullOrEmpty(niitKhugtsaaTooStr) ? Convert.ToDecimal(niitKhugtsaaTooStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenStr) ? niitMedeelsenStr : "1");
+                        niitKhugtsaaToo.SetValue(bodolt2, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        math1 = 100 - (!String.IsNullOrEmpty(niitKhugtsaaMunguStr) ? Convert.ToDecimal(niitKhugtsaaMunguStr) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(niitMedeelsenMunguStr) ? niitMedeelsenMunguStr : "1");
+                        niitKhugtsaaMungu.SetValue(bodolt2, math1 != 0 ? String.Format("{0:0.0}", math1) : "");
+                        i += 6;
+                    }
+                    math1 = 100 - (!String.IsNullOrEmpty(Niit.MD105) ? Convert.ToDecimal(Niit.MD105) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD104) ? Niit.MD104 : "1");
+                    bodolt1.MD104 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    math1 = 100 - (!String.IsNullOrEmpty(Niit.MD106) ? Convert.ToDecimal(Niit.MD106) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD104) ? Niit.MD104 : "1");
+                    bodolt2.MD106 = math1 != 0 ? String.Format("{0:0.0}", math1) : "";
+                    
+
+                    n1Detial = types;
+                    n1Detial.Add(Niit);
+                    n1Detial.Add(Medeelsen);
+                    n1Detial.Add(Medeeleegui);
+                    n1Detial.Add(HugtsaaHotsorson);
+                    n1Detial.Add(Shaardlaggui);
+                    n1Detial.Add(bodolt1);
+                    n1Detial.Add(bodolt2);
+
+                    response.data = n1Detial;
+                }
+
+
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+       /* public N1 setMd(N1 param1, N1 param2)
         {
             param1.MD1 = param2.MD1;
             param1.MD2 = param2.MD2;
@@ -1894,7 +2201,7 @@ namespace Audit.Controllers
 
             return param1;
 
-        }
+        }*/
        
 
 

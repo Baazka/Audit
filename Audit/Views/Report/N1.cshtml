@@ -5,12 +5,15 @@
 @{ ViewBag.Title = "ReportN1";
     Layout = "~/Views/Shared/_Layout.cshtml"; }
 <style>
-   
+
 
     .vertical {
-        writing-mode: vertical-lr;
+        writing-mode: vertical-rl;
         -ms-writing-mode: tb-rl;
         transform: rotate(180deg);
+    }
+    .tableBorder {
+        border-right-color: transparent !important;
     }
 </style>
 <div class="d-flex">
@@ -21,8 +24,6 @@
     </a>
     <h4>Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт-1.1</h4>
 </div>
-<br />
-<center><h6>Төсвийн ерөнхийлөн захирагчийн төсвийн багцад харъяалагдах компани, ААН байгууллагын тоо: </h6></center>
 <hr class="sidebar-divider">
 
 
@@ -312,6 +313,33 @@
                 lengthChange: true,
                 "language": datatables.language,
                 "ordering": false,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.ORGNAME === "НИЙТ ДҮН" || data.ORGNAME === "Мэдээлсэн"
+                            || data.ORGNAME === "Мэдээлээгүй" || data.ORGNAME === "Хугацаа хоцроосон" || data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь" ||
+                            data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй" || data.ORGNAME === "Хугацаа хоцролтын хэрэгжилтийн хувь") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+
+                            });
+                        } else if (data.ORGNAME === "Төсвийн ерөнхийлөн захирагч" || data.ORGNAME === "Төсвийн төвлөрүүлэн захирагч" || data.ORGNAME === "Төсвийн шууд захирагч") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+                                if (index !== 34)
+                                    $('td', row).eq(index).addClass('tableBorder');
+
+                            });
+                        }
+                    }
+                },
              
                
             });

@@ -27,6 +27,26 @@ namespace Audit.Controllers
 
         public ActionResult Index()
         {
+            N1VM res = new N1VM();
+            try
+            {
+                if (Globals.departments.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
             //ReportViewer ReportViewer1 = new ReportViewer();
             /*viewer.ProcessingMode = ProcessingMode.Local;
             LocalReport localReport = viewer.LocalReport;
@@ -107,11 +127,38 @@ namespace Audit.Controllers
             }
             return View(res);
         }
+        public ActionResult ReportN2()
+        {
+            N1VM res = new N1VM();
+            try
+            {
+                if (Globals.departments.Count > 0 || Globals.periods.Count > 0)
+                {
+                    res.departments = Globals.departments;
+                    res.periods = Globals.periods;
+                }
+                else
+                {
+                    XElement responseDepartment = SendLibraryRequest("Department");
+                    Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
+                    res.departments = Globals.departments;
+
+                    XElement responsePeriod = SendLibraryRequest("StatPeriod");
+                    Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
+                    res.periods = Globals.periods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return View(res);
+        }
         public PartialViewResult Viewer(string name,string title)
         {
             
             Reports res = new Reports();
-            try
+           /* try
             {
                 if (Globals.departments.Count > 0)
                 {
@@ -148,10 +195,10 @@ namespace Audit.Controllers
             ReportViewer1.ServerReport.SetParameters(parameters);
             ReportViewer1.ServerReport.Refresh();
             ViewBag.ReportViewer = ReportViewer1;
-            res.title = title;
+            res.title = title;*/
             return PartialView(res);
         }
-        protected void ExportExcel_Click(object sender, EventArgs e)
+       /* protected void ExportExcel_Click(object sender, EventArgs e)
         {
             Warning[] warnings;
             string[] streamids;
@@ -173,7 +220,7 @@ namespace Audit.Controllers
             Response.BinaryWrite(bytes);
             Response.Flush();
             Response.End();
-        }
+        }*/
 
         public static XElement SendLibraryRequest(string lib)
         {

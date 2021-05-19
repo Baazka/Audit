@@ -7,16 +7,45 @@
 <style>
 
 
-    .vertical {
+  @*  .vertical {
         writing-mode: vertical-lr;
         -ms-writing-mode: tb-rl;
         transform: rotate(180deg);
+        height: 250px;
         width: 60px;
-    }
-    
+
+    }*@
+
     .tableBorder {
         border-right-color: transparent !important;
     }
+
+    .vertical {
+        writing-mode: vertical-rl;
+        white-space: pre-wrap;
+@*
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        transform: rotate(-90deg);*@
+        transform: rotate(180deg);
+        white-space: pre-wrap;
+        height:250px;
+    }
+        .nowraptest {
+            white-space: nowrap;
+        }
+
+     @*   
+
+    .vertical2 {
+        writing-mode: vertical-lr;
+        white-space: pre-wrap;
+        transform: rotate(180deg);
+        /*height: 250px;
+        width: 60px;*/
+    }*@
 
 </style>
 <div class="d-flex">
@@ -103,74 +132,74 @@
                     </tr>
 
                     <tr class="bg-light">
-                        <th><span class="vertical">мэдээлсэн эсэх</span></th>
-                        <th><span class="vertical">мэдээлсэн эсэх</span> </th>
-                        <th><span class="vertical">Тендер шалгаруулсан худалдан авах ажиллагааны тоо </span></th>
-                        <th><span class="vertical">Тендер шалгаруулсан худалдан авах ажиллагааны мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй худалдан авалтын мөнгөн дүн </span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">тендерт шалгарсан оролцогчийн талаарх товч мэдээллийг мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">тендерт шалгараагүй оролцогчийн талаарх товч мэдээлэл, хуулийн үндэслэл, шалтгааныг мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">Таван сая төгрөгөөс дээш нийт худалдан авалтын тоо</span></th>
-                        <th><span class="vertical">Таван сая төгрөгөөс дээш худалдан авалтын мөнгөн дүн </span></th>
-                        <th><span class="vertical">Үүнээс: Мэдээлээгүй гүйлгээний тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй худалдан авалтын мөнгөн дүн </span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">Таван сая төгрөгөөс дээш нийт зарлагын гүйлгээний тоо</span></th>
-                        <th><span class="vertical">Таван сая төгрөгөөс дээш нийт зарлагын гүйлгээний мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Мэдээлээгүй зарлагын гүйлгээний тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй зарлагын гүйлгээний мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">5 сая төгрөгөөс дээш нийт орлогын гүйлгээний тоо</span></th>
-                        <th><span class="vertical">5 сая төгрөгөөс дээш нийт орлогын гүйлгээний мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Мэдээлээгүй орлогын гүйлгээний тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй орлогын гүйлгээний мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">мэдээлсэн  эсэх</span></th>
-                        <th><span class="vertical">мэдээлсэн  эсэх</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
-                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
-                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй мөнгөн дүн </span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн </span></th>
-                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
-                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
-                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
-                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
-                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
-                        <th><span class="vertical">Нийт мэдээлэх ашиг сонирхлын мэдүүлгийн тоо</span></th>
-                        <th><span class="vertical">Мэдээлээгүй ашиг сонирхлын мэдүүлгийн тоо</span></th>
-                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
-                        <th><span class="vertical">Зөрчил арилгуулах албан шаардлага өгсөн</span></th>
-                        <th><span class="vertical">Хариуцлага тооцуулах албан шаардлага өгсөн</span></th>
-                        <th><span class="vertical">Хууль хяналтын байгууллагад шилжүүлсэн</span></th>
-                        <th><span class="vertical">Зөвлөмж өгсөн</span></th>
-                        <th><span class="vertical">Аудитын явцад залруулсан</span></th>
+                        <th class="nowraptest">мэдээлсэн эсэх</span></th>
+                        <th class="nowraptest">мэдээлсэн эсэх </th>
+                        <th class="nowraptest"><span class="vertical">Тендер шалгаруулсан худалдан авах ажиллагааны тоо </span></th>
+                        <th class="nowraptest"><span class="vertical">Тендер шалгаруулсан худалдан авах ажиллагааны мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй худалдан авалтын мөнгөн дүн </span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">тендерт шалгарсан оролцогчийн талаарх товч мэдээллийг мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">тендерт шалгараагүй оролцогчийн талаарх товч мэдээлэл, хуулийн үндэслэл, шалтгааныг мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Таван сая төгрөгөөс дээш нийт худалдан авалтын тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Таван сая төгрөгөөс дээш худалдан авалтын мөнгөн дүн </span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Мэдээлээгүй гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй худалдан авалтын мөнгөн дүн </span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Таван сая төгрөгөөс дээш нийт зарлагын гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Таван сая төгрөгөөс дээш нийт зарлагын гүйлгээний мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Мэдээлээгүй зарлагын гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй зарлагын гүйлгээний мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">5 сая төгрөгөөс дээш нийт орлогын гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">5 сая төгрөгөөс дээш нийт орлогын гүйлгээний мөнгөн дүн</span></thclass="nowraptest">
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Мэдээлээгүй орлогын гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй орлогын гүйлгээний мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">мэдээлсэн  эсэх</span></th>
+                        <th class="nowraptest"><span class="vertical">мэдээлсэн  эсэх</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй мөнгөн дүн </span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн мөнгөн дүн </span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th class="nowraptest"><span class="vertical">Нийт мэдээлэх ашиг сонирхлын мэдүүлгийн тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Мэдээлээгүй ашиг сонирхлын мэдүүлгийн тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th class="nowraptest"><span class="vertical">Зөрчил арилгуулах албан шаардлага өгсөн</span></th>
+                        <th class="nowraptest"><span class="vertical">Хариуцлага тооцуулах албан шаардлага өгсөн</span></th>
+                        <th class="nowraptest"><span class="vertical">Хууль хяналтын байгууллагад шилжүүлсэн</span></th>
+                        <th class="nowraptest"><span class="vertical">Зөвлөмж өгсөн</span></th>
+                        <th class="nowraptest"><span class="vertical">Аудитын явцад залруулсан</span></th>
                     </tr>
 
                 </thead>
@@ -184,14 +213,13 @@
 
 @section scripts{
     <script>
-
         $(document).ready(function () {
             Report1N2ListInit();
         });
 
 
 
-        function Report1N2ListInit(pagelength = 10, mayagt) {
+        function Report1N2ListInit() {
             var count = 0
             Report1N2.table = $("#Report1N2").DataTable({
                 "serverSide": true,
@@ -335,7 +363,7 @@
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
-                "info": true,
+                "info": false,
                 "stateSave": false,
                 lengthChange: true,
                 "language": datatables.language,
@@ -397,7 +425,7 @@
         function exportFileExcel(tableid, excelname,) {
             $('#Report1N2exportXLSX').addClass('disabled');
             Report1N2.table.destroy();
-            Report1N2ListInit(-1);
+            Report1N2ListInit();
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));

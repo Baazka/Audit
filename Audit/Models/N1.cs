@@ -156,6 +156,50 @@ namespace Audit.Models
         public string MD168 { get; set; }
         public string MD169 { get; set; }
 
+        public string MD116 { get; set; }
+        public string MD117 { get; set; }
+        public string MD118 { get; set; }
+        public string MD119 { get; set; }
+        public string MD120 { get; set; }
+        public string MD121 { get; set; }
+        public string MD123 { get; set; }
+        public string MD124 { get; set; }
+        public string MD125 { get; set; }
+        public string MD126 { get; set; }
+        public string MD127 { get; set; }
+        public string MD128 { get; set; }
+        public string MD130 { get; set; }
+        public string MD131 { get; set; }
+        public string MD132 { get; set; }
+        public string MD133 { get; set; }
+        public string MD134 { get; set; }
+        public string MD135 { get; set; }
+        public string MD137 { get; set; }
+        public string MD138 { get; set; }
+        public string MD139 { get; set; }
+        public string MD140 { get; set; }
+        public string MD141 { get; set; }
+        public string MD142 { get; set; }
+        public string MD143 { get; set; }
+        public string MD144 { get; set; }
+        public string MD146 { get; set; }
+        public string MD147 { get; set; }
+        public string MD148 { get; set; }
+        public string MD149 { get; set; }
+        public string MD150 { get; set; }
+        public string MD151 { get; set; }
+        public string MD152 { get; set; }
+        public string MD153 { get; set; }
+        public string MD155 { get; set; }
+        public string MD156 { get; set; }
+        public string MD157 { get; set; }
+        public string MD107 { get; set; }
+        public string MD108 { get; set; }
+        public string MD109 { get; set; }
+        public string MD110 { get; set; }
+        public string MD113 { get; set; }
+
+
 
         public N1 SetXml(XElement xml)
         {
@@ -420,6 +464,90 @@ namespace Audit.Models
                 if (xml.Element("MD169") != null)
                     MD169 = xml.Element("MD169").Value != "0" ? xml.Element("MD169").Value.ToString() : "";
 
+                if (xml.Element("MD116") != null)
+                    MD116 = xml.Element("MD116").Value != "0" ? xml.Element("MD116").Value.ToString() : "";
+                if (xml.Element("MD117") != null)
+                    MD117 = xml.Element("MD117").Value != "0" ? xml.Element("MD117").Value.ToString() : "";
+                if (xml.Element("MD118") != null)
+                    MD118 = xml.Element("MD118").Value != "0" ? xml.Element("MD118").Value.ToString() : "";
+                if (xml.Element("MD119") != null)
+                    MD119 = xml.Element("MD119").Value != "0" ? xml.Element("MD119").Value.ToString() : "";
+                if (xml.Element("MD120") != null)
+                    MD120 = xml.Element("MD120").Value != "0" ? xml.Element("MD120").Value.ToString() : "";
+                if (xml.Element("MD121") != null)
+                    MD121 = xml.Element("MD121").Value != "0" ? xml.Element("MD121").Value.ToString() : "";
+                if (xml.Element("MD123") != null)
+                    MD123 = xml.Element("MD123").Value != "0" ? xml.Element("MD123").Value.ToString() : "";
+                if (xml.Element("MD124") != null)
+                    MD124 = xml.Element("MD124").Value != "0" ? xml.Element("MD124").Value.ToString() : "";
+                if (xml.Element("MD125") != null)
+                    MD125 = xml.Element("MD125").Value != "0" ? xml.Element("MD125").Value.ToString() : "";
+                if (xml.Element("MD126") != null)
+                    MD126 = xml.Element("MD126").Value != "0" ? xml.Element("MD126").Value.ToString() : "";
+                if (xml.Element("MD127") != null)
+                    MD127 = xml.Element("MD127").Value != "0" ? xml.Element("MD127").Value.ToString() : "";
+                if (xml.Element("MD128") != null)
+                    MD128 = xml.Element("MD128").Value != "0" ? xml.Element("MD128").Value.ToString() : "";
+                if (xml.Element("MD130") != null)
+                    MD130 = xml.Element("MD130").Value != "0" ? xml.Element("MD130").Value.ToString() : "";
+                if (xml.Element("MD131") != null)
+                    MD131 = xml.Element("MD131").Value != "0" ? xml.Element("MD131").Value.ToString() : "";
+                if (xml.Element("MD132") != null)
+                    MD132 = xml.Element("MD132").Value != "0" ? xml.Element("MD132").Value.ToString() : "";
+                if (xml.Element("MD133") != null)
+                    MD133 = xml.Element("MD133").Value != "0" ? xml.Element("MD133").Value.ToString() : "";
+                if (xml.Element("MD134") != null)
+                    MD134 = xml.Element("MD134").Value != "0" ? xml.Element("MD134").Value.ToString() : "";
+                if (xml.Element("MD135") != null)
+                    MD135 = xml.Element("MD135").Value != "0" ? xml.Element("MD135").Value.ToString() : "";
+                if (xml.Element("MD137") != null)
+                    MD137 = xml.Element("MD137").Value != "0" ? xml.Element("MD137").Value.ToString() : "";
+                if (xml.Element("MD138") != null)
+                    MD138 = xml.Element("MD138").Value != "0" ? xml.Element("MD138").Value.ToString() : "";
+                if (xml.Element("MD139") != null)
+                    MD139 = xml.Element("MD139").Value != "0" ? xml.Element("MD139").Value.ToString() : "";
+                if (xml.Element("MD140") != null)
+                    MD140 = xml.Element("MD140").Value != "0" ? xml.Element("MD140").Value.ToString() : "";
+                if (xml.Element("MD141") != null)
+                    MD141 = xml.Element("MD141").Value != "0" ? xml.Element("MD141").Value.ToString() : "";
+                if (xml.Element("MD142") != null)
+                    MD142 = xml.Element("MD142").Value != "0" ? xml.Element("MD142").Value.ToString() : "";
+                if (xml.Element("MD143") != null)
+                    MD143 = xml.Element("MD143").Value != "0" ? xml.Element("MD143").Value.ToString() : "";
+                if (xml.Element("MD144") != null)
+                    MD144 = xml.Element("MD144").Value != "0" ? xml.Element("MD144").Value.ToString() : "";
+                if (xml.Element("MD146") != null)
+                    MD146 = xml.Element("MD146").Value != "0" ? xml.Element("MD146").Value.ToString() : "";
+                if (xml.Element("MD147") != null)
+                    MD147 = xml.Element("MD147").Value != "0" ? xml.Element("MD147").Value.ToString() : "";
+                if (xml.Element("MD148") != null)
+                    MD148 = xml.Element("MD148").Value != "0" ? xml.Element("MD148").Value.ToString() : "";
+                if (xml.Element("MD149") != null)
+                    MD149 = xml.Element("MD149").Value != "0" ? xml.Element("MD149").Value.ToString() : "";
+                if (xml.Element("MD150") != null)
+                    MD150 = xml.Element("MD150").Value != "0" ? xml.Element("MD150").Value.ToString() : "";
+                if (xml.Element("MD151") != null)
+                    MD151 = xml.Element("MD151").Value != "0" ? xml.Element("MD151").Value.ToString() : "";
+                if (xml.Element("MD152") != null)
+                    MD152 = xml.Element("MD152").Value != "0" ? xml.Element("MD152").Value.ToString() : "";
+                if (xml.Element("MD153") != null)
+                    MD153 = xml.Element("MD153").Value != "0" ? xml.Element("MD153").Value.ToString() : "";
+                if (xml.Element("MD155") != null)
+                    MD155 = xml.Element("MD155").Value != "0" ? xml.Element("MD155").Value.ToString() : "";
+                if (xml.Element("MD156") != null)
+                    MD156 = xml.Element("MD156").Value != "0" ? xml.Element("MD156").Value.ToString() : "";
+                if (xml.Element("MD157") != null)
+                    MD157 = xml.Element("MD157").Value != "0" ? xml.Element("MD157").Value.ToString() : "";
+                if (xml.Element("MD107") != null)
+                    MD107 = xml.Element("MD107").Value != "0" ? xml.Element("MD107").Value.ToString() : "";
+                if (xml.Element("MD108") != null)
+                    MD108 = xml.Element("MD108").Value != "0" ? xml.Element("MD108").Value.ToString() : "";
+                if (xml.Element("MD109") != null)
+                    MD109 = xml.Element("MD109").Value != "0" ? xml.Element("MD109").Value.ToString() : "";
+                if (xml.Element("MD110") != null)
+                    MD110 = xml.Element("MD110").Value != "0" ? xml.Element("MD110").Value.ToString() : "";
+                if (xml.Element("MD113") != null)
+                    MD113 = xml.Element("MD113").Value != "0" ? xml.Element("MD113").Value.ToString() : "";
 
             }
             return this;

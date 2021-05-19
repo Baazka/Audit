@@ -143,6 +143,7 @@ namespace Audit.App_Func
 
             functions.Add("N1", (request) => DataAccess.ReportN1(request));
             functions.Add("Report1N2", (request) => DataAccess.Report1N2(request));
+            functions.Add("ReportN2", (request) => DataAccess.ReportN2(request));
         }
     }
 }
