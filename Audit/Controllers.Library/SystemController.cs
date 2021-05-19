@@ -1196,6 +1196,7 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+
         }
         public bool BM2Update(int userid, XElement element)
         {
@@ -1207,6 +1208,39 @@ namespace Audit.Controllers.Library
 
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM2Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM2UpdateCompletion(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM2UpdateCompletion"),
                                                new XElement("Parameters",
                                                    new XElement("USER_ID", userid),
                                                    element));
