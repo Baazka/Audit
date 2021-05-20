@@ -34,18 +34,18 @@
             <label for="DeparmentID" class="col-form-label">Алба:</label>
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-        @* <div class="form-group-sm pr-2">
+         <div class="form-group-sm pr-2">
             <br />
             <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="N1ListInit(pagelength = 10,1);">
-                Маягт-1
+                3.2.1
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
             <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="N1ListInit(pagelength = 10,2);">
-                Маягт-2
+                3.2.2
             </a>
-        </div>*@
+        </div>
 
         <div class="form-group-sm ml-auto pr-2">
             <br />
