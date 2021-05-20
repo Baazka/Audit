@@ -126,8 +126,8 @@ namespace Audit.Models
                     PROPOSAL_RCV_PHONE = xml.Element("PROPOSAL_RCV_PHONE").Value;
                 if (xml.Element("PRO_RCV_ADDRESS") != null)
                     PROPOSAL_RCV_ADDRESS = xml.Element("PRO_RCV_ADDRESS").Value;
-                //if (xml.Element("PROPOSAL_CONTROL_AUDITOR") != null)
-                //    PROPOSAL_CONTROL_AUDITOR = xml.Element("PROPOSAL_CONTROL_AUDITOR").Value;                
+                if (xml.Element("PROPOSAL_CONTROL_AUDITOR") != null)
+                    PROPOSAL_CONTROL_AUDITOR = xml.Element("PROPOSAL_CONTROL_AUDITOR").Value;
                 if (xml.Element("COMPLETION_DATE") != null)
                     COMPLETION_DATE = Convert.ToDateTime(xml.Element("COMPLETION_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("COMPLETION_ORDER") != null)
@@ -149,13 +149,13 @@ namespace Audit.Models
             return new XElement("BM4",
                        new XElement("ID", ID),
                        new XElement("AUDIT_ID", AUDIT_ID),
-                       new XElement("PROPOSAL_DATE", PROPOSAL_DATE),
+                       new XElement("PROPOSAL_DATE", Convert.ToDateTime(PROPOSAL_DATE).ToString("dd-MMM-yy")),
                        new XElement("PROPOSAL_NO", PROPOSAL_NO),
                        new XElement("PROPOSAL_VIOLATION_DESC", PROPOSAL_VIOLATION_DESC),
                        new XElement("PROPOSAL_VIOLATION_TYPE", PROPOSAL_VIOLATION_TYPE),
                        new XElement("VIOLATION_RESPONDENT", VIOLATION_RESPONDENT),
-                       new XElement("PROPOSAL_SUBMITTED_DATE", PROPOSAL_SUBMITTED_DATE),
-                       new XElement("PROPOSAL_DELIVERY_DATE", PROPOSAL_DELIVERY_DATE),
+                       new XElement("PROPOSAL_SUBMITTED_DATE", Convert.ToDateTime(PROPOSAL_SUBMITTED_DATE).ToString("dd-MMM-yy")),
+                       new XElement("PROPOSAL_DELIVERY_DATE", Convert.ToDateTime(PROPOSAL_DELIVERY_DATE).ToString("dd-MMM-yy")),
                        new XElement("PROPOSAL_COUNT", PROPOSAL_COUNT),
                        new XElement("PROPOSAL_AMOUNT", PROPOSAL_AMOUNT),
                        new XElement("PROPOSAL_RCV_NAME", PROPOSAL_RCV_NAME),
@@ -164,14 +164,14 @@ namespace Audit.Models
                        new XElement("PROPOSAL_RCV_PHONE", PROPOSAL_RCV_PHONE),
                        new XElement("PROPOSAL_RCV_ADDRESS", PROPOSAL_RCV_ADDRESS),
                        //new XElement("PROPOSAL_CONTROL_AUDITOR", PROPOSAL_CONTROL_AUDITOR),
-                       new XElement("COMPLETION_DATE", COMPLETION_DATE),
+                       new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
                        new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),
                        new XElement("COMPLETION_PROGRESS", COMPLETION_PROGRESS),
                        new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE)
+                       new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );
         }
     }

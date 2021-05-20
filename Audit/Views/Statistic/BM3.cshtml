@@ -36,6 +36,15 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM3.completion();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Биелэлт</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
             <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM3.edit();">
                 <span class="icon text-white-50">
                     <i class="fas fa-edit"></i>
@@ -52,6 +61,7 @@
                 <span class="text">Устгах</span>
             </a>
         </div>
+
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM3', 'БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл')">
@@ -285,10 +295,13 @@
                     }
                 });
             },
-            loadTemplate: function () {
+              loadTemplate: function () {
+                var audit_id;
+                BM3.bm3ID != null ? audit_id = BM3.bm3ID : audit_id = 0;
                 $.ajax({
-                    url: "@Url.Action("BM3AddEdit", "Statistic", new { Area = "" })",
+                    url: "@Url.Action("BM3Add", "Statistic", new { Area = "" })",
                     type: 'GET',
+                    data: { id: audit_id },
                     success: function (data) {
                         BM3.display(data);
                     },
@@ -301,7 +314,29 @@
                     }
                 });
             },
-            edit: function () {
+           edit: function () {
+                if (BM3.bm3ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                     var audit_id = BM3.bm3ID;
+                    $.ajax({
+                        url: "@Url.Action("BM3Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id: audit_id, isbm0: false },
+                        success: function (data, status, xhr) {
+                            BM3.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            completion: function () {
                 if (BM3.bm3ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
@@ -309,7 +344,7 @@
                     $.ajax({
                         url: "@Url.Action("BM3Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: id, isbm0: false, iscompletion: true },
                         success: function (data, status, xhr) {
                             BM3.progressResponse(data, status, xhr);
                         },

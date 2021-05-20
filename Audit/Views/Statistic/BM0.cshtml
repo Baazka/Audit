@@ -338,28 +338,28 @@
                 $("#Bm2ModalBM0").modal({ show: true });
             },
             displayBM3: function (data) {
-                $("div#bm3modalcontainer").remove();
-                $('<div/>', { id: "bm3modalcontainer" }).appendTo('body').append(data);
+                $("div#bm3modalcontainerBM0").remove();
+                $('<div/>', { id: "bm3modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm3Modal").modal({ show: true });
+                $("#Bm3ModalBM0").modal({ show: true });
             },
             displayBM4: function (data) {
-                $("div#bm4modalcontainer").remove();
-                $('<div/>', { id: "bm4modalcontainer" }).appendTo('body').append(data);
+                $("div#bm4modalcontainerBM0").remove();
+                $('<div/>', { id: "bm4modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm4Modal").modal({ show: true });
+                $("#Bm4ModalBM0").modal({ show: true });
             },
             displayBM5: function (data) {
-                $("div#bm5modalcontainer").remove();
-                $('<div/>', { id: "bm5modalcontainer" }).appendTo('body').append(data);
+                $("div#bm5modalcontainerBM0").remove();
+                $('<div/>', { id: "bm5modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm5Modal").modal({ show: true });
+                $("#Bm5ModalBM0").modal({ show: true });
             },
             displayBM8: function (data) {
-                $("div#bm8modalcontainer").remove();
-                $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
+                $("div#bm8modalcontainerBM0").remove();
+                $('<div/>', { id: "bm8modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm8Modal").modal({ show: true });
+                $("#Bm8ModalBM0").modal({ show: true });
             },
             SystemUserList: function (type) {
                 BM0.type = type;
@@ -486,17 +486,18 @@
                     });
                 }
             },
-            editBM3: function () {
+              editBM3: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM3Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM3AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM3");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -512,13 +513,14 @@
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM4Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM4AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM4");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -530,17 +532,18 @@
                     });
                 }
             },
-            editBM5: function () {
+             editBM5: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM5Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM5AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM5");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -552,17 +555,18 @@
                     });
                 }
             },
-            editBM8: function () {
+               editBM8: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM8AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM8");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -577,11 +581,11 @@
             close: function () {
                 $("#Bm0Modal").modal("hide");
                 $("#Bm1AddModal").modal("hide");
-                $("#Bm2Modal").modal("hide");
-                $("#Bm3Modal").modal("hide");
-                $("#Bm4Modal").modal("hide");
-                $("#Bm5Modal").modal("hide");
-                $("#Bm8Modal").modal("hide");
+                $("#Bm2ModalBM0").modal("hide");
+                $("#Bm3ModalBM0").modal("hide");
+                $("#Bm4ModalBM0").modal("hide");
+                $("#Bm5ModalBM0").modal("hide");
+                $("#Bm8ModalBM0").modal("hide");
             },
             progressResponse: function (data, status, xhr, name = "BM0") {
                 var ct = xhr.getResponseHeader("content-type") || "";
@@ -607,7 +611,7 @@
                             break;
                         default:
                             BM0.display(data);
-                    }                    
+                    }
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {

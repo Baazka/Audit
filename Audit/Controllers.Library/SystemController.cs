@@ -1439,6 +1439,42 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement BM3SelectAdd(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM3SelectAdd"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+
+        }
         public XElement BM3Detail(int id)
         {
             try
@@ -1484,6 +1520,39 @@ namespace Audit.Controllers.Library
 
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM3Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM3UpdateCompletion(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM3UpdateCompletion"),
                                                new XElement("Parameters",
                                                    new XElement("USER_ID", userid),
                                                    element));
@@ -1610,6 +1679,42 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement BM4SelectAdd(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM4SelectAdd"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+
+        }
         public XElement BM4Detail(int id)
         {
             try
@@ -1655,6 +1760,39 @@ namespace Audit.Controllers.Library
 
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM4Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM4UpdateCompletion(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM4UpdateCompletion"),
                                                new XElement("Parameters",
                                                    new XElement("USER_ID", userid),
                                                    element));
@@ -1781,6 +1919,42 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+        public XElement BM5SelectAdd(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM5SelectAdd"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+
+        }
         public XElement BM5Detail(int id)
         {
             try
@@ -1826,6 +2000,39 @@ namespace Audit.Controllers.Library
 
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM5Update"),
+                                               new XElement("Parameters",
+                                                   new XElement("USER_ID", userid),
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                return response.Status;
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return false;
+        }
+        public bool BM5UpdateCompletion(int userid, XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return false; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM5UpdateCompletion"),
                                                new XElement("Parameters",
                                                    new XElement("USER_ID", userid),
                                                    element));
@@ -2023,6 +2230,42 @@ namespace Audit.Controllers.Library
             }
 
             return null;
+        }
+        public XElement BM8SelectAdd(int id)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM8SelectAdd"),
+                                               new XElement("Parameters",
+                                                   new XElement("P_ID", id)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+
         }
         public XElement BM8Detail(int id)
         {

@@ -171,14 +171,14 @@ namespace Audit.Models
                        new XElement("REFERENCE_TYPE", REFERENCE_TYPE),
                        new XElement("REFERENCE_COUNT", REFERENCE_COUNT),
                        new XElement("REFERENCE_AMOUNT", REFERENCE_AMOUNT),
-                       new XElement("REFERENCE_SUBMITTED_DATE", REFERENCE_SUBMITTED_DATE),
-                       new XElement("REFERENCE_DELIVERY_DATE", REFERENCE_DELIVERY_DATE),
+                       new XElement("REFERENCE_SUBMITTED_DATE", Convert.ToDateTime(REFERENCE_SUBMITTED_DATE).ToString("dd-MMM-yy")),
+                       new XElement("REFERENCE_DELIVERY_DATE", Convert.ToDateTime(REFERENCE_DELIVERY_DATE).ToString("dd-MMM-yy")),
                        new XElement("REFERENCE_RCV_NAME", REFERENCE_RCV_NAME),
                        new XElement("REFERENCE_RCV_ROLE", REFERENCE_RCV_ROLE),
                        new XElement("REFERENCE_RCV_GIVEN_NAME", REFERENCE_RCV_GIVEN_NAME),
                        new XElement("REFERENCE_RCV_PHONE", REFERENCE_RCV_PHONE),
                        new XElement("REFERENCE_RCV_ADDRESS", REFERENCE_RCV_ADDRESS),
-                       new XElement("COMPLETION_DATE", COMPLETION_DATE),
+                       new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
                        new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),
@@ -192,7 +192,7 @@ namespace Audit.Models
                        new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT),
                        new XElement("BENEFIT_NONFIN", BENEFIT_NONFIN),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE)
+                       new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );
         }
     }

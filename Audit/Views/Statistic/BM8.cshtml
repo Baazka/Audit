@@ -233,10 +233,13 @@
                     }
                 });
             },
-            loadTemplate: function () {
+               loadTemplate: function () {
+                var audit_id;
+                BM8.bm8ID != null ? audit_id = BM8.bm8ID : audit_id = 0;
                 $.ajax({
-                    url: "@Url.Action("BM8AddEdit", "Statistic", new { Area = "" })",
+                    url: "@Url.Action("BM8Add", "Statistic", new { Area = "" })",
                     type: 'GET',
+                    data: { id: audit_id },
                     success: function (data) {
                         BM8.display(data);
                     },
@@ -253,11 +256,11 @@
                 if (BM8.bm8ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM8.bm8ID;
+                     var audit_id = BM8.bm8ID;
                     $.ajax({
                         url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
                             BM8.progressResponse(data, status, xhr);
                         },
@@ -281,7 +284,7 @@
                         $.ajax({
                             url: "@Url.Action("BM8Delete", "Statistic", new { Area = "" })",
                             type: 'POST',
-                            data: { id },
+                            data: { id: id },
                             success: function (data, status, xhr) {
                                 BM8.progressResponse(data, status, xhr);
                             },

@@ -36,6 +36,15 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM4.completion();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Хэрэгжилт</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
             <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM4.edit();">
                 <span class="icon text-white-50">
                     <i class="fas fa-edit"></i>
@@ -156,10 +165,10 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
+                    { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
-                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
-                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
+                    { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
+                    { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "ORDER_DATE", "name": "ORDER_DATE" },
                     { "data": "ORDER_NO", "name": "ORDER_NO" },
@@ -273,9 +282,12 @@
                 });
             },
             loadTemplate: function () {
+                var audit_id;
+                BM4.bm4ID != null ? audit_id = BM4.bm4ID : audit_id = 0;
                 $.ajax({
-                    url: "@Url.Action("BM4AddEdit", "Statistic", new { Area = "" })",
+                    url: "@Url.Action("BM4Add", "Statistic", new { Area = "" })",
                     type: 'GET',
+                    data: { id: audit_id },
                     success: function (data) {
                         BM4.display(data);
                     },
@@ -288,14 +300,37 @@
                     }
                 });
             },
+            completion: function () {
+                if (BM4.bm4ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM4.bm4ID;
+                    $.ajax({
+                        url: "@Url.Action("BM4Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id: id, isbm0: false, iscompletion: true },
+                        success: function (data, status, xhr) {
+                            BM4.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
             edit: function () {
                 if (BM4.bm4ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
+                     var audit_id = BM4.bm4ID;
                     $.ajax({
                         url: "@Url.Action("BM4Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
-                        data: { id },
+                        data: { id: audit_id, isbm0: false },
                         success: function (data, status, xhr) {
                             BM4.progressResponse(data, status, xhr);
                         },

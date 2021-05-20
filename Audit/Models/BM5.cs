@@ -142,7 +142,7 @@ namespace Audit.Models
                        new XElement("LAW_C2_NUMBER", LAW_C2_NUMBER),
                        new XElement("LAW_C2_AMOUNT", LAW_C2_AMOUNT),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE)
+                       new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );
         }
     }

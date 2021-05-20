@@ -2531,79 +2531,7 @@ namespace Audit.App_Func
             }
 
             return response;
-            //DataResponse response = new DataResponse();
-
-            //// Open a connection to the database
-            //OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
-            //con.Open();
-
-            //// Create and execute the command
-            //OracleCommand cmd = con.CreateCommand();
-            //OracleTransaction transaction;
-
-            //// Start a local transaction
-            //transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
-            //// Assign transaction object for a pending local transaction
-            //cmd.Transaction = transaction;
-            //try
-            //{
-            //    XElement elem = request.Element("Parameters").Element("BM2");
-            //    cmd.CommandType = CommandType.Text;
-            //    cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA SET AUDIT_ID = :P_AUDIT_ID, CLAIM_DATE = :P_CLAIM_DATE, CLAIM_NO = :P_CLAIM_NO, CLAIM_VIOLATION_DESC = :P_CLAIM_VIOLATION_DESC, CLAIM_VIOLATION_TYPE = :P_CLAIM_VIOLATION_TYPE, CLAIM_SUBMITTED_DATE = :P_CLAIM_SUBMITTED_DATE, CLAIM_DELIVERY_DATE = :P_CLAIM_DELIVERY_DATE, CLAIM_VIOLATION_AMOUNT = :P_CLAIM_VIOLATION_AMOUNT, CLAIM_RCV_NAME = :P_CLAIM_RCV_NAME, CLAIM_RCV_ROLE = :P_CLAIM_RCV_ROLE, CLAIM_RCV_GIVEN_NAME = :P_CLAIM_RCV_GIVEN_NAME, CLAIM_RCV_PHONE = :P_CLAIM_RCV_PHONE, CLAIM_RCV_ADDRESS = :P_CLAIM_RCV_ADDRESS, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT, CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED, CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE WHERE ID = :P_ID";
-
-            //    // Set parameters
-            //    cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DATE")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_NO", OracleDbType.Varchar2).Value = elem.Element("CLAIM_NO")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_VIOLATION_DESC", OracleDbType.Varchar2).Value = elem.Element("CLAIM_VIOLATION_DESC")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("CLAIM_VIOLATION_TYPE")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_SUBMITTED_DATE")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DELIVERY_DATE")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_VIOLATION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_VIOLATION_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_NAME")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ROLE")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_RCV_GIVEN_NAME", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_GIVEN_NAME")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_PHONE")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ADDRESS")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-            //    cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
-            //    cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
-            //    cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
-            //    cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value;
-            //    cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
-            //    cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_NONEXPIRED")?.Value;
-            //    cmd.Parameters.Add(":P_CLAIM_C2_EXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_EXPIRED")?.Value;
-            //    cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
-            //    cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
-            //    cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
-            //    cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-            //    cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
-            //    cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
-
-            //    int rowsUpdated = cmd.ExecuteNonQuery();
-            //    transaction.Commit();
-            //    bool responseVal = rowsUpdated == 0 ? false : true;
-            //    cmd.Dispose();
-            //    con.Close();
-
-            //    response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
-            //}
-            //catch (Exception ex)
-            //{
-            //    transaction.Rollback();
-            //    response.CreateResponse(ex);
-            //}
-
-            //return response;
+       
         }
         public static DataResponse BM2Insert(XElement request)
         {
@@ -2873,6 +2801,56 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM3SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM3_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.REFERENCE_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.REFERENCE_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM3SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM3Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2886,7 +2864,18 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, REFERENCE_DESC, REFERENCE_AMOUNT, REFERENCE_SUBMITTED_DATE, REFERENCE_DELIVERY_DATE, REFERENCE_RCV_NAME, REFERENCE_RCV_ROLE, REFERENCE_RCV_GIVEN_NAME, REFERENCE_RCV_ADDRESS, REFERENCE_CONTROL_AUDITOR, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, C2_NONEXPIRED, C2_NONEXPIRED_AMOUNT, C2_EXPIRED, C2_EXPIRED_AMOUNT, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, EXEC_TYPE, CREATED_DATE, REFERENCE_TYPE, REFERENCE_COUNT, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID FROM AUD_STAT.BM3_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.REFERENCE_DESC, BM.REFERENCE_TYPE, BM.REFERENCE_COUNT, BM.REFERENCE_AMOUNT, BM.REFERENCE_SUBMITTED_DATE, BM.REFERENCE_DELIVERY_DATE, BM.REFERENCE_RCV_NAME, BM.REFERENCE_RCV_ROLE, BM.REFERENCE_RCV_GIVEN_NAME, BM.REFERENCE_RCV_PHONE, BM.REFERENCE_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME REFERENCE_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.C2_NONEXPIRED, BM.C2_NONEXPIRED_AMOUNT, BM.C2_EXPIRED, BM.C2_EXPIRED_AMOUNT, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
+                    "FROM AUD_STAT.BM3_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.REFERENCE_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.REFERENCE_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -2982,6 +2971,76 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM3UpdateCompletion(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM3");
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM3_DATA SET" +
+                    " AUDIT_ID = :P_AUDIT_ID," +
+                    " COMPLETION_DATE = :P_COMPLETION_DATE," +
+                    " COMPLETION_ORDER = :P_COMPLETION_ORDER," +
+                    " COMPLETION_DONE = :P_COMPLETION_DONE," +
+                    " COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT," +
+                    " COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS," +
+                    " COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT," +
+                    " C2_NONEXPIRED = :P_C2_NONEXPIRED," +
+                    " C2_NONEXPIRED_AMOUNT = :P_C2_NONEXPIRED_AMOUNT," +
+                    " C2_EXPIRED = :P_C2_EXPIRED," +
+                    " C2_EXPIRED_AMOUNT = :P_C2_EXPIRED_AMOUNT," +
+                    " BENEFIT_FIN = :P_BENEFIT_FIN," +
+                    " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT," +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_NONEXPIRED", OracleDbType.Int32).Value = elem.Element("C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_EXPIRED", OracleDbType.Int32).Value = elem.Element("C2_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM3Insert(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -3002,8 +3061,8 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM3");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.BM3_DATA (AUDIT_ID, REFERENCE_DESC, REFERENCE_TYPE, REFERENCE_COUNT, REFERENCE_AMOUNT, REFERENCE_SUBMITTED_DATE, REFERENCE_DELIVERY_DATE, REFERENCE_RCV_NAME, REFERENCE_RCV_ROLE, REFERENCE_RCV_GIVEN_NAME, REFERENCE_RCV_PHONE, REFERENCE_RCV_ADDRESS, REFERENCE_CONTROL_AUDITOR_ID, COMPLETION_DATE, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, C2_NONEXPIRED, C2_NONEXPIRED_AMOUNT, C2_EXPIRED, C2_EXPIRED_AMOUNT, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_AUDIT_ID, :P_REFERENCE_DESC, :P_REFERENCE_TYPE, :P_REFERENCE_COUNT, :P_REFERENCE_AMOUNT, :P_REFERENCE_SUBMITTED_DATE, :P_REFERENCE_DELIVERY_DATE, :P_REFERENCE_RCV_NAME, :P_REFERENCE_RCV_ROLE, :P_REFERENCE_RCV_GIVEN_NAME, :P_REFERENCE_RCV_PHONE, :P_REFERENCE_RCV_ADDRESS, :P_REFERENCE_CONTROL_AUDITOR_ID, :P_COMPLETION_DATE, :P_COMPLETION_ORDER, :P_COMPLETION_DONE, :P_COMPLETION_DONE_AMOUNT, :P_COMPLETION_PROGRESS, :P_COMPLETION_PROGRESS_AMOUNT, :P_C2_NONEXPIRED, :P_C2_NONEXPIRED_AMOUNT, :P_C2_EXPIRED, :P_C2_EXPIRED_AMOUNT, :P_BENEFIT_FIN, :P_BENEFIT_FIN_AMOUNT, :P_BENEFIT_NONFIN, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM3_DATA (AUDIT_ID, REFERENCE_DESC, REFERENCE_TYPE, REFERENCE_COUNT, REFERENCE_AMOUNT, REFERENCE_SUBMITTED_DATE, REFERENCE_DELIVERY_DATE, REFERENCE_RCV_NAME, REFERENCE_RCV_ROLE, REFERENCE_RCV_GIVEN_NAME, REFERENCE_RCV_PHONE, REFERENCE_RCV_ADDRESS, REFERENCE_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES(:P_AUDIT_ID, :P_REFERENCE_DESC, :P_REFERENCE_TYPE, :P_REFERENCE_COUNT, :P_REFERENCE_AMOUNT, :P_REFERENCE_SUBMITTED_DATE, :P_REFERENCE_DELIVERY_DATE, :P_REFERENCE_RCV_NAME, :P_REFERENCE_RCV_ROLE, :P_REFERENCE_RCV_GIVEN_NAME, :P_REFERENCE_RCV_PHONE, :P_REFERENCE_RCV_ADDRESS, :P_REFERENCE_CONTROL_AUDITOR_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -3019,19 +3078,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_REFERENCE_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_C2_NONEXPIRED", OracleDbType.Int32).Value = elem.Element("C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_C2_EXPIRED", OracleDbType.Int32).Value = elem.Element("C2_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
+
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -3224,6 +3271,56 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM4SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM4_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.PRO_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.PRO_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID ";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM4SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM4Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -3237,7 +3334,18 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, PROPOSAL_NO, PROPOSAL_VIOLATION_DESC, VIOLATION_RESPONDENT, PROPOSAL_SUBMITTED_DATE, PROPOSAL_DELIVERY_DATE, PROPOSAL_AMOUNT, PROPOSAL_RCV_NAME, PROPOSAL_RCV_ROLE, PROPOSAL_RCV_GIVEN_NAME, PROPOSAL_RCV_ADDRESS, PROPOSAL_CONTROL_AUDITOR, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, EXEC_TYPE, CREATED_DATE, PROPOSAL_VIOLATION_TYPE, PROPOSAL_COUNT, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID FROM AUD_STAT.BM4_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID, BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.PROPOSAL_DATE, BM.PROPOSAL_NO, BM.PRO_VIOLATION_DESC, RVT.VIOLATION_NAME, BM.VIOLATION_RESPONDENT, BM.PRO_SUBMITTED_DATE, BM.PROPOSAL_DELIVERY_DATE, BM.PROPOSAL_VIOLATION_COUNT, BM.PROPOSAL_AMOUNT, BM.PROPOSAL_RCV_NAME, BM.PROPOSAL_RCV_ROLE, BM.PROPOSAL_RCV_GIVEN_NAME, BM.PROPOSAL_RCV_PHONE, BM.PRO_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME PROPOSAL_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT " +
+                    "FROM AUD_STAT.BM4_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.PRO_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.PRO_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -3295,7 +3403,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_VIOLATION_RESPONDENT", OracleDbType.Varchar2).Value = elem.Element("VIOLATION_RESPONDENT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_VIOLATION_COUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_COUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROPOSAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ROLE")?.Value;
@@ -3311,6 +3419,56 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM4UpdateCompletion(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM4");
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM4_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT,  UPDATED_BY = :P_UPDATED_BY " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
@@ -3349,8 +3507,26 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM4");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.BM4_DATA (AUDIT_ID, PROPOSAL_DATE, PROPOSAL_NO, PRO_VIOLATION_DESC, PRO_VIOLATION_TYPE, VIOLATION_RESPONDENT, PRO_SUBMITTED_DATE, PROPOSAL_DELIVERY_DATE, PROPOSAL_VIOLATION_COUNT, PROPOSAL_AMOUNT, PROPOSAL_RCV_NAME, PROPOSAL_RCV_ROLE, PROPOSAL_RCV_GIVEN_NAME, PROPOSAL_RCV_PHONE, PRO_RCV_ADDRESS, PRO_CONTROL_AUDITOR_ID, COMPLETION_DATE, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_AUDIT_ID, :P_PROPOSAL_DATE, :P_PROPOSAL_NO, :P_PROPOSAL_VIOLATION_DESC, :P_PROPOSAL_VIOLATION_TYPE, :P_VIOLATION_RESPONDENT, :P_PROPOSAL_SUBMITTED_DATE, :P_PROPOSAL_DELIVERY_DATE, :P_PROPOSAL_VIOLATION_COUNT, :P_PROPOSAL_AMOUNT, :P_PROPOSAL_RCV_NAME, :P_PROPOSAL_RCV_ROLE, :P_PROPOSAL_RCV_GIVEN_NAME, :P_PROPOSAL_RCV_PHONE, :P_PROPOSAL_RCV_ADDRESS, :P_PROPOSAL_CONTROL_AUDITOR_ID, :P_COMPLETION_DATE, :P_COMPLETION_ORDER, :P_COMPLETION_DONE, :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, :P_COMPLETION_PROGRESS_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM4_DATA (AUDIT_ID, PROPOSAL_DATE, PROPOSAL_NO, PRO_VIOLATION_DESC, PRO_VIOLATION_TYPE, VIOLATION_RESPONDENT, PRO_SUBMITTED_DATE, PROPOSAL_DELIVERY_DATE, PROPOSAL_VIOLATION_COUNT, PROPOSAL_AMOUNT, PROPOSAL_RCV_NAME, PROPOSAL_RCV_ROLE, PROPOSAL_RCV_GIVEN_NAME, PROPOSAL_RCV_PHONE, PRO_RCV_ADDRESS, PRO_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES(:P_AUDIT_ID, " +
+                    " :P_PROPOSAL_DATE, " +
+                    " :P_PROPOSAL_NO," +
+                    " :P_PROPOSAL_VIOLATION_DESC," +
+                    " :P_PROPOSAL_VIOLATION_TYPE," +
+                    " :P_VIOLATION_RESPONDENT," +
+                    " :P_PROPOSAL_SUBMITTED_DATE," +
+                    " :P_PROPOSAL_DELIVERY_DATE," +
+                    " :P_PROPOSAL_COUNT," +
+                    " :P_PROPOSAL_AMOUNT," +
+                    " :P_PROPOSAL_RCV_NAME," +
+                    " :P_PROPOSAL_RCV_ROLE," +
+                    " :P_PROPOSAL_RCV_GIVEN_NAME," +
+                    " :P_PROPOSAL_RCV_PHONE," +
+                    " :P_PROPOSAL_RCV_ADDRESS," +
+                    " :P_PROPOSAL_CONTROL_AUDITOR_ID," +
+                    " :P_IS_ACTIVE," +
+                    " :P_CREATED_BY," +
+                    " :P_CREATED_DATE )";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -3361,7 +3537,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_VIOLATION_RESPONDENT", OracleDbType.Varchar2).Value = elem.Element("VIOLATION_RESPONDENT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_VIOLATION_COUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_COUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROPOSAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ROLE")?.Value;
@@ -3369,12 +3545,6 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -3574,7 +3744,17 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, LAW_RESPONDANT_NAME, LAW_VIOLATION_DESC, LAW_VIOLATION_TYPE, LAW_MOVING_INFORMATION, LAW_NUMBER, LAW_AMOUNT, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER, LAW_C2_AMOUNT, EXEC_TYPE, CREATED_DATE, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID FROM AUD_STAT.BM5_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.LAW_RESPONDANT_NAME, BM.LAW_VIOLATION_DESC, BM.LAW_VIOLATION_TYPE, BM.LAW_MOVING_INFORMATION, BM.LAW_NUMBER, BM.LAW_AMOUNT, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.COMPLETION_INVALID, BM.COMPLETION_INVALID_AMOUNT, BM.LAW_C2_NUMBER, BM.LAW_C2_AMOUNT, BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE " +
+                    "FROM AUD_STAT.BM5_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.LAW_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -3595,6 +3775,58 @@ namespace Audit.App_Func
             }
             catch (Exception ex)
             {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM5UpdateCompletion(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM5");
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM5_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID = :P_COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT = :P_COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER = :P_LAW_C2_NUMBER, LAW_C2_AMOUNT = :P_LAW_C2_AMOUNT, UPDATED_BY = :P_UPDATED_BY " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_INVALID", OracleDbType.Int32).Value = elem.Element("COMPLETION_INVALID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_INVALID_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_LAW_C2_NUMBER", OracleDbType.Int32).Value = elem.Element("LAW_C2_NUMBER")?.Value;
+                cmd.Parameters.Add(":P_LAW_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("LAW_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
                 response.CreateResponse(ex);
             }
 
@@ -3679,8 +3911,8 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM5");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO BM5_DATA (AUDIT_ID, LAW_RESPONDANT_NAME, LAW_VIOLATION_DESC, LAW_VIOLATION_TYPE, LAW_MOVING_INFORMATION, LAW_NUMBER, LAW_AMOUNT, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER, LAW_C2_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_AUDIT_ID, :P_LAW_RESPONDANT_NAME, :P_LAW_VIOLATION_DESC, :P_LAW_VIOLATION_TYPE, :P_LAW_MOVING_INFORMATION, :P_LAW_NUMBER, :P_LAW_AMOUNT, :P_COMPLETION_DONE, :P_COMPLETION_DONE_AMOUNT, :P_COMPLETION_PROGRESS, :P_COMPLETION_PROGRESS_AMOUNT, :P_COMPLETION_INVALID, :P_COMPLETION_INVALID_AMOUNT, :P_LAW_C2_NUMBER, :P_LAW_C2_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO BM5_DATA (AUDIT_ID, LAW_RESPONDANT_NAME, LAW_VIOLATION_DESC, LAW_VIOLATION_TYPE, LAW_MOVING_INFORMATION, LAW_NUMBER, LAW_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES(:P_AUDIT_ID, :P_LAW_RESPONDANT_NAME, :P_LAW_VIOLATION_DESC, :P_LAW_VIOLATION_TYPE, :P_LAW_MOVING_INFORMATION, :P_LAW_NUMBER, :P_LAW_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -3690,14 +3922,6 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_LAW_MOVING_INFORMATION", OracleDbType.Varchar2).Value = elem.Element("LAW_MOVING_INFORMATION")?.Value;
                 cmd.Parameters.Add(":P_LAW_NUMBER", OracleDbType.Int32).Value = elem.Element("LAW_NUMBER")?.Value;
                 cmd.Parameters.Add(":P_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("LAW_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_INVALID", OracleDbType.Int32).Value = elem.Element("COMPLETION_INVALID")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_INVALID_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_LAW_C2_NUMBER", OracleDbType.Int32).Value = elem.Element("LAW_C2_NUMBER")?.Value;
-                cmd.Parameters.Add(":P_LAW_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("LAW_C2_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -3713,6 +3937,55 @@ namespace Audit.App_Func
             catch (Exception ex)
             {
                 transaction.Rollback();
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM5SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM5_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.LAW_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM5SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
                 response.CreateResponse(ex);
             }
 
@@ -4004,7 +4277,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
                     "FROM AUD_STAT.BM8_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -4092,7 +4365,17 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, EXEC_TYPE, CREATED_DATE, ID, IS_ACTIVE, CREATED_BY FROM AUD_STAT.BM8_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
+                    "FROM AUD_STAT.BM8_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.CORRECTED_ERROR_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -4104,6 +4387,55 @@ namespace Audit.App_Func
                 con.Close();
 
                 dtTable.TableName = "BM8Detail";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM8SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME,  RVT.VIOLATION_NAME " +
+                    "FROM AUD_STAT.BM8_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.CORRECTED_ERROR_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM8SelectAdd";
 
                 StringWriter sw = new StringWriter();
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
@@ -4138,14 +4470,14 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM8");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET OCORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET CORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
-                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("P_CORRECTED_ERROR_DESC") != null && !string.IsNullOrEmpty(elem.Element("P_CORRECTED_ERROR_DESC").Value) ? elem.Element("CORRECTED_ERROR_DESC").Value : null;
-                cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_ERROR_TYPE").Value) ? elem.Element("CORRECTED_ERROR_TYPE").Value : null;
-                cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_COUNT").Value) ? elem.Element("CORRECTED_COUNT").Value : null;
-                cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_AMOUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_AMOUNT").Value) ? elem.Element("CORRECTED_AMOUNT").Value : null;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_COUNT")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
@@ -4190,7 +4522,7 @@ namespace Audit.App_Func
                     "VALUES (:P_AUDIT_ID, :P_CORRECTED_ERROR_DESC, :P_CORRECTED_ERROR_TYPE, :P_CORRECTED_COUNT, :P_CORRECTED_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
-                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("P_CORRECTED_ERROR_DESC") != null && !string.IsNullOrEmpty(elem.Element("P_CORRECTED_ERROR_DESC").Value) ? elem.Element("CORRECTED_ERROR_DESC").Value : null;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_ERROR_TYPE").Value) ? elem.Element("CORRECTED_ERROR_TYPE").Value : null;
                 cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_COUNT").Value) ? elem.Element("CORRECTED_COUNT").Value : null;
                 cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_AMOUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_AMOUNT").Value) ? elem.Element("CORRECTED_AMOUNT").Value : null;

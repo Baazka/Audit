@@ -102,7 +102,7 @@ namespace Audit.Models
                        new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
                        new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE)
+                       new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );
         }
     }
