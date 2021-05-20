@@ -1722,23 +1722,11 @@ namespace Audit.Controllers
                     }
                     if (n1.Count > 0)
                     {
-                    math1 = (!String.IsNullOrEmpty(Niit.MD37) ? Convert.ToDecimal(Niit.MD37) : 0) - (!String.IsNullOrEmpty(Niit.MD39) ? Convert.ToDecimal(Niit.MD39) : 0) - (!String.IsNullOrEmpty(Niit.MD41) ? Convert.ToDecimal(Niit.MD41) : 0);
+                  /*  math1 = (!String.IsNullOrEmpty(Niit.MD37) ? Convert.ToDecimal(Niit.MD37) : 0) - (!String.IsNullOrEmpty(Niit.MD39) ? Convert.ToDecimal(Niit.MD39) : 0) - (!String.IsNullOrEmpty(Niit.MD41) ? Convert.ToDecimal(Niit.MD41) : 0);
                     Medeelsen.MD37 = math1 != 0 ? String.Format("{0:0.#}", math1) : "";
                     Medeeleegui.MD37 = Niit.MD39;
-                    HugtsaaHotsorson.MD37 = Niit.MD41;
-                         
-                         
-
-                           
-
-
-                         
-                         
-
-                    math1 = 100 - (!String.IsNullOrEmpty(Niit.MD39)? Convert.ToDecimal(Niit.MD39):0) * 100 /  Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD37)?Niit.MD37:"1")
-                            
-                            
-                             ;
+                    HugtsaaHotsorson.MD37 = Niit.MD41;*/
+                    math1 = 100 - (!String.IsNullOrEmpty(Niit.MD39)? Convert.ToDecimal(Niit.MD39):0) * 100 /  Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD37)?Niit.MD37:"1");
                     bodolt1.MD37 = math1 != 0 ? String.Format("{0:0.#}", math1) : "";
                     math1 = 100 - (!String.IsNullOrEmpty(Niit.MD40) ? Convert.ToDecimal(Niit.MD40) : 0) * 100 / Convert.ToDecimal(!String.IsNullOrEmpty(Niit.MD38) ? Niit.MD38 : "1");
                     bodolt1.MD38 = math1 != 0 ? String.Format("{0:0.#}", math1) : "";
