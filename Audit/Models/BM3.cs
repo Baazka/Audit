@@ -112,6 +112,8 @@ namespace Audit.Models
                     REFERENCE_DESC = xml.Element("REFERENCE_DESC").Value;
                 if (xml.Element("REFERENCE_TYPE") != null)
                     REFERENCE_TYPE = Convert.ToInt32(xml.Element("REFERENCE_TYPE").Value);
+                if (xml.Element("REFERENCE_RCV_PHONE") != null)
+                    REFERENCE_RCV_PHONE = xml.Element("REFERENCE_RCV_PHONE").Value;
                 if (xml.Element("VIOLATION_NAME") != null)
                     VIOLATION_NAME = xml.Element("VIOLATION_NAME").Value;
                 if (xml.Element("REFERENCE_COUNT") != null)
