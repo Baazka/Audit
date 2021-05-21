@@ -326,10 +326,10 @@
                 });
             },
             displayBM1: function (data) {
-                $("div#Bm1AddModalcontainer").remove();
-                $('<div/>', { id: "Bm1AddModalcontainer" }).appendTo('body').append(data);
+                $("div#Bm1ModalcontainerBM0").remove();
+                $('<div/>', { id: "Bm1ModalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm1AddModal").modal({ show: true });
+                $("#Bm1ModalBM0").modal({ show: true });
             },
             displayBM2: function (data) {
                 $("div#bm2modalcontainerBM0").remove();
@@ -448,9 +448,9 @@
                 else {
                     var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id: audit_id, isbm0: true },
+                        url: "@Url.Action("BM1AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
                             BM0.progressResponse(data, status, xhr, "BM1");
                         },
@@ -580,7 +580,7 @@
             },
             close: function () {
                 $("#Bm0Modal").modal("hide");
-                $("#Bm1AddModal").modal("hide");
+                $("#Bm1ModalBM0").modal("hide");
                 $("#Bm2ModalBM0").modal("hide");
                 $("#Bm3ModalBM0").modal("hide");
                 $("#Bm4ModalBM0").modal("hide");
