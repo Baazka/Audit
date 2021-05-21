@@ -2323,6 +2323,7 @@
     <Content Include="Views\Statistic\BM5AddBm0.cshtml" />
     <Content Include="Views\Statistic\BM8Add.cshtml" />
     <Content Include="Views\Statistic\BM8AddBM0.cshtml" />
+    <Content Include="Views\Statistic\BM1AddBM0.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -290,6 +290,7 @@
                 $('<div/>', { id: "bm1modalcontainer" }).appendTo('body').append(data);
 
                 $("#Bm1Modal").modal({ show: true });
+
                 $(".btnBM0listPopup").on('click', function () {
                     if ($('#STATISTIC_PERIOD').val() != null && $('#STATISTIC_PERIOD').val() != '')
                         BM1.BM0List($('#STATISTIC_PERIOD').val());
@@ -297,12 +298,12 @@
                         alert('Тайлант хугацаа сонгоно уу.');
                 });
             },
-            displayCompletion: function (data) {
-                $("div#Bm1ModalCompletioncontainer").remove();
-                $('<div/>', { id: "Bm1ModalCompletioncontainer" }).appendTo('body').append(data);
+            //displayCompletion: function (data) {
+            //    $("div#Bm1ModalCompletioncontainer").remove();
+            //    $('<div/>', { id: "Bm1ModalCompletioncontainer" }).appendTo('body').append(data);
 
-                $("#Bm1ModalCompletion").modal({ show: true });
-            },
+            //    $("#Bm1ModalCompletion").modal({ show: true });
+            //},
             displayBM0List: function (data) {
                 $("div#bm0listmodalcontainer").remove();
                 $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
@@ -330,10 +331,13 @@
                     }
                 });
             },
-            loadTemplate: function () {
+           loadTemplate: function () {
+                var audit_id;
+                BM1.bm1ID != null ? audit_id = BM1.bm1ID : audit_id = 0;
                 $.ajax({
-                    url: "@Url.Action("BM1AddEdit", "Statistic", new { Area = "" })",
+                    url: "@Url.Action("BM1Add", "Statistic", new { Area = "" })",
                     type: 'GET',
+                    data: { id: audit_id },
                     success: function (data) {
                         BM1.display(data);
                     },
@@ -356,7 +360,7 @@
                         type: 'POST',
                         data: { id: id, isbm0: false, iscompletion: false },
                         success: function (data, status, xhr) {
-                            BM1.progressResponse(data, status, xhr);
+                            BM1.display(data);
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -378,7 +382,7 @@
                         type: 'POST',
                         data: { id: id, isbm0: false, iscompletion: true },
                         success: function (data, status, xhr) {
-                            BM1.progressResponse(data, status, xhr);
+                            BM1.display(data);
                         },
                         error: errorResponse,
                         beforeSend: function () {
