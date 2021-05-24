@@ -24,6 +24,8 @@ namespace Audit.Models
         public string AUDIT_TYPE { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
         public string AUDIT_BUDGET_TYPE { get; set; }
         
         public int LAW_COUNT { get; set; }
@@ -61,6 +63,10 @@ namespace Audit.Models
                     AUDIT_YEAR = Convert.ToInt32(xml.Element("AUDIT_YEAR").Value);
                 if (xml.Element("AUDIT_TYPE") != null)
                     AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
+                if (xml.Element("TOPIC_CODE") != null)
+                    TOPIC_CODE = xml.Element("TOPIC_CODE").Value;
+                if (xml.Element("TOPIC_NAME") != null)
+                    TOPIC_NAME = xml.Element("TOPIC_NAME").Value;
                 if (xml.Element("AUDIT_CODE") != null)
                     AUDIT_CODE = xml.Element("AUDIT_CODE").Value;
                 if (xml.Element("AUDIT_NAME") != null)
