@@ -1275,10 +1275,22 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-                if (request.DeparmentID != null)
+                if (request.DeparmentID != null && request.DeparmentID != 0)
+                {
                     elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                }
                 else
-                    elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+                {
+                    if ("Branch_Auditor".Equals(User.GetClaimData("USER_TYPE").ToString()))
+                    {
+                        elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+                    }
+                    else
+                    {
+                        elem.Add(new XElement("V_DEPARTMENT", null));
+                    }
+
+                }
 
                 if (request.PeriodID != null) 
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
@@ -1520,10 +1532,24 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-                if (request.DeparmentID != null)
+                if (request.DeparmentID != null && request.DeparmentID != 0)
+                {
                     elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                }
                 else
-                    elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+                {
+                    if ("Branch_Auditor".Equals(User.GetClaimData("USER_TYPE").ToString()))
+                    {
+                        elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+                    }
+                    else
+                    {
+                        elem.Add(new XElement("V_DEPARTMENT", null));
+                    }
+                    
+                }
+
+                
 
                 if (request.PeriodID != null)
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
@@ -1673,26 +1699,30 @@ namespace Audit.Controllers
 
                                     if (total != 0)
                                     {
-                                        math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
+                                        math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / ((total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))) == 0 ?1: (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))));
                                         prop.SetValue(bodolt1, String.Format("{0:0.#}", math1));
                                         orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                     }
 
                                     if (total != 0)
                                     {
-                                        math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
+                                        math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / ((total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))) == 0?1: (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))));
                                         prop.SetValue(bodolt2, String.Format("{0:0.#}", math2));
                                         orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                     }
                                 }
                             }
-                            else { 
-                            
+                            else {
+                                if (prop.GetValue(n) != null && prop.GetValue(n) != "")
+                                {
+                                        decimal too = Convert.ToDecimal(prop.GetValue(n));
+                                    prop.SetValue(n,String.Format("{0:#,###.##}", too));
+                                }
                                 decimal tempToo = !String.IsNullOrEmpty(value) ? Convert.ToDecimal(value) : 0;
                                 String test = (string)prop.GetValue(Niit);
                                 decimal tempToo2 =!String.IsNullOrEmpty(test) ? Convert.ToDecimal(prop.GetValue(Niit)) : 0;
                                 total = tempToo2 + tempToo;
-                                prop.SetValue(Niit, total != 0 ? String.Format("{0:0.#}", total) : "");
+                                prop.SetValue(Niit, total != 0 ? String.Format("{0:#,###.##}", total) : "");
                                 orgname.SetValue(Niit, "НИЙТ ДҮН");
                                 //math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
                             }
@@ -1825,7 +1855,7 @@ namespace Audit.Controllers
                 elem.Add(new XElement("PageNumber", request.start));*/
            
 
-                elem.Add(new XElement("V_Mayagt", request.Mayagt = "3,4"));
+                elem.Add(new XElement("V_Mayagt", request.Mayagt = "3"));
                 /*elem.Add(new XElement("V_Mayagt", request.Mayagt = "3"));*/
 
 
@@ -1834,10 +1864,22 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-                if (request.DeparmentID != null)
+                if (request.DeparmentID != null && request.DeparmentID != 0)
+                {
                     elem.Add(new XElement("V_DEPARTMENT", request.DeparmentID));
+                }
                 else
-                    elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+                {
+                    if ("Branch_Auditor".Equals(User.GetClaimData("USER_TYPE").ToString()))
+                    {
+                        elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
+                    }
+                    else
+                    {
+                        elem.Add(new XElement("V_DEPARTMENT", null));
+                    }
+
+                }
 
                 if (request.PeriodID != null)
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
@@ -1994,14 +2036,14 @@ namespace Audit.Controllers
 
                                         if (total != 0)
                                         {
-                                            math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
+                                            math1 = 100 - 100 * Convert.ToDecimal(prop.GetValue(Medeeleegui)) / ((total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))) == 0 ? 1 : (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))));
                                             prop.SetValue(bodolt1, String.Format("{0:0.#}", math1));
                                             orgname.SetValue(bodolt1, "Мэдээлсэн байдлын хэрэгжилтийн хувь");
                                         }
 
                                         if (total != 0)
                                         {
-                                            math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui)));
+                                            math2 = 100 - 100 * Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) / ((total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))) == 0 ? 1 : (total - Convert.ToDecimal(prop.GetValue(Shaardlaggui))));
                                             prop.SetValue(bodolt2, String.Format("{0:0.#}", math2));
                                             orgname.SetValue(bodolt2, "Хугацаа хоцролтын хэрэгжилтийн хувь");
                                         }
@@ -2010,7 +2052,11 @@ namespace Audit.Controllers
                                 }
                                 else
                                 {
-
+                                    if (prop.GetValue(n) != null && prop.GetValue(n) != "")
+                                    {
+                                        decimal too = Convert.ToDecimal(prop.GetValue(n));
+                                        prop.SetValue(n, String.Format("{0:#,###.##}", too));
+                                    }
                                     decimal tempToo = !String.IsNullOrEmpty(value) ? Convert.ToDecimal(value) : 0;
                                     String test = (string)prop.GetValue(Niit);
                                     decimal tempToo2 = !String.IsNullOrEmpty(test) ? Convert.ToDecimal(prop.GetValue(Niit)) : 0;
