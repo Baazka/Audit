@@ -21,8 +21,13 @@ namespace Audit.Models
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
+        public int YEAR_LABEL { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
+        public string TOPIC_CODE { get; set; }
         public string AUDIT_TYPE { get; set; }
         public string AUDIT_CODE { get; set; }
+        
+        public string TOPIC_NAME { get; set; }
         public string AUDIT_NAME { get; set; }
 
         public int VIOLATION_COUNT { get; set; }
@@ -69,6 +74,15 @@ namespace Audit.Models
                     STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
                 if (xml.Element("PERIOD_LABEL") != null)
                     PERIOD_LABEL = xml.Element("PERIOD_LABEL").Value;
+
+                if (xml.Element("YEAR_LABEL") != null)
+                    YEAR_LABEL = Convert.ToInt32(xml.Element("YEAR_LABEL").Value);
+                if (xml.Element("AUDIT_TYPE_NAME") != null)
+                    AUDIT_TYPE_NAME = xml.Element("AUDIT_TYPE_NAME").Value;
+                if (xml.Element("TOPIC_CODE") != null)
+                    TOPIC_CODE = xml.Element("TOPIC_CODE").Value;
+                if (xml.Element("TOPIC_NAME") != null)
+                    TOPIC_NAME = xml.Element("TOPIC_NAME").Value;
 
                 if (xml.Element("AUDIT_YEAR") != null)
                     AUDIT_YEAR = Convert.ToInt32(xml.Element("AUDIT_YEAR").Value);

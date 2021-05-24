@@ -1,8 +1,9 @@
-﻿@model Audit.Models.BM5
+﻿
+@model Audit.Models.BM5
 
 <div class="modal fade" id="Bm5Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
-        @using (Ajax.BeginForm("BM5AddEdit", "Statistic", new { Area = "" },
+        @using (Ajax.BeginForm("BM5Add", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
                        UpdateTargetId = "Bm5Modalcontainer",
@@ -26,7 +27,7 @@
                             <ul></ul>
                         </div>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(m => m.ID)
+                        @*@Html.HiddenFor(m => m.ID)*@
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
@@ -180,76 +181,8 @@
                                 </div>
                             </div>
                         </div>
-                        <h6 class="heading-1"><span>Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</span></h6>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Бүрэн шийдвэрлэгдсэн тоо:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0" } })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Бүрэн шийдвэрлэгдсэн дүн:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00" } })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Хянагдаж байгаа тоо:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Хянагдаж байгаа дүн:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00" } })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Хэрэгсэхгүй болсон тоо:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0" } })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Хэрэгсэхгүй болсон дүн:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0" } })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h6 class="heading-1"><span>Дараа онд шилжих үлдэгдэл</span></h6>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Тоо:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0" } })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Дүн:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.00" } })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
+                      
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>

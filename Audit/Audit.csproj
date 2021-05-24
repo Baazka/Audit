@@ -2311,7 +2311,22 @@
     <Content Include="Views\Statistic\BM1AddEditCompletion.cshtml" />
     <Content Include="Views\Report\Report1N2.cshtml" />
     <Content Include="Views\Statistic\BM1Add.cshtml" />
-    <Content Include="Views\Report\N2.cshtml" />
+    <Content Include="Views\Report\ReportN2.cshtml" />
+    <Content Include="Views\Statistic\BM2Add.cshtml" />
+    <Content Include="Views\Statistic\BM2AddEditCompletion.cshtml" />
+    <Content Include="Views\Statistic\BM2AddBM0.cshtml" />
+    <Content Include="Views\Statistic\BM3AddEditCompletion.cshtml" />
+    <Content Include="Views\Statistic\BM3Add.cshtml" />
+    <Content Include="Views\Statistic\BM3AddBM0.cshtml" />
+    <Content Include="Views\Statistic\BM4AddEditCompletion.cshtml" />
+    <Content Include="Views\Statistic\BM4Add.cshtml" />
+    <Content Include="Views\Statistic\BM4AddBM0.cshtml" />
+    <Content Include="Views\Statistic\BM5AddEditCompletion.cshtml" />
+    <Content Include="Views\Statistic\BM5Add.cshtml" />
+    <Content Include="Views\Statistic\BM5AddBm0.cshtml" />
+    <Content Include="Views\Statistic\BM8Add.cshtml" />
+    <Content Include="Views\Statistic\BM8AddBM0.cshtml" />
+    <Content Include="Views\Statistic\BM1AddBM0.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

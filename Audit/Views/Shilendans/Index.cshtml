@@ -1,15 +1,13 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
 @using Audit.App_Func
-@{
-    var budget_type = Model.budgetTypes.Select(c => new
-    {
-        ID = c.BUDGET_TYPE_ID,
-        Name = c.BUDGET_TYPE_NAME
-    }).ToList();
-    Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name");
-
-}
+@using Microsoft.AspNet.Identity;
+@{ var budget_type = Model.budgetTypes.Select(c => new
+                {
+                    ID = c.BUDGET_TYPE_ID,
+                    Name = c.BUDGET_TYPE_NAME
+                }).ToList();
+                Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name"); }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
         @if (User.GetClaimData("DepartmentID") == "2" || User.GetClaimData("DepartmentID") == "101")
@@ -360,6 +358,7 @@
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.OPEN_ID);
                 },
+
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center', "type": "lower-letter",

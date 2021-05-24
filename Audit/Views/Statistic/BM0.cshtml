@@ -26,37 +26,37 @@
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM1();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM1();">
                 БМ-1
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM2();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM2();">
                 БМ-2
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM3();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM3();">
                 БМ-3
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM4();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM4();">
                 БМ-4
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM5();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM5();">
                 БМ-5
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="bm0.editBM8();">
+            <a href="#" class="btn btn-sm btn-primary disabled enableBtn" onclick="BM0.editBM8();">
                 БМ-8
             </a>
         </div>
@@ -158,6 +158,7 @@
                 $("#BM0 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 BM0.bm0ID = this.getAttribute("data-id");
+                BM0.rowdata = BM0.table.row(this).data();
             });
         }
         function bm0ListInit(pagelength = 10) {
@@ -243,6 +244,19 @@
                 }
             });
         }
+        function BM0Choose(department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
+            $("#DEPARTMENT_NAME").val(department);
+            $("#YEAR_LABEL").val(year);
+            $("#AUDIT_TYPE_NAME").val(audittype);
+            $("#TOPIC_TYPE_NAME").val(topictype);
+            $("#TOPIC_CODE").val(code);
+            $("#TOPIC_NAME").val(name);
+            $("#ORDER_NO").val(orderno);
+            $("#ORDER_DATE").val(orderdate);
+            $("#BUDGET_TYPE_NAME").val(budgettype);
+
+            $('#BM0ListModel').modal('hide');
+        }
         $('#DeparmentID').change(function () {
             bm0ListInit();
         });
@@ -312,40 +326,40 @@
                 });
             },
             displayBM1: function (data) {
-                $("div#bm1modalcontainer").remove();
-                $('<div/>', { id: "bm1modalcontainer" }).appendTo('body').append(data);
+                $("div#Bm1ModalcontainerBM0").remove();
+                $('<div/>', { id: "Bm1ModalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm1Modal").modal({ show: true });
+                $("#Bm1ModalBM0").modal({ show: true });
             },
             displayBM2: function (data) {
-                $("div#bm2modalcontainer").remove();
-                $('<div/>', { id: "bm2modalcontainer" }).appendTo('body').append(data);
+                $("div#bm2modalcontainerBM0").remove();
+                $('<div/>', { id: "bm2modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm2Modal").modal({ show: true });
+                $("#Bm2ModalBM0").modal({ show: true });
             },
             displayBM3: function (data) {
-                $("div#bm3modalcontainer").remove();
-                $('<div/>', { id: "bm3modalcontainer" }).appendTo('body').append(data);
+                $("div#bm3modalcontainerBM0").remove();
+                $('<div/>', { id: "bm3modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm3Modal").modal({ show: true });
+                $("#Bm3ModalBM0").modal({ show: true });
             },
             displayBM4: function (data) {
-                $("div#bm4modalcontainer").remove();
-                $('<div/>', { id: "bm4modalcontainer" }).appendTo('body').append(data);
+                $("div#bm4modalcontainerBM0").remove();
+                $('<div/>', { id: "bm4modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm4Modal").modal({ show: true });
+                $("#Bm4ModalBM0").modal({ show: true });
             },
             displayBM5: function (data) {
-                $("div#bm5modalcontainer").remove();
-                $('<div/>', { id: "bm5modalcontainer" }).appendTo('body').append(data);
+                $("div#bm5modalcontainerBM0").remove();
+                $('<div/>', { id: "bm5modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm5Modal").modal({ show: true });
+                $("#Bm5ModalBM0").modal({ show: true });
             },
             displayBM8: function (data) {
-                $("div#bm8modalcontainer").remove();
-                $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
+                $("div#bm8modalcontainerBM0").remove();
+                $('<div/>', { id: "bm8modalcontainerBM0" }).appendTo('body').append(data);
 
-                $("#Bm8Modal").modal({ show: true });
+                $("#Bm8ModalBM0").modal({ show: true });
             },
             SystemUserList: function (type) {
                 BM0.type = type;
@@ -432,13 +446,13 @@
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM1AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM1");
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -454,13 +468,13 @@
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM2Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM2AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM2");
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -472,17 +486,18 @@
                     });
                 }
             },
-            editBM3: function () {
+              editBM3: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM3Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM3AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM3");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -498,13 +513,14 @@
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM4Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM4AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM4");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -516,17 +532,18 @@
                     });
                 }
             },
-            editBM5: function () {
+             editBM5: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM5Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM5AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM5");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -538,17 +555,18 @@
                     });
                 }
             },
-            editBM8: function () {
+               editBM8: function () {
                 if (BM0.bm0ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
-                    var id = BM0.bm0ID;
+                    var audit_id = BM0.bm0ID;
                     $.ajax({
-                        url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
-                        type: 'POST',
-                        data: { id },
+                        url: "@Url.Action("BM8AddBM0", "Statistic", new { Area = "" })",
+                        type: 'GET',
+                        data: { id: audit_id },
                         success: function (data, status, xhr) {
-                            BM0.progressResponse(data, status, xhr);
+                            BM0.progressResponse(data, status, xhr, "BM8");
+
                         },
                         error: errorResponse,
                         beforeSend: function () {
@@ -562,17 +580,38 @@
             },
             close: function () {
                 $("#Bm0Modal").modal("hide");
-                $("#Bm1Modal").modal("hide");
-                $("#Bm2Modal").modal("hide");
-                $("#Bm3Modal").modal("hide");
-                $("#Bm4Modal").modal("hide");
-                $("#Bm5Modal").modal("hide");
-                $("#Bm8Modal").modal("hide");
+                $("#Bm1ModalBM0").modal("hide");
+                $("#Bm2ModalBM0").modal("hide");
+                $("#Bm3ModalBM0").modal("hide");
+                $("#Bm4ModalBM0").modal("hide");
+                $("#Bm5ModalBM0").modal("hide");
+                $("#Bm8ModalBM0").modal("hide");
             },
-            progressResponse: function (data, status, xhr) {
+            progressResponse: function (data, status, xhr, name = "BM0") {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
-                    BM0.display(data);
+                    switch (name) {
+                        case "BM1":
+                            BM0.displayBM1(data);
+                            break;
+                        case "BM2":
+                            BM0.displayBM2(data);
+                            break;
+                        case "BM3":
+                            BM0.displayBM3(data);
+                            break;
+                        case "BM4":
+                            BM0.displayBM4(data);
+                            break;
+                        case "BM5":
+                            BM0.displayBM5(data);
+                            break;
+                        case "BM8":
+                            BM0.displayBM8(data);
+                            break;
+                        default:
+                            BM0.display(data);
+                    }
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {

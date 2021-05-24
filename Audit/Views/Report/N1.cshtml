@@ -5,10 +5,10 @@
 @{ ViewBag.Title = "ReportN1";
     Layout = "~/Views/Shared/_Layout.cshtml"; }
 <style>
-   
+
 
     .vertical {
-        writing-mode: vertical-lr;
+        writing-mode: vertical-rl;
         -ms-writing-mode: tb-rl;
         transform: rotate(180deg);
     }
@@ -24,8 +24,6 @@
     </a>
     <h4>Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт-1.1</h4>
 </div>
-<br />
-<center><h6>Төсвийн ерөнхийлөн захирагчийн төсвийн багцад харъяалагдах компани, ААН байгууллагын тоо: </h6></center>
 <hr class="sidebar-divider">
 
 
@@ -37,15 +35,24 @@
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         <div class="form-group-sm pr-2">
+            <label for="TypeID" class="col-form-label">ТЕЗ:</label>
+            @Html.DropDownListFor(model => model.TypeID, new List<SelectListItem>
+               { new SelectListItem{Text="Төсвийн ерөнхийлөн захирагч", Value="1"},
+                 new SelectListItem{Text="Төсвийн төвлөрүүлэн захирагч", Value="2"},
+                 new SelectListItem{Text="Төсвийн шууд захирагч", Value="3"}},
+               "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
+            @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="N1ListInit(pagelength = 10,1);">
-                Маягт-1
+            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Mayagt(1);">
+                3.1.1
             </a>
         </div>
         <div class="form-group-sm pr-2">
             <br />
-            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="N1ListInit(pagelength = 10,2);">
-                Маягт-2
+            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Mayagt(2);">
+                3.1.2
             </a>
         </div>
 
@@ -58,18 +65,9 @@
                 <span class="text">Excel</span>
             </a>
         </div>
-        @*<div class="container">
-            <div class="row">
-                <div class="col-6 col-sm-4">ТЕЗ</div>
-                <div class="col-6 col-sm-4">НЗД</div>
-                <div class="w-100"></div>
-                <div class="col-6 col-sm-4">ТТЗ/ТЕЗ</div>
-                <div class="col-6 col-sm-4">НЗД</div>
-                <div class="w-100"></div>
-                <div class="col-6 col-sm-4">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</div>
-                <div class="col-6 col-sm-4">Баянзүрх сургууль</div>
-            </div>
-        </div>*@
+
+
+
 
 
 
@@ -81,8 +79,8 @@
             <br />
             <p>Хамрах хугацаа: </p>
         </div>*@
-        
-       </div>
+
+    </div>
 </form>
 <div class="card">
     <div class="card-body">
@@ -92,6 +90,7 @@
                     <tr class="bg-light">
                         <th rowspan="2" class="text-center">№</th>
                         <th rowspan="2" class="text-center">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</th>
+                        <th rowspan="2" class="text-center">Регистрийн дугаар</th>
                         <th colspan="3">I/10</th>
                         <th colspan="16">Дараа сарын 8/Улирал бүр</th>
                         <th colspan="1">VIII/15</th>
@@ -144,7 +143,7 @@
                 </thead>
                 <tbody>
                 </tbody>
-               
+              
             </table>
         </div>
     </div>
@@ -152,18 +151,25 @@
 
 @section scripts{
     <script>
-
+        var mayagt = "";
         $(document).ready(function () {
             
             N1ListInit();
         });
+        function Mayagt(param) {
+            mayagt = param;
+            N1ListInit(pagelength = 10);
+        }
 
      
 
-        function N1ListInit(pagelength = 10, mayagt) {
+        function N1ListInit(pagelength = 10) {
             var count = 0
             N1.table = $("#ReportN1").DataTable({
-                
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
@@ -171,6 +177,7 @@
                     type: 'POST',
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
+                        data.TypeID = $('#TypeID').val();
                         data.Mayagt = mayagt;
                         count = 0;
                         return data;
@@ -178,14 +185,19 @@
                 },
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.ORGID);
+                    //var api = this.api(), data;
                     
+                    //$(api.column(1).footer()).html(
+                    //     data.MD1 
+                    //);
                 },
               
                 "columns": [
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                                          
+                            
+                           
                             if (data.ORGNAME === "НИЙТ ДҮН") {
                                 return "";
                             }
@@ -224,6 +236,7 @@
                         }
                     },
                     { "data": "ORGNAME", "name": "ORGNAME" },
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "class": "text-center" },
                     { "data": "MD1", "name": "MD1", "class": "text-center"},
                     { "data": "MD2", "name": "MD2", "class": "text-center"},
                     { "data": "MD35", "name": "MD35", "class": "text-center"},
@@ -273,7 +286,7 @@
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
-                "info": false,
+                "info": true,
                 "stateSave": false,
                 lengthChange: true,
                 "language": datatables.language,
@@ -294,7 +307,7 @@
                         } else if (data.ORGNAME === "Төсвийн ерөнхийлөн захирагч" || data.ORGNAME === "Төсвийн төвлөрүүлэн захирагч" || data.ORGNAME === "Төсвийн шууд захирагч") {
                             $(row).children('td').each((index, td) => {
                                 if (index === 1) {
-                                     $('td', row).eq(1).addClass('font-weight-bold');
+                                    $('td', row).eq(1).addClass('font-weight-bold');
 
 
                                 }
@@ -314,7 +327,9 @@
         $('#DeparmentID').change(function () {
             N1ListInit();
         });
-       
+        $('#TypeID').change(function () {
+            N1ListInit();
+        });
 
         var N1 = {
             N1ID: null,

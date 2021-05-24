@@ -1124,6 +1124,8 @@ namespace Audit.Models
         public string OPEN_ACC_NAME { get; set; }
         public Decimal OPEN_ACC_PHONE { get; set; }
 
+        public int TypeID { get; set; }
+
 
         public int MD1 { get; set; }
         public int MD2 { get; set; }

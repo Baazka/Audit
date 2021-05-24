@@ -24,7 +24,10 @@ namespace Audit.Models
         public string AUDIT_TYPE { get; set; }
         public string AUDIT_CODE { get; set; }
         public string AUDIT_NAME { get; set; }
-        
+
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+
         public int VIOLATION_COUNT { get; set; }
         public decimal VIOLATION_AMOUNT { get; set; }
         public int ERROR_COUNT { get; set; }
@@ -76,6 +79,11 @@ namespace Audit.Models
                     AUDIT_CODE = xml.Element("AUDIT_CODE").Value;
                 if (xml.Element("AUDIT_NAME") != null)
                     AUDIT_NAME = xml.Element("AUDIT_NAME").Value;
+
+                if (xml.Element("TOPIC_NAME") != null)
+                    TOPIC_NAME = xml.Element("TOPIC_NAME").Value;
+                if (xml.Element("TOPIC_CODE") != null)
+                    TOPIC_CODE = xml.Element("TOPIC_CODE").Value;
 
                 if (xml.Element("VIOLATION_COUNT") != null)
                     VIOLATION_COUNT = Convert.ToInt32(xml.Element("VIOLATION_COUNT").Value);

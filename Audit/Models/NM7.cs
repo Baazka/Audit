@@ -26,6 +26,9 @@ namespace Audit.Models
         public string AUDIT_NAME { get; set; }
         public string DECISION_TYPE { get; set; }
 
+        public string TOPIC_CODE { get; set; }
+        public string TOPIC_NAME { get; set; }
+
         public int INCOME_STATE_COUNT { get; set; }
         public decimal INCOME_STATE_AMOUNT { get; set; }
         public int INCOME_LOCAL_COUNT { get; set; }
@@ -81,6 +84,11 @@ namespace Audit.Models
                     AUDIT_NAME = xml.Element("AUDIT_NAME").Value;
                 if (xml.Element("DECISION_TYPE") != null)
                     DECISION_TYPE = xml.Element("DECISION_TYPE").Value;
+
+                if (xml.Element("TOPIC_NAME") != null)
+                    TOPIC_NAME = xml.Element("TOPIC_NAME").Value;
+                if (xml.Element("TOPIC_CODE") != null)
+                    TOPIC_CODE = xml.Element("TOPIC_CODE").Value;
 
                 if (xml.Element("INCOME_STATE_COUNT") != null)
                     INCOME_STATE_COUNT = Convert.ToInt32(xml.Element("INCOME_STATE_COUNT").Value);

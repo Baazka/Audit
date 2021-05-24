@@ -22,7 +22,7 @@ namespace Audit.App_Func
             {
                 SqlCommand cmd = new SqlCommand("LibraryList");
                 cmd.Parameters.Add("@LibraryList", SqlDbType.Xml).Value = request.Element("Parameters").Element("LibraryList").ToString();
-                
+
                 DataSet ds = DataConnection.GetDataSet(cmd);
 
                 ds.DataSetName = "ResponseData";
@@ -83,7 +83,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0? true:false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 if (responseVal)
                 {
@@ -169,7 +169,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_USER_ID", OracleDbType.Int32, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":P_USER_OLDCODE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_OLDCODE").Value, System.Data.ParameterDirection.Input);
                 //
-                
+
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
                 bool responseVal = rowsUpdated == 0 ? false : true;
@@ -250,7 +250,7 @@ namespace Audit.App_Func
                     cmd.CommandText = "SELECT VIOLATION_ID, VIOLATION_NAME FROM AUD_STAT.REF_VIOLATION_TYPE WHERE IS_ACTIVE = 1 ORDER BY VIOLATION_ID ASC";
                 else if (libName == "HAK")
                     cmd.CommandText = "SELECT DEPARTMENT_ID, DEPARTMENT_NAME FROM AUD_ORG.REF_DEPARTMENT WHERE DEPARTMENT_TYPE = 2 AND IS_ACTIVE = 1 ORDER BY DEPARTMENT_NAME ASC";
-                
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -284,10 +284,10 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT SM.ID MENU_ID, SM.MENU_NAME, SM.MENU_ROUTE FROM AUD_REG.SYSTEM_USER SU "+
-                            "INNER JOIN AUD_REG.SYSTEM_USER_TYPE SUT ON SU.USER_TYPE_ID = SUT.USER_TYPE_ID "+
-                            "INNER JOIN AUD_REG.USER_ROLE UR ON SU.USER_ID = UR.USER_ID AND UR.ROLE_TYPE = 1 "+
-                            "INNER JOIN AUD_REG.SYSTEM_MENU SM ON UR.ROLE_ID = SM.ID "+
+                cmd.CommandText = "SELECT SM.ID MENU_ID, SM.MENU_NAME, SM.MENU_ROUTE FROM AUD_REG.SYSTEM_USER SU " +
+                            "INNER JOIN AUD_REG.SYSTEM_USER_TYPE SUT ON SU.USER_TYPE_ID = SUT.USER_TYPE_ID " +
+                            "INNER JOIN AUD_REG.USER_ROLE UR ON SU.USER_ID = UR.USER_ID AND UR.ROLE_TYPE = 1 " +
+                            "INNER JOIN AUD_REG.SYSTEM_MENU SM ON UR.ROLE_ID = SM.ID " +
                             "WHERE SU.USER_ID = :P_ID ORDER BY SM.ID";
 
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("USER_ID")?.Value, System.Data.ParameterDirection.Input);
@@ -367,7 +367,7 @@ namespace Audit.App_Func
                 con.Open();
 
                 XElement req = request.Element("Parameters").Element("Request");
-                
+
                 //RowCount
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -376,7 +376,7 @@ namespace Audit.App_Func
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
                     OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
                 cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID")?.Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value  :null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS") != null && !string.IsNullOrEmpty(req.Element("V_STATUS").Value) ? req.Element("V_STATUS")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION") != null && !string.IsNullOrEmpty(req.Element("V_VIOLATION").Value) ? req.Element("V_VIOLATION")?.Value.Replace(",", "%") : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
@@ -431,7 +431,7 @@ namespace Audit.App_Func
                 // Set parameters
                 cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
 
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT")!=null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value :null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS") != null && !string.IsNullOrEmpty(req.Element("V_STATUS").Value) ? req.Element("V_STATUS")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION") != null && !string.IsNullOrEmpty(req.Element("V_VIOLATION").Value) ? req.Element("V_VIOLATION")?.Value.Replace(",", "%") : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_BUDGET_TYPE", OracleDbType.Varchar2, req.Element("V_BUDGET_TYPE")?.Value, System.Data.ParameterDirection.Input);
@@ -444,7 +444,7 @@ namespace Audit.App_Func
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
-                cmd.Dispose();                
+                cmd.Dispose();
                 con.Close();
 
                 dtTable.TableName = "OrgList";
@@ -481,7 +481,7 @@ namespace Audit.App_Func
                     "RO.ORG_SUB_OFFICE_ID, RO.ORG_ADDRESS, RO.ORG_WEBSITE, RO.ORG_EMAIL, RO.ORG_PHONE, RO.ORG_FAX," +
                     "ROB.ORGB_ID, ROB.ORGB_BANK_ID, ROB.ORGB_BANK_ACCOUNT, ROB.ORGB_DESCRIPTION," +
                     "ROB2.ORGB_ID ORGB_ID2, ROB2.ORGB_BANK_ID ORGB_BANK_ID2, ROB2.ORGB_BANK_ACCOUNT ORGB_BANK_ACCOUNT2, ROB2.ORGB_DESCRIPTION ORGB_DESCRIPTION2, " +
-                    "ROP.ORGP_ID, ROP.ORGP_ROLE, ROP.ORGP_ROLE_DATE, ROP.ORGP_REGISTER_NO, ROP.ORGP_LASTNAME, ROP.ORGP_FIRSTNAME, ROP.ORGP_PHONE, ROP.ORGP_EMAIL, ROP.ORGP_EXPERIENCE_YEAR, ROP.ORGP_PROFESSION, "+
+                    "ROP.ORGP_ID, ROP.ORGP_ROLE, ROP.ORGP_ROLE_DATE, ROP.ORGP_REGISTER_NO, ROP.ORGP_LASTNAME, ROP.ORGP_FIRSTNAME, ROP.ORGP_PHONE, ROP.ORGP_EMAIL, ROP.ORGP_EXPERIENCE_YEAR, ROP.ORGP_PROFESSION, " +
                     "ROP2.ORGP_ID ORGP_ID2, ROP2.ORGP_ROLE ORGP_ROLE2, ROP2.ORGP_ROLE_DATE ORGP_ROLE_DATE2, ROP2.ORGP_REGISTER_NO ORGP_REGISTER_NO2, ROP2.ORGP_LASTNAME ORGP_LASTNAME2, ROP2.ORGP_FIRSTNAME ORGP_FIRSTNAME2, ROP2.ORGP_PHONE ORGP_PHONE2, ROP2.ORGP_EMAIL ORGP_EMAIL2, ROP2.ORGP_EXPERIENCE_YEAR ORGP_EXPERIENCE_YEAR2, ROP2.ORGP_PROFESSION ORGP_PROFESSION2, " +
                     "RO.ORG_BUDGET_TYPE_ID, RB.BUDGET_TYPE_NAME, RO.ORG_ACTIVITY_ID, RO.ORG_SUB_BUDGET_TYPE_ID, RO.ORG_COMMITTEE_ID, RO.ORG_TAX_OFFICE_ID, RO.ORG_COST_TYPE_ID, RO.ORG_INSURANCE_OFFICE_ID, RO.ORG_FINANCING_TYPE_ID " +
                     "FROM AUD_REG.REG_ORGANIZATION RO " +
@@ -531,7 +531,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT UB_ID, UB_REGISTER_NO ,UB_NAME ,UB_DOCUMENT_NO ,UB_REG_DATE ,UB_CATEGORY "+
+                cmd.CommandText = "SELECT UB_ID, UB_REGISTER_NO ,UB_NAME ,UB_DOCUMENT_NO ,UB_REG_DATE ,UB_CATEGORY " +
                         "FROM AUD_REG.UBEG_REGISTRATION WHERE UPPER(TRIM(UB_REGISTER_NO)) = :REG_NO";
 
                 // Set parameters
@@ -571,7 +571,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT MOF_ID, MOF_REGISTER_NO, MOF_NAME, MOF_TEZ, MOF_TTZ, MOF_TSHZ, MOF_SALBAR, MOF_BUDGET_TYPE, MOF_AIMAG, MOF_SUM, MOF_MAIN_ACCOUNT, MOF_EXTEND_ACCOUNT " +  
+                cmd.CommandText = "SELECT MOF_ID, MOF_REGISTER_NO, MOF_NAME, MOF_TEZ, MOF_TTZ, MOF_TSHZ, MOF_SALBAR, MOF_BUDGET_TYPE, MOF_AIMAG, MOF_SUM, MOF_MAIN_ACCOUNT, MOF_EXTEND_ACCOUNT " +
                     "FROM AUD_REG.MOF_REGISTRATION WHERE UPPER(TRIM(MOF_REGISTER_NO)) = :REG_NO";
 
                 // Set parameters
@@ -611,8 +611,8 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME , "+
-                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME , "+
+                cmd.CommandText = "SELECT GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME , " +
+                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME , " +
                 " ELEMENT ,ELEMENT_NAME ,DIVISION ,DIVISION_NAME ,REGION FROM AUD_REG.TAX_REGISTRATION WHERE GDSR_NUMBER = :REG_NO";
 
                 // Set parameters
@@ -732,8 +732,8 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT TAX_ID, GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME ,"+
-                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME ,"+
+                cmd.CommandText = "SELECT TAX_ID, GDSR_NUMBER ,COMPANY_REG_NO ,LEGAL_NAME ,LEGAL_STATUS ,LEGAL_STATUS_NAME ,COMPANY_REG_DATE ,PROPERTY_TYPE ,PROPERTY_TYPE_NAME ," +
+                " NUMBER_FOUNDERS ,OPERATION ,SOFF_OFF_CODE ,OFF_NAME ,SOFF_CODE ,SOFF_NAME ,SECTOR ,SECTOR_CODE ,SECTOR_NAME ,SUB_SECTOR ,SUB_SECTOR_CODE_NAME ," +
                 " ELEMENT ,ELEMENT_NAME ,DIVISION ,DIVISION_NAME ,REGION FROM AUD_REG.TAX_REGISTRATION WHERE TAX_ID = :REG_ID";
 
                 // Set parameters
@@ -778,24 +778,24 @@ namespace Audit.App_Func
 
                 // Set parameters
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val", OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
-                    
+
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = elem.Element("ORG_ID").Value;
                 cmd.Parameters.Add(":P_ORGBID1", OracleDbType.Int32).Value = elem.Element("ORGB_ID").Value;
                 cmd.Parameters.Add(":P_ORGBID2", OracleDbType.Int32).Value = elem.Element("ORGB_ID2").Value;
                 cmd.Parameters.Add(":P_ORGPID1", OracleDbType.Int32).Value = elem.Element("ORGP_ID").Value;
                 cmd.Parameters.Add(":P_ORGPID2", OracleDbType.Int32).Value = elem.Element("ORGP_ID2").Value;
 
-                cmd.Parameters.Add(":P_ORGCODE", OracleDbType.Varchar2).Value = elem.Element("ORG_CODE")?.Value;                
-                cmd.Parameters.Add(":P_ORGREGNO", OracleDbType.Int32).Value = elem.Element("ORG_REGISTER_NO")?.Value;               
-                cmd.Parameters.Add(":P_UBNUMBER", OracleDbType.Varchar2).Value = elem.Element("ORG_REGISTER_NUMBER")?.Value;                
+                cmd.Parameters.Add(":P_ORGCODE", OracleDbType.Varchar2).Value = elem.Element("ORG_CODE")?.Value;
+                cmd.Parameters.Add(":P_ORGREGNO", OracleDbType.Int32).Value = elem.Element("ORG_REGISTER_NO")?.Value;
+                cmd.Parameters.Add(":P_UBNUMBER", OracleDbType.Varchar2).Value = elem.Element("ORG_REGISTER_NUMBER")?.Value;
                 cmd.Parameters.Add(":P_ORGNAME", OracleDbType.Varchar2).Value = elem.Element("ORG_NAME")?.Value;
-                cmd.Parameters.Add(":P_ORGDATE", OracleDbType.Varchar2).Value = elem.Element("ORG_REG_DATE")?.Value;                
-                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_OFFICE_ID")?.Value;                
-                cmd.Parameters.Add(":P_SUBOFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_SUB_OFFICE_ID")?.Value;                
-                cmd.Parameters.Add(":P_ORGADDRESS", OracleDbType.Varchar2).Value = elem.Element("ORG_ADDRESS")?.Value;                
-                cmd.Parameters.Add(":P_WEB", OracleDbType.Varchar2).Value = elem.Element("ORG_WEBSITE")?.Value;                
-                cmd.Parameters.Add(":P_EMAIL", OracleDbType.Varchar2).Value = elem.Element("ORG_EMAIL")?.Value;                
-                cmd.Parameters.Add(":P_ORGPHONE", OracleDbType.Varchar2).Value = elem.Element("ORG_PHONE")?.Value;                
+                cmd.Parameters.Add(":P_ORGDATE", OracleDbType.Varchar2).Value = elem.Element("ORG_REG_DATE")?.Value;
+                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_OFFICE_ID")?.Value;
+                cmd.Parameters.Add(":P_SUBOFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_SUB_OFFICE_ID")?.Value;
+                cmd.Parameters.Add(":P_ORGADDRESS", OracleDbType.Varchar2).Value = elem.Element("ORG_ADDRESS")?.Value;
+                cmd.Parameters.Add(":P_WEB", OracleDbType.Varchar2).Value = elem.Element("ORG_WEBSITE")?.Value;
+                cmd.Parameters.Add(":P_EMAIL", OracleDbType.Varchar2).Value = elem.Element("ORG_EMAIL")?.Value;
+                cmd.Parameters.Add(":P_ORGPHONE", OracleDbType.Varchar2).Value = elem.Element("ORG_PHONE")?.Value;
                 cmd.Parameters.Add(":P_FAX", OracleDbType.Varchar2).Value = elem.Element("ORG_FAX")?.Value;
 
                 cmd.Parameters.Add(":P_BANKID1", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID")?.Value;
@@ -834,7 +834,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_WYEAR2", OracleDbType.Varchar2).Value = elem.Element("ORGP_EXPERIENCE_YEAR2")?.Value;
                 cmd.Parameters.Add(":P_PROF1", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION")?.Value;
                 cmd.Parameters.Add(":P_PROF2", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION2")?.Value;
-                
+
                 cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
 
                 cmd.ExecuteNonQuery();
@@ -843,7 +843,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
@@ -931,7 +931,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
@@ -1010,7 +1010,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
                 string responseMsg = "";
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
                 if (responseVal)
                     responseMsg = "Баталгаажууллаа.";
                 else
@@ -1058,7 +1058,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Устгалаа");
             }
@@ -1087,7 +1087,7 @@ namespace Audit.App_Func
                 cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, RD.DEPARTMENT_ID, RD.DEPARTMENT_NAME " +
                     "FROM AUD_REG.SYSTEM_USER SU " +
                     "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON SU.USER_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
-                    "WHERE SU.IS_ACTIVE = 1 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
+                    "WHERE SU.IS_ACTIVE = 0 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
                     "ORDER BY RD.DEPARTMENT_ID, SU.USER_CODE";
 
                 DataTable dtTable = new DataTable();
@@ -1316,6 +1316,66 @@ namespace Audit.App_Func
 
             return response;
         }
+
+        public static DataResponse BM0SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, RD1.DEPARTMENT_NAME, RAY.YEAR_LABEL, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, RFT.FORM_TYPE_NAME, RPT.PROPOSAL_TYPE_NAME, RBT.BUDGET_TYPE_NAME, BM.AUDIT_INCLUDED_COUNT, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_SERVICE_PAY, RDT.DEPARTMENT_SHORT_NAME, RD2.DEPARTMENT_NAME AS TEAM_DEPARTMENT_NAME, (SELECT LISTAGG(SU.USER_CODE||'-'||SU.USER_NAME,',') WITHIN GROUP (ORDER BY TD.ID) " +
+                    "FROM AUD_STAT.BM0_TEAM_DATA TD " +
+                    "INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID " +
+                    "WHERE TD.TEAM_TYPE_ID = 1 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_LEAD, " +
+                    "(SELECT LISTAGG(SU.USER_CODE || '-' || SU.USER_NAME, ',') WITHIN GROUP(ORDER BY TD.ID) " +
+                    "FROM AUD_STAT.BM0_TEAM_DATA TD INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID " +
+                    "WHERE TD.TEAM_TYPE_ID = 2 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_MEMBER, " +
+                    "SUS.USER_CODE || '-' || SUS.USER_NAME AS AUDITOR_ENTRY " +
+                    "FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON BM.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON BM.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON BM.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_FORM_TYPE RFT ON BM.AUDIT_FORM_TYPE = RFT.FORM_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_PROPOSAL_TYPE RPT ON BM.AUDIT_PROPOSAL_TYPE = RPT.PROPOSAL_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON BM.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_DEPARTMENT_TYPE RDT ON BM.AUDIT_DEPARTMENT_TYPE = RDT.DEPARTMENT_TYPE_ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD1 ON BM.DEPARTMENT_ID = RD1.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD2 ON BM.AUDIT_DEPARTMENT_ID = RD2.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_REG.SYSTEM_USER SUS ON BM.AUDITOR_ENTRY_ID = SUS.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM0SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM0Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -1329,7 +1389,11 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID FROM BM0_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID, BM.STATISTIC_PERIOD, BM.DEPARTMENT_ID, RD.DEPARTMENT_NAME, BM.AUDIT_YEAR, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_FORM_TYPE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_COUNT, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT_TYPE, BM.AUDIT_DEPARTMENT_ID, BM.AUDIT_SERVICE_PAY, BM.AUDITOR_ENTRY_ID, SU.USER_CODE || ' - ' || SU.USER_NAME AUDITOR_ENTRY " +
+                    "FROM BM0_DATA BM " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON BM.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.AUDITOR_ENTRY_ID = SU.USER_ID " +
+                    "WHERE ID = :P_ID";
 
                 // Set parameters
                 cmd.BindByName = true;
@@ -1394,7 +1458,7 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM0");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "UPDATE AUD_STAT.BM0_DATA SET OFFICE_ID = :P_OFFICE_ID, STATISTIC_PERIOD = :P_STATISTIC_PERIOD, AUDIT_TYPE = :P_AUDIT_TYPE, TOPIC_TYPE = :P_TOPIC_TYPE, TOPIC_CODE = :P_TOPIC_CODE, TOPIC_NAME = :P_TOPIC_NAME, ORDER_NO = :P_ORDER_NO, ORDER_DATE = :P_ORDER_DATE, AUDIT_FORM_TYPE = :P_AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE = :P_AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE = :P_AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_ORG = :P_AUDIT_INCLUDED_ORG, WORKING_PERSON = :P_WORKING_PERSON, WORKING_DAY = :P_WORKING_DAY, WORKING_ADDITION_TIME = :P_WORKING_ADDITION_TIME, AUDIT_DEPARTMENT = :P_AUDIT_DEPARTMENT, AUDITOR_LEAD = :P_AUDITOR_LEAD, AUDITOR_MEMBER = :P_AUDITOR_MEMBER, AUDITOR_ENTRY = :P_AUDITOR_ENTRY, AUDIT_SERVICE_PAY = :P_AUDIT_SERVICE_PAY, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
@@ -1505,7 +1569,7 @@ namespace Audit.App_Func
                 int lnNextVal = Convert.ToInt32(cmd2.ExecuteScalar());
 
                 XElement elem = request.Element("Parameters").Element("BM0");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "INSERT INTO AUD_STAT.BM0_DATA (ID,STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
                     "VALUES(:P_ID, :P_STATISTIC_PERIOD, :P_DEPARTMENT_ID, :P_AUDIT_YEAR, :P_AUDIT_TYPE, :P_TOPIC_TYPE, :P_TOPIC_CODE, :P_TOPIC_NAME, :P_ORDER_NO, :P_ORDER_DATE, :P_AUDIT_FORM_TYPE, :P_AUDIT_PROPOSAL_TYPE, :P_AUDIT_BUDGET_TYPE, :P_AUDIT_INCLUDED_COUNT, :P_AUDIT_INCLUDED_ORG, :P_WORKING_PERSON, :P_WORKING_DAY, :P_WORKING_ADDITION_TIME, :P_AUDIT_DEPARTMENT_TYPE, :P_AUDIT_DEPARTMENT_ID, :P_AUDIT_SERVICE_PAY, :P_AUDITOR_ENTRY_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
@@ -1528,9 +1592,9 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_AUDIT_INCLUDED_ORG", OracleDbType.Varchar2).Value = elem.Element("AUDIT_INCLUDED_ORG")?.Value;
                 cmd.Parameters.Add(":P_WORKING_PERSON", OracleDbType.Int32).Value = elem.Element("WORKING_PERSON") != null && elem.Element("WORKING_PERSON").Value != "" ? elem.Element("WORKING_PERSON").Value : null;
                 cmd.Parameters.Add(":P_WORKING_DAY", OracleDbType.Int32).Value = elem.Element("WORKING_DAY") != null && elem.Element("WORKING_DAY").Value != "" ? elem.Element("WORKING_DAY").Value : null;
-                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("P_WORKING_ADDITION_TIME") != null && elem.Element("P_WORKING_ADDITION_TIME").Value != "" ? elem.Element("P_WORKING_ADDITION_TIME").Value : null; 
+                cmd.Parameters.Add(":P_WORKING_ADDITION_TIME", OracleDbType.Int32).Value = elem.Element("P_WORKING_ADDITION_TIME") != null && elem.Element("P_WORKING_ADDITION_TIME").Value != "" ? elem.Element("P_WORKING_ADDITION_TIME").Value : null;
                 cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_TYPE", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value =="2"? elem.Element("AUDIT_DEPARTMENT_ID")?.Value: elem.Element("DEPARTMENT_ID")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "2" ? elem.Element("AUDIT_DEPARTMENT_ID")?.Value : elem.Element("DEPARTMENT_ID")?.Value;
                 cmd.Parameters.Add(":P_AUDIT_SERVICE_PAY", OracleDbType.Decimal).Value = elem.Element("AUDIT_SERVICE_PAY") != null && elem.Element("AUDIT_SERVICE_PAY").Value != "" ? elem.Element("AUDIT_SERVICE_PAY").Value : null;
                 cmd.Parameters.Add(":P_AUDITOR_ENTRY_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
@@ -1543,7 +1607,7 @@ namespace Audit.App_Func
                 string[] leads = elem.Element("AUDITOR_LEAD")?.Value.Split(',');
                 string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
 
-                for(int i = 0; i < leads.Count(); i++)
+                for (int i = 0; i < leads.Count(); i++)
                 {
 
                     OracleCommand cmdLead = con.CreateCommand();
@@ -1647,7 +1711,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(BM.ID) "+
+                cmd.CommandText = "SELECT COUNT(BM.ID) " +
                     "FROM AUD_STAT.BM1_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -1762,6 +1826,55 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM1SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID, BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO,   B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, RVT.VIOLATION_NAME, SU.USER_CODE||' - '||SU.USER_NAME ACT_CONTROL_AUDITOR  " +
+                    "FROM AUD_STAT.BM1_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.ACT_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.ACT_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM1SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM1Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -1775,9 +1888,17 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT ID, AUDIT_ID, ACT_DATE, ACT_NO, ACT_VIOLATION_DESC, ACT_VIOLATION_TYPE, ACT_SUBMITTED_DATE, ACT_DELIVERY_DATE, ACT_AMOUNT, ACT_STATE_AMOUNT, ACT_LOCAL_AMOUNT, ACT_ORG_AMOUNT, ACT_OTHER_AMOUNT, ACT_RCV_NAME, ACT_RCV_ROLE, ACT_RCV_GIVEN_NAME, ACT_RCV_PHONE, ACT_RCV_ADDRESS, ACT_CONTROL_AUDITOR_ID, COMPLETION_DATE, COMPLETION_ORDER, COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT, REMOVED_AMOUNT, REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE, REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE, REMOVED_INVALID_NO, ACT_C2_AMOUNT, ACT_C2_NONEXPIRED, ACT_C2_EXPIRED, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN " +
-                    "FROM AUD_STAT.BM1_DATA " +
-                    "WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID, BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.ACT_DATE, BM.ACT_NO, BM.ACT_VIOLATION_DESC, BM.ACT_VIOLATION_TYPE, RVT.VIOLATION_NAME, BM.ACT_SUBMITTED_DATE, BM.ACT_DELIVERY_DATE, BM.ACT_AMOUNT, BM.ACT_STATE_AMOUNT, BM.ACT_LOCAL_AMOUNT, BM.ACT_ORG_AMOUNT, BM.ACT_OTHER_AMOUNT, BM.ACT_RCV_NAME, BM.ACT_RCV_ROLE, BM.ACT_RCV_GIVEN_NAME, BM.ACT_RCV_PHONE, BM.ACT_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME ACT_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_AMOUNT, BM.COMPLETION_STATE_AMOUNT, BM.COMPLETION_LOCAL_AMOUNT, BM.COMPLETION_ORG_AMOUNT, BM.COMPLETION_OTHER_AMOUNT, BM.REMOVED_AMOUNT, BM.REMOVED_LAW_AMOUNT, BM.REMOVED_LAW_DATE, BM.REMOVED_LAW_NO, BM.REMOVED_INVALID_AMOUNT, BM.REMOVED_INVALID_DATE, BM.REMOVED_INVALID_NO, BM.ACT_C2_AMOUNT, BM.ACT_C2_NONEXPIRED, BM.ACT_C2_EXPIRED, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
+                    "FROM AUD_STAT.BM1_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.ACT_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.ACT_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -1822,7 +1943,7 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM1");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "UPDATE AUD_STAT.BM1_DATA SET COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT,  COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_AMOUNT = :P_REMOVED_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, ACT_C2_AMOUNT = :P_ACT_C2_AMOUNT, ACT_C2_NONEXPIRED = :P_ACT_C2_NONEXPIRED, ACT_C2_EXPIRED = :P_ACT_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
@@ -1889,7 +2010,7 @@ namespace Audit.App_Func
                 XElement elem = request.Element("Parameters").Element("BM1");
 
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM1_DATA SET AUDIT_ID = :P_AUDIT_ID, ACT_DATE = :P_ACT_DATE, ACT_NO = :P_ACT_NO, ACT_VIOLATION_DESC = :P_ACT_VIOLATION_DESC, ACT_VIOLATION_TYPE = :P_ACT_VIOLATION_TYPE, ACT_SUBMITTED_DATE = :P_ACT_SUBMITTED_DATE, ACT_DELIVERY_DATE = :P_ACT_DELIVERY_DATE, ACT_AMOUNT = :P_ACT_AMOUNT, ACT_STATE_AMOUNT = :P_ACT_STATE_AMOUNT, ACT_LOCAL_AMOUNT = :P_ACT_LOCAL_AMOUNT, ACT_ORG_AMOUNT = :P_ACT_ORG_AMOUNT, ACT_OTHER_AMOUNT = :P_ACT_OTHER_AMOUNT, ACT_RCV_NAME = :P_ACT_RCV_NAME, ACT_RCV_ROLE = :P_ACT_RCV_ROLE, ACT_RCV_GIVEN_NAME = :P_ACT_RCV_GIVEN_NAME, ACT_RCV_PHONE = :P_ACT_RCV_PHONE, ACT_RCV_ADDRESS = :P_ACT_RCV_ADDRESS, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM1_DATA SET AUDIT_ID = :P_AUDIT_ID, ACT_DATE = :P_ACT_DATE, ACT_NO = :P_ACT_NO, ACT_VIOLATION_DESC = :P_ACT_VIOLATION_DESC, ACT_VIOLATION_TYPE = :P_ACT_VIOLATION_TYPE, ACT_SUBMITTED_DATE = :P_ACT_SUBMITTED_DATE, ACT_DELIVERY_DATE = :P_ACT_DELIVERY_DATE, ACT_AMOUNT = :P_ACT_AMOUNT, ACT_STATE_AMOUNT = :P_ACT_STATE_AMOUNT, ACT_LOCAL_AMOUNT = :P_ACT_LOCAL_AMOUNT, ACT_ORG_AMOUNT = :P_ACT_ORG_AMOUNT, ACT_OTHER_AMOUNT = :P_ACT_OTHER_AMOUNT, ACT_RCV_NAME = :P_ACT_RCV_NAME, ACT_RCV_ROLE = :P_ACT_RCV_ROLE, ACT_RCV_GIVEN_NAME = :P_ACT_RCV_GIVEN_NAME, ACT_RCV_PHONE = :P_ACT_RCV_PHONE, ACT_RCV_ADDRESS = :P_ACT_RCV_ADDRESS, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT,  COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_AMOUNT = :P_REMOVED_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, ACT_C2_AMOUNT = :P_ACT_C2_AMOUNT, ACT_C2_NONEXPIRED = :P_ACT_C2_NONEXPIRED, ACT_C2_EXPIRED = :P_ACT_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
@@ -1910,6 +2031,27 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_RCV_GIVEN_NAME", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_GIVEN_NAME")?.Value;
                 cmd.Parameters.Add(":ACT_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_ACT_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_ADDRESS")?.Value;
+
+                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("ACT_C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_EXPIRED", OracleDbType.Decimal).Value = elem.Element("ACT_C2_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
                 //cmd.Parameters.Add(":P_ACT_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -1950,7 +2092,7 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM1");
-                
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "INSERT INTO AUD_STAT.BM1_DATA(AUDIT_ID, ACT_DATE, ACT_NO, ACT_VIOLATION_DESC, ACT_VIOLATION_TYPE, ACT_SUBMITTED_DATE, ACT_DELIVERY_DATE, ACT_AMOUNT, ACT_STATE_AMOUNT, ACT_LOCAL_AMOUNT, ACT_ORG_AMOUNT, ACT_OTHER_AMOUNT, ACT_RCV_NAME, ACT_RCV_ROLE, ACT_RCV_GIVEN_NAME, ACT_RCV_PHONE, ACT_RCV_ADDRESS, ACT_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
                     "VALUES (:P_AUDIT_ID, :P_ACT_DATE, :P_ACT_NO, :P_ACT_VIOLATION_DESC, :P_ACT_VIOLATION_TYPE, :P_ACT_SUBMITTED_DATE, :P_ACT_DELIVERY_DATE, :P_ACT_AMOUNT, :P_ACT_STATE_AMOUNT, :P_ACT_LOCAL_AMOUNT, :P_ACT_ORG_AMOUNT, :P_ACT_OTHER_AMOUNT, :P_ACT_RCV_NAME, :P_ACT_RCV_ROLE, :P_ACT_RCV_GIVEN_NAME, :P_ACT_RCV_PHONE, :P_ACT_RCV_ADDRESS, :P_ACT_CONTROL_AUDITOR_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
@@ -1974,7 +2116,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_ACT_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_ACT_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                
+
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -2088,7 +2230,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_DATE, B.ORDER_NO, RBT.BUDGET_TYPE_NAME, BM.CLAIM_DATE, BM.CLAIM_NO, BM.CLAIM_VIOLATION_DESC, BM.CLAIM_VIOLATION_TYPE, BM.CLAIM_SUBMITTED_DATE, BM.CLAIM_DELIVERY_DATE, BM.CLAIM_VIOLATION_AMOUNT, BM.CLAIM_RCV_NAME, BM.CLAIM_RCV_ROLE, BM.CLAIM_RCV_GIVEN_NAME, BM.CLAIM_RCV_PHONE, BM.CLAIM_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME CLAIM_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_AMOUNT, BM.COMPLETION_STATE_AMOUNT, BM.COMPLETION_LOCAL_AMOUNT, BM.COMPLETION_ORG_AMOUNT, BM.COMPLETION_OTHER_AMOUNT, BM.REMOVED_LAW_AMOUNT, BM.REMOVED_LAW_DATE, BM.REMOVED_LAW_NO, BM.REMOVED_INVALID_AMOUNT, BM.REMOVED_INVALID_DATE, BM.REMOVED_INVALID_NO, BM.CLAIM_C2_AMOUNT, BM.CLAIM_C2_NONEXPIRED, BM.CLAIM_C2_EXPIRED, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
+                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD,B.AUDIT_YEAR, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_DATE, B.ORDER_NO, RBT.BUDGET_TYPE_NAME, BM.CLAIM_DATE, BM.CLAIM_NO, BM.CLAIM_VIOLATION_DESC, BM.CLAIM_VIOLATION_TYPE, BM.CLAIM_SUBMITTED_DATE, BM.CLAIM_DELIVERY_DATE, BM.CLAIM_VIOLATION_AMOUNT, BM.CLAIM_RCV_NAME, BM.CLAIM_RCV_ROLE, BM.CLAIM_RCV_GIVEN_NAME, BM.CLAIM_RCV_PHONE, BM.CLAIM_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME CLAIM_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_AMOUNT, BM.COMPLETION_STATE_AMOUNT, BM.COMPLETION_LOCAL_AMOUNT, BM.COMPLETION_ORG_AMOUNT, BM.COMPLETION_OTHER_AMOUNT, BM.REMOVED_LAW_AMOUNT, BM.REMOVED_LAW_DATE, BM.REMOVED_LAW_NO, BM.REMOVED_INVALID_AMOUNT, BM.REMOVED_INVALID_DATE, BM.REMOVED_INVALID_NO, BM.CLAIM_C2_AMOUNT, BM.CLAIM_C2_NONEXPIRED, BM.CLAIM_C2_EXPIRED, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, RVT.VIOLATION_NAME, BM.BENEFIT_NONFIN " +
                     "FROM AUD_STAT.BM2_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -2169,6 +2311,54 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM2SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_DATE, B.ORDER_NO, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM2_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM2SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM2Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2182,7 +2372,18 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, CLAIM_NO, CLAIM_VIOLATION_DESC, CLAIM_VIOLATION_TYPE, CLAIM_SUBMITTED_DATE, CLAIM_DELIVERY_DATE, CLAIM_VIOLATION_AMOUNT, CLAIM_RCV_NAME, CLAIM_RCV_ROLE, CLAIM_RCV_GIVEN_NAME, CLAIM_RCV_ADDRESS, CLAIM_CONTROL_AUDITOR, COMPLETION_ORDER, COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT, REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE, REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE, REMOVED_INVALID_NO, CLAIM_C2_AMOUNT, CLAIM_C2_NONEXPIRED, CLAIM_C2_EXPIRED, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN, EXEC_TYPE, CREATED_DATE, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID FROM AUD_STAT.BM2_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD,B.AUDIT_YEAR, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_DATE, B.ORDER_NO, RBT.BUDGET_TYPE_NAME, BM.CLAIM_DATE, BM.CLAIM_NO, BM.CLAIM_VIOLATION_DESC, BM.CLAIM_VIOLATION_TYPE, BM.CLAIM_SUBMITTED_DATE, BM.CLAIM_DELIVERY_DATE, BM.CLAIM_VIOLATION_AMOUNT, BM.CLAIM_RCV_NAME, BM.CLAIM_RCV_ROLE, BM.CLAIM_RCV_GIVEN_NAME, BM.CLAIM_RCV_PHONE, BM.CLAIM_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME CLAIM_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_AMOUNT, BM.COMPLETION_STATE_AMOUNT, BM.COMPLETION_LOCAL_AMOUNT, BM.COMPLETION_ORG_AMOUNT, BM.COMPLETION_OTHER_AMOUNT, BM.REMOVED_LAW_AMOUNT, BM.REMOVED_LAW_DATE, BM.REMOVED_LAW_NO, BM.REMOVED_INVALID_AMOUNT, BM.REMOVED_INVALID_DATE, BM.REMOVED_INVALID_NO, BM.CLAIM_C2_AMOUNT, BM.CLAIM_C2_NONEXPIRED, BM.CLAIM_C2_EXPIRED, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
+                    "FROM AUD_STAT.BM2_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.CLAIM_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.CLAIM_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -2208,6 +2409,93 @@ namespace Audit.App_Func
 
             return response;
         }
+
+        public static DataResponse BM2UpdateCompletion(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM2");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA " +
+                    " SET COMPLETION_DATE = :P_COMPLETION_DATE, " +
+                    " COMPLETION_ORDER = :P_COMPLETION_ORDER, " +
+                    " COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT," +
+                    " COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT,  " +
+                    " COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT," +
+                    " COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT," +
+                    " COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT," +
+                    " REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT," +
+                    " REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE," +
+                    " REMOVED_LAW_NO = :P_REMOVED_LAW_NO," +
+                    " REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT," +
+                    " REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE," +
+                    " REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO," +
+                    " CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT," +
+                    " CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED," +
+                    " CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, " +
+                    " BENEFIT_FIN = :P_BENEFIT_FIN, " +
+                    " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, " +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN " +
+                    " WHERE ID = :P_ID";
+               
+
+                // Set parameters
+
+
+                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_EXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM2Update(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2227,8 +2515,44 @@ namespace Audit.App_Func
             try
             {
                 XElement elem = request.Element("Parameters").Element("BM2");
+
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA SET AUDIT_ID = :P_AUDIT_ID, CLAIM_DATE = :P_CLAIM_DATE, CLAIM_NO = :P_CLAIM_NO, CLAIM_VIOLATION_DESC = :P_CLAIM_VIOLATION_DESC, CLAIM_VIOLATION_TYPE = :P_CLAIM_VIOLATION_TYPE, CLAIM_SUBMITTED_DATE = :P_CLAIM_SUBMITTED_DATE, CLAIM_DELIVERY_DATE = :P_CLAIM_DELIVERY_DATE, CLAIM_VIOLATION_AMOUNT = :P_CLAIM_VIOLATION_AMOUNT, CLAIM_RCV_NAME = :P_CLAIM_RCV_NAME, CLAIM_RCV_ROLE = :P_CLAIM_RCV_ROLE, CLAIM_RCV_GIVEN_NAME = :P_CLAIM_RCV_GIVEN_NAME, CLAIM_RCV_PHONE = :P_CLAIM_RCV_PHONE, CLAIM_RCV_ADDRESS = :P_CLAIM_RCV_ADDRESS, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT, CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED, CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE WHERE ID = :P_ID";
+                cmd.CommandText = "UPDATE AUD_STAT.BM2_DATA SET " +
+                    " AUDIT_ID = :P_AUDIT_ID, " +
+                    " CLAIM_DATE = :P_CLAIM_DATE, " +
+                    " CLAIM_NO = :P_CLAIM_NO, " +
+                    " CLAIM_VIOLATION_DESC = :P_CLAIM_VIOLATION_DESC, " +
+                    " CLAIM_VIOLATION_TYPE = :P_CLAIM_VIOLATION_TYPE, " +
+                    " CLAIM_SUBMITTED_DATE = :P_CLAIM_SUBMITTED_DATE, " +
+                    " CLAIM_DELIVERY_DATE = :P_CLAIM_DELIVERY_DATE, " +
+                    " CLAIM_VIOLATION_AMOUNT = :P_CLAIM_VIOLATION_AMOUNT, " +
+                    " CLAIM_RCV_NAME = :P_CLAIM_RCV_NAME, " +
+                    " CLAIM_RCV_ROLE = :P_CLAIM_RCV_ROLE, " +
+                    " CLAIM_RCV_GIVEN_NAME = :P_CLAIM_RCV_GIVEN_NAME, " +
+                    " CLAIM_RCV_PHONE = :P_CLAIM_RCV_PHONE, " +
+                    " CLAIM_RCV_ADDRESS = :P_CLAIM_RCV_ADDRESS, " +
+                    " COMPLETION_DATE = :P_COMPLETION_DATE, " +
+                    " COMPLETION_ORDER = :P_COMPLETION_ORDER, " +
+                    " COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, " +
+                    " COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT, " +
+                    " COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, " +
+                    " COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, " +
+                    " COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, " +
+                    " REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, " +
+                    " REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, " +
+                    " REMOVED_LAW_NO = :P_REMOVED_LAW_NO, " +
+                    " REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, " +
+                    " REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, " +
+                    " REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, " +
+                    " CLAIM_C2_AMOUNT = :P_CLAIM_C2_AMOUNT, " +
+                    " CLAIM_C2_NONEXPIRED = :P_CLAIM_C2_NONEXPIRED, " +
+                    " CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, " +
+                    " BENEFIT_FIN = :P_BENEFIT_FIN, " +
+                    " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, " +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN, " +
+                    " UPDATED_BY = :P_UPDATED_BY, " +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
+                    " WHERE ID = :P_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -2244,7 +2568,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_CLAIM_RCV_GIVEN_NAME", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_GIVEN_NAME")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ADDRESS")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                //cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
@@ -2268,6 +2592,8 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
+
+
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
                 bool responseVal = rowsUpdated == 0 ? false : true;
@@ -2283,6 +2609,7 @@ namespace Audit.App_Func
             }
 
             return response;
+       
         }
         public static DataResponse BM2Insert(XElement request)
         {
@@ -2295,7 +2622,7 @@ namespace Audit.App_Func
             // Create and execute the command
             OracleCommand cmd = con.CreateCommand();
             OracleTransaction transaction;
-
+            
             // Start a local transaction
             transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
             // Assign transaction object for a pending local transaction
@@ -2304,12 +2631,48 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM2");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.BM2_DATA (AUDIT_ID, CLAIM_DATE, CLAIM_NO, CLAIM_VIOLATION_DESC, CLAIM_VIOLATION_TYPE, CLAIM_SUBMITTED_DATE, CLAIM_DELIVERY_DATE, CLAIM_VIOLATION_AMOUNT, CLAIM_RCV_NAME, CLAIM_RCV_ROLE, CLAIM_RCV_GIVEN_NAME, CLAIM_RCV_PHONE, CLAIM_RCV_ADDRESS, CLAIM_CONTROL_AUDITOR_ID, COMPLETION_DATE, COMPLETION_ORDER, COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT, COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT, REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE, REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE, REMOVED_INVALID_NO, CLAIM_C2_AMOUNT, CLAIM_C2_NONEXPIRED, CLAIM_C2_EXPIRED, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_AUDIT_ID, :P_CLAIM_DATE, :P_CLAIM_NO, :P_CLAIM_VIOLATION_DESC, :P_CLAIM_VIOLATION_TYPE, :P_CLAIM_SUBMITTED_DATE, :P_CLAIM_DELIVERY_DATE, :P_CLAIM_VIOLATION_AMOUNT, :P_CLAIM_RCV_NAME, :P_CLAIM_RCV_ROLE, :P_CLAIM_RCV_GIVEN_NAME, :P_CLAIM_RCV_PHONE, :P_CLAIM_RCV_ADDRESS, :P_CLAIM_CONTROL_AUDITOR_ID, :P_COMPLETION_DATE, :P_COMPLETION_ORDER, :P_COMPLETION_AMOUNT, :P_COMPLETION_STATE_AMOUNT, :P_COMPLETION_LOCAL_AMOUNT, :P_COMPLETION_ORG_AMOUNT, :P_COMPLETION_OTHER_AMOUNT, :P_REMOVED_LAW_AMOUNT, :P_REMOVED_LAW_DATE, :P_REMOVED_LAW_NO, :P_REMOVED_INVALID_AMOUNT, :P_REMOVED_INVALID_DATE, :P_REMOVED_INVALID_NO, :P_CLAIM_C2_AMOUNT, :P_CLAIM_C2_NONEXPIRED, :P_CLAIM_C2_EXPIRED, :P_BENEFIT_FIN, :P_BENEFIT_FIN_AMOUNT, :P_BENEFIT_NONFIN, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM2_DATA " +
+                    " (AUDIT_ID, " +
+                    " CLAIM_DATE, " +
+                    " CLAIM_NO, " +
+                    " CLAIM_VIOLATION_DESC," +
+                    " CLAIM_VIOLATION_TYPE, " +
+                    " CLAIM_SUBMITTED_DATE, " +
+                    " CLAIM_DELIVERY_DATE, " +
+                    " CLAIM_VIOLATION_AMOUNT, " +
+                    " CLAIM_RCV_NAME, " +
+                    " CLAIM_RCV_ROLE, " +
+                    " CLAIM_RCV_GIVEN_NAME, " +
+                    " CLAIM_RCV_PHONE, " +
+                    " CLAIM_RCV_ADDRESS, " +
+                    " CLAIM_CONTROL_AUDITOR_ID, " +
+                    " IS_ACTIVE," +
+                    " CREATED_BY, " +
+                    " CREATED_DATE " +
+                    ") " +
+
+                    "VALUES(:P_AUDIT_ID, " +
+                    " :P_CLAIM_DATE, " +
+                    " :P_CLAIM_NO, " +
+                    " :P_CLAIM_VIOLATION_DESC," +
+                    " :P_CLAIM_VIOLATION_TYPE," +
+                    " :P_CLAIM_SUBMITTED_DATE," +
+                    " :P_CLAIM_DELIVERY_DATE," +
+                    " :P_CLAIM_VIOLATION_AMOUNT," +
+                    " :P_CLAIM_RCV_NAME," +
+                    " :P_CLAIM_RCV_ROLE," +
+                    " :P_CLAIM_RCV_GIVEN_NAME," +
+                    " :P_CLAIM_RCV_PHONE," +
+                    " :P_CLAIM_RCV_ADDRESS," +
+                    " :P_CLAIM_CONTROL_AUDITOR_ID," +
+                    " :P_IS_ACTIVE," +
+                    " :P_CREATED_BY, " +
+                    " :P_CREATED_DATE " +
+                    ")";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DATE")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DATE")?.Value == "0" ? null : elem.Element("CLAIM_DATE")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_NO", OracleDbType.Varchar2).Value = elem.Element("CLAIM_NO")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_VIOLATION_DESC", OracleDbType.Varchar2).Value = elem.Element("CLAIM_VIOLATION_DESC")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("CLAIM_VIOLATION_TYPE")?.Value;
@@ -2322,25 +2685,6 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_CLAIM_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("CLAIM_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_CLAIM_C2_EXPIRED", OracleDbType.Decimal).Value = elem.Element("CLAIM_C2_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -2454,7 +2798,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.REFERENCE_DESC, BM.REFERENCE_TYPE, BM.REFERENCE_COUNT, BM.REFERENCE_AMOUNT, BM.REFERENCE_SUBMITTED_DATE, BM.REFERENCE_DELIVERY_DATE, BM.REFERENCE_RCV_NAME, BM.REFERENCE_RCV_ROLE, BM.REFERENCE_RCV_GIVEN_NAME, BM.REFERENCE_RCV_PHONE, BM.REFERENCE_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME REFERENCE_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.C2_NONEXPIRED, BM.C2_NONEXPIRED_AMOUNT, BM.C2_EXPIRED, BM.C2_EXPIRED_AMOUNT, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
+                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.REFERENCE_DESC, BM.REFERENCE_TYPE, BM.REFERENCE_COUNT, BM.REFERENCE_AMOUNT, BM.REFERENCE_SUBMITTED_DATE, BM.REFERENCE_DELIVERY_DATE, BM.REFERENCE_RCV_NAME, BM.REFERENCE_RCV_ROLE, BM.REFERENCE_RCV_GIVEN_NAME, BM.REFERENCE_RCV_PHONE, BM.REFERENCE_RCV_ADDRESS,RVT.VIOLATION_NAME, SU.USER_CODE||' - '||SU.USER_NAME REFERENCE_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.C2_NONEXPIRED, BM.C2_NONEXPIRED_AMOUNT, BM.C2_EXPIRED, BM.C2_EXPIRED_AMOUNT, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
                     "FROM AUD_STAT.BM3_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -2535,6 +2879,56 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM3SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM3_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.REFERENCE_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.REFERENCE_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM3SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM3Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2548,7 +2942,18 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, REFERENCE_DESC, REFERENCE_AMOUNT, REFERENCE_SUBMITTED_DATE, REFERENCE_DELIVERY_DATE, REFERENCE_RCV_NAME, REFERENCE_RCV_ROLE, REFERENCE_RCV_GIVEN_NAME, REFERENCE_RCV_ADDRESS, REFERENCE_CONTROL_AUDITOR, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, C2_NONEXPIRED, C2_NONEXPIRED_AMOUNT, C2_EXPIRED, C2_EXPIRED_AMOUNT, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, EXEC_TYPE, CREATED_DATE, REFERENCE_TYPE, REFERENCE_COUNT, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID FROM AUD_STAT.BM3_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.REFERENCE_DESC, BM.REFERENCE_TYPE, BM.REFERENCE_COUNT, BM.REFERENCE_AMOUNT, BM.REFERENCE_SUBMITTED_DATE, BM.REFERENCE_DELIVERY_DATE, BM.REFERENCE_RCV_NAME, BM.REFERENCE_RCV_ROLE, BM.REFERENCE_RCV_GIVEN_NAME, BM.REFERENCE_RCV_PHONE, BM.REFERENCE_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME REFERENCE_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.C2_NONEXPIRED, BM.C2_NONEXPIRED_AMOUNT, BM.C2_EXPIRED, BM.C2_EXPIRED_AMOUNT, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
+                    "FROM AUD_STAT.BM3_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.REFERENCE_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.REFERENCE_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -2594,8 +2999,36 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM3");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM3_DATA SET AUDIT_ID = :P_AUDIT_ID, REFERENCE_DESC = :P_REFERENCE_DESC, REFERENCE_TYPE = :P_REFERENCE_TYPE, REFERENCE_COUNT = :P_REFERENCE_COUNT, REFERENCE_AMOUNT = :P_REFERENCE_AMOUNT, REFERENCE_SUBMITTED_DATE = :P_REFERENCE_SUBMITTED_DATE, REFERENCE_DELIVERY_DATE = :P_REFERENCE_DELIVERY_DATE, REFERENCE_RCV_NAME = :P_REFERENCE_RCV_NAME, REFERENCE_RCV_ROLE = :P_REFERENCE_RCV_ROLE, REFERENCE_RCV_GIVEN_NAME = :P_REFERENCE_RCV_GIVEN_NAME, REFERENCE_RCV_PHONE = :P_REFERENCE_RCV_PHONE, REFERENCE_RCV_ADDRESS = :P_REFERENCE_RCV_ADDRESS, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT, C2_NONEXPIRED = :P_C2_NONEXPIRED, C2_NONEXPIRED_AMOUNT = :P_C2_NONEXPIRED_AMOUNT, C2_EXPIRED = :P_C2_EXPIRED, C2_EXPIRED_AMOUNT = :P_C2_EXPIRED_AMOUNT, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
-                    "WHERE ID = :P_ID";
+                cmd.CommandText = "UPDATE AUD_STAT.BM3_DATA SET" +
+                    " AUDIT_ID = :P_AUDIT_ID," +
+                    " REFERENCE_DESC = :P_REFERENCE_DESC," +
+                    " REFERENCE_TYPE = :P_REFERENCE_TYPE," +
+                    " REFERENCE_COUNT = :P_REFERENCE_COUNT," +
+                    " REFERENCE_AMOUNT = :P_REFERENCE_AMOUNT," +
+                    " REFERENCE_SUBMITTED_DATE = :P_REFERENCE_SUBMITTED_DATE," +
+                    " REFERENCE_DELIVERY_DATE = :P_REFERENCE_DELIVERY_DATE," +
+                    " REFERENCE_RCV_NAME = :P_REFERENCE_RCV_NAME," +
+                    " REFERENCE_RCV_ROLE = :P_REFERENCE_RCV_ROLE," +
+                    " REFERENCE_RCV_GIVEN_NAME = :P_REFERENCE_RCV_GIVEN_NAME," +
+                    " REFERENCE_RCV_PHONE = :P_REFERENCE_RCV_PHONE," +
+                    " REFERENCE_RCV_ADDRESS = :P_REFERENCE_RCV_ADDRESS," +
+                    " REFERENCE_CONTROL_AUDITOR_ID = :P_REFERENCE_CONTROL_AUDITOR_ID, " +
+                    " COMPLETION_DATE = :P_COMPLETION_DATE," +
+                    " COMPLETION_ORDER = :P_COMPLETION_ORDER," +
+                    " COMPLETION_DONE = :P_COMPLETION_DONE," +
+                    " COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT," +
+                    " COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS," +
+                    " COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT," +
+                    " C2_NONEXPIRED = :P_C2_NONEXPIRED," +
+                    " C2_NONEXPIRED_AMOUNT = :P_C2_NONEXPIRED_AMOUNT," +
+                    " C2_EXPIRED = :P_C2_EXPIRED," +
+                    " C2_EXPIRED_AMOUNT = :P_C2_EXPIRED_AMOUNT," +
+                    " BENEFIT_FIN = :P_BENEFIT_FIN," +
+                    " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT," +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN," +
+                    " UPDATED_BY = :P_UPDATED_BY," +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
+                    " WHERE ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -2644,6 +3077,76 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM3UpdateCompletion(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM3");
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM3_DATA SET" +
+                    " AUDIT_ID = :P_AUDIT_ID," +
+                    " COMPLETION_DATE = :P_COMPLETION_DATE," +
+                    " COMPLETION_ORDER = :P_COMPLETION_ORDER," +
+                    " COMPLETION_DONE = :P_COMPLETION_DONE," +
+                    " COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT," +
+                    " COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS," +
+                    " COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT," +
+                    " C2_NONEXPIRED = :P_C2_NONEXPIRED," +
+                    " C2_NONEXPIRED_AMOUNT = :P_C2_NONEXPIRED_AMOUNT," +
+                    " C2_EXPIRED = :P_C2_EXPIRED," +
+                    " C2_EXPIRED_AMOUNT = :P_C2_EXPIRED_AMOUNT," +
+                    " BENEFIT_FIN = :P_BENEFIT_FIN," +
+                    " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT," +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_NONEXPIRED", OracleDbType.Int32).Value = elem.Element("C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_EXPIRED", OracleDbType.Int32).Value = elem.Element("C2_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM3Insert(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2664,8 +3167,8 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM3");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.BM3_DATA (AUDIT_ID, REFERENCE_DESC, REFERENCE_TYPE, REFERENCE_COUNT, REFERENCE_AMOUNT, REFERENCE_SUBMITTED_DATE, REFERENCE_DELIVERY_DATE, REFERENCE_RCV_NAME, REFERENCE_RCV_ROLE, REFERENCE_RCV_GIVEN_NAME, REFERENCE_RCV_PHONE, REFERENCE_RCV_ADDRESS, REFERENCE_CONTROL_AUDITOR_ID, COMPLETION_DATE, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, C2_NONEXPIRED, C2_NONEXPIRED_AMOUNT, C2_EXPIRED, C2_EXPIRED_AMOUNT, BENEFIT_FIN, BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_AUDIT_ID, :P_REFERENCE_DESC, :P_REFERENCE_TYPE, :P_REFERENCE_COUNT, :P_REFERENCE_AMOUNT, :P_REFERENCE_SUBMITTED_DATE, :P_REFERENCE_DELIVERY_DATE, :P_REFERENCE_RCV_NAME, :P_REFERENCE_RCV_ROLE, :P_REFERENCE_RCV_GIVEN_NAME, :P_REFERENCE_RCV_PHONE, :P_REFERENCE_RCV_ADDRESS, :P_REFERENCE_CONTROL_AUDITOR_ID, :P_COMPLETION_DATE, :P_COMPLETION_ORDER, :P_COMPLETION_DONE, :P_COMPLETION_DONE_AMOUNT, :P_COMPLETION_PROGRESS, :P_COMPLETION_PROGRESS_AMOUNT, :P_C2_NONEXPIRED, :P_C2_NONEXPIRED_AMOUNT, :P_C2_EXPIRED, :P_C2_EXPIRED_AMOUNT, :P_BENEFIT_FIN, :P_BENEFIT_FIN_AMOUNT, :P_BENEFIT_NONFIN, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM3_DATA (AUDIT_ID, REFERENCE_DESC, REFERENCE_TYPE, REFERENCE_COUNT, REFERENCE_AMOUNT, REFERENCE_SUBMITTED_DATE, REFERENCE_DELIVERY_DATE, REFERENCE_RCV_NAME, REFERENCE_RCV_ROLE, REFERENCE_RCV_GIVEN_NAME, REFERENCE_RCV_PHONE, REFERENCE_RCV_ADDRESS, REFERENCE_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES(:P_AUDIT_ID, :P_REFERENCE_DESC, :P_REFERENCE_TYPE, :P_REFERENCE_COUNT, :P_REFERENCE_AMOUNT, :P_REFERENCE_SUBMITTED_DATE, :P_REFERENCE_DELIVERY_DATE, :P_REFERENCE_RCV_NAME, :P_REFERENCE_RCV_ROLE, :P_REFERENCE_RCV_GIVEN_NAME, :P_REFERENCE_RCV_PHONE, :P_REFERENCE_RCV_ADDRESS, :P_REFERENCE_CONTROL_AUDITOR_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -2681,19 +3184,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_REFERENCE_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_C2_NONEXPIRED", OracleDbType.Int32).Value = elem.Element("C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_C2_EXPIRED", OracleDbType.Int32).Value = elem.Element("C2_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_FIN")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Int32).Value = elem.Element("BENEFIT_NONFIN")?.Value;
+
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -2849,7 +3340,7 @@ namespace Audit.App_Func
                     "CASE WHEN :ORDER_NAME = 'COMPLETION_ORDER' AND :ORDER_DIR = 'ASC' THEN BM.COMPLETION_ORDER END ASC, " +
                     "CASE WHEN :ORDER_NAME = 'COMPLETION_ORDER' AND :ORDER_DIR = 'DESC' THEN BM.COMPLETION_ORDER END DESC, " +
                     "CASE WHEN :ORDER_NAME = 'PROPOSAL_VIOLATION_TYPE' AND :ORDER_DIR = 'ASC' THEN BM.PRO_VIOLATION_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PROPOSAL_VIOLATION_TYPE' AND :ORDER_DIR = 'DESC' THEN BM.PRO_VIOLATION_TYPE END DESC " + 
+                    "CASE WHEN :ORDER_NAME = 'PROPOSAL_VIOLATION_TYPE' AND :ORDER_DIR = 'DESC' THEN BM.PRO_VIOLATION_TYPE END DESC " +
                     "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                     "FETCH NEXT :PAGESIZE ROWS ONLY";
 
@@ -2886,6 +3377,56 @@ namespace Audit.App_Func
 
             return response;
         }
+        public static DataResponse BM4SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM4_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.PRO_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.PRO_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID ";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM4SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
         public static DataResponse BM4Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -2899,7 +3440,18 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, PROPOSAL_NO, PROPOSAL_VIOLATION_DESC, VIOLATION_RESPONDENT, PROPOSAL_SUBMITTED_DATE, PROPOSAL_DELIVERY_DATE, PROPOSAL_AMOUNT, PROPOSAL_RCV_NAME, PROPOSAL_RCV_ROLE, PROPOSAL_RCV_GIVEN_NAME, PROPOSAL_RCV_ADDRESS, PROPOSAL_CONTROL_AUDITOR, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, EXEC_TYPE, CREATED_DATE, PROPOSAL_VIOLATION_TYPE, PROPOSAL_COUNT, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID FROM AUD_STAT.BM4_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID, BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.PROPOSAL_DATE, BM.PROPOSAL_NO, BM.PRO_VIOLATION_DESC, RVT.VIOLATION_NAME, BM.VIOLATION_RESPONDENT, BM.PRO_SUBMITTED_DATE, BM.PROPOSAL_DELIVERY_DATE, BM.PROPOSAL_VIOLATION_COUNT, BM.PROPOSAL_AMOUNT, BM.PROPOSAL_RCV_NAME, BM.PROPOSAL_RCV_ROLE, BM.PROPOSAL_RCV_GIVEN_NAME, BM.PROPOSAL_RCV_PHONE, BM.PRO_RCV_ADDRESS, SU.USER_CODE||' - '||SU.USER_NAME PROPOSAL_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT " +
+                    "FROM AUD_STAT.BM4_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.PRO_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.PRO_CONTROL_AUDITOR_ID = SU.USER_ID " +
+                    "WHERE BM.ID = :P_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -2957,7 +3509,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_VIOLATION_RESPONDENT", OracleDbType.Varchar2).Value = elem.Element("VIOLATION_RESPONDENT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_VIOLATION_COUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_COUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROPOSAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ROLE")?.Value;
@@ -2973,6 +3525,56 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM4UpdateCompletion(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM4");
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM4_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT,  UPDATED_BY = :P_UPDATED_BY " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
@@ -3011,8 +3613,26 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM4");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.BM4_DATA (AUDIT_ID, PROPOSAL_DATE, PROPOSAL_NO, PRO_VIOLATION_DESC, PRO_VIOLATION_TYPE, VIOLATION_RESPONDENT, PRO_SUBMITTED_DATE, PROPOSAL_DELIVERY_DATE, PROPOSAL_VIOLATION_COUNT, PROPOSAL_AMOUNT, PROPOSAL_RCV_NAME, PROPOSAL_RCV_ROLE, PROPOSAL_RCV_GIVEN_NAME, PROPOSAL_RCV_PHONE, PRO_RCV_ADDRESS, PRO_CONTROL_AUDITOR_ID, COMPLETION_DATE, COMPLETION_ORDER, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_AUDIT_ID, :P_PROPOSAL_DATE, :P_PROPOSAL_NO, :P_PROPOSAL_VIOLATION_DESC, :P_PROPOSAL_VIOLATION_TYPE, :P_VIOLATION_RESPONDENT, :P_PROPOSAL_SUBMITTED_DATE, :P_PROPOSAL_DELIVERY_DATE, :P_PROPOSAL_VIOLATION_COUNT, :P_PROPOSAL_AMOUNT, :P_PROPOSAL_RCV_NAME, :P_PROPOSAL_RCV_ROLE, :P_PROPOSAL_RCV_GIVEN_NAME, :P_PROPOSAL_RCV_PHONE, :P_PROPOSAL_RCV_ADDRESS, :P_PROPOSAL_CONTROL_AUDITOR_ID, :P_COMPLETION_DATE, :P_COMPLETION_ORDER, :P_COMPLETION_DONE, :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, :P_COMPLETION_PROGRESS_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM4_DATA (AUDIT_ID, PROPOSAL_DATE, PROPOSAL_NO, PRO_VIOLATION_DESC, PRO_VIOLATION_TYPE, VIOLATION_RESPONDENT, PRO_SUBMITTED_DATE, PROPOSAL_DELIVERY_DATE, PROPOSAL_VIOLATION_COUNT, PROPOSAL_AMOUNT, PROPOSAL_RCV_NAME, PROPOSAL_RCV_ROLE, PROPOSAL_RCV_GIVEN_NAME, PROPOSAL_RCV_PHONE, PRO_RCV_ADDRESS, PRO_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES(:P_AUDIT_ID, " +
+                    " :P_PROPOSAL_DATE, " +
+                    " :P_PROPOSAL_NO," +
+                    " :P_PROPOSAL_VIOLATION_DESC," +
+                    " :P_PROPOSAL_VIOLATION_TYPE," +
+                    " :P_VIOLATION_RESPONDENT," +
+                    " :P_PROPOSAL_SUBMITTED_DATE," +
+                    " :P_PROPOSAL_DELIVERY_DATE," +
+                    " :P_PROPOSAL_COUNT," +
+                    " :P_PROPOSAL_AMOUNT," +
+                    " :P_PROPOSAL_RCV_NAME," +
+                    " :P_PROPOSAL_RCV_ROLE," +
+                    " :P_PROPOSAL_RCV_GIVEN_NAME," +
+                    " :P_PROPOSAL_RCV_PHONE," +
+                    " :P_PROPOSAL_RCV_ADDRESS," +
+                    " :P_PROPOSAL_CONTROL_AUDITOR_ID," +
+                    " :P_IS_ACTIVE," +
+                    " :P_CREATED_BY," +
+                    " :P_CREATED_DATE )";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -3023,7 +3643,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_VIOLATION_RESPONDENT", OracleDbType.Varchar2).Value = elem.Element("VIOLATION_RESPONDENT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_VIOLATION_COUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_COUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROPOSAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ROLE")?.Value;
@@ -3031,12 +3651,6 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -3148,7 +3762,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.LAW_RESPONDANT_NAME, BM.LAW_VIOLATION_DESC, BM.LAW_VIOLATION_TYPE, BM.LAW_MOVING_INFORMATION, BM.LAW_NUMBER, BM.LAW_AMOUNT, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.COMPLETION_INVALID, BM.COMPLETION_INVALID_AMOUNT, BM.LAW_C2_NUMBER, BM.LAW_C2_AMOUNT, BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE " +
+                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.LAW_RESPONDANT_NAME, BM.LAW_VIOLATION_DESC, BM.LAW_VIOLATION_TYPE, RVT.VIOLATION_NAME, BM.LAW_MOVING_INFORMATION, BM.LAW_NUMBER, BM.LAW_AMOUNT, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.COMPLETION_INVALID, BM.COMPLETION_INVALID_AMOUNT, BM.LAW_C2_NUMBER, BM.LAW_C2_AMOUNT, BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE " +
                     "FROM AUD_STAT.BM5_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -3236,7 +3850,17 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, ORDER_DATE, ORDER_NO, LAW_RESPONDANT_NAME, LAW_VIOLATION_DESC, LAW_VIOLATION_TYPE, LAW_MOVING_INFORMATION, LAW_NUMBER, LAW_AMOUNT, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER, LAW_C2_AMOUNT, EXEC_TYPE, CREATED_DATE, ID, IS_ACTIVE, CREATED_BY, UPDATED_BY, UPDATED_DATE, AUDIT_ID FROM AUD_STAT.BM5_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.LAW_RESPONDANT_NAME, BM.LAW_VIOLATION_DESC, BM.LAW_VIOLATION_TYPE, BM.LAW_MOVING_INFORMATION, BM.LAW_NUMBER, BM.LAW_AMOUNT, BM.COMPLETION_DONE, BM.COMPLETION_DONE_AMOUNT, BM.COMPLETION_PROGRESS, BM.COMPLETION_PROGRESS_AMOUNT, BM.COMPLETION_INVALID, BM.COMPLETION_INVALID_AMOUNT, BM.LAW_C2_NUMBER, BM.LAW_C2_AMOUNT, BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE " +
+                    "FROM AUD_STAT.BM5_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.LAW_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -3257,6 +3881,58 @@ namespace Audit.App_Func
             }
             catch (Exception ex)
             {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM5UpdateCompletion(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            // Open a connection to the database
+            OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+            con.Open();
+
+            // Create and execute the command
+            OracleCommand cmd = con.CreateCommand();
+            OracleTransaction transaction;
+
+            // Start a local transaction
+            transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
+            // Assign transaction object for a pending local transaction
+            cmd.Transaction = transaction;
+            try
+            {
+                XElement elem = request.Element("Parameters").Element("BM5");
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "UPDATE AUD_STAT.BM5_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID = :P_COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT = :P_COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER = :P_LAW_C2_NUMBER, LAW_C2_AMOUNT = :P_LAW_C2_AMOUNT, UPDATED_BY = :P_UPDATED_BY " +
+                    "WHERE ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_INVALID", OracleDbType.Int32).Value = elem.Element("COMPLETION_INVALID")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_INVALID_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_LAW_C2_NUMBER", OracleDbType.Int32).Value = elem.Element("LAW_C2_NUMBER")?.Value;
+                cmd.Parameters.Add(":P_LAW_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("LAW_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
+                int rowsUpdated = cmd.ExecuteNonQuery();
+                transaction.Commit();
+                bool responseVal = rowsUpdated == 0 ? false : true;
+                cmd.Dispose();
+                con.Close();
+
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
                 response.CreateResponse(ex);
             }
 
@@ -3341,8 +4017,8 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM5");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO BM5_DATA (AUDIT_ID, LAW_RESPONDANT_NAME, LAW_VIOLATION_DESC, LAW_VIOLATION_TYPE, LAW_MOVING_INFORMATION, LAW_NUMBER, LAW_AMOUNT, COMPLETION_DONE, COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER, LAW_C2_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_AUDIT_ID, :P_LAW_RESPONDANT_NAME, :P_LAW_VIOLATION_DESC, :P_LAW_VIOLATION_TYPE, :P_LAW_MOVING_INFORMATION, :P_LAW_NUMBER, :P_LAW_AMOUNT, :P_COMPLETION_DONE, :P_COMPLETION_DONE_AMOUNT, :P_COMPLETION_PROGRESS, :P_COMPLETION_PROGRESS_AMOUNT, :P_COMPLETION_INVALID, :P_COMPLETION_INVALID_AMOUNT, :P_LAW_C2_NUMBER, :P_LAW_C2_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO BM5_DATA (AUDIT_ID, LAW_RESPONDANT_NAME, LAW_VIOLATION_DESC, LAW_VIOLATION_TYPE, LAW_MOVING_INFORMATION, LAW_NUMBER, LAW_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES(:P_AUDIT_ID, :P_LAW_RESPONDANT_NAME, :P_LAW_VIOLATION_DESC, :P_LAW_VIOLATION_TYPE, :P_LAW_MOVING_INFORMATION, :P_LAW_NUMBER, :P_LAW_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -3352,14 +4028,6 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_LAW_MOVING_INFORMATION", OracleDbType.Varchar2).Value = elem.Element("LAW_MOVING_INFORMATION")?.Value;
                 cmd.Parameters.Add(":P_LAW_NUMBER", OracleDbType.Int32).Value = elem.Element("LAW_NUMBER")?.Value;
                 cmd.Parameters.Add(":P_LAW_AMOUNT", OracleDbType.Decimal).Value = elem.Element("LAW_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_INVALID", OracleDbType.Int32).Value = elem.Element("COMPLETION_INVALID")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_INVALID_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_INVALID_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_LAW_C2_NUMBER", OracleDbType.Int32).Value = elem.Element("LAW_C2_NUMBER")?.Value;
-                cmd.Parameters.Add(":P_LAW_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("LAW_C2_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -3375,6 +4043,55 @@ namespace Audit.App_Func
             catch (Exception ex)
             {
                 transaction.Rollback();
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM5SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME " +
+                    "FROM AUD_STAT.BM5_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.LAW_VIOLATION_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM5SelectAdd";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
                 response.CreateResponse(ex);
             }
 
@@ -3437,14 +4154,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(BM.ID) " +
-                    "FROM AUD_STAT.BM6_DATA BM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                                    "COUNT(BM.ID) " +
+                                    "FROM AUD_STAT.BM6_DATA BM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -3462,30 +4184,44 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_YEAR, BM.AUDIT_TYPE, BM.AUDIT_CODE, BM.AUDIT_NAME, BM.VIOLATION_COUNT, BM.VIOLATION_AMOUNT,BM.ERROR_COUNT, BM.ERROR_AMOUNT,BM.ALL_COUNT, BM.ALL_AMOUNT, BM.CORRECTED_ERROR_COUNT, BM.CORRECTED_ERROR_AMOUNT,BM.OTHER_ERROR_COUNT, BM.OTHER_ERROR_AMOUNT,BM.ACT_COUNT,BM.ACT_AMOUNT,BM.CLAIM_COUNT, BM.CLAIM_AMOUNT,BM.REFERENCE_COUNT,BM.REFERENCE_AMOUNT, BM.PROPOSAL_COUNT, BM.PROPOSAL_AMOUNT,BM.LAW_COUNT, BM.LAW_AMOUNT, BM.OTHER_COUNT,BM.OTHER_AMOUNT, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE " +
-                    "FROM AUD_STAT.BM6_DATA BM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_NAME END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+                cmd.CommandText = "SELECT "+
+                                    "B.STATISTIC_PERIOD, " +
+                                    "RP.PERIOD_LABEL, " +
+                                    "B.DEPARTMENT_ID, " +
+                                    "RD.DEPARTMENT_NAME, " +
+                                    "RAY.YEAR_LABEL, " +
+                                    "B.AUDIT_TYPE, " +
+                                    "RAT.AUDIT_TYPE_NAME, " +
+                                    "B.TOPIC_CODE, " +
+                                    "B.TOPIC_NAME, " +
+                                    "BM.VIOLATION_COUNT, BM.VIOLATION_AMOUNT, BM.ERROR_COUNT, BM.ERROR_AMOUNT, BM.ALL_COUNT, BM.ALL_AMOUNT, " +
+                                    "BM.CORRECTED_ERROR_COUNT, BM.CORRECTED_ERROR_AMOUNT, BM.OTHER_ERROR_COUNT, BM.OTHER_ERROR_AMOUNT, BM.ACT_COUNT, BM.ACT_AMOUNT, BM.CLAIM_COUNT, " +
+                                    "BM.CLAIM_AMOUNT, BM.REFERENCE_COUNT, BM.REFERENCE_AMOUNT, BM.PROPOSAL_COUNT, BM.PROPOSAL_AMOUNT, BM.LAW_COUNT, BM.LAW_AMOUNT, BM.OTHER_COUNT, BM.OTHER_AMOUNT, " +
+                                    "BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE,BM.UPDATED_BY, BM.UPDATED_DATE " +
+
+                                    "FROM AUD_STAT.BM6_DATA BM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                                    "ORDER BY " +
+                                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'audit_department_id' AND: ORDER_DIR = 'ASC' THEN b.audit_department_id END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'audit_department_id' AND: ORDER_DIR = 'DESC' THEN b.audit_department_id END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN b.AUDIT_YEAR END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN b.AUDIT_YEAR END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN b.AUDIT_TYPE END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN b.AUDIT_TYPE END DESC " +
+                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -3510,7 +4246,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
-                xmlResponseData.Add(new XElement("RowCount", count));
+               // xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -3533,14 +4269,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(BM.ID) " +
-                    "FROM AUD_STAT.BM7_DATA BM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                                    "COUNT(BM.ID) " +
+                                    "FROM AUD_STAT.BM7_DATA BM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -3558,32 +4299,36 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID, BM.OFFICE_ID, RD.DEPARTMENT_NAME, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, BM.AUDIT_YEAR, BM.AUDIT_TYPE, BM.AUDIT_CODE, BM.AUDIT_NAME, BM.DECISION_TYPE,BM.INCOME_STATE_COUNT,BM.INCOME_STATE_AMOUNT, BM.INCOME_LOCAL_COUNT, BM.INCOME_LOCAL_NUMBER, BM.BUDGET_STATE_COUNT,BM.BUDGET_STATE_AMOUNT,BM.BUDGET_LOCAL_COUNT, BM.BUDGET_LOCAL_AMOUNT, BM.ACCOUNTANT_COUNT, BM.ACCOUNTANT_AMOUNT, BM.EFFICIENCY_COUNT, BM.EFFICIENCY_AMOUNT, BM.LAW_COUNT, BM.LAW_AMOUNT, BM.MONITORING_COUNT, BM.MONITORING_AMOUNT, BM.PURCHASE_COUNT, BM.PURCHASE_AMOUNT, BM.COST_COUNT, BM.COST_AMOUNT, BM.OTHER_COUNT, BM.OTHER_AMOUNT, BM.ALL_COUNT, BM.ALL_AMOUNT, BM.EXEC_TYPE, BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE, BM.UPDATED_BY, BM.UPDATED_DATE " +
-                    "FROM AUD_STAT.BM7_DATA BM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON BM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND BM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(BM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(BM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN BM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN BM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN BM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN BM.AUDIT_NAME END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.DECISION_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.DECISION_TYPE END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+                cmd.CommandText = "SELECT " +
+                                    "B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
+                                    "BM.DECISION_TYPE,BM.INCOME_STATE_COUNT,BM.INCOME_STATE_AMOUNT,BM.INCOME_LOCAL_COUNT,BM.INCOME_LOCAL_NUMBER,BM.BUDGET_STATE_COUNT,BM.BUDGET_STATE_AMOUNT,BM.BUDGET_LOCAL_COUNT,BM.BUDGET_LOCAL_AMOUNT,BM.ACCOUNTANT_COUNT, " +
+                                    "BM.ACCOUNTANT_AMOUNT,BM.EFFICIENCY_COUNT,BM.EFFICIENCY_AMOUNT,BM.LAW_COUNT,BM.LAW_AMOUNT,BM.MONITORING_COUNT,BM.MONITORING_AMOUNT,BM.PURCHASE_COUNT,BM.PURCHASE_AMOUNT,BM.COST_COUNT,BM.COST_AMOUNT,BM.OTHER_COUNT,BM.OTHER_AMOUNT, " +
+                                    "BM.ALL_COUNT,BM.ALL_AMOUNT,BM.EXEC_TYPE,BM.IS_ACTIVE,BM.CREATED_BY,BM.CREATED_DATE,BM.UPDATED_BY,BM.UPDATED_DATE " +
+                                    "FROM AUD_STAT.BM7_DATA BM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                                    "ORDER BY " +
+                                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.DECISION_TYPE END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.DECISION_TYPE END DESC " +
+                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -3666,7 +4411,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
                     "FROM AUD_STAT.BM8_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -3711,7 +4456,7 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value  :null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -3754,7 +4499,17 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT OFFICE_ID, STATISTIC_PERIOD, AUDIT_YEAR, AUDIT_TYPE, AUDIT_CODE, AUDIT_NAME, AUDIT_BUDGET_TYPE, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, EXEC_TYPE, CREATED_DATE, ID, IS_ACTIVE, CREATED_BY FROM AUD_STAT.BM8_DATA WHERE ID = :P_ID";
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
+                    "FROM AUD_STAT.BM8_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.CORRECTED_ERROR_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
@@ -3766,6 +4521,55 @@ namespace Audit.App_Func
                 con.Close();
 
                 dtTable.TableName = "BM8Detail";
+
+                StringWriter sw = new StringWriter();
+                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse BM8SelectAdd(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+
+                // Create and execute the command
+                OracleCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME,  RVT.VIOLATION_NAME " +
+                    "FROM AUD_STAT.BM8_DATA BM " +
+                    "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.CORRECTED_ERROR_TYPE = RVT.VIOLATION_ID " +
+                    "WHERE BM.ID = :P_ID";
+
+                // Set parameters
+                cmd.Parameters.Add(":P_ID", OracleDbType.Int32, request.Element("Parameters").Element("P_ID").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+                con.Close();
+
+                dtTable.TableName = "BM8SelectAdd";
 
                 StringWriter sw = new StringWriter();
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
@@ -3798,16 +4602,16 @@ namespace Audit.App_Func
             cmd.Transaction = transaction;
             try
             {
-                XElement elem = request.Element("Parameters").Element("BM8");                
+                XElement elem = request.Element("Parameters").Element("BM8");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET OCORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET CORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
-                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("P_CORRECTED_ERROR_DESC") != null && !string.IsNullOrEmpty(elem.Element("P_CORRECTED_ERROR_DESC").Value) ? elem.Element("CORRECTED_ERROR_DESC").Value : null;
-                cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_ERROR_TYPE").Value) ? elem.Element("CORRECTED_ERROR_TYPE").Value : null;
-                cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_COUNT").Value) ? elem.Element("CORRECTED_COUNT").Value : null;
-                cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_AMOUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_AMOUNT").Value) ? elem.Element("CORRECTED_AMOUNT").Value : null;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_COUNT")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
@@ -3851,15 +4655,15 @@ namespace Audit.App_Func
                 cmd.CommandText = "INSERT INTO AUD_STAT.BM8_DATA(AUDIT_ID, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
                     "VALUES (:P_AUDIT_ID, :P_CORRECTED_ERROR_DESC, :P_CORRECTED_ERROR_TYPE, :P_CORRECTED_COUNT, :P_CORRECTED_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
                 // Set parameters
-                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;                
-                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("P_CORRECTED_ERROR_DESC") != null && !string.IsNullOrEmpty(elem.Element("P_CORRECTED_ERROR_DESC").Value) ? elem.Element("CORRECTED_ERROR_DESC").Value : null;
+                cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_ERROR_TYPE").Value) ? elem.Element("CORRECTED_ERROR_TYPE").Value : null;
                 cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_COUNT").Value) ? elem.Element("CORRECTED_COUNT").Value : null;
                 cmd.Parameters.Add(":P_CORRECTED_AMOUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_AMOUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_AMOUNT").Value) ? elem.Element("CORRECTED_AMOUNT").Value : null;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
-                
+
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
                 bool responseVal = rowsUpdated == 0 ? false : true;
@@ -3895,7 +4699,7 @@ namespace Audit.App_Func
             try
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA "+
+                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA " +
                     "SET IS_ACTIVE = 0, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
@@ -3961,7 +4765,7 @@ namespace Audit.App_Func
 
             return response;
         }
-       
+
         #endregion
         #region NM
         public static DataResponse NM1(XElement request)
@@ -3977,14 +4781,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(NM.ID) " +
-                    "FROM AUD_STAT.NM1_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                                "COUNT(NM.ID) " +
+                                "FROM AUD_STAT.NM1_DATA NM " +
+                                "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                                "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4002,20 +4811,35 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NM.ID,NM.OFFICE_ID, RD.DEPARTMENT_NAME, NM.STATISTIC_PERIOD, RP.PERIOD_LABEL, NM.AUDIT_YEAR, NM.AUDIT_TYPE, NM.AUDIT_CODE, NM.AUDIT_NAME, NM.AUDIT_BUDGET_TYPE, NM.ACT_COUNT, NM.ACT_AMOUNT, NM.COMPLETION_COUNT, NM.COMPLETION_AMOUNT, NM.COMPLETION_STATE_COUNT,NM.COMPLETION_STATE_AMOUNT, NM.COMPLETION_LOCAL_COUNT, NM.COMPLETION_LOCAL_AMOUNT, NM.COMPLETION_ORG_COUNT, NM.COMPLETION_ORG_AMOUNT, NM.COMPLETION_OTHER_COUNT, NM.COMPLETION_OTHER_AMOUNT,NM.REMOVED_COUNT, NM.REMOVED_AMOUNT, NM.REMOVED_LAW_COUNT,NM.REMOVED_LAW_AMOUNT, NM.REMOVED_INVALID_COUNT, NM.REMOVED_INVALID_AMOUNT, NM.ACT_C2_COUNT,NM.ACT_C2_AMOUNT, NM.ACT_NONEXPIRED_COUNT, NM.ACT_EXPIRED_COUNT,NM.ACT_EXPIRED_AMOUNT,NM.BENEFIT_FIN,NM.BENEFIT_FIN_AMOUNT, NM.BENEFIT_NONFIN, NM.EXEC_TYPE, NM.IS_ACTIVE, NM.CREATED_BY, NM.CREATED_DATE, NM.UPDATED_BY, NM.UPDATED_DATE " +
-                    "FROM AUD_STAT.NM1_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME IS NOT NULL AND: ORDER_DIR = 'ASC' THEN 'NM.' ||:ORDER_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME IS NOT NULL AND: ORDER_DIR = 'DESC' THEN 'NM.' ||:ORDER_NAME END DESC " + 
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+                cmd.CommandText = "SELECT "+
+                                    "B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
+                                    "NM.ACT_COUNT,NM.ACT_AMOUNT,NM.COMPLETION_COUNT,NM.COMPLETION_AMOUNT,NM.COMPLETION_STATE_COUNT,NM.COMPLETION_STATE_AMOUNT,NM.COMPLETION_LOCAL_COUNT,NM.COMPLETION_LOCAL_AMOUNT,NM.COMPLETION_ORG_COUNT, " +
+                                    "NM.COMPLETION_ORG_AMOUNT,NM.COMPLETION_OTHER_COUNT,NM.COMPLETION_OTHER_AMOUNT,NM.REMOVED_COUNT,NM.REMOVED_AMOUNT,NM.REMOVED_LAW_COUNT,NM.REMOVED_LAW_AMOUNT,NM.REMOVED_INVALID_COUNT,NM.REMOVED_INVALID_AMOUNT, " +
+                                    "NM.ACT_C2_COUNT,NM.ACT_C2_AMOUNT,NM.ACT_NONEXPIRED_COUNT,NM.ACT_NONEXPIRED_AMOUNT,NM.ACT_EXPIRED_COUNT,NM.ACT_EXPIRED_AMOUNT,NM.BENEFIT_FIN,NM.BENEFIT_FIN_AMOUNT,NM.BENEFIT_NONFIN,NM.EXEC_TYPE,NM.IS_ACTIVE, " +
+                                    "NM.CREATED_BY,NM.CREATED_DATE,NM.UPDATED_BY,NM.UPDATED_DATE " +
+                                    "FROM AUD_STAT.NM1_DATA NM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                                    "ORDER BY " +
+                                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
+                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -4063,14 +4887,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(NM.ID) " +
-                    "FROM AUD_STAT.NM2_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                                    "COUNT(NM.ID) " +
+                                    "FROM AUD_STAT.NM2_DATA NM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4088,32 +4917,64 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NM.ID,NM.OFFICE_ID, RD.DEPARTMENT_NAME, NM.STATISTIC_PERIOD, RP.PERIOD_LABEL, NM.AUDIT_YEAR, NM.AUDIT_TYPE, NM.AUDIT_CODE, NM.AUDIT_NAME, NM.AUDIT_BUDGET_TYPE, NM.CLAIM_VIOLATION_COUNT,NM.CLAIM_VIOLATION_AMOUNT, NM.COMPLETION_COUNT,NM.COMPLETION_AMOUNT,NM.COMPLETION_STATE_COUNT, NM.COMPLETION_STATE_AMOUNT,NM.COMPLETION_LOCAL_COUNT,NM.COMPLETION_LOCAL_AMOUNT, NM.COMPLETION_ORG_COUNT, NM.COMPLETION_ORG_AMOUNT, NM.COMPLETION_OTHER_COUNT, NM.COMPLETION_OTHER_AMOUNT, NM.REMOVED_COUNT, NM.REMOVED_AMOUNT, NM.REMOVED_LAW_COUNT, NM.REMOVED_LAW_AMOUNT, NM.REMOVED_INVALID_COUNT, NM.REMOVED_INVALID_AMOUNT, NM.CLAIM_C2_COUNT, NM.CLAIM_C2_AMOUNT, NM.CLAIM_C2_NONEXPIRED_COUNT, NM.CLAIM_C2_NONEXPIRED_AMOUNT, NM.CLAIM_C2_EXPIRED_COUNT, NM.CLAIM_C2_EXPIRED_AMOUNT, NM.BENEFIT_FIN_COUNT, NM.BENEFIT_FIN_AMOUNT, NM.BENEFIT_NONFIN_COUNT, NM.BENEFIT_NONFIN_AMOUNT, NM.EXEC_TYPE, NM.IS_ACTIVE, NM.CREATED_BY, NM.CREATED_DATE, NM.UPDATED_BY, NM.UPDATED_DATE " +
-                    "FROM AUD_STAT.NM2_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN NM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN NM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_NAME END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_BUDGET_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_BUDGET_TYPE END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                                    "NM.CLAIM_VIOLATION_COUNT, " +
+                                    "NM.CLAIM_VIOLATION_AMOUNT, " +
+                                    "NM.COMPLETION_COUNT, " +
+                                    "NM.COMPLETION_AMOUNT, " +
+                                    "NM.COMPLETION_STATE_COUNT, " +
+                                    "NM.COMPLETION_STATE_AMOUNT, " +
+                                    "NM.COMPLETION_LOCAL_COUNT, " +
+                                    "NM.COMPLETION_LOCAL_AMOUNT, " +
+                                    "NM.COMPLETION_ORG_COUNT, " +
+                                    "NM.COMPLETION_ORG_AMOUNT, " +
+                                    "NM.COMPLETION_OTHER_COUNT, " +
+                                    "NM.COMPLETION_OTHER_AMOUNT, " +
+                                    "NM.REMOVED_COUNT, " +
+                                    "NM.REMOVED_AMOUNT, " +
+                                    "NM.REMOVED_LAW_COUNT, " +
+                                    "NM.REMOVED_LAW_AMOUNT, " +
+                                    "NM.REMOVED_INVALID_COUNT, " +
+                                    "NM.REMOVED_INVALID_AMOUNT, " +
+                                    "NM.CLAIM_C2_COUNT, " +
+                                    "NM.CLAIM_C2_AMOUNT, " +
+                                    "NM.CLAIM_C2_NONEXPIRED_COUNT, " +
+                                    "NM.CLAIM_C2_NONEXPIRED_AMOUNT, " +
+                                    "NM.CLAIM_C2_EXPIRED_COUNT, " +
+                                    "NM.CLAIM_C2_EXPIRED_AMOUNT, " +
+                                    "NM.BENEFIT_FIN_COUNT, " +
+                                    "NM.BENEFIT_FIN_AMOUNT, " +
+                                    "NM.BENEFIT_NONFIN_COUNT, " +
+                                    "NM.BENEFIT_NONFIN_AMOUNT, " +
+                                    "NM.EXEC_TYPE, " +
+                                    "NM.IS_ACTIVE, " +
+                                    "NM.CREATED_BY, " +
+                                    "NM.CREATED_DATE, " +
+                                    "NM.UPDATED_BY, " +
+                                    "NM.UPDATED_DATE " +
+                                    "FROM AUD_STAT.NM2_DATA NM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                                    "ORDER BY " +
+                                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
+                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "FETCH NEXT: PAGESIZE ROWS ONLY";
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -4161,14 +5022,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(NM.ID) " +
-                    "FROM AUD_STAT.NM3_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                                    "COUNT(NM.ID) " +
+                                    "FROM AUD_STAT.NM3_DATA NM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4186,32 +5052,49 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NM.ID,NM.OFFICE_ID, RD.DEPARTMENT_NAME, NM.STATISTIC_PERIOD, RP.PERIOD_LABEL, NM.AUDIT_YEAR, NM.AUDIT_TYPE, NM.AUDIT_CODE, NM.AUDIT_NAME, NM.AUDIT_BUDGET_TYPE,NM.REFERENCE_COUNT,NM.REFERENCE_AMOUNT, NM.COMPLETION_DONE_COUNT, NM.COMPLETION_DONE_AMOUNT, NM.COMPLETION_PROGRESS_COUNT, NM.COMPLETION_PROGRESS_AMOUNT, NM.C2_NONEXPIRED_COUNT, NM.C2_NONEXPIRED_AMOUNT, NM.C2_EXPIRED_COUNT, NM.C2_EXPIRED_AMOUNT, NM.BENEFIT_FIN_COUNT, NM.BENEFIT_FIN_AMOUNT, NM.BENEFIT_NONFIN_COUNT, NM.WORKING_PERSON, NM.WORKING_DAY, NM.WORKING_ADDITION_TIME, NM.EXEC_TYPE, NM.IS_ACTIVE, NM.CREATED_BY, NM.CREATED_DATE, NM.UPDATED_BY, NM.UPDATED_DATE " +
-                    "FROM AUD_STAT.NM3_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN NM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN NM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_NAME END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_BUDGET_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_BUDGET_TYPE END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                                    "NM.REFERENCE_COUNT, " +
+                                    "NM.REFERENCE_AMOUNT, " +
+                                    "NM.COMPLETION_DONE_COUNT, " +
+                                    "NM.COMPLETION_DONE_AMOUNT, " +
+                                    "NM.COMPLETION_PROGRESS_COUNT, " +
+                                    "NM.COMPLETION_PROGRESS_AMOUNT, " +
+                                    "NM.C2_NONEXPIRED_COUNT, " +
+                                    "NM.C2_NONEXPIRED_AMOUNT, " +
+                                    "NM.C2_EXPIRED_COUNT, " +
+                                    "NM.C2_EXPIRED_AMOUNT, " +
+                                    "NM.BENEFIT_FIN_COUNT, " +
+                                    "NM.BENEFIT_FIN_AMOUNT, " +
+                                    "NM.BENEFIT_NONFIN_COUNT, " +
+                                    "NM.EXEC_TYPE, " +
+                                    "NM.IS_ACTIVE, " +
+                                    "NM.CREATED_BY, " +
+                                    "NM.CREATED_DATE, " +
+                                    "NM.UPDATED_BY, " +
+                                    "NM.UPDATED_DATE " +
+                                    "FROM AUD_STAT.NM3_DATA NM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                                    "ORDER BY " +
+                                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                                    "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC, " +
+                                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
+                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -4259,14 +5142,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(NM.ID) " +
-                    "FROM AUD_STAT.NM4_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                                    "COUNT(NM.ID) " +
+                                    "FROM AUD_STAT.NM4_DATA NM " +
+                                    "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                                    "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                                    "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                                    "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                                    "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4284,32 +5172,42 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NM.ID,NM.OFFICE_ID, RD.DEPARTMENT_NAME, NM.STATISTIC_PERIOD, RP.PERIOD_LABEL, NM.AUDIT_YEAR, NM.AUDIT_TYPE, NM.AUDIT_CODE, NM.AUDIT_NAME, NM.AUDIT_BUDGET_TYPE,NM.PROPOSAL_COUNT, NM.PROPOSAL_AMOUNT, NM.COMPLETION_DONE_COUNT, NM.COMPLETION_DONE_AMOUNT,NM.COMPLETION_PROGRESS_COUNT, NM.COMPLETION_PROGRESS_AMOUNT, NM.EXEC_TYPE,NM.CREATED_DATE,NM.PROPOSAL_VIOLATION_TYPE, NM.IS_ACTIVE, NM.CREATED_BY, NM.UPDATED_BY, NM.UPDATED_DATE " +
-                    "FROM AUD_STAT.NM4_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN NM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN NM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_NAME END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_BUDGET_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_BUDGET_TYPE END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                            "NM.PROPOSAL_COUNT, " +
+                            "NM.PROPOSAL_AMOUNT, " +
+                            "NM.COMPLETION_DONE_COUNT, " +
+                            "NM.COMPLETION_DONE_AMOUNT, " +
+                            "NM.COMPLETION_PROGRESS_COUNT, " +
+                            "NM.COMPLETION_PROGRESS_AMOUNT, " +
+                            "NM.EXEC_TYPE, " +
+                            "NM.IS_ACTIVE, " +
+                            "NM.CREATED_BY, " +
+                            "NM.CREATED_DATE, " +
+                            "NM.UPDATED_BY, " +
+                            "NM.UPDATED_DATE " +
+                            "FROM AUD_STAT.NM4_DATA NM " +
+                            "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                            "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                            "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                            "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                            "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                            "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                            "ORDER BY " +
+                            "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
+                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -4357,14 +5255,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(NM.ID) " +
-                    "FROM AUD_STAT.NM5_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                            "COUNT(NM.ID) " +
+                            "FROM AUD_STAT.NM5_DATA NM " +
+                            "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                            "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                            "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                            "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                            "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                            "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4382,33 +5285,46 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NM.ID,NM.OFFICE_ID, RD.DEPARTMENT_NAME, NM.STATISTIC_PERIOD, RP.PERIOD_LABEL, NM.AUDIT_YEAR, NM.AUDIT_TYPE, NM.AUDIT_CODE, NM.AUDIT_NAME, NM.AUDIT_BUDGET_TYPE, NM.LAW_COUNT, NM.LAW_AMOUNT, NM.COMPLETION_DONE_COUNT, NM.COMPLETION_DONE_AMOUNT, NM.COMPLETION_PROGRESS_COUNT, NM.COMPLETION_PROGRESS_AMOUNT,NM.COMPLETION_INVALID_COUNT,NM.COMPLETION_INVALID_AMOUNT, NM.LAW_C2_NUMBER_COUNT, NM.LAW_C2_AMOUNT,NM.EXEC_TYPE, NM.IS_ACTIVE, NM.CREATED_BY, NM.CREATED_DATE, NM.UPDATED_BY, NM.UPDATED_DATE " +
-                    "FROM AUD_STAT.NM5_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN NM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN NM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_NAME END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_BUDGET_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_BUDGET_TYPE END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
-
+                cmd.CommandText = "SELECT  B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                            "NM.LAW_COUNT, " +
+                            "NM.LAW_AMOUNT, " +
+                            "NM.COMPLETION_DONE_COUNT, " +
+                            "NM.COMPLETION_DONE_AMOUNT, " +
+                            "NM.COMPLETION_PROGRESS_COUNT, " +
+                            "NM.COMPLETION_PROGRESS_AMOUNT, " +
+                            "NM.COMPLETION_INVALID_COUNT, " +
+                            "NM.COMPLETION_INVALID_AMOUNT, " +
+                            "NM.LAW_C2_NUMBER_COUNT, " +
+                            "NM.LAW_C2_AMOUNT, " +
+                            "NM.EXEC_TYPE, " +
+                            "NM.IS_ACTIVE, " +
+                            "NM.CREATED_BY, " +
+                            "NM.CREATED_DATE, " +
+                            "NM.UPDATED_BY, " +
+                            "NM.UPDATED_DATE " +
+                            "FROM AUD_STAT.NM5_DATA NM " +
+                            "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                            "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                            "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                            "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                            "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                            "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                            "ORDER BY " +
+                            "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
+                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "FETCH NEXT: PAGESIZE ROWS ONLY";
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4455,14 +5371,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(NM.ID) " +
-                    "FROM AUD_STAT.NM6_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                            "COUNT(NM.ID) " +
+                            "FROM AUD_STAT.NM6_DATA NM " +
+                            "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                            "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                            "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                            "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                            "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                            "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4480,31 +5401,58 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NM.ID,NM.OFFICE_ID, RD.DEPARTMENT_NAME, NM.STATISTIC_PERIOD, RP.PERIOD_LABEL, NM.AUDIT_YEAR, NM.AUDIT_TYPE, NM.AUDIT_CODE, NM.AUDIT_NAME, NM.VIOLATION_COUNT, NM.VIOLATION_AMOUNT, NM.ERROR_COUNT, NM.ERROR_AMOUNT, NM.ALL_COUNT, NM.ALL_AMOUNT, NM.CORRECTED_ERROR_COUNT, NM.CORRECTED_ERROR_AMOUNT, NM.OTHER_ERROR_COUNT, NM.OTHER_ERROR_AMOUNT, NM.ACT_COUNT, NM.ACT_AMOUNT, NM.CLAIM_COUNT, NM.CLAIM_AMOUNT, NM.REFERENCE_COUNT, NM.REFERENCE_AMOUNT, NM.PROPOSAL_COUNT, NM.PROPOSAL_AMOUNT, NM.LAW_COUNT, NM.LAW_AMOUNT,NM.OTHER_COUNT, NM.OTHER_AMOUNT,NM.EXEC_TYPE, NM.IS_ACTIVE, NM.CREATED_BY, NM.CREATED_DATE, NM.UPDATED_BY, NM.UPDATED_DATE " +
-                    "FROM AUD_STAT.NM6_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN NM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN NM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_NAME END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
-
+                cmd.CommandText = "SELECT  B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                            "NM.VIOLATION_COUNT, " +
+                            "NM.VIOLATION_AMOUNT, " +
+                            "NM.ERROR_COUNT, " +
+                            "NM.ERROR_AMOUNT, " +
+                            "NM.ALL_COUNT, " +
+                            "NM.ALL_AMOUNT, " +
+                            "NM.CORRECTED_ERROR_COUNT, " +
+                            "NM.CORRECTED_ERROR_AMOUNT, " +
+                            "NM.OTHER_ERROR_COUNT, " +
+                            "NM.OTHER_ERROR_AMOUNT, " +
+                            "NM.ACT_COUNT, " +
+                            "NM.ACT_AMOUNT, " +
+                            "NM.CLAIM_COUNT, " +
+                            "NM.CLAIM_AMOUNT, " +
+                            "NM.REFERENCE_COUNT, " +
+                            "NM.REFERENCE_AMOUNT, " +
+                            "NM.PROPOSAL_COUNT, " +
+                            "NM.PROPOSAL_AMOUNT, " +
+                            "NM.LAW_COUNT, " +
+                            "NM.LAW_AMOUNT, " +
+                            "NM.OTHER_COUNT, " +
+                            "NM.OTHER_AMOUNT, " +
+                            "NM.EXEC_TYPE, " +
+                            "NM.IS_ACTIVE, " +
+                            "NM.CREATED_BY, " +
+                            "NM.CREATED_DATE, " +
+                            "NM.UPDATED_BY, " +
+                            "NM.UPDATED_DATE " +
+                            "FROM AUD_STAT.NM6_DATA NM " +
+                            "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                            "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                            "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                            "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                            "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                            "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                            "ORDER BY " +
+                            "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
+                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "FETCH NEXT: PAGESIZE ROWS ONLY";
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4551,14 +5499,19 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT COUNT(NM.ID) " +
-                    "FROM AUD_STAT.NM7_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                cmd.CommandText = "SELECT "+
+                            "COUNT(NM.ID) " +
+                            "FROM AUD_STAT.NM7_DATA NM " +
+                            "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                            "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                            "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                            "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                            "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                            "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4576,33 +5529,61 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT NM.ID,NM.OFFICE_ID, RD.DEPARTMENT_NAME, NM.STATISTIC_PERIOD, RP.PERIOD_LABEL, NM.AUDIT_YEAR, NM.AUDIT_TYPE, NM.AUDIT_CODE, NM.AUDIT_NAME, NM.DECISION_TYPE, NM.INCOME_STATE_COUNT, NM.INCOME_STATE_AMOUNT, NM.INCOME_LOCAL_COUNT,NM.INCOME_LOCAL_NUMBER,NM.BUDGET_STATE_COUNT, NM.BUDGET_STATE_AMOUNT,NM.BUDGET_LOCAL_COUNT, NM.BUDGET_LOCAL_AMOUNT, NM.ACCOUNTANT_COUNT, NM.ACCOUNTANT_AMOUNT, NM.EFFICIENCY_COUNT, NM.EFFICIENCY_AMOUNT, NM.LAW_COUNT, NM.LAW_AMOUNT, NM.MONITORING_COUNT, NM.MONITORING_AMOUNT, NM.PURCHASE_COUNT, NM.PURCHASE_AMOUNT,NM.COST_COUNT, NM.COST_AMOUNT, NM.OTHER_COUNT, NM.OTHER_AMOUNT, NM.ALL_COUNT, NM.ALL_AMOUNT,NM.EXEC_TYPE, NM.IS_ACTIVE, NM.CREATED_BY, NM.CREATED_DATE, NM.UPDATED_BY, NM.UPDATED_DATE " +
-                    "FROM AUD_STAT.NM7_DATA NM " +
-                    "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON NM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON NM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND NM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND NM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(NM.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.AUDIT_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                    "OR UPPER(NM.AUDIT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(NM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                    "ORDER BY " +
-                    "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN NM.OFFICE_ID END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN NM.OFFICE_ID END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_YEAR END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_YEAR END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_TYPE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_CODE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_CODE' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_CODE END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'ASC' THEN NM.AUDIT_NAME END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'AUDIT_NAME' AND: ORDER_DIR = 'DESC' THEN NM.AUDIT_NAME END DESC, " +
-                    "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'ASC' THEN NM.DECISION_TYPE END ASC, " +
-                    "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'DESC' THEN NM.DECISION_TYPE END DESC " +
-                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT :PAGESIZE ROWS ONLY";
-
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                            "NM.DECISION_TYPE, " +
+                            "NM.INCOME_STATE_COUNT, " +
+                            "NM.INCOME_STATE_AMOUNT, " +
+                            "NM.INCOME_LOCAL_COUNT, " +
+                            "NM.INCOME_LOCAL_NUMBER, " +
+                            "NM.BUDGET_STATE_COUNT, " +
+                            "NM.BUDGET_STATE_AMOUNT, " +
+                            "NM.BUDGET_LOCAL_COUNT, " +
+                            "NM.BUDGET_LOCAL_AMOUNT, " +
+                            "NM.ACCOUNTANT_COUNT, " +
+                            "NM.ACCOUNTANT_AMOUNT, " +
+                            "NM.EFFICIENCY_COUNT, " +
+                            "NM.EFFICIENCY_AMOUNT, " +
+                            "NM.LAW_COUNT, " +
+                            "NM.LAW_AMOUNT, " +
+                            "NM.MONITORING_COUNT, " +
+                            "NM.MONITORING_AMOUNT, " +
+                            "NM.PURCHASE_COUNT, " +
+                            "NM.PURCHASE_AMOUNT, " +
+                            "NM.COST_COUNT, " +
+                            "NM.COST_AMOUNT, " +
+                            "NM.OTHER_COUNT, " +
+                            "NM.OTHER_AMOUNT, " +
+                            "NM.ALL_COUNT, " +
+                            "NM.ALL_AMOUNT, " +
+                            "NM.EXEC_TYPE, " +
+                            "NM.IS_ACTIVE, " +
+                            "NM.CREATED_BY, " +
+                            "NM.CREATED_DATE, " +
+                            "NM.UPDATED_BY, " +
+                            "NM.UPDATED_DATE " +
+                            "FROM AUD_STAT.NM7_DATA NM " +
+                            "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
+                            "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
+                            "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON B.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON B.AUDIT_YEAR = RAY.YEAR_ID " +
+                            "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON B.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                            "WHERE NM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 " +
+                            "AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND b.audit_department_id = :V_DEPARTMENT)) " +
+                            "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                            "OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                            "ORDER BY " +
+                            "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN NM.ID END ASC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_DEPARTMENT_ID END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_DEPARTMENT_ID' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_DEPARTMENT_ID END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'ASC' THEN RAY.YEAR_LABEL END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
+                            "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
+                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "FETCH NEXT: PAGESIZE ROWS ONLY ";
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -5681,7 +6662,7 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
-                    "AND CM.STATISTIC_PERIOD = :V_PERIOD"; 
+                    "AND CM.STATISTIC_PERIOD = :V_PERIOD";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -7363,7 +8344,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
             }
@@ -7392,7 +8373,7 @@ namespace Audit.App_Func
 
                 // Set parameters
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val", OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
-               
+
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = request.Element("Parameters").Element("ORG_ID")?.Value;
                 cmd.Parameters.Add(":P_PROID", OracleDbType.Int32).Value = request.Element("Parameters").Element("PRO_ID")?.Value;
 
@@ -7403,7 +8384,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай устгалаа");
             }
@@ -7459,7 +8440,7 @@ namespace Audit.App_Func
 
                 object responseValue = retParam.Value;
 
-                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true  :false;
+                bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
                 response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
             }
@@ -7487,85 +8468,34 @@ namespace Audit.App_Func
                 XElement req = request.Element("Parameters").Element("Request");
 
                 string mayagt = null;
+                string typeId = "";
 
-                if(req.Element("V_Mayagt")?.Value != "")
+                if (req.Element("V_Mayagt")?.Value != "")
                 {
                     mayagt = req.Element("V_Mayagt")?.Value;
                 }
                 else
                 {
-                    mayagt = "1,2,3,4,5";
+                    mayagt = "1,2";
                 }
-                
+                if (req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
+                {
+                    typeId = "AND ROP.OPEN_ENT_BUDGET_TYPE =" + req.Element("V_TypeID")?.Value + " AND ";
+                }
+                else
+                {
+                    typeId = " AND ";
+                }
 
 
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = " WITH negtgel1 AS(" +
-                                    "SELECT * FROM (" +
-                                    "SELECT ORGID,  INSERTUSERID,MDCODE,DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
-                                    "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
-                                    "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
-                                    "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN ("+ mayagt + ") " +
-                                    ") D " +
-                                    "PIVOT (" +
-                                    "MAX(DATA01)" +
-                                    "FOR MDCODE IN (1 MD1, 2 MD2, 3 MD3, 4 MD4, 5 MD5, 6 MD6, 7 MD7, 8 MD8, 9 MD9, 10 MD10,11 MD11, 12 MD12, 13 MD13, 14 MD14, 15 MD15, 16 MD16, 17 MD17, 18 MD18, 19 MD19, 20 MD20,21 MD21, 22 MD22, 23 MD23, 24 MD24, 25 MD25, 26 MD26, 27 MD27, 28 MD28, 29 MD29, 30 MD30,31 MD31, 32 MD32,33 MD33,34 MD34,35 MD35)" +
-                                    ") P1 " +
-                                    ")" +
-                                    "SELECT ORGID, " +
-                                    "COUNT(CASE WHEN MD1 = 1 THEN 1 WHEN MD1 = 2 THEN 1 WHEN MD1 = 3 THEN 1 WHEN MD1 = 4 THEN 1  END) MD1," +
-                                    "COUNT(CASE WHEN MD2 = 1 THEN 1 WHEN MD2 = 2 THEN 1 WHEN MD2 = 3 THEN 1 WHEN MD2 = 4 THEN 1  END) MD2," +
-                                    "COUNT(CASE WHEN MD3 = 1 THEN 1 WHEN MD3 = 2 THEN 1 WHEN MD3 = 3 THEN 1 WHEN MD3 = 4 THEN 1  END) MD3," +
-                                    "COUNT(CASE WHEN MD4 = 1 THEN 1 WHEN MD4 = 2 THEN 1 WHEN MD4 = 3 THEN 1 WHEN MD4 = 4 THEN 1  END) MD4," +
-                                    "COUNT(CASE WHEN MD5 = 1 THEN 1 WHEN MD5 = 2 THEN 1 WHEN MD5 = 3 THEN 1 WHEN MD5 = 4 THEN 1  END) MD5," +
-                                    "COUNT(CASE WHEN MD6 = 1 THEN 1 WHEN MD6 = 2 THEN 1 WHEN MD6 = 3 THEN 1 WHEN MD6 = 4 THEN 1  END) MD6," +
-                                    "COUNT(CASE WHEN MD7 = 1 THEN 1 WHEN MD7 = 2 THEN 1 WHEN MD7 = 3 THEN 1 WHEN MD7 = 4 THEN 1  END) MD7," +
-                                    "COUNT(CASE WHEN MD8 = 1 THEN 1 WHEN MD8 = 2 THEN 1 WHEN MD8 = 3 THEN 1 WHEN MD8 = 4 THEN 1  END) MD8," +
-                                    "COUNT(CASE WHEN MD9 = 1 THEN 1 WHEN MD9 = 2 THEN 1 WHEN MD9 = 3 THEN 1 WHEN MD9 = 4 THEN 1  END) MD9," +
-                                    "COUNT(CASE WHEN MD10 = 1 THEN 1 WHEN MD10 = 2 THEN 1 WHEN MD10 = 3 THEN 1 WHEN MD10 = 4 THEN 1  END) MD10," +
-                                    "COUNT(CASE WHEN MD11 = 1 THEN 1 WHEN MD11 = 2 THEN 1 WHEN MD11 = 3 THEN 1 WHEN MD11 = 4 THEN 1  END) MD11," +
-                                    "COUNT(CASE WHEN MD12 = 1 THEN 1 WHEN MD12 = 2 THEN 1 WHEN MD12 = 3 THEN 1 WHEN MD12 = 4 THEN 1  END) MD12," +
-                                    "COUNT(CASE WHEN MD13 = 1 THEN 1 WHEN MD13 = 2 THEN 1 WHEN MD13 = 3 THEN 1 WHEN MD13 = 4 THEN 1  END) MD13," +
-                                    "COUNT(CASE WHEN MD14 = 1 THEN 1 WHEN MD14 = 2 THEN 1 WHEN MD14 = 3 THEN 1 WHEN MD14 = 4 THEN 1  END) MD14," +
-                                    "COUNT(CASE WHEN MD15 = 1 THEN 1 WHEN MD15 = 2 THEN 1 WHEN MD15 = 3 THEN 1 WHEN MD15 = 4 THEN 1  END) MD15," +
-                                    "COUNT(CASE WHEN MD16 = 1 THEN 1 WHEN MD16 = 2 THEN 1 WHEN MD16 = 3 THEN 1 WHEN MD16 = 4 THEN 1  END) MD16," +
-                                    "COUNT(CASE WHEN MD17 = 1 THEN 1 WHEN MD17 = 2 THEN 1 WHEN MD17 = 3 THEN 1 WHEN MD17 = 4 THEN 1  END) MD17," +
-                                    "COUNT(CASE WHEN MD18 = 1 THEN 1 WHEN MD18 = 2 THEN 1 WHEN MD18 = 3 THEN 1 WHEN MD18 = 4 THEN 1  END) MD18," +
-                                    "COUNT(CASE WHEN MD19 = 1 THEN 1 WHEN MD19 = 2 THEN 1 WHEN MD19 = 3 THEN 1 WHEN MD19 = 4 THEN 1  END) MD19," +
-                                    "COUNT(CASE WHEN MD20 = 1 THEN 1 WHEN MD20 = 2 THEN 1 WHEN MD20 = 3 THEN 1 WHEN MD20 = 4 THEN 1  END) MD20," +
-                                    "COUNT(CASE WHEN MD21 = 1 THEN 1 WHEN MD21 = 2 THEN 1 WHEN MD21 = 3 THEN 1 WHEN MD21 = 4 THEN 1  END) MD21," +
-                                    "COUNT(CASE WHEN MD22 = 1 THEN 1 WHEN MD22 = 2 THEN 1 WHEN MD22 = 3 THEN 1 WHEN MD22 = 4 THEN 1  END) MD22," +
-                                    "COUNT(CASE WHEN MD23 = 1 THEN 1 WHEN MD23 = 2 THEN 1 WHEN MD23 = 3 THEN 1 WHEN MD23 = 4 THEN 1  END) MD23," +
-                                    "COUNT(CASE WHEN MD24 = 1 THEN 1 WHEN MD24 = 2 THEN 1 WHEN MD24 = 3 THEN 1 WHEN MD24 = 4 THEN 1  END) MD24," +
-                                    "COUNT(CASE WHEN MD25 = 1 THEN 1 WHEN MD25 = 2 THEN 1 WHEN MD25 = 3 THEN 1 WHEN MD25 = 4 THEN 1  END) MD25," +
-                                    "COUNT(CASE WHEN MD26 = 1 THEN 1 WHEN MD26 = 2 THEN 1 WHEN MD26 = 3 THEN 1 WHEN MD26 = 4 THEN 1  END) MD26," +
-                                    "COUNT(CASE WHEN MD27 = 1 THEN 1 WHEN MD27 = 2 THEN 1 WHEN MD27 = 3 THEN 1 WHEN MD27 = 4 THEN 1  END) MD27," +
-                                    "COUNT(CASE WHEN MD28 = 1 THEN 1 WHEN MD28 = 2 THEN 1 WHEN MD28 = 3 THEN 1 WHEN MD28 = 4 THEN 1  END) MD28," +
-                                    "COUNT(CASE WHEN MD29 = 1 THEN 1 WHEN MD29 = 2 THEN 1 WHEN MD29 = 3 THEN 1 WHEN MD29 = 4 THEN 1  END) MD29," +
-                                    "COUNT(CASE WHEN MD30 = 1 THEN 1 WHEN MD30 = 2 THEN 1 WHEN MD30 = 3 THEN 1 WHEN MD30 = 4 THEN 1  END) MD30," +
-                                    "COUNT(CASE WHEN MD31 = 1 THEN 1 WHEN MD31 = 2 THEN 1 WHEN MD31 = 3 THEN 1 WHEN MD31 = 4 THEN 1  END) MD31," +
-                                    "COUNT(CASE WHEN MD32 = 1 THEN 1 WHEN MD32 = 2 THEN 1 WHEN MD32 = 3 THEN 1 WHEN MD32 = 4 THEN 1  END) MD32," +
-                                    "COUNT(CASE WHEN MD35 = 1 THEN 1 WHEN MD35 = 2 THEN 1 WHEN MD35 = 3 THEN 1 WHEN MD35 = 4 THEN 1  END) MD35 " +
-                                    "FROM negtgel1 " +
-                                    "GROUP BY ORGID";
-
-                cmd.BindByName = true;
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
-
-                DataTable dtTable = new DataTable();
-                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
-                dtTable.TableName = "N1";
-
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "WITH negtgel1 AS( "+
+                cmd.CommandText = "WITH negtgel1 AS( " +
                                         "SELECT * FROM (" +
-                                        "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A "+
-                                        "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID "+
-                                        "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID "+
-                                        "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
+                                        "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, ROP.open_ent_register_no,C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                                        "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
+                                        "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
+                                        "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' "+ typeId + " ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
 
                                         ") D " +
                                         "PIVOT ( " +
@@ -7573,7 +8503,7 @@ namespace Audit.App_Func
                                         "FOR MDCODE IN (1 MD1, 2 MD2, 3 MD3, 4 MD4, 5 MD5, 6 MD6, 7 MD7, 8 MD8, 9 MD9, 10 MD10,11 MD11, 12 MD12, 13 MD13, 14 MD14, 15 MD15, 16 MD16, 17 MD17, 18 MD18, 19 MD19, 20 MD20,21 MD21, 22 MD22, 23 MD23, 24 MD24, 25 MD25, 26 MD26, 27 MD27, 28 MD28, 29 MD29, 30 MD30,31 MD31, 32 MD32,33 MD33,34 MD34,35 MD35) " +
                                         ") P1 " +
                                         ") " +
-                                        "SELECT ORGID, INSERTUSERID,ORGNAME,ORGTYPE,OPEN_HEAD_ROLE, OPEN_HEAD_NAME, OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME ,OPEN_ACC_PHONE, " +
+                                        "SELECT ORGID, INSERTUSERID,open_ent_register_no,ORGNAME,ORGTYPE,OPEN_HEAD_ROLE, OPEN_HEAD_NAME, OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME ,OPEN_ACC_PHONE, " +
                                         "MD1,MD2,MD3, MD4,MD5, MD6, MD7, MD8, MD9,  MD10, MD11,  MD12,  MD13,  MD14,  MD15,  MD16,  MD17,  MD18,  MD19,  MD20, MD21,  MD22, MD23,  MD24,  MD25,  MD26,  MD27,  MD28,  MD29,  MD30, MD31,  MD32, MD33, MD34, MD35 " +
                                         "FROM negtgel1";
 
@@ -7588,7 +8518,7 @@ namespace Audit.App_Func
                 dtTable2.TableName = "N1Footer";
 
                 DataSet dataSet = new DataSet();
-                dataSet.Tables.Add(dtTable);
+               /* dataSet.Tables.Add(dtTable);*/
                 dataSet.Tables.Add(dtTable2);
                 cmd.Dispose();
                 con.Close();
@@ -7621,151 +8551,166 @@ namespace Audit.App_Func
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
-                
+
 
                 OracleCommand cmd = con.CreateCommand();
-             
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "WITH negtgel2 AS(" +
-                                "SELECT* FROM( " +
-                                "SELECT ORGID, INSERTUSERID, MDCODE, DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
-                                "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
-                                "WHERE MDCODE BETWEEN 33 AND 169 AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +
-                                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' " +
-                                ") D " +
-                                "PIVOT( " +
-                                "MAX(DATA01) " +
-                                "FOR MDCODE IN(33 MD33, 34 MD34, 37 MD37, 38 MD38, 39 MD39, 40 MD40, 41 MD41, 42 MD42, 43 MD43, 44 MD44, 45 MD45, 46 MD46, 47 MD47, 48 MD48, 49 MD49, 50 MD50, 51 MD51, 52 MD52, 53 MD53, 54 MD54, 55 MD55, 56 MD56, 57 MD57, 58 MD58, 59 MD59, 60 MD60, 61 MD61, 62 MD62, 63 MD63, 64 MD64, 65 MD65, 66 MD66, 67 MD67, 68 MD68, 69 MD69, 70 MD70, 71 MD71, 72 MD72, 73 MD73, 74 MD74, 75 MD75, 76 MD76, 77 MD77, 78 MD78, 79 MD79, 80 MD80, 81 MD81, 82 MD82, 83 MD83, 84 MD84, 85 MD85, 86 MD86, 87 MD87, 88 MD88, 89 MD89, 90 MD90, 91 MD91, 92 MD92, 93 MD93, 94 MD94, 95 MD95, 96 MD96, 97 MD97, 98 MD98, 99 MD99, 100 MD100, 101 MD101, 102 MD102, 103 MD103, 104 MD104, 105 MD105, 106 MD106, 158 MD158, 159 MD159, 160 MD160, 161 Md161, 162 MD162, 165 MD165, 166 MD166, 167 MD167, 168 MD168, 169 MD169) " +
-                                ") P1 " +
-                                ") " +
-                                "SELECT ORGID, " +
-                                "COUNT(CASE WHEN MD33 = 1 THEN 1 WHEN MD33 = 2 THEN 1 WHEN MD33 = 3 THEN 1 WHEN MD33 = 4 THEN 1  END) MD33, " +
-                                "COUNT(CASE WHEN MD34 = 1 THEN 1 WHEN MD34 = 2 THEN 1 WHEN MD34 = 3 THEN 1 WHEN MD34 = 4 THEN 1  END) MD34, " +
-                                "COUNT(CASE WHEN MD37 = 1 THEN 1 WHEN MD37 = 2 THEN 1 WHEN MD37 = 3 THEN 1 WHEN MD37 = 4 THEN 1  END) MD37, " +
-                                "COUNT(CASE WHEN MD38 = 1 THEN 1 WHEN MD38 = 2 THEN 1 WHEN MD38 = 3 THEN 1 WHEN MD38 = 4 THEN 1  END) MD38, " +
-                                "COUNT(CASE WHEN MD39 = 1 THEN 1 WHEN MD39 = 2 THEN 1 WHEN MD39 = 3 THEN 1 WHEN MD39 = 4 THEN 1  END) MD39, " +
-                                "COUNT(CASE WHEN MD40 = 1 THEN 1 WHEN MD40 = 2 THEN 1 WHEN MD40 = 3 THEN 1 WHEN MD40 = 4 THEN 1  END) MD40, " +
-                                "COUNT(CASE WHEN MD41 = 1 THEN 1 WHEN MD41 = 2 THEN 1 WHEN MD41 = 3 THEN 1 WHEN MD41 = 4 THEN 1  END) MD41, " +
-                                "COUNT(CASE WHEN MD42 = 1 THEN 1 WHEN MD42 = 2 THEN 1 WHEN MD42 = 3 THEN 1 WHEN MD42 = 4 THEN 1  END) MD42, " +
-                                "COUNT(CASE WHEN MD43 = 1 THEN 1 WHEN MD43 = 2 THEN 1 WHEN MD43 = 3 THEN 1 WHEN MD43 = 4 THEN 1  END) MD43, " +
-                                "COUNT(CASE WHEN MD44 = 1 THEN 1 WHEN MD44 = 2 THEN 1 WHEN MD44 = 3 THEN 1 WHEN MD44 = 4 THEN 1  END) MD44, " +
-                                "COUNT(CASE WHEN MD45 = 1 THEN 1 WHEN MD45 = 2 THEN 1 WHEN MD45 = 3 THEN 1 WHEN MD45 = 4 THEN 1  END) MD45, " +
-                                "COUNT(CASE WHEN MD46 = 1 THEN 1 WHEN MD46 = 2 THEN 1 WHEN MD46 = 3 THEN 1 WHEN MD46 = 4 THEN 1  END) MD46, " +
-                                "COUNT(CASE WHEN MD47 = 1 THEN 1 WHEN MD47 = 2 THEN 1 WHEN MD47 = 3 THEN 1 WHEN MD47 = 4 THEN 1  END) MD47, " +
-                                "COUNT(CASE WHEN MD48 = 1 THEN 1 WHEN MD48 = 2 THEN 1 WHEN MD48 = 3 THEN 1 WHEN MD48 = 4 THEN 1  END) MD48, " +
-                                "COUNT(CASE WHEN MD49 = 1 THEN 1 WHEN MD49 = 2 THEN 1 WHEN MD49 = 3 THEN 1 WHEN MD49 = 4 THEN 1  END) MD49, " +
-                                "COUNT(CASE WHEN MD50 = 1 THEN 1 WHEN MD50 = 2 THEN 1 WHEN MD50 = 3 THEN 1 WHEN MD50 = 4 THEN 1  END) MD50, " +
-                                "COUNT(CASE WHEN MD51 = 1 THEN 1 WHEN MD51 = 2 THEN 1 WHEN MD51 = 3 THEN 1 WHEN MD51 = 4 THEN 1  END) MD51, " +
-                                "COUNT(CASE WHEN MD52 = 1 THEN 1 WHEN MD52 = 2 THEN 1 WHEN MD52 = 3 THEN 1 WHEN MD52 = 4 THEN 1  END) MD52, " +
-                                "COUNT(CASE WHEN MD53 = 1 THEN 1 WHEN MD53 = 2 THEN 1 WHEN MD53 = 3 THEN 1 WHEN MD53 = 4 THEN 1  END) MD53, " +
-                                "COUNT(CASE WHEN MD54 = 1 THEN 1 WHEN MD54 = 2 THEN 1 WHEN MD54 = 3 THEN 1 WHEN MD54 = 4 THEN 1  END) MD54, " +
-                                "COUNT(CASE WHEN MD55 = 1 THEN 1 WHEN MD55 = 2 THEN 1 WHEN MD55 = 3 THEN 1 WHEN MD55 = 4 THEN 1  END) MD55, " +
-                                "COUNT(CASE WHEN MD56 = 1 THEN 1 WHEN MD56 = 2 THEN 1 WHEN MD56 = 3 THEN 1 WHEN MD56 = 4 THEN 1  END) MD56, " +
-                                "COUNT(CASE WHEN MD57 = 1 THEN 1 WHEN MD57 = 2 THEN 1 WHEN MD57 = 3 THEN 1 WHEN MD57 = 4 THEN 1  END) MD57, " +
-                                "COUNT(CASE WHEN MD58 = 1 THEN 1 WHEN MD58 = 2 THEN 1 WHEN MD58 = 3 THEN 1 WHEN MD58 = 4 THEN 1  END) MD58, " +
-                                "COUNT(CASE WHEN MD59 = 1 THEN 1 WHEN MD59 = 2 THEN 1 WHEN MD59 = 3 THEN 1 WHEN MD59 = 4 THEN 1  END) MD59, " +
-                                "COUNT(CASE WHEN MD60 = 1 THEN 1 WHEN MD60 = 2 THEN 1 WHEN MD60 = 3 THEN 1 WHEN MD60 = 4 THEN 1  END) MD60, " +
-                                "COUNT(CASE WHEN MD61 = 1 THEN 1 WHEN MD61 = 2 THEN 1 WHEN MD61 = 3 THEN 1 WHEN MD61 = 4 THEN 1  END) MD61, " +
-                                "COUNT(CASE WHEN MD62 = 1 THEN 1 WHEN MD62 = 2 THEN 1 WHEN MD62 = 3 THEN 1 WHEN MD62 = 4 THEN 1  END) MD62, " +
-                                "COUNT(CASE WHEN MD63 = 1 THEN 1 WHEN MD63 = 2 THEN 1 WHEN MD63 = 3 THEN 1 WHEN MD63 = 4 THEN 1  END) MD63, " +
-                                "COUNT(CASE WHEN MD64 = 1 THEN 1 WHEN MD64 = 2 THEN 1 WHEN MD64 = 3 THEN 1 WHEN MD64 = 4 THEN 1  END) MD64, " +
-                                "COUNT(CASE WHEN MD65 = 1 THEN 1 WHEN MD65 = 2 THEN 1 WHEN MD65 = 3 THEN 1 WHEN MD65 = 4 THEN 1  END) MD65, " +
-                                "COUNT(CASE WHEN MD66 = 1 THEN 1 WHEN MD66 = 2 THEN 1 WHEN MD66 = 3 THEN 1 WHEN MD66 = 4 THEN 1  END) MD66, " +
-                                "COUNT(CASE WHEN MD67 = 1 THEN 1 WHEN MD67 = 2 THEN 1 WHEN MD67 = 3 THEN 1 WHEN MD67 = 4 THEN 1  END) MD67, " +
-                                "COUNT(CASE WHEN MD68 = 1 THEN 1 WHEN MD68 = 2 THEN 1 WHEN MD68 = 3 THEN 1 WHEN MD68 = 4 THEN 1  END) MD68, " +
-                                "COUNT(CASE WHEN MD69 = 1 THEN 1 WHEN MD69 = 2 THEN 1 WHEN MD69 = 3 THEN 1 WHEN MD69 = 4 THEN 1  END) MD69, " +
-                                "COUNT(CASE WHEN MD70 = 1 THEN 1 WHEN MD70 = 2 THEN 1 WHEN MD70 = 3 THEN 1 WHEN MD70 = 4 THEN 1  END) MD70, " +
-                                "COUNT(CASE WHEN MD71 = 1 THEN 1 WHEN MD71 = 2 THEN 1 WHEN MD71 = 3 THEN 1 WHEN MD71 = 4 THEN 1  END) MD71, " +
-                                "COUNT(CASE WHEN MD72 = 1 THEN 1 WHEN MD72 = 2 THEN 1 WHEN MD72 = 3 THEN 1 WHEN MD72 = 4 THEN 1  END) MD72, " +
-                                "COUNT(CASE WHEN MD73 = 1 THEN 1 WHEN MD73 = 2 THEN 1 WHEN MD73 = 3 THEN 1 WHEN MD73 = 4 THEN 1  END) MD73, " +
-                                "COUNT(CASE WHEN MD74 = 1 THEN 1 WHEN MD74 = 2 THEN 1 WHEN MD74 = 3 THEN 1 WHEN MD74 = 4 THEN 1  END) MD74, " +
-                                "COUNT(CASE WHEN MD75 = 1 THEN 1 WHEN MD75 = 2 THEN 1 WHEN MD75 = 3 THEN 1 WHEN MD75 = 4 THEN 1  END) MD75, " +
-                                "COUNT(CASE WHEN MD76 = 1 THEN 1 WHEN MD76 = 2 THEN 1 WHEN MD76 = 3 THEN 1 WHEN MD76 = 4 THEN 1  END) MD76, " +
-                                "COUNT(CASE WHEN MD77 = 1 THEN 1 WHEN MD77 = 2 THEN 1 WHEN MD77 = 3 THEN 1 WHEN MD77 = 4 THEN 1  END) MD77, " +
-                                "COUNT(CASE WHEN MD78 = 1 THEN 1 WHEN MD78 = 2 THEN 1 WHEN MD78 = 3 THEN 1 WHEN MD78 = 4 THEN 1  END) MD78, " +
-                                "COUNT(CASE WHEN MD79 = 1 THEN 1 WHEN MD79 = 2 THEN 1 WHEN MD79 = 3 THEN 1 WHEN MD79 = 4 THEN 1  END) MD79, " +
-                                "COUNT(CASE WHEN MD80 = 1 THEN 1 WHEN MD80 = 2 THEN 1 WHEN MD80 = 3 THEN 1 WHEN MD80 = 4 THEN 1  END) MD80, " +
-                                "COUNT(CASE WHEN MD81 = 1 THEN 1 WHEN MD81 = 2 THEN 1 WHEN MD81 = 3 THEN 1 WHEN MD81 = 4 THEN 1  END) MD81, " +
-                                "COUNT(CASE WHEN MD82 = 1 THEN 1 WHEN MD82 = 2 THEN 1 WHEN MD82 = 3 THEN 1 WHEN MD82 = 4 THEN 1  END) MD82, " +
-                                "COUNT(CASE WHEN MD83 = 1 THEN 1 WHEN MD83 = 2 THEN 1 WHEN MD83 = 3 THEN 1 WHEN MD83 = 4 THEN 1  END) MD83, " +
-                                "COUNT(CASE WHEN MD84 = 1 THEN 1 WHEN MD84 = 2 THEN 1 WHEN MD84 = 3 THEN 1 WHEN MD84 = 4 THEN 1  END) MD84, " +
-                                "COUNT(CASE WHEN MD85 = 1 THEN 1 WHEN MD85 = 2 THEN 1 WHEN MD85 = 3 THEN 1 WHEN MD85 = 4 THEN 1  END) MD85, " +
-                                "COUNT(CASE WHEN MD86 = 1 THEN 1 WHEN MD86 = 2 THEN 1 WHEN MD86 = 3 THEN 1 WHEN MD86 = 4 THEN 1  END) MD86, " +
-                                "COUNT(CASE WHEN MD87 = 1 THEN 1 WHEN MD87 = 2 THEN 1 WHEN MD87 = 3 THEN 1 WHEN MD87 = 4 THEN 1  END) MD87, " +
-                                "COUNT(CASE WHEN MD88 = 1 THEN 1 WHEN MD88 = 2 THEN 1 WHEN MD88 = 3 THEN 1 WHEN MD88 = 4 THEN 1  END) MD88, " +
-                                "COUNT(CASE WHEN MD89 = 1 THEN 1 WHEN MD89 = 2 THEN 1 WHEN MD89 = 3 THEN 1 WHEN MD89 = 4 THEN 1  END) MD89, " +
-                                "COUNT(CASE WHEN MD90 = 1 THEN 1 WHEN MD90 = 2 THEN 1 WHEN MD90 = 3 THEN 1 WHEN MD90 = 4 THEN 1  END) MD90, " +
-                                "COUNT(CASE WHEN MD91 = 1 THEN 1 WHEN MD91 = 2 THEN 1 WHEN MD91 = 3 THEN 1 WHEN MD91 = 4 THEN 1  END) MD91, " +
-                                "COUNT(CASE WHEN MD92 = 1 THEN 1 WHEN MD92 = 2 THEN 1 WHEN MD92 = 3 THEN 1 WHEN MD92 = 4 THEN 1  END) MD92, " +
-                                "COUNT(CASE WHEN MD93 = 1 THEN 1 WHEN MD93 = 2 THEN 1 WHEN MD93 = 3 THEN 1 WHEN MD93 = 4 THEN 1  END) MD93, " +
-                                "COUNT(CASE WHEN MD94 = 1 THEN 1 WHEN MD94 = 2 THEN 1 WHEN MD94 = 3 THEN 1 WHEN MD94 = 4 THEN 1  END) MD94, " +
-                                "COUNT(CASE WHEN MD95 = 1 THEN 1 WHEN MD95 = 2 THEN 1 WHEN MD95 = 3 THEN 1 WHEN MD95 = 4 THEN 1  END) MD95, " +
-                                "COUNT(CASE WHEN MD96 = 1 THEN 1 WHEN MD96 = 2 THEN 1 WHEN MD96 = 3 THEN 1 WHEN MD96 = 4 THEN 1  END) MD96, " +
-                                "COUNT(CASE WHEN MD97 = 1 THEN 1 WHEN MD97 = 2 THEN 1 WHEN MD97 = 3 THEN 1 WHEN MD97 = 4 THEN 1  END) MD97, " +
-                                "COUNT(CASE WHEN MD98 = 1 THEN 1 WHEN MD98 = 2 THEN 1 WHEN MD98 = 3 THEN 1 WHEN MD98 = 4 THEN 1  END) MD98, " +
-                                "COUNT(CASE WHEN MD99 = 1 THEN 1 WHEN MD99 = 2 THEN 1 WHEN MD99 = 3 THEN 1 WHEN MD99 = 4 THEN 1  END) MD99, " +
-                                "COUNT(CASE WHEN MD100 = 1 THEN 1 WHEN MD100 = 2 THEN 1 WHEN MD100 = 3 THEN 1 WHEN MD100 = 4 THEN 1  END) MD100, " +
-                                "COUNT(CASE WHEN MD101 = 1 THEN 1 WHEN MD101 = 2 THEN 1 WHEN MD101 = 3 THEN 1 WHEN MD101 = 4 THEN 1  END) MD101, " +
-                                "COUNT(CASE WHEN MD102 = 1 THEN 1 WHEN MD102 = 2 THEN 1 WHEN MD102 = 3 THEN 1 WHEN MD102 = 4 THEN 1  END) MD102, " +
-                                "COUNT(CASE WHEN MD103 = 1 THEN 1 WHEN MD103 = 2 THEN 1 WHEN MD103 = 3 THEN 1 WHEN MD103 = 4 THEN 1  END) MD103, " +
-                                "COUNT(CASE WHEN MD104 = 1 THEN 1 WHEN MD104 = 2 THEN 1 WHEN MD104 = 3 THEN 1 WHEN MD104 = 4 THEN 1  END) MD104, " +
-                                "COUNT(CASE WHEN MD105 = 1 THEN 1 WHEN MD105 = 2 THEN 1 WHEN MD105 = 3 THEN 1 WHEN MD105 = 4 THEN 1  END) MD105, " +
-                                "COUNT(CASE WHEN MD106 = 1 THEN 1 WHEN MD106 = 2 THEN 1 WHEN MD106 = 3 THEN 1 WHEN MD106 = 4 THEN 1  END) MD106, " +
-                                "COUNT(CASE WHEN MD158 = 1 THEN 1 WHEN MD158 = 2 THEN 1 WHEN MD158 = 3 THEN 1 WHEN MD158 = 4 THEN 1  END) MD158, " +
-                                "COUNT(CASE WHEN MD159 = 1 THEN 1 WHEN MD159 = 2 THEN 1 WHEN MD159 = 3 THEN 1 WHEN MD159 = 4 THEN 1  END) MD159, " +
-                                "COUNT(CASE WHEN MD160 = 1 THEN 1 WHEN MD160 = 2 THEN 1 WHEN MD160 = 3 THEN 1 WHEN MD160 = 4 THEN 1  END) MD160, " +
-                                "COUNT(CASE WHEN MD161 = 1 THEN 1 WHEN MD161 = 2 THEN 1 WHEN MD161 = 3 THEN 1 WHEN MD161 = 4 THEN 1  END) MD161, " +
-                                "COUNT(CASE WHEN MD162 = 1 THEN 1 WHEN MD162 = 2 THEN 1 WHEN MD162 = 3 THEN 1 WHEN MD162 = 4 THEN 1  END) MD162, " +
-                                "COUNT(CASE WHEN MD165 = 1 THEN 1 WHEN MD165 = 2 THEN 1 WHEN MD165 = 3 THEN 1 WHEN MD165 = 4 THEN 1  END) MD165, " +
-                                "COUNT(CASE WHEN MD166 = 1 THEN 1 WHEN MD166 = 2 THEN 1 WHEN MD166 = 3 THEN 1 WHEN MD166 = 4 THEN 1  END) MD166, " +
-                                "COUNT(CASE WHEN MD167 = 1 THEN 1 WHEN MD167 = 2 THEN 1 WHEN MD167 = 3 THEN 1 WHEN MD167 = 4 THEN 1  END) MD167, " +
-                                "COUNT(CASE WHEN MD168 = 1 THEN 1 WHEN MD168 = 2 THEN 1 WHEN MD168 = 3 THEN 1 WHEN MD168 = 4 THEN 1  END) MD168, " +
-                                "COUNT(CASE WHEN MD169 = 1 THEN 1 WHEN MD169 = 2 THEN 1 WHEN MD169 = 3 THEN 1 WHEN MD169 = 4 THEN 1  END) MD169 " +
-                                "FROM negtgel2 " +
-                                "GROUP BY ORGID";
-               
 
-                cmd.BindByName = true;
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+              
+                string mayagt = null;
+                string typeId = "";
 
-
-                DataTable dtTable = new DataTable();
-                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
-                dtTable.TableName = "Report1N2";
-
+                if (req.Element("V_Mayagt")?.Value != "")
+                {
+                    mayagt = req.Element("V_Mayagt")?.Value;
+                }
+                else
+                {
+                    mayagt = "1,2";
+                }
+                if(req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
+                {
+                    typeId = "AND ROP.OPEN_ENT_BUDGET_TYPE =" + req.Element("V_TypeID")?.Value + " AND ";
+                }
+                else
+                {
+                    typeId = " AND ";
+                }
 
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "WITH Negtgel2 AS( " +
                                "SELECT* FROM( " +
-                               "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01, ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE, ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                               "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01, ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE, ROP.open_ent_register_no, ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
-                               "WHERE MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,158,159,160,161,162,165,166,167,168,169) " +
-                               "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +
-                               //"AND rop.OPEN_ENT_NAME like '%ИТХ/ДЭЛГЭРХААН/%' " +
+                               "WHERE MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111) " +
+                               "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +typeId +" ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
+                               
                                ") D " +
                                "PIVOT( " +
                                "MAX(DATA01) " +
-                               "FOR MDCODE IN(33 MD33, 34 MD34, 37 MD37, 38 MD38, 39 MD39, 40 MD40, 41 MD41, 42 MD42, 43 MD43, 44 MD44, 45 MD45, 46 MD46, 47 MD47, 48 MD48, 49 MD49, 56 MD56, 57 MD57, 58 MD58, 59 MD59, 60 MD60, 61 MD61, 62 MD62, 50 MD50, 51 MD51, 52 MD52, 53 MD53, 54 MD54, 55 MD55, 63 MD63, 64 MD64, 65 MD65, 66 MD66, 67 MD67, 68 MD68, 69 MD69, 70 MD70, 71 MD71, 72 MD72, 73 MD73, 74 MD74, 75 MD75, 76 MD76, 77 MD77, 78 MD78, 79 MD79, 80 MD80, 81 MD81, 82 MD82, 83 MD83, 84 MD84, 85 MD85, 86 MD86, 87 MD87, 88 MD88, 89 MD89, 90 MD90, 91 MD91, 92 MD92, 93 MD93, 94 MD94, 95 MD95, 96 MD96, 97 MD97, 98 MD98, 99 MD99, 100 MD100, 101 MD101, 102 MD102, 103 MD103, 104 MD104, 105 MD105, 106 MD106, 158 MD158, 159 MD159, 160 MD160, 161 Md161, 162 MD162, 165 MD165, 166 MD166, 167 MD167, 168 MD168, 169 MD169) " +
+                               "FOR MDCODE IN(33 MD33, 34 MD34, 37 MD37, 38 MD38, 39 MD39, 40 MD40, 41 MD41, 42 MD42, 43 MD43, 44 MD44, 45 MD45, 46 MD46, 47 MD47, 48 MD48, 49 MD49, 56 MD56, 57 MD57, 58 MD58, 59 MD59, 60 MD60, 61 MD61, 62 MD62, 50 MD50, 51 MD51, 52 MD52, 53 MD53, 54 MD54, 55 MD55, 63 MD63, 64 MD64, 65 MD65, 66 MD66, 67 MD67, 68 MD68, 69 MD69, 70 MD70, 71 MD71, 72 MD72, 73 MD73, 74 MD74, 75 MD75, 76 MD76, 77 MD77, 78 MD78, 79 MD79, 80 MD80, 81 MD81, 82 MD82, 83 MD83, 84 MD84, 85 MD85, 86 MD86, 87 MD87, 88 MD88, 89 MD89, 90 MD90, 91 MD91, 92 MD92, 93 MD93, 94 MD94, 95 MD95, 96 MD96, 97 MD97, 98 MD98, 99 MD99, 100 MD100, 101 MD101, 102 MD102, 103 MD103, 104 MD104, 105 MD105, 106 MD106, 107 MD107,108 MD108,109 MD109,110 MD110,111 MD111) " +
                                ") P1 " +
                                ") " +
-                               "SELECT ORGID, ORGNAME, ORGTYPE, INSERTUSERID, " +
-                               "MD33, MD34, MD37, MD38, MD39, MD40, MD41, MD42, MD43, MD44, MD45, MD46, MD47, MD48, MD49, MD56, MD57, MD58, MD59, MD60, MD61, MD62, MD50, MD51, MD52, MD53, MD54, MD55, MD63, MD64, MD65, MD66, MD67, MD68, MD69, MD70, MD71, MD72, MD73, MD74, MD75, MD76, MD77, MD78, MD79, MD80, MD81, MD82, MD83, MD84, MD85, MD86, MD87, MD88, MD89, MD90, MD91, MD92, MD93, MD94, MD95, MD96, MD97, MD98, MD99, MD100, MD101, MD102, MD103, MD104, MD105, MD106, MD158, MD159, MD160, Md161, MD162, MD165, MD166, MD167, MD168, MD169 " +
+                               "SELECT ORGID, ORGNAME, ORGTYPE, INSERTUSERID, open_ent_register_no, " +
+                               "MD33, MD34, MD37, MD38, MD39, MD40, MD41, MD42, MD43, MD44, MD45, MD46, MD47, MD48, MD49, MD56, MD57, MD58, MD59, MD60, MD61, MD62, MD50, MD51, MD52, MD53, MD54, MD55, MD63, MD64, MD65, MD66, MD67, MD68, MD69, MD70, MD71, MD72, MD73, MD74, MD75, MD76, MD77, MD78, MD79, MD80, MD81, MD82, MD83, MD84, MD85, MD86, MD87, MD88, MD89, MD90, MD91, MD92, MD93, MD94, MD95, MD96, MD97, MD98, MD99, MD100, MD101, MD102, MD103, MD104, MD105, MD106, MD107, MD108, MD109, MD110, MD111 " +
                                "FROM Negtgel2";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
-                
+                cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
+              
 
                 DataTable dtTable2 = new DataTable();
                 dtTable2.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
                 dtTable2.TableName = "Report1N2Footer";
 
                 DataSet dataSet = new DataSet();
-                dataSet.Tables.Add(dtTable);
+                /*dataSet.Tables.Add(dtTable);*/
                 dataSet.Tables.Add(dtTable2);
+                cmd.Dispose();
+                con.Close();
+
+
+
+                StringWriter sw = new StringWriter();
+                dataSet.WriteXml(sw, XmlWriteMode.WriteSchema);
+
+                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                response.CreateResponse(xmlResponseData);
+            }
+            catch (Exception ex)
+            {
+                response.CreateResponse(ex);
+            }
+
+            return response;
+        }
+        public static DataResponse ReportN2(XElement request)
+        {
+            DataResponse response = new DataResponse();
+
+            try
+            {
+
+                // Open a connection to the database
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                con.Open();
+                XElement req = request.Element("Parameters").Element("Request");
+                string mayagt = null;
+                string typeId = "";
+                if (req.Element("V_Mayagt")?.Value != "")
+                {
+                    mayagt = req.Element("V_Mayagt")?.Value;
+                }
+                else
+                {
+                    mayagt = "4";
+                }
+                if (req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
+                {
+                    typeId = "AND ROP.OPEN_ENT_BUDGET_TYPE =" + req.Element("V_TypeID")?.Value + " AND ";
+                }
+                else
+                {
+                    typeId = " AND ";
+                }
+                OracleCommand cmd = con.CreateCommand();
+
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = " WITH Negtgel2 AS( " +
+                " SELECT * FROM ( " +
+                " SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME,ROP.open_ent_register_no, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                " LEFT  JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
+                " LEFT  JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID  " +
+                "         WHERE MDCODE IN(116,117,118,119,120,121, " +
+                " 123,124,125,126,127,128, " +
+                " 130,131,132,133,134,135, " +
+                " 137,138,139,140,141,142, " +
+                " 143, " +
+                " 144, " +
+                " 146,147,148,149,150,151,152,153, " +
+                " 155,156,157,158,159,160, " +
+                " 104,105,106, " +
+                " 107,108,109,110,111,112,113) " +
+                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT "+ typeId + " ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
+                " ) D  " +
+                " PIVOT ( " +
+                " MAX(DATA01) " +
+                " FOR MDCODE IN (116 MD116,117 MD117,118 MD118,119 MD119,120 MD120,121 MD121,  " +
+                " 123 MD123,124 MD124,125 MD125,126 MD126,127 MD127,128 MD128, " +
+                " 130 MD130,131 MD131,132 MD132,133 MD133,134 MD134,135 MD135, " +
+                " 137 MD137,138 MD138,139 MD139,140 MD140,141 MD141,142 MD142, " +
+                " 143 MD143, " +
+                " 144 MD144, " +
+                " 146 MD146,147 MD147,148 MD148,149 MD149,150 MD150,151 MD151,152 MD152,153 MD153, " +
+                " 155 MD155,156 MD156,157 MD157,158 MD158,159 MD159,160 MD160, " +
+                " 104 MD104,105 MD105,106 MD106, " +
+                " 107 MD107,108 MD108,109 MD109,110 MD110,111 MD111,112 MD112,113 MD113) " +
+                " ) P1 " +
+                " ) " +
+                " SELECT ORGID, YEARCODE, INSERTUSERID, ORGNAME, ORGTYPE,OPEN_HEAD_ROLE,OPEN_HEAD_NAME,OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME , OPEN_ACC_PHONE, open_ent_register_no, " +
+                " MD116,MD117,MD118,MD119,MD120,MD121,MD123,MD124,MD125,MD126,MD127,MD128,MD130,MD131,MD132,MD133,MD134,MD135,MD137,MD138,MD139,MD140,MD141,MD142,MD143,MD144,MD146,MD147,MD148,MD149,MD150,MD151,MD152,MD153, " +
+                " MD155,MD156,MD157,MD158,MD159,MD160,MD104,MD105,MD106,MD107,MD108,MD109,MD110,MD111,MD112,MD113 " +
+                " FROM Negtgel2";
+
+
+
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
+
+                DataTable dtTable = new DataTable();
+                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+                dtTable.TableName = "ReportN2";
+
+
+               
+
+                DataSet dataSet = new DataSet();
+                dataSet.Tables.Add(dtTable);
+               
                 cmd.Dispose();
                 con.Close();
 

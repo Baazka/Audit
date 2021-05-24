@@ -8,12 +8,11 @@
 
 
     .vertical {
-        writing-mode: vertical-lr;
+        writing-mode: vertical-rl;
         -ms-writing-mode: tb-rl;
         transform: rotate(180deg);
         width: 60px;
         height:250px;
-        align-content:center;
     }
 </style>
 <div class="d-flex">
@@ -38,28 +37,37 @@
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Report1N2ListInit(pagelength = 10,[1]);">
-                Маягт-1
-            </a>
+            <label for="TypeID" class="col-form-label">ТЕЗ:</label>
+            @Html.DropDownListFor(model => model.TypeID, new List<SelectListItem>
+               { new SelectListItem{Text="Төсвийн ерөнхийлөн захирагч", Value="1"},
+                 new SelectListItem{Text="Төсвийн төвлөрүүлэн захирагч", Value="2"},
+                 new SelectListItem{Text="Төсвийн шууд захирагч", Value="3"}},
+               "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
+            @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Report1N2ListInit(pagelength = 10,[2]);">
-                Маягт-2
-            </a>
-        </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Mayagt(1);">
+                    3.1.1
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Mayagt(2);">
+                    3.1.2
+                </a>
+            </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="Report1N2exportXLSX" onclick="exportFileExcel('Report1N2', 'Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт - 1.2 ')">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-excel"></i>
-                </span>
-                <span class="text">Excel</span>
-            </a>
-        </div>
-        @*<div class="container">
+            <div class="form-group-sm ml-auto pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="Report1N2exportXLSX" onclick="exportFileExcel('Report1N2', 'Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт - 1.2 ')">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Excel</span>
+                </a>
+            </div>
+            @*<div class="container">
                 <div class="row">
                     <div class="col-6 col-sm-4">ТЕЗ</div>
                     <div class="col-6 col-sm-4">НЗД</div>
@@ -78,7 +86,7 @@
 
 
 
-        @*<div class="form-group-sm ml-auto pr-2">
+            @*<div class="form-group-sm ml-auto pr-2">
                 <br />
                 <p>Хамрах хугацаа: </p>
             </div>*@
@@ -93,6 +101,7 @@
                     <tr class="bg-light">
                         <th rowspan="2" class="text-center">№</th>
                         <th rowspan="2" class="text-center">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</th>
+                        <th rowspan="2" class="text-center">Регистрийн дугаар</th>
                         <th colspan="1">6.4.1. Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт</th>
                         <th colspan="1">6.4.2. Тухайн байгууллагын  төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт</th>
                         <th colspan="8">6.4.3. Тендерт шалгарсан болон шалгараагүй оролцогчийн талаарх товч мэдээлэл, шалгарсан болон шалгараагүй хуулийн үндэслэл, шалтгаан</th>
@@ -192,14 +201,17 @@
 
 @section scripts{
     <script>
-
+        var mayagt = "";
         $(document).ready(function () {
             Report1N2ListInit();
         });
+        function Mayagt(param) {
+            mayagt = param;
+            Report1N2ListInit(pagelength = 10);
+        }
 
 
-
-        function Report1N2ListInit(pagelength = 10, mayagt) {
+        function Report1N2ListInit(pagelength = 10) {
             var count = 0
             Report1N2.table = $("#Report1N2").DataTable({
                 "serverSide": true,
@@ -208,8 +220,9 @@
                     url: "/api/service/Report1N2List",
                     type: 'POST',
                     data: function (data) {
-                        data.DeparmentID = $('#DeparmentID').val();
+                        data.DeparmentID = $('#DeparmentID').val(); 
                         data.Mayagt = mayagt;
+                        data.TypeID = $('#TypeID').val();
                         count = 0;
                         return data;
                     }
@@ -238,7 +251,7 @@
                             else if (data.ORGNAME === "Хугацаа хоцроосон") {
                                 return "";
                             }
-                            else if (data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй") {  
+                            else if (data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй") {
                                 return "";
                             }
                             else if (data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь") {
@@ -255,42 +268,43 @@
                             }
                             else if (data.ORGNAME === "Төсвийн шууд захирагч") {
                                 return "";
-                            } 
+                            }
                             else
                                 return count = count + 1;
                         }
                     },
-                    { "data": "ORGNAME", "name": "ORGNAME"},
-                    { "data": "MD33", "name": "MD33", "class": "text-center"},
-                    { "data": "MD34", "name": "MD34", "class": "text-center"},
-                    { "data": "MD37", "name": "MD37", "class": "text-center"},
-                    { "data": "MD38", "name": "MD38", "class": "text-center"},
-                    { "data": "MD39", "name": "MD39", "class": "text-center"},
-                    { "data": "MD40", "name": "MD40", "class": "text-center"},
-                    { "data": "MD41", "name": "MD41", "class": "text-center"},
-                    { "data": "MD42", "name": "MD42", "class": "text-center"},
-                    { "data": "MD43", "name": "MD43", "class": "text-center"},
-                    { "data": "MD44", "name": "MD44", "class": "text-center"},
-                    { "data": "MD46", "name": "MD46", "class": "text-center"},
-                    { "data": "MD47", "name": "MD47", "class": "text-center"},
-                    { "data": "MD48", "name": "MD48", "class": "text-center"},
-                    { "data": "MD49", "name": "MD49", "class": "text-center"},
-                    { "data": "MD50", "name": "MD50", "class": "text-center"},
-                    { "data": "MD51", "name": "MD51", "class": "text-center"},
-                    { "data": "MD60", "name": "MD60", "class": "text-center"},
-                    { "data": "MD61", "name": "MD61", "class": "text-center"},
-                    { "data": "MD62", "name": "MD62", "class": "text-center"},
-                    { "data": "MD63", "name": "MD63", "class": "text-center"},
-                    { "data": "MD64", "name": "MD64", "class": "text-center"},
-                    { "data": "MD65", "name": "MD65", "class": "text-center"},
-                    { "data": "MD53", "name": "MD53", "class": "text-center"},
-                    { "data": "MD54", "name": "MD54", "class": "text-center"},
-                    { "data": "MD55", "name": "MD55", "class": "text-center"},
-                    { "data": "MD56", "name": "MD56", "class": "text-center"},
-                    { "data": "MD57", "name": "MD57", "class": "text-center"},
-                    { "data": "MD58", "name": "MD58", "class": "text-center"},
-                    { "data": "MD66", "name": "MD66", "class": "text-center"},
-                    { "data": "MD67", "name": "MD67", "class": "text-center"},
+                    { "data": "ORGNAME", "name": "ORGNAME" }, 
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "class": "text-center" },
+                    { "data": "MD33", "name": "MD33", "class": "text-center" },
+                    { "data": "MD34", "name": "MD34", "class": "text-center" },
+                    { "data": "MD37", "name": "MD37", "class": "text-center" },
+                    { "data": "MD38", "name": "MD38", "class": "text-center" },
+                    { "data": "MD39", "name": "MD39", "class": "text-center" },
+                    { "data": "MD40", "name": "MD40", "class": "text-center" },
+                    { "data": "MD41", "name": "MD41", "class": "text-center" },
+                    { "data": "MD42", "name": "MD42", "class": "text-center" },
+                    { "data": "MD43", "name": "MD43", "class": "text-center" },
+                    { "data": "MD44", "name": "MD44", "class": "text-center" },
+                    { "data": "MD46", "name": "MD46", "class": "text-center" },
+                    { "data": "MD47", "name": "MD47", "class": "text-center" },
+                    { "data": "MD48", "name": "MD48", "class": "text-center" },
+                    { "data": "MD49", "name": "MD49", "class": "text-center" },
+                    { "data": "MD50", "name": "MD50", "class": "text-center" },
+                    { "data": "MD51", "name": "MD51", "class": "text-center" },
+                    { "data": "MD60", "name": "MD60", "class": "text-center" },
+                    { "data": "MD61", "name": "MD61", "class": "text-center" },
+                    { "data": "MD62", "name": "MD62", "class": "text-center" },
+                    { "data": "MD63", "name": "MD63", "class": "text-center" },
+                    { "data": "MD64", "name": "MD64", "class": "text-center" },
+                    { "data": "MD65", "name": "MD65", "class": "text-center" },
+                    { "data": "MD53", "name": "MD53", "class": "text-center" },
+                    { "data": "MD54", "name": "MD54", "class": "text-center" },
+                    { "data": "MD55", "name": "MD55", "class": "text-center" },
+                    { "data": "MD56", "name": "MD56", "class": "text-center" },
+                    { "data": "MD57", "name": "MD57", "class": "text-center" },
+                    { "data": "MD58", "name": "MD58", "class": "text-center" },
+                    { "data": "MD66", "name": "MD66", "class": "text-center" },
+                    { "data": "MD67", "name": "MD67", "class": "text-center" },
                     { "data": "MD69", "name": "MD69", "class": "text-center" },
                     { "data": "MD70", "name": "MD70", "class": "text-center" },
                     { "data": "MD71", "name": "MD71", "class": "text-center" },
@@ -321,14 +335,14 @@
                     { "data": "MD100", "name": "MD100", "class": "text-center" },
                     { "data": "MD101", "name": "MD101", "class": "text-center" },
                     { "data": "MD102", "name": "MD102", "class": "text-center" },
-                    { "data": "MD161", "name": "MD161", "class": "text-center" },
+                    { "data": "MD104", "name": "MD104", "class": "text-center" },
                     { "data": "MD105", "name": "MD105", "class": "text-center" },
                     { "data": "MD106", "name": "MD106", "class": "text-center" },
-                    { "data": "MD165", "name": "MD165" },
-                    { "data": "MD166", "name": "MD166" },
-                    { "data": "MD167", "name": "MD167" },
-                    { "data": "MD168", "name": "MD168" },
-                    { "data": "MD169", "name": "MD169" },
+                    { "data": "MD107", "name": "MD107" },
+                    { "data": "MD108", "name": "MD108" },
+                    { "data": "MD109", "name": "MD109" },
+                    { "data": "MD110", "name": "MD110" },
+                    { "data": "MD111", "name": "MD111" },
                 ],
                 //columnDefs: [
                 //    { width: 10, targets: 2 },
@@ -348,6 +362,33 @@
                 lengthChange: true,
                 "language": datatables.language,
                 "ordering": false,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.ORGNAME === "НИЙТ ДҮН" || data.ORGNAME === "Мэдээлсэн"
+                            || data.ORGNAME === "Мэдээлээгүй" || data.ORGNAME === "Хугацаа хоцроосон" || data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь" ||
+                            data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй" || data.ORGNAME === "Хугацаа хоцролтын хэрэгжилтийн хувь") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+
+                            });
+                        } else if (data.ORGNAME === "Төсвийн ерөнхийлөн захирагч" || data.ORGNAME === "Төсвийн төвлөрүүлэн захирагч" || data.ORGNAME === "Төсвийн шууд захирагч") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+                                if (index !== 34)
+                                    $('td', row).eq(index).addClass('tableBorder');
+
+                            });
+                        }
+                    }
+                },
 
 
             });
@@ -357,12 +398,15 @@
         $('#DeparmentID').change(function () {
             Report1N2ListInit();
         });
+        $('#TypeID').change(function () {
+            Report1N2ListInit();
+        });
 
 
         var Report1N2 = {
             Report1N2ID: null,
-            table:null,
-        display: function (data) {
+            table: null,
+            display: function (data) {
 
 
             },
@@ -370,11 +414,11 @@
 
 
 
-        close: function () {
-            $("#Bm0Modal").modal("hide");
-        },
-       
-    }
+            close: function () {
+                $("#Bm0Modal").modal("hide");
+            },
+
+        }
         function exportFileExcel(tableid, excelname,) {
             $('#Report1N2exportXLSX').addClass('disabled');
             Report1N2.table.destroy();
