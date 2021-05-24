@@ -367,10 +367,13 @@
     <Content Include="Images\spinner.gif" />
     <Content Include="Images\ubeg.png" />
     <Content Include="Log\dontdelete.txt" />
+    <Content Include="Plugins\datatables\buttons.html5.min.js" />
     <Content Include="Plugins\datatables\Case-Sensitive.js" />
     <Content Include="Plugins\datatables\dataTables.bootstrap4.min.css" />
     <Content Include="Plugins\datatables\dataTables.bootstrap4.min.js" />
+    <Content Include="Plugins\datatables\dataTables.buttons.min.js" />
     <Content Include="Plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="Plugins\datatables\jszip.min.js" />
     <Content Include="Plugins\fontawesome\attribution.js" />
     <Content Include="Plugins\fontawesome\css\all.css" />
     <Content Include="Plugins\fontawesome\css\all.min.css" />
