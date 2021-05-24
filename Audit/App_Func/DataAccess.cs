@@ -8263,6 +8263,7 @@ namespace Audit.App_Func
                 XElement req = request.Element("Parameters").Element("Request");
 
                 string mayagt = null;
+                string typeId = "";
 
                 if (req.Element("V_Mayagt")?.Value != "")
                 {
@@ -8270,78 +8271,26 @@ namespace Audit.App_Func
                 }
                 else
                 {
-                    mayagt = "1,2,3,4,5";
+                    mayagt = "1,2";
+                }
+                if (req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
+                {
+                    typeId = "AND ROP.OPEN_ENT_BUDGET_TYPE =" + req.Element("V_TypeID")?.Value + " AND ";
+                }
+                else
+                {
+                    typeId = " AND ";
                 }
 
 
-
                 OracleCommand cmd = con.CreateCommand();
-                /*cmd.CommandType = CommandType.Text;
-                cmd.CommandText = " WITH negtgel1 AS(" +
-                                    "SELECT * FROM (" +
-                                    "SELECT ORGID,  INSERTUSERID,MDCODE,DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
-                                    "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
-                                    "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
-                                    "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
-                                    ") D " +
-                                    "PIVOT (" +
-                                    "MAX(DATA01)" +
-                                    "FOR MDCODE IN (1 MD1, 2 MD2, 3 MD3, 4 MD4, 5 MD5, 6 MD6, 7 MD7, 8 MD8, 9 MD9, 10 MD10,11 MD11, 12 MD12, 13 MD13, 14 MD14, 15 MD15, 16 MD16, 17 MD17, 18 MD18, 19 MD19, 20 MD20,21 MD21, 22 MD22, 23 MD23, 24 MD24, 25 MD25, 26 MD26, 27 MD27, 28 MD28, 29 MD29, 30 MD30,31 MD31, 32 MD32,33 MD33,34 MD34,35 MD35)" +
-                                    ") P1 " +
-                                    ")" +
-                                    "SELECT ORGID, " +
-                                    "COUNT(CASE WHEN MD1 = 1 THEN 1 WHEN MD1 = 2 THEN 1 WHEN MD1 = 3 THEN 1 WHEN MD1 = 4 THEN 1  END) MD1," +
-                                    "COUNT(CASE WHEN MD2 = 1 THEN 1 WHEN MD2 = 2 THEN 1 WHEN MD2 = 3 THEN 1 WHEN MD2 = 4 THEN 1  END) MD2," +
-                                    "COUNT(CASE WHEN MD3 = 1 THEN 1 WHEN MD3 = 2 THEN 1 WHEN MD3 = 3 THEN 1 WHEN MD3 = 4 THEN 1  END) MD3," +
-                                    "COUNT(CASE WHEN MD4 = 1 THEN 1 WHEN MD4 = 2 THEN 1 WHEN MD4 = 3 THEN 1 WHEN MD4 = 4 THEN 1  END) MD4," +
-                                    "COUNT(CASE WHEN MD5 = 1 THEN 1 WHEN MD5 = 2 THEN 1 WHEN MD5 = 3 THEN 1 WHEN MD5 = 4 THEN 1  END) MD5," +
-                                    "COUNT(CASE WHEN MD6 = 1 THEN 1 WHEN MD6 = 2 THEN 1 WHEN MD6 = 3 THEN 1 WHEN MD6 = 4 THEN 1  END) MD6," +
-                                    "COUNT(CASE WHEN MD7 = 1 THEN 1 WHEN MD7 = 2 THEN 1 WHEN MD7 = 3 THEN 1 WHEN MD7 = 4 THEN 1  END) MD7," +
-                                    "COUNT(CASE WHEN MD8 = 1 THEN 1 WHEN MD8 = 2 THEN 1 WHEN MD8 = 3 THEN 1 WHEN MD8 = 4 THEN 1  END) MD8," +
-                                    "COUNT(CASE WHEN MD9 = 1 THEN 1 WHEN MD9 = 2 THEN 1 WHEN MD9 = 3 THEN 1 WHEN MD9 = 4 THEN 1  END) MD9," +
-                                    "COUNT(CASE WHEN MD10 = 1 THEN 1 WHEN MD10 = 2 THEN 1 WHEN MD10 = 3 THEN 1 WHEN MD10 = 4 THEN 1  END) MD10," +
-                                    "COUNT(CASE WHEN MD11 = 1 THEN 1 WHEN MD11 = 2 THEN 1 WHEN MD11 = 3 THEN 1 WHEN MD11 = 4 THEN 1  END) MD11," +
-                                    "COUNT(CASE WHEN MD12 = 1 THEN 1 WHEN MD12 = 2 THEN 1 WHEN MD12 = 3 THEN 1 WHEN MD12 = 4 THEN 1  END) MD12," +
-                                    "COUNT(CASE WHEN MD13 = 1 THEN 1 WHEN MD13 = 2 THEN 1 WHEN MD13 = 3 THEN 1 WHEN MD13 = 4 THEN 1  END) MD13," +
-                                    "COUNT(CASE WHEN MD14 = 1 THEN 1 WHEN MD14 = 2 THEN 1 WHEN MD14 = 3 THEN 1 WHEN MD14 = 4 THEN 1  END) MD14," +
-                                    "COUNT(CASE WHEN MD15 = 1 THEN 1 WHEN MD15 = 2 THEN 1 WHEN MD15 = 3 THEN 1 WHEN MD15 = 4 THEN 1  END) MD15," +
-                                    "COUNT(CASE WHEN MD16 = 1 THEN 1 WHEN MD16 = 2 THEN 1 WHEN MD16 = 3 THEN 1 WHEN MD16 = 4 THEN 1  END) MD16," +
-                                    "COUNT(CASE WHEN MD17 = 1 THEN 1 WHEN MD17 = 2 THEN 1 WHEN MD17 = 3 THEN 1 WHEN MD17 = 4 THEN 1  END) MD17," +
-                                    "COUNT(CASE WHEN MD18 = 1 THEN 1 WHEN MD18 = 2 THEN 1 WHEN MD18 = 3 THEN 1 WHEN MD18 = 4 THEN 1  END) MD18," +
-                                    "COUNT(CASE WHEN MD19 = 1 THEN 1 WHEN MD19 = 2 THEN 1 WHEN MD19 = 3 THEN 1 WHEN MD19 = 4 THEN 1  END) MD19," +
-                                    "COUNT(CASE WHEN MD20 = 1 THEN 1 WHEN MD20 = 2 THEN 1 WHEN MD20 = 3 THEN 1 WHEN MD20 = 4 THEN 1  END) MD20," +
-                                    "COUNT(CASE WHEN MD21 = 1 THEN 1 WHEN MD21 = 2 THEN 1 WHEN MD21 = 3 THEN 1 WHEN MD21 = 4 THEN 1  END) MD21," +
-                                    "COUNT(CASE WHEN MD22 = 1 THEN 1 WHEN MD22 = 2 THEN 1 WHEN MD22 = 3 THEN 1 WHEN MD22 = 4 THEN 1  END) MD22," +
-                                    "COUNT(CASE WHEN MD23 = 1 THEN 1 WHEN MD23 = 2 THEN 1 WHEN MD23 = 3 THEN 1 WHEN MD23 = 4 THEN 1  END) MD23," +
-                                    "COUNT(CASE WHEN MD24 = 1 THEN 1 WHEN MD24 = 2 THEN 1 WHEN MD24 = 3 THEN 1 WHEN MD24 = 4 THEN 1  END) MD24," +
-                                    "COUNT(CASE WHEN MD25 = 1 THEN 1 WHEN MD25 = 2 THEN 1 WHEN MD25 = 3 THEN 1 WHEN MD25 = 4 THEN 1  END) MD25," +
-                                    "COUNT(CASE WHEN MD26 = 1 THEN 1 WHEN MD26 = 2 THEN 1 WHEN MD26 = 3 THEN 1 WHEN MD26 = 4 THEN 1  END) MD26," +
-                                    "COUNT(CASE WHEN MD27 = 1 THEN 1 WHEN MD27 = 2 THEN 1 WHEN MD27 = 3 THEN 1 WHEN MD27 = 4 THEN 1  END) MD27," +
-                                    "COUNT(CASE WHEN MD28 = 1 THEN 1 WHEN MD28 = 2 THEN 1 WHEN MD28 = 3 THEN 1 WHEN MD28 = 4 THEN 1  END) MD28," +
-                                    "COUNT(CASE WHEN MD29 = 1 THEN 1 WHEN MD29 = 2 THEN 1 WHEN MD29 = 3 THEN 1 WHEN MD29 = 4 THEN 1  END) MD29," +
-                                    "COUNT(CASE WHEN MD30 = 1 THEN 1 WHEN MD30 = 2 THEN 1 WHEN MD30 = 3 THEN 1 WHEN MD30 = 4 THEN 1  END) MD30," +
-                                    "COUNT(CASE WHEN MD31 = 1 THEN 1 WHEN MD31 = 2 THEN 1 WHEN MD31 = 3 THEN 1 WHEN MD31 = 4 THEN 1  END) MD31," +
-                                    "COUNT(CASE WHEN MD32 = 1 THEN 1 WHEN MD32 = 2 THEN 1 WHEN MD32 = 3 THEN 1 WHEN MD32 = 4 THEN 1  END) MD32," +
-                                    "COUNT(CASE WHEN MD35 = 1 THEN 1 WHEN MD35 = 2 THEN 1 WHEN MD35 = 3 THEN 1 WHEN MD35 = 4 THEN 1  END) MD35 " +
-                                    "FROM negtgel1 " +
-                                    "GROUP BY ORGID";
-
-                cmd.BindByName = true;
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
-
-                DataTable dtTable = new DataTable();
-                dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
-                dtTable.TableName = "N1";*/
-
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "WITH negtgel1 AS( " +
                                         "SELECT * FROM (" +
-                                        "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                                        "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, ROP.open_ent_register_no,C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                         "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                         "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
-                                        "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
+                                        "WHERE MDCODE BETWEEN 1 AND 35 and OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' "+ typeId + " ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
 
                                         ") D " +
                                         "PIVOT ( " +
@@ -8349,7 +8298,7 @@ namespace Audit.App_Func
                                         "FOR MDCODE IN (1 MD1, 2 MD2, 3 MD3, 4 MD4, 5 MD5, 6 MD6, 7 MD7, 8 MD8, 9 MD9, 10 MD10,11 MD11, 12 MD12, 13 MD13, 14 MD14, 15 MD15, 16 MD16, 17 MD17, 18 MD18, 19 MD19, 20 MD20,21 MD21, 22 MD22, 23 MD23, 24 MD24, 25 MD25, 26 MD26, 27 MD27, 28 MD28, 29 MD29, 30 MD30,31 MD31, 32 MD32,33 MD33,34 MD34,35 MD35) " +
                                         ") P1 " +
                                         ") " +
-                                        "SELECT ORGID, INSERTUSERID,ORGNAME,ORGTYPE,OPEN_HEAD_ROLE, OPEN_HEAD_NAME, OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME ,OPEN_ACC_PHONE, " +
+                                        "SELECT ORGID, INSERTUSERID,open_ent_register_no,ORGNAME,ORGTYPE,OPEN_HEAD_ROLE, OPEN_HEAD_NAME, OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME ,OPEN_ACC_PHONE, " +
                                         "MD1,MD2,MD3, MD4,MD5, MD6, MD7, MD8, MD9,  MD10, MD11,  MD12,  MD13,  MD14,  MD15,  MD16,  MD17,  MD18,  MD19,  MD20, MD21,  MD22, MD23,  MD24,  MD25,  MD26,  MD27,  MD28,  MD29,  MD30, MD31,  MD32, MD33, MD34, MD35 " +
                                         "FROM negtgel1";
 
@@ -8401,117 +8350,9 @@ namespace Audit.App_Func
 
                 OracleCommand cmd = con.CreateCommand();
 
-                /*cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "WITH negtgel2 AS( " +
-                               " SELECT* FROM( " +
-                               " SELECT ORGID, INSERTUSERID, MDCODE, DATA01 FROM AUD_MIRRORACC.SHILENDANSDATA A " +
-                               " LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID  " +
-                               " WHERE MDCODE IN(33, 34 , 37 , 38 , 39 , 40 , 41 , 42, 43 , 44 , 45 , 46 , 47 , 48 , 49 , 50 , 51 , 52 , 53 , 54 , 55 , 56 , 57 , 58 , 59 , 60 , 61 , 62 , 63 , 64 , 65 , 66 , 67 , 68 , 69 , 70 , 71 , 72 , 73 , 74 , 75 , 76 , 77 , 78, 79 , 80 , 81 , 82 , 83, 84 , 85 , 86 , 87, 88, 89, 90  " +
-                               "  , 91 , 92 , 93 , 94 , 95 , 96 , 97 , 98 , 99 , 100 , 101 , 102 , 103 , 104 , 105 , 106 , 158 , 159 , 160 , 161 , 162 , 165 , 166 , 167 , 168 , 169) AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +
-                               " AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' " +
-                               " ) D  " +
-                               " PIVOT(  " +
-                               " MAX(DATA01) " +
-                               " FOR MDCODE IN(33 MD33, 34 MD34, 37 MD37, 38 MD38, 39 MD39, 40 MD40, 41 MD41, 42 MD42, 43 MD43, 44 MD44, 45 MD45, 46 MD46, 47 MD47, 48 MD48, 49 MD49, 50 MD50, 51 MD51, 52 MD52, 53 MD53, 54 MD54, 55 MD55, 56 MD56, 57 MD57, 58 MD58, 59 MD59, 60 MD60, 61 MD61, 62 MD62, 63 MD63, 64 MD64, 65 MD65, 66 MD66, 67 MD67, 68 MD68, 69 MD69, 70 MD70, 71 MD71, 72 MD72, 73 MD73, 74 MD74, 75 MD75, 76 MD76, 77 MD77, 78 MD78, 79 MD79, 80 MD80, 81 MD81, 82 MD82, 83 MD83, 84 MD84, 85 MD85, 86 MD86, 87 MD87, 88 MD88, 89 MD89, 90 MD90, 91 MD91, 92 MD92, 93 MD93, 94 MD94, 95 MD95, 96 MD96, 97 MD97, 98 MD98, 99 MD99, 100 MD100, 101 MD101, 102 MD102, 103 MD103, 104 MD104, 105 MD105, 106 MD106, 158 MD158, 159 MD159, 160 MD160, 161 Md161, 162 MD162, 165 MD165, 166 MD166, 167 MD167, 168 MD168, 169 MD169)  " +
-                               " ) P1  " +
-                               " ) " +
-                               " SELECT ORGID,  " +
-                               " COUNT(CASE WHEN MD33 = 1 THEN 1 WHEN MD33 = 2 THEN 1 WHEN MD33 = 3 THEN 1 WHEN MD33 = 4 THEN 1  END) MD33,  " +
-                               " COUNT(CASE WHEN MD34 = 1 THEN 1 WHEN MD34 = 2 THEN 1 WHEN MD34 = 3 THEN 1 WHEN MD34 = 4 THEN 1  END) MD34,  " +
-                               " SUM(MD37) MD37,  " +
-                               " SUM(MD38) MD38,  " +
-                               " SUM(MD39) MD39,  " +
-                               " SUM(MD40) MD40,  " +
-                               " SUM(MD41) MD41,  " +
-                               " SUM(MD42) MD42,  " +
-                               " SUM(MD43) MD43,  " +
-                               " SUM(MD44) MD44,  " +
-                               " SUM(MD45) MD45,  " +
-                               " SUM(MD46) MD46,  " +
-                               " SUM(MD47) MD47,  " +
-                               " SUM(MD48) MD48,  " +
-                               " SUM(MD49) MD49,  " +
-                               " SUM(MD50) MD50,  " +
-                               " SUM(MD51) MD51,  " +
-                               " SUM(MD52) MD52,  " +
-                               " SUM(MD53) MD53,  " +
-                               " SUM(MD54) MD54,  " +
-                               " SUM(MD55) MD55,  " +
-                               " SUM(MD56) MD56,  " +
-                               " SUM(MD57) MD57,  " +
-                               " SUM(MD58) MD58,  " +
-                               " SUM(MD59) MD59,  " +
-                               " SUM(MD60) MD60,  " +
-                               " SUM(MD61) MD61,  " +
-                               " SUM(MD62) MD62,  " +
-                               " SUM(MD63) MD63,  " +
-                               " SUM(MD64) MD64,  " +
-                               " SUM(MD65) MD65,  " +
-                               " COUNT(CASE WHEN MD66 = 1 THEN 1 WHEN MD66 = 2 THEN 1 WHEN MD66 = 3 THEN 1 WHEN MD66 = 4 THEN 1  END) MD66,  " +
-                               " COUNT(CASE WHEN MD67 = 1 THEN 1 WHEN MD67 = 2 THEN 1 WHEN MD67 = 3 THEN 1 WHEN MD67 = 4 THEN 1  END) MD67,  " +
-                               " SUM(MD68) MD68,  " +
-                               " SUM(MD69) MD69,  " +
-                               " SUM(MD70) MD70,  " +
-                               " SUM(MD71) MD71,  " +
-                               " SUM(MD72) MD72,  " +
-                               " SUM(MD73) MD73,  " +
-                               " SUM(MD74) MD74,  " +
-                               " SUM(MD75) MD75,  " +
-                               " SUM(MD76) MD76,  " +
-                               " SUM(MD77) MD77,  " +
-                               " SUM(MD78) MD78,  " +
-                               " SUM(MD79) MD79,  " +
-                               " SUM(MD80) MD80,  " +
-                               " SUM(MD81) MD81,  " +
-                               " SUM(MD82) MD82,  " +
-                               " SUM(MD83) MD83,  " +
-                               " SUM(MD84) MD84,  " +
-                               " SUM(MD85) MD85,  " +
-                               " SUM(MD86) MD86,  " +
-                               " SUM(MD87) MD87,  " +
-                               " SUM(MD88) MD88,  " +
-                               " SUM(MD89) MD89,  " +
-                               " SUM(MD90) MD90,  " +
-                               " SUM(MD91) MD91,  " +
-                               " SUM(MD92) MD92,  " +
-                               " SUM(MD93) MD93,  " +
-                               " SUM(MD94) MD94,  " +
-                               " SUM(MD95) MD95,  " +
-                               " SUM(MD96) MD96,  " +
-                               " SUM(MD97) MD97,  " +
-                               " SUM(MD98) MD98,  " +
-                               " SUM(MD99) MD99,  " +
-                               " SUM(MD100) MD100,  " +
-                               " SUM(MD101) MD101,  " +
-                               " SUM(MD102) MD102,  " +
-                               " SUM(MD103) MD103,  " +
-                               " SUM(MD104) MD104,  " +
-                               " SUM(MD105) MD105,  " +
-                               " SUM(MD106) MD106,  " +
-                               " SUM(MD158) MD158,  " +
-                               " SUM(MD159) MD159,  " +
-                               " SUM(MD160) MD160,  " +
-                               " SUM(MD161) MD161,  " +
-                               " SUM(MD162) MD162,  " +
-                               " SUM(MD165) MD165,  " +
-                               " SUM(MD166) MD166,  " +
-                               " SUM(MD167) MD167,  " +
-                               " SUM(MD168) MD168,  " +
-                               " SUM(MD169) MD169  " +
-                               " FROM negtgel2  " +
-                               " GROUP BY ORGID";
-
-
-
-                cmd.BindByName = true;
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
-*/
-
-                /* DataTable dtTable = new DataTable();
-                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
-                 dtTable.TableName = "Report1N2";*/
+              
                 string mayagt = null;
+                string typeId = "";
 
                 if (req.Element("V_Mayagt")?.Value != "")
                 {
@@ -8521,15 +8362,23 @@ namespace Audit.App_Func
                 {
                     mayagt = "1,2";
                 }
+                if(req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
+                {
+                    typeId = "AND ROP.OPEN_ENT_BUDGET_TYPE =" + req.Element("V_TypeID")?.Value + " AND ";
+                }
+                else
+                {
+                    typeId = " AND ";
+                }
 
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "WITH Negtgel2 AS( " +
                                "SELECT* FROM( " +
-                               "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01, ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE, ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                               "SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01, ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE, ROP.open_ent_register_no, ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                                "LEFT JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                "LEFT JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                "WHERE MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111) " +
-                               "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
+                               "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT " +typeId +" ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
                                
                                ") D " +
                                "PIVOT( " +
@@ -8537,7 +8386,7 @@ namespace Audit.App_Func
                                "FOR MDCODE IN(33 MD33, 34 MD34, 37 MD37, 38 MD38, 39 MD39, 40 MD40, 41 MD41, 42 MD42, 43 MD43, 44 MD44, 45 MD45, 46 MD46, 47 MD47, 48 MD48, 49 MD49, 56 MD56, 57 MD57, 58 MD58, 59 MD59, 60 MD60, 61 MD61, 62 MD62, 50 MD50, 51 MD51, 52 MD52, 53 MD53, 54 MD54, 55 MD55, 63 MD63, 64 MD64, 65 MD65, 66 MD66, 67 MD67, 68 MD68, 69 MD69, 70 MD70, 71 MD71, 72 MD72, 73 MD73, 74 MD74, 75 MD75, 76 MD76, 77 MD77, 78 MD78, 79 MD79, 80 MD80, 81 MD81, 82 MD82, 83 MD83, 84 MD84, 85 MD85, 86 MD86, 87 MD87, 88 MD88, 89 MD89, 90 MD90, 91 MD91, 92 MD92, 93 MD93, 94 MD94, 95 MD95, 96 MD96, 97 MD97, 98 MD98, 99 MD99, 100 MD100, 101 MD101, 102 MD102, 103 MD103, 104 MD104, 105 MD105, 106 MD106, 107 MD107,108 MD108,109 MD109,110 MD110,111 MD111) " +
                                ") P1 " +
                                ") " +
-                               "SELECT ORGID, ORGNAME, ORGTYPE, INSERTUSERID, " +
+                               "SELECT ORGID, ORGNAME, ORGTYPE, INSERTUSERID, open_ent_register_no, " +
                                "MD33, MD34, MD37, MD38, MD39, MD40, MD41, MD42, MD43, MD44, MD45, MD46, MD47, MD48, MD49, MD56, MD57, MD58, MD59, MD60, MD61, MD62, MD50, MD51, MD52, MD53, MD54, MD55, MD63, MD64, MD65, MD66, MD67, MD68, MD69, MD70, MD71, MD72, MD73, MD74, MD75, MD76, MD77, MD78, MD79, MD80, MD81, MD82, MD83, MD84, MD85, MD86, MD87, MD88, MD89, MD90, MD91, MD92, MD93, MD94, MD95, MD96, MD97, MD98, MD99, MD100, MD101, MD102, MD103, MD104, MD105, MD106, MD107, MD108, MD109, MD110, MD111 " +
                                "FROM Negtgel2";
 
@@ -8545,6 +8394,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
+              
 
                 DataTable dtTable2 = new DataTable();
                 dtTable2.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -8583,6 +8433,7 @@ namespace Audit.App_Func
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
                 string mayagt = null;
+                string typeId = "";
                 if (req.Element("V_Mayagt")?.Value != "")
                 {
                     mayagt = req.Element("V_Mayagt")?.Value;
@@ -8591,12 +8442,20 @@ namespace Audit.App_Func
                 {
                     mayagt = "4";
                 }
+                if (req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
+                {
+                    typeId = "AND ROP.OPEN_ENT_BUDGET_TYPE =" + req.Element("V_TypeID")?.Value + " AND ";
+                }
+                else
+                {
+                    typeId = " AND ";
+                }
                 OracleCommand cmd = con.CreateCommand();
 
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = " WITH Negtgel2 AS( " +
                 " SELECT * FROM ( " +
-                " SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                " SELECT ORGID, YEARCODE, INSERTUSERID, MDCODE, DATA01,ROP.OPEN_ENT_NAME AS ORGNAME,ROP.open_ent_register_no, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                 " LEFT  JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                 " LEFT  JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID  " +
                 "         WHERE MDCODE IN(116,117,118,119,120,121, " +
@@ -8609,7 +8468,7 @@ namespace Audit.App_Func
                 " 155,156,157,158,159,160, " +
                 " 104,105,106, " +
                 " 107,108,109,110,111,112,113) " +
-                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT AND ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
+                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT "+ typeId + " ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
                 " ) D  " +
                 " PIVOT ( " +
                 " MAX(DATA01) " +
@@ -8625,7 +8484,7 @@ namespace Audit.App_Func
                 " 107 MD107,108 MD108,109 MD109,110 MD110,111 MD111,112 MD112,113 MD113) " +
                 " ) P1 " +
                 " ) " +
-                " SELECT ORGID, YEARCODE, INSERTUSERID, ORGNAME, ORGTYPE,OPEN_HEAD_ROLE,OPEN_HEAD_NAME,OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME , OPEN_ACC_PHONE,  " +
+                " SELECT ORGID, YEARCODE, INSERTUSERID, ORGNAME, ORGTYPE,OPEN_HEAD_ROLE,OPEN_HEAD_NAME,OPEN_HEAD_PHONE,OPEN_ACC_ROLE, OPEN_ACC_NAME , OPEN_ACC_PHONE, open_ent_register_no, " +
                 " MD116,MD117,MD118,MD119,MD120,MD121,MD123,MD124,MD125,MD126,MD127,MD128,MD130,MD131,MD132,MD133,MD134,MD135,MD137,MD138,MD139,MD140,MD141,MD142,MD143,MD144,MD146,MD147,MD148,MD149,MD150,MD151,MD152,MD153, " +
                 " MD155,MD156,MD157,MD158,MD159,MD160,MD104,MD105,MD106,MD107,MD108,MD109,MD110,MD111,MD112,MD113 " +
                 " FROM Negtgel2";

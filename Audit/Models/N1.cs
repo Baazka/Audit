@@ -11,6 +11,9 @@ namespace Audit.Models
     {
         public int DeparmentID { get; set; }
         public int PeriodID { get; set; }
+
+        public int TypeID { get; set; }
+        
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
     }
@@ -36,6 +39,7 @@ namespace Audit.Models
         public string OPEN_ACC_NAME { get; set; }
         public string OPEN_ACC_PHONE { get; set; }
 
+        public string OPEN_ENT_REGISTER_NO { get; set; }
 
         public string MD1 { get; set; }
         public string MD2 { get; set; }
@@ -551,6 +555,8 @@ namespace Audit.Models
                     MD111 = xml.Element("MD111").Value != "0" ? xml.Element("MD111").Value.ToString() : "";
                 if (xml.Element("MD113") != null)
                     MD113 = xml.Element("MD113").Value != "0" ? xml.Element("MD113").Value.ToString() : "";
+                if (xml.Element("OPEN_ENT_REGISTER_NO") != null)
+                    OPEN_ENT_REGISTER_NO = xml.Element("OPEN_ENT_REGISTER_NO").Value != "0" ? xml.Element("OPEN_ENT_REGISTER_NO").Value.ToString() : "";
 
             }
             return this;

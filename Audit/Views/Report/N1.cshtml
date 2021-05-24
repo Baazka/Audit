@@ -34,7 +34,16 @@
             <label for="DeparmentID" class="col-form-label">Алба:</label>
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-         <div class="form-group-sm pr-2">
+        <div class="form-group-sm pr-2">
+            <label for="TypeID" class="col-form-label">ТЕЗ:</label>
+            @Html.DropDownListFor(model => model.TypeID, new List<SelectListItem>
+               { new SelectListItem{Text="Төсвийн ерөнхийлөн захирагч", Value="1"},
+                 new SelectListItem{Text="Төсвийн төвлөрүүлэн захирагч", Value="2"},
+                 new SelectListItem{Text="Төсвийн шууд захирагч", Value="3"}},
+               "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
+            @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group-sm pr-2">
             <br />
             <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Mayagt(1);">
                 3.1.1
@@ -56,8 +65,8 @@
                 <span class="text">Excel</span>
             </a>
         </div>
-        
-         
+
+
 
 
 
@@ -81,6 +90,7 @@
                     <tr class="bg-light">
                         <th rowspan="2" class="text-center">№</th>
                         <th rowspan="2" class="text-center">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</th>
+                        <th rowspan="2" class="text-center">Регистрийн дугаар</th>
                         <th colspan="3">I/10</th>
                         <th colspan="16">Дараа сарын 8/Улирал бүр</th>
                         <th colspan="1">VIII/15</th>
@@ -167,6 +177,7 @@
                     type: 'POST',
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
+                        data.TypeID = $('#TypeID').val();
                         data.Mayagt = mayagt;
                         count = 0;
                         return data;
@@ -224,7 +235,8 @@
                                
                         }
                     },
-                    { "data": "ORGNAME", "name": "ORGNAME"},
+                    { "data": "ORGNAME", "name": "ORGNAME" },
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "class": "text-center" },
                     { "data": "MD1", "name": "MD1", "class": "text-center"},
                     { "data": "MD2", "name": "MD2", "class": "text-center"},
                     { "data": "MD35", "name": "MD35", "class": "text-center"},
@@ -315,7 +327,9 @@
         $('#DeparmentID').change(function () {
             N1ListInit();
         });
-       
+        $('#TypeID').change(function () {
+            N1ListInit();
+        });
 
         var N1 = {
             N1ID: null,

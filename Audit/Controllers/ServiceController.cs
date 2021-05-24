@@ -1280,10 +1280,16 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_DEPARTMENT", Convert.ToInt32(User.GetClaimData("DepartmentID"))));
 
-                if (request.PeriodID != null)
+                if (request.PeriodID != null) 
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
                 else
                     elem.Add(new XElement("V_PERIOD", null));
+
+                if (request.TypeID != null && request.TypeID != 0)
+                    elem.Add(new XElement("V_TypeID", request.TypeID));
+                else
+                    elem.Add(new XElement("V_TypeID", null));
+
 
                 XElement res = AppStatic.SystemController.N1(elem, User.GetClaimData("USER_TYPE")); 
                 if (res != null && res.Elements("N1") != null)
@@ -1523,6 +1529,12 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
                 else
                     elem.Add(new XElement("V_PERIOD", null));
+
+                if (request.TypeID != null && request.TypeID != 0)
+                    elem.Add(new XElement("V_TypeID", request.TypeID));
+                else
+                    elem.Add(new XElement("V_TypeID", null));
+
 
                 XElement res = AppStatic.SystemController.Report1N2(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("Report1N2") != null)
@@ -1832,6 +1844,12 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
+                if (request.TypeID != null && request.TypeID != 0)
+                    elem.Add(new XElement("V_TypeID", request.TypeID));
+                else
+                    elem.Add(new XElement("V_TypeID", null));
+
+
                 XElement res = AppStatic.SystemController.ReportN2(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("ReportN2") != null)
                 {
@@ -2113,134 +2131,7 @@ namespace Audit.Controllers
             }
             return response;
         }
-       /* public N1 setMd(N1 param1, N1 param2)
-        {
-            param1.MD1 = param2.MD1;
-            param1.MD2 = param2.MD2;
-            param1.MD3 = param2.MD3;
-            param1.MD4 = param2.MD4;
-            param1.MD5 = param2.MD5;
-            param1.MD6 = param2.MD6;
-            param1.MD7 = param2.MD7;
-            param1.MD8 = param2.MD8;
-            param1.MD9 = param2.MD9;
-            param1.MD10 = param2.MD10;
-            param1.MD11 = param2.MD11;
-            param1.MD12 = param2.MD12;
-            param1.MD13 = param2.MD13;
-            param1.MD14 = param2.MD14;
-            param1.MD15 = param2.MD15;
-            param1.MD16 = param2.MD16;
-            param1.MD17 = param2.MD17;
-            param1.MD18 = param2.MD18;
-            param1.MD19 = param2.MD19;
-            param1.MD20 = param2.MD20;
-            param1.MD21 = param2.MD21;
-            param1.MD22 = param2.MD22;
-            param1.MD23 = param2.MD23;
-            param1.MD24 = param2.MD24;
-            param1.MD25 = param2.MD25;
-            param1.MD26 = param2.MD26;
-            param1.MD27 = param2.MD27;
-            param1.MD28 = param2.MD28;
-            param1.MD29 = param2.MD29;
-            param1.MD30 = param2.MD30;
-            param1.MD31 = param2.MD31;
-            param1.MD32 = param2.MD32;
-            param1.MD33 = param2.MD33;
-            param1.MD34 = param2.MD34;
-            param1.MD35 = param2.MD35;
-            param1.MD36 = param2.MD36;
-            param1.MD37 = param2.MD37;
-            param1.MD38 = param2.MD38;
-            param1.MD39 = param2.MD39;
-            param1.MD40 = param2.MD40;
-            param1.MD41 = param2.MD41;
-            param1.MD42 = param2.MD42;
-            param1.MD43 = param2.MD43;
-            param1.MD44 = param2.MD44;
-            param1.MD45 = param2.MD45;
-            param1.MD46 = param2.MD46;
-            param1.MD47 = param2.MD47;
-            param1.MD48 = param2.MD48;
-            param1.MD49 = param2.MD49;
-            param1.MD50 = param2.MD50;
-            param1.MD51 = param2.MD51;
-            param1.MD52 = param2.MD52;
-            param1.MD53 = param2.MD53;
-            param1.MD54 = param2.MD54;
-            param1.MD55 = param2.MD55;
-            param1.MD56 = param2.MD56;
-            param1.MD57 = param2.MD57;
-            param1.MD58 = param2.MD58;
-            param1.MD59 = param2.MD59;
-            param1.MD60 = param2.MD60;
-            param1.MD61 = param2.MD61;
-            param1.MD62 = param2.MD62;
-            param1.MD63 = param2.MD63;
-            param1.MD64 = param2.MD64;
-            param1.MD65 = param2.MD65;
-            param1.MD66 = param2.MD66;
-            param1.MD67 = param2.MD67;
-            param1.MD68 = param2.MD68;
-            param1.MD69 = param2.MD69;
-            param1.MD70 = param2.MD70;
-            param1.MD71 = param2.MD71;
-            param1.MD72 = param2.MD72;
-            param1.MD73 = param2.MD73;
-            param1.MD74 = param2.MD74;
-            param1.MD75 = param2.MD75;
-            param1.MD76 = param2.MD76;
-            param1.MD77 = param2.MD77;
-            param1.MD78 = param2.MD78;
-            param1.MD79 = param2.MD79;
-            param1.MD80 = param2.MD80;
-            param1.MD81 = param2.MD81;
-            param1.MD82 = param2.MD82;
-            param1.MD83 = param2.MD83;
-            param1.MD84 = param2.MD84;
-            param1.MD85 = param2.MD85;
-            param1.MD86 = param2.MD86;
-            param1.MD87 = param2.MD87;
-            param1.MD88 = param2.MD88;
-            param1.MD89 = param2.MD89;
-            param1.MD90 = param2.MD90;
-            param1.MD91 = param2.MD91;
-            param1.MD92 = param2.MD92;
-            param1.MD93 = param2.MD93;
-            param1.MD94 = param2.MD94;
-            param1.MD95 = param2.MD95;
-            param1.MD96 = param2.MD96;
-            param1.MD97 = param2.MD97;
-            param1.MD98 = param2.MD98;
-            param1.MD99 = param2.MD99;
-            param1.MD100 = param2.MD100;
-            param1.MD101 = param2.MD101;
-            param1.MD102 = param2.MD102;
-            param1.MD103 = param2.MD103;
-            param1.MD104 = param2.MD104;
-            param1.MD105 = param2.MD105;
-            param1.MD106 = param2.MD106;
-            param1.MD158 = param2.MD158;
-            param1.MD159 = param2.MD159;
-            param1.MD160 = param2.MD160;
-            param1.MD161 = param2.MD161;
-            param1.MD162 = param2.MD162;
-            param1.MD163 = param2.MD163;
-            param1.MD164 = param2.MD164;
-            param1.MD165 = param2.MD165;
-            param1.MD166 = param2.MD166;
-            param1.MD167 = param2.MD167;
-            param1.MD168 = param2.MD168;
-            param1.MD169 = param2.MD169;
-
-            param1.OPEN_HEAD_ROLE = param1.OPEN_HEAD_ROLE + " " + param1.OPEN_HEAD_NAME + " " + param1.OPEN_HEAD_PHONE;
-            param1.OPEN_ACC_ROLE = param1.OPEN_ACC_ROLE + " " + param1.OPEN_ACC_NAME + " " + param1.OPEN_ACC_PHONE;
-
-
-            return param1;
-
-        }*/
+      
        
 
 
