@@ -15,7 +15,7 @@ namespace Audit.Controllers
     public class StatisticController : Controller
     {
         // GET: Stat
-        public ActionResult Index()
+        public ActionResult Index(int type = 0)
         {
             try
             {
@@ -50,6 +50,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.Type = type;
             return View();
         }
         public ActionResult PowerBI()

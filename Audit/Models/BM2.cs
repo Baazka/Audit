@@ -31,13 +31,16 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string CLAIM_DATE { get; set; }
+        
         public string CLAIM_NO { get; set; }
         public string CLAIM_VIOLATION_DESC { get; set; }
         public int CLAIM_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string CLAIM_SUBMITTED_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string CLAIM_DELIVERY_DATE { get; set; }
         public decimal CLAIM_VIOLATION_AMOUNT { get; set; }
         public string CLAIM_RCV_NAME { get; set; }
@@ -45,6 +48,7 @@ namespace Audit.Models
         public string CLAIM_RCV_GIVEN_NAME { get; set; }
         public string CLAIM_RCV_PHONE { get; set; }
         public string CLAIM_RCV_ADDRESS { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int CLAIM_CONTROL_AUDITOR_ID { get; set; }
         public string CLAIM_CONTROL_AUDITOR { get; set; }
         public string COMPLETION_DATE { get; set; }
