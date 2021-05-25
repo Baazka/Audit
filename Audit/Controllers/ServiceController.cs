@@ -90,12 +90,17 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_DEPARTMENT", null));
 
                 if (request.budget_type != null)
-                {
-                    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
-                    elem.Add(new XElement("V_BUDGET_TYPE", ss));
-                }
+                    elem.Add(new XElement("V_BUDGET_TYPE", request.budget_type));
                 else
                     elem.Add(new XElement("V_BUDGET_TYPE", null));
+
+                //if (request.budget_type != null)
+                //{
+                //    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
+                //    elem.Add(new XElement("V_BUDGET_TYPE", ss));
+                //}
+                //else
+                //    elem.Add(new XElement("V_BUDGET_TYPE", null));
 
                 XElement res = AppStatic.SystemController.MirrorOrgList(elem, Convert.ToInt32(User.GetClaimData("DepartmentID")));
                 if (res != null && res.Elements("MirroraccOrgList") != null)
@@ -139,12 +144,16 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_DEPARTMENT", null));
 
                 if (request.budget_type != null)
-                {
-                    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
-                    elem.Add(new XElement("V_BUDGET_TYPE", ss));
-                }
+                    elem.Add(new XElement("V_BUDGET_TYPE", request.budget_type));
                 else
                     elem.Add(new XElement("V_BUDGET_TYPE", null));
+                //if (request.budget_type != null)
+                //{
+                //    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
+                //    elem.Add(new XElement("V_BUDGET_TYPE", ss));
+                //}
+                //else
+                //    elem.Add(new XElement("V_BUDGET_TYPE", null));
 
                 XElement res = AppStatic.SystemController.MirrorHakOrgList(elem, Convert.ToInt32(User.Identity.GetUserId()));
                 if (res != null && res.Elements("MirroraccHakOrgList") != null)

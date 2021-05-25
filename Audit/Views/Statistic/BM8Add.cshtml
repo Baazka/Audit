@@ -5,7 +5,7 @@
         @using (Ajax.BeginForm("BM8Add", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
-                       UpdateTargetId = "bm8modalcontainer",
+                       UpdateTargetId = "Bm8Modalcontainer",
                        OnBegin = "Modal.show()",
                        OnComplete = "Modal.hide(); $('#Bm8Modal').modal({ show: true }); $('.modal-backdrop:first').remove()",
                        OnSuccess = "BM8.progressResponse(data, status, xhr)",
@@ -120,6 +120,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Төсөв захирагч:</label>
                                     <div class="col-sm-4">
                                         @Html.TextBoxFor(m => m.BUDGET_TYPE_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.BUDGET_TYPE_NAME, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +189,7 @@
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
-          maxDate: "+0D",
+          //maxDate: "+0D",
           showOn: "button",
           buttonImage: "@Url.Content("~/Images/calendar.png")",
           buttonImageOnly: true,
