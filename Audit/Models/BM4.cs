@@ -30,15 +30,18 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string PROPOSAL_DATE { get; set; }
         public string PROPOSAL_NO { get; set; }
         public string PROPOSAL_VIOLATION_DESC { get; set; }
         public int PROPOSAL_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         public string VIOLATION_RESPONDENT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string PROPOSAL_SUBMITTED_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string PROPOSAL_DELIVERY_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int PROPOSAL_COUNT { get; set; }
         public decimal PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }

@@ -201,6 +201,8 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM0AddEdit(BM0 bm0)
         {
+            if(bm0.AUDIT_DEPARTMENT_TYPE == 1)
+                ModelState.Remove("AUDIT_DEPARTMENT_ID");
             if (ModelState.IsValid)
             {
                 if (bm0.ID != 0)
@@ -654,13 +656,12 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM1AddEditCompletion(BM1 bm1)
         {
-            if (ModelState.IsValid)
-            {
+           
                 if (AppStatic.SystemController.BM1UpdateCompletion(Convert.ToInt32(User.Identity.GetUserId()), bm1.ToXml()))
                     return Json(new { error = false, message = AppStatic.SystemController.Message });
                 else
                     AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
-            }
+           
             try
             {
                 if (Globals.departments.Count > 0)
@@ -1175,13 +1176,11 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM2AddEditCompletion(BM2 bm2)
         {
-            if (ModelState.IsValid)
-            {
+            
                 if (AppStatic.SystemController.BM2UpdateCompletion(Convert.ToInt32(User.Identity.GetUserId()), bm2.ToXml()))
                     return Json(new { error = false, message = AppStatic.SystemController.Message });
                 else
                     AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
-            }
             try
             {
                 if (Globals.departments.Count > 0)
@@ -2112,13 +2111,12 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM3AddEditCompletion(BM3 bm3)
         {
-            if (ModelState.IsValid)
-            {
+            
                 if (AppStatic.SystemController.BM3UpdateCompletion(Convert.ToInt32(User.Identity.GetUserId()), bm3.ToXml()))
                     return Json(new { error = false, message = AppStatic.SystemController.Message });
                 else
                     AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
-            }
+            
             try
             {
                 if (Globals.departments.Count > 0)
@@ -2515,13 +2513,12 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM4AddEditCompletion(BM4 bm4)
         {
-            if (ModelState.IsValid)
-            {
+            
                 if (AppStatic.SystemController.BM4UpdateCompletion(Convert.ToInt32(User.Identity.GetUserId()), bm4.ToXml()))
                     return Json(new { error = false, message = AppStatic.SystemController.Message });
                 else
                     AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
-            }
+           
             try
             {
                 if (Globals.departments.Count > 0)
@@ -3323,16 +3320,12 @@ namespace Audit.Controllers
         public ActionResult BM5AddEditCompletion(BM5 bm5)
         {
            
-            if (ModelState.IsValid)
-            {
-                if (ModelState.IsValid)
-                {
+           
                     if (AppStatic.SystemController.BM5UpdateCompletion(Convert.ToInt32(User.Identity.GetUserId()), bm5.ToXml()))
                         return Json(new { error = false, message = AppStatic.SystemController.Message });
                     else
                         AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
-                }
-            }
+             
             try
             {
                 if (Globals.departments.Count > 0)

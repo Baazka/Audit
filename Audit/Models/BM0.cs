@@ -43,21 +43,19 @@ namespace Audit.Models
         public string BUDGET_TYPE_NAME { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDIT_INCLUDED_ORG { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
+        
         public int? WORKING_PERSON { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int? WORKING_DAY { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int? WORKING_ADDITION_TIME { get; set; }
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         //public string AUDIT_DEPARTMENT { get; set; }
         public string[] AUDITOR_LEADS { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
+        //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_LEAD { get; set; }
         public string[] AUDITOR_MEMBERS { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
+        //[Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_MEMBER { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
+       // [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_ENTRY { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
@@ -67,11 +65,13 @@ namespace Audit.Models
 
         public string DEPARTMENT_SHORT_NAME { get; set; }
         public string TEAM_DEPARTMENT_NAME { get; set; }
-        public int AUDIT_INCLUDED_COUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
+        public int? AUDIT_INCLUDED_COUNT { get; set; }
         public string YEAR_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int AUDIT_DEPARTMENT_TYPE { get; set; }
+        public int AUDIT_DEPARTMENT_TYPE  { get; set; }
+        
         public int AUDIT_DEPARTMENT_ID { get; set; }
 
         public List<Department> departments { get; set; } = new List<Department>();
@@ -172,7 +172,7 @@ namespace Audit.Models
                        new XElement("TOPIC_CODE", TOPIC_CODE),
                        new XElement("TOPIC_NAME", TOPIC_NAME),
                        new XElement("ORDER_NO", ORDER_NO),
-                       new XElement("ORDER_DATE", Convert.ToDateTime(ORDER_DATE).ToString("dd-MMM-yy")),
+                       ORDER_DATE != null ? new XElement("ORDER_DATE", Convert.ToDateTime(ORDER_DATE).ToString("dd-MMM-yy")) : new XElement("ORDER_DATE", null),
                        new XElement("AUDIT_FORM_TYPE", AUDIT_FORM_TYPE),
                        new XElement("AUDIT_PROPOSAL_TYPE", AUDIT_PROPOSAL_TYPE),
                        new XElement("AUDIT_BUDGET_TYPE", AUDIT_BUDGET_TYPE),

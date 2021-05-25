@@ -298,12 +298,6 @@
                         alert('Тайлант хугацаа сонгоно уу.');
                 });
             },
-            //displayCompletion: function (data) {
-            //    $("div#Bm1ModalCompletioncontainer").remove();
-            //    $('<div/>', { id: "Bm1ModalCompletioncontainer" }).appendTo('body').append(data);
-
-            //    $("#Bm1ModalCompletion").modal({ show: true });
-            //},
             displayBM0List: function (data) {
                 $("div#bm0listmodalcontainer").remove();
                 $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
@@ -422,13 +416,10 @@
             close: function () {
                 $("#Bm1Modal").modal("hide");
             },
-            progressResponse: function (data, status, xhr, iscompletion=false) {
+            progressResponse: function (data, status, xhr) {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
-                    if (iscompletion)
-                        BM1.display(data);
-                    else
-                        BM1.displayCompletion(data);
+                    BM1.display(data);
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {
