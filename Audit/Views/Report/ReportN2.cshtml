@@ -37,9 +37,9 @@
         <div class="form-group-sm pr-2">
             <label for="TypeID" class="col-form-label">ТЕЗ:</label>
             @Html.DropDownListFor(model => model.TypeID, new List<SelectListItem>
-               { new SelectListItem{Text="Төсвийн ерөнхийлөн захирагч", Value="1"},
-                 new SelectListItem{Text="Төсвийн төвлөрүүлэн захирагч", Value="2"},
-                 new SelectListItem{Text="Төсвийн шууд захирагч", Value="3"}},
+               { new SelectListItem{Text="ТЕЗ", Value="1"},
+                 new SelectListItem{Text="ТТЗ", Value="2"},
+                 new SelectListItem{Text="ТШЗ", Value="3"}},
                "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
             @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
         </div>
