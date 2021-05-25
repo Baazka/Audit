@@ -30,9 +30,8 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
+       // [Required(ErrorMessage = "Утга оруулна уу.")]
         public string CORRECTED_ERROR_DESC { get; set; }
-        [Required(ErrorMessage = "Утга сонгоно уу.")]
         public int CORRECTED_ERROR_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         public int? CORRECTED_COUNT { get; set; }

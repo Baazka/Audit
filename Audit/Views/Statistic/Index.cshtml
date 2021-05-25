@@ -164,3 +164,18 @@
         </div>
     </div>
 </div>
+<input type="hidden" value="@ViewBag.Type" id="Type"/>
+<script>
+    $(document).ready(function () {
+        var type = $('#Type').val();
+        if (type == 2) {
+            $("#collapseOne").removeClass("show");
+            $("#collapseTwo").addClass('collapse show');
+        }
+        if (type == 3) {
+            $("#collapseOne").removeClass("show");
+            $("#collapseThree").addClass('collapse show');
+        }
+            
+    });
+</script>
