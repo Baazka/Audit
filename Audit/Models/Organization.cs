@@ -496,6 +496,7 @@ namespace Audit.Models
         public MultiSelectList Status { get; set; }
         public int[] BudgetTypeIDs { get; set; }
         public MultiSelectList BudgetType { get; set; }
+        public int BudgetTypeID { get; set; }
         public int[] ViolationIDs { get; set; }
         public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
