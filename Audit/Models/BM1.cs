@@ -31,20 +31,22 @@ namespace Audit.Models
         public string ORDER_DATE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
 
-        //[Required(ErrorMessage = "Утга оруулна уу.")]
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_DATE { get; set; }
-        
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_NO { get; set; }
         public string ACT_VIOLATION_DESC { get; set; }
         public int ACT_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_SUBMITTED_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_DELIVERY_DATE { get; set; }
         public decimal ACT_AMOUNT { get; set; }
-        public decimal ACT_STATE_AMOUNT { get; set; }
-        public decimal ACT_LOCAL_AMOUNT { get; set; }
-        public decimal ACT_ORG_AMOUNT { get; set; }
-        public decimal ACT_OTHER_AMOUNT { get; set; }
+        public decimal? ACT_STATE_AMOUNT { get; set; }
+        public decimal? ACT_LOCAL_AMOUNT { get; set; }
+        public decimal? ACT_ORG_AMOUNT { get; set; }
+        public decimal? ACT_OTHER_AMOUNT { get; set; }
         public string ACT_RCV_NAME { get; set; }
         public string ACT_RCV_ROLE { get; set; }
         public string ACT_RCV_GIVEN_NAME { get; set; }
@@ -54,26 +56,27 @@ namespace Audit.Models
         public string ACT_CONTROL_AUDITOR { get; set; }
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
-        public decimal COMPLETION_AMOUNT { get; set; }
-        public decimal COMPLETION_STATE_AMOUNT { get; set; }
-        public decimal COMPLETION_LOCAL_AMOUNT { get; set; }
-        public decimal COMPLETION_ORG_AMOUNT { get; set; }
-        public decimal COMPLETION_OTHER_AMOUNT { get; set; }
-        public decimal REMOVED_AMOUNT { get; set; }
-        public decimal REMOVED_LAW_AMOUNT { get; set; }
+        public decimal? COMPLETION_AMOUNT { get; set; }
+        public decimal? COMPLETION_STATE_AMOUNT { get; set; }
+        public decimal? COMPLETION_LOCAL_AMOUNT { get; set; }
+        public decimal? COMPLETION_ORG_AMOUNT { get; set; }
+        public decimal? COMPLETION_OTHER_AMOUNT { get; set; }
+        public decimal? REMOVED_AMOUNT { get; set; }
+        public decimal? REMOVED_LAW_AMOUNT { get; set; }
         public string REMOVED_LAW_DATE { get; set; }
         public string REMOVED_LAW_NO { get; set; }
-        public decimal REMOVED_INVALID_AMOUNT { get; set; }
+        public decimal? REMOVED_INVALID_AMOUNT { get; set; }
         public string REMOVED_INVALID_DATE { get; set; }
         public string REMOVED_INVALID_NO { get; set; }
-        public decimal ACT_C2_AMOUNT { get; set; }
-        public decimal ACT_C2_NONEXPIRED { get; set; }
-        public decimal ACT_C2_EXPIRED { get; set; }
-        public int BENEFIT_FIN { get; set; }
-        public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        public int BENEFIT_NONFIN { get; set; }
+        public decimal? ACT_C2_AMOUNT { get; set; }
+        public decimal? ACT_C2_NONEXPIRED { get; set; }
+        public decimal? ACT_C2_EXPIRED { get; set; }
+        public int? BENEFIT_FIN { get; set; }
+        public decimal? BENEFIT_FIN_AMOUNT { get; set; }
+        public int? BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
+        
 
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public List<Department> departments { get; set; } = new List<Department>();
@@ -217,7 +220,7 @@ namespace Audit.Models
                        new XElement("ACT_RCV_PHONE", ACT_RCV_PHONE),
                        new XElement("ACT_RCV_ADDRESS", ACT_RCV_ADDRESS),
                        //new XElement("ACT_CONTROL_AUDITOR", ACT_CONTROL_AUDITOR),
-                       new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")),
+                       COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT),
                        new XElement("COMPLETION_STATE_AMOUNT", COMPLETION_STATE_AMOUNT),
@@ -226,10 +229,10 @@ namespace Audit.Models
                        new XElement("COMPLETION_OTHER_AMOUNT", COMPLETION_OTHER_AMOUNT),
                        new XElement("REMOVED_AMOUNT", REMOVED_AMOUNT),
                        new XElement("REMOVED_LAW_AMOUNT", REMOVED_LAW_AMOUNT),
-                       new XElement("REMOVED_LAW_DATE", Convert.ToDateTime(REMOVED_LAW_DATE).ToString("dd-MMM-yy")),
+                       REMOVED_LAW_DATE != null ? new XElement("REMOVED_LAW_DATE", Convert.ToDateTime(REMOVED_LAW_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_LAW_DATE", null),
                        new XElement("REMOVED_LAW_NO", REMOVED_LAW_NO),
                        new XElement("REMOVED_INVALID_AMOUNT", REMOVED_INVALID_AMOUNT),
-                       new XElement("REMOVED_INVALID_DATE", Convert.ToDateTime(REMOVED_INVALID_DATE).ToString("dd-MMM-yy")),
+                       REMOVED_INVALID_DATE != null ? new XElement("REMOVED_INVALID_DATE", Convert.ToDateTime(REMOVED_INVALID_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_INVALID_DATE", null),
                        new XElement("REMOVED_INVALID_NO", REMOVED_INVALID_NO),
                        new XElement("ACT_C2_AMOUNT", ACT_C2_AMOUNT),
                        new XElement("ACT_C2_NONEXPIRED", ACT_C2_NONEXPIRED),

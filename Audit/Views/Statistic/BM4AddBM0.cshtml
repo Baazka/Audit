@@ -119,9 +119,10 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.PROPOSAL_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.ValidationMessageFor(m => m.PROPOSAL_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -160,25 +161,30 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
+
                                         @Html.EditorFor(m => m.PROPOSAL_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.ValidationMessageFor(m => m.PROPOSAL_SUBMITTED_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Биелэлтийг тооцох:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Биелэлтийг тооцох: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.PROPOSAL_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+
+                                        @Html.ValidationMessageFor(m => m.PROPOSAL_DELIVERY_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн тоо:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.PROPOSAL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.ValidationMessageFor(m => m.PROPOSAL_COUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -231,13 +237,13 @@
                                 </div>
                             </div>
                             @*<div class="col-12">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
-                                        <div class="col-sm-4">
-                                            @Html.EditorFor(m => m.PROPOSAL_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        </div>
-                                    </div>
-                                </div>*@
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.PROPOSAL_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                </div>
+            </div>
+        </div>*@
                         </div>
 
                         <hr />

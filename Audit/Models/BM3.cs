@@ -34,9 +34,12 @@ namespace Audit.Models
         public string REFERENCE_DESC { get; set; }
         public int REFERENCE_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int REFERENCE_COUNT { get; set; }
         public decimal REFERENCE_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_SUBMITTED_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_DELIVERY_DATE { get; set; }
         public string REFERENCE_RCV_NAME { get; set; }
         public string REFERENCE_RCV_ROLE { get; set; }
