@@ -81,7 +81,8 @@
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="4" class="text-center">№</th>
-                        <th rowspan="4">Он</th>
+                        <th rowspan="4">Төрийн аудитын байгууллага</th>
+                        <th rowspan="4">Аудитын он</th>
                         <th rowspan="4">Аудитын төрөл</th>
                         <th rowspan="4">Аудитын код</th>
                         <th rowspan="4">Аудитын нэр</th>
@@ -193,6 +194,7 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
                     { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
@@ -298,12 +300,6 @@
                         alert('Тайлант хугацаа сонгоно уу.');
                 });
             },
-            //displayCompletion: function (data) {
-            //    $("div#Bm1ModalCompletioncontainer").remove();
-            //    $('<div/>', { id: "Bm1ModalCompletioncontainer" }).appendTo('body').append(data);
-
-            //    $("#Bm1ModalCompletion").modal({ show: true });
-            //},
             displayBM0List: function (data) {
                 $("div#bm0listmodalcontainer").remove();
                 $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
@@ -422,13 +418,10 @@
             close: function () {
                 $("#Bm1Modal").modal("hide");
             },
-            progressResponse: function (data, status, xhr, iscompletion=false) {
+            progressResponse: function (data, status, xhr) {
                 var ct = xhr.getResponseHeader("content-type") || "";
                 if (ct.indexOf("html") > -1) {
-                    if (iscompletion)
-                        BM1.display(data);
-                    else
-                        BM1.displayCompletion(data);
+                    BM1.display(data);
                 }
                 if (ct.indexOf('json') > -1) {
                     if (data.error) {

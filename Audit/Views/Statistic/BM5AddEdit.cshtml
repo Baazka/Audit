@@ -148,7 +148,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал:</label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.LAW_VIOLATION_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.DropDownListFor(model => model.LAW_VIOLATION_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.ValidationMessageFor(m => m.LAW_VIOLATION_TYPE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>

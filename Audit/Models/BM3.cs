@@ -34,9 +34,12 @@ namespace Audit.Models
         public string REFERENCE_DESC { get; set; }
         public int REFERENCE_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int REFERENCE_COUNT { get; set; }
         public decimal REFERENCE_AMOUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_SUBMITTED_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_DELIVERY_DATE { get; set; }
         public string REFERENCE_RCV_NAME { get; set; }
         public string REFERENCE_RCV_ROLE { get; set; }
@@ -173,14 +176,14 @@ namespace Audit.Models
                        new XElement("REFERENCE_TYPE", REFERENCE_TYPE),
                        new XElement("REFERENCE_COUNT", REFERENCE_COUNT),
                        new XElement("REFERENCE_AMOUNT", REFERENCE_AMOUNT),
-                       new XElement("REFERENCE_SUBMITTED_DATE", Convert.ToDateTime(REFERENCE_SUBMITTED_DATE).ToString("dd-MMM-yy")),
-                       new XElement("REFERENCE_DELIVERY_DATE", Convert.ToDateTime(REFERENCE_DELIVERY_DATE).ToString("dd-MMM-yy")),
+                       REFERENCE_SUBMITTED_DATE != null ? new XElement("REFERENCE_SUBMITTED_DATE", Convert.ToDateTime(REFERENCE_SUBMITTED_DATE).ToString("dd-MMM-yy")) : new XElement("REFERENCE_SUBMITTED_DATE", null),
+                       REFERENCE_DELIVERY_DATE != null ? new XElement("REFERENCE_DELIVERY_DATE", Convert.ToDateTime(REFERENCE_DELIVERY_DATE).ToString("dd-MMM-yy")) : new XElement("REFERENCE_DELIVERY_DATE", null),
                        new XElement("REFERENCE_RCV_NAME", REFERENCE_RCV_NAME),
                        new XElement("REFERENCE_RCV_ROLE", REFERENCE_RCV_ROLE),
                        new XElement("REFERENCE_RCV_GIVEN_NAME", REFERENCE_RCV_GIVEN_NAME),
                        new XElement("REFERENCE_RCV_PHONE", REFERENCE_RCV_PHONE),
                        new XElement("REFERENCE_RCV_ADDRESS", REFERENCE_RCV_ADDRESS),
-                       new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")),
+                       COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
                        new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),

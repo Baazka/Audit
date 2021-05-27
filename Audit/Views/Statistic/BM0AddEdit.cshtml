@@ -158,8 +158,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хамрагдсан байгууллагын тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.AUDIT_INCLUDED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                        @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_COUNT, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(m => m.AUDIT_INCLUDED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_COUNT, "", new { @class = "text-danger"})
                                     </div>
                                 </div>
                             </div>
@@ -215,15 +215,17 @@
                                         @Html.Label("rbtab", "ТАБ")
                                         @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 2, new { id = "rbhak" })
                                         @Html.Label("rbhak", "ХАК")
-                                        @Html.ValidationMessageFor(m => m.AUDIT_DEPARTMENT_TYPE, "", new { @class = "text-danger" })
+
                                     </div>
                                 </div>
                             </div>
+                           
                             <div class="col-12 team_department d-none">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Гүйцэтгэгч газар: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.TEAM_DEPARTMENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                        @*@Html.HiddenFor(m => m.TEAM_DEPARTMENT_ID)*@
                                     </div>
                                 </div>
                             </div>
@@ -232,6 +234,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Гүйцэтгэгч газар: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.AUDIT_DEPARTMENT_ID, Model.haks.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -239,8 +242,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
                                     <div class="col-sm-4">
-                                        @Html.HiddenFor(m=>m.AUDITOR_LEADS)
+                                        @Html.HiddenFor(m => m.AUDITOR_LEADS)
                                         @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserLeadPopup">
@@ -256,7 +260,8 @@
                                     <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
                                     <div class="col-sm-4">
                                         @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
-                                        @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly="readonly" })
+                                        @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserMemberPopup">
@@ -278,7 +283,7 @@
                         </div>
                         <hr />
                         <div style="text-align: right">
-                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;" >Хадгалах</button>
                             <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
                         </div>
                     </fieldset>
@@ -321,6 +326,7 @@
               $('.team_audit').removeClass('d-none');
           }
       });
+     
   //    $('.decimal').formatCurrency();
   //    $('.decimal').blur(function () {
   //        $('.decimal').html(null);
@@ -349,4 +355,7 @@
   //            }
   //        })
   });
+    //function CheckTeam() {
+    //    return alert("aldaa");
+    //};
 </script>

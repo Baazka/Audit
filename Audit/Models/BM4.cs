@@ -30,15 +30,19 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string PROPOSAL_DATE { get; set; }
         public string PROPOSAL_NO { get; set; }
         public string PROPOSAL_VIOLATION_DESC { get; set; }
+        [Required(ErrorMessage = "Зөрчлийн ангилал сонгоно уу.")]
         public int PROPOSAL_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         public string VIOLATION_RESPONDENT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string PROPOSAL_SUBMITTED_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string PROPOSAL_DELIVERY_DATE { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int PROPOSAL_COUNT { get; set; }
         public decimal PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }
@@ -149,13 +153,13 @@ namespace Audit.Models
             return new XElement("BM4",
                        new XElement("ID", ID),
                        new XElement("AUDIT_ID", AUDIT_ID),
-                       new XElement("PROPOSAL_DATE", Convert.ToDateTime(PROPOSAL_DATE).ToString("dd-MMM-yy")),
+                       PROPOSAL_DATE != null ? new XElement("PROPOSAL_DATE", Convert.ToDateTime(PROPOSAL_DATE).ToString("dd-MMM-yy")) : new XElement("PROPOSAL_DATE", null),
                        new XElement("PROPOSAL_NO", PROPOSAL_NO),
                        new XElement("PROPOSAL_VIOLATION_DESC", PROPOSAL_VIOLATION_DESC),
                        new XElement("PROPOSAL_VIOLATION_TYPE", PROPOSAL_VIOLATION_TYPE),
                        new XElement("VIOLATION_RESPONDENT", VIOLATION_RESPONDENT),
-                       new XElement("PROPOSAL_SUBMITTED_DATE", Convert.ToDateTime(PROPOSAL_SUBMITTED_DATE).ToString("dd-MMM-yy")),
-                       new XElement("PROPOSAL_DELIVERY_DATE", Convert.ToDateTime(PROPOSAL_DELIVERY_DATE).ToString("dd-MMM-yy")),
+                       PROPOSAL_SUBMITTED_DATE != null ? new XElement("PROPOSAL_SUBMITTED_DATE", Convert.ToDateTime(PROPOSAL_SUBMITTED_DATE).ToString("dd-MMM-yy")) : new XElement("PROPOSAL_SUBMITTED_DATE", null),
+                       PROPOSAL_DELIVERY_DATE != null ? new XElement("PROPOSAL_DELIVERY_DATE", Convert.ToDateTime(PROPOSAL_DELIVERY_DATE).ToString("dd-MMM-yy")) : new XElement("PROPOSAL_DELIVERY_DATE", null),
                        new XElement("PROPOSAL_COUNT", PROPOSAL_COUNT),
                        new XElement("PROPOSAL_AMOUNT", PROPOSAL_AMOUNT),
                        new XElement("PROPOSAL_RCV_NAME", PROPOSAL_RCV_NAME),
@@ -164,7 +168,7 @@ namespace Audit.Models
                        new XElement("PROPOSAL_RCV_PHONE", PROPOSAL_RCV_PHONE),
                        new XElement("PROPOSAL_RCV_ADDRESS", PROPOSAL_RCV_ADDRESS),
                        //new XElement("PROPOSAL_CONTROL_AUDITOR", PROPOSAL_CONTROL_AUDITOR),
-                       new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")),
+                       COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
                        new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),
