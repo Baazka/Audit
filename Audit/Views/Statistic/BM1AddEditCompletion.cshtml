@@ -30,8 +30,63 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
-                        @Html.HiddenFor(m => m.ACT_AMOUNT)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
+                        @*@Html.HiddenFor(m => m.ACT_AMOUNT)*@
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Төлбөрийг барагдуулах: <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm ", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_DELIVERY_DATE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Төлбөрийн дүн:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount4", @placeholder = "0.00", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_STATE_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Орон нутгийн төсөвт:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_LOCAL_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Тухайн байгууллагад:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_ORG_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Бусад:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_OTHER_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
                         <h6 class="heading-1"><span>Төлбөрийн актын биелэлт</span></h6>
                         <div class="row">
@@ -39,7 +94,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийн баримтын огноо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @id = "COMPLETION_DATE_ID" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_DATE, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -57,7 +112,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийн актын биелэлтийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.COMPLETION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -105,7 +160,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бүртгэлээс хасагдсан дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.REMOVED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.REMOVED_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -159,7 +214,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тушаалаар хүчингүй болгосон дугаар:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_INVALID_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.EditorFor(m => m.REMOVED_INVALID_NO, new { htmlAttributes = new { @class = "form-control form-control-sm", @onkeypress = "calculateSum4()" } })
                                         @*@Html.ValidationMessageFor(m => m.REMOVED_INVALID_NO, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -177,7 +232,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_NONEXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -186,7 +241,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_EXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -233,8 +288,33 @@
         }
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script>
+    //$(document).ready(function () {
+    //    if ($("#CREATED_DATE").val() > $("#ACT_DELIVERY_DATE").val()) {
+    //        $("#ACT_C2_EXPIRED").val()
+    //    }
+    //});
   $( function() {
+      $("#COMPLETION_DATE_ID").datepicker({
+          beforeShow: function () {
+              setTimeout(function () {
+                  $('.ui-datepicker').css('z-index', 99999999999999);
+              }, 0);
+          },
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy.mm.dd",
+          firstDay: 1,
+          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+          minDate: $("#ACT_DELIVERY_DATE").val(),
+          showOn: "button",
+          buttonImage: "@Url.Content("~/Images/calendar.png")",
+          buttonImageOnly: true,
+          buttonText: "Select date"
+      });
+
       $(".datepicker").datepicker({
           beforeShow: function () {
               setTimeout(function () {
@@ -243,11 +323,10 @@
           },
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy/mm/dd",
+          dateFormat: "yy.mm.dd",
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
-          //maxDate: "+0D",
           showOn: "button",
           buttonImage: "@Url.Content("~/Images/calendar.png")",
           buttonImageOnly: true,
@@ -296,7 +375,7 @@
       $(".amount3").on("keydown keyup", function () {
           calculateSum3();
       });
-      $(".amount4").on("keydown keyup", function () {
+      $(".amount4").on("change", function () {
           calculateSum4();
       });
 
@@ -336,17 +415,50 @@
 
           $("#REMOVED_AMOUNT").val(sum.toFixed(2));
       }
+      //function calculateSum4() {
+      //    var sum = 0;
+      //    //iterate through each textboxes and add the values
+
+      //    //$(".amount4").each(function () {
+
+      //        //$("#ACT_C2_AMOUNT").val(sum.toFixed(2));
+      //        $("#ACT_C2_AMOUNT").val(($("#ACT_AMOUNT").val() - $("#COMPLETION_AMOUNT").val() - $("#REMOVED_AMOUNT").val()).toFixed(2));
+      //        ////add only if the value is number
+      //        //if (!isNaN(this.value) && this.value.length != 0) {
+      //        //    ("#ACT_C2_AMOUNT").val() - ("#ACT_C2_AMOUNT").val() - ("#ACT_C2_AMOUNT").val();
+      //        //}
+      //   // });
+
+      //     $("#ACT_C2_AMOUNT").val(($("#ACT_AMOUNT").val() - $("#COMPLETION_AMOUNT").val() - $("#REMOVED_AMOUNT").val()).toFixed(2));
+      //    alert("d");
+      //}
       function calculateSum4() {
           var sum = 0;
+          $(".amount4").change(function () {
+              sum = $("#ACT_AMOUNT").val() - $("#COMPLETION_AMOUNT").val() - $("#REMOVED_AMOUNT").val();
+          });
           //iterate through each textboxes and add the values
           $(".amount4").each(function () {
               //add only if the value is number
               if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
+                  sum = $("#ACT_AMOUNT").val() - $("#COMPLETION_AMOUNT").val() - $("#REMOVED_AMOUNT").val();
               }
+              $("#COMPLETION_DATE_ID").change(function (value) {
+                  if ($("#NOW_CREATED_DATE").val() > value.target.value) {
+                      $("#ACT_C2_EXPIRED").val(null);
+                      $("#ACT_C2_NONEXPIRED").val(sum.toFixed(2));
+                      
+                  }
+                  if ($("#NOW_CREATED_DATE").val() <= value.target.value) {
+                      $("#ACT_C2_NONEXPIRED").val(null);
+                      $("#ACT_C2_EXPIRED").val(sum.toFixed(2));
+                  }
+              })
+              
           });
 
           $("#ACT_C2_AMOUNT").val(sum.toFixed(2));
       }
+     
   });
 </script>

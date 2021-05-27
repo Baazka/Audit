@@ -101,7 +101,7 @@ namespace Audit.Models
                     BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
 
                 if (xml.Element("PROPOSAL_DATE") != null)
-                    PROPOSAL_DATE = xml.Element("PROPOSAL_DATE").Value;
+                    PROPOSAL_DATE = Convert.ToDateTime(xml.Element("PROPOSAL_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("PROPOSAL_NO") != null)
                     PROPOSAL_NO = xml.Element("PROPOSAL_NO").Value;
                 if (xml.Element("PRO_VIOLATION_DESC") != null)
