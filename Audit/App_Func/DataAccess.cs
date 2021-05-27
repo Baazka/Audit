@@ -2164,7 +2164,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_STATE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_STATE_AMOUNT")?.Value == null ? null : elem.Element("ACT_STATE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_LOCAL_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_LOCAL_AMOUNT")?.Value == null ? null : elem.Element("ACT_LOCAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_ORG_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_ORG_AMOUNT")?.Value == null ? null : elem.Element("ACT_ORG_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("_ACT_OTHER_AMOUNT")?.Value == null ? null : elem.Element("_ACT_OTHER_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_OTHER_AMOUNT")?.Value == null ? null : elem.Element("ACT_OTHER_AMOUNT")?.Value;
                 
                 
 
