@@ -1522,39 +1522,51 @@ namespace Audit.App_Func
                 string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
 
                 // delete query add
-                for (int i = 0; i < leads.Count(); i++)
+                if(elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "2")
                 {
+                    if(leads.Count() > 0)
+                    {
+                        for (int i = 0; i < leads.Count(); i++)
+                        {
 
-                    OracleCommand cmdLead = con.CreateCommand();
+                            OracleCommand cmdLead = con.CreateCommand();
 
-                    cmdLead.CommandType = CommandType.Text;
-                    cmdLead.CommandText = "INSERT INTO AUD_STAT.BM0_TEAM_DATA(AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID) " +
-                        "VALUES(:V_AUDIT_ID, :V_TEAM_TYPE_ID, :V_AUDITOR_ID)";
+                            cmdLead.CommandType = CommandType.Text;
+                            cmdLead.CommandText = "INSERT INTO AUD_STAT.BM0_TEAM_DATA(AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID) " +
+                                "VALUES(:V_AUDIT_ID, :V_TEAM_TYPE_ID, :V_AUDITOR_ID)";
 
-                    cmdLead.BindByName = true;
-                    cmdLead.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
-                    cmdLead.Parameters.Add(":V_TEAM_TYPE_ID", OracleDbType.Int32).Value = 1;
-                    cmdLead.Parameters.Add(":V_AUDITOR_ID", OracleDbType.Int32).Value = Convert.ToInt32(leads[i]);
+                            cmdLead.BindByName = true;
+                            cmdLead.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                            cmdLead.Parameters.Add(":V_TEAM_TYPE_ID", OracleDbType.Int32).Value = 1;
+                            cmdLead.Parameters.Add(":V_AUDITOR_ID", OracleDbType.Int32).Value = Convert.ToInt32(leads[i]);
 
-                    cmdLead.ExecuteNonQuery();
-                    cmdLead.Dispose();
+                            cmdLead.ExecuteNonQuery();
+                            cmdLead.Dispose();
+                        }
+
+                    }
+                   if(members.Count() > 0)
+                    {
+                        for (int i = 0; i < members.Count(); i++)
+                        {
+
+                            OracleCommand cmdMember = con.CreateCommand();
+
+                            cmdMember.CommandType = CommandType.Text;
+                            cmdMember.CommandText = "INSERT INTO AUD_STAT.BM0_TEAM_DATA(AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID) " +
+                                "VALUES(:V_AUDIT_ID, :V_TEAM_TYPE_ID, :V_AUDITOR_ID)";
+                            cmdMember.BindByName = true;
+                            cmdMember.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                            cmdMember.Parameters.Add(":V_TEAM_TYPE_ID", OracleDbType.Int32).Value = 2;
+                            cmdMember.Parameters.Add(":V_AUDITOR_ID", OracleDbType.Int32).Value = Convert.ToInt32(members[i]); ;
+
+                            cmdMember.ExecuteNonQuery();
+                            cmdMember.Dispose();
+                        }
+                    }
+                    
                 }
-                for (int i = 0; i < members.Count(); i++)
-                {
-
-                    OracleCommand cmdMember = con.CreateCommand();
-
-                    cmdMember.CommandType = CommandType.Text;
-                    cmdMember.CommandText = "INSERT INTO AUD_STAT.BM0_TEAM_DATA(AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID) " +
-                        "VALUES(:V_AUDIT_ID, :V_TEAM_TYPE_ID, :V_AUDITOR_ID)";
-                    cmdMember.BindByName = true;
-                    cmdMember.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
-                    cmdMember.Parameters.Add(":V_TEAM_TYPE_ID", OracleDbType.Int32).Value = 2;
-                    cmdMember.Parameters.Add(":V_AUDITOR_ID", OracleDbType.Int32).Value = Convert.ToInt32(members[i]); ;
-
-                    cmdMember.ExecuteNonQuery();
-                    cmdMember.Dispose();
-                }
+                
 
 
                 transaction.Commit();

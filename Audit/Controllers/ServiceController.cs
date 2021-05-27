@@ -291,11 +291,14 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
+
+                response.recordsTotal = 0;
                 XElement res = AppStatic.SystemController.BM2(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("BM2") != null)
+                {
                     response.data = (from item in res.Elements("BM2") select new BM2().SetXml(item)).ToList();
-
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                    response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                }
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }

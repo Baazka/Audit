@@ -244,6 +244,7 @@
                                     <div class="col-sm-4">
                                         @Html.HiddenFor(m => m.AUDITOR_LEADS)
                                         @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserLeadPopup">
@@ -260,6 +261,7 @@
                                     <div class="col-sm-4">
                                         @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
                                         @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserMemberPopup">
@@ -281,7 +283,7 @@
                         </div>
                         <hr />
                         <div style="text-align: right">
-                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;" >Хадгалах</button>
                             <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
                         </div>
                     </fieldset>
@@ -324,6 +326,7 @@
               $('.team_audit').removeClass('d-none');
           }
       });
+     
   //    $('.decimal').formatCurrency();
   //    $('.decimal').blur(function () {
   //        $('.decimal').html(null);
@@ -352,4 +355,7 @@
   //            }
   //        })
   });
+    //function CheckTeam() {
+    //    return alert("aldaa");
+    //};
 </script>

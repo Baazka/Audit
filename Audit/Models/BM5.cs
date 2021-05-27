@@ -33,6 +33,7 @@ namespace Audit.Models
 
         public string LAW_RESPONDANT_NAME { get; set; }
         public string LAW_VIOLATION_DESC { get; set; }
+        [Required(ErrorMessage = "Зөрчлийн ангилал сонгоно уу.")]
         public int LAW_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         public string LAW_MOVING_INFORMATION { get; set; }

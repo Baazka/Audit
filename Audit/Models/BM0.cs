@@ -50,10 +50,10 @@ namespace Audit.Models
         //[Required(ErrorMessage = "Утга оруулна уу.")]
         //public string AUDIT_DEPARTMENT { get; set; }
         public string[] AUDITOR_LEADS { get; set; }
-        //[Required(ErrorMessage = "Утга оруулна уу.")]
+        [Required(ErrorMessage = "Багийн ахлах оруулна уу.")]
         public string AUDITOR_LEAD { get; set; }
         public string[] AUDITOR_MEMBERS { get; set; }
-        //[Required(ErrorMessage = "Утга оруулна уу.")]
+        [Required(ErrorMessage = "Багийн гишүүн оруулна уу.")]
         public string AUDITOR_MEMBER { get; set; }
        // [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_ENTRY { get; set; }

@@ -36,6 +36,7 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_NO { get; set; }
         public string ACT_VIOLATION_DESC { get; set; }
+        [Required(ErrorMessage = "Зөрчлийн ангилал сонгоно уу.")]
         public int ACT_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
