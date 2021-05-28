@@ -76,6 +76,19 @@ namespace Audit.Models
             return this;
         }
     }
+    public class ParentBudgetType
+    {
+        public int PARENT_BUDGET_ID { get; set; }
+        public string PARENT_BUGDET_NAME { get; set; }
+        public ParentBudgetType FromXml(XElement elem)
+        {
+            if (elem.Element("PARENT_BUDGET_ID") != null)
+                PARENT_BUDGET_ID = Convert.ToInt32(elem.Element("PARENT_BUDGET_ID").Value);
+            if (elem.Element("PARENT_BUGDET_NAME") != null)
+                PARENT_BUGDET_NAME = elem.Element("PARENT_BUGDET_NAME").Value;
+            return this;
+        }
+    }
     public class BudgetType
     {
         public int BUDGET_TYPE_ID { get; set; }

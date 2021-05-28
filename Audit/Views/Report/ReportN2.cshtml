@@ -35,13 +35,17 @@
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         <div class="form-group-sm pr-2">
-            <label for="TypeID" class="col-form-label">ТЕЗ:</label>
+            <label for="TypeID" class="col-form-label">Төсөв захирагчийн ангилал:</label>
             @Html.DropDownListFor(model => model.TypeID, new List<SelectListItem>
                { new SelectListItem{Text="ТЕЗ", Value="1"},
                  new SelectListItem{Text="ТТЗ", Value="2"},
                  new SelectListItem{Text="ТШЗ", Value="3"}},
                "Сонгоно уу", new { @class = "form-control form-control-sm" })
             @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="PARENT_BUDGET_ID" class="col-form-label">Төсвийн ерөнхийлөн захирагч:</label>
+            @Html.DropDownListFor(model => model.PARENT_BUDGET_ID, Model.parentBudgetTypes.Select(m => new SelectListItem { Text = m.PARENT_BUGDET_NAME, Value = m.PARENT_BUDGET_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
@@ -189,6 +193,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.TypeID = $('#TypeID').val();
                         data.Mayagt = mayagt;
+                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
                         count = 0;
                         return data;
                     }
@@ -287,16 +292,16 @@
                     { "data": "MD158", "name": "MD158", "class": "text-center" },
                     { "data": "MD159", "name": "MD159", "class": "text-center" },
                     { "data": "MD160", "name": "MD160", "class": "text-center" },
-                    { "data": "MD104", "name": "MD104", "class": "text-center" },
-                    { "data": "MD105", "name": "MD105", "class": "text-center" },
-                    { "data": "MD106", "name": "MD106", "class": "text-center" },
+                    { "data": "MD162", "name": "MD162", "class": "text-center" },
+                    { "data": "MD163", "name": "MD163", "class": "text-center" },
+                    { "data": "MD164", "name": "MD164", "class": "text-center" },
                     { "data": "OPEN_HEAD_ROLE", "name": "OPEN_HEAD_NAME" },
                     { "data": "OPEN_ACC_ROLE", "name": "OPEN_HEAD_PHONE" },
-                    { "data": "MD107", "name": "MD107", "class": "text-center" },
-                    { "data": "MD108", "name": "MD108", "class": "text-center" },
-                    { "data": "MD109", "name": "MD109", "class": "text-center" },
-                    { "data": "MD110", "name": "MD110", "class": "text-center" },
-                    { "data": "MD113", "name": "MD113", "class": "text-center" }
+                    { "data": "MD165", "name": "MD165", "class": "text-center" },
+                    { "data": "MD166", "name": "MD166", "class": "text-center" },
+                    { "data": "MD167", "name": "MD167", "class": "text-center" },
+                    { "data": "MD168", "name": "MD168", "class": "text-center" },
+                    { "data": "MD169", "name": "MD169", "class": "text-center" }
                 ],
                 columnDefs: [
                     { width: 10, targets: 1 },
@@ -354,6 +359,9 @@
             N2ListInit();
         });
         $('#TypeID').change(function () {
+            N2ListInit();
+        });
+        $('#PARENT_BUDGET_ID').change(function () {
             N2ListInit();
         });
 

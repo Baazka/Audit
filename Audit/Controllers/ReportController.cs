@@ -31,17 +31,21 @@ namespace Audit.Controllers
             try
             {
                 if (Globals.departments.Count > 0)
-                {
                     res.departments = Globals.departments;
-                }
                 else
                 {
                     XElement responseDepartment = SendLibraryRequest("Department");
                     Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
                     res.departments = Globals.departments;
-
                 }
-
+                if (Globals.parentBudgetTypes.Count > 0)
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
+                else
+                {
+                    XElement responseParentBudgetTypes = SendLibraryRequest("ParentBudgetType");
+                    Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
+                }
             }
             catch (Exception ex)
             {
@@ -78,10 +82,11 @@ namespace Audit.Controllers
             N1VM res = new N1VM();
             try
             {
-                if (Globals.departments.Count > 0 || Globals.periods.Count > 0)
+                if (Globals.departments.Count > 0 || Globals.periods.Count > 0 || Globals.parentBudgetTypes.Count > 0)
                 {
                     res.departments = Globals.departments;
                     res.periods = Globals.periods;
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
                 else
                 {
@@ -92,6 +97,10 @@ namespace Audit.Controllers
                     XElement responsePeriod = SendLibraryRequest("StatPeriod");
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     res.periods = Globals.periods;
+
+                    XElement responseParentBudgetTypes = SendLibraryRequest("ParentBudgetType");
+                    Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
             }
             catch (Exception ex)
@@ -105,10 +114,11 @@ namespace Audit.Controllers
             N1VM res = new N1VM();
             try
             {
-                if (Globals.departments.Count > 0 || Globals.periods.Count > 0)
+                if (Globals.departments.Count > 0 || Globals.periods.Count > 0 || Globals.parentBudgetTypes.Count > 0)
                 {
                     res.departments = Globals.departments;
                     res.periods = Globals.periods;
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
                 else
                 {
@@ -119,6 +129,10 @@ namespace Audit.Controllers
                     XElement responsePeriod = SendLibraryRequest("StatPeriod");
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     res.periods = Globals.periods;
+
+                    XElement responseParentBudgetTypes = SendLibraryRequest("ParentBudgetType");
+                    Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
             }
             catch (Exception ex)
@@ -132,10 +146,11 @@ namespace Audit.Controllers
             N1VM res = new N1VM();
             try
             {
-                if (Globals.departments.Count > 0 || Globals.periods.Count > 0)
+                if (Globals.departments.Count > 0 || Globals.periods.Count > 0 || Globals.parentBudgetTypes.Count > 0)
                 {
                     res.departments = Globals.departments;
                     res.periods = Globals.periods;
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
                 else
                 {
@@ -146,6 +161,10 @@ namespace Audit.Controllers
                     XElement responsePeriod = SendLibraryRequest("StatPeriod");
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     res.periods = Globals.periods;
+
+                    XElement responseParentBudgetTypes = SendLibraryRequest("ParentBudgetType");
+                    Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
+                    res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
             }
             catch (Exception ex)

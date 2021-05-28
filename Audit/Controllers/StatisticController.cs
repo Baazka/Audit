@@ -202,7 +202,14 @@ namespace Audit.Controllers
         public ActionResult BM0AddEdit(BM0 bm0)
         {
             if(bm0.AUDIT_DEPARTMENT_TYPE == 1)
+            {
                 ModelState.Remove("AUDIT_DEPARTMENT_ID");
+            }
+            if (bm0.AUDIT_DEPARTMENT_TYPE == 2)
+            {
+                ModelState.Remove("AUDITOR_LEAD");
+                ModelState.Remove("AUDITOR_MEMBER");
+            }
             if (ModelState.IsValid)
             {
                 if (bm0.ID != 0)

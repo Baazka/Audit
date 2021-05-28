@@ -13,12 +13,17 @@
         @if (User.GetClaimData("DepartmentID") == "2" || User.GetClaimData("DepartmentID") == "101")
         {
             <div class="form-group-sm pr-2">
+                <label for="PARENT_BUDGET_ID" class="col-form-label">Төсвийн ерөнхийлөн захирагч:</label>
+                @Html.DropDownListFor(model => model.PARENT_BUDGET_ID, Model.parentBudgetTypes.Select(m => new SelectListItem { Text = m.PARENT_BUGDET_NAME, Value = m.PARENT_BUDGET_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            </div>
+            <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
         }
+    
     <div class="form-group-sm pr-2">
-        <label for="BudgetTypeID" class="col-form-label">Төсөв захирагч:</label>
+        <label for="BudgetTypeID" class="col-form-label">Төсөв захирагчийн ангилал:</label>
 
         @Html.DropDownListFor(model => model.BudgetTypeID, new SelectList(
                  new List<Object>{
@@ -69,8 +74,8 @@
                     <thead style="background-color:#f8f9fc;">
                         <tr>
                             <th class="text-center">№</th>
-                            <th>ТЕЗ</th>
-                            <th width="5%">ТТЗ/ТЕЗ</th>
+                            <th>Төсвийн ерөнхийлөн захирагч</th>
+                            <th width="5%">Төсөв захирагчийн ангилал</th>
                             <th width="20%">Харъяа аудитын байгууллагын нэр</th>
                             <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
                             <th>Регистрийн дугаар</th>
@@ -95,8 +100,8 @@
                     <thead style="background-color:#f8f9fc;">
                         <tr>
                             <th class="text-center">№</th>
-                            <th>ТЕЗ</th>
-                            <th width="5%">ТТЗ/ТЕЗ</th>
+                            <th>Төсвийн ерөнхийлөн захирагч</th>
+                            <th width="5%">Төсөв захирагчийн ангилал</th>
                             <th width="20%">Харъяа аудитын байгууллагын нэр</th>
                             <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
                             <th>Регистрийн дугаар</th>
@@ -138,6 +143,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
+                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
                         return data;
                     }
                 },
@@ -152,8 +158,8 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
                     { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
@@ -210,6 +216,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
+                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
                         return data;
                     }
                 },
@@ -224,8 +231,8 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
                     { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
@@ -289,6 +296,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
+                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
                         return data;
                     }
                 },
@@ -302,8 +310,8 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
                     { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
@@ -363,6 +371,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
+                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
                         return data;
                     }
                 },
@@ -377,8 +386,8 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
                     { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
@@ -433,6 +442,9 @@
             });
         }
         $('#DeparmentID').change(function () {
+            orgListInit();
+        });
+        $('#PARENT_BUDGET_ID').change(function () {
             orgListInit();
         });
         $('#BudgetTypeID').change(function () {

@@ -36,6 +36,7 @@ namespace Audit.Models
         
         public string CLAIM_NO { get; set; }
         public string CLAIM_VIOLATION_DESC { get; set; }
+        [Required(ErrorMessage = "Зөрчлийн ангилал сонгоно уу.")]
         public int CLAIM_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
@@ -197,12 +198,12 @@ namespace Audit.Models
                        new XElement("ID", ID),
                        new XElement("AUDIT_ID", AUDIT_ID),
                        //new XElement("CLAIM_DATE", Convert.ToDateTime(CLAIM_DATE).ToString("dd-MMM-yy")),
-                       CLAIM_DATE != null ? new XElement("CLAIM_DATE", Convert.ToDateTime(CLAIM_DATE).ToString("dd-MMM-yy")) : new XElement("CLAIM_DATE", 0),
+                       CLAIM_DATE != null ? new XElement("CLAIM_DATE", Convert.ToDateTime(CLAIM_DATE).ToString("dd-MMM-yy")) : new XElement("CLAIM_DATE", null),
                        new XElement("CLAIM_NO", CLAIM_NO),
                        new XElement("CLAIM_VIOLATION_DESC", CLAIM_VIOLATION_DESC),
                        new XElement("CLAIM_VIOLATION_TYPE", CLAIM_VIOLATION_TYPE),
-                       new XElement("CLAIM_SUBMITTED_DATE", Convert.ToDateTime(CLAIM_SUBMITTED_DATE).ToString("dd-MMM-yy")),
-                       new XElement("CLAIM_DELIVERY_DATE", Convert.ToDateTime(CLAIM_DELIVERY_DATE).ToString("dd-MMM-yy")),
+                       CLAIM_SUBMITTED_DATE != null ? new XElement("CLAIM_SUBMITTED_DATE", Convert.ToDateTime(CLAIM_SUBMITTED_DATE).ToString("dd-MMM-yy")) : new XElement("CLAIM_SUBMITTED_DATE", null),
+                       CLAIM_DELIVERY_DATE != null ? new XElement("CLAIM_DELIVERY_DATE", Convert.ToDateTime(CLAIM_DELIVERY_DATE).ToString("dd-MMM-yy")) : new XElement("CLAIM_DELIVERY_DATE", null),
                        new XElement("CLAIM_VIOLATION_AMOUNT", CLAIM_VIOLATION_AMOUNT),
                        new XElement("CLAIM_RCV_NAME", CLAIM_RCV_NAME),
                        new XElement("CLAIM_RCV_ROLE", CLAIM_RCV_ROLE),
@@ -211,7 +212,7 @@ namespace Audit.Models
                        new XElement("CLAIM_RCV_ADDRESS", CLAIM_RCV_ADDRESS),
                        new XElement("AUDIT_YEAR", AUDIT_YEAR),
                        //new XElement("CLAIM_CONTROL_AUDITOR", CLAIM_CONTROL_AUDITOR),
-                       new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")),
+                       COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT),
                        new XElement("COMPLETION_STATE_AMOUNT", COMPLETION_STATE_AMOUNT),
@@ -219,10 +220,10 @@ namespace Audit.Models
                        new XElement("COMPLETION_ORG_AMOUNT", COMPLETION_ORG_AMOUNT),
                        new XElement("COMPLETION_OTHER_AMOUNT", COMPLETION_OTHER_AMOUNT),
                        new XElement("REMOVED_LAW_AMOUNT", REMOVED_LAW_AMOUNT),
-                       new XElement("REMOVED_LAW_DATE", Convert.ToDateTime(REMOVED_LAW_DATE).ToString("dd-MMM-yy")),
+                       REMOVED_LAW_DATE != null ? new XElement("REMOVED_LAW_DATE", Convert.ToDateTime(REMOVED_LAW_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_LAW_DATE", null),
                        new XElement("REMOVED_LAW_NO", REMOVED_LAW_NO),
                        new XElement("REMOVED_INVALID_AMOUNT", REMOVED_INVALID_AMOUNT),
-                       new XElement("REMOVED_INVALID_DATE", Convert.ToDateTime(REMOVED_INVALID_DATE).ToString("dd-MMM-yy")),
+                       REMOVED_INVALID_DATE != null ? new XElement("REMOVED_INVALID_DATE", Convert.ToDateTime(REMOVED_INVALID_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_INVALID_DATE", null),
                        new XElement("REMOVED_INVALID_NO", REMOVED_INVALID_NO),
                        new XElement("CLAIM_C2_AMOUNT", CLAIM_C2_AMOUNT),
                        new XElement("CLAIM_C2_NONEXPIRED", CLAIM_C2_NONEXPIRED),

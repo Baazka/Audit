@@ -89,6 +89,11 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_DEPARTMENT", null));
 
+                if (request.PARENT_BUDGET_ID != null && request.PARENT_BUDGET_ID != 0)
+                    elem.Add(new XElement("V_ParentBudgetID", request.PARENT_BUDGET_ID));
+                else
+                    elem.Add(new XElement("V_ParentBudgetID", null));
+
                 if (request.budget_type != null)
                     elem.Add(new XElement("V_BUDGET_TYPE", request.budget_type));
                 else
@@ -201,7 +206,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("BM0") != null)
                     response.data = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
 
@@ -246,7 +251,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("BM1") != null)
                     response.data = (from item in res.Elements("BM1") select new BM1().SetXml(item)).ToList();
 
@@ -291,11 +296,14 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
+
+                response.recordsTotal = 0;
                 XElement res = AppStatic.SystemController.BM2(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("BM2") != null)
+                {
                     response.data = (from item in res.Elements("BM2") select new BM2().SetXml(item)).ToList();
-
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                    response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                }
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -1301,6 +1309,11 @@ namespace Audit.Controllers
 
                 }
 
+                if (request.PARENT_BUDGET_ID != null && request.PARENT_BUDGET_ID != 0)
+                    elem.Add(new XElement("V_ParentBudgetID", request.PARENT_BUDGET_ID));
+                else
+                    elem.Add(new XElement("V_ParentBudgetID", null));
+
                 if (request.PeriodID != null) 
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
                 else
@@ -1310,7 +1323,6 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_TypeID", request.TypeID));
                 else
                     elem.Add(new XElement("V_TypeID", null));
-
 
                 XElement res = AppStatic.SystemController.N1(elem, User.GetClaimData("USER_TYPE")); 
                 if (res != null && res.Elements("N1") != null)
@@ -1558,7 +1570,11 @@ namespace Audit.Controllers
                     
                 }
 
-                
+                if (request.PARENT_BUDGET_ID != null && request.PARENT_BUDGET_ID != 0)
+                    elem.Add(new XElement("V_ParentBudgetID", request.PARENT_BUDGET_ID));
+                else
+                    elem.Add(new XElement("V_ParentBudgetID", null));
+
 
                 if (request.PeriodID != null)
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
@@ -1890,6 +1906,11 @@ namespace Audit.Controllers
 
                 }
 
+                if (request.PARENT_BUDGET_ID != null && request.PARENT_BUDGET_ID != 0)
+                    elem.Add(new XElement("V_ParentBudgetID", request.PARENT_BUDGET_ID));
+                else
+                    elem.Add(new XElement("V_ParentBudgetID", null));
+
                 if (request.PeriodID != null)
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
                 else
@@ -2187,8 +2208,6 @@ namespace Audit.Controllers
             return response;
         }
       
-       
-
 
     }
 }

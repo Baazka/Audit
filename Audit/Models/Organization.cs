@@ -492,6 +492,7 @@ namespace Audit.Models
     {
         public List<MenuRole> menuRoles { get; set; }
         public int DeparmentID { get; set; }
+        public int PARENT_BUDGET_ID { get; set; }
         public int[] StatusIDs { get; set; }
         public MultiSelectList Status { get; set; }
         public int[] BudgetTypeIDs { get; set; }
@@ -500,6 +501,7 @@ namespace Audit.Models
         public int[] ViolationIDs { get; set; }
         public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
+        public List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
         public List<Status> statuses { get; set; } = new List<Status>();
         public List<Violation> violations { get; set; } = new List<Violation>();
         public List<Office> offices { get; set; } = new List<Office>();

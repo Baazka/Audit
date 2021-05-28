@@ -36,7 +36,7 @@ namespace Audit.Models
         public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
         public int COMPLETION_INVALID_COUNT { get; set; }
         public decimal COMPLETION_INVALID_AMOUNT { get; set; }
-        public int LAW_C2_NUMBER_COUNT { get; set; }
+        public int LAW_C2_COUNT { get; set; }
         public decimal LAW_C2_AMOUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
@@ -91,8 +91,8 @@ namespace Audit.Models
                 if (xml.Element("COMPLETION_INVALID_AMOUNT") != null)
                     COMPLETION_INVALID_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_INVALID_AMOUNT").Value);
 
-                if (xml.Element("LAW_C2_NUMBER_COUNT") != null)
-                    LAW_C2_NUMBER_COUNT = Convert.ToInt32(xml.Element("LAW_C2_NUMBER_COUNT").Value);
+                if (xml.Element("LAW_C2_COUNT") != null)
+                    LAW_C2_COUNT = Convert.ToInt32(xml.Element("LAW_C2_COUNT").Value);
                 if (xml.Element("LAW_C2_AMOUNT") != null)
                     LAW_C2_AMOUNT = Convert.ToDecimal(xml.Element("LAW_C2_AMOUNT").Value); if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);

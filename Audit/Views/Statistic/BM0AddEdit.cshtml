@@ -211,10 +211,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Багийн төрөл: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 1, new { id = "rbtab" })
+                                        @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 1, new { id = "rbtab" , @Checked = "checked" })
                                         @Html.Label("rbtab", "ТАБ")
                                         @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 2, new { id = "rbhak" })
                                         @Html.Label("rbhak", "ХАК")
+                                        @Html.ValidationMessageFor(m => m.AUDIT_DEPARTMENT_TYPE, "", new { @class = "text-danger" })
 
                                     </div>
                                 </div>
@@ -234,16 +235,17 @@
                                     <label class="col-sm-4 col-form-label text-right">Гүйцэтгэгч газар: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.AUDIT_DEPARTMENT_ID, Model.haks.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                       
+                                        @Html.ValidationMessageFor(m => m.AUDIT_DEPARTMENT_ID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12" id="teamdata">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
                                     <div class="col-sm-4">
                                         @Html.HiddenFor(m => m.AUDITOR_LEADS)
                                         @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserLeadPopup">
@@ -254,12 +256,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12" id="teamdata2">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
                                     <div class="col-sm-4">
                                         @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
                                         @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserMemberPopup">
@@ -281,7 +284,7 @@
                         </div>
                         <hr />
                         <div style="text-align: right">
-                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;" >Хадгалах</button>
                             <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
                         </div>
                     </fieldset>
@@ -291,6 +294,17 @@
     </div>
 </div>
 <script>
+    $(document).ready(function () {
+        if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1) {
+            document.getElementById("teamdata").style.display = "block";
+            document.getElementById("teamdata2").style.display = "block";
+        }
+        else {
+            document.getElementById("teamdata").style.display = "none";
+            document.getElementById("teamdata2").style.display = "none";
+        }
+
+    });
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -318,12 +332,18 @@
           if (this.value == 1) {
               $('.team_department').removeClass('d-none');
               $('.team_audit').addClass('d-none');
+              document.getElementById("teamdata").style.display = "block";
+              document.getElementById("teamdata2").style.display = "block";
           }
           else if (this.value == 2) {
+
               $('.team_department').addClass('d-none');
               $('.team_audit').removeClass('d-none');
+              document.getElementById("teamdata").style.display = "none";
+              document.getElementById("teamdata2").style.display = "none";
           }
       });
+
   //    $('.decimal').formatCurrency();
   //    $('.decimal').blur(function () {
   //        $('.decimal').html(null);
@@ -352,4 +372,7 @@
   //            }
   //        })
   });
+    //function CheckTeam() {
+    //    return alert("aldaa");
+    //};
 </script>
