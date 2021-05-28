@@ -8624,7 +8624,7 @@ namespace Audit.App_Func
             {
 
                 // Open a connection to the database
-                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
 
@@ -8713,7 +8713,7 @@ namespace Audit.App_Func
             {
 
                 // Open a connection to the database
-                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
                 string mayagt = null;
