@@ -43,6 +43,7 @@ namespace Audit.Models
         public int[] status { get; set; }
         public List<string> violation { get; set; }
         public int? DeparmentID { get; set; }
+        public int? PARENT_BUDGET_ID { get; set; }
         public int? budget_type { get; set; }
     }
     public class MirrorOrgListResponse : DataTableAjaxResponModel
@@ -1126,7 +1127,6 @@ namespace Audit.Models
 
         public int TypeID { get; set; }
 
-
         public int MD1 { get; set; }
         public int MD2 { get; set; }
         public int MD3 { get; set; }
@@ -1247,6 +1247,7 @@ namespace Audit.Models
         public string MD168 { get; set; }
         public string MD169 { get; set; }
         public int? DeparmentID { get; set; }
+        public int? PARENT_BUDGET_ID { get; set; }
         public int? PeriodID { get; set; }
 
         public string Mayagt { get; set; }

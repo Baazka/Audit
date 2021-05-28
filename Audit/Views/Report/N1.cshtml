@@ -35,13 +35,17 @@
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         <div class="form-group-sm pr-2">
-            <label for="TypeID" class="col-form-label">Төсөв захирагч:</label>
+            <label for="TypeID" class="col-form-label">Төсөв захирагчийн ангилал:</label>
             @Html.DropDownListFor(model => model.TypeID, new List<SelectListItem>
                { new SelectListItem{Text="ТЕЗ", Value="1"},
                  new SelectListItem{Text="ТТЗ", Value="2"},
                  new SelectListItem{Text="ТШЗ", Value="3"}},
                "Сонгоно уу", new { @class = "form-control form-control-sm" })
             @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="PARENT_BUDGET_ID" class="col-form-label">Төсвийн ерөнхийлөн захирагч:</label>
+            @Html.DropDownListFor(model => model.PARENT_BUDGET_ID, Model.parentBudgetTypes.Select(m => new SelectListItem { Text = m.PARENT_BUGDET_NAME, Value = m.PARENT_BUDGET_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         <div class="form-group-sm pr-2">
             <br />
@@ -65,15 +69,6 @@
                 <span class="text">Excel</span>
             </a>
         </div>
-
-
-
-
-
-
-
-
-
 
         @*<div class="form-group-sm ml-auto pr-2">
             <br />
@@ -178,6 +173,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.TypeID = $('#TypeID').val();
+                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
                         data.Mayagt = mayagt;
                         count = 0;
                         return data;
@@ -328,6 +324,9 @@
             N1ListInit();
         });
         $('#TypeID').change(function () {
+            N1ListInit();
+        });
+        $('#PARENT_BUDGET_ID').change(function () {
             N1ListInit();
         });
 

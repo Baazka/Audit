@@ -10,11 +10,13 @@ namespace Audit.Models
     public class N1VM
     {
         public int DeparmentID { get; set; }
+        public int PARENT_BUDGET_ID { get; set; }
         public int PeriodID { get; set; }
 
         public int TypeID { get; set; }
         
         public List<Department> departments { get; set; } = new List<Department>();
+        public List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
         public List<Period> periods { get; set; } = new List<Period>();
     }
     public class N1DF
