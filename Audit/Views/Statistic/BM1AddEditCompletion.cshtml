@@ -294,7 +294,12 @@
     var value2 =0;
     var value3 = 0;
     $(document).ready(function () {
-        $("#ACT_C2_AMOUNT").val(0.00);
+
+        if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+            $("#ACT_C2_AMOUNT").val(null);
+            $("#ACT_C2_NONEXPIRED").val(null);
+            $("#ACT_C2_EXPIRED").val(null);
+        }
     });
 
     $(function () {

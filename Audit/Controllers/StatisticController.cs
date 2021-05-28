@@ -1105,6 +1105,40 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM2AddEdit(BM2 bm2)
         {
+            if(bm2.CLAIM_C2_NONEXPIRED == 0)
+            {
+                ModelState.Remove("CLAIM_C2_NONEXPIRED");
+                
+            }
+            if (bm2.CLAIM_C2_AMOUNT == 0)
+            {
+                ModelState.Remove("CLAIM_C2_AMOUNT");
+                ModelState.Remove("CLAIM_C2_EXPIRED");
+            }
+            if(bm2.COMPLETION_AMOUNT == 0)
+            {
+                ModelState.Remove("COMPLETION_STATE_AMOUNT");
+                ModelState.Remove("COMPLETION_LOCAL_AMOUNT");
+                ModelState.Remove("COMPLETION_ORG_AMOUNT");
+                ModelState.Remove("COMPLETION_OTHER_AMOUNT");
+            }
+            if (bm2.REMOVED_LAW_AMOUNT == 0)
+            {
+                ModelState.Remove("REMOVED_LAW_AMOUNT");
+            }
+            if (bm2.REMOVED_LAW_NO == null || bm2.REMOVED_LAW_NO == "")
+            {
+                ModelState.Remove("REMOVED_LAW_NO");
+            }
+            if (bm2.REMOVED_INVALID_AMOUNT == 0)
+            {
+                ModelState.Remove("REMOVED_INVALID_AMOUNT");
+            }
+           
+            if (bm2.REMOVED_INVALID_NO == null || bm2.REMOVED_INVALID_NO == "")
+            {
+                ModelState.Remove("REMOVED_INVALID_NO");
+            }
             if (ModelState.IsValid)
             {
                 if (bm2.ID != 0)
