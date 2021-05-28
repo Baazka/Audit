@@ -1089,7 +1089,7 @@ namespace Audit.App_Func
                 cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, RD.DEPARTMENT_ID, RD.DEPARTMENT_NAME " +
                     "FROM AUD_REG.SYSTEM_USER SU " +
                     "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON SU.USER_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
-                    "WHERE SU.IS_ACTIVE = 0 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
+                    "WHERE SU.IS_ACTIVE = 1 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
                     "ORDER BY RD.DEPARTMENT_ID, SU.USER_CODE";
 
                 DataTable dtTable = new DataTable();
