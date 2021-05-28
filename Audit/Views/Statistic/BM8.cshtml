@@ -25,19 +25,36 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM8.loadTemplate();">
+            <br />
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM8.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
-
-
         <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM8', 'БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл')">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM8.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM8.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM8', 'БМ-8. Төрийн аудитын газрын аудитор болон багийн залруулсан алдааны бүртгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -50,20 +67,22 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM8" class="table table-bordered datatable display" style="width:100%">
+            <table id="BM8" class="table table-bordered table-hover datatable display">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2" class="text-center">№</th>
                         <th rowspan="2">Төрийн аудитын байгууллага</th>
-                        <th rowspan="2">Он</th>
+                        <th rowspan="2">Аудитын он</th>
                         <th rowspan="2">Аудитын төрөл</th>
+                        <th rowspan="2">Сэдвийн үндэслэл</th>
                         <th rowspan="2">Аудитын код</th>
                         <th rowspan="2">Аудитын нэр</th>
-                        <th rowspan="2">Төсөв захирагч</th>
+                        <th rowspan="2">Батлагдсан тушаалын дугаар</th>
+                        <th rowspan="2">Батлагдсан огноо</th>
+                        <th rowspan="2">Төсөв захирагчийн ангилал</th>
                         <th colspan="4">Залруулсан алдаа</th>
-                        <th rowspan="2">Үйлдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Алдааны утга</th>
                         <th>Алдааны ангилал</th>
                         <th>Тоо</th>
@@ -82,7 +101,14 @@
         $(document).ready(function () {
             bm8ListInit();
         });
-
+        function rowselected() {
+            $("#BM8 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#BM8 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                BM8.bm8ID = this.getAttribute("data-id");
+            });
+        }
         function bm8ListInit(pagelength = 10) {
             BM8.table = $("#BM8").DataTable({
                 "serverSide": true,
@@ -107,30 +133,26 @@
                         }
                     },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
-                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR", "sortable": false },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
-                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
-                    { "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
+                    { "data": "YEAR_LABEL", "name": "YEAR_LABEL", "sortable": false },
+                    { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
+                    { "data": "TOPIC_TYPE_NAME", "name": "TOPIC_TYPE_NAME" },
+                    { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
+                    { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
+                    { "data": "ORDER_NO", "name": "ORDER_NO" },
+                    { "data": "ORDER_DATE", "name": "ORDER_DATE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "CORRECTED_ERROR_DESC", "name": "CORRECTED_ERROR_DESC" },
-                    { "data": "CORRECTED_ERROR_TYPE", "name": "CORRECTED_ERROR_TYPE", "sortable": false },
-                    { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false },
-                    { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM8.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM8.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_EDIT")')*@
-                            tmp += urledit;
-                            @*if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_DELETE")')*@
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME", "sortable": false },
+                    { "data": "CORRECTED_COUNT", "name": "CORRECTED_COUNT", "sortable": false, "class": "text-right" },
+                    { "data": "CORRECTED_AMOUNT", "name": "CORRECTED_AMOUNT", "sortable": false, "class": "text-right" },
                 ],
+                columnDefs: [
+                    { width: 200, targets: 6 },
+                    { width: 200, targets: 10 },
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
@@ -141,9 +163,26 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
 
+        }
+        function Choose(id, department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
+            $("#Bm8Modal #AUDIT_ID").val(id);
+            $("#Bm8Modal #DEPARTMENT_NAME").val(department);
+            $("#Bm8Modal #YEAR_LABEL").val(year);
+            $("#Bm8Modal #AUDIT_TYPE_NAME").val(audittype);
+            $("#Bm8Modal #TOPIC_TYPE_NAME").val(topictype);
+            $("#Bm8Modal #TOPIC_CODE").val(code);
+            $("#Bm8Modal #TOPIC_NAME").val(name);
+            $("#Bm8Modal #ORDER_NO").val(orderno);
+            $("#Bm8Modal #ORDER_DATE").val(orderdate);
+            $("#Bm8Modal #BUDGET_TYPE_NAME").val(budgettype);
+
+            $('#BM0ListModel').modal('hide');
         }
         $('#DeparmentID').change(function () {
             bm8ListInit();
@@ -151,19 +190,56 @@
         $('#PeriodID').change(function () {
             bm8ListInit();
         });
-    var BM8 = {
-        bm8ID: null,
-        table: null,
-        display: function (data) {
-            $("div#bm8modalcontainer").remove();
-            $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
+        var BM8 = {
+            bm8ID: null,
+            table: null,
+            display: function (data) {
+                $("div#bm8modalcontainer").remove();
+                $('<div/>', { id: "bm8modalcontainer" }).appendTo('body').append(data);
 
-            $("#Bm8Modal").modal({ show: true });
-        },
-        loadTemplate: function () {
-            $.ajax({
-                    url: "@Url.Action("BM8AddEdit", "Statistic", new { Area = "" })",
+                $("#Bm8Modal").modal({ show: true });
+
+                $(".btnBM0listPopup").on('click', function () {
+                    if ($('#STATISTIC_PERIOD').val() != null && $('#STATISTIC_PERIOD').val() != '')
+                        BM8.BM0List($('#STATISTIC_PERIOD').val());
+                    else
+                        alert('Тайлант хугацаа сонгоно уу.');
+                });
+            },
+            displayBM0List: function (data) {
+                $("div#bm0listmodalcontainer").remove();
+                $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
+
+                $('#Bm8Modal').modal('hide');
+                $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#Bm8Modal').modal('show');
+                });
+            },
+            BM0List: function (periodid) {
+                $.ajax({
+                    url: '@Url.Action("BM0Search", "Statistic", new { Area = "" })',
                     type: 'GET',
+                    cache: false,
+                    data: { periodid},
+                    success: function (data) {
+                        BM8.displayBM0List(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+               loadTemplate: function () {
+                var audit_id;
+                BM8.bm8ID != null ? audit_id = BM8.bm8ID : audit_id = 0;
+                $.ajax({
+                    url: "@Url.Action("BM8Add", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                    data: { id: audit_id },
                     success: function (data) {
                         BM8.display(data);
                     },
@@ -175,65 +251,76 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    BM8.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            edit: function () {
+                if (BM8.bm8ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                     var audit_id = BM8.bm8ID;
+                    $.ajax({
+                        url: "@Url.Action("BM8Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id: audit_id },
+                        success: function (data, status, xhr) {
+                            BM8.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            BM8.bm8ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("BM8Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        BM8.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            delete: function () {
+                if (BM8.bm8ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM8.bm8ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("BM8Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id: id },
+                            success: function (data, status, xhr) {
+                                BM8.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#Bm8Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                BM8.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    BM8.close();
-                    bm8ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#Bm8Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    BM8.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        BM8.close();
+                        bm8ListInit();
+                        Message.success(data.message);
+                        BM8.bm8ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             BM8.table.destroy();

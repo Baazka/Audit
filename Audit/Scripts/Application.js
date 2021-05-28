@@ -123,16 +123,16 @@ var datatables = {
     }
 }
 
-function exportFile(tableid, excelname) {
-    table.destroy();
-    initDataTable(false);
+//function exportFile(tableid, excelname) {
+//    table.destroy();
+//    initDataTable(false);
 
-    var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-    XLSX.writeFile(wb, excelname + '.xlsx');
+//    var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+//    XLSX.writeFile(wb, excelname + '.xlsx');
 
-    table.destroy();
-    initDataTable(true);
-}
+//    table.destroy();
+//    initDataTable(true);
+//}
 
 function countdown() {
     seconds--;
@@ -143,3 +143,5 @@ function countdown() {
         setTimeout('countdown()', 1000);
     }
 }
+
+var bmbtns;

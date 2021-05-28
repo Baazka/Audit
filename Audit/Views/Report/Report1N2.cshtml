@@ -1,0 +1,442 @@
+﻿
+
+@using Audit.Models
+@model Audit.Models.N1VM
+@{ ViewBag.Title = "ReportN1";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<style>
+
+
+    .vertical {
+        writing-mode: vertical-rl;
+        -ms-writing-mode: tb-rl;
+        transform: rotate(180deg);
+        width: 60px;
+        height:250px;
+    }
+</style>
+<div class="d-flex">
+    <a href="@Url.Action("Index","Report")" class="btn btn-sm btn-light mr-2">
+        <span class="icon text-gray-600">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+    </a>
+    <h4>Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт - 1.2</h4>
+</div>
+<br />
+<center><h6>Төсвийн ерөнхийлөн захирагчийн төсвийн багцад харъяалагдах компани, ААН байгууллагын тоо: <span></span></h6></center>
+<hr class="sidebar-divider">
+
+
+
+
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="TypeID" class="col-form-label">ТЕЗ:</label>
+            @Html.DropDownListFor(model => model.TypeID, new List<SelectListItem>
+               { new SelectListItem{Text="ТЕЗ", Value="1"},
+                 new SelectListItem{Text="ТТЗ", Value="2"},
+                 new SelectListItem{Text="ТШЗ", Value="3"}},
+               "Сонгоно уу", new { @class = "form-control form-control-sm" })
+            @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+        </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Mayagt(1);">
+                    3.1.1
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-primary enableBtn" onclick="Mayagt(2);">
+                    3.1.2
+                </a>
+            </div>
+
+            <div class="form-group-sm ml-auto pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="Report1N2exportXLSX" onclick="exportFileExcel('Report1N2', 'Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газрын нэгтгэлийн маягт - 1.2 ')">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Excel</span>
+                </a>
+            </div>
+            @*<div class="container">
+                <div class="row">
+                    <div class="col-6 col-sm-4">ТЕЗ</div>
+                    <div class="col-6 col-sm-4">НЗД</div>
+                    <div class="w-100"></div>
+                    <div class="col-6 col-sm-4">ТТЗ/ТЕЗ</div>
+                    <div class="col-6 col-sm-4">НЗД</div>
+                    <div class="w-100"></div>
+                    <div class="col-6 col-sm-4">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</div>
+                    <div class="col-6 col-sm-4">Баянзүрх сургууль</div>
+                </div>
+            </div>*@
+
+
+
+
+
+
+
+            @*<div class="form-group-sm ml-auto pr-2">
+                <br />
+                <p>Хамрах хугацаа: </p>
+            </div>*@
+
+        </div>
+</form>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="Report1N2" class=" table table-bordered table-hover datatable display">
+                <thead>
+                    <tr class="bg-light">
+                        <th rowspan="2" class="text-center">№</th>
+                        <th rowspan="2" class="text-center">Шалгагдагч байгууллага /иргэн, хуулийн этгээд/ нэр</th>
+                        <th rowspan="2" class="text-center">Регистрийн дугаар</th>
+                        <th colspan="1">6.4.1. Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт</th>
+                        <th colspan="1">6.4.2. Тухайн байгууллагын  төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт</th>
+                        <th colspan="8">6.4.3. Тендерт шалгарсан болон шалгараагүй оролцогчийн талаарх товч мэдээлэл, шалгарсан болон шалгараагүй хуулийн үндэслэл, шалтгаан</th>
+                        <th colspan="6">6.4.4. Таван сая төгрөгөөс дээш үнийн дүн бүхий худалдан авалтын мэдээлэл</th>
+                        <th colspan="6">6.4.5. Цалингийн зардлаас бусад таван сая төгрөгөөс дээш үнийн дүн бүхий зарлагын мөнгөн гүйлгээ</th>
+                        <th colspan="6">6.4.5. Таван сая төгрөгөөс дээш үнийн дүн бүхий орлогын мөнгөн гүйлгээ</th>
+                        <th colspan="1">6.4.6. Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн</th>
+                        <th colspan="1">6.4.7. Байгууллагын батлагдсан орон тоонд орсон өөрчлөлт</th>
+                        <th colspan="6">6.4.8. Бонд, зээл, өрийн бичиг, баталгаа, түүнтэй адилтгах санхүүгийн бусад хэрэгслийн талаарх шийдвэрийн мэдээлэл</th>
+                        <th colspan="6">6.4.8. Төр, хувийн хэвшлийн түншлэлийн гэрээ, концессийн талаарх шийдвэрийн мэдээлэл</th>
+                        <th colspan="6">6.4.8. Төсөв, өмч хөрөнгө, мөнгө зарцуулах шийдвэрийн мэдээлэл</th>
+                        <th colspan="6">6.4.8. Өр үүсгэсэн шийдвэрийн талаарх мэдээлэл</th>
+                        <th colspan="6">6.4.8. Авлага үүсгэсэн шийдвэрийн талаарх мэдээлэл</th>
+                        <th colspan="3">6.10. Нийтийн албанд нийтийн болон хувийн ашиг сонирхлыг зохицуулах, ашиг сонирхлын зөрчлөөс урьдчилан сэргийлэх тухай хуулийн 8.9 дүгээр зүйлд заасан мэдэгдэл</th>
+                        <th colspan="5">Зөрчлийн шийдэл</th>
+                    </tr>
+
+                    <tr class="bg-light">
+                        <th><span class="vertical">мэдээлсэн эсэх</span></th>
+                        <th><span class="vertical">мэдээлсэн эсэх</span> </th>
+                        <th><span class="vertical">Тендер шалгаруулсан худалдан авах ажиллагааны тоо </span></th>
+                        <th><span class="vertical">Тендер шалгаруулсан худалдан авах ажиллагааны мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй худалдан авалтын мөнгөн дүн </span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">тендерт шалгарсан оролцогчийн талаарх товч мэдээллийг мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">тендерт шалгараагүй оролцогчийн талаарх товч мэдээлэл, хуулийн үндэслэл, шалтгааныг мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">Таван сая төгрөгөөс дээш нийт худалдан авалтын тоо</span></th>
+                        <th><span class="vertical">Таван сая төгрөгөөс дээш худалдан авалтын мөнгөн дүн </span></th>
+                        <th><span class="vertical">Үүнээс: Мэдээлээгүй гүйлгээний тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй худалдан авалтын мөнгөн дүн </span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">Таван сая төгрөгөөс дээш нийт зарлагын гүйлгээний тоо</span></th>
+                        <th><span class="vertical">Таван сая төгрөгөөс дээш нийт зарлагын гүйлгээний мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Мэдээлээгүй зарлагын гүйлгээний тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй зарлагын гүйлгээний мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">5 сая төгрөгөөс дээш нийт орлогын гүйлгээний тоо</span></th>
+                        <th><span class="vertical">5 сая төгрөгөөс дээш нийт орлогын гүйлгээний мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Мэдээлээгүй орлогын гүйлгээний тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй орлогын гүйлгээний мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон гүйлгээний тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">мэдээлсэн  эсэх</span></th>
+                        <th><span class="vertical">мэдээлсэн  эсэх</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй мөнгөн дүн </span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн </span></th>
+                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн тоо</span></th>
+                        <th><span class="vertical">Нийт шийдвэрийн мөнгөн дүн</span></th>
+                        <th><span class="vertical">Мэдээлээгүй тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй шийдвэрийн мөнгөн дүн</span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th><span class="vertical">Хугацаа хоцроосон мөнгөн дүн</span></th>
+                        <th><span class="vertical">Нийт мэдээлэх ашиг сонирхлын мэдүүлгийн тоо</span></th>
+                        <th><span class="vertical">Мэдээлээгүй ашиг сонирхлын мэдүүлгийн тоо</span></th>
+                        <th><span class="vertical">Үүнээс: Хугацаа хоцроосон тоо</span></th>
+                        <th><span class="vertical">Зөрчил арилгуулах албан шаардлага өгсөн</span></th>
+                        <th><span class="vertical">Хариуцлага тооцуулах албан шаардлага өгсөн</span></th>
+                        <th><span class="vertical">Хууль хяналтын байгууллагад шилжүүлсэн</span></th>
+                        <th><span class="vertical">Зөвлөмж өгсөн</span></th>
+                        <th><span class="vertical">Аудитын явцад залруулсан</span></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var mayagt = "";
+        $(document).ready(function () {
+            Report1N2ListInit();
+        });
+        function Mayagt(param) {
+            mayagt = param;
+            Report1N2ListInit(pagelength = 10);
+        }
+
+
+        function Report1N2ListInit(pagelength = 10) {
+            var count = 0
+            Report1N2.table = $("#Report1N2").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/Report1N2List",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val(); 
+                        data.Mayagt = mayagt;
+                        data.TypeID = $('#TypeID').val();
+                        count = 0;
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.ORGID);
+
+
+                },
+
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+
+
+                            if (data.ORGNAME === "НИЙТ ДҮН") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлсэн") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлээгүй") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Хугацаа хоцроосон") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Хугацаа хоцролтын хэрэгжилтийн хувь") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Төсвийн ерөнхийлөн захирагч") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Төсвийн төвлөрүүлэн захирагч") {
+                                return "";
+                            }
+                            else if (data.ORGNAME === "Төсвийн шууд захирагч") {
+                                return "";
+                            }
+                            else
+                                return count = count + 1;
+                        }
+                    },
+                    { "data": "ORGNAME", "name": "ORGNAME" }, 
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "class": "text-center" },
+                    { "data": "MD33", "name": "MD33", "class": "text-center" },
+                    { "data": "MD34", "name": "MD34", "class": "text-center" },
+                    { "data": "MD37", "name": "MD37", "class": "text-center" },
+                    { "data": "MD38", "name": "MD38", "class": "text-center" },
+                    { "data": "MD39", "name": "MD39", "class": "text-center" },
+                    { "data": "MD40", "name": "MD40", "class": "text-center" },
+                    { "data": "MD41", "name": "MD41", "class": "text-center" },
+                    { "data": "MD42", "name": "MD42", "class": "text-center" },
+                    { "data": "MD43", "name": "MD43", "class": "text-center" },
+                    { "data": "MD44", "name": "MD44", "class": "text-center" },
+                    { "data": "MD46", "name": "MD46", "class": "text-center" },
+                    { "data": "MD47", "name": "MD47", "class": "text-center" },
+                    { "data": "MD48", "name": "MD48", "class": "text-center" },
+                    { "data": "MD49", "name": "MD49", "class": "text-center" },
+                    { "data": "MD50", "name": "MD50", "class": "text-center" },
+                    { "data": "MD51", "name": "MD51", "class": "text-center" },
+                    { "data": "MD60", "name": "MD60", "class": "text-center" },
+                    { "data": "MD61", "name": "MD61", "class": "text-center" },
+                    { "data": "MD62", "name": "MD62", "class": "text-center" },
+                    { "data": "MD63", "name": "MD63", "class": "text-center" },
+                    { "data": "MD64", "name": "MD64", "class": "text-center" },
+                    { "data": "MD65", "name": "MD65", "class": "text-center" },
+                    { "data": "MD53", "name": "MD53", "class": "text-center" },
+                    { "data": "MD54", "name": "MD54", "class": "text-center" },
+                    { "data": "MD55", "name": "MD55", "class": "text-center" },
+                    { "data": "MD56", "name": "MD56", "class": "text-center" },
+                    { "data": "MD57", "name": "MD57", "class": "text-center" },
+                    { "data": "MD58", "name": "MD58", "class": "text-center" },
+                    { "data": "MD66", "name": "MD66", "class": "text-center" },
+                    { "data": "MD67", "name": "MD67", "class": "text-center" },
+                    { "data": "MD69", "name": "MD69", "class": "text-center" },
+                    { "data": "MD70", "name": "MD70", "class": "text-center" },
+                    { "data": "MD71", "name": "MD71", "class": "text-center" },
+                    { "data": "MD72", "name": "MD72", "class": "text-center" },
+                    { "data": "MD73", "name": "MD73", "class": "text-center" },
+                    { "data": "MD74", "name": "MD74", "class": "text-center" },
+                    { "data": "MD76", "name": "MD76", "class": "text-center" },
+                    { "data": "MD77", "name": "MD77", "class": "text-center" },
+                    { "data": "MD78", "name": "MD78", "class": "text-center" },
+                    { "data": "MD79", "name": "MD79", "class": "text-center" },
+                    { "data": "MD80", "name": "MD80", "class": "text-center" },
+                    { "data": "MD81", "name": "MD81", "class": "text-center" },
+                    { "data": "MD83", "name": "MD83", "class": "text-center" },
+                    { "data": "MD84", "name": "MD84", "class": "text-center" },
+                    { "data": "MD85", "name": "MD85", "class": "text-center" },
+                    { "data": "MD86", "name": "MD86", "class": "text-center" },
+                    { "data": "MD87", "name": "MD87", "class": "text-center" },
+                    { "data": "MD88", "name": "MD88", "class": "text-center" },
+                    { "data": "MD90", "name": "MD90", "class": "text-center" },
+                    { "data": "MD91", "name": "MD91", "class": "text-center" },
+                    { "data": "MD92", "name": "MD92", "class": "text-center" },
+                    { "data": "MD93", "name": "MD93", "class": "text-center" },
+                    { "data": "MD94", "name": "MD94", "class": "text-center" },
+                    { "data": "MD95", "name": "MD95", "class": "text-center" },
+                    { "data": "MD97", "name": "MD97", "class": "text-center" },
+                    { "data": "MD98", "name": "MD98", "class": "text-center" },
+                    { "data": "MD99", "name": "MD99", "class": "text-center" },
+                    { "data": "MD100", "name": "MD100", "class": "text-center" },
+                    { "data": "MD101", "name": "MD101", "class": "text-center" },
+                    { "data": "MD102", "name": "MD102", "class": "text-center" },
+                    { "data": "MD104", "name": "MD104", "class": "text-center" },
+                    { "data": "MD105", "name": "MD105", "class": "text-center" },
+                    { "data": "MD106", "name": "MD106", "class": "text-center" },
+                    { "data": "MD107", "name": "MD107" },
+                    { "data": "MD108", "name": "MD108" },
+                    { "data": "MD109", "name": "MD109" },
+                    { "data": "MD110", "name": "MD110" },
+                    { "data": "MD111", "name": "MD111" },
+                ],
+                //columnDefs: [
+                //    { width: 10, targets: 2 },
+                //    { width: 200, targets: 10 },
+
+                //],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
+                "destroy": true,
+                "paging": false,
+                "pageLength": pagelength,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                lengthChange: true,
+                "language": datatables.language,
+                "ordering": false,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.ORGNAME === "НИЙТ ДҮН" || data.ORGNAME === "Мэдээлсэн"
+                            || data.ORGNAME === "Мэдээлээгүй" || data.ORGNAME === "Хугацаа хоцроосон" || data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь" ||
+                            data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй" || data.ORGNAME === "Хугацаа хоцролтын хэрэгжилтийн хувь") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+
+                            });
+                        } else if (data.ORGNAME === "Төсвийн ерөнхийлөн захирагч" || data.ORGNAME === "Төсвийн төвлөрүүлэн захирагч" || data.ORGNAME === "Төсвийн шууд захирагч") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+                                if (index !== 34)
+                                    $('td', row).eq(index).addClass('tableBorder');
+
+                            });
+                        }
+                    }
+                },
+
+
+            });
+
+        }
+
+        $('#DeparmentID').change(function () {
+            Report1N2ListInit();
+        });
+        $('#TypeID').change(function () {
+            Report1N2ListInit();
+        });
+
+
+        var Report1N2 = {
+            Report1N2ID: null,
+            table: null,
+            display: function (data) {
+
+
+            },
+
+
+
+
+            close: function () {
+                $("#Bm0Modal").modal("hide");
+            },
+
+        }
+        function exportFileExcel(tableid, excelname,) {
+            $('#Report1N2exportXLSX').addClass('disabled');
+            Report1N2.table.destroy();
+            Report1N2ListInit(-1);
+
+            setTimeout(function () {
+                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+                XLSX.writeFile(wb, excelname + '.xlsx');
+
+                Report1N2.table.destroy();
+                Report1N2ListInit();
+                $('#Report1N2exportXLSX').removeClass('disabled');
+            }, 5000
+            )
+        }
+    </script>
+}
+
+
+
+

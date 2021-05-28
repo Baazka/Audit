@@ -1,84 +1,5 @@
 ﻿@model Audit.Models.CM6
 
-<style>
-    .modal-header {
-        background-color: #233772;
-        padding: 0.5rem 1rem;
-    }
-
-    .modal-title {
-        text-transform: uppercase;
-        color: #fff;
-    }
-    .tab-content {
-        min-height: 500px;
-    }
-    .close {
-        font-weight: normal;
-        text-shadow: none;
-        opacity: inherit;
-    }
-
-    .col-form-label {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .form-group {
-        margin-bottom: 0.5rem;
-    }
-
-    .field-validation-error {
-        font-size: 12px;
-    }
-
-    .modal-body h6 {
-        text-transform: uppercase;
-        color: #233772;
-    }
-
-    label {
-        font-size: 12px !important;
-    }
-    div.ui-datepicker {
-        font-size: 12px;
-    }
-    .ui-datepicker-trigger {
-        position: absolute;
-        right: 15px;
-        top:7px;
-    }
-    .nav-tabs {
-        background-color: white;
-        height: auto;
-        width: 100%;
-    }
-        .nav-tabs .nav-item {
-            background-color: #e7e7e5;
-            border-top-right-radius: 7px;
-            border-top-left-radius: 7px;
-        }
-            .nav-tabs .nav-item.show .nav-item, .nav-tabs .nav-link.active {
-                background-color: #e7e7e5;
-                border: none !important;
-                border-top-right-radius: 7px;
-                border-top-left-radius: 7px;
-                color: #1b508a;
-            }
-        .nav-tabs .nav-link {
-            border: none;
-            color: #1b508a;
-            font-weight: bold;
-            font-size: small;
-            padding: 4px 20px;
-            height: auto;
-            align-self: center;
-            border-color: white;
-            border-style: solid;
-            border-width: 3.5px;
-            border-top: none;
-        }
-</style>
 <div class="modal fade" id="CM6Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("CM6AddEdit", "Statistic", new { Area = "" },
@@ -96,7 +17,7 @@
         {
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">CM6 бүртгэл</h6>
+                    <h6 class="modal-title" id="exampleModalLabel">СМ-6. Төсвийн төсөлд өгсөн санал</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
                 </div>
                 <div class="modal-body">
@@ -106,43 +27,43 @@
                         </div>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.ID)
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Төрийн аудитын байгууллага:</label>
-                                    <div class="col-sm-8">
-                                        @Html.DropDownListFor(model => model.OFFICE_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                        @Html.ValidationMessageFor(m => m.OFFICE_ID, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Он:</label>
-                                    <div class="col-sm-8">
-                                        @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Төсөв:</label>
-                                    <div class="col-sm-8">
-                                        @Html.EditorFor(m => m.AUD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        @Html.ValidationMessageFor(m => m.AUD_NAME, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Үзүүлэлт:</label>
-                                    <div class="col-sm-8">
-                                        @Html.EditorFor(m => m.IS_STATE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        @Html.ValidationMessageFor(m => m.IS_STATE, "", new { @class = "text-danger" })
-                                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага:</label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(model => model.OFFICE_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    @Html.ValidationMessageFor(m => m.OFFICE_ID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Он:</label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Төсөв:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.AUD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(m => m.AUD_NAME, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Үзүүлэлт:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.IS_STATE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(m => m.IS_STATE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         <table class="table table-bordered datatable">
                             <thead>
                                 <tr>

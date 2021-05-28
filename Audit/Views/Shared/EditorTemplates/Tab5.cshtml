@@ -3,7 +3,7 @@
     Layout = null;
 }
 
-@if (Model.MD_CODE == "110" || Model.MD_CODE == "111" || Model.MD_CODE == "118" || Model.MD_CODE == "125" || Model.MD_CODE == "132" || Model.MD_CODE == "141" || Model.MD_CODE == "147" || Model.MD_CODE == "154")
+@if (Model.MD_CODE == "114" || Model.MD_CODE == "115" || Model.MD_CODE == "122" || Model.MD_CODE == "129" || Model.MD_CODE == "136" || Model.MD_CODE == "145" || Model.MD_CODE == "154" || Model.MD_CODE == "161")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
@@ -11,51 +11,58 @@
     @Html.HiddenFor(x => x.MD_TIME)
     <tr style="text-align:center;font-weight:bold;text-transform:uppercase;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
 }
-@if (Model.MD_CODE == "139" || Model.MD_CODE == "140" || Model.MD_CODE == "145" || Model.MD_CODE == "146")
+@if (Model.MD_CODE == "143" || Model.MD_CODE == "144")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center" style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td class="text-center" style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>
             @Html.DropDownListFor(model => model.Data01, new SelectList(
                         new List<Object>{
                            new { value = 0 , text = "--Сонгоно уу--" },
-                           new { value = 1 , text = "Оруулсан" },
-                           new { value = 2 , text = "Оруулаагүй" },
-                           new { value = 3 , text = "Хугацаа хоцорч оруулсан" },
-                           new { value = 4 , text = "Оруулах шаардлагагүй, хамааралгүй" }
+                           new { value = 1 , text = "Мэдээлсэн" },
+                           new { value = 2 , text = "Мэдээлээгүй" },
+                           new { value = 3 , text = "Хугацаа хоцроосон" },
+                           new { value = 4 , text = "Мэдээлэх шаардлагагүй, хамааралгүй" }
                         }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
         </td>
     </tr>
 }
-@if (Model.MD_CODE == "113" || Model.MD_CODE == "115" || Model.MD_CODE == "117" || Model.MD_CODE == "120" || Model.MD_CODE == "122" || Model.MD_CODE == "124" || Model.MD_CODE == "127" || Model.MD_CODE == "129" || Model.MD_CODE == "131" || Model.MD_CODE == "134" || Model.MD_CODE == "136" || Model.MD_CODE == "138" || Model.MD_CODE == "144" || Model.MD_CODE == "149" || Model.MD_CODE == "151" || Model.MD_CODE == "153")
+@if (Model.MD_CODE == "117" || Model.MD_CODE == "119" || Model.MD_CODE == "121" || Model.MD_CODE == "124" || Model.MD_CODE == "126" || Model.MD_CODE == "128" || Model.MD_CODE == "131" || Model.MD_CODE == "133" || Model.MD_CODE == "135" || Model.MD_CODE == "138" || Model.MD_CODE == "140" || Model.MD_CODE == "142" || Model.MD_CODE == "147" || Model.MD_CODE == "149" || Model.MD_CODE == "151" || Model.MD_CODE == "156" || Model.MD_CODE == "158" || Model.MD_CODE == "160")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "text-right currency" })</td>
     </tr>
 }
-@if (Model.MD_CODE == "112" || Model.MD_CODE == "114" || Model.MD_CODE == "116" || Model.MD_CODE == "119" || Model.MD_CODE == "121" || Model.MD_CODE == "123" || Model.MD_CODE == "126" || Model.MD_CODE == "128" || Model.MD_CODE == "130" || Model.MD_CODE == "133" || Model.MD_CODE == "135" || Model.MD_CODE == "137" || Model.MD_CODE == "142" || Model.MD_CODE == "143" || Model.MD_CODE == "148" || Model.MD_CODE == "150" || Model.MD_CODE == "152" || Model.MD_CODE == "155" || Model.MD_CODE == "156" || Model.MD_CODE == "157")
+@if (Model.MD_CODE == "116" || Model.MD_CODE == "118" || Model.MD_CODE == "120" || Model.MD_CODE == "123" || Model.MD_CODE == "125" || Model.MD_CODE == "127" || Model.MD_CODE == "130" || Model.MD_CODE == "132" || Model.MD_CODE == "134" || Model.MD_CODE == "137" || Model.MD_CODE == "139" || Model.MD_CODE == "141" || Model.MD_CODE == "146" || Model.MD_CODE == "148" || Model.MD_CODE == "150" || Model.MD_CODE == "152" || Model.MD_CODE == "153" || Model.MD_CODE == "155" || Model.MD_CODE == "157" || Model.MD_CODE == "159" || Model.MD_CODE == "162" || Model.MD_CODE == "163" || Model.MD_CODE == "164")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "text-right", @type = "number" })</td>
     </tr>
+}
+else
+{
+    @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(X => X.Data01)
+    @Html.HiddenFor(X => X.Data02)
+    @Html.HiddenFor(X => X.Data03)
 }

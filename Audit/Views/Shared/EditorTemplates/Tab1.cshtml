@@ -20,24 +20,32 @@
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center" style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td class="text-center" style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>
-            @Html.DropDownListFor(model => model.Data01, new SelectList(
-                     new List<Object>{
-                           new { value = 0 , text = "--Сонгоно уу--" },
-                           new { value = 1 , text = "Оруулсан" },
-                           new { value = 2 , text = "Оруулаагүй" },
-                           new { value = 3 , text = "Хугацаа хоцорч оруулсан" },
-                           new { value = 4 , text = "Оруулах шаардлагагүй, хамааралгүй" }
-                     }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;", @id = "tab1select" })
-            @*@Html.ValidationMessageFor(model => model.Data01, "", new { @class = "text-danger" })*@
-
+            @*@Html.DropDownListFor(model => model.Data01, new SelectList(
+                new List<Object>{
+                      new { value = 0 , text = "--Сонгоно уу--" },
+                      new { value = 1 , text = "Мэдээлсэн" },
+                      new { value = 2 , text = "Мэдээлээгүй" },
+                      new { value = 3 , text = "Хугацаа хоцроосон" },
+                      new { value = 4 , text = "Мэдээлэх шаардлагагүй, хамааралгүй" }
+                }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+            @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })*@
+            @Html.DropDownListFor(m => m.Data01, new List<SelectListItem>
+               { new SelectListItem{Text="Мэдээлсэн", Value="1"},
+                 new SelectListItem{Text="Мэдээлээгүй", Value="2"},
+                 new SelectListItem{Text="Хугацаа хоцроосон", Value="3"},
+                 new SelectListItem{Text="Мэдээлэх шаардлагагүй, хамааралгүй", Value="4"}}, "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
+        @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })
         </td>
     </tr>
 }
 else
 {
     @Html.HiddenFor(x => x.MD_CODE)
+    @Html.HiddenFor(X => X.Data01)
+    @Html.HiddenFor(X => X.Data02)
+    @Html.HiddenFor(X => X.Data03)
 }

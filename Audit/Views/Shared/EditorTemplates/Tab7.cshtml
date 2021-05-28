@@ -14,7 +14,7 @@
     }
 </style>
 
-@if (Model.MD_CODE == "165")
+@if (Model.MD_CODE == "172")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
@@ -22,59 +22,59 @@
     @Html.HiddenFor(x => x.MD_TIME)
     <tr style="text-align:center;font-weight:bold;text-transform:uppercase;"><td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td></tr>
 }
-@if (Model.MD_CODE == "166" || Model.MD_CODE == "167" || Model.MD_CODE == "168" || Model.MD_CODE == "169" || Model.MD_CODE == "170")
+@if (Model.MD_CODE == "173" || Model.MD_CODE == "174" || Model.MD_CODE == "175" || Model.MD_CODE == "176" || Model.MD_CODE == "177")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data02, new { @style = "width: 100%;", @placeholder = "Утга оруулна уу" })</td>
     </tr>
 }
-@if (Model.MD_CODE == "172" || Model.MD_CODE == "173")
+@if (Model.MD_CODE == "179" || Model.MD_CODE == "180")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.EditorFor(x => x.Data02, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @placeholder = "Өдөр сонгоно уу" } })</td>
     </tr>
 }
-@if (Model.MD_CODE == "175" || Model.MD_CODE == "176" || Model.MD_CODE == "177" || Model.MD_CODE == "178" || Model.MD_CODE == "179" || Model.MD_CODE == "180" || Model.MD_CODE == "181" || Model.MD_CODE == "182" || Model.MD_CODE == "183" || Model.MD_CODE == "184" || Model.MD_CODE == "185" || Model.MD_CODE == "186" || Model.MD_CODE == "187" || Model.MD_CODE == "188" || Model.MD_CODE == "189")
+@if (Model.MD_CODE == "181" || Model.MD_CODE == "182" || Model.MD_CODE == "183" || Model.MD_CODE == "184" || Model.MD_CODE == "185" || Model.MD_CODE == "186" || Model.MD_CODE == "187" || Model.MD_CODE == "188" || Model.MD_CODE == "189" || Model.MD_CODE == "190" || Model.MD_CODE == "191" || Model.MD_CODE == "192" || Model.MD_CODE == "193" || Model.MD_CODE == "194" || Model.MD_CODE == "195" || Model.MD_CODE == "196")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @class = "text-right currency" })</td>
     </tr>
 }
-@if (Model.MD_CODE == "171" || Model.MD_CODE == "174")
+@if (Model.MD_CODE == "178")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_LAWS_NUM)</td>
         <td>@Html.DisplayFor(x => x.MD_NAME)</td>
-        <td>@Html.DisplayFor(x => x.MD_TIME)</td>
+        <td class="text-center">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>@Html.TextBoxFor(x => x.Data01, new { @style = "width: 100%;", @type = "number", @placeholder = "Утга оруулна уу" })</td>
     </tr>
 }
-@if (Model.MD_CODE == "190" || Model.MD_CODE == "191" || Model.MD_CODE == "192" || Model.MD_CODE == "193" || Model.MD_CODE == "194")
+@if (Model.MD_CODE == "197" || Model.MD_CODE == "198" || Model.MD_CODE == "199" || Model.MD_CODE == "200" || Model.MD_CODE == "201")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
@@ -93,7 +93,7 @@
         </td>
     </tr>
 }
-@if (Model.MD_CODE == "195" || Model.MD_CODE == "196")
+@if (Model.MD_CODE == "202" || Model.MD_CODE == "203")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)

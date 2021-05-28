@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="d-flex">
-    <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
+    <a href="@Url.Action("Index","Statistic")?type=2" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
             <i class="fas fa-arrow-left"></i>
         </span>
@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM3', 'НМ-3. Төрийн аудитын газрын зөвлөмжийн нэгтгэл')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM3', 'НМ-3. Төрийн аудитын газрын зөвлөмжийн нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,9 +39,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM3" class="table table-bordered datatable display" style="width:100%">
+            <table id="NM3" class="table table-bordered table-hover datatable display">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Аудитын код</th>
                         <th rowspan="3">Аудитын нэр</th>
@@ -51,7 +52,7 @@
                         <th colspan="3">Хүлээн зөвшөөрүүлсэн үр өгөөж</th>
                         <th colspan="3">Ажилласан</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Хэрэгжсэн</th>
                         <th colspan="2">Хэрэгжээгүй</th>
                         <th colspan="2">Хугацаа болоогүй</th>
@@ -62,7 +63,7 @@
                         <th rowspan="2">Өдөр</th>
                         <th rowspan="2">Илүү цаг</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -116,33 +117,38 @@
                     },
                     //{ "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
                     //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
-                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
+                    { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
+                    { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
                     //{ "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
 
-                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT" },
-                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT" },
+                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT", "class": "text-right" },
+                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT", "class": "text-right" },
                     //{ "data": "REFERENCE_TYPE", "name": "REFERENCE_TYPE" },
-                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT" },
-                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
-                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT" },
-                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
+                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
                     { "data": null, "name": null },
                     { "data": null, "name": null },
-                    { "data": "C2_NONEXPIRED_COUNT", "name": "C2_NONEXPIRED_COUNT" },
-                    { "data": "C2_NONEXPIRED_AMOUNT", "name": "C2_NONEXPIRED_AMOUNT" },
-                    { "data": "C2_EXPIRED_COUNT", "name": "C2_EXPIRED_COUNT" },
-                    { "data": "C2_EXPIRED_AMOUNT", "name": "C2_EXPIRED_AMOUNT" },
-                    { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
-                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
-                    { "data": "BENEFIT_NONFIN_COUNT", "name": "BENEFIT_NONFIN_COUNT" },
-                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
-                    { "data": "WORKING_DAY", "name": "WORKING_DAY" },
-                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
-                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
+                    { "data": "C2_NONEXPIRED_COUNT", "name": "C2_NONEXPIRED_COUNT", "class": "text-right" },
+                    { "data": "C2_NONEXPIRED_AMOUNT", "name": "C2_NONEXPIRED_AMOUNT", "class": "text-right" },
+                    { "data": "C2_EXPIRED_COUNT", "name": "C2_EXPIRED_COUNT", "class": "text-right" },
+                    { "data": "C2_EXPIRED_AMOUNT", "name": "C2_EXPIRED_AMOUNT", "class": "text-right" },
+                    { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT", "class": "text-right" },
+                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT", "class": "text-right" },
+                    { "data": "BENEFIT_NONFIN_COUNT", "name": "BENEFIT_NONFIN_COUNT", "class": "text-right" },
+                    { "data": "WORKING_PERSON", "name": "WORKING_PERSON", "class": "text-right" },
+                    { "data": "WORKING_DAY", "name": "WORKING_DAY", "class": "text-right" },
+                    { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME", "class": "text-right" },
                 ],
+                columnDefs: [
+                    { width: 200, targets: 2 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],

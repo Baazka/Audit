@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="d-flex">
-    <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
+    <a href="@Url.Action("Index","Statistic")?type=3" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
             <i class="fas fa-arrow-left"></i>
         </span>
@@ -26,17 +26,35 @@
         </div>
 
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="CM8.loadTemplate();">
+            <br />
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="CM8.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
-
-
         <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM8', 'СМ-8. Дэмжих үйлчилгээ')">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="CM8.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CM8.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM8', 'СМ-8. Дэмжих үйлчилгээ')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -48,9 +66,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="CM8" class="table table-bordered datatable display" style="width:100%">
+            <table id="CM8" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="2" colspan="2">Тайлант оны төсөв /сая.төг/</th>
                         <th colspan="17">Хүний нөөц</th>
@@ -58,9 +76,8 @@
                         <th colspan="5">Мэдээлэл, сурталчилгаа</th>
                         <th rowspan="4">Цахим хуудасны хандалтын тоо</th>
                         <th colspan="8">Хүлээн авсан мэдээлэл, хүсэлт, өргөдөл</th>
-                        <th rowspan="4">Үйлдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3">Батлагдсан орон тоо</th>
                         <th rowspan="3">Ажиллагсад</th>
                         <th colspan="15">Үүнээс</th>
@@ -74,7 +91,7 @@
                         <th colspan="4">Үүнээс</th>
                         <th colspan="3" rowspan="2">Шийдвэрлэлтийн байдал</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2">Батлагдсан төсөв</th>
                         <th rowspan="2">Гүйцэтгэл</th>
                         <th colspan="5">Албан тушаал</th>
@@ -93,7 +110,7 @@
                         <th rowspan="2">Аудит хийлгэх тухай</th>
                         <th rowspan="2">Бусад</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Удирдах ажилтан</th>
                         <th>Менежер</th>
                         <th>Ахлах аудитор, ахлах шинжээч</th>
@@ -133,7 +150,14 @@
         $(document).ready(function () {
             cm8ListInit();
         });
-
+        function rowselected() {
+            $("#CM8 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#CM8 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                CM8.cm8ID = this.getAttribute("data-id");
+            });
+        }
         function cm8ListInit(pagelength = 10) {
             CM8.table = $("#CM8").DataTable({
                 "serverSide": true,
@@ -206,18 +230,18 @@
                     { "data": "DECIDED_TIME", "name": "DECIDED_TIME" },
                     { "data": "DEC_EXPIRED", "name": "DEC_EXPIRED" },
                     { "data": "DEC_UNEXPIRED", "name": "DEC_UNEXPIRED" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="CM8.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="CM8.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="CM8.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="CM8.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -229,7 +253,10 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
 
         }
@@ -241,15 +268,15 @@
         });
         var CM8 = {
             cm8ID: null,
-            table:null,
-        display: function (data) {
-            $("div#cm8modalcontainer").remove();
-            $('<div/>', { id: "cm8modalcontainer" }).appendTo('body').append(data);
+            table: null,
+            display: function (data) {
+                $("div#cm8modalcontainer").remove();
+                $('<div/>', { id: "cm8modalcontainer" }).appendTo('body').append(data);
 
-            $("#CM8Modal").modal({ show: true });
-        },
-        loadTemplate: function () {
-            $.ajax({
+                $("#CM8Modal").modal({ show: true });
+            },
+            loadTemplate: function () {
+                $.ajax({
                     url: "@Url.Action("CM8AddEdit", "Statistic", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
@@ -263,65 +290,76 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("CM8Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    CM8.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            edit: function () {
+                if (CM8.cm8ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = CM8.cm8ID;
+                    $.ajax({
+                        url: "@Url.Action("CM8Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id },
+                        success: function (data, status, xhr) {
+                            CM8.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            CM8.cm8ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("CM8Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        CM8.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            delete: function () {
+                if (CM8.cm8ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = CM8.cm8ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("CM8Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                CM8.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#CM8Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                CM8.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    CM8.close();
-                    cm8ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#CM8Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    CM8.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        CM8.close();
+                        cm8ListInit();
+                        Message.success(data.message);
+                        CM8.cm8ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             CM8.table.destroy();

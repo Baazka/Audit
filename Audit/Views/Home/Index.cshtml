@@ -35,7 +35,7 @@
         </div>
         @if (Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_ADD")) { 
     <div class="form-group-sm ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="Organization.loadTemplate();">
+        <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Organization.loadTemplate();">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
@@ -45,7 +45,7 @@
         }
         
         <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -130,8 +130,8 @@
                     "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
                             var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="Organization.edit(' + data.ORG_ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="Organization.delete(' + data.ORG_ID + ')"><i class="fa fa-trash-alt" ></i></a>';
+                            var urledit = '<a href="#" class="btn btn-sm" onclick="Organization.edit(' + data.ORG_ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                            var urldelete = '<a href="#" class="btn btn-sm" onclick="Organization.delete(' + data.ORG_ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
                             if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_EDIT")')
                                 tmp += urledit;
                             if ('True' == '@Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_DELETE")')

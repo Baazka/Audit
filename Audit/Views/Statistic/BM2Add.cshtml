@@ -1,0 +1,312 @@
+﻿
+@model Audit.Models.BM2
+
+<div class="modal fade" id="Bm2Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
+        @using (Ajax.BeginForm("BM2Add", "Statistic", new { Area = "" },
+                   new AjaxOptions
+                   {
+                       UpdateTargetId = "bm2modalcontainer",
+                       OnBegin = "Modal.show()",
+                       OnComplete = "Modal.hide(); $('#Bm2Modal').modal({ show: true }); $('.modal-backdrop:first').remove()",
+                       OnSuccess = "BM2.progressResponse(data, status, xhr, 'BM2')",
+                       OnFailure = "errorResponse",
+                       HttpMethod = "Post",
+                       InsertionMode = InsertionMode.Replace
+                   },
+                   new { @class = "form-horizontal", @autocomplete = "off" }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">БМ-2. Төрийн аудитын газрын аудитор болон багийн албан шаардлагын бүртгэл</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <div class="hidden text-danger error-msgs">
+                            <ul></ul>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @*@Html.HiddenFor(m => m.ID)*@
+                        @Html.HiddenFor(m => m.AUDIT_ID)
+                        @Html.HiddenFor(m => m.CREATED_DATE)
+                        <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Тайлант хугацаа: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    </div>
+                                    @*@if (Model.Button == true)
+                                    {*@
+                                        <div class="col-4">
+                                            <div class="form-group row">
+                                                <div class="col-sm-8">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @*}*@
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.DEPARTMENT_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын он: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.YEAR_LABEL, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын төрөл: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.AUDIT_TYPE_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Сэдвийн үндэслэл: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(model => model.TOPIC_TYPE_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын код: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.TOPIC_CODE, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Аудитын нэр: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextAreaFor(m => m.TOPIC_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly", @rows = 3 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Батлагдсан тушаалын дугаар: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.ORDER_NO, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Батлагдсан огноо: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.ORDER_DATE, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төсөв захирагч:</label>
+                                    <div class="col-sm-4">
+                                        @Html.TextBoxFor(m => m.BUDGET_TYPE_NAME, new { @class = "form-control form-control-sm", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="heading-1"><span>Албан шаардлагын мэдээлэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо: <span class="required">*</span></label>   
+                                    <div class="col-sm-4">
+                                        @*<input class="form-control form-control-sm datepicker"/>*@
+                                        @Html.EditorFor(m => m.CLAIM_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_DATE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын дугаар:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн товч утга:</label>
+                                    <div class="col-sm-4">
+                                        @Html.TextAreaFor(m => m.CLAIM_VIOLATION_DESC, new { @class = "form-control form-control-sm", @rows = 3 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал:</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.CLAIM_VIOLATION_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_SUBMITTED_DATE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийг барагдуулах: <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_DELIVERY_DATE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_RCV_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_RCV_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Овог нэр:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_RCV_GIVEN_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Утас:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Холбоо барих хаяг:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_RCV_ADDRESS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.CLAIM_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        </div>
+                                    </div>
+                                </div>*@
+                        </div>
+                       
+                       
+                        <hr />
+                        <div style="text-align: right">
+                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+  $( function() {
+      $(".datepicker").datepicker({
+          beforeShow: function () {
+              setTimeout(function () {
+                  $('.ui-datepicker').css('z-index', 99999999999999);
+              }, 0);
+          },
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          firstDay: 1,
+          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+          //maxDate: "+0D",
+          showOn: "button",
+          buttonImage: "@Url.Content("~/Images/calendar.png")",
+          buttonImageOnly: true,
+          buttonText: "Select date"
+      });
+      calculateSum1();
+      calculateSum2();
+
+      $(".amount1").on("keydown keyup", function () {
+          calculateSum1();
+      });
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
+      });
+
+      function calculateSum1() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount1").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+
+          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+      }
+      function calculateSum2() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount2").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+
+          $("#CLAIM_C2_AMOUNT").val(sum.toFixed(2));
+      }
+  });
+</script>

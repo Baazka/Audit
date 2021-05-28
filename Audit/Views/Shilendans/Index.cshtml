@@ -1,37 +1,61 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
-@{
-    var budget_type = Model.budgetTypes.Select(c => new
-    {
-        ID = c.BUDGET_TYPE_ID,
-        Name = c.BUDGET_TYPE_NAME
-    }).ToList();
-    Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name");
-
-    //var violation = Model.violations.Select(c => new
-    //{
-    //    ID = c.VIOLATION_ID,
-    //    Name = c.VIOLATION_NAME
-    //}).ToList();
-    //Model.Violation = new MultiSelectList(violation, "ID", "Name");
-}
+@using Audit.App_Func
+@using Microsoft.AspNet.Identity;
+@*@{ var budget_type = Model.budgetTypes.Select(c => new
+                {
+                    ID = c.BUDGET_TYPE_ID,
+                    Name = c.BUDGET_TYPE_NAME
+                }).ToList();
+                Model.BudgetType = new MultiSelectList(budget_type, "ID", "Name"); }*@
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
-        @*@if (Role.hasAdminRole(User))
+        @if (User.GetClaimData("DepartmentID") == "2" || User.GetClaimData("DepartmentID") == "101")
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
-        }*@
-        <div class="form-group-sm pr-2">
-            <label for="StatusID" class="col-form-label">ТЕЗ:</label><br />
+        }
+    <div class="form-group-sm pr-2">
+        <label for="BudgetTypeID" class="col-form-label">Төсөв захирагч:</label>
+
+        @Html.DropDownListFor(model => model.BudgetTypeID, new SelectList(
+                 new List<Object>{
+                      new { value = "" , text = "Сонгоно уу" },
+                      new { value = 1 , text = "ТЕЗ" },
+                      new { value = 2 , text = "ТТЗ" },
+                      new { value = 3 , text = "ТШЗ" },
+                     }, "value", "text"), new { @class = "form-control form-control-sm" })
+    </div>
+        @if (User.GetClaimData("USER_TYPE") == "Hak_User")
+        {
+        <div class="form-group-sm ml-auto pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="hakexportXLSX" onclick="HakOrgExportFile()">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Жагсаалт татах</span>
+            </a>
+        </div>
+        }
+        else
+        {
+        <div class="form-group-sm ml-auto pr-2" >
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="OrgExportFile()">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Жагсаалт татах</span>
+            </a>
+        </div>
+        }
+        @*<div class="form-group-sm pr-2">
+            <label for="StatusID" class="col-form-label">ТЕЗ/ ТТЗ/ ТШЗ:</label><br />
             @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "BudgetType" })
-        </div>
-        <div class="form-group-sm pr-2">
-            <label for="ViolationID" class="col-form-label">ТТЗ/ТЕЗ:</label><br />
-            @Html.ListBoxFor(model => model.BudgetTypeIDs, Model.BudgetType, new { id = "violation" })
-        </div>
+        </div>*@
     </div>
 </form>
 <div class="row mb-2">
@@ -39,26 +63,58 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class="text-center">№</th>
-                                <th rowspan="2">ТЕЗ</th>
-                                <th rowspan="2" width="8%">ТТЗ/ТЕЗ</th>
-                                <th rowspan="2" width="20%">Харъяа аудитын байгууллагын нэр</th>
-                                <th rowspan="2">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
-                                <th rowspan="2">Регистрийн дугаар</th>
-                                @*<th>СТАУС бүртгэлийн код</th>*@
-                                <th colspan="3">Мэдээ оруулсан байдал</th>
-                                <th rowspan="2">Шилэн данс</th>
-                            <tr>
-                                <th>МАЯГТ 1</th>
-                                <th>МАЯГТ 4</th>
-                                <th>МАЯГТ 6</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
+                @if (User.GetClaimData("USER_TYPE") == "Hak_User")
+                {
+                    <table class="table table-bordered datatable display" id="hakorganizationlist" style="width:100%">
+                    <thead style="background-color:#f8f9fc;">
+                        <tr>
+                            <th class="text-center">№</th>
+                            <th>ТЕЗ</th>
+                            <th width="5%">ТТЗ/ТЕЗ</th>
+                            <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                            <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                            <th>Регистрийн дугаар</th>
+                            <th width="9%">Маягт1 / Маягт4</th>
+                            <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                            <th class="text-center">Баримт хэвлэсэн эсэх</th>
+                            <th>Мэдээлэл оруулсан аудитор</th>
+                            <th>Мэдээлэл оруулсан өдөр</th>
+                            <th width="15%">Шилэн данс</th>
+                        </tr>
+                        @*<th>МАЯГТ 1</th>
+                        <th>МАЯГТ 4</th>
+                        <th>МАЯГТ 6</th>*@
+                    </thead>
+                    <tbody>
+                    </tbody>
                     </table>
+                }
+                else
+                {
+                <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                    <thead style="background-color:#f8f9fc;">
+                        <tr>
+                            <th class="text-center">№</th>
+                            <th>ТЕЗ</th>
+                            <th width="5%">ТТЗ/ТЕЗ</th>
+                            <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                            <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                            <th>Регистрийн дугаар</th>
+                            <th width="9%">Маягт1 / Маягт4</th>
+                            <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                            <th class="text-center">Баримт хэвлэсэн эсэх</th>
+                            <th>Мэдээлэл оруулсан аудитор</th>
+                            <th>Мэдээлэл оруулсан өдөр</th>
+                            <th width="15%">Шилэн данс</th>
+                        </tr>
+                        @*<th>МАЯГТ 1</th>
+                        <th>МАЯГТ 4</th>
+                        <th>МАЯГТ 6</th>*@
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                }
                 </div>
             </div>
         </div>
@@ -67,25 +123,26 @@
 
 @section scripts{
     <script>
-
-        $(document).ready(function () {
-            orgListInit();
+        $(document).ready(function () {        
+                hakorgListInit();
+                orgListInit();
         })
-        var table;
+        var orgtable;
         function orgListInit(pagelength = 10) {
-                table = $("#organizationlist").DataTable({
+            orgtable = $("#organizationlist").DataTable({
                 "serverSide": true,
                 "processing": true,
                 "ajax": {
                     url: "/api/service/mirrororglist",
                     type: 'POST',
                     data: function (data) {
-                        data.budget_type = $('#BudgetType').val();
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.budget_type = $('#BudgetTypeID').val();
                         return data;
                     }
                 },
                 createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ORG_ID);
+                    $(row).attr('data-id', data.OPEN_ID);
                 },
 
                 "columns": [
@@ -95,36 +152,191 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "ORG_CONCENTRATOR_NAME", "name": "ORG_CONCENTRATOR_NAME" },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
+                    { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
-                    { "data": "ORG_NAME", "name": "ORG_NAME" },
-                    { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO", "sortable": false },
-                    { "data": "TAB1_IS_FINISH", "class": 'text-center', "width": '8%',
+                    { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
+                    { "data": "MAYGT", "name": "MAYGT" },
+                    { "data": "IS_FINISHED", "name": "IS_FINISHED", "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
                         }
                     },
-                    {
-                        "data": "TAB2_IS_FINISH", "class": 'text-center', "width": '8%',
+                    {"data": "IS_PRINTED", "name": "IS_PRINTED","class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
                         }
                     },
-                    {
-                        "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
-                        render: function (data, type, row, meta) {
-                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
-                        }
-                    },
+                    //{
+                    //    "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
+                    //    render: function (data, type, row, meta) {
+                    //        if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                    //    }
+                    //},
                     /*{ "data": "ORG_CODE", "name": "ORG_CODE" },*/
+                    { "data": "USER_NAME", "name": "USER_NAME" },
+                    { "data": "INSERTDATE", "name": "INSERTDATE" },
                     { "data": null, "sortable": false, "class": 'text-center', "width": '10%',
                         render: function (data, type, row, meta) {
                                 return '<div class="btn-group">' +
-                                    '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.ORG_ID + ')">' +
+                                    '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.OPEN_ID + ')" style="vertival-align:middle;color: #4e73df;">' +
                                     '<i class="fa fa-edit"></i> Оруулах' +
                                     '</a>' +
-                                    '</div>';                            
+                                    '</div>';
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "pageLength": pagelength,
+                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                //"stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language
+            });
+        }
+        function ExportOrgListInit(pagelength = -1) {
+            orgtable = $("#organizationlist").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/mirrororglist",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.budget_type = $('#BudgetTypeID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.OPEN_ID);
+                },
+
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center', "type": "lower-letter",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
+                    { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
+                    { "data": "MAYGT", "name": "MAYGT" },
+                    {
+                        "data": "IS_FINISHED", "name": "IS_FINISHED", "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                        }
+                    },
+                    {
+                        "data": "IS_PRINTED", "name": "IS_PRINTED", "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                        }
+                    },
+                    //{
+                    //    "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
+                    //    render: function (data, type, row, meta) {
+                    //        if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                    //    }
+                    //},
+                    /*{ "data": "ORG_CODE", "name": "ORG_CODE" },*/
+                    { "data": "USER_NAME", "name": "USER_NAME" },
+                    { "data": "INSERTDATE", "name": "INSERTDATE" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center', "width": '10%',
+                        render: function (data, type, row, meta) {
+                            return '<div class="btn-group">' +
+                                '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.OPEN_ID + ')" style="vertival-align:middle;color: #4e73df;">' +
+                                '<i class="fa fa-edit"></i> Оруулах' +
+                                '</a>' +
+                                '</div>';
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "pageLength": pagelength,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                //"stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language,
+                "drawCallback": function (){
+                    var wb = XLSX.utils.table_to_book(document.getElementById("organizationlist"));
+                    XLSX.writeFile(wb, "Шилэн дансны системийн шалгагдагч байгууллагын жагсаалт" + '.xlsx');
+                }
+            });
+        }
+        function hakorgListInit(pagelength = 10) {
+            haktable = $("#hakorganizationlist").DataTable({               
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/mirrorhakorglist",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.budget_type = $('#BudgetTypeID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.OPEN_ID);
+                },
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center', "type": "lower-letter",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
+                    { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
+                    { "data": "MAYGT", "name": "MAYGT" },
+                    {
+                        "data": "IS_FINISHED", "name": "IS_FINISHED", "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                        }
+                    },
+                    {
+                        "data": "IS_PRINTED", "name": "IS_PRINTED", "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                        }
+                    },
+                    //{
+                    //    "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
+                    //    render: function (data, type, row, meta) {
+                    //        if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                    //    }
+                    //},
+                    /*{ "data": "ORG_CODE", "name": "ORG_CODE" },*/
+                    { "data": "USER_NAME", "name": "USER_NAME" },
+                    { "data": "INSERTDATE", "name": "INSERTDATE" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center', "width": '10%',
+                        render: function (data, type, row, meta) {
+                            return '<div class="btn-group">' +
+                                '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.OPEN_ID + ')" style="vertival-align:middle;color: #4e73df;">' +
+                                '<i class="fa fa-edit"></i> Оруулах' +
+                                '</a>' +
+                                '</div>';
                         }
                     }
                 ],
@@ -139,28 +351,96 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language
-
             });
         }
-        $('#BudgetType').multiselect({
-            nonSelectedText: "Сонгоно уу",
-            buttonClass: 'form-control form-control-sm',
-            onChange: function (option, checked, select) {
-                orgListInit();
-            }
-        });
-        $('#violation').multiselect({
-            nonSelectedText: "Сонгоно уу",
-            buttonClass: 'form-control form-control-sm',
-            onChange: function (option, checked, select) {
-                orgListInit();
-            }
-        });
+        function ExportHakorgListInit(pagelength = -1) {
+            haktable = $("#hakorganizationlist").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    url: "/api/service/mirrorhakorglist",
+                    type: 'POST',
+                    data: function (data) {
+                        data.DeparmentID = $('#DeparmentID').val();
+                        data.budget_type = $('#BudgetTypeID').val();
+                        return data;
+                    }
+                },
+                createdRow: function (row, data, dataIndex) {
+                    $(row).attr('data-id', data.OPEN_ID);
+                },
+
+                "columns": [
+                    {
+                        "data": null, "sortable": false, "class": 'text-center', "type": "lower-letter",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
+                    { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
+                    { "data": "OPEN_ENT_REGISTER_NO", "name": "OPEN_ENT_REGISTER_NO", "sortable": false },
+                    { "data": "MAYGT", "name": "MAYGT" },
+                    {
+                        "data": "IS_FINISHED", "name": "IS_FINISHED", "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                        }
+                    },
+                    {
+                        "data": "IS_PRINTED", "name": "IS_PRINTED", "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: middle;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                        }
+                    },
+                    //{
+                    //    "data": "TAB3_IS_FINISH", "class": 'text-center', "width": '8%',
+                    //    render: function (data, type, row, meta) {
+                    //        if (data === 1) { return "<i class='fa fa-check-square' style='color: #28a745;vertical-align: sub;'></i>"; } else { return "<i class='fa fa-times-circle' style='color: #858796;vertical-align: sub;'></i>"; }
+                    //    }
+                    //},
+                    /*{ "data": "ORG_CODE", "name": "ORG_CODE" },*/
+                    { "data": "USER_NAME", "name": "USER_NAME" },
+                    { "data": "INSERTDATE", "name": "INSERTDATE" },
+                    {
+                        "data": null, "sortable": false, "class": 'text-center', "width": '10%',
+                        render: function (data, type, row, meta) {
+                            return '<div class="btn-group">' +
+                                '<a class="btn btn-sm" href="#" onclick="Organization.edit(' + data.OPEN_ID + ')" style="vertival-align:middle;color: #4e73df;">' +
+                                '<i class="fa fa-edit"></i> Оруулах' +
+                                '</a>' +
+                                '</div>';
+                        }
+                    }
+                ],
+                "destroy": true,
+                "scrollCollapse": true,
+                "paging": true,
+                "pageLength": pagelength,
+                "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+                "filter": true,
+                "info": true,
+                "stateSave": false,
+                "bAutoWidth": false,
+                lengthChange: true,
+                "language": datatables.language,
+                "drawCallback": function () {
+                    var wb = XLSX.utils.table_to_book(document.getElementById("hakorganizationlist"));
+                    XLSX.writeFile(wb, "Шилэн дансны системийн шалгагдагч байгууллагын жагсаалт" + '.xlsx');
+                }
+            });
+        }
         $('#DeparmentID').change(function () {
             orgListInit();
         });
+        $('#BudgetTypeID').change(function () {
+            orgListInit();
+            hakorgListInit();
+        });
         var Organization = {
-        OrgID:null,
+        OpenID:null,
         display: function (data) {
             $("div#orgmodalcontainer").remove();
             $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
@@ -183,11 +463,11 @@
                         }
                     });
             },
-        edit: function (orgid) {
+        edit: function (openid) {
                 $.ajax({
                     url: "@Url.Action("OrgDetail", "Shilendans", new { Area = "" })",
                     type: 'GET',
-                    data: { orgid },
+                    data: { openid },
                     success: function (data, status, xhr) {
                         Organization.progressResponse(data, status, xhr);
                     },
@@ -221,6 +501,21 @@
             }
           }
         }
-
+        function OrgExportFile() {
+            $('#exportXLSX').addClass('disabled');
+            orgtable.destroy();
+            ExportOrgListInit(-1);
+            orgtable.destroy();
+            orgListInit();
+            $('#exportXLSX').removeClass('disabled');
+        }
+        function HakOrgExportFile() {
+            $('#hakexportXLSX').addClass('disabled');
+            haktable.destroy();
+            ExportHakorgListInit(-1);
+            haktable.destroy();
+            hakorgListInit();
+            $('#hakexportXLSX').removeClass('disabled');
+        }
     </script>
 }

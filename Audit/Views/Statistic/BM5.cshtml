@@ -25,19 +25,45 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-
         <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" style="margin-top: 32px;" onclick="BM5.loadTemplate();">
+            <br />
+            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM5.loadTemplate();">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Шинэ бүртгэл</span>
             </a>
         </div>
-
-
         <div class="form-group-sm pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('BM5', 'БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл')">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM5.completion();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Хэрэгжилт</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM5.edit();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Засах</span>
+            </a>
+        </div>
+        <div class="form-group-sm pr-2">
+            <br />
+            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM5.delete();">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span class="text">Устгах</span>
+            </a>
+        </div>
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM5', 'БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -49,9 +75,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="BM5" class="table table-bordered datatable display" style="width:100%">
+            <table id="BM5" class="table table-bordered table-hover datatable display">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Он</th>
                         <th rowspan="3">Аудитын төрөл</th>
@@ -62,9 +88,8 @@
                         <th colspan="2" rowspan="2">Хууль хяналтын байгууллагад шилжүүлсэн асуудал</th>
                         <th colspan="6">Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</th>
                         <th colspan="2" rowspan="2">Дараа онд шилжих үлдэгдэл</th>
-                        <th rowspan="3">Үйлдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="2">Зөрчил гаргасан байгууллага, албан тушаалтны нэр</th>
                         <th rowspan="2">Зөрчлийн товч утга</th>
                         <th rowspan="2">Зөрчлийн ангилал</th>
@@ -73,7 +98,7 @@
                         <th colspan="2">Хянагдаж байгаа</th>
                         <th colspan="2">Хэрэгсэхгүй болсон</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -98,7 +123,14 @@
         $(document).ready(function () {
             bm5ListInit();
         });
-
+        function rowselected() {
+            $("#BM5 tbody tr").on('click', function (event) {
+                $("#FilterForm .enableBtn").removeClass("disabled")
+                $("#BM5 tbody tr").removeClass('row_selected');
+                $(this).addClass('row_selected');
+                BM5.bm5ID = this.getAttribute("data-id");
+            });
+        }
         function bm5ListInit(pagelength = 10) {
             BM5.table = $("#BM5").DataTable({
                 "serverSide": true,
@@ -122,42 +154,50 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-                    { "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
-                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
-                    { "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
+                    { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
+                    { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
+                    { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
+                    { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     //{ "data": "ORDER_DATE", "name": "ORDER_DATE" },
                     //{ "data": "ORDER_NO", "name": "ORDER_NO" },
                     { "data": "LAW_RESPONDANT_NAME", "name": "LAW_RESPONDANT_NAME" },
                     { "data": "LAW_VIOLATION_DESC", "name": "LAW_VIOLATION_DESC" },
-                    { "data": "LAW_VIOLATION_TYPE", "name": "LAW_VIOLATION_TYPE" },
+                    { "data": "VIOLATION_NAME", "name": "VIOLATION_NAME" },
                     { "data": "LAW_MOVING_INFORMATION", "name": "LAW_MOVING_INFORMATION" },
-                    { "data": "LAW_NUMBER", "name": "LAW_NUMBER" },
-                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
-                    { "data": "LAW_C2_NUMBER", "name": "LAW_C2_NUMBER" },
-                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT" },
-                    { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE" },
-                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
-                    { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS" },
-                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
-                    { "data": "COMPLETION_INVALID", "name": "COMPLETION_INVALID" },
-                    { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT" },
-                    {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            var tmp = '<div class="btn-group">';
-                            var urledit = '<a href="#" class="btn btn-sm" onclick="BM5.edit(' + data.ID + ')"><i class="fa fa-edit"></i></a>';
-                            var urldelete = '<a href="#" class="btn btn-sm" onclick="BM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt" ></i></a>';
-                            tmp += urledit;
-                            tmp += urldelete;
-                            tmp += "</div>";
-                            return tmp;
-                        }
-                    }
+                    { "data": "LAW_NUMBER", "name": "LAW_NUMBER", "class": "text-right" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right" },
+                    { "data": "LAW_C2_NUMBER", "name": "LAW_C2_NUMBER", "class": "text-right" },
+                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE", "class": "text-right" },
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_INVALID", "name": "COMPLETION_INVALID", "class": "text-right" },
+                    { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT", "class": "text-right" },
+                    //{
+                    //    "data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        var tmp = '<div class="btn-group">';
+                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="BM5.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
+                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="BM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
+                    //        tmp += urledit;
+                    //        tmp += urldelete;
+                    //        tmp += "</div>";
+                    //        return tmp;
+                    //    }
+                    //}
                 ],
+                columnDefs: [
+                    { width: 200, targets: 4 },
+                    { width: 300, targets: 7 },
+                    { width: 100, targets: 9 },
+
+                ],
+                scrollX: true,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
@@ -166,9 +206,26 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function () {
+                    rowselected();
+                }
             });
 
+        }
+        function Choose(id, department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
+            $("#Bm5Modal #AUDIT_ID").val(id);
+            $("#Bm5Modal #DEPARTMENT_NAME").val(department);
+            $("#Bm5Modal #YEAR_LABEL").val(year);
+            $("#Bm5Modal #AUDIT_TYPE_NAME").val(audittype);
+            $("#Bm5Modal #TOPIC_TYPE_NAME").val(topictype);
+            $("#Bm5Modal #TOPIC_CODE").val(code);
+            $("#Bm5Modal #TOPIC_NAME").val(name);
+            $("#Bm5Modal #ORDER_NO").val(orderno);
+            $("#Bm5Modal #ORDER_DATE").val(orderdate);
+            $("#Bm5Modal #BUDGET_TYPE_NAME").val(budgettype);
+
+            $('#BM0ListModel').modal('hide');
         }
         $('#DeparmentID').change(function () {
             bm5ListInit();
@@ -178,17 +235,53 @@
         });
         var BM5 = {
             bm5ID: null,
-            table:null,
-        display: function (data) {
-            $("div#bm5modalcontainer").remove();
-            $('<div/>', { id: "bm5modalcontainer" }).appendTo('body').append(data);
+            table: null,
+            display: function (data) {
+                $("div#bm5modalcontainer").remove();
+                $('<div/>', { id: "bm5modalcontainer" }).appendTo('body').append(data);
 
-            $("#Bm5Modal").modal({ show: true });
-        },
-        loadTemplate: function () {
-            $.ajax({
-                    url: "@Url.Action("BM5AddEdit", "Statistic", new { Area = "" })",
+                $("#Bm5Modal").modal({ show: true });
+                $(".btnBM0listPopup").on('click', function () {
+                    if ($('#STATISTIC_PERIOD').val() != null && $('#STATISTIC_PERIOD').val() != '')
+                        BM5.BM0List($('#STATISTIC_PERIOD').val());
+                    else
+                        alert('Тайлант хугацаа сонгоно уу.');
+                });
+            },
+            displayBM0List: function (data) {
+                $("div#bm0listmodalcontainer").remove();
+                $('<div/>', { id: "bm0listmodalcontainer" }).appendTo('body').append(data);
+
+                $('#Bm5Modal').modal('hide');
+                $('#BM0ListModel').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#Bm5Modal').modal('show');
+                });
+            },
+            BM0List: function (periodid) {
+                $.ajax({
+                    url: '@Url.Action("BM0Search", "Statistic", new { Area = "" })',
                     type: 'GET',
+                    cache: false,
+                    data: { periodid},
+                    success: function (data) {
+                        BM5.displayBM0List(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            loadTemplate: function () {
+                var audit_id;
+                BM5.bm5ID != null ? audit_id = BM5.bm5ID : audit_id = 0;
+                $.ajax({
+                    url: "@Url.Action("BM5Add", "Statistic", new { Area = "" })",
+                    type: 'GET',
+                    data: { id: audit_id },
                     success: function (data) {
                         BM5.display(data);
                     },
@@ -200,65 +293,98 @@
                         Modal.hide();
                     }
                 });
-        },
-        edit: function (id) {
-            $.ajax({
-                url: "@Url.Action("BM5Detail", "Statistic", new { Area = "" })",
-                type: 'POST',
-                data: { id },
-                success: function (data, status, xhr) {
-                    BM5.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
+            },
+            completion: function () {
+                if (BM5.bm5ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM5.bm5ID;
+                    $.ajax({
+                        url: "@Url.Action("BM5Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id: id, isbm0: false, iscompletion: true },
+                        success: function (data, status, xhr) {
+                            BM5.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            });
-        },
-        delete: function (id) {
-            BM5.bm5ID = id;
-            var r = confirm("Устгах уу!");
-            if (r) {
-                $.ajax({
-                    url: "@Url.Action("BM5Delete", "Statistic", new { Area = "" })",
-                    type: 'POST',
-                    data: { id },
-                    success: function (data, status, xhr) {
-                        BM5.progressResponse(data, status, xhr);
-                    },
-                    error: errorResponse,
-                    beforeSend: function () {
-                        Modal.show();
-                    },
-                    complete: function () {
-                        Modal.hide();
+            },
+            edit: function () {
+                if (BM5.bm5ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                     var audit_id = BM5.bm5ID;
+                    $.ajax({
+                        url: "@Url.Action("BM5Detail", "Statistic", new { Area = "" })",
+                        type: 'POST',
+                        data: { id: audit_id, isbm0: false },
+                        success: function (data, status, xhr) {
+                            BM5.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
+                }
+            },
+            delete: function (id) {
+                if (BM5.bm5ID == null)
+                    alert("Бичлэг сонгоно уу");
+                else {
+                    var id = BM5.bm5ID;
+                    var r = confirm("Устгах уу!");
+                    if (r) {
+                        $.ajax({
+                            url: "@Url.Action("BM5Delete", "Statistic", new { Area = "" })",
+                            type: 'POST',
+                            data: { id },
+                            success: function (data, status, xhr) {
+                                BM5.progressResponse(data, status, xhr);
+                            },
+                            error: errorResponse,
+                            beforeSend: function () {
+                                Modal.show();
+                            },
+                            complete: function () {
+                                Modal.hide();
+                            }
+                        });
                     }
-                });
-            }
-        },
-        close: function () {
-            $("#Bm5Modal").modal("hide");
-        },
-        progressResponse: function (data, status, xhr) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                BM5.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    BM5.close();
-                    bm5ListInit();
-                    Message.success(data.message);
+                }
+            },
+            close: function () {
+                $("#Bm5Modal").modal("hide");
+            },
+            progressResponse: function (data, status, xhr) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    BM5.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        BM5.close();
+                        bm5ListInit();
+                        Message.success(data.message);
+                        BM5.bm5ID = null;
+                        $("#FilterForm .enableBtn").addClass("disabled");
+                    }
                 }
             }
         }
-    }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             BM5.table.destroy();

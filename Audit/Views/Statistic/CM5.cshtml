@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="d-flex">
-    <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
+    <a href="@Url.Action("Index","Statistic")?type=3" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
             <i class="fas fa-arrow-left"></i>
         </span>
@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('CM5', 'СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM5', 'СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,9 +39,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="CM5" class="table table-bordered datatable display" style="width:100%">
+            <table id="CM5" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Аудитын төрөл</th>
                         <th rowspan="3">Үзүүлэлт</th>
@@ -55,13 +56,13 @@
                         <th colspan="2" rowspan="2">Бусад</th>
                         <th colspan="2" rowspan="2">Алдаа зөрчлийн нийт дүн</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Улсын төсөв</th>
                         <th colspan="2">Орон нутгын төсөв</th>
                         <th colspan="2">Улсын төсөв</th>
                         <th colspan="2">Орон нутгын төсөв</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>

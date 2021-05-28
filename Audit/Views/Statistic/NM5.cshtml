@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="d-flex">
-    <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
+    <a href="@Url.Action("Index","Statistic")?type=2" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
             <i class="fas fa-arrow-left"></i>
         </span>
@@ -25,8 +25,9 @@
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm ml-auto pr-2">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" style="margin-top: 32px;" onclick="exportFile('NM5', 'НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл')">
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM5', 'НМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагд шилжүүлсэн асуудлын нэгтгэл')">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -38,9 +39,9 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM5" class="table table-bordered datatable display" style="width:100%">
+            <table id="NM5" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Аудитын код</th>
                         <th rowspan="3">Аудитын нэр</th>
@@ -48,12 +49,12 @@
                         <th colspan="6">Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</th>
                         <th colspan="2" rowspan="2">Дараа онд шилжих үлдэгдэл</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th colspan="2">Бүрэн шийдвэрлэгдсэн</th>
                         <th colspan="2">Хянагдаж байгаа</th>
                         <th colspan="2">Хэрэгсэхгүй болсон</th>
                     </tr>
-                    <tr>
+                    <tr class="bg-light">
                         <th>Тоо</th>
                         <th>Дүн</th>
                         <th>Тоо</th>
@@ -103,21 +104,20 @@
                     },
                     //{ "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
                     //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    { "data": "AUDIT_CODE", "name": "AUDIT_CODE" },
-                    { "data": "AUDIT_NAME", "name": "AUDIT_NAME" },
+                    { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
+                    { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
                     //{ "data": "AUDIT_BUDGET_TYPE", "name": "AUDIT_BUDGET_TYPE" },
 
-                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
-                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
-                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT" },
-                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
-                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT" },
-                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
-                    { "data": "COMPLETION_INVALID_COUNT", "name": "COMPLETION_INVALID_COUNT" },
-                    { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT" },
-                    { "data": "LAW_C2_NUMBER_COUNT", "name": "LAW_C2_NUMBER_COUNT" },
-                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT" },
-                    //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT", "class": "text-right" },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
+                    { "data": "COMPLETION_INVALID_COUNT", "name": "COMPLETION_INVALID_COUNT", "class": "text-right" },
+                    { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT", "class": "text-right" },
+                    { "data": "LAW_C2_NUMBER_COUNT", "name": "LAW_C2_NUMBER_COUNT", "class": "text-right" },
+                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT", "class": "text-right" },
                 ],
                 "destroy": true,
                 "scrollCollapse": true,

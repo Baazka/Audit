@@ -1,0 +1,224 @@
+﻿
+@model Audit.Models.BM3
+
+<div class="modal fade" id="Bm3Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
+        @using (Ajax.BeginForm("BM3AddEditCompletion", "Statistic", new { Area = "" },
+                   new AjaxOptions
+                   {
+                       UpdateTargetId = "Bm3Modalcontainer",
+                       OnBegin = "Modal.show()",
+                       OnComplete = "Modal.hide(); $('#Bm3Modal').modal({ show: true }); $('.modal-backdrop:first').remove()",
+                       OnSuccess = "BM3.progressResponse(data, status, xhr)",
+                       OnFailure = "errorResponse",
+                       HttpMethod = "Post",
+                       InsertionMode = InsertionMode.Replace
+                   },
+                   new { @class = "form-horizontal", @autocomplete = "off" }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <div class="hidden text-danger error-msgs">
+                            <ul></ul>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.ID)
+                        @Html.HiddenFor(m => m.AUDIT_ID)
+                        @Html.HiddenFor(m => m.CREATED_DATE)
+
+
+
+
+                        <h6 class="heading-1"><span>Зөвлөмжийн биелэлт</span></h6>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн биелэлтийг мэдээлсэн баримт бичгийн огноо:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн биелэлтийг мэдээлсэн баримт бичгийн нэр, дугаар:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.COMPLETION_ORDER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="heading-1"><span>Дараа онд шилжих үлдэгдэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.ValidationMessageFor(m => m.C2_NONEXPIRED, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.C2_NONEXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.ValidationMessageFor(m => m.C2_NONEXPIRED_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.ValidationMessageFor(m => m.C2_EXPIRED, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.C2_EXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.ValidationMessageFor(m => m.C2_EXPIRED_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="heading-1"><span>Хүлээн зөвшөөрүүлсэн үр өгөөж</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.BENEFIT_FIN, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Санхүүгийн бус үр өгөөжийн тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.BENEFIT_NONFIN, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div style="text-align: right">
+                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                            <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+  $( function() {
+      $(".datepicker").datepicker({
+          beforeShow: function () {
+              setTimeout(function () {
+                  $('.ui-datepicker').css('z-index', 99999999999999);
+              }, 0);
+          },
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          firstDay: 1,
+          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+          //maxDate: "+0D",
+          showOn: "button",
+          buttonImage: "@Url.Content("~/Images/calendar.png")",
+          buttonImageOnly: true,
+          buttonText: "Select date"
+      });
+      calculateSum1();
+      calculateSum2();
+
+      $(".amount1").on("keydown keyup", function () {
+          calculateSum1();
+      });
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
+      });
+
+      function calculateSum1() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount1").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseInt(this.value);
+              }
+          });
+
+          $("#COMPLETION_PROGRESS").val(sum);
+      }
+      function calculateSum2() {
+          var sum = 0;
+          //iterate through each textboxes and add the values
+          $(".amount2").each(function () {
+              //add only if the value is number
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+
+          $("#COMPLETION_PROGRESS_AMOUNT").val(sum.toFixed(2));
+      }
+  });
+</script>
+

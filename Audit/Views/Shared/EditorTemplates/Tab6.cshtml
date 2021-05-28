@@ -3,14 +3,14 @@
     Layout = null;
 }
 
-@if (Model.MD_CODE == "163" || Model.MD_CODE == "164")
+@if (Model.MD_CODE == "170" || Model.MD_CODE == "171")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>@Html.TextAreaFor(x => x.Data02, new { @style = "width: 100%;" })</td>
     </tr>
 }
@@ -21,12 +21,12 @@ else
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
     <tr>
-        <td>@Html.DisplayFor(x => x.MD_NAME)</td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>
             @Html.DropDownListFor(model => model.Data01, new SelectList(
                         new List<Object>{
-                           new { value = 0 , text = "Тийм" },
-                           new { value = 1 , text = "Үгүй" }
+                           new { value = 0 , text = "Үгүй" },
+                           new { value = 1 , text = "Тийм" }
                         }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
         </td>
     </tr>

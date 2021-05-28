@@ -1,84 +1,5 @@
 ﻿@model Audit.Models.CM8
 
-<style>
-    .modal-header {
-        background-color: #233772;
-        padding: 0.5rem 1rem;
-    }
-
-    .modal-title {
-        text-transform: uppercase;
-        color: #fff;
-    }
-    .tab-content {
-        min-height: 500px;
-    }
-    .close {
-        font-weight: normal;
-        text-shadow: none;
-        opacity: inherit;
-    }
-
-    .col-form-label {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .form-group {
-        margin-bottom: 0.5rem;
-    }
-
-    .field-validation-error {
-        font-size: 12px;
-    }
-
-    .modal-body h6 {
-        text-transform: uppercase;
-        color: #233772;
-    }
-
-    label {
-        font-size: 12px !important;
-    }
-    div.ui-datepicker {
-        font-size: 12px;
-    }
-    .ui-datepicker-trigger {
-        position: absolute;
-        right: 15px;
-        top:7px;
-    }
-    .nav-tabs {
-        background-color: white;
-        height: auto;
-        width: 100%;
-    }
-        .nav-tabs .nav-item {
-            background-color: #e7e7e5;
-            border-top-right-radius: 7px;
-            border-top-left-radius: 7px;
-        }
-            .nav-tabs .nav-item.show .nav-item, .nav-tabs .nav-link.active {
-                background-color: #e7e7e5;
-                border: none !important;
-                border-top-right-radius: 7px;
-                border-top-left-radius: 7px;
-                color: #1b508a;
-            }
-        .nav-tabs .nav-link {
-            border: none;
-            color: #1b508a;
-            font-weight: bold;
-            font-size: small;
-            padding: 4px 20px;
-            height: auto;
-            align-self: center;
-            border-color: white;
-            border-style: solid;
-            border-width: 3.5px;
-            border-top: none;
-        }
-</style>
 <div class="modal fade" id="CM8Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("CM8AddEdit", "Statistic", new { Area = "" },
@@ -96,7 +17,7 @@
         {
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">CM8 бүртгэл</h6>
+                    <h6 class="modal-title" id="exampleModalLabel">СМ-8. Дэмжих үйлчилгээ</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
                 </div>
                 <div class="modal-body">
@@ -107,414 +28,414 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.ID)
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Төрийн аудитын байгууллага:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага:</label>
+                                <div class="col-sm-4">
                                     @Html.DropDownListFor(model => model.OFFICE_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                     @Html.ValidationMessageFor(m => m.OFFICE_ID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Он:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Он:</label>
+                                <div class="col-sm-4">
                                     @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Батлагдсан төсөв:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Батлагдсан төсөв:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.APPROVED_BUDGET, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.APPROVED_BUDGET, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Гүйцэтгэл:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Гүйцэтгэл:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.PERFORMANCE_BUDGET, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.PERFORMANCE_BUDGET, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Батлагдсан орон тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Батлагдсан орон тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.APPROVED_NUMBERS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.APPROVED_NUMBERS, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Ажиллагсад:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Ажиллагсад:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.WORKERS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.WORKERS, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Удирдах ажилтан:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Удирдах ажилтан:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.DIRECTING_STAFF, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.DIRECTING_STAFF, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Менежер:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Менежер:</label>
+                                <div class="col-sm-4">
                                     @*@Html.EditorFor(m => m.SENIOR_AUDITOR_ANALYST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.SENIOR_AUDITOR_ANALYST, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Ахлах аудитор, ахлах шинжээч:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Ахлах аудитор, ахлах шинжээч:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.SENIOR_AUDITOR_ANALYST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.SENIOR_AUDITOR_ANALYST, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Аудитор, шинжээч:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Аудитор, шинжээч:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.AUDITOR_ANALYST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.AUDITOR_ANALYST, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Бусад:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Бусад:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.OTHER_OFFICE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.OTHER_OFFICE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Доктор:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Доктор:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.EDU_DOCTOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.EDU_DOCTOR, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Магистр:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Магистр:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.EDU_MAGISTR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.EDU_MAGISTR, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Бакалавр:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Бакалавр:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.EDU_BAKLAVR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.EDU_BAKLAVR, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Тусгай дунд:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Тусгай дунд:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.EDU_AMONGST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.EDU_AMONGST, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Бүрэн дунд:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Бүрэн дунд:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.EDU_JUNIOR_AMONGST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.EDU_JUNIOR_AMONGST, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Мэргэшсэн нягтлан бодогч:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Мэргэшсэн нягтлан бодогч:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.PRO_ACCOUNTANT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.PRO_ACCOUNTANT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Нягтлан бодогч, эдийн засагч:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Нягтлан бодогч, эдийн засагч:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.ACCOUNTANT_ECONOMIST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.ACCOUNTANT_ECONOMIST, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хуульч:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хуульч:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.LAWYER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.LAWYER, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Инженер:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Инженер:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.INGENER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.INGENER, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Бусад:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Бусад:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.OTHER_PROF, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.OTHER_PROF, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Сургалтын тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Сургалтын тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.STUDY_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.STUDY_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хамрагдсан хүн /Бүгд/:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хамрагдсан хүн /Бүгд/:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.INCLUDED_MAN, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.INCLUDED_MAN, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Онлайн сургалтад хамрагдсан хүний тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Онлайн сургалтад хамрагдсан хүний тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.ONLINE_STUDY_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.ONLINE_STUDY_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Орон нутагт зохион байгуулсан сургалтад оролцсон хүний тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Орон нутагт зохион байгуулсан сургалтад оролцсон хүний тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.LOCAL_STUDY_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.LOCAL_STUDY_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">ҮАГ дээр зохион байгуулсан сургалтад хамрагдсан хүний тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">ҮАГ дээр зохион байгуулсан сургалтад хамрагдсан хүний тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.AUDIT_STUDY_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.AUDIT_STUDY_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Сургалтын тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Сургалтын тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.FOREIGN_STUDY_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.FOREIGN_STUDY_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хүний тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хүний тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.FOREIGN_MAN_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.FOREIGN_MAN_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Сургалтын тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Сургалтын тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.INSIDE_STUDY_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.INSIDE_STUDY_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хүний тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хүний тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.INSIDE_MAN_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.INSIDE_MAN_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Сургалтын тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Сургалтын тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.ORG_STUDY_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.ORG_STUDY_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хүний тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хүний тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.ORG_MAN_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.ORG_MAN_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Бүгд:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Бүгд:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.RESEARCH_ALL, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.RESEARCH_ALL, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хэвлэмэлээр болон хувилж өгсөн тайлан:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хэвлэмэлээр болон хувилж өгсөн тайлан:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.PUBLISHED_REPORT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.PUBLISHED_REPORT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хэвлэлийн мэдээ, нийтлэл:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хэвлэлийн мэдээ, нийтлэл:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.NEWS_ARTICLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.NEWS_ARTICLE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Радио, телевизийн мэдээ, нэвтрүүлэг:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Радио, телевизийн мэдээ, нэвтрүүлэг:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.TV_NEWS_BROADCAST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.TV_NEWS_BROADCAST, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Бусад байгууллагад хийсэн мэдээлэл, сурталчилгаа:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Бусад байгууллагад хийсэн мэдээлэл, сурталчилгаа:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.ORG_NEWS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.ORG_NEWS, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Цахим хуудасны хандалтын тоо:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Цахим хуудасны хандалтын тоо:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.WEB_ACCESS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.WEB_ACCESS, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хүлээн авсан мэдээлэл, хүсэлт, өргөдөл:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хүлээн авсан мэдээлэл, хүсэлт, өргөдөл:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.RECEIVED_ALL, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.RECEIVED_ALL, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">ТАБ-ын үйл ажиллагаатай холбоотой:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">ТАБ-ын үйл ажиллагаатай холбоотой:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.TAB_WORKERS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.TAB_WORKERS, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">ТАБ-ын ажиллагсадын мэргэжлийн ур чадвар, ёс зүйтэй холбоотой:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">ТАБ-ын ажиллагсадын мэргэжлийн ур чадвар, ёс зүйтэй холбоотой:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.TAB_SKILLS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.TAB_SKILLS, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Аудит хийлгэх тухай:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Аудит хийлгэх тухай:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.AUDIT_LET, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.AUDIT_LET, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Бусад:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Бусад:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.RECEIVED_OTHER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.RECEIVED_OTHER, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хугацаанд нь шийдвэрлэсэн:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хугацаанд нь шийдвэрлэсэн:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.DECIDED_TIME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.DECIDED_TIME, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хугацаа болоогүй:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.DEC_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.DEC_EXPIRED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Хугацаа хэтэрсэн:</label>
-                                <div class="col-sm-8">
+                                <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
+                                <div class="col-sm-4">
                                     @Html.EditorFor(m => m.DEC_UNEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.DEC_UNEXPIRED, "", new { @class = "text-danger" })
                                 </div>
