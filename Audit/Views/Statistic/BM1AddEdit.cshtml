@@ -425,7 +425,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_NONEXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -434,7 +434,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_EXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -520,7 +520,7 @@
     $(document).ready(function () {
         $("#ACT_C2_AMOUNT").val(null);
     });
-   
+
     $(function () {
        $("#COMPLETION_DATE_ID").datepicker({
           beforeShow: function () {
@@ -595,7 +595,7 @@
             calculateSum1();
             calculateSum2();
             calculateSum3();
-        }) 
+        })
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
@@ -622,18 +622,18 @@
           value1 = sum.toFixed(2);
           $("#ACT_AMOUNT").val(sum.toFixed(2));
           //$("#COMPLETION_DATE_ID").change(function (value) {
-              if ($("#ACT_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+          if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
                   parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
                   $("#ACT_C2_NONEXPIRED").val(null);
                   $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
 
               }
-              if ($("#ACT_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+          if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
                   $("#ACT_C2_AMOUNT").val(null);
                   $("#ACT_C2_NONEXPIRED").val(null);
                   $("#ACT_C2_EXPIRED").val(null);
               }
-          //}) 
+          //})
       }
       function calculateSum2() {
           var sum = 0;
@@ -647,13 +647,13 @@
           value2 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
           //$("#COMPLETION_DATE_ID").change(function (value) {
-              if ($("#ACT_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+          if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
                   parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
                   $("#ACT_C2_NONEXPIRED").val(null);
                   $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
 
               }
-              if ($("#ACT_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+          if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
                   $("#ACT_C2_NONEXPIRED").val(null);
                   $("#ACT_C2_EXPIRED").val(null);
               }
@@ -669,22 +669,22 @@
               }
           });
             value3 = sum.toFixed(2);
-            
+
             $("#REMOVED_AMOUNT").val(sum.toFixed(2));
            // $("#COMPLETION_DATE_ID").change(function (value) {
-                if ($("#ACT_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+            if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
                     parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
                     $("#ACT_C2_NONEXPIRED").val(null);
                     $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
 
             }
-                if ($("#ACT_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+            if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
                     $("#ACT_C2_NONEXPIRED").val(null);
                     $("#ACT_C2_EXPIRED").val(null);
                 }
            // })
 
-          
+
       }
         //function calculateSum4() {
         //    var sum = 0;
@@ -715,5 +715,5 @@
         //    parseFloat($("#ACT_C2_AMOUNT").val(sum.toFixed(2)));
         //}
     });
-    
+
 </script>
