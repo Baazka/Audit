@@ -80,6 +80,7 @@ namespace Audit.Models
         
 
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
+        public string NOW_CREATED_DATE { get; set; } = DateTime.Now.ToString("yyyy.MM.dd");
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
         public List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
@@ -196,6 +197,8 @@ namespace Audit.Models
                     BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
+                if (xml.Element("NOW_CREATED_DATE") != null)
+                    NOW_CREATED_DATE = Convert.ToDateTime(xml.Element("NOW_CREATED_DATE").Value).ToString("yyyy.MM.dd");
             }
             return this;
         }

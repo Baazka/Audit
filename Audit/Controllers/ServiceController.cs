@@ -206,7 +206,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("BM0") != null)
                     response.data = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
 
@@ -251,7 +251,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("BM1") != null)
                     response.data = (from item in res.Elements("BM1") select new BM1().SetXml(item)).ToList();
 

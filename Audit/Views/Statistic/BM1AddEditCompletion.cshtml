@@ -30,8 +30,63 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
-                        @Html.HiddenFor(m => m.ACT_AMOUNT)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
+                        @*@Html.HiddenFor(m => m.ACT_AMOUNT)*@
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Төлбөрийг барагдуулах: <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm ", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_DELIVERY_DATE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Төлбөрийн дүн:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount4", @placeholder = "0.00", @readonly = "readonly"@*, @type = "hidden"*@ } })
+                                    @Html.ValidationMessageFor(m => m.ACT_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-12">
+                            <div class="form-group row">
+                                @*<label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>*@
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" ,@type="hidden"} })
+                                    @Html.ValidationMessageFor(m => m.ACT_STATE_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                @*<label class="col-sm-4 col-form-label text-right">Орон нутгийн төсөвт:</label>*@
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly", @type = "hidden" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_LOCAL_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                @*<label class="col-sm-4 col-form-label text-right">Тухайн байгууллагад:</label>*@
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly", @type = "hidden" } })
+                                    @Html.ValidationMessageFor(m => m.ACT_ORG_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                @*<label class="col-sm-4 col-form-label text-right">Бусад:</label>*@
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" ,@type="hidden"} })
+                                    @Html.ValidationMessageFor(m => m.ACT_OTHER_AMOUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
                         <h6 class="heading-1"><span>Төлбөрийн актын биелэлт</span></h6>
                         <div class="row">
@@ -39,8 +94,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийн баримтын огноо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
-                                        @*@Html.ValidationMessageFor(m => m.COMPLETION_DATE, "", new { @class = "text-danger" })*@
+                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @id = "COMPLETION_DATE_ID" } })
+                                        @Html.ValidationMessageFor(m => m.COMPLETION_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +112,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийн актын биелэлтийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.COMPLETION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -66,7 +121,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_STATE_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -105,7 +160,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бүртгэлээс хасагдсан дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.REMOVED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.REMOVED_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -169,7 +224,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Дараа онд шилжих үлдэгдлийн дүн:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
-                                        @*@Html.ValidationMessageFor(m => m.ACT_C2_AMOUNT, "", new { @class = "text-danger" })*@
+                                        @Html.ValidationMessageFor(m => m.ACT_C2_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +232,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @readonly = "readonly", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_NONEXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -186,7 +241,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount4", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00",  @readonly = "readonly",@onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_EXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -233,8 +288,34 @@
         }
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script>
-  $( function() {
+    var value1 =0;
+    var value2 =0;
+    var value3 = 0;
+    $(document).ready(function () {
+        $("#ACT_C2_AMOUNT").val(0.00);
+    });
+
+    $(function () {
+       $("#COMPLETION_DATE_ID").datepicker({
+          beforeShow: function () {
+              setTimeout(function () {
+                  $('.ui-datepicker').css('z-index', 99999999999999);
+              }, 0);
+          },
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy.mm.dd",
+          firstDay: 1,
+          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+         // minDate: $("#ACT_DELIVERY_DATE").val(),
+          showOn: "button",
+          buttonImage: "@Url.Content("~/Images/calendar.png")",
+          buttonImageOnly: true,
+          buttonText: "Select date"
+      });
       $(".datepicker").datepicker({
           beforeShow: function () {
               setTimeout(function () {
@@ -254,12 +335,12 @@
           buttonText: "Select date"
       });
 
-      @*setTimeout(function () { Choose(@Html.Raw(Model.ID), BM1.rowdata.DEPARTMENT_NAME, BM1.rowdata.YEAR_LABEL, BM1.rowdata.AUDIT_TYPE_NAME, BM1.rowdata.TOPIC_TYPE_NAME, BM1.rowdata.TOPIC_CODE, BM1.rowdata.TOPIC_NAME, BM1.rowdata.ORDER_NO, BM1.rowdata.ORDER_DATE, BM1.rowdata.BUDGET_TYPE_NAME); }, 1000);*@
+      //setTimeout(function () { Choose(@*@Html.Raw(Model.ID)*@, BM1.rowdata.DEPARTMENT_NAME, BM1.rowdata.YEAR_LABEL, BM1.rowdata.AUDIT_TYPE_NAME, BM1.rowdata.TOPIC_TYPE_NAME, BM1.rowdata.TOPIC_CODE, BM1.rowdata.TOPIC_NAME, BM1.rowdata.ORDER_NO, BM1.rowdata.ORDER_DATE, BM1.rowdata.BUDGET_TYPE_NAME); }, 1000);
 
       calculateSum1();
       calculateSum2();
       calculateSum3();
-      calculateSum4();
+     // calculateSum4();
 
       //$(".decimal").on('keyup', function (evt) {
       //    if (evt.which != 110 && evt.which != 190) {
@@ -286,7 +367,11 @@
       //        $(this).val(n.toLocaleString());
       //    }
       //});
-
+        $("#COMPLETION_DATE_ID").change(function (value) {
+            calculateSum1();
+            calculateSum2();
+            calculateSum3();
+        })
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
@@ -296,9 +381,10 @@
       $(".amount3").on("keydown keyup", function () {
           calculateSum3();
       });
-      $(".amount4").on("keydown keyup", function () {
-          calculateSum4();
-      });
+      //$(".amount4").on("keydown keyup", function () {
+      //    calculateSum4();
+      //});
+
 
       function calculateSum1() {
           var sum = 0;
@@ -309,8 +395,21 @@
                   sum += parseFloat(this.value.replace(',', ''));
               }
           });
-
+          value1 = sum.toFixed(2);
           $("#ACT_AMOUNT").val(sum.toFixed(2));
+          //$("#COMPLETION_DATE_ID").change(function (value) {
+          if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+                  parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
+                  $("#ACT_C2_NONEXPIRED").val(null);
+                  $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
+
+              }
+          if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+                  $("#ACT_C2_AMOUNT").val(null);
+                  $("#ACT_C2_NONEXPIRED").val(null);
+                  $("#ACT_C2_EXPIRED").val(null);
+              }
+          //})
       }
       function calculateSum2() {
           var sum = 0;
@@ -321,10 +420,22 @@
                   sum += parseFloat(this.value);
               }
           });
-
+          value2 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+          //$("#COMPLETION_DATE_ID").change(function (value) {
+          if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+                  parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
+                  $("#ACT_C2_NONEXPIRED").val(null);
+                  $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
+
+              }
+          if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+                  $("#ACT_C2_NONEXPIRED").val(null);
+                  $("#ACT_C2_EXPIRED").val(null);
+              }
+         // })
       }
-      function calculateSum3() {
+        function calculateSum3() {
           var sum = 0;
           //iterate through each textboxes and add the values
           $(".amount3").each(function () {
@@ -333,20 +444,52 @@
                   sum += parseFloat(this.value);
               }
           });
+            value3 = sum.toFixed(2);
 
-          $("#REMOVED_AMOUNT").val(sum.toFixed(2));
-      }
-      function calculateSum4() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount4").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
+            $("#REMOVED_AMOUNT").val(sum.toFixed(2));
+           // $("#COMPLETION_DATE_ID").change(function (value) {
+            if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+                    parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
+                    $("#ACT_C2_NONEXPIRED").val(null);
+                    $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
 
-          $("#ACT_C2_AMOUNT").val(sum.toFixed(2));
+            }
+            if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+                    $("#ACT_C2_NONEXPIRED").val(null);
+                    $("#ACT_C2_EXPIRED").val(null);
+                }
+           // })
+
+
       }
-  });
+        //function calculateSum4() {
+        //    var sum = 0;
+        //    $(".amount4").change(function () {
+        //        sum = parseFloat($("#ACT_AMOUNT").val() - $("#COMPLETION_AMOUNT").val() - $("#REMOVED_AMOUNT").val());
+        //    });
+        //    //iterate through each textboxes and add the values
+        //    $(".amount4").each(function () {
+        //        //add only if the value is number
+        //        if (!isNaN(this.value) && this.value.length != 0) {
+        //            sum = parseFloat($("#ACT_AMOUNT").val()) - parseFloat($("#COMPLETION_AMOUNT").val()) - parseFloat($("#REMOVED_AMOUNT").val());
+        //            console.log(sum);
+        //        }
+        //        $("#COMPLETION_DATE_ID").change(function (value) {
+        //            if ($("#NOW_CREATED_DATE").val() > value.target.value) {
+        //                $("#ACT_C2_EXPIRED").val(null);
+        //                $("#ACT_C2_NONEXPIRED").val(sum.toFixed(2));
+
+        //            }
+        //            if ($("#NOW_CREATED_DATE").val() <= value.target.value) {
+        //                $("#ACT_C2_NONEXPIRED").val(null);
+        //                $("#ACT_C2_EXPIRED").val(sum.toFixed(2));
+        //            }
+        //        })
+
+        //    });
+
+        //    parseFloat($("#ACT_C2_AMOUNT").val(sum.toFixed(2)));
+        //}
+    });
+
 </script>
