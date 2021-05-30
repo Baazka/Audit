@@ -25,7 +25,9 @@ namespace Audit.Models
         [Required(ErrorMessage = "Аудитын төрөл сонгоно уу.")]
         public int AUDIT_TYPE { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
+        [Required(ErrorMessage = "Cонгоно уу.")]
         public int? TOPIC_TYPE { get; set; }
+        
         public string TOPIC_TYPE_NAME { get; set; }
         [Required(ErrorMessage = "Сэдвийн код оруулна уу.")]
         public string TOPIC_CODE { get; set; }
@@ -52,9 +54,11 @@ namespace Audit.Models
         public string[] AUDITOR_LEADS { get; set; }
         [Required(ErrorMessage = "Багийн ахлах оруулна уу.")]
         public string AUDITOR_LEAD { get; set; }
+        public string AUDITOR_LEAD_EDIT { get; set; }
         public string[] AUDITOR_MEMBERS { get; set; }
         [Required(ErrorMessage = "Багийн гишүүн оруулна уу.")]
         public string AUDITOR_MEMBER { get; set; }
+        public string AUDITOR_MEMBER_EDIT { get; set; }
        // [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDITOR_ENTRY { get; set; }
         public int EXEC_TYPE { get; set; }
@@ -141,6 +145,12 @@ namespace Audit.Models
                     AUDITOR_LEAD = xml.Element("AUDITOR_LEAD").Value.Replace(",","<br/>");
                 if (xml.Element("AUDITOR_MEMBER") != null)
                     AUDITOR_MEMBER = xml.Element("AUDITOR_MEMBER").Value.Replace(",", "<br/>");
+
+                if (xml.Element("AUDITOR_LEAD_EDIT") != null)
+                    AUDITOR_LEAD_EDIT = xml.Element("AUDITOR_LEAD_EDIT").Value.Replace(",", "\n");
+                if (xml.Element("AUDITOR_MEMBER_EDIT") != null)
+                    AUDITOR_MEMBER_EDIT = xml.Element("AUDITOR_MEMBER_EDIT").Value.Replace(",", "\n");
+
                 if (xml.Element("AUDITOR_ENTRY") != null)
                     AUDITOR_ENTRY = xml.Element("AUDITOR_ENTRY").Value;
                 if (xml.Element("AUDIT_SERVICE_PAY") != null)

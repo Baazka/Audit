@@ -67,19 +67,20 @@ namespace Audit.Controllers
             }
             return PartialView(bM0Search);
         }
-        public PartialViewResult SystemUserModal()
+        public PartialViewResult SystemUserModal(int AUDIT_ID ,int type)
         {
             List<SystemUser> systemuser = new List<SystemUser>();
             if (Globals.systemusers.Count != 0)
                 systemuser = Globals.systemusers;
             else
             {
-                XElement res = AppStatic.SystemController.SystemUser();
+                XElement res = AppStatic.SystemController.SystemUser(AUDIT_ID, type);
                 if (res != null && res.Elements("SystemUser") != null)
                 {
                     systemuser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
+                    ViewBag.EditUsers = (from ite in res.Elements("SystemUserEdit") select new SystemUser().FromXml(ite)).ToList();
                 }
-            }            
+            }
             return PartialView(systemuser);
         }
         public ActionResult BM0()
@@ -208,6 +209,14 @@ namespace Audit.Controllers
             if (bm0.AUDIT_DEPARTMENT_TYPE == 2)
             {
                 ModelState.Remove("AUDITOR_LEAD");
+                ModelState.Remove("AUDITOR_MEMBER");
+            }
+            if (bm0.AUDITOR_LEAD_EDIT != null)
+            {
+                ModelState.Remove("AUDITOR_LEAD");
+            }
+            if (bm0.AUDITOR_MEMBER_EDIT != null)
+            {
                 ModelState.Remove("AUDITOR_MEMBER");
             }
             if (ModelState.IsValid)
@@ -1771,6 +1780,16 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM3AddEdit(BM3 bm3)
         {
+            if(bm3.C2_NONEXPIRED == 0)
+            {
+                ModelState.Remove("C2_NONEXPIRED");
+                ModelState.Remove("C2_NONEXPIRED_AMOUNT");
+            }
+            if (bm3.C2_EXPIRED == 0)
+            {
+                ModelState.Remove("C2_EXPIRED_AMOUNT");
+                ModelState.Remove("C2_EXPIRED");
+            }
             if (ModelState.IsValid)
             {
                 if (bm3.ID != 0)

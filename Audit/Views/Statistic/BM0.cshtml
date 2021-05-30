@@ -243,6 +243,12 @@
                 }
             });
         }
+        function btnSystemUserLeadPopup(AUDIT_ID) {
+            BM0.SystemUserList(AUDIT_ID, 1);
+        }
+        function btnSystemUserMemberPopup(AUDIT_ID) {
+            BM0.SystemUserList(AUDIT_ID, 2);
+        }
         function BM0Choose(department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
             $("#DEPARTMENT_NAME").val(department);
             $("#YEAR_LABEL").val(year);
@@ -308,12 +314,8 @@
                     $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
                 });
                 $("#Bm0Modal").modal({ show: true });
-                $(".btnSystemUserLeadPopup").on('click', function () {
-                    BM0.SystemUserList(1);
-                });
-                $(".btnSystemUserMemberPopup").on('click', function () {
-                    BM0.SystemUserList(2);
-                });
+               
+               
             },
             displaySystemUserList: function (data) {
                 $("div#systemuserlistmodalcontainer").remove();
@@ -360,12 +362,13 @@
 
                 $("#Bm8ModalBM0").modal({ show: true });
             },
-            SystemUserList: function (type) {
+            SystemUserList: function (AUDIT_ID, type) {
                 BM0.type = type;
                 $.ajax({
                     url: '@Url.Action("SystemUserModal", "Statistic", new { Area = "" })',
                     type: 'GET',
                     cache: false,
+                    data: { AUDIT_ID, type },
                     success: function (data) {
                         BM0.displaySystemUserList(data);
                     },

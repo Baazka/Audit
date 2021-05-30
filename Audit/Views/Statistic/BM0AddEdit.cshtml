@@ -29,6 +29,8 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
                         @Html.HiddenFor(m => m.DEPARTMENT_ID)
+                        @Html.HiddenFor(m => m.AUDITOR_LEAD_EDIT)
+                        @Html.HiddenFor(m => m.AUDITOR_MEMBER_EDIT) 
                         <h6>Гүйцэтгэсэн аудитын шинэ бүртгэл</h6>
                         <hr />
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
@@ -159,7 +161,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Хамрагдсан байгууллагын тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.AUDIT_INCLUDED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
-                                        @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_COUNT, "", new { @class = "text-danger"})
+                                        @Html.ValidationMessageFor(m => m.AUDIT_INCLUDED_COUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +213,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Багийн төрөл: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 1, new { id = "rbtab" , @Checked = "checked" })
+                                        @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 1, new { id = "rbtab", @Checked = "checked" })
                                         @Html.Label("rbtab", "ТАБ")
                                         @Html.RadioButtonFor(model => model.AUDIT_DEPARTMENT_TYPE, 2, new { id = "rbhak" })
                                         @Html.Label("rbhak", "ХАК")
@@ -220,12 +222,12 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="col-12 team_department d-none">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Гүйцэтгэгч газар: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.TEAM_DEPARTMENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.DEPARTMENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                         @*@Html.HiddenFor(m => m.TEAM_DEPARTMENT_ID)*@
                                     </div>
                                 </div>
@@ -239,40 +241,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12" id="teamdata">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
-                                    <div class="col-sm-4">
-                                        @Html.HiddenFor(m => m.AUDITOR_LEADS)
-                                        @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
-                                        @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserLeadPopup">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12" id="teamdata2">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
-                                    <div class="col-sm-4">
-                                        @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
-                                        @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
-                                        @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary btnSystemUserMemberPopup">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                            </svg>
-                                        </button>
+         
+                          
+                                <div class="col-12" id="teamdata">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
+                                        <div class="col-sm-4">
+                                            @Html.HiddenFor(m => m.AUDITOR_LEADS)
+                                            @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary " onclick="btnSystemUserLeadPopup(@Model.ID);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-12" id="teamdata2">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
+                                        <div class="col-sm-4">
+                                            @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
+                                            @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="btnSystemUserMemberPopup(@Model.ID);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             <div class="col-12">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Мэдээлэл оруулсан аудитор:</label>
@@ -284,7 +289,7 @@
                         </div>
                         <hr />
                         <div style="text-align: right">
-                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;" >Хадгалах</button>
+                            <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
                             <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
                         </div>
                     </fieldset>
@@ -294,7 +299,13 @@
     </div>
 </div>
 <script>
+    var stringArrayLeaders = @Html.Raw(Json.Encode(Model.AUDITOR_LEADS));
+    var stringArrayMembers = @Html.Raw(Json.Encode(Model.AUDITOR_MEMBERS));
+    
+    //console.log(stringArrayMembers);
+
     $(document).ready(function () {
+        
         if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1) {
             document.getElementById("teamdata").style.display = "block";
             document.getElementById("teamdata2").style.display = "block";
@@ -303,10 +314,20 @@
             document.getElementById("teamdata").style.display = "none";
             document.getElementById("teamdata2").style.display = "none";
         }
-
+        if ($("#AUDITOR_LEAD_EDIT").val() != "") {
+              $("#Bm0Modal #AUDITOR_LEAD").val($("#AUDITOR_LEAD_EDIT").val());
+              $("#Bm0Modal #AUDITOR_LEADS").val(stringArrayLeaders);
+           
+        }
+        if ($("#AUDITOR_MEMBER_EDIT").val() != "") {
+              $("#Bm0Modal #AUDITOR_MEMBER").val($("#AUDITOR_MEMBER_EDIT").val());
+              $("#Bm0Modal #AUDITOR_MEMBERS").val(stringArrayMembers);
+           
+        }
     });
   $( function() {
       $(".datepicker").datepicker({
+          
           beforeShow: function () {
               setTimeout(function () {
                   $('.ui-datepicker').css('z-index', 99999999999999);

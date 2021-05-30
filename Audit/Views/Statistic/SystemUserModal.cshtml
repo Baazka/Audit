@@ -53,7 +53,21 @@
                     </div>
 
                     <div class="col-5">
-                        <select name="to[]" id="search_to" class="form-control form-control-sm" size="20" multiple="multiple"></select>
+                        <select name="to[]" id="search_to" class="form-control form-control-sm" size="20" multiple="multiple">
+                            @if (((IEnumerable<dynamic>)ViewBag.EditUsers).Count() > 0)
+                            {
+                            <optgroup label="@ViewBag.EditUsers[0].DEPARTMENT_NAME">
+                                @foreach (var group in ViewBag.EditUsers)
+                                {
+
+                                    <option value="@group.USER_ID">@group.USER_CODE @group.USER_NAME</option>
+                               
+                                }
+                            </optgroup>
+                            }
+
+
+                        </select>
                     </div>
                 </div>
                 <hr />
@@ -99,4 +113,6 @@
         else
             $('#usermodal').modal('hide');
     }
+
+   
 </script>

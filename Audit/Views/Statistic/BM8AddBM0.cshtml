@@ -119,6 +119,15 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Байгууллагийн нэр:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CORRECTED_ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.CORRECTED_ORG_NAME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Алдааны утга:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.CORRECTED_ERROR_DESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })

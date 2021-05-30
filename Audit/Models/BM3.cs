@@ -55,20 +55,13 @@ namespace Audit.Models
         public decimal COMPLETION_DONE_AMOUNT { get; set; }
         public int COMPLETION_PROGRESS { get; set; }
         public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int C2_NONEXPIRED { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal C2_NONEXPIRED_AMOUNT { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int C2_EXPIRED { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal C2_EXPIRED_AMOUNT { get; set; }
 
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int BENEFIT_FIN { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int BENEFIT_NONFIN { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
