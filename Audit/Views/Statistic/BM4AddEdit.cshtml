@@ -191,7 +191,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.PROPOSAL_COUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     </div>
                                 </div>
                             </div>
@@ -275,7 +275,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     </div>
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     </div>
                                 </div>
                             </div>
@@ -316,6 +316,17 @@
     </div>
 </div>
 <script>
+    
+    var value1 = $("#COMPLETION_PROGRESS_AMOUNT").val();
+    var value2 = $("#COMPLETION_DONE_AMOUNT").val();
+    var value3 = $("#PROPOSAL_AMOUNT").val();
+    var value4 = 0;
+    $(document).ready(function () {
+        if (value3 == 0.00) {
+            $("#COMPLETION_DONE").val("0");
+            $("#COMPLETION_PROGRESS").val("0");
+        }
+    });
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -325,7 +336,7 @@
           },
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy/mm/dd",
+          dateFormat: "yy.mm.dd",
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
@@ -335,21 +346,41 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
-      calculateSubtract1();
-      calculateSubtract2();
+     
+      calculateSum1();
+      
 
       $(".amount1").on("keydown keyup", function () {
-          calculateSubtract1();
-      });
-      $(".amount2").on("keydown keyup", function () {
-          calculateSubtract2();
+          calculateSum1();
       });
 
-      function calculateSubtract1() {
-          $("#COMPLETION_PROGRESS").val(parseFloat($("#PROPOSAL_COUNT").val()) - parseFloat($("#COMPLETION_DONE").val()));
-      }
-      function calculateSubtract2() {
-          $("#COMPLETION_PROGRESS_AMOUNT").val(parseFloat($("#PROPOSAL_AMOUNT").val()) - parseFloat($("#COMPLETION_DONE_AMOUNT").val()));
+      function calculateSum1() {
+          var value1 = $("#COMPLETION_PROGRESS_AMOUNT").val();
+          var value2 = $("#COMPLETION_DONE_AMOUNT").val();
+          var value3 = $("#PROPOSAL_AMOUNT").val();
+          var total = 0;
+          $(".amount1").each(function () {
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  total = parseFloat(value3 - value2);
+              }
+              
+          });
+
+          value4 = total / value1;
+         
+          if (value4 == null) {
+              value4 = 0 
+          } 
+          if (value4 <= 1) {
+              $("#COMPLETION_DONE").val("1");
+              $("#COMPLETION_PROGRESS").val("0");
+
+          }
+          if (value4 > 1) {
+              $("#COMPLETION_DONE").val("0");
+              $("#COMPLETION_PROGRESS").val("1");
+          }
+
       }
   });
 </script>

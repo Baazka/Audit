@@ -29,16 +29,28 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
-                        @Html.HiddenFor(m => m.LAW_AMOUNT)
-                        @Html.HiddenFor(m => m.LAW_NUMBER)
-                      
+                        <h6 class="heading-1"><span>Хууль хяналтын байгууллагад шилжүүлсэн дүн </span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.LAW_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <h6 class="heading-1"><span>Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</span></h6>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бүрэн шийдвэрлэгдсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.ValidationMessageFor(m => m.COMPLETION_DONE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +58,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бүрэн шийдвэрлэгдсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00" } })
+                                        @Html.ValidationMessageFor(m => m.COMPLETION_DONE_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -55,6 +68,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Хянагдаж байгаа тоо:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.ValidationMessageFor(m => m.COMPLETION_PROGRESS, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +76,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хянагдаж байгаа дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.COMPLETION_PROGRESS_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +85,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгсэхгүй болсон тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.ValidationMessageFor(m => m.COMPLETION_INVALID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +94,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгсэхгүй болсон дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00" } })
+                                        @Html.ValidationMessageFor(m => m.COMPLETION_INVALID_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +106,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.ValidationMessageFor(m => m.LAW_C2_NUMBER, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +115,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00" } })
+                                        @Html.ValidationMessageFor(m => m.LAW_C2_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -114,6 +133,11 @@
     </div>
 </div>
 <script>
+    var value1 = 0;
+    var value2 = $("#COMPLETION_INVALID_AMOUNT").val();
+    var value3 = $("#COMPLETION_DONE_AMOUNT").val();
+    var value4 = $("#LAW_AMOUNT").val();
+
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -123,7 +147,7 @@
           },
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy/mm/dd",
+          dateFormat: "yy.mm.dd",
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
@@ -133,21 +157,26 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
-      calculateSubtract1();
-      calculateSubtract2();
+      calculateSum1();
+
+
 
       $(".amount1").on("keydown keyup", function () {
-          calculateSubtract1();
-      });
-      $(".amount2").on("keydown keyup", function () {
-          calculateSubtract2();
+          calculateSum1();
       });
 
-      function calculateSubtract1() {
-          $("#LAW_C2_NUMBER").val(parseInt($("#LAW_NUMBER").val()) - parseInt($("#COMPLETION_DONE").val()) - parseInt($("#COMPLETION_INVALID").val()));
-      }
-      function calculateSubtract2() {
-          $("#LAW_C2_AMOUNT").val(parseFloat($("#LAW_AMOUNT").val()) - parseFloat($("#COMPLETION_DONE_AMOUNT").val()) - parseFloat($("#COMPLETION_INVALID_AMOUNT").val()));
+      function calculateSum1() {
+          var value2 = $("#COMPLETION_INVALID_AMOUNT").val();
+          var value3 = $("#COMPLETION_DONE_AMOUNT").val();
+          var value4 = $("#LAW_AMOUNT").val();
+          var total = 0;
+          $(".amount1").each(function () {
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  total = parseFloat(value4 - value3 - value2);
+              }
+          });
+          $("#COMPLETION_PROGRESS_AMOUNT").val(total.toFixed(2));
+
       }
   });
 </script>
