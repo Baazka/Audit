@@ -31,12 +31,27 @@
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
 
-
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Зөрчлийг барагдуулах:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                        </div>
                         <h6 class="heading-1"><span>Албан шаардлагын биелэлт</span></h6>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийг арилгасан баримт:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийг арилгасан баримтын огноо:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
                                     </div>
@@ -44,7 +59,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийг арилгасан баримт:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийг арилгасан баримтын дугаар:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_ORDER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     </div>
@@ -97,7 +112,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хуулийн байгууллагад шилжүүлсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +136,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тушаалаар хүчингүй болгосон дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right  amount1" } })
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +169,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.CLAIM_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_C2_NONEXPIRED, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -163,7 +178,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.CLAIM_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_C2_EXPIRED, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -212,6 +227,19 @@
     </div>
 </div>
 <script>
+    var value1 = 0;
+    var value2 = $("#REMOVED_LAW_AMOUNT").val();
+    var value3 = $("#REMOVED_INVALID_AMOUNT").val();
+    var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
+    $(document).ready(function () {
+
+        if ($("#CLAIM_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+            $("#CLAIM_C2_AMOUNT").val(null);
+            $("#CLAIM_C2_NONEXPIRED").val(null);
+            $("#CLAIM_C2_EXPIRED").val(null);
+        }
+    });
+
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -221,7 +249,7 @@
           },
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy/mm/dd",
+          dateFormat: "yy.mm.dd",
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
@@ -232,38 +260,42 @@
           buttonText: "Select date"
       });
       calculateSum1();
-      calculateSum2();
 
+      $("#COMPLETION_DATE").change(function (value) {
+          calculateSum1();
+          calculateSum2();
+      })
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-      $(".amount2").on("keydown keyup", function () {
-          calculateSum2();
-      });
+
 
       function calculateSum1() {
+          var value2 = $("#REMOVED_LAW_AMOUNT").val();
+          var value3 = $("#REMOVED_INVALID_AMOUNT").val();
+          var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
           var sum = 0;
-          //iterate through each textboxes and add the values
           $(".amount1").each(function () {
-              //add only if the value is number
               if (!isNaN(this.value) && this.value.length != 0) {
                   sum += parseFloat(this.value);
               }
           });
-
+          value1 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
-      }
-      function calculateSum2() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount2").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
 
-          $("#CLAIM_C2_AMOUNT").val(sum.toFixed(2));
+          if ($("#CLAIM_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
+              parseFloat($("#CLAIM_C2_AMOUNT").val((value4 - value1 - value2 - value3).toFixed(2)));
+              $("#CLAIM_C2_NONEXPIRED").val(null);
+              $("#CLAIM_C2_EXPIRED").val((value4 - value1 - value2 - value3).toFixed(2));
+
+          }
+          if ($("#CLAIM_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+              $("#CLAIM_C2_AMOUNT").val(null);
+              $("#CLAIM_C2_NONEXPIRED").val(null);
+              $("#CLAIM_C2_EXPIRED").val(null);
+          }
+
       }
+
   });
 </script>

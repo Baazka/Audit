@@ -682,7 +682,7 @@ namespace Audit.Controllers.Library
             return null;
         }
         #region BM
-        public XElement SystemUser()
+        public XElement SystemUser(int AUDIT_ID,int type)
         {
             try
             {
@@ -691,7 +691,10 @@ namespace Audit.Controllers.Library
                 if (!this.IsValid) { return null; }
 
                 XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "SystemUser"));
+                                               new XElement("Function", "SystemUser"),
+                                               new XElement("Parameters", 
+                                               new XElement("AUDIT_ID", AUDIT_ID),
+                                               new XElement("TYPE", type)));
 
                 DataResponse response = GetDataResponse(requestXml);
 
@@ -1006,8 +1009,7 @@ namespace Audit.Controllers.Library
 
                 XElement requestXml = new XElement("Request",
                                                new XElement("Function", "BM1SelectAdd"),
-                                               new XElement("Parameters",
-                                                   new XElement("P_ID", id)));
+                                               new XElement("Parameters", new XElement("P_ID", id)));
 
                 DataResponse response = GetDataResponse(requestXml);
 

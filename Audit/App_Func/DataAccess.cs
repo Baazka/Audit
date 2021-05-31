@@ -112,10 +112,11 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT US.USER_ID, US.USER_CODE, US.USER_NAME, US.USER_DEPARTMENT_ID, US.USER_TYPE_ID, US.USER_EMAIL, US.USER_REG_DATE, RD.DEPARTMENT_NAME, UST.USER_TYPE_NAME " +
-                         "FROM SYSTEM_USER US " +
-                         "INNER JOIN REF_DEPARTMENT RD ON RD.DEPARTMENT_ID = US.USER_DEPARTMENT_ID " +
-                         "INNER JOIN SYSTEM_USER_TYPE UST ON UST.USER_TYPE_ID = US.USER_TYPE_ID WHERE USER_ID = :USER_ID";
+                cmd.CommandText = "SELECT US.USER_ID, US.USER_CODE, US.USER_NAME, US.USER_DEPARTMENT_ID, US.USER_TYPE_ID, US.USER_EMAIL, US.USER_REG_DATE, RD.DEPARTMENT_NAME, UST.USER_TYPE_NAME "+
+                         "FROM SYSTEM_USER US "+
+                         "INNER JOIN REF_DEPARTMENT RD ON RD.DEPARTMENT_ID = US.USER_DEPARTMENT_ID "+
+                         "INNER JOIN SYSTEM_USER_TYPE UST ON UST.USER_TYPE_ID = US.USER_TYPE_ID "+
+                         "WHERE USER_ID = :USER_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":USER_ID", OracleDbType.Int32, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
@@ -1077,31 +1078,58 @@ namespace Audit.App_Func
         {
             DataResponse response = new DataResponse();
 
+           
             try
             {
                 // Open a connection to the database
                 OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
                 con.Open();
-                //XElement req = request.Element("Parameters").Element("Request");
+
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, RD.DEPARTMENT_ID, RD.DEPARTMENT_NAME " +
                     "FROM AUD_REG.SYSTEM_USER SU " +
                     "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON SU.USER_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
-                    "WHERE SU.IS_ACTIVE = 0 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
+                    "WHERE SU.IS_ACTIVE = 1 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
                     "ORDER BY RD.DEPARTMENT_ID, SU.USER_CODE";
+
+
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
                 cmd.Dispose();
+
+                cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, TD.TEAM_TYPE_ID, RD.DEPARTMENT_NAME,TD.AUDIT_ID , RD.DEPARTMENT_ID " +
+                                "FROM AUD_REG.SYSTEM_USER SU " +
+                                "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON SU.USER_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                                "INNER JOIN AUD_STAT.BM0_TEAM_DATA TD ON SU.USER_ID = td.auditor_id " +
+                                "WHERE TD.AUDIT_ID = :AUDIT_ID AND TD.TEAM_TYPE_ID = :TYPE";
+
+                // Set parameters
+                cmd.BindByName = true;
+                cmd.Parameters.Add(":AUDIT_ID", OracleDbType.Int32, request.Element("Parameters").Element("AUDIT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":TYPE", OracleDbType.Int32, request.Element("Parameters").Element("TYPE").Value, System.Data.ParameterDirection.Input);
+
+                DataTable dtTableTeam = new DataTable();
+                dtTableTeam.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
+
+                cmd.Dispose();
+
                 con.Close();
 
                 dtTable.TableName = "SystemUser";
+                dtTableTeam.TableName = "SystemUserEdit";
+
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dtTable);
+                ds.Tables.Add(dtTableTeam);
 
                 StringWriter sw = new StringWriter();
-                dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
+                ds.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
                 response.CreateResponse(xmlResponseData);
@@ -1289,11 +1317,10 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-               // cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, req.Element("V_DEPARTMENT")?.Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
@@ -1394,11 +1421,36 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID, BM.STATISTIC_PERIOD, BM.DEPARTMENT_ID, RD.DEPARTMENT_NAME, BM.AUDIT_YEAR, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_FORM_TYPE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_COUNT, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT_TYPE, BM.AUDIT_DEPARTMENT_ID, BM.AUDIT_SERVICE_PAY, BM.AUDITOR_ENTRY_ID, SU.USER_CODE || ' - ' || SU.USER_NAME AUDITOR_ENTRY " +
-                    "FROM BM0_DATA BM " +
-                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON BM.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
-                    "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.AUDITOR_ENTRY_ID = SU.USER_ID " +
-                    "WHERE ID = :P_ID";
+                cmd.CommandText =
+                //"SELECT BM.ID, BM.STATISTIC_PERIOD, BM.DEPARTMENT_ID, RD.DEPARTMENT_NAME, BM.AUDIT_YEAR, BM.AUDIT_TYPE, BM.TOPIC_TYPE, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, BM.AUDIT_FORM_TYPE, BM.AUDIT_PROPOSAL_TYPE, BM.AUDIT_BUDGET_TYPE, BM.AUDIT_INCLUDED_COUNT, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_DEPARTMENT_TYPE, BM.AUDIT_DEPARTMENT_ID, BM.AUDIT_SERVICE_PAY, BM.AUDITOR_ENTRY_ID, SU.USER_CODE || ' - ' || SU.USER_NAME AUDITOR_ENTRY " +
+                //"FROM BM0_DATA BM " +
+                //"INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON BM.DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                //"LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.AUDITOR_ENTRY_ID = SU.USER_ID " +
+                //"WHERE ID = :P_ID";
+
+
+                    "SELECT BM.ID, BM.STATISTIC_PERIOD, BM.DEPARTMENT_ID, RP.PERIOD_LABEL, RD1.DEPARTMENT_NAME, RAY.YEAR_LABEL, BM.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, BM.TOPIC_TYPE,BM.AUDIT_BUDGET_TYPE,BM.AUDIT_PROPOSAL_TYPE,BM.AUDIT_FORM_TYPE, RTT.TOPIC_TYPE_NAME, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, RPT.PROPOSAL_TYPE_NAME, RBT.BUDGET_TYPE_NAME, BM.AUDIT_INCLUDED_COUNT, BM.AUDIT_DEPARTMENT_ID, BM.AUDIT_DEPARTMENT_TYPE, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_SERVICE_PAY, RDT.DEPARTMENT_SHORT_NAME, RD2.DEPARTMENT_NAME AS TEAM_DEPARTMENT_NAME, (SELECT LISTAGG(SU.USER_CODE||' '||SU.USER_NAME,',') WITHIN GROUP (ORDER BY TD.ID) " +
+                    "FROM AUD_STAT.BM0_TEAM_DATA TD " +
+                    "INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID " +
+                    "WHERE TD.TEAM_TYPE_ID = 1 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_LEAD_EDIT, " +
+                    "(SELECT LISTAGG(SU.USER_CODE || ' ' || SU.USER_NAME, ',') WITHIN GROUP(ORDER BY TD.ID) " +
+                    "FROM AUD_STAT.BM0_TEAM_DATA TD INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID " +
+                    "WHERE TD.TEAM_TYPE_ID = 2 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_MEMBER_EDIT, " +
+                    "SUS.USER_CODE || ' ' || SUS.USER_NAME AS AUDITOR_ENTRY " +
+                    "FROM AUD_STAT.BM0_DATA BM " +
+                    "INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON BM.AUDIT_YEAR = RAY.YEAR_ID " +
+                    "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON BM.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON BM.TOPIC_TYPE = RTT.TOPIC_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_FORM_TYPE RFT ON BM.AUDIT_FORM_TYPE = RFT.FORM_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_PROPOSAL_TYPE RPT ON BM.AUDIT_PROPOSAL_TYPE = RPT.PROPOSAL_TYPE_ID " +
+                    "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON BM.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                    "INNER JOIN AUD_STAT.REF_DEPARTMENT_TYPE RDT ON BM.AUDIT_DEPARTMENT_TYPE = RDT.DEPARTMENT_TYPE_ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD1 ON BM.DEPARTMENT_ID = RD1.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD2 ON BM.AUDIT_DEPARTMENT_ID = RD2.DEPARTMENT_ID " +
+                    "INNER JOIN AUD_REG.SYSTEM_USER SUS ON BM.AUDITOR_ENTRY_ID = SUS.USER_ID " +
+                    "WHERE BM.ID = :P_ID";
+
 
                 // Set parameters
                 cmd.BindByName = true;
@@ -1525,15 +1577,25 @@ namespace Audit.App_Func
                 //Teams
                 string[] leads = elem.Element("AUDITOR_LEAD")?.Value.Split(',');
                 string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
-
                 // delete query add
-                if(elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "1")
+               
+                    
+                if (elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "1")
                 {
                     if(leads.Count() > 0)
                     {
+                        OracleCommand cmdLeadDelete = con.CreateCommand();
+
+                        cmdLeadDelete.CommandType = CommandType.Text;
+                        cmdLeadDelete.CommandText = "DELETE FROM AUD_STAT.BM0_TEAM_DATA " +
+                                              "WHERE AUDIT_ID = :V_AUDIT_ID AND TEAM_TYPE_ID = 1 ";
+                        cmdLeadDelete.BindByName = true;
+                        cmdLeadDelete.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                        cmdLeadDelete.ExecuteNonQuery();
+                        cmdLeadDelete.Dispose();
+
                         for (int i = 0; i < leads.Count(); i++)
                         {
-
                             OracleCommand cmdLead = con.CreateCommand();
 
                             cmdLead.CommandType = CommandType.Text;
@@ -1552,11 +1614,20 @@ namespace Audit.App_Func
                     }
                    if(members.Count() > 0)
                     {
+
+                        OracleCommand cmdMemberDelete = con.CreateCommand();
+
+                        cmdMemberDelete.CommandType = CommandType.Text;
+                        cmdMemberDelete.CommandText = "DELETE FROM AUD_STAT.BM0_TEAM_DATA " +
+                                              "WHERE AUDIT_ID = :V_AUDIT_ID AND TEAM_TYPE_ID = 2 ";
+                        cmdMemberDelete.BindByName = true;
+                        cmdMemberDelete.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                        cmdMemberDelete.ExecuteNonQuery();
+                        cmdMemberDelete.Dispose();
+
                         for (int i = 0; i < members.Count(); i++)
                         {
-
                             OracleCommand cmdMember = con.CreateCommand();
-
                             cmdMember.CommandType = CommandType.Text;
                             cmdMember.CommandText = "INSERT INTO AUD_STAT.BM0_TEAM_DATA(AUDIT_ID, TEAM_TYPE_ID, AUDITOR_ID) " +
                                 "VALUES(:V_AUDIT_ID, :V_TEAM_TYPE_ID, :V_AUDITOR_ID)";
@@ -1571,7 +1642,35 @@ namespace Audit.App_Func
                     }
                     
                 }
-                
+                if (elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "2")
+                {
+                    if (leads.Count() > 0)
+                    {
+                        OracleCommand cmdLeadDeletes = con.CreateCommand();
+
+                        cmdLeadDeletes.CommandType = CommandType.Text;
+                        cmdLeadDeletes.CommandText = "DELETE FROM AUD_STAT.BM0_TEAM_DATA " +
+                                              "WHERE AUDIT_ID = :V_AUDIT_ID AND TEAM_TYPE_ID = 1 ";
+                        cmdLeadDeletes.BindByName = true;
+                        cmdLeadDeletes.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                        cmdLeadDeletes.ExecuteNonQuery();
+                        cmdLeadDeletes.Dispose();
+                    }
+                    if (members.Count() > 0)
+                    {
+                        OracleCommand cmdMemberDeletes = con.CreateCommand();
+
+                        cmdMemberDeletes.CommandType = CommandType.Text;
+                        cmdMemberDeletes.CommandText = "DELETE FROM AUD_STAT.BM0_TEAM_DATA " +
+                                              "WHERE AUDIT_ID = :V_AUDIT_ID AND TEAM_TYPE_ID = 2 ";
+
+                        cmdMemberDeletes.BindByName = true;
+                        cmdMemberDeletes.Parameters.Add(":V_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+                        cmdMemberDeletes.ExecuteNonQuery();
+                        cmdMemberDeletes.Dispose();
+                    }
+                }
+
 
 
                 transaction.Commit();
@@ -1645,12 +1744,12 @@ namespace Audit.App_Func
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 cmd.Dispose();
-                
-                if(elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "1")
+                //Teams
+                string[] leads = elem.Element("AUDITOR_LEAD")?.Value.Split(',');
+                string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
+                if (elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "1")
                 {
-                    //Teams
-                    string[] leads = elem.Element("AUDITOR_LEAD")?.Value.Split(',');
-                    string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
+                    
                     if(leads[0] != "")
                     {
                         for (int i = 0; i < leads.Count(); i++)
@@ -1695,6 +1794,7 @@ namespace Audit.App_Func
                
 
 
+
                 transaction.Commit();
                 con.Close();
                 bool responseVal = rowsUpdated == 0 ? false : true;
@@ -1727,7 +1827,8 @@ namespace Audit.App_Func
             try
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM0_DATA SET IS_ACTIVE = 0, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM0_DATA " +
+                    "SET IS_ACTIVE = 0, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
@@ -4472,7 +4573,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, BM.CORRECTED_ORG_NAME, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
                     "FROM AUD_STAT.BM8_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -4560,7 +4661,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, BM.CORRECTED_ORG_NAME, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.CORRECTED_ERROR_DESC, BM.CORRECTED_ERROR_TYPE, RVT.VIOLATION_NAME, BM.CORRECTED_COUNT, BM.CORRECTED_AMOUNT " +
                     "FROM AUD_STAT.BM8_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -4609,7 +4710,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME,  RVT.VIOLATION_NAME " +
+                cmd.CommandText = "SELECT BM.ID,BM.AUDIT_ID, BM.CORRECTED_ORG_NAME, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME,  RVT.VIOLATION_NAME " +
                     "FROM AUD_STAT.BM8_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -4665,10 +4766,11 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM8");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET CORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM8_DATA SET CORRECTED_ORG_NAME = :P_CORRECTED_ORG_NAME, CORRECTED_ERROR_DESC = :P_CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE = :P_CORRECTED_ERROR_TYPE, CORRECTED_COUNT = :P_CORRECTED_COUNT, CORRECTED_AMOUNT = :P_CORRECTED_AMOUNT, UPDATED_BY = :P_UPDATED_BY, UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
+                cmd.Parameters.Add(":P_CORRECTED_ORG_NAME", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ORG_NAME")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_COUNT")?.Value;
@@ -4713,10 +4815,11 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM8");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.BM8_DATA(AUDIT_ID, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES (:P_AUDIT_ID, :P_CORRECTED_ERROR_DESC, :P_CORRECTED_ERROR_TYPE, :P_CORRECTED_COUNT, :P_CORRECTED_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM8_DATA(AUDIT_ID, CORRECTED_ORG_NAME, CORRECTED_ERROR_DESC, CORRECTED_ERROR_TYPE, CORRECTED_COUNT, CORRECTED_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
+                    "VALUES (:P_AUDIT_ID, :P_CORRECTED_ORG_NAME, :P_CORRECTED_ERROR_DESC, :P_CORRECTED_ERROR_TYPE, :P_CORRECTED_COUNT, :P_CORRECTED_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
+                cmd.Parameters.Add(":P_CORRECTED_ORG_NAME", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ORG_NAME")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_DESC", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_DESC")?.Value;
                 cmd.Parameters.Add(":P_CORRECTED_ERROR_TYPE", OracleDbType.Varchar2).Value = elem.Element("CORRECTED_ERROR_TYPE") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_ERROR_TYPE").Value) ? elem.Element("CORRECTED_ERROR_TYPE").Value : null;
                 cmd.Parameters.Add(":P_CORRECTED_COUNT", OracleDbType.Int32).Value = elem.Element("CORRECTED_COUNT") != null && !string.IsNullOrEmpty(elem.Element("CORRECTED_COUNT").Value) ? elem.Element("CORRECTED_COUNT").Value : null;
@@ -8624,7 +8727,7 @@ namespace Audit.App_Func
             {
 
                 // Open a connection to the database
-                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
 
@@ -8713,7 +8816,7 @@ namespace Audit.App_Func
             {
 
                 // Open a connection to the database
-                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["StatConfig"]);
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
                 con.Open();
                 XElement req = request.Element("Parameters").Element("Request");
                 string mayagt = null;

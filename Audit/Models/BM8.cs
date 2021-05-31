@@ -35,6 +35,7 @@ namespace Audit.Models
         [Required(ErrorMessage = "Алдааны ангилал оруулна уу.")]
         public int CORRECTED_ERROR_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
+        public string CORRECTED_ORG_NAME { get; set; }
         public int? CORRECTED_COUNT { get; set; }
         public decimal? CORRECTED_AMOUNT { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
@@ -79,6 +80,8 @@ namespace Audit.Models
                 if (xml.Element("BUDGET_TYPE_NAME") != null)
                     BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
 
+                if (xml.Element("CORRECTED_ORG_NAME") != null)
+                    CORRECTED_ORG_NAME = xml.Element("CORRECTED_ORG_NAME").Value;
                 if (xml.Element("CORRECTED_ERROR_DESC") != null)
                     CORRECTED_ERROR_DESC = xml.Element("CORRECTED_ERROR_DESC").Value;
                 if (xml.Element("CORRECTED_ERROR_TYPE") != null)
@@ -98,6 +101,7 @@ namespace Audit.Models
                        new XElement("ID", ID),
                        new XElement("AUDIT_ID", AUDIT_ID),
                        new XElement("CORRECTED_ERROR_DESC", CORRECTED_ERROR_DESC),
+                       new XElement("CORRECTED_ORG_NAME", CORRECTED_ORG_NAME),
                        new XElement("CORRECTED_ERROR_TYPE", CORRECTED_ERROR_TYPE),
                        new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
                        new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),

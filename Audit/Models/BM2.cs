@@ -65,17 +65,11 @@ namespace Audit.Models
         public decimal REMOVED_INVALID_AMOUNT { get; set; }
         public string REMOVED_INVALID_DATE { get; set; }
         public string REMOVED_INVALID_NO { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal CLAIM_C2_AMOUNT { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal CLAIM_C2_NONEXPIRED { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal CLAIM_C2_EXPIRED { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int BENEFIT_FIN { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
 
