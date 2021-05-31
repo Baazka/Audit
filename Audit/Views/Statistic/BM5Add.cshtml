@@ -170,6 +170,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Тоо:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.LAW_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0" } })
+                                        @Html.ValidationMessageFor(m => m.LAW_NUMBER, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -178,6 +179,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Дүн:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00" } })
+                                        @Html.ValidationMessageFor(m => m.LAW_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>

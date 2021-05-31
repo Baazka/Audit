@@ -37,7 +37,9 @@ namespace Audit.Models
         public int LAW_VIOLATION_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         public string LAW_MOVING_INFORMATION { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public int? LAW_NUMBER { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public decimal? LAW_AMOUNT { get; set; }
         public int? LAW_C2_NUMBER { get; set; }
         public decimal? LAW_C2_AMOUNT { get; set; }
