@@ -32,6 +32,7 @@ namespace Audit.Models
         //[Required(ErrorMessage = "N1 сонгоно уу.")]
         public int DEPARTMENT_ID { get; set; }
         public string INSERTUSERID { get; set; }
+        public string PARENT_NAME { get; set; }
         public string ORGNAME { get; set; }
         public string ORGTYPE { get; set; }
         public string OPEN_HEAD_ROLE { get; set; }
@@ -219,6 +220,8 @@ namespace Audit.Models
                 if (xml.Element("INSERTUSERID") != null)
                     INSERTUSERID = xml.Element("INSERTUSERID").Value;
                 if (xml.Element("ORGNAME") != null)
+                    PARENT_NAME = xml.Element("PARENT_NAME").Value;
+                if (xml.Element("PARENT_NAME") != null)
                     ORGNAME = xml.Element("ORGNAME").Value;
                 if (xml.Element("ORGTYPE") != null)
                     ORGTYPE = xml.Element("ORGTYPE").Value;
