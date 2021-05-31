@@ -365,18 +365,18 @@
     var value4 = $("#REFERENCE_AMOUNT").val();
     $(document).ready(function () {
         if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
-            $("#C2_EXPIRED").val(value1.toFixed(2));
+            $("#C2_EXPIRED").val(value1);
             $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
             $("#C2_NONEXPIRED_AMOUNT").val(null);
             $("#C2_NONEXPIRED").val(null);
-
+            
         }
 
         if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
             $("#C2_EXPIRED").val(null);
             $("#C2_EXPIRED_AMOUNT").val(null);
             $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
-            $("#C2_NONEXPIRED").val(value1.toFixed(2));
+            $("#C2_NONEXPIRED").val(value1);
         }
     });
   $( function() {
@@ -419,10 +419,12 @@
               }
           });
           value1 = sum / value2;
-          
+          if (isNaN(value1)) {
+              value1 = 0;
+          }
 
           if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
-              $("#C2_EXPIRED").val(value1.toFixed(2));
+              $("#C2_EXPIRED").val(1);
               $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
               $("#C2_NONEXPIRED_AMOUNT").val(null);
               $("#C2_NONEXPIRED").val(null);
@@ -432,7 +434,7 @@
               $("#C2_EXPIRED").val(null);
               $("#C2_EXPIRED_AMOUNT").val(null);
               $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
-              $("#C2_NONEXPIRED").val(value1.toFixed(2));
+              $("#C2_NONEXPIRED").val(1);
           }
 
       }

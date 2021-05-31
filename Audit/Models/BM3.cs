@@ -35,8 +35,8 @@ namespace Audit.Models
         public int REFERENCE_TYPE { get; set; }
         public string VIOLATION_NAME { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int REFERENCE_COUNT { get; set; }
-        public decimal REFERENCE_AMOUNT { get; set; }
+        public int? REFERENCE_COUNT { get; set; }
+        public decimal? REFERENCE_AMOUNT { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_SUBMITTED_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
@@ -46,23 +46,23 @@ namespace Audit.Models
         public string REFERENCE_RCV_GIVEN_NAME { get; set; }
         public string REFERENCE_RCV_PHONE { get; set; }
         public string REFERENCE_RCV_ADDRESS { get; set; }
-        public int REFERENCE_CONTROL_AUDITOR_ID { get; set; }
+        public int? REFERENCE_CONTROL_AUDITOR_ID { get; set; }
         public string REFERENCE_CONTROL_AUDITOR { get; set; }
 
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
-        public int COMPLETION_DONE { get; set; }
-        public decimal COMPLETION_DONE_AMOUNT { get; set; }
-        public int COMPLETION_PROGRESS { get; set; }
-        public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
-        public int C2_NONEXPIRED { get; set; }
-        public decimal C2_NONEXPIRED_AMOUNT { get; set; }
-        public int C2_EXPIRED { get; set; }
-        public decimal C2_EXPIRED_AMOUNT { get; set; }
+        public int? COMPLETION_DONE { get; set; }
+        public decimal? COMPLETION_DONE_AMOUNT { get; set; }
+        public int? COMPLETION_PROGRESS { get; set; }
+        public decimal? COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public int? C2_NONEXPIRED { get; set; }
+        public decimal? C2_NONEXPIRED_AMOUNT { get; set; }
+        public int? C2_EXPIRED { get; set; }
+        public decimal? C2_EXPIRED_AMOUNT { get; set; }
 
-        public int BENEFIT_FIN { get; set; }
-        public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        public int BENEFIT_NONFIN { get; set; }
+        public int? BENEFIT_FIN { get; set; }
+        public decimal? BENEFIT_FIN_AMOUNT { get; set; }
+        public int? BENEFIT_NONFIN { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");

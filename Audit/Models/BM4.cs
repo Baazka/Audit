@@ -43,22 +43,22 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string PROPOSAL_DELIVERY_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public int PROPOSAL_COUNT { get; set; }
-        public decimal PROPOSAL_AMOUNT { get; set; }
+        public int? PROPOSAL_COUNT { get; set; }
+        public decimal? PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }
         public string PROPOSAL_RCV_ROLE { get; set; }
         public string PROPOSAL_RCV_GIVEN_NAME { get; set; }
         public string PROPOSAL_RCV_PHONE { get; set; }
         public string PROPOSAL_RCV_ADDRESS { get; set; }
-        public int PROPOSAL_CONTROL_AUDITOR_ID { get; set; }
+        public int? PROPOSAL_CONTROL_AUDITOR_ID { get; set; }
         public string PROPOSAL_CONTROL_AUDITOR { get; set; }
 
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
-        public int COMPLETION_DONE { get; set; }
-        public decimal COMPLETION_DONE_AMOUNT { get; set; }
-        public int COMPLETION_PROGRESS { get; set; }
-        public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public int? COMPLETION_DONE { get; set; }
+        public decimal? COMPLETION_DONE_AMOUNT { get; set; }
+        public int? COMPLETION_PROGRESS { get; set; }
+        public decimal? COMPLETION_PROGRESS_AMOUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");

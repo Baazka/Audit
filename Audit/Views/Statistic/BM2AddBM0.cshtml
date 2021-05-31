@@ -144,23 +144,25 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын дугаар:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын дугаар: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.CLAIM_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_NO, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн товч утга:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн товч утга: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.TextAreaFor(m => m.CLAIM_VIOLATION_DESC, new { @class = "form-control form-control-sm", @rows = 3 })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_VIOLATION_DESC, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.CLAIM_VIOLATION_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                         @Html.ValidationMessageFor(m => m.CLAIM_VIOLATION_TYPE, "", new { @class = "text-danger" })
@@ -187,41 +189,46 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_VIOLATION_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.CLAIM_RCV_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_RCV_NAME, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.CLAIM_RCV_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_RCV_ROLE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Овог нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Овог нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.CLAIM_RCV_GIVEN_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_RCV_GIVEN_NAME, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Утас:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Утас: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.EditorFor(m => m.CLAIM_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_RCV_PHONE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>

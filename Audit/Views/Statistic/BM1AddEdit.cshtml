@@ -607,6 +607,9 @@
                   sum += parseFloat(this.value.replace(',', ''));
               }
           });
+          if (isNaN(sum)) {
+              sum = 0;
+          }
           value1 = sum.toFixed(2);
           $("#ACT_AMOUNT").val(sum.toFixed(2));
           if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
@@ -630,6 +633,9 @@
                   sum += parseFloat(this.value);
               }
           });
+          if (isNaN(sum)) {
+              sum = 0;
+          }
           value2 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
           //$("#COMPLETION_DATE_ID").change(function (value) {
@@ -654,8 +660,10 @@
                   sum += parseFloat(this.value);
               }
           });
+            if (isNaN(sum)) {
+                sum = 0;
+            }
             value3 = sum.toFixed(2);
-
             $("#REMOVED_AMOUNT").val(sum.toFixed(2));
            // $("#COMPLETION_DATE_ID").change(function (value) {
             if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {

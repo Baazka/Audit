@@ -43,7 +43,7 @@ namespace Audit.Models
         public string CLAIM_SUBMITTED_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string CLAIM_DELIVERY_DATE { get; set; }
-        public decimal CLAIM_VIOLATION_AMOUNT { get; set; }
+        public decimal? CLAIM_VIOLATION_AMOUNT { get; set; }
         public string CLAIM_RCV_NAME { get; set; }
         public string CLAIM_RCV_ROLE { get; set; }
         public string CLAIM_RCV_GIVEN_NAME { get; set; }
@@ -54,23 +54,23 @@ namespace Audit.Models
         public string CLAIM_CONTROL_AUDITOR { get; set; }
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
-        public decimal COMPLETION_AMOUNT { get; set; }
-        public decimal COMPLETION_STATE_AMOUNT { get; set; }
-        public decimal COMPLETION_LOCAL_AMOUNT { get; set; }
-        public decimal COMPLETION_ORG_AMOUNT { get; set; }
-        public decimal COMPLETION_OTHER_AMOUNT { get; set; }
-        public decimal REMOVED_LAW_AMOUNT { get; set; }
+        public decimal? COMPLETION_AMOUNT { get; set; }
+        public decimal? COMPLETION_STATE_AMOUNT { get; set; }
+        public decimal? COMPLETION_LOCAL_AMOUNT { get; set; }
+        public decimal? COMPLETION_ORG_AMOUNT { get; set; }
+        public decimal? COMPLETION_OTHER_AMOUNT { get; set; }
+        public decimal? REMOVED_LAW_AMOUNT { get; set; }
         public string REMOVED_LAW_DATE { get; set; }
         public string REMOVED_LAW_NO { get; set; }
-        public decimal REMOVED_INVALID_AMOUNT { get; set; }
+        public decimal? REMOVED_INVALID_AMOUNT { get; set; }
         public string REMOVED_INVALID_DATE { get; set; }
         public string REMOVED_INVALID_NO { get; set; }
-        public decimal CLAIM_C2_AMOUNT { get; set; }
-        public decimal CLAIM_C2_NONEXPIRED { get; set; }
-        public decimal CLAIM_C2_EXPIRED { get; set; }
-        public int BENEFIT_FIN { get; set; }
-        public decimal BENEFIT_FIN_AMOUNT { get; set; }
-        public int BENEFIT_NONFIN { get; set; }
+        public decimal? CLAIM_C2_AMOUNT { get; set; }
+        public decimal? CLAIM_C2_NONEXPIRED { get; set; }
+        public decimal? CLAIM_C2_EXPIRED { get; set; }
+        public int? BENEFIT_FIN { get; set; }
+        public decimal? BENEFIT_FIN_AMOUNT { get; set; }
+        public int? BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
