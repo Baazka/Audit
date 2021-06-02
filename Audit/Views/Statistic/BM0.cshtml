@@ -108,37 +108,37 @@
             <table id="BM0" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
-                        <th rowspan="3" class="text-center">№</th>
-                        <th colspan="17">Ерөнхий мэдээлэл</th>
-                        <th colspan="6">Аудитын багийн мэдээлэл</th>
+                        <th rowspan="3" class="text-center clickClass">№</th>
+                        <th class="clickClass" colspan="17">Ерөнхий мэдээлэл</th>
+                        <th class="clickClass" colspan="6">Аудитын багийн мэдээлэл</th>
                     </tr>
                     <tr class="bg-light">
-                        <th rowspan="2">Төрийн аудитын байгууллага</th>
-                        <th rowspan="2">Аудитын он</th>
-                        <th rowspan="2">Аудитын төрөл</th>
-                        <th rowspan="2">Сэдвийн үндэслэл</th>
-                        <th rowspan="2">Сэдвийн код</th>
-                        <th rowspan="2">Сэдвийн нэр</th>
-                        <th rowspan="2">Батлагдсан тушаалын дугаар</th>
-                        <th rowspan="2">Батлагдсан огноо</th>
-                        <th rowspan="2">Аудит хийсэн хэлбэр</th>
-                        <th rowspan="2">Санал дүгнэлтийн төрөл</th>
-                        <th rowspan="2">Төсөв захирагчийн ангилал</th>
-                        <th colspan="2">Хамрагдсан байгууллага</th>
-                        <th colspan="3">Ажилласан</th>
-                        <th rowspan="2">Аудитын үйлчилгээний төлбөр</th>
-                        <th rowspan="2">Багийн төрөл</th>
-                        <th rowspan="2">Гүйцэтгэгч газар</th>
-                        <th rowspan="2">Багийн ахлах</th>
-                        <th rowspan="2">Багийн гишүүд</th>
-                        <th rowspan="2">Мэдээлэл оруулсан аудитор</th>
+                        <th class="clickClass" rowspan="2">Төрийн аудитын байгууллага</th>
+                        <th class="clickClass" rowspan="2">Аудитын он</th>
+                        <th class="clickClass" rowspan="2">Аудитын төрөл</th>
+                        <th class="clickClass" rowspan="2">Сэдвийн үндэслэл</th>
+                        <th class="clickClass" rowspan="2">Сэдвийн код</th>
+                        <th class="clickClass" rowspan="2">Сэдвийн нэр</th>
+                        <th class="clickClass" rowspan="2">Батлагдсан тушаалын дугаар</th>
+                        <th class="clickClass" rowspan="2">Батлагдсан огноо</th>
+                        <th class="clickClass" rowspan="2">Аудит хийсэн хэлбэр</th>
+                        <th class="clickClass" rowspan="2">Санал дүгнэлтийн төрөл</th>
+                        <th class="clickClass" rowspan="2">Төсөв захирагчийн ангилал</th>
+                        <th class="clickClass" colspan="2">Хамрагдсан байгууллага</th>
+                        <th class="clickClass" colspan="3">Ажилласан</th>
+                        <th class="clickClass" rowspan="2">Аудитын үйлчилгээний төлбөр</th>
+                        <th class="clickClass" rowspan="2">Багийн төрөл</th>
+                        <th class="clickClass" rowspan="2">Гүйцэтгэгч газар</th>
+                        <th class="clickClass" rowspan="2">Багийн ахлах</th>
+                        <th class="clickClass" rowspan="2">Багийн гишүүд</th>
+                        <th class="clickClass" rowspan="2">Мэдээлэл оруулсан аудитор</th>
                     </tr>
                     <tr class="bg-light">
-                        <th>Тоо</th>
-                        <th>Жагсаалт</th>
-                        <th>Хүн</th>
-                        <th>Өдөр</th>
-                        <th>Илүү цаг</th>
+                        <th class="clickClass">Тоо</th>
+                        <th class="clickClass">Жагсаалт</th>
+                        <th class="clickClass">Хүн</th>
+                        <th class="clickClass">Өдөр</th>
+                        <th class="clickClass">Илүү цаг</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,6 +154,12 @@
         $(document).ready(function () {
             bm0ListInit();
         });
+       
+        $(".clickClass").click(function () {
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM0.bm0ID = null;
+        });
+
 
         function rowselected() {
             $("#BM0 tbody tr").on('click', function (event) {
@@ -234,7 +240,7 @@
                 scrollX: true,
                 scrollCollapse: true,
                 autoWidth: true,
-                "destroy": true,
+                "destroy": true, 
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
@@ -267,25 +273,8 @@
 
             $('#BM0ListModel').modal('hide');
         }
-
-        $(".sorting_asc").on("keydown keyup", function () {
-            alert("aa");
-            $("#FilterForm .enableBtn").addClass("disabled")
-            BM0.bm0ID = null;
-        });
-
-        $(".sorting_desc").on("keydown keyup", function () {
-            alert("aa");
-            $("#FilterForm .enableBtn").addClass("disabled")
-            BM0.bm0ID = null;
-        });
-
-        $(".sorting").click(function () {
-            alert("aa");
-            $("#FilterForm .enableBtn").addClass("disabled")
-            BM0.bm0ID = null;
-        });
-
+       
+      
         $('#DeparmentID').change(function () {
             $("#FilterForm .enableBtn").addClass("disabled")
             BM0.bm0ID = null;
