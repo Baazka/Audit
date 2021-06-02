@@ -55,7 +55,6 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Аудитын он: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @*@Html.EditorFor(m => m.YEAR_LABEL, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })*@
                                         @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
                                 </div>

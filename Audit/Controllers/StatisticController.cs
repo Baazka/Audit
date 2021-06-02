@@ -74,7 +74,7 @@ namespace Audit.Controllers
                 systemuser = Globals.systemusers;
             else
             {
-                XElement res = AppStatic.SystemController.SystemUser(AUDIT_ID, type);
+                XElement res = AppStatic.SystemController.SystemUser(AUDIT_ID, type, User.GetClaimData("DepartmentID"), User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("SystemUser") != null)
                 {
                     systemuser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();

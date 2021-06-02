@@ -87,7 +87,7 @@
                         <th rowspan="3">Аудитын төрөл</th>
                         <th rowspan="3">Аудитын код</th>
                         <th rowspan="3">Аудитын нэр</th>
-                        <th rowspan="3">Сэдвийн ангилал</th>
+                        <th rowspan="3">Сэдвийн үндэслэл</th>
                         <th colspan="2">Батлагдсан тушаал</th>
                         <th colspan="14">Албан тушаалтанд хариуцлага тооцуулах саналын мэдээлэл</th>
                         <th rowspan="3">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал</th>
@@ -174,7 +174,7 @@
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
                     { "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
                     { "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
-                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    { "data": "TOPIC_TYPE_NAME", "name": "TOPIC_TYPE_NAME" },
                     { "data": "ORDER_DATE", "name": "ORDER_DATE" },
                     { "data": "ORDER_NO", "name": "ORDER_NO" },
                     { "data": "PROPOSAL_NO", "name": "PROPOSAL_NO" },
@@ -200,9 +200,11 @@
                     { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
                 ],
                 columnDefs: [
-                    { width: 200, targets: 4 },
-                    { width: 100, targets: 9 },
-                    { width: 100, targets: 10 },
+                    { width: 80, targets: 4 },
+                    { width: 250, targets: 5 },
+                    { width: 50, targets: 9 },
+                    { width: 50, targets: 10 },
+                    { width: 250, targets: 11 },
                     { width: 100, targets: 21 },
 
                 ],

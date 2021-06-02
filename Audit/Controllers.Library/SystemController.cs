@@ -682,7 +682,7 @@ namespace Audit.Controllers.Library
             return null;
         }
         #region BM
-        public XElement SystemUser(int AUDIT_ID,int type)
+        public XElement SystemUser(int AUDIT_ID,int type, string dep_id, string usertype)
         {
             try
             {
@@ -694,6 +694,8 @@ namespace Audit.Controllers.Library
                                                new XElement("Function", "SystemUser"),
                                                new XElement("Parameters", 
                                                new XElement("AUDIT_ID", AUDIT_ID),
+                                               new XElement("DEPARTMENT_ID", dep_id),
+                                               new XElement("USER_TYPE", usertype),
                                                new XElement("TYPE", type)));
 
                 DataResponse response = GetDataResponse(requestXml);

@@ -156,9 +156,10 @@
           });
 
           value4 = total / value1;
-          if (value4 == null) {
-              value4 = 0
+          if (isNaN(value4)) {
+              value4 = 0;
           }
+          console.log(value4);
           if (value4 <= 1) {
               $("#COMPLETION_DONE").val("1");
               $("#COMPLETION_PROGRESS").val("0");

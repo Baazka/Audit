@@ -175,6 +175,9 @@
                   total = parseFloat(value4 - value3 - value2);
               }
           });
+          if (isNaN(total)) {
+              total = 0;
+          }
           $("#COMPLETION_PROGRESS_AMOUNT").val(total.toFixed(2));
 
       }

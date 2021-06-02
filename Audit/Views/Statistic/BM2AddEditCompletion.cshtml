@@ -276,6 +276,9 @@
                   sum += parseFloat(this.value);
               }
           });
+          if (isNaN(sum)) {
+              sum = 0;
+          }
           value1 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
 
