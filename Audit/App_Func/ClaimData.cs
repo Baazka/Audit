@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
 
-namespace Audit.App_Func
+namespace Audit
 {
     public static class GenericPrincipalExtensions
     {
