@@ -8698,7 +8698,7 @@ namespace Audit.App_Func
                                         "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
                                         "WHERE ROP.IS_ACTIVE = 1 AND MDCODE BETWEEN 1 AND 35 AND (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                         "AND (:V_ParentBudgetID IS NULL OR ROP.OPEN_ENT_TEZ = :V_ParentBudgetID) " +
-                                        "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' " + typeId + " ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
+                                        "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' OR UPPER(ROP.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%' " + typeId + " ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
 
                                         ") D " +
                                         "PIVOT ( " +
@@ -8789,7 +8789,7 @@ namespace Audit.App_Func
                                "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
                                "WHERE ROP.IS_ACTIVE = 1 AND MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111) " +
-                               "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND  (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
+                               "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' OR UPPER(ROP.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%' AND  (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                "AND(:V_ParentBudgetID IS NULL OR ROP.OPEN_ENT_TEZ = :V_ParentBudgetID) "  +typeId +" ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
                                
                                ") D " +
@@ -8882,7 +8882,7 @@ namespace Audit.App_Func
                 " 155,156,157,158,159,160, " +
                 " 162,163,164, " +
                 " 165,166,167,168,169) " +
-                "AND ROP.IS_ACTIVE = 1 AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%'" + typeId + " ROP.OPEN_ENT_GROUP_ID IN (3) " +
+                "AND ROP.IS_ACTIVE = 1 AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' OR UPPER(ROP.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%'" + typeId + " ROP.OPEN_ENT_GROUP_ID IN (3) " +
                 "AND (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                 "AND(:V_ParentBudgetID IS NULL OR ROP.OPEN_ENT_TEZ = :V_ParentBudgetID) " + 
                 " ) D  " +
