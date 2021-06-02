@@ -267,10 +267,33 @@
 
             $('#BM0ListModel').modal('hide');
         }
+
+        $(".sorting_asc").on("keydown keyup", function () {
+            alert("aa");
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM0.bm0ID = null;
+        });
+
+        $(".sorting_desc").on("keydown keyup", function () {
+            alert("aa");
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM0.bm0ID = null;
+        });
+
+        $(".sorting").click(function () {
+            alert("aa");
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM0.bm0ID = null;
+        });
+
         $('#DeparmentID').change(function () {
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM0.bm0ID = null;
             bm0ListInit();
         });
         $('#PeriodID').change(function () {
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM0.bm0ID = null;
             bm0ListInit();
         });
         var BM0 = {

@@ -43,7 +43,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
     </div>
 </div>
 <script>
-    var value1 = 0;
+     var value1 = 0;
     var value2 = $("#REMOVED_LAW_AMOUNT").val();
     var value3 = $("#REMOVED_INVALID_AMOUNT").val();
     var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
@@ -263,7 +263,6 @@
 
       $("#COMPLETION_DATE").change(function (value) {
           calculateSum1();
-          calculateSum2();
       })
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
@@ -271,20 +270,13 @@
 
 
       function calculateSum1() {
-          var value2 = $("#REMOVED_LAW_AMOUNT").val();
-          var value3 = $("#REMOVED_INVALID_AMOUNT").val();
-          var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
           var sum = 0;
           $(".amount1").each(function () {
               if (!isNaN(this.value) && this.value.length != 0) {
                   sum += parseFloat(this.value);
               }
           });
-          if (isNaN(sum)) {
-              sum = 0;
-          }
           value1 = sum.toFixed(2);
-         
           $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
 
           if ($("#CLAIM_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
