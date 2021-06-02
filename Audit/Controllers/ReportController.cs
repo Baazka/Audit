@@ -18,8 +18,8 @@ namespace Audit.Controllers
     public class ReportController : Controller
     {
 
-        ReportViewer ReportViewer1 = new ReportViewer();
-        string ssrsURL = System.Configuration.ConfigurationManager.AppSettings["SSRSReportURL"].ToString();
+        //ReportViewer ReportViewer1 = new ReportViewer();
+        //string ssrsURL = System.Configuration.ConfigurationManager.AppSettings["SSRSReportURL"].ToString();
         public string title = "";
         // local variable for network credential.
 
