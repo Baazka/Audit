@@ -146,7 +146,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
                                         @Html.ValidationMessageFor(m => m.REFERENCE_COUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -249,7 +249,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +265,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +273,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     </div>
                                 </div>
                             </div>
@@ -360,25 +360,8 @@
 </div>
 <script>
     var value1 = 0;
-    var value2 = $("#COMPLETION_PROGRESS_AMOUNT").val();
-    var value3 = $("#COMPLETION_DONE_AMOUNT").val();
-    var value4 = $("# REFERENCE_AMOUNT").val();
-    $(document).ready(function () {
-        if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
-            $("#C2_EXPIRED").val(value1);
-            $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
-            $("#C2_NONEXPIRED_AMOUNT").val(null);
-            $("#C2_NONEXPIRED").val(null);
-            
-        }
-
-        if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
-            $("#C2_EXPIRED").val(null);
-            $("#C2_EXPIRED_AMOUNT").val(null);
-            $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
-            $("#C2_NONEXPIRED").val(value1);
-        }
-    });
+    
+    
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -399,17 +382,20 @@
           buttonText: "Select date"
       });
       calculateSum1();
+      calculateSum2();
 
       $("#COMPLETION_DATE").change(function (value) {
           calculateSum1();
+          calculateSum2();
       })
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
+      });
       function calculateSum1() {
-          var value2 = $("#COMPLETION_PROGRESS_AMOUNT").val();
           var value3 = $("#COMPLETION_DONE_AMOUNT").val();
           var value4 = $("#REFERENCE_AMOUNT").val();
           var sum = 0;
@@ -418,23 +404,48 @@
                   sum = parseFloat(value4 - value3);
               }
           });
-          value1 = sum / value2;
+          value1 = sum;
           if (isNaN(value1)) {
               value1 = 0;
           }
+          $("#COMPLETION_PROGRESS_AMOUNT").val(value1.toFixed(2));
 
           if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
-              $("#C2_EXPIRED").val(1);
               $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
               $("#C2_NONEXPIRED_AMOUNT").val(null);
-              $("#C2_NONEXPIRED").val(null);
+          }
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+              $("#C2_EXPIRED_AMOUNT").val(null);
+              $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
 
+          }
+
+      }
+
+      function calculateSum2() {
+          var value6 = $("#COMPLETION_DONE").val();
+          var value7 = $("#REFERENCE_COUNT").val();
+          var sum = 0;
+          $(".amount1").each(function () {
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum = parseFloat(value7 - value6);
+              }
+          });
+          value1 = sum;
+          if (isNaN(value1)) {
+              value1 = 0;
+          }
+          $("#COMPLETION_PROGRESS").val(value1);
+
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
+
+              $("#C2_EXPIRED").val(value1);
+              $("#C2_NONEXPIRED").val(null);
           }
           if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
               $("#C2_EXPIRED").val(null);
-              $("#C2_EXPIRED_AMOUNT").val(null);
-              $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
-              $("#C2_NONEXPIRED").val(1);
+              $("#C2_NONEXPIRED").val(value1);
+
           }
 
       }
