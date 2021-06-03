@@ -116,7 +116,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.LAW_C2_NUMBER, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.LAW_C2_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -178,7 +178,7 @@
       function calculateSum1() {
           var value2 = $("#COMPLETION_INVALID_AMOUNT").val();
           var value3 = $("#COMPLETION_DONE_AMOUNT").val();
-          var value4 = $("#LAW_AMOUNT").val();  
+          var value4 = $("#LAW_AMOUNT").val();
           var total = 0;
           $(".amount1").each(function () {
               if (!isNaN(this.value) && this.value.length != 0) {
@@ -189,6 +189,7 @@
               total = 0;
           }
           $("#COMPLETION_PROGRESS_AMOUNT").val(total.toFixed(2));
+          $("#LAW_C2_AMOUNT").val(total.toFixed(2));
 
       }
 
@@ -206,6 +207,7 @@
               total = 0;
           }
           $("#COMPLETION_PROGRESS").val(total);
+          $("#LAW_C2_NUMBER").val(total);
 
       }
   });

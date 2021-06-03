@@ -33,9 +33,28 @@
                         @Html.HiddenFor(m => m.NOW_CREATED_DATE)
                         <div class="col-12">
                             <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Биелэлтийг тооцох: <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.PROPOSAL_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
+
+                                    @Html.ValidationMessageFor(m => m.PROPOSAL_DELIVERY_DATE, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Зөрчлийн тоо: <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.PROPOSAL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.PROPOSAL_COUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @readonly = "readonly" } })
+                                    @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @readonly = "readonly" } })
                                 </div>
                             </div>
                         </div>
@@ -62,7 +81,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +89,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +107,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
                                     <div class="col-sm-4">
                                         @*<input value="@Model.COMPLETION_PROGRESS_AMOUNT"/>*@
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     </div>
                                 </div>
                             </div>
