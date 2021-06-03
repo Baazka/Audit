@@ -519,7 +519,7 @@
     var value3 = 0;
     $(document).ready(function () {
        
-        if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+        if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
             $("#ACT_C2_AMOUNT").val(null);
             $("#ACT_C2_NONEXPIRED").val(null);
             $("#ACT_C2_EXPIRED").val(null);
@@ -579,11 +579,7 @@
       //        $(this).val(n.toLocaleString());
       //    }
       //});
-        $("#COMPLETION_DATE_ID").change(function (value) {
-            calculateSum1();
-            calculateSum2();
-            calculateSum3();
-        })
+       
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
@@ -612,15 +608,15 @@
           }
           value1 = sum.toFixed(2);
           $("#ACT_AMOUNT").val(sum.toFixed(2));
-          if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+          if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
                   parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
                   $("#ACT_C2_NONEXPIRED").val(null);
                   $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
 
               }
-          if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
+          if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
                   $("#ACT_C2_AMOUNT").val(null);
-                  $("#ACT_C2_NONEXPIRED").val(null);
+              $("#ACT_C2_NONEXPIRED").val((value1 - value2 - value3).toFixed(2));
                   $("#ACT_C2_EXPIRED").val(null);
               }
       }
@@ -639,14 +635,14 @@
           value2 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
           //$("#COMPLETION_DATE_ID").change(function (value) {
-          if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+          if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
                   parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
                   $("#ACT_C2_NONEXPIRED").val(null);
                   $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
 
               }
-          if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
-                  $("#ACT_C2_NONEXPIRED").val(null);
+          if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+              $("#ACT_C2_NONEXPIRED").val((value1 - value2 - value3).toFixed(2));
                   $("#ACT_C2_EXPIRED").val(null);
               }
          // })
@@ -666,48 +662,20 @@
             value3 = sum.toFixed(2);
             $("#REMOVED_AMOUNT").val(sum.toFixed(2));
            // $("#COMPLETION_DATE_ID").change(function (value) {
-            if ($("#ACT_DELIVERY_DATE").val() < $("#COMPLETION_DATE_ID").val()) {
+            if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
                     parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
                     $("#ACT_C2_NONEXPIRED").val(null);
                     $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
 
             }
-            if ($("#ACT_DELIVERY_DATE").val() >= $("#COMPLETION_DATE_ID").val()) {
-                    $("#ACT_C2_NONEXPIRED").val(null);
+            if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+                $("#ACT_C2_NONEXPIRED").val((value1 - value2 - value3).toFixed(2));
                     $("#ACT_C2_EXPIRED").val(null);
                 }
            // })
 
 
       }
-        //function calculateSum4() {
-        //    var sum = 0;
-        //    $(".amount4").change(function () {
-        //        sum = parseFloat($("#ACT_AMOUNT").val() - $("#COMPLETION_AMOUNT").val() - $("#REMOVED_AMOUNT").val());
-        //    });
-        //    //iterate through each textboxes and add the values
-        //    $(".amount4").each(function () {
-        //        //add only if the value is number
-        //        if (!isNaN(this.value) && this.value.length != 0) {
-        //            sum = parseFloat($("#ACT_AMOUNT").val()) - parseFloat($("#COMPLETION_AMOUNT").val()) - parseFloat($("#REMOVED_AMOUNT").val());
-        //            console.log(sum);
-        //        }
-        //        $("#COMPLETION_DATE_ID").change(function (value) {
-        //            if ($("#NOW_CREATED_DATE").val() > value.target.value) {
-        //                $("#ACT_C2_EXPIRED").val(null);
-        //                $("#ACT_C2_NONEXPIRED").val(sum.toFixed(2));
-
-        //            }
-        //            if ($("#NOW_CREATED_DATE").val() <= value.target.value) {
-        //                $("#ACT_C2_NONEXPIRED").val(null);
-        //                $("#ACT_C2_EXPIRED").val(sum.toFixed(2));
-        //            }
-        //        })
-
-        //    });
-
-        //    parseFloat($("#ACT_C2_AMOUNT").val(sum.toFixed(2)));
-        //}
     });
 
 </script>

@@ -29,6 +29,7 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
                         <div class="row">
                             <div class="col-12">
@@ -169,7 +170,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.LAW_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0" } })
                                         @Html.ValidationMessageFor(m => m.LAW_NUMBER, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -190,7 +191,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бүрэн шийдвэрлэгдсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_DONE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -208,7 +209,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хянагдаж байгаа тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_PROGRESS, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -226,7 +227,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгсэхгүй болсон тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_INVALID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -247,7 +248,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0" } })
+                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.LAW_C2_NUMBER, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -256,7 +257,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.LAW_C2_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -274,10 +275,6 @@
     </div>
 </div>
 <script>
-    var value1 = 0;
-    var value2 = $("#COMPLETION_INVALID_AMOUNT").val();
-    var value3 = $("#COMPLETION_DONE_AMOUNT").val();
-    var value4 = $("#LAW_AMOUNT").val();
    
   $( function() {
       $(".datepicker").datepicker({
@@ -299,11 +296,15 @@
           buttonText: "Select date"
       });
       calculateSum1();
+      calculateSum2();
 
      
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();  
+      });
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
       });
 
       function calculateSum1() {
@@ -320,6 +321,25 @@
               total = 0;
           }
           $("#COMPLETION_PROGRESS_AMOUNT").val(total.toFixed(2));
+          $("#LAW_C2_AMOUNT").val(total.toFixed(2));
+
+      }
+
+      function calculateSum2() {
+          var value5 = $("#COMPLETION_INVALID").val();
+          var value6 = $("#COMPLETION_DONE").val();
+          var value7 = $("#LAW_NUMBER").val();
+          var total = 0;
+          $(".amount2").each(function () {
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  total = parseFloat(value7 - value6 - value5);
+              }
+          });
+          if (isNaN(total)) {
+              total = 0;
+          }
+          $("#COMPLETION_PROGRESS").val(total);
+          $("#LAW_C2_NUMBER").val(total);
 
       }
   });

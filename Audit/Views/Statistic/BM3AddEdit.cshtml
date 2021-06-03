@@ -29,6 +29,7 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
                         <div class="row">
                             <div class="col-12">
@@ -218,13 +219,13 @@
                                 </div>
                             </div>
                             @*<div class="col-12">
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог нэр, албан тушаал:</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.REFERENCE_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог нэр, албан тушаал:</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.REFERENCE_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
                         </div>
                         <h6 class="heading-1"><span>Зөвлөмжийн биелэлт</span></h6>
@@ -384,10 +385,7 @@
       calculateSum1();
       calculateSum2();
 
-      $("#COMPLETION_DATE").change(function (value) {
-          calculateSum1();
-          calculateSum2();
-      })
+     
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
@@ -410,11 +408,11 @@
           }
           $("#COMPLETION_PROGRESS_AMOUNT").val(value1.toFixed(2));
 
-          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
               $("#C2_NONEXPIRED_AMOUNT").val(null);
           }
-          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED_AMOUNT").val(null);
               $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
 
@@ -437,12 +435,12 @@
           }
           $("#COMPLETION_PROGRESS").val(value1);
 
-          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
 
               $("#C2_EXPIRED").val(value1);
               $("#C2_NONEXPIRED").val(null);
           }
-          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED").val(null);
               $("#C2_NONEXPIRED").val(value1);
 

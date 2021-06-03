@@ -30,6 +30,7 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
                         <div class="col-12">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн тоо: <span class="required">*</span></label>
@@ -215,10 +216,7 @@
       calculateSum1();
       calculateSum2();
 
-      $("#COMPLETION_DATE").change(function (value) {
-          calculateSum1();
-          calculateSum2();
-      })
+     
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
@@ -241,11 +239,11 @@
           }
           $("#COMPLETION_PROGRESS_AMOUNT").val(value1.toFixed(2));
 
-          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
               $("#C2_NONEXPIRED_AMOUNT").val(null);
           }
-          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED_AMOUNT").val(null);
               $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
 
@@ -268,12 +266,12 @@
           }
           $("#COMPLETION_PROGRESS").val(value1);
 
-          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
 
               $("#C2_EXPIRED").val(value1);
               $("#C2_NONEXPIRED").val(null);
           }
-          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED").val(null);
               $("#C2_NONEXPIRED").val(value1);
 
