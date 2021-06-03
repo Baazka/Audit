@@ -554,31 +554,12 @@
       calculateSum3();
      // calculateSum4();
 
-      //$(".decimal").on('keyup', function (evt) {
-      //    if (evt.which != 110 && evt.which != 190) {
-      //        $(".decimal").formatCurrency();
-      //    }
-      //});
-
-      //$('.number').keyup(function (event) {
-
-      //    // skip for arrow keys
-      //    if (event.which >= 37 && event.which <= 40) return;
-
-      //    // format number
-      //    $(this).val(function (index, value) {
-      //        return value
-      //            .replace(/\D/g, "")
-      //            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      //            ;
-      //    });
-      //});
-      //$(".decimal").on('keyup', function (evt) {
-      //    if (evt.which != 110 && evt.which != 190) {
-      //        var n = parseFloat($(this).val().replace(/\,/g, ''), 2);
-      //        $(this).val(n.toLocaleString());
-      //    }
-      //});
+        
+        $("#ACT_DELIVERY_DATE").change(function (value) {
+            calculateSum1();
+            calculateSum2();
+            calculateSum3();
+        });
        
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();

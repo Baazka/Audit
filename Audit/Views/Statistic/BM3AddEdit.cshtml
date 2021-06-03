@@ -385,7 +385,10 @@
       calculateSum1();
       calculateSum2();
 
-     
+      $("#REFERENCE_DELIVERY_DATE").change(function (value) {
+          calculateSum1();
+          calculateSum2();
+      });
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
