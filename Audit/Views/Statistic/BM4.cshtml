@@ -144,6 +144,8 @@
                 $("#BM4 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 BM4.bm4ID = this.getAttribute("data-id");
+                BM4.rowdata = BM4.table.row(this).data();
+                console.log(BM4.rowdata);
             });
         }
         function bm4ListInit(pagelength = 10) {
@@ -356,7 +358,8 @@
                     alert("Бичлэг сонгоно уу");
                 else {
                     var id = BM4.bm4ID;
-                    var r = confirm("Устгах уу!");
+                    var user = BM4.rowdata.PROPOSAL_CONTROL_AUDITOR;
+                    var r = confirm(user + " аудиторын оруулсан бүртгэл байна." + "\n" + "Та устгахдаа итгэлтэй байна уу?");
                     if (r) {
                         $.ajax({
                             url: "@Url.Action("BM4Delete", "Statistic", new { Area = "" })",

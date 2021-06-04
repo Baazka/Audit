@@ -441,7 +441,8 @@
                     alert("Бичлэг сонгоно уу");
                 else {
                     var id = BM0.bm0ID;
-                    var r = confirm("Устгах уу!");
+                    var user = BM0.rowdata.AUDITOR_ENTRY;
+                    var r = confirm(user +  " аудиторын оруулсан бүртгэл байна." + "\n" + "Та устгахдаа итгэлтэй байна уу?" );
                     if (r) {
                         $.ajax({
                             url: "@Url.Action("BM0Delete", "Statistic", new { Area = "" })",

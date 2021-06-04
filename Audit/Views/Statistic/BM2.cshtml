@@ -161,6 +161,7 @@
                 $("#BM2 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 BM2.bm2ID = this.getAttribute("data-id");
+                BM2.rowdata = BM2.table.row(this).data();
             });
         }
         function bm2ListInit(pagelength = 10) {
@@ -398,7 +399,8 @@
                     alert("Бичлэг сонгоно уу");
                 else {
                     var id = BM2.bm2ID;
-                    var r = confirm("Устгах уу!");
+                    var user = BM2.rowdata.CLAIM_CONTROL_AUDITOR;
+                    var r = confirm(user +  " аудиторын оруулсан бүртгэл байна." + "\n" + "Та устгахдаа итгэлтэй байна уу?" );
                     if (r) {
                         $.ajax({
                             url: "@Url.Action("BM2Delete", "Statistic", new { Area = "" })",

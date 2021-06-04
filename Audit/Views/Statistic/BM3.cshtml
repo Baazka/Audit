@@ -154,6 +154,7 @@
                 $("#BM3 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 BM3.bm3ID = this.getAttribute("data-id");
+                BM3.rowdata = BM3.table.row(this).data();
             });
         }
         function bm3ListInit(pagelength = 10) {
@@ -368,8 +369,10 @@
                 if (BM3.bm3ID == null)
                     alert("Бичлэг сонгоно уу");
                 else {
+                    
                     var id = BM3.bm3ID;
-                    var r = confirm("Устгах уу!");
+                    var user = BM3.rowdata.REFERENCE_CONTROL_AUDITOR;
+                    var r = confirm(user + " аудиторын оруулсан бүртгэл байна." + "\n" + "Та устгахдаа итгэлтэй байна уу?");
                     if (r) {
                         $.ajax({
                             url: "@Url.Action("BM3Delete", "Statistic", new { Area = "" })",

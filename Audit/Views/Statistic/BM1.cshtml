@@ -359,6 +359,7 @@
                     alert("Бичлэг сонгоно уу");
                 else {
                     var id = BM1.bm1ID;
+                    
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
@@ -403,7 +404,8 @@
                     alert("Бичлэг сонгоно уу");
                 else {
                     var id = BM1.bm1ID;
-                    var r = confirm("Устгах уу!");
+                    var user = BM1.rowdata.ACT_CONTROL_AUDITOR;
+                    var r = confirm(user + " аудиторын оруулсан бүртгэл байна." + "\n" + "Та устгахдаа итгэлтэй байна уу?");
                     if (r) {
                         $.ajax({
                             url: "@Url.Action("BM1Delete", "Statistic", new { Area = "" })",
