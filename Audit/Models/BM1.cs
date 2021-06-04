@@ -43,7 +43,7 @@ namespace Audit.Models
         public string ACT_SUBMITTED_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_DELIVERY_DATE { get; set; }
-        public decimal ACT_AMOUNT { get; set; }
+        public string ACT_AMOUNT { get; set; }
         public decimal? ACT_STATE_AMOUNT { get; set; }
         public decimal? ACT_LOCAL_AMOUNT { get; set; }
         public decimal? ACT_ORG_AMOUNT { get; set; }
@@ -57,23 +57,23 @@ namespace Audit.Models
         public string ACT_CONTROL_AUDITOR { get; set; }
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
-        public decimal? COMPLETION_AMOUNT { get; set; }
+        public string COMPLETION_AMOUNT { get; set; }
         public decimal? COMPLETION_STATE_AMOUNT { get; set; }
         public decimal? COMPLETION_LOCAL_AMOUNT { get; set; }
         public decimal? COMPLETION_ORG_AMOUNT { get; set; }
         public decimal? COMPLETION_OTHER_AMOUNT { get; set; }
-        public decimal? REMOVED_AMOUNT { get; set; }
+        public string REMOVED_AMOUNT { get; set; }
         public decimal? REMOVED_LAW_AMOUNT { get; set; }
         public string REMOVED_LAW_DATE { get; set; }
         public string REMOVED_LAW_NO { get; set; }
         public decimal? REMOVED_INVALID_AMOUNT { get; set; }
         public string REMOVED_INVALID_DATE { get; set; }
         public string REMOVED_INVALID_NO { get; set; }
-        public decimal? ACT_C2_AMOUNT { get; set; }
-        public decimal? ACT_C2_NONEXPIRED { get; set; }
-        public decimal? ACT_C2_EXPIRED { get; set; }
+        public string ACT_C2_AMOUNT { get; set; }
+        public string ACT_C2_NONEXPIRED { get; set; }
+        public string ACT_C2_EXPIRED { get; set; }
         public int? BENEFIT_FIN { get; set; }
-        public decimal? BENEFIT_FIN_AMOUNT { get; set; }
+        public string BENEFIT_FIN_AMOUNT { get; set; }
         public int? BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
@@ -134,7 +134,7 @@ namespace Audit.Models
                 if (xml.Element("ACT_DELIVERY_DATE") != null)
                     ACT_DELIVERY_DATE = Convert.ToDateTime(xml.Element("ACT_DELIVERY_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("ACT_AMOUNT") != null)
-                    ACT_AMOUNT = Convert.ToDecimal(xml.Element("ACT_AMOUNT").Value);
+                    ACT_AMOUNT = xml.Element("ACT_AMOUNT").Value;
                 if (xml.Element("ACT_STATE_AMOUNT") != null)
                     ACT_STATE_AMOUNT = Convert.ToDecimal(xml.Element("ACT_STATE_AMOUNT").Value);
                 if (xml.Element("ACT_LOCAL_AMOUNT") != null)
@@ -160,7 +160,7 @@ namespace Audit.Models
                 if (xml.Element("COMPLETION_ORDER") != null)
                     COMPLETION_ORDER = xml.Element("COMPLETION_ORDER").Value;
                 if (xml.Element("COMPLETION_AMOUNT") != null)
-                    COMPLETION_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_AMOUNT").Value);
+                    COMPLETION_AMOUNT = xml.Element("COMPLETION_AMOUNT").Value;
                 if (xml.Element("COMPLETION_STATE_AMOUNT") != null)
                     COMPLETION_STATE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_STATE_AMOUNT").Value);
                 if (xml.Element("COMPLETION_LOCAL_AMOUNT") != null)
@@ -170,7 +170,7 @@ namespace Audit.Models
                 if (xml.Element("COMPLETION_OTHER_AMOUNT") != null)
                     COMPLETION_OTHER_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_OTHER_AMOUNT").Value);
                 if (xml.Element("REMOVED_AMOUNT") != null)
-                    REMOVED_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_AMOUNT").Value);
+                    REMOVED_AMOUNT = xml.Element("REMOVED_AMOUNT").Value;
                 if (xml.Element("REMOVED_LAW_AMOUNT") != null)
                     REMOVED_LAW_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_LAW_AMOUNT").Value);
                 if (xml.Element("REMOVED_LAW_DATE") != null)
@@ -184,15 +184,15 @@ namespace Audit.Models
                 if (xml.Element("REMOVED_INVALID_NO") != null)
                     REMOVED_INVALID_NO = xml.Element("REMOVED_INVALID_NO").Value;
                 if (xml.Element("ACT_C2_AMOUNT") != null)
-                    ACT_C2_AMOUNT = Convert.ToDecimal(xml.Element("ACT_C2_AMOUNT").Value);
+                    ACT_C2_AMOUNT = xml.Element("ACT_C2_AMOUNT").Value;
                 if (xml.Element("ACT_C2_NONEXPIRED") != null)
-                    ACT_C2_NONEXPIRED = Convert.ToDecimal(xml.Element("ACT_C2_NONEXPIRED").Value);
+                    ACT_C2_NONEXPIRED = xml.Element("ACT_C2_NONEXPIRED").Value;
                 if (xml.Element("ACT_C2_EXPIRED") != null)
-                    ACT_C2_EXPIRED = Convert.ToDecimal(xml.Element("ACT_C2_EXPIRED").Value);
+                    ACT_C2_EXPIRED = xml.Element("ACT_C2_EXPIRED").Value;
                 if (xml.Element("BENEFIT_FIN") != null)
                     BENEFIT_FIN = Convert.ToInt32(xml.Element("BENEFIT_FIN").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
-                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value);
+                    BENEFIT_FIN_AMOUNT = xml.Element("BENEFIT_FIN_AMOUNT").Value;
                 if (xml.Element("BENEFIT_NONFIN") != null)
                     BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
                 if (xml.Element("EXEC_TYPE") != null)
@@ -213,7 +213,9 @@ namespace Audit.Models
                        new XElement("ACT_VIOLATION_TYPE", ACT_VIOLATION_TYPE),
                        new XElement("ACT_SUBMITTED_DATE", Convert.ToDateTime(ACT_SUBMITTED_DATE).ToString("dd-MMM-yy")),
                        new XElement("ACT_DELIVERY_DATE", Convert.ToDateTime(ACT_DELIVERY_DATE).ToString("dd-MMM-yy")),
-                       new XElement("ACT_AMOUNT", ACT_AMOUNT),
+                       
+                      ACT_AMOUNT != null ? new XElement("ACT_AMOUNT", ACT_AMOUNT.Split(',')) : new XElement("ACT_AMOUNT", null),
+
                        new XElement("ACT_STATE_AMOUNT", ACT_STATE_AMOUNT),
                        new XElement("ACT_LOCAL_AMOUNT", ACT_LOCAL_AMOUNT),
                        new XElement("ACT_ORG_AMOUNT", ACT_ORG_AMOUNT),
@@ -226,23 +228,23 @@ namespace Audit.Models
                        //new XElement("ACT_CONTROL_AUDITOR", ACT_CONTROL_AUDITOR),
                        COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
-                       new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT),
+                       COMPLETION_AMOUNT != null ? new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT.Split(',')) : new XElement("COMPLETION_AMOUNT", null),
                        new XElement("COMPLETION_STATE_AMOUNT", COMPLETION_STATE_AMOUNT),
                        new XElement("COMPLETION_LOCAL_AMOUNT", COMPLETION_LOCAL_AMOUNT),
                        new XElement("COMPLETION_ORG_AMOUNT", COMPLETION_ORG_AMOUNT),
                        new XElement("COMPLETION_OTHER_AMOUNT", COMPLETION_OTHER_AMOUNT),
-                       new XElement("REMOVED_AMOUNT", REMOVED_AMOUNT),
+                       REMOVED_AMOUNT != null ? new XElement("REMOVED_AMOUNT", REMOVED_AMOUNT.Split(',')) : new XElement("REMOVED_AMOUNT", null),
                        new XElement("REMOVED_LAW_AMOUNT", REMOVED_LAW_AMOUNT),
                        REMOVED_LAW_DATE != null ? new XElement("REMOVED_LAW_DATE", Convert.ToDateTime(REMOVED_LAW_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_LAW_DATE", null),
                        new XElement("REMOVED_LAW_NO", REMOVED_LAW_NO),
                        new XElement("REMOVED_INVALID_AMOUNT", REMOVED_INVALID_AMOUNT),
                        REMOVED_INVALID_DATE != null ? new XElement("REMOVED_INVALID_DATE", Convert.ToDateTime(REMOVED_INVALID_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_INVALID_DATE", null),
                        new XElement("REMOVED_INVALID_NO", REMOVED_INVALID_NO),
-                       new XElement("ACT_C2_AMOUNT", ACT_C2_AMOUNT),
-                       new XElement("ACT_C2_NONEXPIRED", ACT_C2_NONEXPIRED),
-                       new XElement("ACT_C2_EXPIRED", ACT_C2_EXPIRED),
+                       ACT_C2_AMOUNT != null ? new XElement("ACT_C2_AMOUNT", ACT_C2_AMOUNT.Split(',')) : new XElement("ACT_C2_AMOUNT", null),
+                       ACT_C2_NONEXPIRED != null ? new XElement("ACT_C2_NONEXPIRED", ACT_C2_NONEXPIRED.Split(',')) : new XElement("ACT_C2_NONEXPIRED", null),
+                       ACT_C2_EXPIRED != null ? new XElement("ACT_C2_EXPIRED", ACT_C2_EXPIRED.Split(',')) : new XElement("ACT_C2_EXPIRED", null),
                        new XElement("BENEFIT_FIN", BENEFIT_FIN),
-                       new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT),
+                       BENEFIT_FIN_AMOUNT != null ? new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT.Split(',')) : new XElement("BENEFIT_FIN_AMOUNT", null),
                        new XElement("BENEFIT_NONFIN", BENEFIT_NONFIN),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE)

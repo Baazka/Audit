@@ -314,7 +314,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_STATE_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -455,7 +455,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @*@Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -481,7 +481,7 @@
         }
     </div>
 </div>
-@*<script>
+<script>
     $(document).ready(function () {
         /* $(".currency").maskMoney({ suffix: ' ' });*/
         $('.currency').formatCurrency();
@@ -512,13 +512,13 @@
                 }
             })
     });
-</script>*@
+</script>
 <script>
     var value1 =0;
     var value2 =0;
     var value3 = 0;
     $(document).ready(function () {
-       
+
         if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
             $("#ACT_C2_AMOUNT").val(null);
             $("#ACT_C2_NONEXPIRED").val(null);
@@ -526,8 +526,10 @@
         }
     });
 
+  
+
     $(function () {
-    
+
       $(".datepicker").datepicker({
           beforeShow: function () {
               setTimeout(function () {
@@ -554,13 +556,13 @@
       calculateSum3();
      // calculateSum4();
 
-        
+
         $("#ACT_DELIVERY_DATE").change(function (value) {
             calculateSum1();
             calculateSum2();
             calculateSum3();
         });
-       
+
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
@@ -581,23 +583,23 @@
           $(".amount1").each(function () {
               //add only if the value is number
               if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value.replace(',', ''));
+                  sum += parseFloat(this.value);
               }
           });
           if (isNaN(sum)) {
               sum = 0;
           }
           value1 = sum.toFixed(2);
-          $("#ACT_AMOUNT").val(sum.toFixed(2));
+          $("#ACT_AMOUNT").val(sum).formatCurrency();
           if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-                  parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
+              $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
                   $("#ACT_C2_NONEXPIRED").val(null);
-                  $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
+              $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
               }
           if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
                   $("#ACT_C2_AMOUNT").val(null);
-              $("#ACT_C2_NONEXPIRED").val((value1 - value2 - value3).toFixed(2));
+              $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
                   $("#ACT_C2_EXPIRED").val(null);
               }
       }
@@ -614,16 +616,16 @@
               sum = 0;
           }
           value2 = sum.toFixed(2);
-          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+          $("#COMPLETION_AMOUNT").val(sum).formatCurrency();
           //$("#COMPLETION_DATE_ID").change(function (value) {
           if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-                  parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
+              $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
                   $("#ACT_C2_NONEXPIRED").val(null);
-                  $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
+              $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
               }
           if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-              $("#ACT_C2_NONEXPIRED").val((value1 - value2 - value3).toFixed(2));
+              $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
                   $("#ACT_C2_EXPIRED").val(null);
               }
          // })
@@ -641,16 +643,16 @@
                 sum = 0;
             }
             value3 = sum.toFixed(2);
-            $("#REMOVED_AMOUNT").val(sum.toFixed(2));
+            $("#REMOVED_AMOUNT").val(sum).formatCurrency();
            // $("#COMPLETION_DATE_ID").change(function (value) {
             if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-                    parseFloat($("#ACT_C2_AMOUNT").val((value1 - value2 - value3).toFixed(2)));
+                $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
                     $("#ACT_C2_NONEXPIRED").val(null);
-                    $("#ACT_C2_EXPIRED").val((value1 - value2 - value3).toFixed(2));
+                $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
             }
             if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-                $("#ACT_C2_NONEXPIRED").val((value1 - value2 - value3).toFixed(2));
+                $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
                     $("#ACT_C2_EXPIRED").val(null);
                 }
            // })
