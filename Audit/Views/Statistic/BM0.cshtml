@@ -156,6 +156,7 @@
         });
        
         $(".clickClass").click(function () {
+            $("#BM0 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
             BM0.bm0ID = null;
         });
@@ -276,13 +277,15 @@
        
       
         $('#DeparmentID').change(function () {
+            $("#BM0 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
             BM0.bm0ID = null;
             bm0ListInit();
         });
         $('#PeriodID').change(function () {
+            $("#BM0 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
-            BM0.bm0ID = null;
+            BM0.bm0ID = null;;
             bm0ListInit();
         });
         var BM0 = {

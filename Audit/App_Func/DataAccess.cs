@@ -3725,12 +3725,12 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_PROPOSAL_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DATE")?.Value == null ? null : elem.Element("PROPOSAL_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_NO", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_NO")?.Value == null ? null : elem.Element("PROPOSAL_NO")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_DESC", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_VIOLATION_DESC")?.Value == null ? null : elem.Element("PROPOSAL_VIOLATION_DESC")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value == null ? null : elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_TYPE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value == null ? null : elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value;
                 cmd.Parameters.Add(":P_VIOLATION_RESPONDENT", OracleDbType.Varchar2).Value = elem.Element("VIOLATION_RESPONDENT")?.Value == null ? null : elem.Element("VIOLATION_RESPONDENT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value == null ? null : elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_COUNT")?.Value == null ? null : elem.Element("PROPOSAL_COUNT")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROPOSAL_AMOUNT")?.Value == null ? null : elem.Element("PROPOSAL_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_COUNT")?.Value == null ? null : elem.Element("PROPOSAL_COUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_AMOUNT")?.Value == null ? null : elem.Element("PROPOSAL_AMOUNT")?.Value;
 
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ROLE")?.Value;
@@ -3740,10 +3740,10 @@ namespace Audit.App_Func
                 //cmd.Parameters.Add(":P_PROPOSAL_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value == null ? null : elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value == null ? null : elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
@@ -3791,10 +3791,10 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value == null ? null : elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value == null ? null : elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Int32).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
@@ -3860,16 +3860,16 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_PROPOSAL_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DATE")?.Value == null ? null : elem.Element("PROPOSAL_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_NO", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_NO")?.Value == null ? null : elem.Element("PROPOSAL_NO")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_DESC", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_VIOLATION_DESC")?.Value == null ? null : elem.Element("PROPOSAL_VIOLATION_DESC")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value == null ? null : elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_VIOLATION_TYPE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value == null ? null : elem.Element("PROPOSAL_VIOLATION_TYPE")?.Value;
                 cmd.Parameters.Add(":P_VIOLATION_RESPONDENT", OracleDbType.Varchar2).Value = elem.Element("VIOLATION_RESPONDENT")?.Value == null ? null : elem.Element("VIOLATION_RESPONDENT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value == null ? null : elem.Element("PROPOSAL_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Int32).Value = elem.Element("PROPOSAL_COUNT")?.Value == null ? null : elem.Element("PROPOSAL_COUNT")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROPOSAL_AMOUNT")?.Value == null ? null : elem.Element("PROPOSAL_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_COUNT", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_COUNT")?.Value == null ? null : elem.Element("PROPOSAL_COUNT")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_AMOUNT")?.Value == null ? null : elem.Element("PROPOSAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ROLE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_GIVEN_NAME", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_GIVEN_NAME")?.Value;
-                cmd.Parameters.Add(":P_PROPOSAL_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_PHONE")?.Value;
+                cmd.Parameters.Add(":P_PROPOSAL_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_PHONE")?.Value == null ? null : elem.Element("PROPOSAL_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("PROPOSAL_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_PROPOSAL_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;

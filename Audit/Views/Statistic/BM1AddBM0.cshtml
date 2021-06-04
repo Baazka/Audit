@@ -136,7 +136,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Илрүүлсэн зөрчлийн товч утга:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Илрүүлсэн зөрчлийн товч утга: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_VIOLATION_DESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                         @Html.ValidationMessageFor(m => m.ACT_VIOLATION_DESC, "", new { @class = "text-danger" })
@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.ACT_VIOLATION_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", })
                                         @Html.ValidationMessageFor(m => m.ACT_VIOLATION_TYPE, "", new { @class = "text-danger" })
@@ -172,7 +172,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Төлбөрийн дүн:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Төлбөрийн дүн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.ACT_AMOUNT, "", new { @class = "text-danger" })
@@ -217,7 +217,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                         @Html.ValidationMessageFor(m => m.ACT_RCV_NAME, "", new { @class = "text-danger" })
@@ -226,7 +226,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                         @Html.ValidationMessageFor(m => m.ACT_RCV_ROLE, "", new { @class = "text-danger" })
@@ -235,7 +235,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Овог нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Овог нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_GIVEN_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                         @Html.ValidationMessageFor(m => m.ACT_RCV_GIVEN_NAME, "", new { @class = "text-danger" })
@@ -244,7 +244,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Утас:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Утас: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                         @Html.ValidationMessageFor(m => m.ACT_RCV_PHONE, "", new { @class = "text-danger" })
@@ -292,7 +292,7 @@
           },
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy/mm/dd",
+          dateFormat: "yy.mm.dd",
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],

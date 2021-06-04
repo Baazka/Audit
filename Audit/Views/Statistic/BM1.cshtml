@@ -166,6 +166,7 @@
             bm1ListInit();
         });
         $(".clickClass").click(function () {
+            $("#BM1 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
             BM1.bm1ID = null;
         });
@@ -286,9 +287,15 @@
             $('#BM0ListModel').modal('hide');
         }
         $('#DeparmentID').change(function () {
+            $("#BM1 tbody tr").removeClass('row_selected');
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM1.bm1ID = null;
             bm1ListInit();
         });
         $('#PeriodID').change(function () {
+            $("#BM1 tbody tr").removeClass('row_selected');
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM1.bm1ID = null;
             bm1ListInit();
         });
         var BM1 = {
