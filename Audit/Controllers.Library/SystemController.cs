@@ -756,6 +756,42 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+
+        public XElement BM0Search2020(int officeid)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "BM0Search2020"),
+                                               new XElement("Parameters",
+                                                   new XElement("OFFICE_ID", officeid)));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
         public XElement BM0(XElement element, string usertype, string departmentid)
         {
             try

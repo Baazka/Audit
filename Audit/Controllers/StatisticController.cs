@@ -67,6 +67,17 @@ namespace Audit.Controllers
             }
             return PartialView(bM0Search);
         }
+
+        public PartialViewResult BM0Search2020()
+        {
+            List<BM0Search2020> bM0Search = new List<BM0Search2020>();
+            XElement res = AppStatic.SystemController.BM0Search2020(Convert.ToInt32(User.GetClaimData("DepartmentID")));
+            if (res != null && res.Elements("BM0Search2020") != null)
+            {
+                bM0Search = (from item in res.Elements("BM0Search2020") select new BM0Search2020().SetXml(item)).ToList();
+            }
+            return PartialView(bM0Search);
+        }
         public PartialViewResult SystemUserModal(int AUDIT_ID ,int type)
         {
             List<SystemUser> systemuser = new List<SystemUser>();

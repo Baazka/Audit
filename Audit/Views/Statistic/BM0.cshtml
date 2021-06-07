@@ -154,7 +154,7 @@
         $(document).ready(function () {
             bm0ListInit();
         });
-       
+
         $(".clickClass").click(function () {
             $("#BM0 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
@@ -241,7 +241,7 @@
                 scrollX: true,
                 scrollCollapse: true,
                 autoWidth: true,
-                "destroy": true, 
+                "destroy": true,
                 "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
@@ -261,7 +261,22 @@
         function btnSystemUserMemberPopup(AUDIT_ID) {
             BM0.SystemUserList(AUDIT_ID, 2);
         }
-        function BM0Choose(department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
+        function BM0Choose(department, year, AUDIT_TYPE, audittype, TOPIC_TYPE, topictype, code, name, orderno, orderdate, budgettype) {
+            $("#DEPARTMENT_NAME").val(department);
+            $("#YEAR_LABEL").val(year);
+            $("#AUDIT_TYPE").val(AUDIT_TYPE);
+            $("#AUDIT_TYPE_NAME").val(audittype);
+            $("#TOPIC_TYPE").val(TOPIC_TYPE);
+            $("#TOPIC_TYPE_NAME").val(topictype);
+            $("#TOPIC_CODE").val(code);
+            $("#TOPIC_NAME").val(name);
+            $("#ORDER_NO").val(orderno);
+            $("#ORDER_DATE").val(orderdate);
+            $("#BUDGET_TYPE_NAME").val(budgettype);
+
+            $('#BM0ListModel').modal('hide');
+        }
+        function Choose2020(department, year, audittype, topictype, code, name, orderno, orderdate, budgettype) {
             $("#DEPARTMENT_NAME").val(department);
             $("#YEAR_LABEL").val(year);
             $("#AUDIT_TYPE_NAME").val(audittype);
@@ -272,10 +287,9 @@
             $("#ORDER_DATE").val(orderdate);
             $("#BUDGET_TYPE_NAME").val(budgettype);
 
-            $('#BM0ListModel').modal('hide');
+            $('#BM0List2020Model').modal('hide');
         }
-       
-      
+
         $('#DeparmentID').change(function () {
             $("#BM0 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
@@ -322,6 +336,12 @@
                     $("#Bm0Modal #AUDIT_FORM_TYPE").append($options);
                 });
 
+                $(".btn2020listPopup").on('click', function () {
+
+                    BM0.BM0Search2020();
+
+                });
+
                 $('#Bm0Modal #AUDIT_FORM_TYPE').change(function () {
 
 
@@ -334,8 +354,35 @@
                     $("#Bm0Modal #AUDIT_PROPOSAL_TYPE").append($options);
                 });
                 $("#Bm0Modal").modal({ show: true });
-               
-               
+
+
+            },
+            BM0Search2020: function () {
+                $.ajax({
+                    url: '@Url.Action("BM0Search2020", "Statistic", new { Area = "" })',
+                    type: 'GET',
+                    cache: false,
+                    //data: { periodid},
+                    success: function (data) {
+                        BM0.displayBM02020List(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayBM02020List: function (data) {
+                $("div#Bm0Modalcontainer").remove();
+                $('<div/>', { id: "Bm0Modalcontainer" }).appendTo('body').append(data);
+
+                $('#Bm0Modal').modal('hide');
+                $('#BM0List2020Model').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#Bm0Modal').modal('show');
+                });
             },
             displaySystemUserList: function (data) {
                 $("div#systemuserlistmodalcontainer").remove();
