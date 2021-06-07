@@ -63,7 +63,7 @@ namespace Audit.Models
         public string AUDITOR_ENTRY { get; set; }
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
-        public decimal? AUDIT_SERVICE_PAY { get; set; }
+        public string AUDIT_SERVICE_PAY { get; set; }
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public DateTime? UPDATED_DATE { get; set; }
 
@@ -154,10 +154,10 @@ namespace Audit.Models
                 if (xml.Element("AUDITOR_ENTRY") != null)
                     AUDITOR_ENTRY = xml.Element("AUDITOR_ENTRY").Value;
                 if (xml.Element("AUDIT_SERVICE_PAY") != null)
-                    AUDIT_SERVICE_PAY = Convert.ToDecimal(xml.Element("AUDIT_SERVICE_PAY").Value);
+                    AUDIT_SERVICE_PAY = xml.Element("AUDIT_SERVICE_PAY").Value;
                 if (xml.Element("AUDIT_INCLUDED_COUNT") != null)
                     AUDIT_INCLUDED_COUNT = Convert.ToInt32(xml.Element("AUDIT_INCLUDED_COUNT").Value);
-                if (xml.Element("DEPARTMENT_SHORT_NAME") != null)
+                if (xml.Element("DEPARTMENT_SHORT_NAME") != null) 
                     DEPARTMENT_SHORT_NAME = xml.Element("DEPARTMENT_SHORT_NAME").Value;
                 if (xml.Element("TEAM_DEPARTMENT_NAME") != null)
                     TEAM_DEPARTMENT_NAME = xml.Element("TEAM_DEPARTMENT_NAME").Value;
@@ -197,7 +197,7 @@ namespace Audit.Models
                        new XElement("AUDITOR_LEAD", AUDITOR_LEADS),
                        new XElement("AUDITOR_MEMBER", AUDITOR_MEMBERS),
                        new XElement("AUDITOR_ENTRY", AUDITOR_ENTRY),
-                       new XElement("AUDIT_SERVICE_PAY", AUDIT_SERVICE_PAY),
+                       AUDIT_SERVICE_PAY != null ? new XElement("AUDIT_SERVICE_PAY", AUDIT_SERVICE_PAY.Split(',')) : new XElement("AUDIT_SERVICE_PAY", null),
                        new XElement("AUDIT_DEPARTMENT_TYPE", AUDIT_DEPARTMENT_TYPE),
                        new XElement("AUDIT_DEPARTMENT_ID", AUDIT_DEPARTMENT_ID),
                        new XElement("EXEC_TYPE", EXEC_TYPE),

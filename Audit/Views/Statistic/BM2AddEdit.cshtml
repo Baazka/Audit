@@ -180,7 +180,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2  currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хуулийн байгууллагад шилжүүлсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2 currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +322,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тушаалаар хүчингүй болгосон дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2 currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -385,7 +385,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -411,6 +411,38 @@
         }
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
+    });
+</script>
 <script>
     var value1 = 0;
    
@@ -454,6 +486,11 @@
           var value2 = $("#REMOVED_INVALID_AMOUNT").val();
           var value3 = $("#REMOVED_LAW_AMOUNT").val();
           var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
+
+          var res2 = value2.replace(/,/g, '');
+          var res3 = value3.replace(/,/g, '');
+          var res4 = value4.replace(/,/g, '');
+         
           var sum = 0;
           $(".amount1").each(function () {
               if (!isNaN(this.value) && this.value.length != 0) {
@@ -463,39 +500,50 @@
           if (isNaN(sum)) {
               sum = 0;
           }
+          $("#COMPLETION_AMOUNT").val(sum).formatCurrency();
           value1 = sum.toFixed(2);
-          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+         
 
           if ($("#CLAIM_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-              parseFloat($("#CLAIM_C2_AMOUNT").val((value4 - value1 - value3 - value2).toFixed(2)));
+              $("#CLAIM_C2_AMOUNT").val(res4 - value1 - res3 - res2).formatCurrency();
               $("#CLAIM_C2_NONEXPIRED").val(null);
-              $("#CLAIM_C2_EXPIRED").val((value4 - value1 - value3 - value2).toFixed(2));
+              $("#CLAIM_C2_EXPIRED").val(res4 - value1 - res3 - res2).formatCurrency();
 
           }
           if ($("#CLAIM_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-              $("#CLAIM_C2_AMOUNT").val(null);
-              $("#CLAIM_C2_NONEXPIRED").val((value4 - value1 - value2 - value3).toFixed(2));
+              $("#CLAIM_C2_AMOUNT").val(res4 - value1 - res3 - res2).formatCurrency();
+              $("#CLAIM_C2_NONEXPIRED").val(res4 - value1 - res2 - res3).formatCurrency();
               $("#CLAIM_C2_EXPIRED").val(null);
           }
 
       }
 
       function calculateSum2() {
+
           var value1 = $("#COMPLETION_AMOUNT").val();
           var value2 = $("#REMOVED_INVALID_AMOUNT").val();
           var value3 = $("#REMOVED_LAW_AMOUNT").val();
           var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
+
+          var res1 = value1.replace(/,/g, '');
+          var res2 = value2.replace(/,/g, '');
+          var res3 = value3.replace(/,/g, '');
+          var res4 = value4.replace(/,/g, '');
+
+        
+
          
+          
 
           if ($("#CLAIM_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-              parseFloat($("#CLAIM_C2_AMOUNT").val((value4 - value1 - value3 - value2).toFixed(2)));
+              $("#CLAIM_C2_AMOUNT").val(res4 - res1 - res3 - res2).formatCurrency();
               $("#CLAIM_C2_NONEXPIRED").val(null);
-              $("#CLAIM_C2_EXPIRED").val((value4 - value1 - value3 - value2).toFixed(2));
+              $("#CLAIM_C2_EXPIRED").val(res4 - res1 - res3 - res2).formatCurrency();
 
           }
           if ($("#CLAIM_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-              $("#CLAIM_C2_AMOUNT").val(null);
-              $("#CLAIM_C2_NONEXPIRED").val((value4 - value1 - value2 - value3).toFixed(2));
+              $("#CLAIM_C2_AMOUNT").val(res4 - res1 - res3 - res2).formatCurrency();
+              $("#CLAIM_C2_NONEXPIRED").val(res4 - res1 - res2 - res3).formatCurrency();
               $("#CLAIM_C2_EXPIRED").val(null);
           }
 
@@ -504,3 +552,4 @@
      
   });
 </script>
+

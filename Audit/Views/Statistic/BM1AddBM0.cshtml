@@ -283,7 +283,11 @@
     </div>
 </div>
 <script>
-  $( function() {
+
+
+
+    $(function () {
+
       $(".datepicker").datepicker({
           beforeShow: function () {
               setTimeout(function () {
@@ -296,106 +300,32 @@
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
-          //maxDate: "+0D",
+         // maxDate: "+0D",
           showOn: "button",
           buttonImage: "@Url.Content("~/Images/calendar.png")",
           buttonImageOnly: true,
           buttonText: "Select date"
       });
 
-      //setTimeout(function () { Choose(@*@Html.Raw(Model.ID)*@, BM1.rowdata.DEPARTMENT_NAME, BM1.rowdata.YEAR_LABEL, BM1.rowdata.AUDIT_TYPE_NAME, BM1.rowdata.TOPIC_TYPE_NAME, BM1.rowdata.TOPIC_CODE, BM1.rowdata.TOPIC_NAME, BM1.rowdata.ORDER_NO, BM1.rowdata.ORDER_DATE, BM1.rowdata.BUDGET_TYPE_NAME); }, 1000);
-
       calculateSum1();
-      calculateSum2();
-      calculateSum3();
-      calculateSum4();
 
-      //$(".decimal").on('keyup', function (evt) {
-      //    if (evt.which != 110 && evt.which != 190) {
-      //        $(".decimal").formatCurrency();
-      //    }
-      //});
 
-      //$('.number').keyup(function (event) {
-
-      //    // skip for arrow keys
-      //    if (event.which >= 37 && event.which <= 40) return;
-
-      //    // format number
-      //    $(this).val(function (index, value) {
-      //        return value
-      //            .replace(/\D/g, "")
-      //            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      //            ;
-      //    });
-      //});
-      //$(".decimal").on('keyup', function (evt) {
-      //    if (evt.which != 110 && evt.which != 190) {
-      //        var n = parseFloat($(this).val().replace(/\,/g, ''), 2);
-      //        $(this).val(n.toLocaleString());
-      //    }
-      //});
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-      $(".amount2").on("keydown keyup", function () {
-          calculateSum2();
-      });
-      $(".amount3").on("keydown keyup", function () {
-          calculateSum3();
-      });
-      $(".amount4").on("keydown keyup", function () {
-          calculateSum4();
-      });
+
 
       function calculateSum1() {
           var sum = 0;
-          //iterate through each textboxes and add the values
           $(".amount1").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value.replace(',', ''));
-              }
-          });
-
-          $("#ACT_AMOUNT").val(sum.toFixed(2));
-      }
-      function calculateSum2() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount2").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
+              if (!isNaN(parseFloat(this.value)) && this.value.length != 0) {
                   sum += parseFloat(this.value);
               }
           });
-
-          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+          console.log(sum);
+          $("#ACT_AMOUNT").val(sum).formatCurrency();
       }
-      function calculateSum3() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount3").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
 
-          $("#REMOVED_AMOUNT").val(sum.toFixed(2));
-      }
-      function calculateSum4() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount4").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
-
-          $("#ACT_C2_AMOUNT").val(sum.toFixed(2));
-      }
   });
 </script>

@@ -526,7 +526,7 @@
         }
     });
 
-  
+
 
     $(function () {
 
@@ -593,15 +593,15 @@
           $("#ACT_AMOUNT").val(sum).formatCurrency();
           if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
               $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
-                  $("#ACT_C2_NONEXPIRED").val(null);
+              $("#ACT_C2_NONEXPIRED").val(null);
               $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
-              }
+          }
           if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-                  $("#ACT_C2_AMOUNT").val(null);
+              $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
               $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
-                  $("#ACT_C2_EXPIRED").val(null);
-              }
+              $("#ACT_C2_EXPIRED").val(null);
+          }
       }
       function calculateSum2() {
           var sum = 0;
@@ -617,18 +617,17 @@
           }
           value2 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum).formatCurrency();
-          //$("#COMPLETION_DATE_ID").change(function (value) {
           if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
               $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
-                  $("#ACT_C2_NONEXPIRED").val(null);
+              $("#ACT_C2_NONEXPIRED").val(null);
               $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
-              }
+          }
           if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+              $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
               $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
-                  $("#ACT_C2_EXPIRED").val(null);
-              }
-         // })
+              $("#ACT_C2_EXPIRED").val(null);
+          }
       }
         function calculateSum3() {
           var sum = 0;
@@ -644,18 +643,18 @@
             }
             value3 = sum.toFixed(2);
             $("#REMOVED_AMOUNT").val(sum).formatCurrency();
-           // $("#COMPLETION_DATE_ID").change(function (value) {
+
             if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
                 $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
-                    $("#ACT_C2_NONEXPIRED").val(null);
+                $("#ACT_C2_NONEXPIRED").val(null);
                 $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
             }
             if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+                $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
                 $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
-                    $("#ACT_C2_EXPIRED").val(null);
-                }
-           // })
+                $("#ACT_C2_EXPIRED").val(null);
+            }
 
 
       }

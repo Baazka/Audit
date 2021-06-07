@@ -252,7 +252,11 @@
       });
       calculateSum1();
       calculateSum2();
-     
+
+      $("#CLAIM_DELIVERY_DATE").change(function (value) {
+          calculateSum1();
+          calculateSum2();
+      });
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
@@ -265,6 +269,11 @@
           var value2 = $("#REMOVED_INVALID_AMOUNT").val();
           var value3 = $("#REMOVED_LAW_AMOUNT").val();
           var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
+
+          var res2 = value2.replace(/,/g, '');
+          var res3 = value3.replace(/,/g, '');
+          var res4 = value4.replace(/,/g, '');
+
           var sum = 0;
           $(".amount1").each(function () {
               if (!isNaN(this.value) && this.value.length != 0) {
@@ -274,39 +283,50 @@
           if (isNaN(sum)) {
               sum = 0;
           }
+          $("#COMPLETION_AMOUNT").val(sum).formatCurrency();
           value1 = sum.toFixed(2);
-          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+
 
           if ($("#CLAIM_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-              parseFloat($("#CLAIM_C2_AMOUNT").val((value4 - value1 - value3 - value2).toFixed(2)));
+              $("#CLAIM_C2_AMOUNT").val(res4 - value1 - res3 - res2).formatCurrency();
               $("#CLAIM_C2_NONEXPIRED").val(null);
-              $("#CLAIM_C2_EXPIRED").val((value4 - value1 - value3 - value2).toFixed(2));
+              $("#CLAIM_C2_EXPIRED").val(res4 - value1 - res3 - res2).formatCurrency();
 
           }
           if ($("#CLAIM_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-              $("#CLAIM_C2_AMOUNT").val(null);
-              $("#CLAIM_C2_NONEXPIRED").val((value4 - value1 - value2 - value3).toFixed(2));
+              $("#CLAIM_C2_AMOUNT").val(res4 - value1 - res3 - res2).formatCurrency();
+              $("#CLAIM_C2_NONEXPIRED").val(res4 - value1 - res2 - res3).formatCurrency();
               $("#CLAIM_C2_EXPIRED").val(null);
           }
 
       }
 
       function calculateSum2() {
+
           var value1 = $("#COMPLETION_AMOUNT").val();
           var value2 = $("#REMOVED_INVALID_AMOUNT").val();
           var value3 = $("#REMOVED_LAW_AMOUNT").val();
           var value4 = $("#CLAIM_VIOLATION_AMOUNT").val();
 
+          var res1 = value1.replace(/,/g, '');
+          var res2 = value2.replace(/,/g, '');
+          var res3 = value3.replace(/,/g, '');
+          var res4 = value4.replace(/,/g, '');
+
+
+
+
+
 
           if ($("#CLAIM_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-              parseFloat($("#CLAIM_C2_AMOUNT").val((value4 - value1 - value3 - value2).toFixed(2)));
+              $("#CLAIM_C2_AMOUNT").val(res4 - res1 - res3 - res2).formatCurrency();
               $("#CLAIM_C2_NONEXPIRED").val(null);
-              $("#CLAIM_C2_EXPIRED").val((value4 - value1 - value3 - value2).toFixed(2));
+              $("#CLAIM_C2_EXPIRED").val(res4 - res1 - res3 - res2).formatCurrency();
 
           }
           if ($("#CLAIM_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-              $("#CLAIM_C2_AMOUNT").val(null);
-              $("#CLAIM_C2_NONEXPIRED").val((value4 - value1 - value2 - value3).toFixed(2));
+              $("#CLAIM_C2_AMOUNT").val(res4 - res1 - res3 - res2).formatCurrency();
+              $("#CLAIM_C2_NONEXPIRED").val(res4 - res1 - res2 - res3).formatCurrency();
               $("#CLAIM_C2_EXPIRED").val(null);
           }
 

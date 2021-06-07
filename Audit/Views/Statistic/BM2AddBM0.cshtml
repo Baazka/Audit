@@ -42,16 +42,16 @@
                                     @*@if (Model.Button == true)
                                         {*@
                                     @*<div class="col-4">
-                                        <div class="form-group row">
-                                            <div class="col-sm-8">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                    </svg>
-                                                </button>
+                                            <div class="form-group row">
+                                                <div class="col-sm-8">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>*@
+                                        </div>*@
                                     @*}*@
 
                                 </div>
@@ -191,7 +191,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_VIOLATION_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -241,13 +241,13 @@
                                 </div>
                             </div>
                             @*<div class="col-12">
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.CLAIM_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                </div>
-            </div>
-        </div>*@
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.CLAIM_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        </div>
+                                    </div>
+                                </div>*@
                         </div>
 
                         <hr />
@@ -261,6 +261,38 @@
         }
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
+    });
+</script>
 <script>
   $( function() {
       $(".datepicker").datepicker({
@@ -281,40 +313,7 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
-      calculateSum1();
-      calculateSum2();
 
-      $(".amount1").on("keydown keyup", function () {
-          calculateSum1();
-      });
-      $(".amount2").on("keydown keyup", function () {
-          calculateSum2();
-      });
-
-      function calculateSum1() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount1").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
-
-          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
-      }
-      function calculateSum2() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount2").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
-
-          $("#CLAIM_C2_AMOUNT").val(sum.toFixed(2));
-      }
   });
 </script>
 

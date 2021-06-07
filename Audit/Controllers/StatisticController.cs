@@ -1114,24 +1114,24 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM2AddEdit(BM2 bm2)
         {
-            if(bm2.CLAIM_C2_NONEXPIRED == 0)
+            if(bm2.CLAIM_C2_NONEXPIRED == null || bm2.CLAIM_C2_NONEXPIRED == "0.00")
             {
                 ModelState.Remove("CLAIM_C2_NONEXPIRED");
                 
             }
-            if (bm2.CLAIM_C2_AMOUNT == 0)
+            if (bm2.CLAIM_C2_AMOUNT == null || bm2.CLAIM_C2_AMOUNT == "0.00")
             {
                 ModelState.Remove("CLAIM_C2_AMOUNT");
                 ModelState.Remove("CLAIM_C2_EXPIRED");
             }
-            if(bm2.COMPLETION_AMOUNT == 0)
+            if(bm2.COMPLETION_AMOUNT == null || bm2.COMPLETION_AMOUNT == "0.00")
             {
                 ModelState.Remove("COMPLETION_STATE_AMOUNT");
                 ModelState.Remove("COMPLETION_LOCAL_AMOUNT");
                 ModelState.Remove("COMPLETION_ORG_AMOUNT");
                 ModelState.Remove("COMPLETION_OTHER_AMOUNT");
             }
-            if (bm2.REMOVED_LAW_AMOUNT == 0)
+            if (bm2.REMOVED_LAW_AMOUNT == null || bm2.REMOVED_LAW_AMOUNT == "0.00")
             {
                 ModelState.Remove("REMOVED_LAW_AMOUNT");
             }
@@ -1139,7 +1139,7 @@ namespace Audit.Controllers
             {
                 ModelState.Remove("REMOVED_LAW_NO");
             }
-            if (bm2.REMOVED_INVALID_AMOUNT == 0)
+            if (bm2.REMOVED_INVALID_AMOUNT == null || bm2.REMOVED_LAW_AMOUNT == "0.00")
             {
                 ModelState.Remove("REMOVED_INVALID_AMOUNT");
             }

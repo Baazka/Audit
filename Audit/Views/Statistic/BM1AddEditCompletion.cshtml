@@ -290,6 +290,36 @@
     </div>
 </div>
 <script>
+    /* $(".currency").maskMoney({ suffix: ' ' });*/
+    $('.currency').formatCurrency();
+    $('.currency').blur(function () {
+        $('.currency').html(null);
+        $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+    })
+        .keyup(function (e) {
+            var e = window.event || e;
+            var keyUnicode = e.charCode || e.keyCode;
+            if (e !== undefined) {
+                switch (keyUnicode) {
+                    case 16: break; // Shift
+                    case 17: break; // Ctrl
+                    case 18: break; // Alt
+                    case 27: this.value = ''; break; // Esc: clear entry
+                    case 35: break; // End
+                    case 36: break; // Home
+                    case 37: break; // cursor left
+                    case 38: break; // cursor up
+                    case 39: break; // cursor right
+                    case 40: break; // cursor down
+                    case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                    case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                    case 190: break; // .
+                    default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                }
+            }
+        })
+</script>
+<script>
     var value1 =0;
     var value2 =0;
     var value3 = 0;
@@ -301,36 +331,9 @@
             $("#ACT_C2_EXPIRED").val(null);
         }
     });
-    
-        /* $(".currency").maskMoney({ suffix: ' ' });*/
-        $('.currency').formatCurrency();
-        $('.currency').blur(function () {
-            $('.currency').html(null);
-            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
-        })
-            .keyup(function (e) {
-                var e = window.event || e;
-                var keyUnicode = e.charCode || e.keyCode;
-                if (e !== undefined) {
-                    switch (keyUnicode) {
-                        case 16: break; // Shift
-                        case 17: break; // Ctrl
-                        case 18: break; // Alt
-                        case 27: this.value = ''; break; // Esc: clear entry
-                        case 35: break; // End
-                        case 36: break; // Home
-                        case 37: break; // cursor left
-                        case 38: break; // cursor up
-                        case 39: break; // cursor right
-                        case 40: break; // cursor down
-                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
-                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
-                        case 190: break; // .
-                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
-                    }
-                }
-            })
-   
+
+      
+
     $(function () {
 
       $(".datepicker").datepicker({
@@ -396,12 +399,12 @@
           $("#ACT_AMOUNT").val(sum).formatCurrency();
           if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
               $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
-                  $("#ACT_C2_NONEXPIRED").val(null);
+              $("#ACT_C2_NONEXPIRED").val(null);
               $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
               }
           if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
-                  $("#ACT_C2_AMOUNT").val(null);
+              $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
               $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
                   $("#ACT_C2_EXPIRED").val(null);
               }
@@ -420,18 +423,17 @@
           }
           value2 = sum.toFixed(2);
           $("#COMPLETION_AMOUNT").val(sum).formatCurrency();
-          //$("#COMPLETION_DATE_ID").change(function (value) {
           if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
               $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
-                  $("#ACT_C2_NONEXPIRED").val(null);
+              $("#ACT_C2_NONEXPIRED").val(null);
               $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
-              }
+          }
           if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+              $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
               $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
-                  $("#ACT_C2_EXPIRED").val(null);
-              }
-         // })
+              $("#ACT_C2_EXPIRED").val(null);
+          }
       }
         function calculateSum3() {
           var sum = 0;
@@ -447,18 +449,17 @@
             }
             value3 = sum.toFixed(2);
             $("#REMOVED_AMOUNT").val(sum).formatCurrency();
-           // $("#COMPLETION_DATE_ID").change(function (value) {
             if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
                 $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
-                    $("#ACT_C2_NONEXPIRED").val(null);
+                $("#ACT_C2_NONEXPIRED").val(null);
                 $("#ACT_C2_EXPIRED").val(value1 - value2 - value3).formatCurrency();
 
             }
             if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+                $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();
                 $("#ACT_C2_NONEXPIRED").val(value1 - value2 - value3).formatCurrency();
-                    $("#ACT_C2_EXPIRED").val(null);
-                }
-           // })
+                $("#ACT_C2_EXPIRED").val(null);
+            }
 
 
       }

@@ -43,7 +43,7 @@ namespace Audit.Models
         public string CLAIM_SUBMITTED_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string CLAIM_DELIVERY_DATE { get; set; }
-        public decimal? CLAIM_VIOLATION_AMOUNT { get; set; }
+        public string CLAIM_VIOLATION_AMOUNT { get; set; }
         public string CLAIM_RCV_NAME { get; set; }
         public string CLAIM_RCV_ROLE { get; set; }
         public string CLAIM_RCV_GIVEN_NAME { get; set; }
@@ -54,22 +54,22 @@ namespace Audit.Models
         public string CLAIM_CONTROL_AUDITOR { get; set; }
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
-        public decimal? COMPLETION_AMOUNT { get; set; }
+        public string COMPLETION_AMOUNT { get; set; }
         public decimal? COMPLETION_STATE_AMOUNT { get; set; }
         public decimal? COMPLETION_LOCAL_AMOUNT { get; set; }
         public decimal? COMPLETION_ORG_AMOUNT { get; set; }
         public decimal? COMPLETION_OTHER_AMOUNT { get; set; }
-        public decimal? REMOVED_LAW_AMOUNT { get; set; }
+        public string REMOVED_LAW_AMOUNT { get; set; }
         public string REMOVED_LAW_DATE { get; set; }
         public string REMOVED_LAW_NO { get; set; }
-        public decimal? REMOVED_INVALID_AMOUNT { get; set; }
+        public string REMOVED_INVALID_AMOUNT { get; set; }
         public string REMOVED_INVALID_DATE { get; set; }
         public string REMOVED_INVALID_NO { get; set; }
-        public decimal? CLAIM_C2_AMOUNT { get; set; }
-        public decimal? CLAIM_C2_NONEXPIRED { get; set; }
-        public decimal? CLAIM_C2_EXPIRED { get; set; }
+        public string CLAIM_C2_AMOUNT { get; set; }
+        public string CLAIM_C2_NONEXPIRED { get; set; }
+        public string CLAIM_C2_EXPIRED { get; set; }
         public int? BENEFIT_FIN { get; set; }
-        public decimal? BENEFIT_FIN_AMOUNT { get; set; }
+        public string BENEFIT_FIN_AMOUNT { get; set; }
         public int? BENEFIT_NONFIN { get; set; }
         public int EXEC_TYPE { get; set; }
 
@@ -131,7 +131,7 @@ namespace Audit.Models
                 if (xml.Element("CLAIM_DELIVERY_DATE") != null)
                     CLAIM_DELIVERY_DATE = Convert.ToDateTime(xml.Element("CLAIM_DELIVERY_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("CLAIM_VIOLATION_AMOUNT") != null)
-                    CLAIM_VIOLATION_AMOUNT = Convert.ToDecimal(xml.Element("CLAIM_VIOLATION_AMOUNT").Value);
+                    CLAIM_VIOLATION_AMOUNT = xml.Element("CLAIM_VIOLATION_AMOUNT").Value;
                 if (xml.Element("CLAIM_RCV_NAME") != null)
                     CLAIM_RCV_NAME = xml.Element("CLAIM_RCV_NAME").Value;
                 if (xml.Element("CLAIM_RCV_ROLE") != null)
@@ -149,7 +149,7 @@ namespace Audit.Models
                 if (xml.Element("COMPLETION_ORDER") != null)
                     COMPLETION_ORDER = xml.Element("COMPLETION_ORDER").Value;
                 if (xml.Element("COMPLETION_AMOUNT") != null)
-                    COMPLETION_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_AMOUNT").Value);
+                    COMPLETION_AMOUNT = xml.Element("COMPLETION_AMOUNT").Value;
                 if (xml.Element("COMPLETION_STATE_AMOUNT") != null)
                     COMPLETION_STATE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_STATE_AMOUNT").Value);
                 if (xml.Element("COMPLETION_LOCAL_AMOUNT") != null)
@@ -160,28 +160,28 @@ namespace Audit.Models
                     COMPLETION_OTHER_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_OTHER_AMOUNT").Value);
                 
                 if (xml.Element("REMOVED_LAW_AMOUNT") != null)
-                    REMOVED_LAW_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_LAW_AMOUNT").Value);
+                    REMOVED_LAW_AMOUNT = xml.Element("REMOVED_LAW_AMOUNT").Value;
                 if (xml.Element("REMOVED_LAW_DATE") != null)
                     REMOVED_LAW_DATE = Convert.ToDateTime(xml.Element("REMOVED_LAW_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("REMOVED_LAW_NO") != null)
                     REMOVED_LAW_NO = xml.Element("REMOVED_LAW_NO").Value;
                 if (xml.Element("REMOVED_INVALID_AMOUNT") != null)
-                    REMOVED_INVALID_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_INVALID_AMOUNT").Value);
+                    REMOVED_INVALID_AMOUNT = xml.Element("REMOVED_INVALID_AMOUNT").Value;
                 if (xml.Element("REMOVED_INVALID_DATE") != null)
                     REMOVED_INVALID_DATE = Convert.ToDateTime(xml.Element("REMOVED_INVALID_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("REMOVED_INVALID_NO") != null)
                     REMOVED_INVALID_NO = xml.Element("REMOVED_INVALID_NO").Value;
                 if (xml.Element("CLAIM_C2_AMOUNT") != null)
-                    CLAIM_C2_AMOUNT = Convert.ToDecimal(xml.Element("CLAIM_C2_AMOUNT").Value);
+                    CLAIM_C2_AMOUNT = xml.Element("CLAIM_C2_AMOUNT").Value;
                 if (xml.Element("CLAIM_C2_NONEXPIRED") != null)
-                    CLAIM_C2_NONEXPIRED = Convert.ToDecimal(xml.Element("CLAIM_C2_NONEXPIRED").Value);
+                    CLAIM_C2_NONEXPIRED = xml.Element("CLAIM_C2_NONEXPIRED").Value;
                 if (xml.Element("CLAIM_C2_EXPIRED") != null)
-                    CLAIM_C2_EXPIRED = Convert.ToDecimal(xml.Element("CLAIM_C2_EXPIRED").Value);
+                    CLAIM_C2_EXPIRED = xml.Element("CLAIM_C2_EXPIRED").Value;
 
                 if (xml.Element("BENEFIT_FIN") != null)
                     BENEFIT_FIN = Convert.ToInt32(xml.Element("BENEFIT_FIN").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
-                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value);
+                    BENEFIT_FIN_AMOUNT = xml.Element("BENEFIT_FIN_AMOUNT").Value;
                 if (xml.Element("BENEFIT_NONFIN") != null)
                     BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
             }
@@ -199,7 +199,7 @@ namespace Audit.Models
                        new XElement("CLAIM_VIOLATION_TYPE", CLAIM_VIOLATION_TYPE),
                        CLAIM_SUBMITTED_DATE != null ? new XElement("CLAIM_SUBMITTED_DATE", Convert.ToDateTime(CLAIM_SUBMITTED_DATE).ToString("dd-MMM-yy")) : new XElement("CLAIM_SUBMITTED_DATE", null),
                        CLAIM_DELIVERY_DATE != null ? new XElement("CLAIM_DELIVERY_DATE", Convert.ToDateTime(CLAIM_DELIVERY_DATE).ToString("dd-MMM-yy")) : new XElement("CLAIM_DELIVERY_DATE", null),
-                       new XElement("CLAIM_VIOLATION_AMOUNT", CLAIM_VIOLATION_AMOUNT),
+                       CLAIM_VIOLATION_AMOUNT != null ? new XElement("CLAIM_VIOLATION_AMOUNT", CLAIM_VIOLATION_AMOUNT.Split(',')) : new XElement("CLAIM_VIOLATION_AMOUNT", null),
                        new XElement("CLAIM_RCV_NAME", CLAIM_RCV_NAME),
                        new XElement("CLAIM_RCV_ROLE", CLAIM_RCV_ROLE),
                        new XElement("CLAIM_RCV_GIVEN_NAME", CLAIM_RCV_GIVEN_NAME),
@@ -209,22 +209,22 @@ namespace Audit.Models
                        //new XElement("CLAIM_CONTROL_AUDITOR", CLAIM_CONTROL_AUDITOR),
                        COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
-                       new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT),
+                       COMPLETION_AMOUNT != null ? new XElement("COMPLETION_AMOUNT", COMPLETION_AMOUNT.Split(',')) : new XElement("COMPLETION_AMOUNT", null),
                        new XElement("COMPLETION_STATE_AMOUNT", COMPLETION_STATE_AMOUNT),
                        new XElement("COMPLETION_LOCAL_AMOUNT", COMPLETION_LOCAL_AMOUNT),
                        new XElement("COMPLETION_ORG_AMOUNT", COMPLETION_ORG_AMOUNT),
                        new XElement("COMPLETION_OTHER_AMOUNT", COMPLETION_OTHER_AMOUNT),
-                       new XElement("REMOVED_LAW_AMOUNT", REMOVED_LAW_AMOUNT),
+                       REMOVED_LAW_AMOUNT != null ? new XElement("REMOVED_LAW_AMOUNT", REMOVED_LAW_AMOUNT.Split(',')) : new XElement("REMOVED_LAW_AMOUNT", null),
                        REMOVED_LAW_DATE != null ? new XElement("REMOVED_LAW_DATE", Convert.ToDateTime(REMOVED_LAW_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_LAW_DATE", null),
                        new XElement("REMOVED_LAW_NO", REMOVED_LAW_NO),
-                       new XElement("REMOVED_INVALID_AMOUNT", REMOVED_INVALID_AMOUNT),
+                       REMOVED_INVALID_AMOUNT != null ? new XElement("REMOVED_INVALID_AMOUNT", REMOVED_INVALID_AMOUNT.Split(',')) : new XElement("REMOVED_INVALID_AMOUNT", null),
                        REMOVED_INVALID_DATE != null ? new XElement("REMOVED_INVALID_DATE", Convert.ToDateTime(REMOVED_INVALID_DATE).ToString("dd-MMM-yy")) : new XElement("REMOVED_INVALID_DATE", null),
                        new XElement("REMOVED_INVALID_NO", REMOVED_INVALID_NO),
-                       new XElement("CLAIM_C2_AMOUNT", CLAIM_C2_AMOUNT),
-                       new XElement("CLAIM_C2_NONEXPIRED", CLAIM_C2_NONEXPIRED),
-                       new XElement("CLAIM_C2_EXPIRED", CLAIM_C2_EXPIRED),
+                       CLAIM_C2_AMOUNT != null ? new XElement("CLAIM_C2_AMOUNT", CLAIM_C2_AMOUNT.Split(',')) : new XElement("CLAIM_C2_AMOUNT", null),
+                       CLAIM_C2_NONEXPIRED != null ? new XElement("CLAIM_C2_NONEXPIRED", CLAIM_C2_NONEXPIRED.Split(',')) : new XElement("CLAIM_C2_NONEXPIRED", null),
+                       CLAIM_C2_EXPIRED != null ? new XElement("CLAIM_C2_EXPIRED", CLAIM_C2_EXPIRED.Split(',')) : new XElement("CLAIM_C2_EXPIRED", null),
                        new XElement("BENEFIT_FIN", BENEFIT_FIN),
-                       new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT),
+                       BENEFIT_FIN_AMOUNT != null ? new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT.Split(',')) : new XElement("BENEFIT_FIN_AMOUNT", null),
                        new XElement("BENEFIT_NONFIN", BENEFIT_NONFIN),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
