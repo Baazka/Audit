@@ -16,9 +16,21 @@
                 <label for="PARENT_BUDGET_ID" class="col-form-label">Төсвийн ерөнхийлөн захирагч:</label>
                 @Html.DropDownListFor(model => model.PARENT_BUDGET_ID, Model.parentBudgetTypes.Select(m => new SelectListItem { Text = m.PARENT_BUGDET_NAME, Value = m.PARENT_BUDGET_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
-            <div class="form-group-sm pr-2">
+            @*<div class="form-group-sm pr-2">
                 <label for="BUDGET_LEVEL_ID" class="col-form-label">Төсвийн ангилал:</label>
                 @Html.DropDownListFor(model => model.BUDGET_LEVEL_ID, Model.budgetLevel.Select(m => new SelectListItem { Text = m.BUDGET_LEVEL_NAME, Value = m.BUDGET_LEVEL_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            </div>*@
+            <div class="form-group-sm pr-2">
+                <label for="BUDGET_LEVEL_ID" class="col-form-label">Төсвийн ангилал:</label>
+
+                @Html.DropDownListFor(model => model.BUDGET_LEVEL_ID, new SelectList(
+                         new List<Object>{
+                              new { value = "" , text = "Сонгоно уу" },
+                              new { value = 1 , text = "Улсын төсөв" },
+                              new { value = 2 , text = "Орон нутгийн төсөв" },
+                              new { value = 3 , text = "Нийгмийн даатгалын сан" },
+                              new { value = 4 , text = "Эрүүл мэндийн даатгалын сан" },
+                             }, "value", "text"), new { @class = "form-control form-control-sm" })
             </div>
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
