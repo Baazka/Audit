@@ -94,6 +94,11 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_ParentBudgetID", null));
 
+                if (request.BUDGET_LEVEL_ID != null && request.BUDGET_LEVEL_ID != 0)
+                    elem.Add(new XElement("V_BUDGET_LEVEL_ID", request.BUDGET_LEVEL_ID));
+                else
+                    elem.Add(new XElement("V_BUDGET_LEVEL_ID", null));
+
                 if (request.budget_type != null)
                     elem.Add(new XElement("V_BUDGET_TYPE", request.budget_type));
                 else
@@ -1313,6 +1318,21 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_ParentBudgetID", request.PARENT_BUDGET_ID));
                 else
                     elem.Add(new XElement("V_ParentBudgetID", null));
+
+                //if (request.parent_budget_type != null)
+                //{
+                //    string ss = String.Join(",", request.parent_budget_type.Select(p => p.ToString()).ToArray());
+                //    elem.Add(new XElement("V_ParentBudgetID", ss));
+                //}
+                //else
+                //    elem.Add(new XElement("V_ParentBudgetID", null));
+
+                //if (request.parent_budget_type != null) {
+                //    string[] ss = request.parent_budget_type.Select(i => i.ToString()).ToArray();
+                //    elem.Add(new XElement("V_ParentBudgetID", ss));
+                //}
+                //else
+                //    elem.Add(new XElement("V_ParentBudgetID", null));
 
                 if (request.PeriodID != null) 
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));

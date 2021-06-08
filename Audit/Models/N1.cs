@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using System.Web.Mvc;
 
 namespace Audit.Models
 {
@@ -11,6 +12,8 @@ namespace Audit.Models
     {
         public int DeparmentID { get; set; }
         public int PARENT_BUDGET_ID { get; set; }
+        public int[] parentBudgetTypeIDs { get; set; }
+        public MultiSelectList parentBudgetType { get; set; }
         public int PeriodID { get; set; }
 
         public int TypeID { get; set; }

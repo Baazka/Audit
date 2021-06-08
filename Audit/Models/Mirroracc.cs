@@ -83,6 +83,7 @@ namespace Audit.Models
         public int OPEN_ID { get; set; }
         public string BUDGET_SHORT_NAME { get; set; }
         public string OPEN_ENT_BUDGET_PARENT { get; set; }
+        public string BUDGET_LEVEL_NAME { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public string OPEN_ENT_NAME { get; set; }
         public string OPEN_ENT_REGISTER_NO { get; set; }
@@ -100,6 +101,8 @@ namespace Audit.Models
                 BUDGET_SHORT_NAME = elem.Element("BUDGET_SHORT_NAME").Value;
             if (elem.Element("OPEN_ENT_BUDGET_PARENT") != null)
                 OPEN_ENT_BUDGET_PARENT = elem.Element("OPEN_ENT_BUDGET_PARENT").Value;
+            if (elem.Element("BUDGET_LEVEL_NAME") != null)
+                BUDGET_LEVEL_NAME = elem.Element("BUDGET_LEVEL_NAME").Value;
             if (elem.Element("DEPARTMENT_NAME") != null)
                 DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
             if (elem.Element("OPEN_ENT_NAME") != null)
@@ -125,6 +128,7 @@ namespace Audit.Models
         public int OPEN_ID { get; set; }
         public string BUDGET_SHORT_NAME { get; set; }
         public string OPEN_ENT_BUDGET_PARENT { get; set; }
+        public string BUDGET_LEVEL_NAME { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public string OPEN_ENT_NAME { get; set; }
         public string OPEN_ENT_REGISTER_NO { get; set; }
@@ -142,6 +146,8 @@ namespace Audit.Models
                 BUDGET_SHORT_NAME = elem.Element("BUDGET_SHORT_NAME").Value;
             if (elem.Element("OPEN_ENT_BUDGET_PARENT") != null)
                 OPEN_ENT_BUDGET_PARENT = elem.Element("OPEN_ENT_BUDGET_PARENT").Value;
+            if (elem.Element("BUDGET_LEVEL_NAME") != null)
+                BUDGET_LEVEL_NAME = elem.Element("BUDGET_LEVEL_NAME").Value;
             if (elem.Element("DEPARTMENT_NAME") != null)
                 DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
             if (elem.Element("OPEN_ENT_NAME") != null)

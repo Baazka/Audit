@@ -17,45 +17,49 @@
                 @Html.DropDownListFor(model => model.PARENT_BUDGET_ID, Model.parentBudgetTypes.Select(m => new SelectListItem { Text = m.PARENT_BUGDET_NAME, Value = m.PARENT_BUDGET_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
             <div class="form-group-sm pr-2">
+                <label for="BUDGET_LEVEL_ID" class="col-form-label">Төсвийн ангилал:</label>
+                @Html.DropDownListFor(model => model.BUDGET_LEVEL_ID, Model.budgetLevel.Select(m => new SelectListItem { Text = m.BUDGET_LEVEL_NAME, Value = m.BUDGET_LEVEL_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            </div>
+            <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
         }
-    
-    <div class="form-group-sm pr-2">
-        <label for="BudgetTypeID" class="col-form-label">Төсөв захирагчийн ангилал:</label>
 
-        @Html.DropDownListFor(model => model.BudgetTypeID, new SelectList(
-                 new List<Object>{
-                      new { value = "" , text = "Сонгоно уу" },
-                      new { value = 1 , text = "ТЕЗ" },
-                      new { value = 2 , text = "ТТЗ" },
-                      new { value = 3 , text = "ТШЗ" },
-                     }, "value", "text"), new { @class = "form-control form-control-sm" })
-    </div>
+        <div class="form-group-sm pr-2">
+            <label for="BudgetTypeID" class="col-form-label">Төсөв захирагчийн ангилал:</label>
+
+            @Html.DropDownListFor(model => model.BudgetTypeID, new SelectList(
+                     new List<Object>{
+                          new { value = "" , text = "Сонгоно уу" },
+                          new { value = 1 , text = "ТЕЗ" },
+                          new { value = 2 , text = "ТТЗ" },
+                          new { value = 3 , text = "ТШЗ" },
+                         }, "value", "text"), new { @class = "form-control form-control-sm" })
+        </div>
         @if (User.GetClaimData("USER_TYPE") == "Hak_User")
         {
-        <div class="form-group-sm ml-auto pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="hakexportXLSX" onclick="HakOrgExportFile()">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-excel"></i>
-                </span>
-                <span class="text">Жагсаалт татах</span>
-            </a>
-        </div>
+            <div class="form-group-sm ml-auto pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="hakexportXLSX" onclick="HakOrgExportFile()">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Жагсаалт татах</span>
+                </a>
+            </div>
         }
         else
         {
-        <div class="form-group-sm ml-auto pr-2" >
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="OrgExportFile()">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-excel"></i>
-                </span>
-                <span class="text">Жагсаалт татах</span>
-            </a>
-        </div>
+            <div class="form-group-sm ml-auto pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="OrgExportFile()">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Жагсаалт татах</span>
+                </a>
+            </div>
         }
         @*<div class="form-group-sm pr-2">
             <label for="StatusID" class="col-form-label">ТЕЗ/ ТТЗ/ ТШЗ:</label><br />
@@ -75,6 +79,7 @@
                         <tr>
                             <th class="text-center">№</th>
                             <th>Төсвийн ерөнхийлөн захирагч</th>
+                            <th>Төсвийн ангилал</th>
                             <th width="5%">Төсөв захирагчийн ангилал</th>
                             <th width="20%">Харъяа аудитын байгууллагын нэр</th>
                             <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
@@ -101,6 +106,7 @@
                         <tr>
                             <th class="text-center">№</th>
                             <th>Төсвийн ерөнхийлөн захирагч</th>
+                            <th>Төсвийн ангилал</th>
                             <th width="5%">Төсөв захирагчийн ангилал</th>
                             <th width="20%">Харъяа аудитын байгууллагын нэр</th>
                             <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
@@ -144,6 +150,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
                         data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         return data;
                     }
                 },
@@ -159,6 +166,7 @@
                         }
                     },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_LEVEL_NAME", "name": "BUDGET_LEVEL_NAME" },
                     { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
@@ -217,6 +225,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
                         data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         return data;
                     }
                 },
@@ -232,6 +241,7 @@
                         }
                     },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_LEVEL_NAME", "name": "BUDGET_LEVEL_NAME" },
                     { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
@@ -297,6 +307,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
                         data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         return data;
                     }
                 },
@@ -311,6 +322,7 @@
                         }
                     },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_LEVEL_NAME", "name": "BUDGET_LEVEL_NAME" },
                     { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
@@ -372,6 +384,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
                         data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         return data;
                     }
                 },
@@ -387,6 +400,7 @@
                         }
                     },
                     { "data": "OPEN_ENT_BUDGET_PARENT", "name": "OPEN_ENT_BUDGET_PARENT" },
+                    { "data": "BUDGET_LEVEL_NAME", "name": "BUDGET_LEVEL_NAME" },
                     { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "OPEN_ENT_NAME", "name": "OPEN_ENT_NAME" },
@@ -445,6 +459,9 @@
             orgListInit();
         });
         $('#PARENT_BUDGET_ID').change(function () {
+            orgListInit();
+        });
+        $('#BUDGET_LEVEL_ID').change(function () {
             orgListInit();
         });
         $('#BudgetTypeID').change(function () {
