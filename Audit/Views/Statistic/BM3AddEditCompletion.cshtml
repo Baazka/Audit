@@ -2,7 +2,7 @@
 @model Audit.Models.BM3
 
 <div class="modal fade" id="Bm3Modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM3AddEditCompletion", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
@@ -30,12 +30,22 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн тоо: <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @readonly = "readonly", @placeholder = "0.0" } })
+                                    @Html.ValidationMessageFor(m => m.REFERENCE_COUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-12">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн дүн:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.REFERENCE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @readonly = "readonly" } })
+                                    @Html.EditorFor(m => m.REFERENCE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @readonly = "readonly", @placeholder = "0.00" } })
                                 </div>
                             </div>
                         </div>
@@ -71,7 +81,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +89,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +97,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right"} })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +105,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +116,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.C2_NONEXPIRED, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -115,7 +125,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.C2_NONEXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.C2_NONEXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.C2_NONEXPIRED_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -124,7 +134,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.C2_EXPIRED, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -133,7 +143,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.C2_EXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.C2_EXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.C2_EXPIRED_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -145,7 +155,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санхүүгийн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.BENEFIT_FIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.BENEFIT_FIN, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -154,7 +164,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -163,7 +173,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санхүүгийн бус үр өгөөжийн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.BENEFIT_NONFIN, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.BENEFIT_NONFIN, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -181,26 +191,41 @@
     </div>
 </div>
 <script>
-    var value1 = 0;
-    var value2 = $("#COMPLETION_PROGRESS_AMOUNT").val();
-    var value3 = $("#COMPLETION_DONE_AMOUNT").val();
-    var value4 = $("#REFERENCE_AMOUNT").val();
     $(document).ready(function () {
-        if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
-            $("#C2_EXPIRED").val(value1);
-            $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
-            $("#C2_NONEXPIRED_AMOUNT").val(null);
-            $("#C2_NONEXPIRED").val(null);
-
-        }
-
-        if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
-            $("#C2_EXPIRED").val(null);
-            $("#C2_EXPIRED_AMOUNT").val(null);
-            $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
-            $("#C2_NONEXPIRED").val(value1);
-        }
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
     });
+</script>
+<script>
+    var value1 = 0;
+
+
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -221,45 +246,77 @@
           buttonText: "Select date"
       });
       calculateSum1();
+      calculateSum2();
 
-      $("#COMPLETION_DATE").change(function (value) {
-          calculateSum1();
-      })
+     
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
+      });
+      $(".amount2").on("change", function () {
+          calculateSum2();
+      });
       function calculateSum1() {
-          var value2 = $("#COMPLETION_PROGRESS_AMOUNT").val();
           var value3 = $("#COMPLETION_DONE_AMOUNT").val();
           var value4 = $("#REFERENCE_AMOUNT").val();
+
+          var res3 = value3.replace(/,/g, '');
+          var res4 = value4.replace(/,/g, '');
+
           var sum = 0;
-          $(".amount1").each(function () {
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum = parseFloat(value4 - value3);
-              }
-          });
-          value1 = sum / value2;
+          //$(".amount1").each(function () {
+          //    if (!isNaN(this.value) && this.value.length != 0) {
+          //        sum = parseFloat(res4 - res3);
+          //    }
+          //});
+          sum = parseFloat(res4 - res3);
+          value1 = sum;
           if (isNaN(value1)) {
               value1 = 0;
           }
+          $("#COMPLETION_PROGRESS_AMOUNT").val(value1).formatCurrency();
 
-          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#COMPLETION_DATE").val()) {
-              $("#C2_EXPIRED").val(1);
-              $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
+              $("#C2_EXPIRED_AMOUNT").val(value1).formatCurrency();
               $("#C2_NONEXPIRED_AMOUNT").val(null);
-              $("#C2_NONEXPIRED").val(null);
+          }
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+              $("#C2_EXPIRED_AMOUNT").val(null);
+              $("#C2_NONEXPIRED_AMOUNT").val(value1).formatCurrency();
 
           }
-          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#COMPLETION_DATE").val()) {
+
+      }
+
+      function calculateSum2() {
+          var value6 = $("#COMPLETION_DONE").val();
+          var value7 = $("#REFERENCE_COUNT").val();
+          var sum = 0;
+          $(".amount2").each(function () {
+              if (!isNaN(this.value) && this.value.length != 0) {
+                  sum = parseFloat(value7 - value6);
+              }
+          });
+          value1 = sum;
+          if (isNaN(value1)) {
+              value1 = 0;
+          }
+          $("#COMPLETION_PROGRESS").val(value1);
+
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
+
+              $("#C2_EXPIRED").val(value1);
+              $("#C2_NONEXPIRED").val(null);
+          }
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED").val(null);
-              $("#C2_EXPIRED_AMOUNT").val(null);
-              $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
-              $("#C2_NONEXPIRED").val(1);
+              $("#C2_NONEXPIRED").val(value1);
+
           }
 
       }
   });
 </script>
-

@@ -138,6 +138,7 @@ namespace Audit.App_Func
             functions.Add("CM8Delete", (request) => DataAccess.CM8Delete(request));
             functions.Add("OrgSearch", (request) => DataAccess.OrgSearch(request));
             functions.Add("BM0Search", (request) => DataAccess.BM0Search(request));
+            functions.Add("BM0Search2020", (request) => DataAccess.BM0Search2020(request));
 
             functions.Add("MirrorOrgList", (request) => DataAccess.MirrorOrgList(request));
             functions.Add("MirrorHakOrgList", (request) => DataAccess.MirrorHakOrgList(request));

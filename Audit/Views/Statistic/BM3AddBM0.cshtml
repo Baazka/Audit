@@ -39,7 +39,7 @@
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
-                                 
+                                   
                                 </div>
                             </div>
                             <div class="col-12">
@@ -119,7 +119,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн утга:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн утга: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.TextAreaFor(m => m.REFERENCE_DESC, new { @class = "form-control form-control-sm", @rows = 3 })
                                     </div>
@@ -127,9 +127,9 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөвлөмж өгсөн илрүүлэлтийн ангилал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөвлөмж өгсөн илрүүлэлтийн ангилал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.REFERENCE_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.DropDownListFor(model => model.REFERENCE_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
 
                                     </div>
                                 </div>
@@ -138,16 +138,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.REFERENCE_COUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн дүн:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн дүн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.REFERENCE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.REFERENCE_RCV_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     </div>
@@ -179,7 +179,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.REFERENCE_RCV_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     </div>
@@ -187,7 +187,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Овог нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Овог нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.REFERENCE_RCV_GIVEN_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     </div>
@@ -195,9 +195,9 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Утас:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Утас: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                        @Html.EditorFor(m => m.REFERENCE_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -210,13 +210,13 @@
                                 </div>
                             </div>
                             @*<div class="col-12">
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог нэр, албан тушаал:</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.REFERENCE_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                </div>
-            </div>
-        </div>*@
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог нэр, албан тушаал:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.REFERENCE_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    </div>
+                                </div>
+                            </div>*@
 
                         </div>
 
@@ -232,6 +232,38 @@
     </div>
 </div>
 <script>
+    $(document).ready(function () {
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
+    });
+</script>
+<script>
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -241,7 +273,7 @@
           },
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy/mm/dd",
+          dateFormat: "yy.mm.dd",
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],

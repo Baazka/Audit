@@ -1,7 +1,7 @@
 ﻿@model Audit.Models.BM1
 
 <div class="modal fade" id="Bm1Modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
+    <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM1Add", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
@@ -146,7 +146,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Илрүүлсэн зөрчлийн товч утга:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Илрүүлсэн зөрчлийн товч утга: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_VIOLATION_DESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                      
@@ -155,7 +155,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Зөрчлийн ангилал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.ACT_VIOLATION_TYPE, Model.refviolationtypes.Select(m => new SelectListItem { Text = m.VIOLATION_NAME, Value = m.VIOLATION_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", })
                                         @Html.ValidationMessageFor(m => m.ACT_VIOLATION_TYPE, "", new { @class = "text-danger" })
@@ -182,10 +182,10 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Төлбөрийн дүн:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Төлбөрийн дүн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal currency", @placeholder = "0.00", @readonly = "readonly" } })
-                                       
+                                        @Html.EditorFor(m => m.ACT_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.ACT_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +194,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1 currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         
                                     </div>
                                 </div>
@@ -228,37 +228,37 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Байгууллагын нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        
+                                        @Html.ValidationMessageFor(m => m.ACT_RCV_NAME, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Албан тушаал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        
+                                        @Html.ValidationMessageFor(m => m.ACT_RCV_ROLE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Овог нэр:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Овог нэр: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_GIVEN_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        
+                                        @Html.ValidationMessageFor(m => m.ACT_RCV_GIVEN_NAME, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Утас:</label>
+                                    <label class="col-sm-4 col-form-label text-right">Утас: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        
+                                        @Html.ValidationMessageFor(m => m.ACT_RCV_PHONE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -293,39 +293,9 @@
         }
     </div>
 </div>
-@*<script>
-    $(document).ready(function () {
-        /* $(".currency").maskMoney({ suffix: ' ' });*/
-        $('.currency').formatCurrency();
-        $('.currency').blur(function () {
-            $('.currency').html(null);
-            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
-        })
-            .keyup(function (e) {
-                var e = window.event || e;
-                var keyUnicode = e.charCode || e.keyCode;
-                if (e !== undefined) {
-                    switch (keyUnicode) {
-                        case 16: break; // Shift
-                        case 17: break; // Ctrl
-                        case 18: break; // Alt
-                        case 27: this.value = ''; break; // Esc: clear entry
-                        case 35: break; // End
-                        case 36: break; // Home
-                        case 37: break; // cursor left
-                        case 38: break; // cursor up
-                        case 39: break; // cursor right
-                        case 40: break; // cursor down
-                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
-                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
-                        case 190: break; // .
-                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
-                    }
-                }
-            })
-    });
-</script>*@
 <script>
+
+
 
     $(function () {
      
@@ -337,7 +307,7 @@
           },
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy/mm/dd",
+          dateFormat: "yy.mm.dd",
           firstDay: 1,
           dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
           monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
@@ -348,99 +318,25 @@
           buttonText: "Select date"
       });
 
-      //setTimeout(function () { Choose(@*@Html.Raw(Model.ID)*@, BM1.rowdata.DEPARTMENT_NAME, BM1.rowdata.YEAR_LABEL, BM1.rowdata.AUDIT_TYPE_NAME, BM1.rowdata.TOPIC_TYPE_NAME, BM1.rowdata.TOPIC_CODE, BM1.rowdata.TOPIC_NAME, BM1.rowdata.ORDER_NO, BM1.rowdata.ORDER_DATE, BM1.rowdata.BUDGET_TYPE_NAME); }, 1000);
-
       calculateSum1();
-      calculateSum2();
-      calculateSum3();
-      calculateSum4();
 
-      //$(".decimal").on('keyup', function (evt) {
-      //    if (evt.which != 110 && evt.which != 190) {
-      //        $(".decimal").formatCurrency();
-      //    }
-      //});
-
-      //$('.number').keyup(function (event) {
-
-      //    // skip for arrow keys
-      //    if (event.which >= 37 && event.which <= 40) return;
-
-      //    // format number
-      //    $(this).val(function (index, value) {
-      //        return value
-      //            .replace(/\D/g, "")
-      //            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      //            ;
-      //    });
-      //});
-      //$(".decimal").on('keyup', function (evt) {
-      //    if (evt.which != 110 && evt.which != 190) {
-      //        var n = parseFloat($(this).val().replace(/\,/g, ''), 2);
-      //        $(this).val(n.toLocaleString());
-      //    }
-      //});
+      
 
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-      $(".amount2").on("keydown keyup", function () {
-          calculateSum2();
-      });
-      $(".amount3").on("keydown keyup", function () {
-          calculateSum3();
-      });
-      $(".amount4").on("keydown keyup", function () {
-          calculateSum4();
-      });
+  
 
       function calculateSum1() {
           var sum = 0;
-          //iterate through each textboxes and add the values
           $(".amount1").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value.replace(',', ''));
-              }
-          });
-
-          $("#ACT_AMOUNT").val(sum.toFixed(2));
-      }
-      function calculateSum2() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount2").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
+              if (!isNaN(parseFloat(this.value)) && this.value.length != 0) {
                   sum += parseFloat(this.value);
               }
           });
-
-          $("#COMPLETION_AMOUNT").val(sum.toFixed(2));
+          console.log(sum);
+          $("#ACT_AMOUNT").val(sum).formatCurrency();
       }
-      function calculateSum3() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount3").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
-
-          $("#REMOVED_AMOUNT").val(sum.toFixed(2));
-      }
-      function calculateSum4() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount4").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
-
-          $("#ACT_C2_AMOUNT").val(sum.toFixed(2));
-      }
+     
   });
 </script>

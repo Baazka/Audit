@@ -73,24 +73,24 @@
             <table id="BM8" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
-                        <th rowspan="2" class="text-center">№</th>
-                        <th rowspan="2">Төрийн аудитын байгууллага</th>
-                        <th rowspan="2">Аудитын он</th>
-                        <th rowspan="2">Аудитын төрөл</th>
-                        <th rowspan="2">Сэдвийн үндэслэл</th>
-                        <th rowspan="2">Аудитын код</th>
-                        <th rowspan="2">Аудитын нэр</th>
-                        <th rowspan="2">Батлагдсан тушаалын дугаар</th>
-                        <th rowspan="2">Батлагдсан огноо</th>
-                        <th rowspan="2">Төсөв захирагчийн ангилал</th>
-                        <th colspan="5">Залруулсан алдаа</th>
+                        <th rowspan="2" class="text-center clickClass">№</th>
+                        <th rowspan="2" class="clickClass">Төрийн аудитын байгууллага</th>
+                        <th rowspan="2" class="clickClass">Аудитын он</th>
+                        <th rowspan="2" class="clickClass">Аудитын төрөл</th>
+                        <th rowspan="2" class="clickClass">Сэдвийн үндэслэл</th>
+                        <th rowspan="2" class="clickClass">Аудитын код</th>
+                        <th rowspan="2" class="clickClass">Аудитын нэр</th>
+                        <th rowspan="2" class="clickClass">Батлагдсан тушаалын дугаар</th>
+                        <th rowspan="2" class="clickClass">Батлагдсан огноо</th>
+                        <th rowspan="2" class="clickClass">Төсөв захирагчийн ангилал</th>
+                        <th colspan="5" class="clickClass">Залруулсан алдаа</th>
                     </tr>
                     <tr class="bg-light">
-                        <th>Байгууллагын нэр</th>
-                        <th>Алдааны утга</th>
-                        <th>Алдааны ангилал</th>
-                        <th>Тоо</th>
-                        <th>Дүн</th>
+                        <th class="clickClass">Байгууллагын нэр</th>
+                        <th class="clickClass">Алдааны утга</th>
+                        <th class="clickClass">Алдааны ангилал</th>
+                        <th class="clickClass">Тоо</th>
+                        <th class="clickClass">Дүн</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,6 +105,13 @@
         $(document).ready(function () {
             bm8ListInit();
         });
+
+        $(".clickClass").click(function () {
+            $("#BM8 tbody tr").removeClass('row_selected');
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM8.bm8ID = null;
+        });
+
         function rowselected() {
             $("#BM8 tbody tr").on('click', function (event) {
                 $("#FilterForm .enableBtn").removeClass("disabled")
@@ -190,9 +197,15 @@
             $('#BM0ListModel').modal('hide');
         }
         $('#DeparmentID').change(function () {
+            $("#BM8 tbody tr").removeClass('row_selected');
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM8.bm8ID = null;
             bm8ListInit();
         });
         $('#PeriodID').change(function () {
+            $("#BM8 tbody tr").removeClass('row_selected');
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM8.bm8ID = null;
             bm8ListInit();
         });
         var BM8 = {

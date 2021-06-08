@@ -37,11 +37,11 @@ namespace Audit.Models
         public string VIOLATION_NAME { get; set; }
         public string CORRECTED_ORG_NAME { get; set; }
         public int? CORRECTED_COUNT { get; set; }
-        public decimal? CORRECTED_AMOUNT { get; set; }
+        public string CORRECTED_AMOUNT { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
 
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
-
+        public string NOW_CREATED_DATE { get; set; } = DateTime.Now.ToString("yyyy.MM.dd");
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
         public List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
@@ -91,7 +91,7 @@ namespace Audit.Models
                 if (xml.Element("CORRECTED_COUNT") != null)
                     CORRECTED_COUNT = Convert.ToInt32(xml.Element("CORRECTED_COUNT").Value);
                 if (xml.Element("CORRECTED_AMOUNT") != null)
-                    CORRECTED_AMOUNT = Convert.ToDecimal(xml.Element("CORRECTED_AMOUNT").Value);
+                    CORRECTED_AMOUNT = xml.Element("CORRECTED_AMOUNT").Value;
             }
             return this;
         }
@@ -104,7 +104,7 @@ namespace Audit.Models
                        new XElement("CORRECTED_ORG_NAME", CORRECTED_ORG_NAME),
                        new XElement("CORRECTED_ERROR_TYPE", CORRECTED_ERROR_TYPE),
                        new XElement("CORRECTED_COUNT", CORRECTED_COUNT),
-                       new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT),
+                       CORRECTED_AMOUNT != null ? new XElement("CORRECTED_AMOUNT", CORRECTED_AMOUNT.Split(',')) : new XElement("CORRECTED_AMOUNT", null),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );

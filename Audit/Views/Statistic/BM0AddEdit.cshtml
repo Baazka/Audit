@@ -41,6 +41,18 @@
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
+                                    <div class="col-4">
+                                        @*<div class="form-group row">
+                                            <div class="col-sm-8">
+                                                <label class="col-sm-4 col-form-label text-right">2020 он</label>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary btn2020listPopup">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>*@
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -55,7 +67,6 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Аудитын он: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @*@Html.EditorFor(m => m.YEAR_LABEL, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })*@
                                         @Html.DropDownListFor(model => model.AUDIT_YEAR, Model.refaudityears.Select(m => new SelectListItem { Text = m.YEAR_LABEL, Value = m.YEAR_ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
                                 </div>
@@ -203,7 +214,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Аудитын үйлчилгээний төлбөр:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.AUDIT_SERVICE_PAY, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal currency", @placeholder = "0.00" } })
                                     </div>
                                 </div>
                             </div>
@@ -300,10 +311,43 @@
     </div>
 </div>
 <script>
+    $(document).ready(function () {
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
+    });
+</script>
+<script>
+
     var stringArrayLeaders = @Html.Raw(Json.Encode(Model.AUDITOR_LEADS));
     var stringArrayMembers = @Html.Raw(Json.Encode(Model.AUDITOR_MEMBERS));
     
-    //console.log(stringArrayMembers);
+  
 
     $(document).ready(function () {
         

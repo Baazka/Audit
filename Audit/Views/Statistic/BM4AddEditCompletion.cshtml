@@ -30,14 +30,34 @@
                         @Html.HiddenFor(m => m.ID)
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
-                    <div class="col-12">
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
-                            <div class="col-sm-4">
-                                @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @readonly = "readonly" } })
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Биелэлтийг тооцох: <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.PROPOSAL_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
+
+                                    @Html.ValidationMessageFor(m => m.PROPOSAL_DELIVERY_DATE, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Зөрчлийн тоо: <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.PROPOSAL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(m => m.PROPOSAL_COUNT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
+                                <div class="col-sm-4">
+                                    @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                        </div>
 
                         <h6 class="heading-1"><span>Албан тушаалтанд хариуцлага тооцуулах саналын хэрэгжилт</span></h6>
                         <div class="row">
@@ -61,7 +81,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +89,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +107,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
                                     <div class="col-sm-4">
                                         @*<input value="@Model.COMPLETION_PROGRESS_AMOUNT"/>*@
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
                                     </div>
                                 </div>
                             </div>
@@ -104,16 +124,46 @@
     </div>
 </div>
 <script>
-    var value1 = $("#COMPLETION_PROGRESS_AMOUNT").val();
+    $(document).ready(function () {
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
+    });
+</script>
+<script>
+
+    //var value1 = $("#COMPLETION_PROGRESS_AMOUNT").val();
     var value2 = $("#COMPLETION_DONE_AMOUNT").val();
     var value3 = $("#PROPOSAL_AMOUNT").val();
     var value4 = 0;
-    $(document).ready(function () {
-        if (value3 == 0.00) {
-            $("#COMPLETION_DONE").val("0");
-            $("#COMPLETION_PROGRESS").val("0");
-        }
-    });
+    var value5 = $("#COMPLETION_DONE").val();
+    var value6 = $("#PROPOSAL_COUNT").val();
+    var value7 = 0;
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -135,39 +185,59 @@
       });
 
       calculateSum1();
+      calculateSum2();
 
 
-      $(".amount2").on("keydown keyup", function () {
+      $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
+      });
+      $(".amount2").on("change", function () {
+          calculateSum2();
+      });
       function calculateSum1() {
-          var value1 = $("#COMPLETION_PROGRESS_AMOUNT").val();
+          //var value1 = $("#COMPLETION_PROGRESS_AMOUNT").val();
           var value2 = $("#COMPLETION_DONE_AMOUNT").val();
           var value3 = $("#PROPOSAL_AMOUNT").val();
-          var total = 0;
 
+
+          var res3 = value3.replace(/,/g, '');
+          var res2 = value2.replace(/,/g, '');
+          var total = 0;
+          //$(".amount1").each(function () {
+          //    if (!isNaN(this.value) && this.value.length != 0) {
+          //        total = parseFloat(res3 - res2);
+          //    }
+
+          //});
+          total = parseFloat(res3 - res2);
+          value4 = total;
+
+          if (isNaN(value4)) {
+              value4 = 0;
+          }
+          $("#COMPLETION_PROGRESS_AMOUNT").val(value4).formatCurrency();
+
+      }
+      function calculateSum2() {
+          var value5 = $("#COMPLETION_DONE").val();
+          var value6 = $("#PROPOSAL_COUNT").val();
+          var total = 0;
           $(".amount2").each(function () {
               if (!isNaN(this.value) && this.value.length != 0) {
-                 
-                  total = parseFloat(value3 - value2);
+                  total = parseFloat(value6 - value5);
               }
 
           });
 
-          value4 = total / value1;
-          if (value4 == null) {
-              value4 = 0
-          }
-          if (value4 <= 1) {
-              $("#COMPLETION_DONE").val("1");
-              $("#COMPLETION_PROGRESS").val("0");
+          value7 = total;
 
+          if (isNaN(value7)) {
+              value7 = 0;
           }
-          if (value4 > 1) {
-              $("#COMPLETION_DONE").val("0");
-              $("#COMPLETION_PROGRESS").val("1");
-          }
+          $("#COMPLETION_PROGRESS").val(value7);
 
       }
   });

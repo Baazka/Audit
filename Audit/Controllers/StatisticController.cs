@@ -67,6 +67,17 @@ namespace Audit.Controllers
             }
             return PartialView(bM0Search);
         }
+
+        public PartialViewResult BM0Search2020()
+        {
+            List<BM0Search2020> bM0Search = new List<BM0Search2020>();
+            XElement res = AppStatic.SystemController.BM0Search2020(Convert.ToInt32(User.GetClaimData("DepartmentID")));
+            if (res != null && res.Elements("BM0Search2020") != null)
+            {
+                bM0Search = (from item in res.Elements("BM0Search2020") select new BM0Search2020().SetXml(item)).ToList();
+            }
+            return PartialView(bM0Search);
+        }
         public PartialViewResult SystemUserModal(int AUDIT_ID ,int type)
         {
             List<SystemUser> systemuser = new List<SystemUser>();
@@ -74,7 +85,7 @@ namespace Audit.Controllers
                 systemuser = Globals.systemusers;
             else
             {
-                XElement res = AppStatic.SystemController.SystemUser(AUDIT_ID, type);
+                XElement res = AppStatic.SystemController.SystemUser(AUDIT_ID, type, User.GetClaimData("DepartmentID"), User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("SystemUser") != null)
                 {
                     systemuser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
@@ -1114,24 +1125,24 @@ namespace Audit.Controllers
         [HttpPost]
         public ActionResult BM2AddEdit(BM2 bm2)
         {
-            if(bm2.CLAIM_C2_NONEXPIRED == 0)
+            if(bm2.CLAIM_C2_NONEXPIRED == null || bm2.CLAIM_C2_NONEXPIRED == "0.00")
             {
                 ModelState.Remove("CLAIM_C2_NONEXPIRED");
                 
             }
-            if (bm2.CLAIM_C2_AMOUNT == 0)
+            if (bm2.CLAIM_C2_AMOUNT == null || bm2.CLAIM_C2_AMOUNT == "0.00")
             {
                 ModelState.Remove("CLAIM_C2_AMOUNT");
                 ModelState.Remove("CLAIM_C2_EXPIRED");
             }
-            if(bm2.COMPLETION_AMOUNT == 0)
+            if(bm2.COMPLETION_AMOUNT == null || bm2.COMPLETION_AMOUNT == "0.00")
             {
                 ModelState.Remove("COMPLETION_STATE_AMOUNT");
                 ModelState.Remove("COMPLETION_LOCAL_AMOUNT");
                 ModelState.Remove("COMPLETION_ORG_AMOUNT");
                 ModelState.Remove("COMPLETION_OTHER_AMOUNT");
             }
-            if (bm2.REMOVED_LAW_AMOUNT == 0)
+            if (bm2.REMOVED_LAW_AMOUNT == null || bm2.REMOVED_LAW_AMOUNT == "0.00")
             {
                 ModelState.Remove("REMOVED_LAW_AMOUNT");
             }
@@ -1139,7 +1150,7 @@ namespace Audit.Controllers
             {
                 ModelState.Remove("REMOVED_LAW_NO");
             }
-            if (bm2.REMOVED_INVALID_AMOUNT == 0)
+            if (bm2.REMOVED_INVALID_AMOUNT == null || bm2.REMOVED_LAW_AMOUNT == "0.00")
             {
                 ModelState.Remove("REMOVED_INVALID_AMOUNT");
             }

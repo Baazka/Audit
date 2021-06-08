@@ -44,7 +44,7 @@ namespace Audit.Models
         public string PROPOSAL_DELIVERY_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public int? PROPOSAL_COUNT { get; set; }
-        public decimal? PROPOSAL_AMOUNT { get; set; }
+        public string PROPOSAL_AMOUNT { get; set; }
         public string PROPOSAL_RCV_NAME { get; set; }
         public string PROPOSAL_RCV_ROLE { get; set; }
         public string PROPOSAL_RCV_GIVEN_NAME { get; set; }
@@ -56,12 +56,13 @@ namespace Audit.Models
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
         public int? COMPLETION_DONE { get; set; }
-        public decimal? COMPLETION_DONE_AMOUNT { get; set; }
+        public string COMPLETION_DONE_AMOUNT { get; set; }
         public int? COMPLETION_PROGRESS { get; set; }
-        public decimal? COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public string COMPLETION_PROGRESS_AMOUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
+        public string NOW_CREATED_DATE { get; set; } = DateTime.Now.ToString("yyyy.MM.dd");
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
         public List<REF_AUDIT_YEAR> refaudityears { get; set; } = new List<REF_AUDIT_YEAR>();
@@ -119,7 +120,7 @@ namespace Audit.Models
                 if (xml.Element("PROPOSAL_VIOLATION_COUNT") != null)
                     PROPOSAL_COUNT = Convert.ToInt32(xml.Element("PROPOSAL_VIOLATION_COUNT").Value);
                 if (xml.Element("PROPOSAL_AMOUNT") != null)
-                    PROPOSAL_AMOUNT = Convert.ToDecimal(xml.Element("PROPOSAL_AMOUNT").Value);
+                    PROPOSAL_AMOUNT = xml.Element("PROPOSAL_AMOUNT").Value;
                 if (xml.Element("PROPOSAL_RCV_NAME") != null)
                     PROPOSAL_RCV_NAME = xml.Element("PROPOSAL_RCV_NAME").Value;
                 if (xml.Element("PROPOSAL_RCV_ROLE") != null)
@@ -139,11 +140,11 @@ namespace Audit.Models
                 if (xml.Element("COMPLETION_DONE") != null)
                     COMPLETION_DONE = Convert.ToInt32(xml.Element("COMPLETION_DONE").Value);
                 if (xml.Element("COMPLETION_DONE_AMOUNT") != null)
-                    COMPLETION_DONE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_DONE_AMOUNT").Value);
+                    COMPLETION_DONE_AMOUNT = xml.Element("COMPLETION_DONE_AMOUNT").Value;
                 if (xml.Element("COMPLETION_PROGRESS") != null)
                     COMPLETION_PROGRESS = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS").Value);
                 if (xml.Element("COMPLETION_PROGRESS_AMOUNT") != null)
-                    COMPLETION_PROGRESS_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
+                    COMPLETION_PROGRESS_AMOUNT = xml.Element("COMPLETION_PROGRESS_AMOUNT").Value;
                 
             }
             return this;
@@ -161,7 +162,7 @@ namespace Audit.Models
                        PROPOSAL_SUBMITTED_DATE != null ? new XElement("PROPOSAL_SUBMITTED_DATE", Convert.ToDateTime(PROPOSAL_SUBMITTED_DATE).ToString("dd-MMM-yy")) : new XElement("PROPOSAL_SUBMITTED_DATE", null),
                        PROPOSAL_DELIVERY_DATE != null ? new XElement("PROPOSAL_DELIVERY_DATE", Convert.ToDateTime(PROPOSAL_DELIVERY_DATE).ToString("dd-MMM-yy")) : new XElement("PROPOSAL_DELIVERY_DATE", null),
                        new XElement("PROPOSAL_COUNT", PROPOSAL_COUNT),
-                       new XElement("PROPOSAL_AMOUNT", PROPOSAL_AMOUNT),
+                       PROPOSAL_AMOUNT != null ? new XElement("PROPOSAL_AMOUNT", PROPOSAL_AMOUNT.Split(',')) : new XElement("PROPOSAL_AMOUNT", null),
                        new XElement("PROPOSAL_RCV_NAME", PROPOSAL_RCV_NAME),
                        new XElement("PROPOSAL_RCV_ROLE", PROPOSAL_RCV_ROLE),
                        new XElement("PROPOSAL_RCV_GIVEN_NAME", PROPOSAL_RCV_GIVEN_NAME),
@@ -171,9 +172,9 @@ namespace Audit.Models
                        COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
-                       new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),
+                       COMPLETION_DONE_AMOUNT != null ? new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT.Split(',')) : new XElement("COMPLETION_DONE_AMOUNT", null),
                        new XElement("COMPLETION_PROGRESS", COMPLETION_PROGRESS),
-                       new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT),
+                       COMPLETION_PROGRESS_AMOUNT != null ? new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT.Split(',')) : new XElement("COMPLETION_PROGRESS_AMOUNT", null),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );
