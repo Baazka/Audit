@@ -156,7 +156,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.REFERENCE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -316,7 +316,7 @@
                                         @Html.ValidationMessageFor(m => m.C2_EXPIRED_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                         <h6 class="heading-1"><span>Хүлээн зөвшөөрүүлсэн үр өгөөж</span></h6>
                         <div class="row">
@@ -333,7 +333,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -360,7 +360,40 @@
     </div>
 </div>
 <script>
+    $(document).ready(function () {
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
+    });
+</script>
+<script>
     var value1 = 0;
+    var value2 = 0;
     
     
   $( function() {
@@ -396,28 +429,37 @@
       $(".amount2").on("keydown keyup", function () {
           calculateSum2();
       });
+      $(".amount2").on("change", function () {
+          calculateSum2();
+      });
       function calculateSum1() {
           var value3 = $("#COMPLETION_DONE_AMOUNT").val();
           var value4 = $("#REFERENCE_AMOUNT").val();
+
+          var res3 = value3.replace(/,/g, '');
+          var res4 = value4.replace(/,/g, '');
+          
           var sum = 0;
-          $(".amount1").each(function () {
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum = parseFloat(value4 - value3);
-              }
-          });
+          //$(".amount1").each(function () {
+          //    if (!isNaN(this.value) && this.value.length != 0) {
+          //        sum = parseFloat(res4 - res3);
+          //    }
+          //});
+
+          sum = parseFloat(res4 - res3);
           value1 = sum;
           if (isNaN(value1)) {
               value1 = 0;
           }
-          $("#COMPLETION_PROGRESS_AMOUNT").val(value1.toFixed(2));
+          $("#COMPLETION_PROGRESS_AMOUNT").val(value1).formatCurrency();
 
           if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
-              $("#C2_EXPIRED_AMOUNT").val(value1.toFixed(2));
+              $("#C2_EXPIRED_AMOUNT").val(value1).formatCurrency();
               $("#C2_NONEXPIRED_AMOUNT").val(null);
           }
           if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED_AMOUNT").val(null);
-              $("#C2_NONEXPIRED_AMOUNT").val(value1.toFixed(2));
+              $("#C2_NONEXPIRED_AMOUNT").val(value1).formatCurrency();
 
           }
 
@@ -427,25 +469,25 @@
           var value6 = $("#COMPLETION_DONE").val();
           var value7 = $("#REFERENCE_COUNT").val();
           var sum = 0;
-          $(".amount1").each(function () {
+          $(".amount2").each(function () {
               if (!isNaN(this.value) && this.value.length != 0) {
                   sum = parseFloat(value7 - value6);
               }
           });
-          value1 = sum;
-          if (isNaN(value1)) {
-              value1 = 0;
+          value2 = sum;
+          if (isNaN(value2)) {
+              value2 = 0;
           }
-          $("#COMPLETION_PROGRESS").val(value1);
+          $("#COMPLETION_PROGRESS").val(value2);
 
           if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
 
-              $("#C2_EXPIRED").val(value1);
+              $("#C2_EXPIRED").val(value2);
               $("#C2_NONEXPIRED").val(null);
           }
           if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
               $("#C2_EXPIRED").val(null);
-              $("#C2_NONEXPIRED").val(value1);
+              $("#C2_NONEXPIRED").val(value2);
 
           }
 

@@ -40,16 +40,16 @@ namespace Audit.Models
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public int? LAW_NUMBER { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
-        public decimal? LAW_AMOUNT { get; set; }
+        public string LAW_AMOUNT { get; set; }
         public int? LAW_C2_NUMBER { get; set; }
-        public decimal? LAW_C2_AMOUNT { get; set; }
+        public string LAW_C2_AMOUNT { get; set; }
 
         public int? COMPLETION_DONE { get; set; }
-        public decimal? COMPLETION_DONE_AMOUNT { get; set; }
+        public string COMPLETION_DONE_AMOUNT { get; set; }
         public int? COMPLETION_PROGRESS { get; set; }
-        public decimal? COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public string COMPLETION_PROGRESS_AMOUNT { get; set; }
         public int? COMPLETION_INVALID { get; set; }
-        public decimal? COMPLETION_INVALID_AMOUNT { get; set; }
+        public string COMPLETION_INVALID_AMOUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
@@ -105,24 +105,24 @@ namespace Audit.Models
                 if (xml.Element("LAW_NUMBER") != null)
                     LAW_NUMBER = Convert.ToInt32(xml.Element("LAW_NUMBER").Value);
                 if (xml.Element("LAW_AMOUNT") != null)
-                    LAW_AMOUNT = Convert.ToDecimal(xml.Element("LAW_AMOUNT").Value);
+                    LAW_AMOUNT = xml.Element("LAW_AMOUNT").Value;
                 if (xml.Element("LAW_C2_NUMBER") != null)
                     LAW_C2_NUMBER = Convert.ToInt32(xml.Element("LAW_C2_NUMBER").Value);
                 if (xml.Element("LAW_C2_AMOUNT") != null)
-                    LAW_C2_AMOUNT = Convert.ToDecimal(xml.Element("LAW_C2_AMOUNT").Value);
+                    LAW_C2_AMOUNT = xml.Element("LAW_C2_AMOUNT").Value;
 
                 if (xml.Element("COMPLETION_DONE") != null)
                     COMPLETION_DONE = Convert.ToInt32(xml.Element("COMPLETION_DONE").Value);
                 if (xml.Element("COMPLETION_DONE_AMOUNT") != null)
-                    COMPLETION_DONE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_DONE_AMOUNT").Value);
+                    COMPLETION_DONE_AMOUNT = xml.Element("COMPLETION_DONE_AMOUNT").Value;
                 if (xml.Element("COMPLETION_PROGRESS") != null)
                     COMPLETION_PROGRESS = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS").Value);
                 if (xml.Element("COMPLETION_PROGRESS_AMOUNT") != null)
-                    COMPLETION_PROGRESS_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
+                    COMPLETION_PROGRESS_AMOUNT = xml.Element("COMPLETION_PROGRESS_AMOUNT").Value;
                 if (xml.Element("COMPLETION_INVALID") != null)
                     COMPLETION_INVALID = Convert.ToInt32(xml.Element("COMPLETION_INVALID").Value);
                 if (xml.Element("COMPLETION_INVALID_AMOUNT") != null)
-                    COMPLETION_INVALID_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_INVALID_AMOUNT").Value);
+                    COMPLETION_INVALID_AMOUNT = xml.Element("COMPLETION_INVALID_AMOUNT").Value;
             }
             return this;
         }
@@ -136,15 +136,15 @@ namespace Audit.Models
                        new XElement("LAW_VIOLATION_TYPE", LAW_VIOLATION_TYPE),
                        new XElement("LAW_MOVING_INFORMATION", LAW_MOVING_INFORMATION),
                        new XElement("LAW_NUMBER", LAW_NUMBER),
-                       new XElement("LAW_AMOUNT", LAW_AMOUNT),
+                       LAW_AMOUNT != null ? new XElement("LAW_AMOUNT", LAW_AMOUNT.Split(',')) : new XElement("LAW_AMOUNT", null),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
-                       new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),
+                       COMPLETION_DONE_AMOUNT != null ? new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT.Split(',')) : new XElement("COMPLETION_DONE_AMOUNT", null),
                        new XElement("COMPLETION_PROGRESS", COMPLETION_PROGRESS),
-                       new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT),
+                       COMPLETION_PROGRESS_AMOUNT != null ? new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT.Split(',')) : new XElement("COMPLETION_PROGRESS_AMOUNT", null),
                        new XElement("COMPLETION_INVALID", COMPLETION_INVALID),
-                       new XElement("COMPLETION_INVALID_AMOUNT", COMPLETION_INVALID_AMOUNT),
+                       COMPLETION_INVALID_AMOUNT != null ? new XElement("COMPLETION_INVALID_AMOUNT", COMPLETION_INVALID_AMOUNT.Split(',')) : new XElement("COMPLETION_INVALID_AMOUNT", null),
                        new XElement("LAW_C2_NUMBER", LAW_C2_NUMBER),
-                       new XElement("LAW_C2_AMOUNT", LAW_C2_AMOUNT),
+                       LAW_C2_AMOUNT != null ? new XElement("LAW_C2_AMOUNT", LAW_C2_AMOUNT.Split(',')) : new XElement("LAW_C2_AMOUNT", null),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );

@@ -36,7 +36,7 @@ namespace Audit.Models
         public string VIOLATION_NAME { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public int? REFERENCE_COUNT { get; set; }
-        public decimal? REFERENCE_AMOUNT { get; set; }
+        public string REFERENCE_AMOUNT { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_SUBMITTED_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
@@ -52,16 +52,16 @@ namespace Audit.Models
         public string COMPLETION_DATE { get; set; }
         public string COMPLETION_ORDER { get; set; }
         public int? COMPLETION_DONE { get; set; }
-        public decimal? COMPLETION_DONE_AMOUNT { get; set; }
+        public string COMPLETION_DONE_AMOUNT { get; set; }
         public int? COMPLETION_PROGRESS { get; set; }
-        public decimal? COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public string COMPLETION_PROGRESS_AMOUNT { get; set; }
         public int? C2_NONEXPIRED { get; set; }
-        public decimal? C2_NONEXPIRED_AMOUNT { get; set; }
+        public string C2_NONEXPIRED_AMOUNT { get; set; }
         public int? C2_EXPIRED { get; set; }
-        public decimal? C2_EXPIRED_AMOUNT { get; set; }
+        public string C2_EXPIRED_AMOUNT { get; set; }
 
         public int? BENEFIT_FIN { get; set; }
-        public decimal? BENEFIT_FIN_AMOUNT { get; set; }
+        public string BENEFIT_FIN_AMOUNT { get; set; }
         public int? BENEFIT_NONFIN { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
@@ -116,7 +116,7 @@ namespace Audit.Models
                 if (xml.Element("REFERENCE_COUNT") != null)
                     REFERENCE_COUNT = Convert.ToInt32(xml.Element("REFERENCE_COUNT").Value);
                 if (xml.Element("REFERENCE_AMOUNT") != null)
-                    REFERENCE_AMOUNT = Convert.ToDecimal(xml.Element("REFERENCE_AMOUNT").Value);
+                    REFERENCE_AMOUNT = xml.Element("REFERENCE_AMOUNT").Value;
                 if (xml.Element("REFERENCE_SUBMITTED_DATE") != null)
                     REFERENCE_SUBMITTED_DATE = Convert.ToDateTime(xml.Element("REFERENCE_SUBMITTED_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("REFERENCE_DELIVERY_DATE") != null)
@@ -138,24 +138,24 @@ namespace Audit.Models
                 if (xml.Element("COMPLETION_DONE") != null)
                     COMPLETION_DONE = Convert.ToInt32(xml.Element("COMPLETION_DONE").Value);
                 if (xml.Element("COMPLETION_DONE_AMOUNT") != null)
-                    COMPLETION_DONE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_DONE_AMOUNT").Value);
+                    COMPLETION_DONE_AMOUNT = xml.Element("COMPLETION_DONE_AMOUNT").Value;
                 if (xml.Element("COMPLETION_PROGRESS") != null)
                     COMPLETION_PROGRESS = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS").Value);
                 if (xml.Element("COMPLETION_PROGRESS_AMOUNT") != null)
-                    COMPLETION_PROGRESS_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
+                    COMPLETION_PROGRESS_AMOUNT = xml.Element("COMPLETION_PROGRESS_AMOUNT").Value;
                 if (xml.Element("C2_NONEXPIRED") != null)
                     C2_NONEXPIRED = Convert.ToInt32(xml.Element("C2_NONEXPIRED").Value);
                 if (xml.Element("C2_NONEXPIRED_AMOUNT") != null)
-                    C2_NONEXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("C2_NONEXPIRED_AMOUNT").Value);
+                    C2_NONEXPIRED_AMOUNT = xml.Element("C2_NONEXPIRED_AMOUNT").Value;
                 if (xml.Element("C2_EXPIRED") != null)
                     C2_EXPIRED = Convert.ToInt32(xml.Element("C2_EXPIRED").Value);
                 if (xml.Element("C2_EXPIRED_AMOUNT") != null)
-                    C2_EXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("C2_EXPIRED_AMOUNT").Value);
+                    C2_EXPIRED_AMOUNT = xml.Element("C2_EXPIRED_AMOUNT").Value;
                 
                 if (xml.Element("BENEFIT_FIN") != null)
                     BENEFIT_FIN = Convert.ToInt32(xml.Element("BENEFIT_FIN").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
-                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value);
+                    BENEFIT_FIN_AMOUNT = xml.Element("BENEFIT_FIN_AMOUNT").Value;
                 if (xml.Element("BENEFIT_NONFIN") != null)
                     BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
             }
@@ -169,7 +169,7 @@ namespace Audit.Models
                        new XElement("REFERENCE_DESC", REFERENCE_DESC),
                        new XElement("REFERENCE_TYPE", REFERENCE_TYPE),
                        new XElement("REFERENCE_COUNT", REFERENCE_COUNT),
-                       new XElement("REFERENCE_AMOUNT", REFERENCE_AMOUNT),
+                       REFERENCE_AMOUNT != null ? new XElement("REFERENCE_AMOUNT", REFERENCE_AMOUNT.Split(',')) : new XElement("REFERENCE_AMOUNT", null),
                        REFERENCE_SUBMITTED_DATE != null ? new XElement("REFERENCE_SUBMITTED_DATE", Convert.ToDateTime(REFERENCE_SUBMITTED_DATE).ToString("dd-MMM-yy")) : new XElement("REFERENCE_SUBMITTED_DATE", null),
                        REFERENCE_DELIVERY_DATE != null ? new XElement("REFERENCE_DELIVERY_DATE", Convert.ToDateTime(REFERENCE_DELIVERY_DATE).ToString("dd-MMM-yy")) : new XElement("REFERENCE_DELIVERY_DATE", null),
                        new XElement("REFERENCE_RCV_NAME", REFERENCE_RCV_NAME),
@@ -180,15 +180,15 @@ namespace Audit.Models
                        COMPLETION_DATE != null ? new XElement("COMPLETION_DATE", Convert.ToDateTime(COMPLETION_DATE).ToString("dd-MMM-yy")) : new XElement("COMPLETION_DATE", null),
                        new XElement("COMPLETION_ORDER", COMPLETION_ORDER),
                        new XElement("COMPLETION_DONE", COMPLETION_DONE),
-                       new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT),
+                       COMPLETION_DONE_AMOUNT != null ? new XElement("COMPLETION_DONE_AMOUNT", COMPLETION_DONE_AMOUNT.Split(',')) : new XElement("COMPLETION_DONE_AMOUNT", null),
                        new XElement("COMPLETION_PROGRESS", COMPLETION_PROGRESS),
-                       new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT),
+                       COMPLETION_PROGRESS_AMOUNT != null ? new XElement("COMPLETION_PROGRESS_AMOUNT", COMPLETION_PROGRESS_AMOUNT.Split(',')) : new XElement("COMPLETION_PROGRESS_AMOUNT", null),
                        new XElement("C2_NONEXPIRED", C2_NONEXPIRED),
-                       new XElement("C2_NONEXPIRED_AMOUNT", C2_NONEXPIRED_AMOUNT),
+                       C2_NONEXPIRED_AMOUNT != null ? new XElement("C2_NONEXPIRED_AMOUNT", C2_NONEXPIRED_AMOUNT.Split(',')) : new XElement("C2_NONEXPIRED_AMOUNT", null),
                        new XElement("C2_EXPIRED", C2_EXPIRED),
-                       new XElement("C2_EXPIRED_AMOUNT", C2_EXPIRED_AMOUNT),
+                       C2_EXPIRED_AMOUNT != null ? new XElement("C2_EXPIRED_AMOUNT", C2_EXPIRED_AMOUNT.Split(',')) : new XElement("C2_EXPIRED_AMOUNT", null),
                        new XElement("BENEFIT_FIN", BENEFIT_FIN),
-                       new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT),
+                       BENEFIT_FIN_AMOUNT != null ? new XElement("BENEFIT_FIN_AMOUNT", BENEFIT_FIN_AMOUNT.Split(',')) : new XElement("BENEFIT_FIN_AMOUNT", null),
                        new XElement("BENEFIT_NONFIN", BENEFIT_NONFIN),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
