@@ -35,20 +35,20 @@
                                     foreach (var item in Model)
                                     {
                                         counter++;
-                                        <tr>
-                                            <td class="text-center">@counter</td>
-                                            <td>@item.DEPARTMENT_NAME</td>
-                                            <td>@item.YEAR_LABEL</td>
-                                            <td>@item.AUDIT_TYPE_NAME</td>
-                                            <td>@item.TOPIC_TYPE_NAME</td>
-                                            <td>@item.TOPIC_CODE</td>
-                                            <td>@item.TOPIC_NAME</td>
-                                            <td>@item.ORDER_NO</td>
-                                            <td>@item.BUDGET_TYPE_NAME</td>
-                                            <td>@item.FORM_TYPE_NAME</td>
-                                            <td>@item.PROPOSAL_TYPE_NAME</td>
-                                            <td><a onclick="Choose2020('@item.AUDIT_TYPE', '@item.TOPIC_TYPE', '@item.TOPIC_CODE', '@item.TOPIC_NAME', '@item.ORDER_NO', '@item.AUDIT_BUDGET_TYPE', '@item.AUDIT_FORM_TYPE', '@item.AUDIT_PROPOSAL_TYPE')" style="cursor:pointer; text-decoration:underline;">Сонгох</a></td>
-                                        </tr>
+                                <tr>
+                                    <td class="text-center">@counter</td>
+                                    <td>@item.DEPARTMENT_NAME</td>
+                                    <td>@item.YEAR_LABEL</td>
+                                    <td>@item.AUDIT_TYPE_NAME</td>
+                                    <td>@item.TOPIC_TYPE_NAME</td>
+                                    <td>@item.TOPIC_CODE</td>
+                                    <td>@item.TOPIC_NAME</td>
+                                    <td>@item.ORDER_NO</td>
+                                    <td>@item.BUDGET_TYPE_NAME</td>
+                                    <td>@item.FORM_TYPE_NAME</td>
+                                    <td>@item.PROPOSAL_TYPE_NAME</td>
+                                    <td><a onclick="Choose2020('@item.AUDIT_TYPE', '@item.TOPIC_TYPE', '@item.TOPIC_CODE', '@item.TOPIC_NAME', '@item.ORDER_NO', '@item.AUDIT_BUDGET_TYPE', '@item.AUDIT_FORM_TYPE', '@item.AUDIT_PROPOSAL_TYPE')" style="cursor:pointer; text-decoration:underline;">Сонгох</a></td>
+                                </tr>
                                     }
                                 }
                             </tbody>

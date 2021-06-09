@@ -30,7 +30,6 @@ namespace Audit.Models
         public string ORDER_NO { get; set; }
         public string ORDER_DATE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
@@ -43,6 +42,7 @@ namespace Audit.Models
         public string ACT_SUBMITTED_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_DELIVERY_DATE { get; set; }
+        [DataType(DataType.Currency)]
         public string ACT_AMOUNT { get; set; }
         public decimal? ACT_STATE_AMOUNT { get; set; }
         public decimal? ACT_LOCAL_AMOUNT { get; set; }

@@ -27,7 +27,7 @@ namespace Audit.Models
         public int? AUDIT_TYPE { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
         [Required(ErrorMessage = "Cонгоно уу.")]
-        public int TOPIC_TYPE { get; set; }
+        public int? TOPIC_TYPE { get; set; }
         
         public string TOPIC_TYPE_NAME { get; set; }
         [Required(ErrorMessage = "Сэдвийн код оруулна уу.")]
@@ -249,6 +249,7 @@ namespace Audit.Models
     }
     public class BM0Search2020
     {
+        public int ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int AUDIT_TYPE { get; set; }
         public string YEAR_LABEL { get; set; }
@@ -268,7 +269,8 @@ namespace Audit.Models
         {
             if (xml != null)
             {
-                
+                if (xml.Element("ID") != null)
+                    ID = Convert.ToInt32(xml.Element("ID").Value);
                 if (xml.Element("DEPARTMENT_NAME") != null)
                     DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value.Replace("\n", "").Replace("\r", "");
                 if (xml.Element("AUDIT_TYPE") != null)

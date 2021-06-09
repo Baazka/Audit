@@ -1,11 +1,11 @@
 ﻿@model Audit.Models.BM0
 
 <div class="modal fade" id="Bm0Modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM0AddEdit", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
-                       UpdateTargetId = "Bm0Modalcontainer",
+                       UpdateTargetId = "bm0modalcontainer",
                        OnBegin = "Modal.show()",
                        OnComplete = "Modal.hide(); $('#Bm0Modal').modal({ show: true }); $('.modal-backdrop:first').remove()",
                        OnSuccess = "BM0.progressResponse(data, status, xhr)",
@@ -30,7 +30,27 @@
                         @Html.HiddenFor(m => m.CREATED_DATE)
                         @Html.HiddenFor(m => m.DEPARTMENT_ID)
                         @Html.HiddenFor(m => m.AUDITOR_LEAD_EDIT)
-                        @Html.HiddenFor(m => m.AUDITOR_MEMBER_EDIT) 
+                        @Html.HiddenFor(m => m.AUDITOR_MEMBER_EDIT)
+                        @if (Model.AUDIT_TYPE == 0)
+                        {
+                            Model.AUDIT_TYPE = null;
+                        }
+                        @if (Model.TOPIC_TYPE == 0)
+                        {
+                            Model.TOPIC_TYPE = null;
+                        }
+                        @if (Model.AUDIT_BUDGET_TYPE == 0)
+                        {
+                            Model.AUDIT_BUDGET_TYPE = null;
+                        }
+                        @if (Model.AUDIT_FORM_TYPE == 0)
+                        {
+                            Model.AUDIT_FORM_TYPE = null;
+                        }
+                        @if (Model.AUDIT_PROPOSAL_TYPE == 0)
+                        {
+                            Model.AUDIT_PROPOSAL_TYPE = null;
+                        }
                         <h6>Гүйцэтгэсэн аудитын шинэ бүртгэл</h6>
                         <hr />
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
@@ -42,16 +62,16 @@
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                         @Html.ValidationMessageFor(m => m.STATISTIC_PERIOD, "", new { @class = "text-danger" })
                                     </div>
-                                    @*<div class="col-sm-4">
+                                    <div class="col-sm-4">
                                         <button type="button" class="btn btn-sm btn-primary btn-icon-split btn2020listPopup">
                                             <span class="icon text-white-50">
                                                 <i class="fa fa-check-square"></i>
                                             </span>
-                                            <span class="text">2020 оны бүртгэл</span>  
+                                            <span class="text">2020 оны бүртгэл</span>
                                         </button>
-                                    </div>*@
                                     </div>
                                 </div>
+                            </div>
                             <div class="col-12">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага: <span class="required">*</span></label>
@@ -81,12 +101,12 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Сэдвийн үндэслэл: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                            @Html.DropDownListFor(model => model.TOPIC_TYPE, Model.topictypes.Where(m => m.TOPIC_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                            @if (Model.topictypes.Count() > 0)
-                                            {
-                                                @Html.DropDownList("ddTopicTypeHidden", Model.topictypes.Select(m => new SelectListItem() { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_AUDIT_TYPE_ID.ToString() + ":" + m.TOPIC_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                            }
-                                            @Html.ValidationMessageFor(m => m.TOPIC_TYPE, "", new { @class = "text-danger" })
+                                        @Html.DropDownListFor(model => model.TOPIC_TYPE, Model.topictypes.Where(m => m.TOPIC_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @if (Model.topictypes.Count() > 0)
+                                        {
+                                            @Html.DropDownList("ddTopicTypeHidden", Model.topictypes.Select(m => new SelectListItem() { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_AUDIT_TYPE_ID.ToString() + ":" + m.TOPIC_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                        }
+                                        @Html.ValidationMessageFor(m => m.TOPIC_TYPE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -130,12 +150,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төсөв захирагчийн ангилал:</label>
                                     <div class="col-sm-4">
+
                                         @if (Model.AUDIT_PROPOSAL_TYPE == null)
                                         {
                                             @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                         }
                                         else
-                                        { 
+                                        {
                                             @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
 
                                         }
@@ -155,12 +176,12 @@
                                     <label class="col-sm-4 col-form-label text-right">Аудит хийсэн хэлбэр:</label>
                                     <div class="col-sm-4">
                                         @*@if (Model.AUDIT_FORM_TYPE == null)
-                                        {
-                                            @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                        }
-                                        else
-                                        {*@
-                                            @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                        {
+                            @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                        }
+                        else
+                        {*@
+                                        @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
                                         @*}*@
 
                                         @if (Model.formtypes.Count() > 0)
@@ -177,13 +198,13 @@
                                     <label class="col-sm-4 col-form-label text-right">Санал дүгнэлтийн төрөл:</label>
                                     <div class="col-sm-4">
                                         @*@if(Model.AUDIT_PROPOSAL_TYPE == null)
-                                        {*@
-                                            @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                          @*}*@
+                        {*@
+                                        @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @*}*@
                                         @*else
-                                        {
-                                            @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                        }*@
+                        {
+                            @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                        }*@
 
                                         @if (Model.proposaltypes.Count() > 0)
                                         {
@@ -277,42 +298,42 @@
                                     </div>
                                 </div>
                             </div>
-         
-                          
-                                <div class="col-12" id="teamdata">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
-                                        <div class="col-sm-4">
-                                            @Html.HiddenFor(m => m.AUDITOR_LEADS)
-                                            @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
-                                            @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary " onclick="btnSystemUserLeadPopup(@Model.ID);">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                </svg>
-                                            </button>
-                                        </div>
+
+
+                            <div class="col-12" id="teamdata">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Багийн ахлах:</label>
+                                    <div class="col-sm-4">
+                                        @Html.HiddenFor(m => m.AUDITOR_LEADS)
+                                        @Html.TextAreaFor(m => m.AUDITOR_LEAD, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_LEAD, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary " onclick="btnSystemUserLeadPopup(@Model.ID);">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="col-12" id="teamdata2">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
-                                        <div class="col-sm-4">
-                                            @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
-                                            @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
-                                            @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="btnSystemUserMemberPopup(@Model.ID);">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                            </div>
+                            <div class="col-12" id="teamdata2">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Багийн гишүүд:</label>
+                                    <div class="col-sm-4">
+                                        @Html.HiddenFor(m => m.AUDITOR_MEMBERS)
+                                        @Html.TextAreaFor(m => m.AUDITOR_MEMBER, new { @class = "form-control form-control-sm", @rows = 5, @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(m => m.AUDITOR_MEMBER, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="btnSystemUserMemberPopup(@Model.ID);">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
+                            </div>
 
                             <div class="col-12">
                                 <div class="form-group row">
@@ -333,7 +354,9 @@
             </div>
         }
     </div>
+    
 </div>
+
 <script>
     $(document).ready(function () {
         /* $(".currency").maskMoney({ suffix: ' ' });*/
@@ -370,10 +393,10 @@
 
     var stringArrayLeaders = @Html.Raw(Json.Encode(Model.AUDITOR_LEADS));
     var stringArrayMembers = @Html.Raw(Json.Encode(Model.AUDITOR_MEMBERS));
-
    
 
     $(document).ready(function () {
+
 
         if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1) {
             document.getElementById("teamdata").style.display = "block";
@@ -385,19 +408,19 @@
         }
         if ($("#AUDITOR_LEAD_EDIT").val() != "") {
               $("#Bm0Modal #AUDITOR_LEAD").val($("#AUDITOR_LEAD_EDIT").val());
-            
+
               $("#Bm0Modal #AUDITOR_LEADS").val(stringArrayLeaders);
-           
+
         }
         if ($("#AUDITOR_MEMBER_EDIT").val() != "") {
               $("#Bm0Modal #AUDITOR_MEMBER").val($("#AUDITOR_MEMBER_EDIT").val());
               $("#Bm0Modal #AUDITOR_MEMBERS").val(stringArrayMembers);
-           
+
         }
     });
   $( function() {
       $(".datepicker").datepicker({
-          
+
           beforeShow: function () {
               setTimeout(function () {
                   $('.ui-datepicker').css('z-index', 99999999999999);
@@ -437,5 +460,5 @@
 
 
   });
-  
+
 </script>

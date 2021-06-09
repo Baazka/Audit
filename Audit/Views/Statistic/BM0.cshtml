@@ -153,8 +153,8 @@
     <script>
         $(document).ready(function () {
             bm0ListInit();
-           
-           
+
+
         });
 
         $(".clickClass").click(function () {
@@ -278,18 +278,24 @@
 
             $('#BM0ListModel').modal('hide');
         }
-        function Choose2020(AUDIT_TYPE, TOPICTYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, AUDIT_BUDGET_TYPE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE) {
-           
-            $("#AUDIT_TYPE").val(AUDIT_TYPE);
-            $("#TOPIC_TYPE").val(TOPICTYPE);
-            $("#TOPIC_CODE").val(TOPIC_CODE);
-            $("#TOPIC_NAME").val(TOPIC_NAME);
-            $("#ORDER_NO").val(ORDER_NO);
-            $("#AUDIT_BUDGET_TYPE").val(AUDIT_BUDGET_TYPE);
-            $("#AUDIT_FORM_TYPE").val(AUDIT_FORM_TYPE);
-            $("#AUDIT_PROPOSAL_TYPE").val(AUDIT_PROPOSAL_TYPE);
-
-            $('#BM0List2020Model').modal('hide');
+       
+        function Choose2020(AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, AUDIT_BUDGET_TYPE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE) {
+            $.ajax({
+                        url: '@Url.Action("BM0Search2020GET", "Statistic", new { Area = "" })',
+                        type: 'POST',
+                        data: { AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, AUDIT_BUDGET_TYPE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE },
+                        success: function (data, status, xhr) {
+                        $('#BM0List2020Model').modal('hide');
+                            BM0.progressResponse(data, status, xhr);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
         }
 
         $('#DeparmentID').change(function () {
