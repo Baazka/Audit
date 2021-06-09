@@ -20,13 +20,14 @@ namespace Audit.Models
         [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int DEPARTMENT_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
+        [Required(ErrorMessage = "Тайлант хугацаа сонгоно уу.")]
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
         [Required(ErrorMessage = "Аудитын төрөл сонгоно уу.")]
-        public int AUDIT_TYPE { get; set; }
+        public int? AUDIT_TYPE { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
         [Required(ErrorMessage = "Cонгоно уу.")]
-        public int? TOPIC_TYPE { get; set; }
+        public int TOPIC_TYPE { get; set; }
         
         public string TOPIC_TYPE_NAME { get; set; }
         [Required(ErrorMessage = "Сэдвийн код оруулна уу.")]
@@ -257,9 +258,12 @@ namespace Audit.Models
         public string TOPIC_CODE { get; set; }
         public string TOPIC_NAME { get; set; }
         public string ORDER_NO { get; set; }
-        public string ORDER_DATE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
+        public string FORM_TYPE_NAME { get; set; }
         public int AUDIT_BUDGET_TYPE { get; set; }
+        public string PROPOSAL_TYPE_NAME { get; set; }
+        public int AUDIT_FORM_TYPE { get; set; }
+        public int AUDIT_PROPOSAL_TYPE { get; set; }
         public BM0Search2020 SetXml(XElement xml)
         {
             if (xml != null)
@@ -285,10 +289,16 @@ namespace Audit.Models
                     TOPIC_NAME = xml.Element("TOPIC_NAME").Value.Replace("\n", "").Replace("\r", "");
                 if (xml.Element("ORDER_NO") != null)
                     ORDER_NO = xml.Element("ORDER_NO").Value.Replace("\n", "").Replace("\r", "");
-                if (xml.Element("ORDER_DATE") != null)
-                    ORDER_DATE = Convert.ToDateTime(xml.Element("ORDER_DATE").Value.Replace("\n", "").Replace("\r", "")).ToString("yyyy.MM.dd");
                 if (xml.Element("BUDGET_TYPE_NAME") != null)
                     BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("FORM_TYPE_NAME") != null)
+                    FORM_TYPE_NAME = xml.Element("FORM_TYPE_NAME").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("AUDIT_FORM_TYPE") != null)
+                    AUDIT_FORM_TYPE = Convert.ToInt32(xml.Element("AUDIT_FORM_TYPE").Value.Replace("\n", "").Replace("\r", ""));
+                if (xml.Element("PROPOSAL_TYPE_NAME") != null)
+                    PROPOSAL_TYPE_NAME = xml.Element("PROPOSAL_TYPE_NAME").Value.Replace("\n", "").Replace("\r", "");
+                if (xml.Element("AUDIT_PROPOSAL_TYPE") != null)
+                    AUDIT_PROPOSAL_TYPE = Convert.ToInt32(xml.Element("AUDIT_PROPOSAL_TYPE").Value.Replace("\n", "").Replace("\r", ""));
             }
             return this;
         }

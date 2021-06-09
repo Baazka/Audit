@@ -39,22 +39,19 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тайлант хугацаа: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.ValidationMessageFor(m => m.STATISTIC_PERIOD, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="col-4">
-                                        @*<div class="form-group row">
-                                            <div class="col-sm-8">
-                                                <label class="col-sm-4 col-form-label text-right">2020 он</label>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary btn2020listPopup">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>*@
+                                    @*<div class="col-sm-4">
+                                        <button type="button" class="btn btn-sm btn-primary btn-icon-split btn2020listPopup">
+                                            <span class="icon text-white-50">
+                                                <i class="fa fa-check-square"></i>
+                                            </span>
+                                            <span class="text">2020 оны бүртгэл</span>  
+                                        </button>
+                                    </div>*@
                                     </div>
                                 </div>
-                            </div>
                             <div class="col-12">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага: <span class="required">*</span></label>
@@ -84,12 +81,12 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Сэдвийн үндэслэл: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.TOPIC_TYPE, Model.topictypes.Where(m => m.TOPIC_AUDIT_TYPE_ID == Model.TOPIC_TYPE).Select(m => new SelectListItem { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                        @if (Model.topictypes.Count() > 0)
-                                        {
-                                            @Html.DropDownList("ddTopicTypeHidden", Model.topictypes.Select(m => new SelectListItem() { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_AUDIT_TYPE_ID.ToString() + ":" + m.TOPIC_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                        }
-                                        @Html.ValidationMessageFor(m => m.TOPIC_TYPE, "", new { @class = "text-danger" })
+                                            @Html.DropDownListFor(model => model.TOPIC_TYPE, Model.topictypes.Where(m => m.TOPIC_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                            @if (Model.topictypes.Count() > 0)
+                                            {
+                                                @Html.DropDownList("ddTopicTypeHidden", Model.topictypes.Select(m => new SelectListItem() { Text = m.TOPIC_TYPE_NAME, Value = m.TOPIC_AUDIT_TYPE_ID.ToString() + ":" + m.TOPIC_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                                            }
+                                            @Html.ValidationMessageFor(m => m.TOPIC_TYPE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +130,16 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төсөв захирагчийн ангилал:</label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @if (Model.AUDIT_PROPOSAL_TYPE == null)
+                                        {
+                                            @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        }
+                                        else
+                                        { 
+                                            @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+
+                                        }
+
                                         @if (Model.refbudgettypes.Count() > 0)
                                         {
                                             @Html.DropDownList("ddRefBudgetTypeHidden", Model.refbudgettypes.Select(m => new SelectListItem() { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_AUDIT_TYPE_ID.ToString() + ":" + m.BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
@@ -148,11 +154,21 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Аудит хийсэн хэлбэр:</label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @*@if (Model.AUDIT_FORM_TYPE == null)
+                                        {
+                                            @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        }
+                                        else
+                                        {*@
+                                            @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @*}*@
+
                                         @if (Model.formtypes.Count() > 0)
                                         {
                                             @Html.DropDownList("ddFormTypeHidden", Model.formtypes.Select(m => new SelectListItem() { Text = m.FORM_TYPE_NAME, Value = m.FORM_AUDIT_TYPE_ID.ToString() + ":" + m.FORM_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
                                         }
+
+
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +176,15 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санал дүгнэлтийн төрөл:</label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @*@if(Model.AUDIT_PROPOSAL_TYPE == null)
+                                        {*@
+                                            @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                          @*}*@
+                                        @*else
+                                        {
+                                            @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        }*@
+
                                         @if (Model.proposaltypes.Count() > 0)
                                         {
                                             @Html.DropDownList("ddProposalTypeHidden", Model.proposaltypes.Select(m => new SelectListItem() { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_AUDIT_TYPE_ID.ToString() + ":" + m.PROPOSAL_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
@@ -346,11 +370,11 @@
 
     var stringArrayLeaders = @Html.Raw(Json.Encode(Model.AUDITOR_LEADS));
     var stringArrayMembers = @Html.Raw(Json.Encode(Model.AUDITOR_MEMBERS));
-    
-  
+
+   
 
     $(document).ready(function () {
-        
+
         if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1) {
             document.getElementById("teamdata").style.display = "block";
             document.getElementById("teamdata2").style.display = "block";
@@ -361,6 +385,7 @@
         }
         if ($("#AUDITOR_LEAD_EDIT").val() != "") {
               $("#Bm0Modal #AUDITOR_LEAD").val($("#AUDITOR_LEAD_EDIT").val());
+            
               $("#Bm0Modal #AUDITOR_LEADS").val(stringArrayLeaders);
            
         }
@@ -410,35 +435,7 @@
           }
       });
 
-  //    $('.decimal').formatCurrency();
-  //    $('.decimal').blur(function () {
-  //        $('.decimal').html(null);
-  //        $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
-  //    })
-  //        .keyup(function (e) {
-  //            var e = window.event || e;
-  //            var keyUnicode = e.charCode || e.keyCode;
-  //            if (e !== undefined) {
-  //                switch (keyUnicode) {
-  //                    case 16: break; // Shift
-  //                    case 17: break; // Ctrl
-  //                    case 18: break; // Alt
-  //                    case 27: this.value = ''; break; // Esc: clear entry
-  //                    case 35: break; // End
-  //                    case 36: break; // Home
-  //                    case 37: break; // cursor left
-  //                    case 38: break; // cursor up
-  //                    case 39: break; // cursor right
-  //                    case 40: break; // cursor down
-  //                    case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
-  //                    case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
-  //                    case 190: break; // .
-  //                    default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
-  //                }
-  //            }
-  //        })
+
   });
-    //function CheckTeam() {
-    //    return alert("aldaa");
-    //};
+  
 </script>
