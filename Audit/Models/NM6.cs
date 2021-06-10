@@ -29,27 +29,27 @@ namespace Audit.Models
         public string TOPIC_NAME { get; set; }
 
         public int VIOLATION_COUNT { get; set; }
-        public decimal VIOLATION_AMOUNT { get; set; }
+        public string VIOLATION_AMOUNT { get; set; }
         public int ERROR_COUNT { get; set; }
-        public decimal ERROR_AMOUNT { get; set; }
+        public string ERROR_AMOUNT { get; set; }
         public int ALL_COUNT { get; set; }
-        public decimal ALL_AMOUNT { get; set; }
+        public string ALL_AMOUNT { get; set; }
         public int CORRECTED_ERROR_COUNT { get; set; }
-        public decimal CORRECTED_ERROR_AMOUNT { get; set; }
+        public string CORRECTED_ERROR_AMOUNT { get; set; }
         public int OTHER_ERROR_COUNT { get; set; }
-        public decimal OTHER_ERROR_AMOUNT { get; set; }
+        public string OTHER_ERROR_AMOUNT { get; set; }
         public int ACT_COUNT { get; set; }
-        public decimal ACT_AMOUNT { get; set; }
+        public string ACT_AMOUNT { get; set; }
         public int CLAIM_COUNT { get; set; }
-        public decimal CLAIM_AMOUNT { get; set; }
+        public string CLAIM_AMOUNT { get; set; }
         public int REFERENCE_COUNT { get; set; }
-        public decimal REFERENCE_AMOUNT { get; set; }
+        public string REFERENCE_AMOUNT { get; set; }
         public int PROPOSAL_COUNT { get; set; }
-        public decimal PROPOSAL_AMOUNT { get; set; }
+        public string PROPOSAL_AMOUNT { get; set; }
         public int LAW_COUNT { get; set; }
-        public decimal LAW_AMOUNT { get; set; }
+        public string LAW_AMOUNT { get; set; }
         public int OTHER_COUNT { get; set; }
-        public decimal OTHER_AMOUNT { get; set; }
+        public string OTHER_AMOUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }
@@ -88,43 +88,43 @@ namespace Audit.Models
                 if (xml.Element("VIOLATION_COUNT") != null)
                     VIOLATION_COUNT = Convert.ToInt32(xml.Element("VIOLATION_COUNT").Value);
                 if (xml.Element("VIOLATION_AMOUNT") != null)
-                    VIOLATION_AMOUNT = Convert.ToDecimal(xml.Element("VIOLATION_AMOUNT").Value);
+                    VIOLATION_AMOUNT = Convert.ToDecimal(xml.Element("VIOLATION_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ERROR_COUNT") != null)
                     ERROR_COUNT = Convert.ToInt32(xml.Element("ERROR_COUNT").Value);
                 if (xml.Element("ERROR_AMOUNT") != null)
-                    ERROR_AMOUNT = Convert.ToDecimal(xml.Element("ERROR_AMOUNT").Value);
+                    ERROR_AMOUNT = Convert.ToDecimal(xml.Element("ERROR_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ALL_COUNT") != null)
                     ALL_COUNT = Convert.ToInt32(xml.Element("ALL_COUNT").Value);
                 if (xml.Element("ALL_AMOUNT") != null)
-                    ALL_AMOUNT = Convert.ToDecimal(xml.Element("ALL_AMOUNT").Value);
+                    ALL_AMOUNT = Convert.ToDecimal(xml.Element("ALL_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("CORRECTED_ERROR_COUNT") != null)
                     CORRECTED_ERROR_COUNT = Convert.ToInt32(xml.Element("CORRECTED_ERROR_COUNT").Value);
                 if (xml.Element("CORRECTED_ERROR_AMOUNT") != null)
-                    CORRECTED_ERROR_AMOUNT = Convert.ToDecimal(xml.Element("CORRECTED_ERROR_AMOUNT").Value);
+                    CORRECTED_ERROR_AMOUNT = Convert.ToDecimal(xml.Element("CORRECTED_ERROR_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("OTHER_ERROR_COUNT") != null)
                     OTHER_ERROR_COUNT = Convert.ToInt32(xml.Element("OTHER_ERROR_COUNT").Value);
                 if (xml.Element("OTHER_ERROR_AMOUNT") != null)
-                    OTHER_ERROR_AMOUNT = Convert.ToDecimal(xml.Element("OTHER_ERROR_AMOUNT").Value);
+                    OTHER_ERROR_AMOUNT = Convert.ToDecimal(xml.Element("OTHER_ERROR_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ACT_COUNT") != null)
                     ACT_COUNT = Convert.ToInt32(xml.Element("ACT_COUNT").Value);
                 if (xml.Element("ACT_AMOUNT") != null)
-                    ACT_AMOUNT = Convert.ToDecimal(xml.Element("ACT_AMOUNT").Value);
+                    ACT_AMOUNT = Convert.ToDecimal(xml.Element("ACT_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("CLAIM_COUNT") != null)
                     CLAIM_COUNT = Convert.ToInt32(xml.Element("CLAIM_COUNT").Value);
                 if (xml.Element("CLAIM_AMOUNT") != null)
-                    CLAIM_AMOUNT = Convert.ToDecimal(xml.Element("CLAIM_AMOUNT").Value);
+                    CLAIM_AMOUNT = Convert.ToDecimal(xml.Element("CLAIM_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("REFERENCE_COUNT") != null)
                     REFERENCE_COUNT = Convert.ToInt32(xml.Element("REFERENCE_COUNT").Value);
                 if (xml.Element("REFERENCE_AMOUNT") != null)
-                    REFERENCE_AMOUNT = Convert.ToDecimal(xml.Element("REFERENCE_AMOUNT").Value);
+                    REFERENCE_AMOUNT = Convert.ToDecimal(xml.Element("REFERENCE_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("PROPOSAL_COUNT") != null)
                     PROPOSAL_COUNT = Convert.ToInt32(xml.Element("PROPOSAL_COUNT").Value);
                 if (xml.Element("PROPOSAL_AMOUNT") != null)
-                    PROPOSAL_AMOUNT = Convert.ToDecimal(xml.Element("PROPOSAL_AMOUNT").Value);
+                    PROPOSAL_AMOUNT = Convert.ToDecimal(xml.Element("PROPOSAL_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("LAW_COUNT") != null)
                     LAW_COUNT = Convert.ToInt32(xml.Element("LAW_COUNT").Value);
                 if (xml.Element("LAW_AMOUNT") != null)
-                    LAW_AMOUNT = Convert.ToDecimal(xml.Element("LAW_AMOUNT").Value);
+                    LAW_AMOUNT = Convert.ToDecimal(xml.Element("LAW_AMOUNT").Value).ToString("#,0.##");
 
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);

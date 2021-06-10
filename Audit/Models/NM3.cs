@@ -29,18 +29,20 @@ namespace Audit.Models
         public string AUDIT_BUDGET_TYPE { get; set; }
         
         public int REFERENCE_COUNT { get; set; }
-        public decimal REFERENCE_AMOUNT { get; set; }
+        public string REFERENCE_AMOUNT { get; set; }
         public int REFERENCE_TYPE { get; set; }
         public int COMPLETION_DONE_COUNT { get; set; }
-        public decimal COMPLETION_DONE_AMOUNT { get; set; }
+        public string COMPLETION_DONE_AMOUNT { get; set; }
         public int COMPLETION_PROGRESS_COUNT { get; set; }
-        public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public string COMPLETION_PROGRESS_AMOUNT { get; set; }
         public int C2_NONEXPIRED_COUNT { get; set; }
-        public decimal C2_NONEXPIRED_AMOUNT { get; set; }
+        public string C2_NONEXPIRED_AMOUNT { get; set; }
         public int C2_EXPIRED_COUNT { get; set; }
-        public decimal C2_EXPIRED_AMOUNT { get; set; }
+        public string C2_EXPIRED_AMOUNT { get; set; }
+        public string C2_AMOUNT { get; set; }
+        public int C2_COUNT { get; set; }
         public int BENEFIT_FIN_COUNT { get; set; }
-        public decimal BENEFIT_FIN_AMOUNT { get; set; }        
+        public string BENEFIT_FIN_AMOUNT { get; set; }        
         public int BENEFIT_NONFIN_COUNT { get; set; }
 
         public int WORKING_PERSON { get; set; }
@@ -86,30 +88,35 @@ namespace Audit.Models
 
                 if (xml.Element("REFERENCE_COUNT") != null)
                     REFERENCE_COUNT = Convert.ToInt32(xml.Element("REFERENCE_COUNT").Value);
+                if (xml.Element("C2_COUNT") != null)
+                    C2_COUNT = Convert.ToInt32(xml.Element("C2_COUNT").Value);
+                if (xml.Element("C2_AMOUNT") != null)
+                    C2_AMOUNT = Convert.ToDecimal(xml.Element("C2_AMOUNT").Value).ToString("#,0.##");
+
                 if (xml.Element("REFERENCE_AMOUNT") != null)
-                    REFERENCE_AMOUNT = Convert.ToDecimal(xml.Element("REFERENCE_AMOUNT").Value);
+                    REFERENCE_AMOUNT = Convert.ToDecimal(xml.Element("REFERENCE_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("REFERENCE_TYPE") != null)
                     REFERENCE_TYPE = Convert.ToInt32(xml.Element("REFERENCE_TYPE").Value);
                 if (xml.Element("COMPLETION_DONE_COUNT") != null)
                     COMPLETION_DONE_COUNT = Convert.ToInt32(xml.Element("COMPLETION_DONE_COUNT").Value);
                 if (xml.Element("COMPLETION_DONE_AMOUNT") != null)
-                    COMPLETION_DONE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_DONE_AMOUNT").Value);
+                    COMPLETION_DONE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_DONE_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("COMPLETION_PROGRESS_COUNT") != null)
                     COMPLETION_PROGRESS_COUNT = Convert.ToInt32(xml.Element("COMPLETION_PROGRESS_COUNT").Value);
                 if (xml.Element("COMPLETION_PROGRESS_AMOUNT") != null)
-                    COMPLETION_PROGRESS_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value);
+                    COMPLETION_PROGRESS_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_PROGRESS_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("C2_NONEXPIRED_COUNT") != null)
                     C2_NONEXPIRED_COUNT = Convert.ToInt32(xml.Element("C2_NONEXPIRED_COUNT").Value);
                 if (xml.Element("C2_NONEXPIRED_AMOUNT") != null)
-                    C2_NONEXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("C2_NONEXPIRED_AMOUNT").Value);
+                    C2_NONEXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("C2_NONEXPIRED_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("C2_EXPIRED_COUNT") != null)
                     C2_EXPIRED_COUNT = Convert.ToInt32(xml.Element("C2_EXPIRED_COUNT").Value);
                 if (xml.Element("C2_EXPIRED_AMOUNT") != null)
-                    C2_EXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("C2_EXPIRED_AMOUNT").Value);
+                    C2_EXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("C2_EXPIRED_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("BENEFIT_FIN_COUNT") != null)
                     BENEFIT_FIN_COUNT = Convert.ToInt32(xml.Element("BENEFIT_FIN_COUNT").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
-                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value);
+                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("BENEFIT_NONFIN_COUNT") != null)
                     BENEFIT_NONFIN_COUNT = Convert.ToInt32(xml.Element("BENEFIT_NONFIN_COUNT").Value);
                 if (xml.Element("WORKING_PERSON") != null)

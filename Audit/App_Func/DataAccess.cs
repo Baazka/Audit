@@ -2193,25 +2193,26 @@ namespace Audit.App_Func
                 // Set parameters
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value == null ? null : elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_AMOUNT")?.Value == null || elem.Element("COMPLETION_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_AMOUNT")?.Value == null ? null : elem.Element("REMOVED_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value == null ? null : elem.Element("REMOVED_LAW_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_AMOUNT")?.Value == null || elem.Element("REMOVED_AMOUNT")?.Value == "0.00" ? null : elem.Element("REMOVED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value == null || elem.Element("REMOVED_LAW_AMOUNT")?.Value == "0.00" ? null : elem.Element("REMOVED_LAW_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value == null ? null : elem.Element("REMOVED_LAW_NO")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value == null ? null : elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value == null ? null : elem.Element("REMOVED_INVALID_NO")?.Value;
-                cmd.Parameters.Add(":P_ACT_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_AMOUNT")?.Value == null ? null : elem.Element("ACT_C2_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_C2_NONEXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_NONEXPIRED")?.Value == null ? null : elem.Element("ACT_C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_ACT_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_EXPIRED")?.Value == null ? null : elem.Element("ACT_C2_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_AMOUNT")?.Value == null || elem.Element("ACT_C2_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_NONEXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_NONEXPIRED")?.Value == null || elem.Element("ACT_C2_NONEXPIRED")?.Value == "0.00" ? null : elem.Element("ACT_C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_EXPIRED")?.Value == null || elem.Element("ACT_C2_EXPIRED")?.Value == "0.00" ? null : elem.Element("ACT_C2_EXPIRED")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN")?.Value == null ? null : elem.Element("BENEFIT_FIN")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == null ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == null ? null : elem.Element("BENEFIT_NONFIN")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
+
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
@@ -2261,7 +2262,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("ACT_VIOLATION_TYPE")?.Value;
                 cmd.Parameters.Add(":P_ACT_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("ACT_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ACT_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("ACT_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_ACT_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_AMOUNT")?.Value == null || elem.Element("ACT_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_AMOUNT")?.Value;
 
                 cmd.Parameters.Add(":P_ACT_STATE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_STATE_AMOUNT")?.Value == null ? null : elem.Element("ACT_STATE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_LOCAL_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_LOCAL_AMOUNT")?.Value == null ? null : elem.Element("ACT_LOCAL_AMOUNT")?.Value;
@@ -2276,21 +2277,21 @@ namespace Audit.App_Func
 
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value == null ? null : elem.Element("COMPLETION_ORDER")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_AMOUNT")?.Value == null || elem.Element("COMPLETION_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_STATE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_STATE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_STATE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_LOCAL_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_LOCAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORG_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORG_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_ORG_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_OTHER_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_OTHER_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_OTHER_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_AMOUNT")?.Value == null ? null : elem.Element("REMOVED_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value == null ? null : elem.Element("REMOVED_LAW_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_AMOUNT")?.Value == null || elem.Element("REMOVED_AMOUNT")?.Value == "0.00" ? null : elem.Element("REMOVED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_REMOVED_LAW_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_AMOUNT")?.Value == null || elem.Element("REMOVED_LAW_AMOUNT")?.Value == "0.00" ? null : elem.Element("REMOVED_LAW_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_LAW_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_DATE")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_LAW_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_LAW_NO")?.Value == null ? null : elem.Element("REMOVED_LAW_NO")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_INVALID_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_AMOUNT")?.Value == null ? null : elem.Element("REMOVED_INVALID_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_INVALID_DATE", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_DATE")?.Value;
                 cmd.Parameters.Add(":P_REMOVED_INVALID_NO", OracleDbType.Varchar2).Value = elem.Element("REMOVED_INVALID_NO")?.Value == null ? null : elem.Element("REMOVED_INVALID_NO")?.Value;
-                cmd.Parameters.Add(":P_ACT_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_AMOUNT")?.Value == null ? null : elem.Element("ACT_C2_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_C2_NONEXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_NONEXPIRED")?.Value == null ? null : elem.Element("ACT_C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_ACT_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_EXPIRED")?.Value == null ? null : elem.Element("ACT_C2_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_AMOUNT")?.Value == null || elem.Element("ACT_C2_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_NONEXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_NONEXPIRED")?.Value == null || elem.Element("ACT_C2_NONEXPIRED")?.Value == "0.00" ? null : elem.Element("ACT_C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_EXPIRED")?.Value == null || elem.Element("ACT_C2_EXPIRED")?.Value == "0.00" ? null : elem.Element("ACT_C2_EXPIRED")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN")?.Value == null ? null : elem.Element("BENEFIT_FIN")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == null ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == null ? null : elem.Element("BENEFIT_NONFIN")?.Value;
@@ -2347,14 +2348,14 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_VIOLATION_TYPE", OracleDbType.Int32).Value = elem.Element("ACT_VIOLATION_TYPE")?.Value;
                 cmd.Parameters.Add(":P_ACT_SUBMITTED_DATE", OracleDbType.Varchar2).Value = elem.Element("ACT_SUBMITTED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ACT_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("ACT_DELIVERY_DATE")?.Value;
-                cmd.Parameters.Add(":P_ACT_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_AMOUNT")?.Value == null || elem.Element("ACT_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_AMOUNT")?.Value;
 
-                
+
                 cmd.Parameters.Add(":P_ACT_STATE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_STATE_AMOUNT")?.Value == null ? null : elem.Element("ACT_STATE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_LOCAL_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_LOCAL_AMOUNT")?.Value == null ? null : elem.Element("ACT_LOCAL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_ORG_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_ORG_AMOUNT")?.Value == null ? null : elem.Element("ACT_ORG_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_OTHER_AMOUNT")?.Value == null ? null : elem.Element("ACT_OTHER_AMOUNT")?.Value;
-                
+
                 
 
                 cmd.Parameters.Add(":P_ACT_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_NAME")?.Value;
@@ -3305,18 +3306,20 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_REFERENCE_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_PHONE")?.Value == null ? null : elem.Element("REFERENCE_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_ADDRESS")?.Value == null ? null : elem.Element("REFERENCE_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+               
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value == null ? null : elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value == null ? null : elem.Element("COMPLETION_ORDER")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null || elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_C2_NONEXPIRED", OracleDbType.Varchar2).Value = elem.Element("C2_NONEXPIRED")?.Value == null ? null : elem.Element("C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value == null ? null : elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value == null || elem.Element("C2_NONEXPIRED_AMOUNT")?.Value == "0.00" ? null : elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("C2_EXPIRED")?.Value == null ? null : elem.Element("C2_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value == null ? null : elem.Element("C2_EXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value == null || elem.Element("C2_EXPIRED_AMOUNT")?.Value == "0.00" ? null : elem.Element("C2_EXPIRED_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN")?.Value == null ? null : elem.Element("BENEFIT_FIN")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == null ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
+                
                 cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == null ? null : elem.Element("BENEFIT_NONFIN")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -3385,14 +3388,13 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null || elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_C2_NONEXPIRED", OracleDbType.Varchar2).Value = elem.Element("C2_NONEXPIRED")?.Value == null ? null : elem.Element("C2_NONEXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value == null ? null : elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_NONEXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_NONEXPIRED_AMOUNT")?.Value == null || elem.Element("C2_NONEXPIRED_AMOUNT")?.Value == "0.00" ? null : elem.Element("C2_NONEXPIRED_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("C2_EXPIRED")?.Value == null ? null : elem.Element("C2_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value == null ? null : elem.Element("C2_EXPIRED_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value == null || elem.Element("C2_EXPIRED_AMOUNT")?.Value == "0.00" ? null : elem.Element("C2_EXPIRED_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN")?.Value == null ? null : elem.Element("BENEFIT_FIN")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == null ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == null ? null : elem.Element("BENEFIT_NONFIN")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
 
@@ -3793,7 +3795,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null || elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
@@ -3844,7 +3846,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
-                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null || elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
@@ -6387,7 +6389,7 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM6_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUD_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
@@ -6410,7 +6412,7 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM6_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUD_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
                     "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN CM.ID END ASC, " +
@@ -6517,7 +6519,7 @@ namespace Audit.App_Func
                 // Set parameters
                 cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID").Value;
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD").Value;
-                cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("P_AUD_NAME")?.Value;
+                cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("AUD_NAME")?.Value;
                 cmd.Parameters.Add(":P_IS_STATE", OracleDbType.Int32).Value = elem.Element("IS_STATE")?.Value;
                 cmd.Parameters.Add(":P_ALL_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_COUNT")?.Value;
                 cmd.Parameters.Add(":P_ALL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_AMOUNT")?.Value;
@@ -6563,8 +6565,45 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.CM6_DATA ( OFFICE_ID, STATISTIC_PERIOD, AUD_NAME, IS_STATE, ALL_COUNT, ALL_AMOUNT, PROCESSED_INCOMED_COUNT, PROCESSED_INCOMED_AMOUNT, PROCESSED_COSTS_COUNT, PROCESSED_COSTS_AMOUNT, ALL_C1_COUNT, ALL_C2_AMOUNT, ACCEPTED_INCOMED_COUNT, ACCEPTED_INCOMED_AMOUNT, ACCEPTED_COSTS_COUNT, ACCEPTED_COSTS_AMOUNT, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES(:P_OFFICE_ID, :P_STATISTIC_PERIOD, :P_AUD_NAME, :P_IS_STATE, :P_ALL_COUNT, :P_ALL_AMOUNT, :P_PROCESSED_INCOMED_COUNT, :P_PROCESSED_INCOMED_AMOUNT, :P_PROCESSED_COSTS_COUNT, :P_PROCESSED_COSTS_AMOUNT, :P_ALL_C1_COUNT, :P_ALL_C2_AMOUNT, :P_ACCEPTED_INCOMED_COUNT, :P_ACCEPTED_INCOMED_AMOUNT, :P_ACCEPTED_COSTS_COUNT, :P_ACCEPTED_COSTS_AMOUNT, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.CM6_DATA (" +
+                    " OFFICE_ID," +
+                    " STATISTIC_PERIOD," +
+                    " AUD_NAME," +
+                    " IS_STATE," +
+                    " ALL_COUNT," +
+                    " ALL_AMOUNT," +
+                    " PROCESSED_INCOMED_COUNT," +
+                    " PROCESSED_INCOMED_AMOUNT," +
+                    " PROCESSED_COSTS_COUNT," +
+                    " PROCESSED_COSTS_AMOUNT," +
+                    " ALL_C1_COUNT," +
+                    " ALL_C2_AMOUNT," +
+                    " ACCEPTED_INCOMED_COUNT," +
+                    " ACCEPTED_INCOMED_AMOUNT," +
+                    " ACCEPTED_COSTS_COUNT," +
+                    " ACCEPTED_COSTS_AMOUNT," +
+                    " IS_ACTIVE," +
+                    " CREATED_BY," +
+                    " CREATED_DATE) " +
+                    "VALUES(:P_OFFICE_ID," +
+                    " :P_STATISTIC_PERIOD," +
+                    " :P_AUD_NAME," +
+                    " :P_IS_STATE," +
+                    " :P_ALL_COUNT," +
+                    " :P_ALL_AMOUNT," +
+                    " :P_PROCESSED_INCOMED_COUNT," +
+                    " :P_PROCESSED_INCOMED_AMOUNT," +
+                    " :P_PROCESSED_COSTS_COUNT," +
+                    " :P_PROCESSED_COSTS_AMOUNT," +
+                    " :P_ALL_C1_COUNT," +
+                    " :P_ALL_C2_AMOUNT," +
+                    " :P_ACCEPTED_INCOMED_COUNT," +
+                    " :P_ACCEPTED_INCOMED_AMOUNT," +
+                    " :P_ACCEPTED_COSTS_COUNT," +
+                    " :P_ACCEPTED_COSTS_AMOUNT," +
+                    " :P_IS_ACTIVE," +
+                    " :P_CREATED_BY," +
+                    " :P_CREATED_DATE)";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID")?.Value;

@@ -27,145 +27,157 @@
                         </div>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(m => m.ID)
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага:</label>
-                                <div class="col-sm-4">
-                                    @Html.DropDownListFor(model => model.OFFICE_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                    @Html.ValidationMessageFor(m => m.OFFICE_ID, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төрийн аудитын байгууллага:</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.OFFICE_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.ValidationMessageFor(m => m.OFFICE_ID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Он:</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төсөв:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.AUD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.AUD_NAME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Үзүүлэлт:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.IS_STATE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.IS_STATE, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Он:</label>
-                                <div class="col-sm-4">
-                                    @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Төсөв:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.AUD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    @Html.ValidationMessageFor(m => m.AUD_NAME, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Үзүүлэлт:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.IS_STATE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    @Html.ValidationMessageFor(m => m.IS_STATE, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                        <table class="table table-bordered datatable">
-                            <thead>
-                                <tr>
-                                    <th colspan="6">Боловсруулсан санал</th>
-                                </tr>
-                                <tr>
-                                    <th colspan="2">Бүгд</th>
-                                    <th colspan="4">Үүнээс</th>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2">Тоо</th>
-                                    <th rowspan="2">Дүн</th>
-                                    <th colspan="2">Орлого нэмэгдүүлэх</th>
-                                    <th colspan="2">Зардал хорогдуулах</th>
-                                </tr>
-                                <tr>
-                                    <th>Тоо</th>
-                                    <th>Дүн</th>
-                                    <th>Тоо</th>
-                                    <th>Дүн</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
+                        <h6 class="heading-1"><span>Боловсруулсан санал</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Бүгд тоо:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ALL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.ALL_COUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td class="text-right">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Бүгд дүн:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ALL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.ALL_AMOUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td class="text-right">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Орлого нэмэгдүүлэх тоо:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.PROCESSED_INCOMED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.PROCESSED_INCOMED_COUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Орлого нэмэгдүүлэх дүн:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.PROCESSED_INCOMED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.PROCESSED_INCOMED_AMOUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зардал хорогдуулах тоо:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.PROCESSED_COSTS_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.PROCESSED_COSTS_COUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зардал хорогдуулах дүн:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.PROCESSED_COSTS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.PROCESSED_COSTS_AMOUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table-bordered datatable">
-                            <thead>
-                                <tr>
-                                    <th colspan="6">Хүлээн зөвшөөрөгдсөн санал</th>
-                                </tr>
-                                <tr>
-                                    <th colspan="2">Бүгд</th>
-                                    <th colspan="4">Үүнээс</th>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2">Тоо</th>
-                                    <th rowspan="2">Дүн</th>
-                                    <th colspan="2">Орлого нэмэгдүүлэх</th>
-                                    <th colspan="2">Зардал хорогдуулах</th>
-                                </tr>
-                                <tr>
-                                    <th>Тоо</th>
-                                    <th>Дүн</th>
-                                    <th>Тоо</th>
-                                    <th>Дүн</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="heading-1"><span>Хүлээн зөвшөөрөгдсөн санал</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Бүгд тоо:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ALL_C1_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.ALL_C1_COUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Бүгд дүн:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ALL_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.ALL_C2_AMOUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
-                                        @Html.EditorFor(m => m.ACCEPTED_INCOMED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
-                                        @Html.ValidationMessageFor(m => m.ACCEPTED_INCOMED_COUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Орлого нэмэгдүүлэх тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.PROCESSED_INCOMED_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.ValidationMessageFor(m => m.PROCESSED_INCOMED_COUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Орлого нэмэгдүүлэх дүн:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACCEPTED_INCOMED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.ACCEPTED_INCOMED_AMOUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зардал хорогдуулах тоо:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACCEPTED_COSTS_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.ACCEPTED_COSTS_COUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                    <td>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Зардал хорогдуулах дүн:</label>
+                                    <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACCEPTED_COSTS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
                                         @Html.ValidationMessageFor(m => m.ACCEPTED_COSTS_AMOUNT, "", new { @class = "text-danger" })
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>

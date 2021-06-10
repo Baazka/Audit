@@ -28,31 +28,31 @@ namespace Audit.Models
         public string AUDIT_NAME { get; set; }
         public string AUDIT_BUDGET_TYPE { get; set; }
         public int ACT_COUNT { get; set; }
-        public decimal ACT_AMOUNT { get; set; }
+        public string ACT_AMOUNT { get; set; }
         public int COMPLETION_COUNT { get; set; }
-        public decimal COMPLETION_AMOUNT { get; set; }
+        public string COMPLETION_AMOUNT { get; set; }
         public int COMPLETION_STATE_COUNT { get; set; }
-        public decimal COMPLETION_STATE_AMOUNT { get; set; }
+        public string COMPLETION_STATE_AMOUNT { get; set; }
         public int COMPLETION_LOCAL_COUNT { get; set; }
-        public decimal COMPLETION_LOCAL_AMOUNT { get; set; }
+        public string COMPLETION_LOCAL_AMOUNT { get; set; }
         public int COMPLETION_ORG_COUNT { get; set; }
-        public decimal COMPLETION_ORG_AMOUNT { get; set; }
+        public string COMPLETION_ORG_AMOUNT { get; set; }
         public int COMPLETION_OTHER_COUNT { get; set; }
-        public decimal COMPLETION_OTHER_AMOUNT { get; set; }
+        public string COMPLETION_OTHER_AMOUNT { get; set; }
         public int REMOVED_COUNT { get; set; }
-        public decimal REMOVED_AMOUNT { get; set; }
+        public string REMOVED_AMOUNT { get; set; }
         public int REMOVED_LAW_COUNT { get; set; }
-        public decimal REMOVED_LAW_AMOUNT { get; set; }
+        public string REMOVED_LAW_AMOUNT { get; set; }
         public int REMOVED_INVALID_COUNT { get; set; }
-        public decimal REMOVED_INVALID_AMOUNT { get; set; }
+        public string REMOVED_INVALID_AMOUNT { get; set; }
         public int ACT_C2_COUNT { get; set; }
-        public decimal ACT_C2_AMOUNT { get; set; }
+        public string ACT_C2_AMOUNT { get; set; }
         public int ACT_NONEXPIRED_COUNT { get; set; }
-        public decimal ACT_NONEXPIRED_AMOUNT { get; set; }
+        public string ACT_NONEXPIRED_AMOUNT { get; set; }
         public int ACT_EXPIRED_COUNT { get; set; }
-        public decimal ACT_EXPIRED_AMOUNT { get; set; }
+        public string ACT_EXPIRED_AMOUNT { get; set; }
         public int BENEFIT_FIN { get; set; }
-        public decimal BENEFIT_FIN_AMOUNT { get; set; }
+        public string BENEFIT_FIN_AMOUNT { get; set; }
         public int BENEFIT_NONFIN { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }
@@ -91,55 +91,55 @@ namespace Audit.Models
                 if (xml.Element("ACT_COUNT") != null)
                     ACT_COUNT = Convert.ToInt32(xml.Element("ACT_COUNT").Value);
                 if (xml.Element("ACT_AMOUNT") != null)
-                    ACT_AMOUNT = Convert.ToDecimal(xml.Element("ACT_AMOUNT").Value);
+                    ACT_AMOUNT = Convert.ToDecimal(xml.Element("ACT_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("COMPLETION_COUNT") != null)
                     COMPLETION_COUNT = Convert.ToInt32(xml.Element("COMPLETION_COUNT").Value);
                 if (xml.Element("COMPLETION_AMOUNT") != null)
-                    COMPLETION_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_AMOUNT").Value);
+                    COMPLETION_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("COMPLETION_STATE_COUNT") != null)
                     COMPLETION_STATE_COUNT = Convert.ToInt32(xml.Element("COMPLETION_STATE_COUNT").Value);
                 if (xml.Element("COMPLETION_STATE_AMOUNT") != null)
-                    COMPLETION_STATE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_STATE_AMOUNT").Value);
+                    COMPLETION_STATE_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_STATE_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("COMPLETION_LOCAL_COUNT") != null)
                     COMPLETION_LOCAL_COUNT = Convert.ToInt32(xml.Element("COMPLETION_LOCAL_COUNT").Value);
                 if (xml.Element("COMPLETION_LOCAL_AMOUNT") != null)
-                    COMPLETION_LOCAL_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_LOCAL_AMOUNT").Value);
+                    COMPLETION_LOCAL_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_LOCAL_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("COMPLETION_ORG_COUNT") != null)
                     COMPLETION_ORG_COUNT = Convert.ToInt32(xml.Element("COMPLETION_ORG_COUNT").Value);
                 if (xml.Element("COMPLETION_ORG_AMOUNT") != null)
-                    COMPLETION_ORG_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_ORG_AMOUNT").Value);
+                    COMPLETION_ORG_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_ORG_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("COMPLETION_OTHER_COUNT") != null)
                     COMPLETION_OTHER_COUNT = Convert.ToInt32(xml.Element("COMPLETION_OTHER_COUNT").Value);
                 if (xml.Element("COMPLETION_OTHER_AMOUNT") != null)
-                    COMPLETION_OTHER_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_OTHER_AMOUNT").Value);
+                    COMPLETION_OTHER_AMOUNT = Convert.ToDecimal(xml.Element("COMPLETION_OTHER_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("REMOVED_COUNT") != null)
                     REMOVED_COUNT = Convert.ToInt32(xml.Element("REMOVED_COUNT").Value);
                 if (xml.Element("REMOVED_AMOUNT") != null)
-                    REMOVED_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_AMOUNT").Value);
+                    REMOVED_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("REMOVED_LAW_COUNT") != null)
                     REMOVED_LAW_COUNT = Convert.ToInt32(xml.Element("REMOVED_LAW_COUNT").Value);
                 if (xml.Element("REMOVED_LAW_AMOUNT") != null)
-                    REMOVED_LAW_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_LAW_AMOUNT").Value);
+                    REMOVED_LAW_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_LAW_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("REMOVED_INVALID_COUNT") != null)
                     REMOVED_INVALID_COUNT = Convert.ToInt32(xml.Element("REMOVED_INVALID_COUNT").Value);
                 if (xml.Element("REMOVED_INVALID_AMOUNT") != null)
-                    REMOVED_INVALID_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_INVALID_AMOUNT").Value);
+                    REMOVED_INVALID_AMOUNT = Convert.ToDecimal(xml.Element("REMOVED_INVALID_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ACT_C2_COUNT") != null)
                     ACT_C2_COUNT = Convert.ToInt32(xml.Element("ACT_C2_COUNT").Value);
                 if (xml.Element("ACT_C2_AMOUNT") != null)
-                    ACT_C2_AMOUNT = Convert.ToDecimal(xml.Element("ACT_C2_AMOUNT").Value);
+                    ACT_C2_AMOUNT = Convert.ToDecimal(xml.Element("ACT_C2_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ACT_NONEXPIRED_COUNT") != null)
                     ACT_NONEXPIRED_COUNT = Convert.ToInt32(xml.Element("ACT_NONEXPIRED_COUNT").Value);
                 if (xml.Element("ACT_NONEXPIRED_AMOUNT") != null)
-                    ACT_NONEXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("ACT_NONEXPIRED_AMOUNT").Value);
+                    ACT_NONEXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("ACT_NONEXPIRED_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ACT_EXPIRED_COUNT") != null)
                     ACT_EXPIRED_COUNT = Convert.ToInt32(xml.Element("ACT_EXPIRED_COUNT").Value);
                 if (xml.Element("ACT_EXPIRED_AMOUNT") != null)
-                    ACT_EXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("ACT_EXPIRED_AMOUNT").Value);
+                    ACT_EXPIRED_AMOUNT = Convert.ToDecimal(xml.Element("ACT_EXPIRED_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("BENEFIT_FIN") != null)
                     BENEFIT_FIN = Convert.ToInt32(xml.Element("BENEFIT_FIN").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
-                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value);
+                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("BENEFIT_NONFIN") != null)
                     BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
                 if (xml.Element("EXEC_TYPE") != null)

@@ -157,7 +157,7 @@ namespace Audit.Models
     }
     public class BM1ListResponse : DataTableAjaxResponModel
     {
-        public List<BM1> data { get; set; } = new List<BM1>();
+        public List<BM1List> data { get; set; } = new List<BM1List>();
     }
     public class BM2ListRequest : DataTableAjaxPostModel
     {
@@ -209,7 +209,7 @@ namespace Audit.Models
     }
     public class BM2ListResponse : DataTableAjaxResponModel
     {
-        public List<BM2> data { get; set; } = new List<BM2>();
+        public List<BM2List> data { get; set; } = new List<BM2List>();
     }
     public class BM3ListRequest : DataTableAjaxPostModel
     {
@@ -258,7 +258,7 @@ namespace Audit.Models
     }
     public class BM3ListResponse : DataTableAjaxResponModel
     {
-        public List<BM3> data { get; set; } = new List<BM3>();
+        public List<BM3List> data { get; set; } = new List<BM3List>();
     }
     public class BM4ListRequest : DataTableAjaxPostModel
     {
@@ -300,7 +300,7 @@ namespace Audit.Models
     }
     public class BM4ListResponse : DataTableAjaxResponModel
     {
-        public List<BM4> data { get; set; } = new List<BM4>();
+        public List<BM4List> data { get; set; } = new List<BM4List>();
     }
     public class BM5ListRequest : DataTableAjaxPostModel
     {
@@ -338,7 +338,7 @@ namespace Audit.Models
     }
     public class BM5ListResponse : DataTableAjaxResponModel
     {
-        public List<BM5> data { get; set; } = new List<BM5>();
+        public List<BM5List> data { get; set; } = new List<BM5List>();
     }
     public class BM6ListRequest : DataTableAjaxPostModel
     {
@@ -456,7 +456,7 @@ namespace Audit.Models
     }
     public class BM8ListResponse : DataTableAjaxResponModel
     {
-        public List<BM8> data { get; set; } = new List<BM8>();
+        public List<BM8List> data { get; set; } = new List<BM8List>();
     }
     public class NM1ListRequest : DataTableAjaxPostModel
     {

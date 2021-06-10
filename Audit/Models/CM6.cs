@@ -41,7 +41,7 @@ namespace Audit.Models
         public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }
 
-        public DateTime? CREATED_DATE { get; set; }
+        public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public DateTime? UPDATED_DATE { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
@@ -94,8 +94,6 @@ namespace Audit.Models
                     IS_ACTIVE = Convert.ToInt32(xml.Element("IS_ACTIVE").Value);
                 if (xml.Element("EXEC_TYPE") != null)
                     EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
-                if (xml.Element("CREATED_DATE") != null)
-                    CREATED_DATE = Convert.ToDateTime(xml.Element("CREATED_DATE").Value);
 
             }
             return this;
@@ -121,7 +119,7 @@ namespace Audit.Models
                        new XElement("ACCEPTED_COSTS_COUNT", ACCEPTED_COSTS_COUNT),
                        new XElement("ACCEPTED_COSTS_AMOUNT", ACCEPTED_COSTS_AMOUNT),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
-                       new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null)
+                       new XElement("CREATED_DATE", Convert.ToDateTime(CREATED_DATE).ToString("dd-MMM-yy"))
                        );
         }
     }
