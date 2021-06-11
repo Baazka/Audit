@@ -618,7 +618,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.NM1(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.NM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("NM1") != null)
                     response.data = (from item in res.Elements("NM1") select new NM1().SetXml(item)).ToList();
 
@@ -663,7 +663,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.NM2(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.NM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("NM2") != null)
                     response.data = (from item in res.Elements("NM2") select new NM2().SetXml(item)).ToList();
 
@@ -708,25 +708,32 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.NM3(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.NM3(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("NM3") != null)
                     response.data = (from item in res.Elements("NM3") select new NM3().SetXml(item)).ToList();
+                int COUNT = 0;
+                Decimal AMOUNT = 0;
+                foreach (NM3 nm3 in response.data)
+                {
+                    if (nm3.C2_NONEXPIRED_COUNT != null && nm3.C2_EXPIRED_COUNT != null)
+                    {
+                        COUNT = Convert.ToInt32(nm3.C2_NONEXPIRED_COUNT) + Convert.ToInt32(nm3.C2_EXPIRED_COUNT);
+                        nm3.C2_COUNT = COUNT;
+                    }
+                }
+                foreach (NM3 nm3 in response.data)
+                {
+                    if (nm3.C2_NONEXPIRED_AMOUNT != null && nm3.C2_EXPIRED_AMOUNT != null)
+                    {
+                        string strNii1 = nm3.C2_NONEXPIRED_AMOUNT.Replace(",", "");
+                        string strNii2 = nm3.C2_EXPIRED_AMOUNT.Replace(",", "");
+                        Decimal Amount1 = Convert.ToDecimal(strNii1);
+                        Decimal Amount2 = Convert.ToDecimal(strNii2);
+                        AMOUNT = Amount1 + Amount2;
 
-                //foreach (NM3 nm3 in response.data)
-                //{
-                //    if(nm3.C2_NONEXPIRED_COUNT != 0 && nm3.C2_EXPIRED_COUNT != 0)
-                //    {
-                //        nm3.C2_COUNT = Convert.ToInt32(nm3.C2_NONEXPIRED_COUNT)  + Convert.ToInt32(nm3.C2_EXPIRED_COUNT);
-                //    }
-                //}
-
-                //foreach (NM3 nm3 in response.data)
-                //{
-                //    if (Convert.ToDecimal(nm3.C2_NONEXPIRED_AMOUNT) != 0 && Convert.ToDecimal(nm3.C2_EXPIRED_AMOUNT) != 0)
-                //    {
-                //        nm3.C2_AMOUNT = Convert.ToDecimal(nm3.C2_NONEXPIRED_AMOUNT) + Convert.ToDecimal(nm3.C2_EXPIRED_AMOUNT).ToString();
-                //    }
-                //}
+                        nm3.C2_AMOUNT = AMOUNT.ToString("#,0.##");
+                    }
+                }
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -769,7 +776,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.NM4(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.NM4(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("NM4") != null)
                     response.data = (from item in res.Elements("NM4") select new NM4().SetXml(item)).ToList();
 
@@ -814,7 +821,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.NM5(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.NM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("NM5") != null)
                     response.data = (from item in res.Elements("NM5") select new NM5().SetXml(item)).ToList();
 
@@ -859,7 +866,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.NM6(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.NM6(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("NM6") != null)
                     response.data = (from item in res.Elements("NM6") select new NM6().SetXml(item)).ToList();
 
@@ -904,7 +911,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.NM7(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.NM7(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("NM7") != null)
                     response.data = (from item in res.Elements("NM7") select new NM7().SetXml(item)).ToList();
 
