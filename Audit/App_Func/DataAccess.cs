@@ -5123,7 +5123,7 @@ namespace Audit.App_Func
                                     "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
-                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                                     "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
@@ -5261,7 +5261,7 @@ namespace Audit.App_Func
                                     "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
-                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                                     "FETCH NEXT: PAGESIZE ROWS ONLY";
 
                 cmd.BindByName = true;
@@ -5381,7 +5381,7 @@ namespace Audit.App_Func
                                     "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC, " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
-                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                                     "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
@@ -5494,7 +5494,7 @@ namespace Audit.App_Func
                             "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
-                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                             "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
@@ -5611,7 +5611,7 @@ namespace Audit.App_Func
                             "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
-                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                             "FETCH NEXT: PAGESIZE ROWS ONLY";
                 cmd.BindByName = true;
                 // Set parameters  
@@ -5739,7 +5739,7 @@ namespace Audit.App_Func
                             "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
-                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                             "FETCH NEXT: PAGESIZE ROWS ONLY";
                 cmd.BindByName = true;
                 // Set parameters  
@@ -5870,7 +5870,7 @@ namespace Audit.App_Func
                             "CASE WHEN :ORDER_NAME = 'YEAR_LABEL' AND: ORDER_DIR = 'DESC' THEN RAY.YEAR_LABEL END DESC, " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN B.AUDIT_TYPE END ASC,  " +
                             "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC " +
-                            "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                            "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                             "FETCH NEXT: PAGESIZE ROWS ONLY ";
                 cmd.BindByName = true;
                 // Set parameters  

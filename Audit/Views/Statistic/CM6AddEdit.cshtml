@@ -58,7 +58,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Үзүүлэлт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.IS_STATE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" } })
+                                        @Html.EditorFor(m => m.IS_STATE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right" , @maxlength = "1" } })
                                         @Html.ValidationMessageFor(m => m.IS_STATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

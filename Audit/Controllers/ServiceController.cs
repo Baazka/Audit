@@ -715,21 +715,21 @@ namespace Audit.Controllers
                 Decimal AMOUNT = 0;
                 foreach (NM3 nm3 in response.data)
                 {
-                    if (nm3.C2_NONEXPIRED_COUNT != null && nm3.C2_EXPIRED_COUNT != null)
+                    if (nm3.REFERENCE_COUNT != null && nm3.COMPLETION_DONE_COUNT != null)
                     {
-                        COUNT = Convert.ToInt32(nm3.C2_NONEXPIRED_COUNT) + Convert.ToInt32(nm3.C2_EXPIRED_COUNT);
+                        COUNT = Convert.ToInt32(nm3.REFERENCE_COUNT) - Convert.ToInt32(nm3.COMPLETION_DONE_COUNT);
                         nm3.C2_COUNT = COUNT;
                     }
                 }
                 foreach (NM3 nm3 in response.data)
                 {
-                    if (nm3.C2_NONEXPIRED_AMOUNT != null && nm3.C2_EXPIRED_AMOUNT != null)
+                    if (nm3.REFERENCE_AMOUNT != null && nm3.COMPLETION_DONE_AMOUNT != null)
                     {
-                        string strNii1 = nm3.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                        string strNii2 = nm3.C2_EXPIRED_AMOUNT.Replace(",", "");
+                        string strNii1 = nm3.REFERENCE_AMOUNT.Replace(",", "");
+                        string strNii2 = nm3.COMPLETION_DONE_AMOUNT.Replace(",", "");
                         Decimal Amount1 = Convert.ToDecimal(strNii1);
                         Decimal Amount2 = Convert.ToDecimal(strNii2);
-                        AMOUNT = Amount1 + Amount2;
+                        AMOUNT = Amount1 - Amount2;
 
                         nm3.C2_AMOUNT = AMOUNT.ToString("#,0.##");
                     }
