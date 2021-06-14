@@ -370,7 +370,7 @@ namespace Audit.Models
                 if (xml.Element("ACT_DELIVERY_DATE") != null)
                     ACT_DELIVERY_DATE = Convert.ToDateTime(xml.Element("ACT_DELIVERY_DATE").Value).ToString("yyyy.MM.dd");
                 if (xml.Element("ACT_AMOUNT") != null)
-                    ACT_AMOUNT = Convert.ToInt32(xml.Element("ACT_AMOUNT").Value).ToString("#,0.##");
+                    ACT_AMOUNT = Convert.ToDecimal(xml.Element("ACT_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ACT_STATE_AMOUNT") != null)
                     ACT_STATE_AMOUNT = Convert.ToDecimal(xml.Element("ACT_STATE_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("ACT_LOCAL_AMOUNT") != null)

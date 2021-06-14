@@ -211,7 +211,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("BM0") != null)
                     response.data = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
 
@@ -256,7 +256,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("BM1") != null)
                     response.data = (from item in res.Elements("BM1") select new BM1List().SetXml(item)).ToList();
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
@@ -302,7 +302,7 @@ namespace Audit.Controllers
 
 
                 response.recordsTotal = 0;
-                XElement res = AppStatic.SystemController.BM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("BM2") != null)
                 {
                     response.data = (from item in res.Elements("BM2") select new BM2List().SetXml(item)).ToList();
@@ -348,7 +348,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM3(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM3(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("BM3") != null)
                     response.data = (from item in res.Elements("BM3") select new BM3List().SetXml(item)).ToList();
 
@@ -393,7 +393,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM4(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM4(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("BM4") != null)
                     response.data = (from item in res.Elements("BM4") select new BM4List().SetXml(item)).ToList();
 
@@ -438,7 +438,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("BM5") != null)
                     response.data = (from item in res.Elements("BM5") select new BM5List().SetXml(item)).ToList();
 
@@ -573,7 +573,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM8(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM8(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("BM8") != null)
                     response.data = (from item in res.Elements("BM8") select new BM8List().SetXml(item)).ToList();
 
