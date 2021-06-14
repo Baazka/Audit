@@ -392,9 +392,9 @@ namespace Audit.Models
                 if (xml.Element("CLAIM_C2_AMOUNT") != null)
                     CLAIM_C2_AMOUNT = Convert.ToDecimal(xml.Element("CLAIM_C2_AMOUNT").Value).ToString("#,0.##");
                 if (xml.Element("CLAIM_C2_NONEXPIRED") != null)
-                    CLAIM_C2_NONEXPIRED = Convert.ToInt32(xml.Element("CLAIM_C2_NONEXPIRED").Value).ToString("#,0.##");
+                    CLAIM_C2_NONEXPIRED = Convert.ToDecimal(xml.Element("CLAIM_C2_NONEXPIRED").Value).ToString("#,0.##");
                 if (xml.Element("CLAIM_C2_EXPIRED") != null)
-                    CLAIM_C2_EXPIRED = Convert.ToInt32(xml.Element("CLAIM_C2_EXPIRED").Value).ToString("#,0.##");
+                    CLAIM_C2_EXPIRED = Convert.ToDecimal(xml.Element("CLAIM_C2_EXPIRED").Value).ToString("#,0.##");
 
                 if (xml.Element("BENEFIT_FIN") != null)
                     BENEFIT_FIN = Convert.ToInt32(xml.Element("BENEFIT_FIN").Value);
