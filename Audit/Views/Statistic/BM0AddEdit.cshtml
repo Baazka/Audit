@@ -31,26 +31,7 @@
                         @Html.HiddenFor(m => m.DEPARTMENT_ID)
                         @Html.HiddenFor(m => m.AUDITOR_LEAD_EDIT)
                         @Html.HiddenFor(m => m.AUDITOR_MEMBER_EDIT)
-                        @if (Model.AUDIT_TYPE == 0)
-                        {
-                            Model.AUDIT_TYPE = null;
-                        }
-                        @if (Model.TOPIC_TYPE == 0)
-                        {
-                            Model.TOPIC_TYPE = null;
-                        }
-                        @if (Model.AUDIT_BUDGET_TYPE == 0)
-                        {
-                            Model.AUDIT_BUDGET_TYPE = null;
-                        }
-                        @if (Model.AUDIT_FORM_TYPE == 0)
-                        {
-                            Model.AUDIT_FORM_TYPE = null;
-                        }
-                        @if (Model.AUDIT_PROPOSAL_TYPE == 0)
-                        {
-                            Model.AUDIT_PROPOSAL_TYPE = null;
-                        }
+                    
                         <h6>Гүйцэтгэсэн аудитын шинэ бүртгэл</h6>
                         <hr />
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
@@ -151,16 +132,10 @@
                                     <label class="col-sm-4 col-form-label text-right">Төсөв захирагчийн ангилал:</label>
                                     <div class="col-sm-4">
 
-                                        @if (Model.AUDIT_PROPOSAL_TYPE == null)
-                                        {
-                                            @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                        }
-                                        else
-                                        {
-                                            @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                           
+                                        @Html.DropDownListFor(model => model.AUDIT_BUDGET_TYPE, Model.refbudgettypes.Where(m => m.BUDGET_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
 
-                                        }
-
+                                       
                                         @if (Model.refbudgettypes.Count() > 0)
                                         {
                                             @Html.DropDownList("ddRefBudgetTypeHidden", Model.refbudgettypes.Select(m => new SelectListItem() { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_AUDIT_TYPE_ID.ToString() + ":" + m.BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
@@ -175,14 +150,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Аудит хийсэн хэлбэр:</label>
                                     <div class="col-sm-4">
-                                        @*@if (Model.AUDIT_FORM_TYPE == null)
-                        {
-                            @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                        }
-                        else
-                        {*@
+                                      
                                         @Html.DropDownListFor(model => model.AUDIT_FORM_TYPE, Model.formtypes.Where(m => m.FORM_AUDIT_TYPE_ID == Model.AUDIT_TYPE).Select(m => new SelectListItem { Text = m.FORM_TYPE_NAME, Value = m.FORM_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                        @*}*@
+                                      
 
                                         @if (Model.formtypes.Count() > 0)
                                         {
@@ -197,15 +167,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санал дүгнэлтийн төрөл:</label>
                                     <div class="col-sm-4">
-                                        @*@if(Model.AUDIT_PROPOSAL_TYPE == null)
-                        {*@
+                                     
                                         @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_FORM_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                        @*}*@
-                                        @*else
-                        {
-                            @Html.DropDownListFor(model => model.AUDIT_PROPOSAL_TYPE, Model.proposaltypes.Where(m => m.PROPOSAL_AUDIT_TYPE_ID == Model.AUDIT_PROPOSAL_TYPE).Select(m => new SelectListItem { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                        }*@
-
+                                    
                                         @if (Model.proposaltypes.Count() > 0)
                                         {
                                             @Html.DropDownList("ddProposalTypeHidden", Model.proposaltypes.Select(m => new SelectListItem() { Text = m.PROPOSAL_TYPE_NAME, Value = m.PROPOSAL_AUDIT_TYPE_ID.ToString() + ":" + m.PROPOSAL_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })

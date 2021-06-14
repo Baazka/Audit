@@ -155,7 +155,7 @@ namespace Audit.Models
                 if (xml.Element("AUDITOR_ENTRY") != null)
                     AUDITOR_ENTRY = xml.Element("AUDITOR_ENTRY").Value;
                 if (xml.Element("AUDIT_SERVICE_PAY") != null)
-                    AUDIT_SERVICE_PAY = xml.Element("AUDIT_SERVICE_PAY").Value;
+                    AUDIT_SERVICE_PAY = Convert.ToDecimal(xml.Element("AUDIT_SERVICE_PAY").Value).ToString("#,0.##");
                 if (xml.Element("AUDIT_INCLUDED_COUNT") != null)
                     AUDIT_INCLUDED_COUNT = Convert.ToInt32(xml.Element("AUDIT_INCLUDED_COUNT").Value);
                 if (xml.Element("DEPARTMENT_SHORT_NAME") != null) 
