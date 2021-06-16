@@ -65,6 +65,7 @@ namespace Audit.Models
         public int EXEC_TYPE { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
         public string AUDIT_SERVICE_PAY { get; set; }
+        public string TOTAL { get; set; }
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public DateTime? UPDATED_DATE { get; set; }
 
@@ -72,7 +73,7 @@ namespace Audit.Models
         public string TEAM_DEPARTMENT_NAME { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public int? AUDIT_INCLUDED_COUNT { get; set; }
-        public int YEAR_LABEL { get; set; }
+        public string YEAR_LABEL { get; set; }
         public int AUDIT_YEAR { get; set; }
         [Required(ErrorMessage = "Багийн төрөл сонгоно уу.")]
         public int AUDIT_DEPARTMENT_TYPE  { get; set; }
@@ -156,6 +157,8 @@ namespace Audit.Models
                     AUDITOR_ENTRY = xml.Element("AUDITOR_ENTRY").Value;
                 if (xml.Element("AUDIT_SERVICE_PAY") != null)
                     AUDIT_SERVICE_PAY = Convert.ToDecimal(xml.Element("AUDIT_SERVICE_PAY").Value).ToString("#,0.##");
+                if (xml.Element("TOTAL") != null)
+                    TOTAL = Convert.ToDecimal(xml.Element("TOTAL").Value).ToString("#,0.##");
                 if (xml.Element("AUDIT_INCLUDED_COUNT") != null)
                     AUDIT_INCLUDED_COUNT = Convert.ToInt32(xml.Element("AUDIT_INCLUDED_COUNT").Value);
                 if (xml.Element("DEPARTMENT_SHORT_NAME") != null) 
@@ -163,7 +166,7 @@ namespace Audit.Models
                 if (xml.Element("TEAM_DEPARTMENT_NAME") != null)
                     TEAM_DEPARTMENT_NAME = xml.Element("TEAM_DEPARTMENT_NAME").Value;
                 if (xml.Element("YEAR_LABEL") != null)
-                    YEAR_LABEL = Convert.ToInt32(xml.Element("YEAR_LABEL").Value);
+                    YEAR_LABEL = xml.Element("YEAR_LABEL").Value;
                 if (xml.Element("AUDIT_DEPARTMENT_TYPE") != null)
                     AUDIT_DEPARTMENT_TYPE = Convert.ToInt32(xml.Element("AUDIT_DEPARTMENT_TYPE").Value);
                 if (xml.Element("AUDIT_DEPARTMENT_ID") != null)

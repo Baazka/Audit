@@ -212,8 +212,41 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", null));
 
                 XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
+                List<BM0> bm0Body = new List<BM0>();
                 if (res != null && res.Elements("BM0") != null)
-                    response.data = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
+                    
+
+                bm0Body = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
+               // response.data = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
+                List<BM0> bm0 = new List<BM0>();
+                BM0 Niit = new BM0();
+                var typ = typeof(BM0);
+                var depname = typ.GetProperty("DEPARTMENT_NAME");
+                var pay = typ.GetProperty("AUDIT_SERVICE_PAY");
+                //int COUNT = 0;
+                Decimal AMOUNT = 0;
+             
+                foreach (BM0 nm3 in bm0Body)
+                {
+                    if (nm3.AUDIT_SERVICE_PAY != null)
+                    {
+                        string strNii1 = nm3.AUDIT_SERVICE_PAY.Replace(",", "");
+                        Decimal Amount1 = Convert.ToDecimal(strNii1);
+                        AMOUNT += Amount1;
+                        
+                        //nm3.TOTAL = AMOUNT.ToString("#,0.##");
+                    }
+                   
+                    
+                }
+                pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
+                depname.SetValue(Niit, "НИЙТ ДҮН");
+
+
+                bm0 = bm0Body;
+                bm0.Add(Niit);
+
+                response.data = bm0;
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;

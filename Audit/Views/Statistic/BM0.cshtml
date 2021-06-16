@@ -4,6 +4,15 @@
     ViewBag.Title = "BM0";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    @*<link rel="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+        <link rel="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
+        <link rel="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css" />*@
+
+    <style>
+       
+    </style>
+</head>
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
@@ -105,6 +114,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
+            
             <table id="BM0" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
@@ -141,20 +151,23 @@
                         <th class="clickClass">Илүү цаг</th>
                     </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                    <tbody>
+                    </tbody>
             </table>
+            </div>
         </div>
-    </div>
 </div>
 
 @section scripts{
     <script src="~/Scripts/jquery.multiselect.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>*@
     <script>
         $(document).ready(function () {
             bm0ListInit();
-
-
+           
         });
 
         $(".clickClass").click(function () {
@@ -194,7 +207,13 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                                return "";
+                            }
+                            else {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
+                            
                         }
                     },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
@@ -241,16 +260,15 @@
                     { width: 150, targets: 22 },
                 ],
                 scrollX: true,
-                scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,
-                "paging": true,
                 "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
                 "stateSave": false,
                 lengthChange: true,
+                "paging": true,
                 "language": datatables.language,
                 "drawCallback": function () {
                     rowselected();
@@ -278,7 +296,7 @@
 
             $('#BM0ListModel').modal('hide');
         }
-       
+
         function Choose2020(AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, AUDIT_BUDGET_TYPE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE) {
             $.ajax({
                         url: '@Url.Action("BM0Search2020GET", "Statistic", new { Area = "" })',
