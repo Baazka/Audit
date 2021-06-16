@@ -1965,7 +1965,7 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                     "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.ACT_VIOLATION_TYPE = RVT.VIOLATION_ID " +
                     "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.ACT_CONTROL_AUDITOR_ID = SU.USER_ID " +
-                    "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND BM.ID != '3229' AND BM.ID != '3543' AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND B.DEPARTMENT_ID = :V_DEPARTMENT AND B.AUDITOR_ENTRY_ID = :USER_ID)) AND (:V_FILTER_DEPARTMENT IS NULL OR (B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
+                   "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND B.DEPARTMENT_ID = :V_DEPARTMENT AND B.AUDITOR_ENTRY_ID = :USER_ID)) AND(:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT))" +
                     "AND B.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%'  " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'  " +
@@ -2000,7 +2000,7 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON B.TOPIC_TYPE = RTT.TOPIC_TYPE_ID LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON B.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                     "INNER JOIN AUD_STAT.REF_VIOLATION_TYPE RVT ON BM.ACT_VIOLATION_TYPE = RVT.VIOLATION_ID " +
                     "LEFT JOIN AUD_REG.SYSTEM_USER SU ON BM.ACT_CONTROL_AUDITOR_ID = SU.USER_ID " +
-                    "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND BM.ID != '3229' AND BM.ID != '3543' AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND B.DEPARTMENT_ID = :V_DEPARTMENT AND B.AUDITOR_ENTRY_ID = :USER_ID)) AND (:V_FILTER_DEPARTMENT IS NULL OR (B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
+                    "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND B.DEPARTMENT_ID = :V_DEPARTMENT AND B.AUDITOR_ENTRY_ID = :USER_ID)) AND(:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT))" +
                     "AND B.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'  " +
@@ -4513,7 +4513,7 @@ namespace Audit.App_Func
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_YEAR' AND: ORDER_DIR = 'DESC' THEN b.AUDIT_YEAR END DESC, " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN b.AUDIT_TYPE END ASC, " +
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN b.AUDIT_TYPE END DESC " +
-                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "OFFSET((:PAGENUMBER / :PAGESIZE) * :PAGESIZE) ROWS " +
                                     "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;
@@ -4540,7 +4540,7 @@ namespace Audit.App_Func
                 dtTable.WriteXml(sw, XmlWriteMode.WriteSchema);
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
-               // xmlResponseData.Add(new XElement("RowCount", count));
+                xmlResponseData.Add(new XElement("RowCount", count));
                 response.CreateResponse(xmlResponseData);
             }
             catch (Exception ex)
@@ -4620,7 +4620,7 @@ namespace Audit.App_Func
                                     "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN B.AUDIT_TYPE END DESC, " +
                                     "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'ASC' THEN BM.DECISION_TYPE END ASC,  " +
                                     "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'DESC' THEN BM.DECISION_TYPE END DESC " +
-                                    "OFFSET(( : PAGENUMBER - 1 ) * :PAGESIZE) ROWS " +
+                                    "OFFSET((:PAGENUMBER / :PAGESIZE) * :PAGESIZE) ROWS " +
                                     "FETCH NEXT: PAGESIZE ROWS ONLY ";
 
                 cmd.BindByName = true;

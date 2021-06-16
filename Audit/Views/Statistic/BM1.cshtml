@@ -201,7 +201,7 @@
                         render: function (data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
-                    }, 
+                    },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
@@ -366,7 +366,7 @@
                     alert("Бичлэг сонгоно уу");
                 else {
                     var id = BM1.bm1ID;
-                    
+
                     $.ajax({
                         url: "@Url.Action("BM1Detail", "Statistic", new { Area = "" })",
                         type: 'POST',
@@ -417,7 +417,7 @@
                         $.ajax({
                             url: "@Url.Action("BM1Delete", "Statistic", new { Area = "" })",
                             type: 'POST',
-                            data: { id }, 
+                            data: { id },
                             success: function (data, status, xhr) {
                                 BM1.progressResponse(data, status, xhr);
                             },
@@ -471,4 +471,8 @@
         }
 
     </script>
-} 
+}
+
+
+
+
