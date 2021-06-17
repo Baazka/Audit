@@ -123,7 +123,12 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.TOPIC_CODE === "НИЙТ ДҮН") {
+                                return "";
+                            }
+                            else {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
                         }
                     },
                     //{ "data": "AUDIT_YEAR", "name": "AUDIT_YEAR" },
