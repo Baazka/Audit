@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace Audit.Models
 {
@@ -16,22 +17,25 @@ namespace Audit.Models
     public class CM7
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-
+        [Required(ErrorMessage = "Дотоод аудитад хамрагдсан нэгжийн нэр оруулна уу.")]
         public string AUD_NAME { get; set; }
+
         public string NAME_TYPE { get; set; }
 
-        public int REFERENCE_COUNT { get; set; }
-        public int BUDGET_EXPENSES { get; set; }
-        public int HUMAN_RESOURCES { get; set; }
-        public int PLANNED_COMPLETED { get; set; }
-        public int OTHER { get; set; }
-        public int COMP_DONE { get; set; }
-        public int COMP_PROGRESS { get; set; }
-        public int RESOLVED_COMPLAINT_COUNT { get; set; }
+        public int? REFERENCE_COUNT { get; set; }
+        public int? BUDGET_EXPENSES { get; set; }
+        public int? HUMAN_RESOURCES { get; set; }
+        public int? PLANNED_COMPLETED { get; set; }
+        public int? OTHER { get; set; }
+        public int? COMP_DONE { get; set; }
+        public int? COMP_PROGRESS { get; set; }
+        public int? RESOLVED_COMPLAINT_COUNT { get; set; }
+        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_NOT_COMP { get; set; }
                 
         public int IS_ACTIVE { get; set; } = 1;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -16,27 +17,28 @@ namespace Audit.Models
     public class CM6
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-
+        [Required(ErrorMessage = "Төсөв сонгоно уу.")]
         public string AUD_NAME { get; set; }
         public int IS_STATE { get; set; }
 
-        public int ALL_COUNT { get; set; }
-        public decimal ALL_AMOUNT { get; set; }
-        public int PROCESSED_INCOMED_COUNT { get; set; }
-        public decimal PROCESSED_INCOMED_AMOUNT { get; set; }
-        public int PROCESSED_COSTS_COUNT { get; set; }
-        public decimal PROCESSED_COSTS_AMOUNT { get; set; }
+        public int? ALL_COUNT { get; set; }
+        public decimal? ALL_AMOUNT { get; set; }
+        public int? PROCESSED_INCOMED_COUNT { get; set; }
+        public decimal? PROCESSED_INCOMED_AMOUNT { get; set; }
+        public int? PROCESSED_COSTS_COUNT { get; set; }
+        public decimal? PROCESSED_COSTS_AMOUNT { get; set; }
 
-        public int ALL_C1_COUNT { get; set; }
-        public decimal ALL_C2_AMOUNT { get; set; }
-        public int ACCEPTED_INCOMED_COUNT { get; set; }
-        public decimal ACCEPTED_INCOMED_AMOUNT { get; set; }
-        public int ACCEPTED_COSTS_COUNT { get; set; }
-        public decimal ACCEPTED_COSTS_AMOUNT { get; set; }
+        public int? ALL_C1_COUNT { get; set; }
+        public decimal? ALL_C2_AMOUNT { get; set; }
+        public int? ACCEPTED_INCOMED_COUNT { get; set; }
+        public decimal? ACCEPTED_INCOMED_AMOUNT { get; set; }
+        public int? ACCEPTED_COSTS_COUNT { get; set; }
+        public decimal? ACCEPTED_COSTS_AMOUNT { get; set; }
         
         public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }

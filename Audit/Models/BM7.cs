@@ -34,29 +34,29 @@ namespace Audit.Models
 
         public string DECISION_TYPE { get; set; }
 
-        public int INCOME_STATE_COUNT { get; set; }
+        public int? INCOME_STATE_COUNT { get; set; }
         public string INCOME_STATE_AMOUNT { get; set; }
-        public int INCOME_LOCAL_COUNT { get; set; }
-        public int INCOME_LOCAL_NUMBER { get; set; }
-        public int BUDGET_STATE_COUNT { get; set; }
+        public int? INCOME_LOCAL_COUNT { get; set; }
+        public int? INCOME_LOCAL_NUMBER { get; set; }
+        public int? BUDGET_STATE_COUNT { get; set; }
         public string BUDGET_STATE_AMOUNT { get; set; }
-        public int BUDGET_LOCAL_COUNT { get; set; }
+        public int? BUDGET_LOCAL_COUNT { get; set; }
         public string BUDGET_LOCAL_AMOUNT { get; set; }
-        public int ACCOUNTANT_COUNT { get; set; }
+        public int? ACCOUNTANT_COUNT { get; set; }
         public string ACCOUNTANT_AMOUNT { get; set; }
-        public int EFFICIENCY_COUNT { get; set; }
+        public int? EFFICIENCY_COUNT { get; set; }
         public string EFFICIENCY_AMOUNT { get; set; }
-        public int LAW_COUNT { get; set; }
+        public int? LAW_COUNT { get; set; }
         public string LAW_AMOUNT { get; set; }
-        public int MONITORING_COUNT { get; set; }
+        public int? MONITORING_COUNT { get; set; }
         public string MONITORING_AMOUNT { get; set; }
-        public int PURCHASE_COUNT { get; set; }
+        public int? PURCHASE_COUNT { get; set; }
         public string PURCHASE_AMOUNT { get; set; }
-        public int COST_COUNT { get; set; }
+        public int? COST_COUNT { get; set; }
         public string COST_AMOUNT { get; set; }
-        public int OTHER_COUNT { get; set; }
+        public int? OTHER_COUNT { get; set; }
         public string OTHER_AMOUNT { get; set; }
-        public int ALL_COUNT { get; set; }
+        public int? ALL_COUNT { get; set; }
         public string ALL_AMOUNT { get; set; }
 
         public int EXEC_TYPE { get; set; }

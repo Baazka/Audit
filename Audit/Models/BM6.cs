@@ -30,27 +30,27 @@ namespace Audit.Models
         public string TOPIC_NAME { get; set; }
         public string AUDIT_NAME { get; set; }
 
-        public int VIOLATION_COUNT { get; set; }
+        public int? VIOLATION_COUNT { get; set; }
         public string VIOLATION_AMOUNT { get; set; }
-        public int ERROR_COUNT { get; set; }
+        public int? ERROR_COUNT { get; set; }
         public string ERROR_AMOUNT { get; set; }
-        public int ALL_COUNT { get; set; }
+        public int? ALL_COUNT { get; set; }
         public string ALL_AMOUNT { get; set; }
-        public int CORRECTED_ERROR_COUNT { get; set; }
+        public int? CORRECTED_ERROR_COUNT { get; set; }
         public string CORRECTED_ERROR_AMOUNT { get; set; }
-        public int OTHER_ERROR_COUNT { get; set; }
+        public int? OTHER_ERROR_COUNT { get; set; }
         public string OTHER_ERROR_AMOUNT { get; set; }
-        public int ACT_COUNT { get; set; }
+        public int? ACT_COUNT { get; set; }
         public string ACT_AMOUNT { get; set; }
-        public int CLAIM_COUNT { get; set; }
+        public int? CLAIM_COUNT { get; set; }
         public string CLAIM_AMOUNT { get; set; }
-        public int REFERENCE_COUNT { get; set; }
+        public int? REFERENCE_COUNT { get; set; }
         public string REFERENCE_AMOUNT { get; set; }
-        public int PROPOSAL_COUNT { get; set; }
+        public int? PROPOSAL_COUNT { get; set; }
         public string PROPOSAL_AMOUNT { get; set; }
-        public int LAW_COUNT { get; set; }
+        public int? LAW_COUNT { get; set; }
         public string LAW_AMOUNT { get; set; }
-        public int OTHER_COUNT { get; set; }
+        public int? OTHER_COUNT { get; set; }
         public string OTHER_AMOUNT { get; set; }
 
         public int EXEC_TYPE { get; set; }

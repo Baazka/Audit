@@ -24,7 +24,7 @@
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
-        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN")
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "Admin" || User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_DIRECTOR")
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>

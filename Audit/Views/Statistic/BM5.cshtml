@@ -162,7 +162,12 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                                return "";
+                            }
+                            else {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
                         }
                     },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
@@ -202,7 +207,8 @@
                 ],
                 columnDefs: [
                     { width: 200, targets: 4 },
-                    { width: 300, targets: 7 }, 
+                    { width: 200, targets: 7 }, 
+                    { width: 400, targets: 8 }, 
                     { width: 100, targets: 9 },
 
                 ],
