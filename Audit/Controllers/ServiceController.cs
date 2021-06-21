@@ -3784,7 +3784,7 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.CM6(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("CM6") != null)
-                    response.data = (from item in res.Elements("CM6") select new CM6().SetXml(item)).ToList();
+                    response.data = (from item in res.Elements("CM6") select new CM6List().SetXml(item)).ToList();
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;

@@ -987,7 +987,7 @@ namespace Audit.Models
     }
     public class CM6ListResponse : DataTableAjaxResponModel
     {
-        public List<CM6> data { get; set; } = new List<CM6>();
+        public List<CM6List> data { get; set; } = new List<CM6List>();
     }
     public class CM7ListRequest : DataTableAjaxPostModel
     {
