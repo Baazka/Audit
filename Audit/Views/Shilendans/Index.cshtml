@@ -49,7 +49,7 @@
                           new { value = 3 , text = "ТШЗ" },
                          }, "value", "text"), new { @class = "form-control form-control-sm" })
         </div>
-        @if (User.GetClaimData("USER_TYPE") == "Hak_User")
+        @if (User.GetClaimData("USER_TYPE") == "HAK_USER")
         {
             <div class="form-group-sm ml-auto pr-2">
                 <br />
@@ -84,60 +84,60 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                @if (User.GetClaimData("USER_TYPE") == "Hak_User")
-                {
-                    <table class="table table-bordered datatable display" id="hakorganizationlist" style="width:100%">
-                    <thead style="background-color:#f8f9fc;">
-                        <tr>
-                            <th class="text-center">№</th>
-                            <th>Төсвийн ерөнхийлөн захирагч</th>
-                            <th>Төсвийн ангилал</th>
-                            <th width="5%">Төсөв захирагчийн ангилал</th>
-                            <th width="20%">Харъяа аудитын байгууллагын нэр</th>
-                            <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
-                            <th>Регистрийн дугаар</th>
-                            <th width="9%">Маягт1 / Маягт4</th>
-                            <th class="text-center">Мэдээлэл оруулсан эсэх</th>
-                            <th class="text-center">Баримт хэвлэсэн эсэх</th>
-                            <th>Мэдээлэл оруулсан аудитор</th>
-                            <th>Мэдээлэл оруулсан өдөр</th>
-                            <th width="15%">Шилэн данс</th>
-                        </tr>
-                        @*<th>МАЯГТ 1</th>
-                        <th>МАЯГТ 4</th>
-                        <th>МАЯГТ 6</th>*@
-                    </thead>
-                    <tbody>
-                    </tbody>
-                    </table>
-                }
-                else
-                {
-                <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
-                    <thead style="background-color:#f8f9fc;">
-                        <tr>
-                            <th class="text-center">№</th>
-                            <th>Төсвийн ерөнхийлөн захирагч</th>
-                            <th>Төсвийн ангилал</th>
-                            <th width="5%">Төсөв захирагчийн ангилал</th>
-                            <th width="20%">Харъяа аудитын байгууллагын нэр</th>
-                            <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
-                            <th>Регистрийн дугаар</th>
-                            <th width="9%">Маягт1 / Маягт4</th>
-                            <th class="text-center">Мэдээлэл оруулсан эсэх</th>
-                            <th class="text-center">Баримт хэвлэсэн эсэх</th>
-                            <th>Мэдээлэл оруулсан аудитор</th>
-                            <th>Мэдээлэл оруулсан өдөр</th>
-                            <th width="15%">Шилэн данс</th>
-                        </tr>
-                        @*<th>МАЯГТ 1</th>
-                        <th>МАЯГТ 4</th>
-                        <th>МАЯГТ 6</th>*@
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                }
+                    @if (User.GetClaimData("USER_TYPE") == "HAK_USER")
+                    {
+                        <table class="table table-bordered datatable display" id="hakorganizationlist" style="width:100%">
+                            <thead style="background-color:#f8f9fc;">
+                                <tr>
+                                    <th class="text-center">№</th>
+                                    <th>Төсвийн ерөнхийлөн захирагч</th>
+                                    <th>Төсвийн ангилал</th>
+                                    <th width="5%">Төсөв захирагчийн ангилал</th>
+                                    <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                                    <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                                    <th>Регистрийн дугаар</th>
+                                    <th width="9%">Маягт1 / Маягт4</th>
+                                    <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                                    <th class="text-center">Баримт хэвлэсэн эсэх</th>
+                                    <th>Мэдээлэл оруулсан аудитор</th>
+                                    <th>Мэдээлэл оруулсан өдөр</th>
+                                    <th width="15%">Шилэн данс</th>
+                                </tr>
+                                @*<th>МАЯГТ 1</th>
+                                <th>МАЯГТ 4</th>
+                                <th>МАЯГТ 6</th>*@
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered datatable display" id="organizationlist" style="width:100%">
+                            <thead style="background-color:#f8f9fc;">
+                                <tr>
+                                    <th class="text-center">№</th>
+                                    <th>Төсвийн ерөнхийлөн захирагч</th>
+                                    <th>Төсвийн ангилал</th>
+                                    <th width="5%">Төсөв захирагчийн ангилал</th>
+                                    <th width="20%">Харъяа аудитын байгууллагын нэр</th>
+                                    <th width="25%">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр</th>
+                                    <th>Регистрийн дугаар</th>
+                                    <th width="9%">Маягт1 / Маягт4</th>
+                                    <th class="text-center">Мэдээлэл оруулсан эсэх</th>
+                                    <th class="text-center">Баримт хэвлэсэн эсэх</th>
+                                    <th>Мэдээлэл оруулсан аудитор</th>
+                                    <th>Мэдээлэл оруулсан өдөр</th>
+                                    <th width="15%">Шилэн данс</th>
+                                </tr>
+                                @*<th>МАЯГТ 1</th>
+                                <th>МАЯГТ 4</th>
+                                <th>МАЯГТ 6</th>*@
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
         </div>
@@ -316,10 +316,10 @@
                     url: "/api/service/mirrorhakorglist",
                     type: 'POST',
                     data: function (data) {
-                        data.DeparmentID = $('#DeparmentID').val();
+                        //data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
-                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
-                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
+                        //data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        //data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         return data;
                     }
                 },
@@ -393,10 +393,10 @@
                     url: "/api/service/mirrorhakorglist",
                     type: 'POST',
                     data: function (data) {
-                        data.DeparmentID = $('#DeparmentID').val();
+                        //data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
-                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
-                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
+                        //data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        //data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         return data;
                     }
                 },
