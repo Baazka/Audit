@@ -186,6 +186,7 @@ namespace Audit.Controllers
             BM0ListResponse response = new BM0ListResponse();
             try
             {
+                
                 XElement elem = new XElement("Request");
 
                 elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
@@ -285,8 +286,10 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            
             return response;
         }
+      
         [HttpPost]
         public BM1ListResponse BM1List(BM1ListRequest request)
         {
@@ -1227,7 +1230,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM6(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM6(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM6> Body = new List<BM6>();
                 List<BM6> list = new List<BM6>();
                 BM6 Niit = new BM6();
@@ -1482,13 +1485,13 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.BM7(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"));
+                XElement res = AppStatic.SystemController.BM7(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM7> Body = new List<BM7>();
                 List<BM7> list = new List<BM7>();
                 BM7 Niit = new BM7();
                 var typ = typeof(BM7);
                 if (res != null && res.Elements("BM7") != null)
-                    response.data = (from item in res.Elements("BM7") select new BM7().SetXml(item)).ToList();
+                    Body = (from item in res.Elements("BM7") select new BM7().SetXml(item)).ToList();
 
                 if (Body.Count > 0)
                 {

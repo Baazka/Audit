@@ -17,7 +17,7 @@
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
 
-        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN")
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "Admin" || User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_DIRECTOR")
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
@@ -28,52 +28,55 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-        <div class="form-group-sm ml-auto pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM4.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_REGISTER" || User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "HAK_USER")
+        {
+            <div class="form-group-sm ml-auto pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM4.loadTemplate();">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Шинэ бүртгэл</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="CheckUserTypeCompletion('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Хэрэгжилт</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="CheckUserTypeEdit('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">Засах</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CheckUserTypeDelete('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                    <span class="text">Устгах</span>
+                </a>
+            </div>
+        }
+            <div class="form-group-sm">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM4', 'БМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын бүртгэл')">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Excel</span>
+                </a>
+            </div>
         </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM4.completion();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-check"></i>
-                </span>
-                <span class="text">Хэрэгжилт</span>
-            </a>
-        </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM4.edit();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-edit"></i>
-                </span>
-                <span class="text">Засах</span>
-            </a>
-        </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM4.delete();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-trash-alt"></i>
-                </span>
-                <span class="text">Устгах</span>
-            </a>
-        </div>
-        <div class="form-group-sm">
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM4', 'БМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын бүртгэл')">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-excel"></i>
-                </span>
-                <span class="text">Excel</span>
-            </a>
-        </div>
-    </div>
 </form>
 <div class="card">
     <div class="card-body">
@@ -135,6 +138,7 @@
 
 @section scripts{
     <script>
+        var userid = @ViewBag.UserID;
         $(document).ready(function () {
            bm4ListInit();
         });
@@ -152,7 +156,6 @@
                 $(this).addClass('row_selected');
                 BM4.bm4ID = this.getAttribute("data-id");
                 BM4.rowdata = BM4.table.row(this).data();
-                console.log(BM4.rowdata);
             });
         }
         function bm4ListInit(pagelength = 10) {
@@ -253,6 +256,66 @@
             $("#Bm4Modal #BUDGET_TYPE_NAME").val(budgettype);
 
             $('#BM0ListModel').modal('hide');
+        }
+        function CheckUserTypeEdit(userType) {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER') {
+                if (BM4.bm4ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = BM4.rowdata.CREATED_BY;
+                    var update_by = BM4.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        BM4.edit();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг засхад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            if (userType == 'BRANCH_REGISTER') {
+                BM4.edit();
+            }
+        }
+        function CheckUserTypeCompletion(userType) {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER') {
+                if (BM4.bm4ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = BM4.rowdata.CREATED_BY;
+                    var update_by = BM4.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        BM4.completion();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг засхад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            if (userType == 'BRANCH_REGISTER') {
+                BM4.completion();
+            }
+        }
+        function CheckUserTypeDelete(userType) {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER' || userType == 'BRANCH_REGISTER') {
+                if (BM4.bm4ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = BM4.rowdata.CREATED_BY;
+                    var update_by = BM4.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        BM4.delete();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг устгахад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            else {
+                alert("Уучлаарай таны эрх энэ бүртгэлийг устгахад хүрэхгүй байна!");
+            }
         }
         $('#DeparmentID').change(function () {
             $("#BM4 tbody tr").removeClass('row_selected');

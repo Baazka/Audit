@@ -17,7 +17,7 @@
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
 
-        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN")
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "Admin" || User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_DIRECTOR")
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
@@ -28,42 +28,45 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-        <div class="form-group-sm ml-auto pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM5.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
-        </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="BM5.completion();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-check"></i>
-                </span>
-                <span class="text">Хэрэгжилт</span>
-            </a>
-        </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="BM5.edit();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-edit"></i>
-                </span>
-                <span class="text">Засах</span>
-            </a>
-        </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="BM5.delete();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-trash-alt"></i>
-                </span>
-                <span class="text">Устгах</span>
-            </a>
-        </div>
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_REGISTER" || User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "HAK_USER")
+        {
+            <div class="form-group-sm ml-auto pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="BM5.loadTemplate();">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Шинэ бүртгэл</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="CheckUserTypeCompletion('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Хэрэгжилт</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="CheckUserTypeEdit('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">Засах</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CheckUserTypeDelete('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                    <span class="text">Устгах</span>
+                </a>
+            </div>
+        }
         <div class="form-group-sm">
             <br />
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM5', 'БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл')">
@@ -124,6 +127,7 @@
 
 @section scripts{
     <script>
+        var userid = @ViewBag.UserID;
         $(document).ready(function () {
             bm5ListInit();
         });
@@ -140,6 +144,7 @@
                 $("#BM5 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 BM5.bm5ID = this.getAttribute("data-id");
+                BM5.rowdata = BM5.table.row(this).data();
             });
         }
         function bm5ListInit(pagelength = 10) {
@@ -207,8 +212,8 @@
                 ],
                 columnDefs: [
                     { width: 200, targets: 4 },
-                    { width: 200, targets: 7 }, 
-                    { width: 400, targets: 8 }, 
+                    { width: 200, targets: 7 },
+                    { width: 400, targets: 8 },
                     { width: 100, targets: 9 },
 
                 ],
@@ -244,6 +249,66 @@
             $("#Bm5Modal #BUDGET_TYPE_NAME").val(budgettype);
 
             $('#BM0ListModel').modal('hide');
+        }
+        function CheckUserTypeEdit(userType) {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER') {
+                if (BM5.bm5ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = BM5.rowdata.CREATED_BY;
+                    var update_by = BM5.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        BM5.edit();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг засхад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            if (userType == 'BRANCH_REGISTER') {
+                BM5.edit();
+            }
+        }
+        function CheckUserTypeCompletion(userType) {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER') {
+                if (BM5.bm5ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = BM5.rowdata.CREATED_BY;
+                    var update_by = BM5.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        BM5.completion();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг засхад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            if (userType == 'BRANCH_REGISTER') {
+                BM5.completion();
+            }
+        }
+        function CheckUserTypeDelete(userType) {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER' || userType == 'BRANCH_REGISTER') {
+                if (BM5.bm5ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = BM5.rowdata.CREATED_BY;
+                    var update_by = BM5.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        BM5.delete();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг устгахад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            else {
+                alert("Уучлаарай таны эрх энэ бүртгэлийг устгахад хүрэхгүй байна!");
+            }
         }
         $('#DeparmentID').change(function () {
             $("#BM5 tbody tr").removeClass('row_selected');

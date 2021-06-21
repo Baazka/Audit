@@ -225,7 +225,8 @@ namespace Audit.Models
         public string COMPLETION_DONE_AMOUNT { get; set; }
         public int? COMPLETION_PROGRESS { get; set; }
         public string COMPLETION_PROGRESS_AMOUNT { get; set; }
-
+        public int CREATED_BY { get; set; }
+        public int UPDATED_BY { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
         public string CREATED_DATE { get; set; } = DateTime.Now.ToString("dd-MMM-yy");
         public string NOW_CREATED_DATE { get; set; } = DateTime.Now.ToString("yyyy.MM.dd");
@@ -240,6 +241,10 @@ namespace Audit.Models
         {
             if (xml != null)
             {
+                if (xml.Element("CREATED_BY") != null)
+                    CREATED_BY = Convert.ToInt32(xml.Element("CREATED_BY").Value);
+                if (xml.Element("UPDATED_BY") != null)
+                    UPDATED_BY = Convert.ToInt32(xml.Element("UPDATED_BY").Value);
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
                 if (xml.Element("AUDIT_ID") != null)

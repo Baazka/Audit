@@ -78,6 +78,7 @@ namespace Audit.Controllers
             }
             return PartialView(bM0Search);
         }
+        
         public PartialViewResult BM0Search2020GET(int AUDIT_TYPE,int TOPIC_TYPE,string TOPIC_CODE,string TOPIC_NAME,string ORDER_NO,int AUDIT_BUDGET_TYPE,int AUDIT_FORM_TYPE,int AUDIT_PROPOSAL_TYPE)
         {
             BM0 bm0 = new BM0();
@@ -219,6 +220,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult BM0AddEdit()
@@ -561,6 +563,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult BM1Detail(int id, bool isbm0 = false, bool iscompletion = false)
@@ -1158,6 +1161,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult BM2AddEdit()
@@ -1824,6 +1828,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult BM3AddEdit()
@@ -2461,6 +2466,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult BM4AddEdit()
@@ -3065,6 +3071,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         [HttpGet]
@@ -3737,6 +3744,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult BM8Add(int id)
