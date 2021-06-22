@@ -134,7 +134,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.C2_EXPIRED, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.C2_EXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.C2_EXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.C2_EXPIRED_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

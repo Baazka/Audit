@@ -17,7 +17,7 @@
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
 
-        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "Admin" || User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_DIRECTOR")
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN" || User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_DIRECTOR")
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
@@ -28,7 +28,7 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-        @if (User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_REGISTER" || User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "HAK_USER")
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_REGISTER" || User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "HAK_USER" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN")
         {
             <div class="form-group-sm ml-auto pr-2">
                 <br />
@@ -223,32 +223,13 @@
 
                 }
             }
-            if (userType == 'BRANCH_REGISTER') {
+            if (userType == 'BRANCH_REGISTER' || userType == 'Admin') {
                 BM8.edit();
             }
         }
-        function CheckUserTypeCompletion(userType) {
-            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER') {
-                if (BM8.bm8ID == null) {
-                    alert("Бичлэг сонгоно уу");
-                }
-                else {
-                    var creat_by = BM8.rowdata.CREATED_BY;
-                    var update_by = BM8.rowdata.UPDATED_BY;
-                    if (creat_by == userid) {
-                        BM8.completion();
-                    } else {
-                        alert("Уучлаарай таны эрх энэ бүртгэлийг засхад хүрэхгүй байна!");
-                    }
-
-                }
-            }
-            if (userType == 'BRANCH_REGISTER') {
-                BM8.completion();
-            }
-        }
+        
         function CheckUserTypeDelete(userType) {
-            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER' || userType == 'BRANCH_REGISTER') {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER' || userType == 'BRANCH_REGISTER' || userType == 'Admin') {
                 if (BM8.bm8ID == null) {
                     alert("Бичлэг сонгоно уу");
                 }

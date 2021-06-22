@@ -160,7 +160,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Дараа онд шилжих үлдэгдлийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.CLAIM_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_C2_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -178,7 +178,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.CLAIM_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_C2_EXPIRED, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

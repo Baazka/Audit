@@ -248,7 +248,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тоо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.LAW_C2_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.LAW_C2_NUMBER, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -257,7 +257,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0.00", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.LAW_C2_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
