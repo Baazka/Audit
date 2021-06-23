@@ -356,8 +356,9 @@
     var value1 =0;
     var value2 =0;
     var value3 = 0;
+    document.getElementById("2Button_Completion").style.display = "none";
+
     $(document).ready(function () {
-        document.getElementById("2Button_Completion").style.display = "none";
         if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
             $("#ACT_C2_AMOUNT").val(null);
             $("#ACT_C2_NONEXPIRED").val(null);
@@ -418,10 +419,10 @@
 
       function calculateSum1() {
           var sum = 0;
-          //iterate through each textboxes and add the values
+         
           $(".amount1").each(function () {
-              //add only if the value is number
               if (!isNaN(this.value) && this.value.length != 0) {
+                 
                   sum += parseFloat(this.value);
               }
           });
@@ -444,9 +445,9 @@
       }
       function calculateSum2() {
           var sum = 0;
-          //iterate through each textboxes and add the values
+          
           $(".amount2").each(function () {
-              //add only if the value is number
+              
               if (!isNaN(this.value) && this.value.length != 0) {
                   sum += parseFloat(this.value);
               }
@@ -470,9 +471,9 @@
       }
         function calculateSum3() {
           var sum = 0;
-          //iterate through each textboxes and add the values
+          
           $(".amount3").each(function () {
-              //add only if the value is number
+              
               if (!isNaN(this.value) && this.value.length != 0) {
                   sum += parseFloat(this.value);
               }
@@ -507,7 +508,7 @@
         }
         if (type == 2) {
             if ($("#COMPLETION_DATE").val() != "" || $("#COMPLETION_ORDER").val() != "") {
-                alert("Та биелэлт нэмж бүртэгсэн байна!")
+                alert("Та биелэлт нэмж бүртгэсэн байна!")
             }
             else {
                 document.getElementById("Button_Completion").style.display = "block";

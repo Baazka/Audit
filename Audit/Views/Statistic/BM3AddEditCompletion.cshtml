@@ -2,7 +2,7 @@
 @model Audit.Models.BM3
 
 <div class="modal fade" id="Bm3Modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width:90%;margin: 0 auto;">
+    <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
         @using (Ajax.BeginForm("BM3AddEditCompletion", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
@@ -59,12 +59,19 @@
                             </div>
                         </div>
 
-                        <h6 class="heading-1"><span>Зөвлөмжийн биелэлт</span></h6>
+                        <h6 class="heading-1">
+                            <span>Зөвлөмжийн биелэлт</span>
+                            <a href="#" type="button" onclick="hiddenFuncion(1)" class="close btn btn-sm btn-success btn-icon-split buttonGreen" id="Button_Completion">Биелэлт нэмж бүртгэх</a>
+                            <a href="#" type="button" onclick="hiddenFuncion(2)" class="close btn btn-sm btn-default bg-secondary text-white" id="2Button_Completion">Буцах</a>
+                        </h6>
                         <div class="col-12">
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн биелэлтийг мэдээлсэн баримт бичгийн огноо:</label>
                                 <div class="col-sm-4">
                                     @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                </div>
+                                <div class="col-sm-4 completionShow hiddenCompletion">
+                                    @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker text-danger" } })
                                 </div>
                             </div>
                         </div>
@@ -73,6 +80,9 @@
                                 <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн биелэлтийг мэдээлсэн баримт бичгийн нэр, дугаар:</label>
                                 <div class="col-sm-4">
                                     @Html.EditorFor(m => m.COMPLETION_ORDER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                </div>
+                                <div class="col-sm-4 completionShow hiddenCompletion">
+                                    @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm text-danger" } })
                                 </div>
                             </div>
                         </div>
@@ -83,6 +93,9 @@
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -90,6 +103,9 @@
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгжсэн дүн:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency text-danger", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +240,7 @@
 </script>
 <script>
     var value1 = 0;
-
+    document.getElementById("2Button_Completion").style.display = "none";
 
   $( function() {
       $(".datepicker").datepicker({
@@ -319,4 +335,26 @@
 
       }
   });
+
+    function hiddenFuncion(type) {
+        if (type == 1) {
+
+            document.getElementById("Button_Completion").style.display = "none";
+            document.getElementById("2Button_Completion").style.display = "block";
+            $(".completionShow").removeClass("hiddenCompletion");
+
+        }
+        if (type == 2) {
+            if ($("#COMPLETION_DATE").val() != "" || $("#COMPLETION_ORDER").val() != "") {
+                alert("Та биелэлт нэмж бүртгэсэн байна!")
+            }
+            else {
+                document.getElementById("Button_Completion").style.display = "block";
+                document.getElementById("2Button_Completion").style.display = "none";
+                $(".completionShow").addClass("hiddenCompletion");
+            }
+
+        }
+
+    }
 </script>

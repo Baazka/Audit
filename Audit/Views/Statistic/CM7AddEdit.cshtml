@@ -1,7 +1,7 @@
 ﻿@model Audit.Models.CM7
 
 <div class="modal fade" id="CM7Modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document" style="max-width:90%;margin: 0 auto;">
+    <div class="modal-dialog" role="document" style="max-width:70%;margin: 0 auto;">
         @using (Ajax.BeginForm("CM7AddEdit", "Statistic", new { Area = "" },
                    new AjaxOptions
                    {
@@ -49,79 +49,83 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Дотоод аудитад хамрагдсан нэгжийн нэр:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.AUD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } }) 
+                                    @Html.EditorFor(m => m.AUD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(m => m.AUD_NAME, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                         @*<div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">NAME_TYPE:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.NAME_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    @Html.ValidationMessageFor(m => m.NAME_TYPE, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label text-right">NAME_TYPE:</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.NAME_TYPE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.NAME_TYPE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+                        <h6 class="heading-1"><span>Дотоод аудитын мэдээлэл</span></h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Нийт зөвлөмжийн тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.REFERENCE_COUNT, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
-                        </div>*@
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Нийт зөвлөмжийн тоо:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
-                                    @Html.ValidationMessageFor(m => m.REFERENCE_COUNT, "", new { @class = "text-danger" })
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төсөв, түүний зарцуулалттай холбоотой:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.BUDGET_EXPENSES, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.ValidationMessageFor(m => m.BUDGET_EXPENSES, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хүний нөөцтэй холбоотой:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.HUMAN_RESOURCES, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.ValidationMessageFor(m => m.HUMAN_RESOURCES, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Төлөвлөгөөт ажлын биелэлттэй холбоотой:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.PLANNED_COMPLETED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.ValidationMessageFor(m => m.PLANNED_COMPLETED, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Бусад:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.OTHER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.ValidationMessageFor(m => m.OTHER, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <h6 class="heading-1"><span>Биелэлт</span></h6>
                         <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Төсөв, түүний зарцуулалттай холбоотой:</label>
+                                <label class="col-sm-4 col-form-label text-right">Xэрэгжсэн:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.BUDGET_EXPENSES, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
-                                    @Html.ValidationMessageFor(m => m.BUDGET_EXPENSES, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Хүний нөөцтэй холбоотой:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.HUMAN_RESOURCES, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
-                                    @Html.ValidationMessageFor(m => m.HUMAN_RESOURCES, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Төлөвлөгөөт ажлын биелэлттэй холбоотой:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.PLANNED_COMPLETED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
-                                    @Html.ValidationMessageFor(m => m.PLANNED_COMPLETED, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Бусад:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.OTHER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
-                                    @Html.ValidationMessageFor(m => m.OTHER, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Биелэлт хэрэгжсэн:</label>
-                                <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.COMP_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    @Html.EditorFor(m => m.COMP_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     @Html.ValidationMessageFor(m => m.COMP_DONE, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Биелэлт эрэгжээгүй:</label>
+                                <label class="col-sm-4 col-form-label text-right">Xэрэгжээгүй:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.COMP_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    @Html.EditorFor(m => m.COMP_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
                                     @Html.ValidationMessageFor(m => m.COMP_PROGRESS, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -130,16 +134,17 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Шийдвэрлэсэн өргөдөл, гомдлын тоо:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.RESOLVED_COMPLAINT_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    @Html.EditorFor(m => m.RESOLVED_COMPLAINT_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     @Html.ValidationMessageFor(m => m.RESOLVED_COMPLAINT_COUNT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-12">
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжээгүй шалтгааны тайлбар:</label>
+                                <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжээгүй шалтгааны тайлбар: </label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.REFERENCE_NOT_COMP, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.TextAreaFor(m => m.REFERENCE_NOT_COMP, new { @class = "form-control form-control-sm", @rows = 3 })
                                     @Html.ValidationMessageFor(m => m.REFERENCE_NOT_COMP, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -176,5 +181,53 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
+
+      calculateSum1();
+      calculateSum2();
+
+      $(".amount1").on("keydown keyup", function () {
+          calculateSum1();
+      });
+      $(".amount1").on("change", function () {
+          calculateSum1();
+      });
+      $(".amount2").on("keydown keyup", function () {
+          calculateSum2();
+      });
+      $(".amount2").on("change", function () {
+          calculateSum2();
+      });
+
+      function calculateSum1() {
+          var sum = 0;
+          var value1 = $("#COMP_DONE").val();
+          $(".amount1").each(function () {
+              if (!isNaN(parseFloat(this.value)) && this.value.length != 0) {
+                  sum += parseFloat(this.value);
+              }
+          });
+          if (isNaN(sum)) {
+              sum = 0;
+          }
+          $("#REFERENCE_COUNT").val(sum);
+          $("#COMP_PROGRESS").val(sum - value1);
+      }
+     
+
+      function calculateSum2() {
+          var total = 0;
+          var value2 = $("#REFERENCE_COUNT").val();
+          $(".amount2").each(function () {
+              if (!isNaN(parseFloat(this.value)) && this.value.length != 0) {
+                  total += parseFloat(this.value);
+              }
+          });
+          if (isNaN(total)) {
+              total = 0;
+          }
+          $("#COMP_DONE").val(total);
+          $("#COMP_PROGRESS").val(value2 - total);
+
+      }
   });
 </script>

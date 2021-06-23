@@ -5997,14 +5997,20 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    //"AND(:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN('BRANCH_DIRECTOR', 'BRANCH_REGISTER') AND CM.OFFICE_ID = :V_DEPARTMENT) " +
+                    //            "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT AND (CM.CREATED_BY = :V_USER_ID OR CM.UPDATED_BY = :V_USER_ID " +
+                    //            "OR CM.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.CATEGORY_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -6023,7 +6029,11 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    //"AND(:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN('BRANCH_DIRECTOR', 'BRANCH_REGISTER') AND CM.OFFICE_ID = :V_DEPARTMENT) " +
+                    //            "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT AND (CM.CREATED_BY = :V_USER_ID OR CM.UPDATED_BY = :V_USER_ID " +
+                    //            "OR CM.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.CATEGORY_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
@@ -6043,7 +6053,9 @@ namespace Audit.App_Func
                 // Set parameters  
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -6091,14 +6103,17 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%'OR UPPER(CM.BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -6117,7 +6132,8 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%'OR UPPER(CM.BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
@@ -6139,7 +6155,9 @@ namespace Audit.App_Func
                 // Set parameters  
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -6187,14 +6205,17 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%'OR UPPER(CM.BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -6213,7 +6234,8 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%'OR UPPER(CM.BUDGET_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
@@ -6235,7 +6257,9 @@ namespace Audit.App_Func
                 // Set parameters  
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -6283,13 +6307,16 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -6308,7 +6335,8 @@ namespace Audit.App_Func
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
                     "WHERE CM.AUDIT_TYPE = :V_TYPE " +
-                    "AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
@@ -6328,7 +6356,9 @@ namespace Audit.App_Func
                 // Set parameters  
                 cmd.Parameters.Add(":V_TYPE", OracleDbType.Int32, req.Element("V_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -6375,13 +6405,16 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM5_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE (:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') ";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -6399,7 +6432,8 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM5_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE (:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUDIT_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
@@ -6418,7 +6452,9 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -6465,12 +6501,19 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM6_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE CM.IS_ACTIVE = 1 AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 " +
+                    //"AND(:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN('BRANCH_DIRECTOR', 'BRANCH_REGISTER') AND CM.OFFICE_ID = :V_DEPARTMENT) " +
+                    //            "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT AND (CM.CREATED_BY = :V_USER_ID OR CM.UPDATED_BY = :V_USER_ID " +
+                    //            "OR CM.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUD_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -6488,7 +6531,12 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM6_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE CM.IS_ACTIVE = 1 AND (:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 " +
+                    //"AND(:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN('BRANCH_DIRECTOR', 'BRANCH_REGISTER') AND CM.OFFICE_ID = :V_DEPARTMENT) " +
+                    //"OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT AND (CM.CREATED_BY = :V_USER_ID OR CM.UPDATED_BY = :V_USER_ID " +
+                    //"OR CM.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUD_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
                     "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN CM.ID END ASC, " +
@@ -6504,7 +6552,9 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -6598,14 +6648,14 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
                 cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("AUD_NAME")?.Value;
                 cmd.Parameters.Add(":P_IS_STATE", OracleDbType.Int32).Value = elem.Element("IS_STATE")?.Value;
-                cmd.Parameters.Add(":P_ALL_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_COUNT") != null && elem.Element("ALL_COUNT").Value != "" ? elem.Element("ALL_COUNT").Value : null;
-                cmd.Parameters.Add(":P_ALL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_AMOUNT") != null && elem.Element("ALL_AMOUNT").Value != "" ? elem.Element("ALL_AMOUNT").Value : null;
+                cmd.Parameters.Add(":P_ALL_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_COUNT")?.Value == null || elem.Element("ALL_COUNT")?.Value == "0" ? null : elem.Element("ALL_COUNT")?.Value;
+                cmd.Parameters.Add(":P_ALL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_AMOUNT")?.Value == null || elem.Element("ALL_AMOUNT")?.Value == "0.00" ? null : elem.Element("ALL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROCESSED_INCOMED_COUNT", OracleDbType.Int32).Value = elem.Element("PROCESSED_INCOMED_COUNT") != null && elem.Element("PROCESSED_INCOMED_COUNT").Value != "" ? elem.Element("PROCESSED_INCOMED_COUNT").Value : null;
                 cmd.Parameters.Add(":P_PROCESSED_INCOMED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROCESSED_INCOMED_AMOUNT") != null && elem.Element("PROCESSED_INCOMED_AMOUNT").Value != "" ? elem.Element("PROCESSED_INCOMED_AMOUNT").Value : null;
                 cmd.Parameters.Add(":P_PROCESSED_COSTS_COUNT", OracleDbType.Int32).Value = elem.Element("PROCESSED_COSTS_COUNT") != null && elem.Element("PROCESSED_COSTS_COUNT").Value != "" ? elem.Element("PROCESSED_COSTS_COUNT").Value : null;
                 cmd.Parameters.Add(":P_PROCESSED_COSTS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROCESSED_COSTS_AMOUNT") != null && elem.Element("PROCESSED_COSTS_AMOUNT").Value != "" ? elem.Element("PROCESSED_COSTS_AMOUNT").Value : null;
-                cmd.Parameters.Add(":P_ALL_C1_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_C1_COUNT") != null && elem.Element("ALL_C1_COUNT").Value != "" ? elem.Element("ALL_C1_COUNT").Value : null;
-                cmd.Parameters.Add(":P_ALL_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_C2_AMOUNT") != null && elem.Element("ALL_C2_AMOUNT").Value != "" ? elem.Element("ALL_C2_AMOUNT").Value : null;
+                cmd.Parameters.Add(":P_ALL_C1_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_C1_COUNT")?.Value == null || elem.Element("ALL_C1_COUNT")?.Value == "0" ? null : elem.Element("ALL_C1_COUNT")?.Value;
+                cmd.Parameters.Add(":P_ALL_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_C2_AMOUNT")?.Value == null || elem.Element("ALL_C2_AMOUNT")?.Value == "0.00" ? null : elem.Element("ALL_C2_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACCEPTED_INCOMED_COUNT", OracleDbType.Int32).Value = elem.Element("ACCEPTED_INCOMED_COUNT") != null && elem.Element("ACCEPTED_INCOMED_COUNT").Value != "" ? elem.Element("ACCEPTED_INCOMED_COUNT").Value : null;
                 cmd.Parameters.Add(":P_ACCEPTED_INCOMED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACCEPTED_INCOMED_AMOUNT") != null && elem.Element("ACCEPTED_INCOMED_AMOUNT").Value != "" ? elem.Element("ACCEPTED_INCOMED_AMOUNT").Value : null;
                 cmd.Parameters.Add(":P_ACCEPTED_COSTS_COUNT", OracleDbType.Int32).Value = elem.Element("ACCEPTED_COSTS_COUNT") != null && elem.Element("ACCEPTED_COSTS_COUNT").Value != "" ? elem.Element("ACCEPTED_COSTS_COUNT").Value : null;
@@ -6687,13 +6737,13 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
                 cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("AUD_NAME")?.Value;
                 cmd.Parameters.Add(":P_IS_STATE", OracleDbType.Int32).Value = elem.Element("IS_STATE")?.Value;
-                cmd.Parameters.Add(":P_ALL_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_COUNT") != null && elem.Element("ALL_COUNT").Value != "" ? elem.Element("ALL_COUNT").Value : null;
+                cmd.Parameters.Add(":P_ALL_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_COUNT")?.Value == null || elem.Element("ALL_COUNT")?.Value == "0" ? null : elem.Element("ALL_COUNT")?.Value;
                 cmd.Parameters.Add(":P_ALL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_AMOUNT")?.Value == null || elem.Element("ALL_AMOUNT")?.Value == "0.00" ? null : elem.Element("ALL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROCESSED_INCOMED_COUNT", OracleDbType.Int32).Value = elem.Element("PROCESSED_INCOMED_COUNT") != null && elem.Element("PROCESSED_INCOMED_COUNT").Value != "" ? elem.Element("PROCESSED_INCOMED_COUNT").Value : null;
                 cmd.Parameters.Add(":P_PROCESSED_INCOMED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROCESSED_INCOMED_AMOUNT") != null && elem.Element("PROCESSED_INCOMED_AMOUNT").Value != "" ? elem.Element("PROCESSED_INCOMED_AMOUNT").Value : null; 
                 cmd.Parameters.Add(":P_PROCESSED_COSTS_COUNT", OracleDbType.Int32).Value = elem.Element("PROCESSED_COSTS_COUNT") != null && elem.Element("PROCESSED_COSTS_COUNT").Value != "" ? elem.Element("PROCESSED_COSTS_COUNT").Value : null;
                 cmd.Parameters.Add(":P_PROCESSED_COSTS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROCESSED_COSTS_AMOUNT") != null && elem.Element("PROCESSED_COSTS_AMOUNT").Value != "" ? elem.Element("PROCESSED_COSTS_AMOUNT").Value : null;
-                cmd.Parameters.Add(":P_ALL_C1_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_C1_COUNT") != null && elem.Element("ALL_C1_COUNT").Value != "" ? elem.Element("ALL_C1_COUNT").Value : null;
+                cmd.Parameters.Add(":P_ALL_C1_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_C1_COUNT")?.Value == null || elem.Element("ALL_C1_COUNT")?.Value == "0" ? null : elem.Element("ALL_C1_COUNT")?.Value;
                 cmd.Parameters.Add(":P_ALL_C2_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_C2_AMOUNT")?.Value == null || elem.Element("ALL_C2_AMOUNT")?.Value == "0.00" ? null : elem.Element("ALL_C2_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACCEPTED_INCOMED_COUNT", OracleDbType.Int32).Value = elem.Element("ACCEPTED_INCOMED_COUNT") != null && elem.Element("ACCEPTED_INCOMED_COUNT").Value != "" ? elem.Element("ACCEPTED_INCOMED_COUNT").Value : null;
                 cmd.Parameters.Add(":P_ACCEPTED_INCOMED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACCEPTED_INCOMED_AMOUNT") != null && elem.Element("ACCEPTED_INCOMED_AMOUNT").Value != "" ? elem.Element("ACCEPTED_INCOMED_AMOUNT").Value : null;
@@ -6770,13 +6820,17 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM7_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE CM.IS_ACTIVE = 1 AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUD_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.NAME_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%')";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -6794,7 +6848,9 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM7_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE CM.IS_ACTIVE = 1 AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.AUD_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(CM.NAME_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
                     "ORDER BY " +
@@ -6813,7 +6869,9 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -6912,13 +6970,13 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD").Value;
                 cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("AUD_NAME")?.Value;
                 cmd.Parameters.Add(":P_NAME_TYPE", OracleDbType.Varchar2).Value = elem.Element("NAME_TYPE")?.Value;
-                cmd.Parameters.Add(":P_REFERENCE_COUNT", OracleDbType.Int32).Value = elem.Element("REFERENCE_COUNT") != null && elem.Element("REFERENCE_COUNT").Value != "" ? elem.Element("REFERENCE_COUNT").Value : null;
+                cmd.Parameters.Add(":P_REFERENCE_COUNT", OracleDbType.Int32).Value = elem.Element("REFERENCE_COUNT")?.Value == null || elem.Element("REFERENCE_COUNT")?.Value == "0" ? null : elem.Element("REFERENCE_COUNT")?.Value;
                 cmd.Parameters.Add(":P_BUDGET_EXPENSES", OracleDbType.Int32).Value = elem.Element("BUDGET_EXPENSES") != null && elem.Element("BUDGET_EXPENSES").Value != "" ? elem.Element("BUDGET_EXPENSES").Value : null;
                 cmd.Parameters.Add(":P_HUMAN_RESOURCES", OracleDbType.Int32).Value = elem.Element("HUMAN_RESOURCES") != null && elem.Element("HUMAN_RESOURCES").Value != "" ? elem.Element("HUMAN_RESOURCES").Value : null;
                 cmd.Parameters.Add(":P_PLANNED_COMPLETED", OracleDbType.Int32).Value = elem.Element("PLANNED_COMPLETED") != null && elem.Element("PLANNED_COMPLETED").Value != "" ? elem.Element("PLANNED_COMPLETED").Value : null;
                 cmd.Parameters.Add(":P_OTHER", OracleDbType.Int32).Value = elem.Element("OTHER") != null && elem.Element("OTHER").Value != "" ? elem.Element("OTHER").Value : null;
-                cmd.Parameters.Add(":P_COMP_DONE", OracleDbType.Int32).Value = elem.Element("COMP_DONE") != null && elem.Element("COMP_DONE").Value != "" ? elem.Element("COMP_DONE").Value : null;
-                cmd.Parameters.Add(":P_COMP_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMP_PROGRESS") != null && elem.Element("COMP_PROGRESS").Value != "" ? elem.Element("COMP_PROGRESS").Value : null;
+                cmd.Parameters.Add(":P_COMP_DONE", OracleDbType.Int32).Value = elem.Element("COMP_DONE")?.Value == null || elem.Element("COMP_DONE")?.Value == "0" ? null : elem.Element("COMP_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMP_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMP_PROGRESS")?.Value == null || elem.Element("COMP_PROGRESS")?.Value == "0" ? null : elem.Element("COMP_PROGRESS")?.Value;
                 cmd.Parameters.Add(":P_RESOLVED_COMPLAINT_COUNT", OracleDbType.Int32).Value = elem.Element("RESOLVED_COMPLAINT_COUNT") != null && elem.Element("RESOLVED_COMPLAINT_COUNT").Value != "" ? elem.Element("RESOLVED_COMPLAINT_COUNT").Value : null;
                 cmd.Parameters.Add(":P_REFERENCE_NOT_COMP", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_NOT_COMP") != null && elem.Element("REFERENCE_NOT_COMP").Value != "" ? elem.Element("REFERENCE_NOT_COMP").Value : null;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
@@ -6969,13 +7027,13 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
                 cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("AUD_NAME")?.Value;
                 cmd.Parameters.Add(":P_NAME_TYPE", OracleDbType.Varchar2).Value = elem.Element("NAME_TYPE")?.Value;
-                cmd.Parameters.Add(":P_REFERENCE_COUNT", OracleDbType.Int32).Value = elem.Element("REFERENCE_COUNT") != null && elem.Element("REFERENCE_COUNT").Value != "" ? elem.Element("REFERENCE_COUNT").Value : null;
+                cmd.Parameters.Add(":P_REFERENCE_COUNT", OracleDbType.Int32).Value = elem.Element("REFERENCE_COUNT")?.Value == null || elem.Element("REFERENCE_COUNT")?.Value == "0" ? null : elem.Element("REFERENCE_COUNT")?.Value;
                 cmd.Parameters.Add(":P_BUDGET_EXPENSES", OracleDbType.Int32).Value = elem.Element("BUDGET_EXPENSES") != null && elem.Element("BUDGET_EXPENSES").Value != "" ? elem.Element("BUDGET_EXPENSES").Value : null; 
                 cmd.Parameters.Add(":P_HUMAN_RESOURCES", OracleDbType.Int32).Value = elem.Element("HUMAN_RESOURCES") != null && elem.Element("HUMAN_RESOURCES").Value != "" ? elem.Element("HUMAN_RESOURCES").Value : null;
                 cmd.Parameters.Add(":P_PLANNED_COMPLETED", OracleDbType.Int32).Value = elem.Element("PLANNED_COMPLETED") != null && elem.Element("PLANNED_COMPLETED").Value != "" ? elem.Element("PLANNED_COMPLETED").Value : null;
                 cmd.Parameters.Add(":P_OTHER", OracleDbType.Int32).Value = elem.Element("OTHER") != null && elem.Element("OTHER").Value != "" ? elem.Element("OTHER").Value : null;
-                cmd.Parameters.Add(":P_COMP_DONE", OracleDbType.Int32).Value = elem.Element("COMP_DONE") != null && elem.Element("COMP_DONE").Value != "" ? elem.Element("COMP_DONE").Value : null;
-                cmd.Parameters.Add(":P_COMP_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMP_PROGRESS") != null && elem.Element("COMP_PROGRESS").Value != "" ? elem.Element("COMP_PROGRESS").Value : null;
+                cmd.Parameters.Add(":P_COMP_DONE", OracleDbType.Int32).Value = elem.Element("COMP_DONE")?.Value == null || elem.Element("COMP_DONE")?.Value == "0" ? null : elem.Element("COMP_DONE")?.Value;
+                cmd.Parameters.Add(":P_COMP_PROGRESS", OracleDbType.Int32).Value = elem.Element("COMP_PROGRESS")?.Value == null || elem.Element("COMP_PROGRESS")?.Value == "0" ? null : elem.Element("COMP_PROGRESS")?.Value;
                 cmd.Parameters.Add(":P_RESOLVED_COMPLAINT_COUNT", OracleDbType.Int32).Value = elem.Element("RESOLVED_COMPLAINT_COUNT") != null && elem.Element("RESOLVED_COMPLAINT_COUNT").Value != "" ? elem.Element("RESOLVED_COMPLAINT_COUNT").Value : null;
                 cmd.Parameters.Add(":P_REFERENCE_NOT_COMP", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_NOT_COMP") != null && elem.Element("REFERENCE_NOT_COMP").Value != "" ? elem.Element("REFERENCE_NOT_COMP").Value : null;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
@@ -7059,12 +7117,16 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM8_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE CM.IS_ACTIVE = 1 AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
@@ -7082,7 +7144,9 @@ namespace Audit.App_Func
                     "FROM AUD_STAT.CM8_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                    "WHERE CM.IS_ACTIVE = 1 AND(:V_USER_TYPE != 'Branch_Auditor' OR(:V_USER_TYPE = 'Branch_Auditor' AND CM.OFFICE_ID = :V_DEPARTMENT)) " +
+                    "WHERE CM.IS_ACTIVE = 1 " +
+                    "AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                    "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
                     "AND CM.STATISTIC_PERIOD = :V_PERIOD " +
                     "ORDER BY " +
                     "CASE WHEN: ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN CM.ID END ASC, " +
@@ -7096,7 +7160,9 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
-                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -7193,49 +7259,49 @@ namespace Audit.App_Func
                 // Set parameters
                 cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID").Value;
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD").Value;
-                cmd.Parameters.Add(":P_APPROVED_BUDGET", OracleDbType.Int32).Value = elem.Element("APPROVED_BUDGET")?.Value;
-                cmd.Parameters.Add(":P_PERFORMANCE_BUDGET", OracleDbType.Int32).Value = elem.Element("PERFORMANCE_BUDGET")?.Value;
-                cmd.Parameters.Add(":P_WORKERS", OracleDbType.Int32).Value = elem.Element("WORKERS")?.Value;
-                cmd.Parameters.Add(":P_APPROVED_NUMBERS", OracleDbType.Int32).Value = elem.Element("APPROVED_NUMBERS")?.Value;
-                cmd.Parameters.Add(":P_DIRECTING_STAFF", OracleDbType.Int32).Value = elem.Element("DIRECTING_STAFF")?.Value;
-                cmd.Parameters.Add(":P_SENIOR_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("SENIOR_AUDITOR_ANALYST")?.Value;
-                cmd.Parameters.Add(":P_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("AUDITOR_ANALYST")?.Value;
-                cmd.Parameters.Add(":P_OTHER_OFFICE", OracleDbType.Int32).Value = elem.Element("OTHER_OFFICE")?.Value;
-                cmd.Parameters.Add(":P_EDU_DOCTOR", OracleDbType.Int32).Value = elem.Element("EDU_DOCTOR")?.Value;
-                cmd.Parameters.Add(":P_EDU_MAGISTR", OracleDbType.Int32).Value = elem.Element("EDU_MAGISTR")?.Value;
-                cmd.Parameters.Add(":P_EDU_BAKLAVR", OracleDbType.Int32).Value = elem.Element("EDU_BAKLAVR")?.Value;
-                cmd.Parameters.Add(":P_EDU_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_AMONGST")?.Value;
-                cmd.Parameters.Add(":P_EDU_JUNIOR_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_JUNIOR_AMONGST")?.Value;
-                cmd.Parameters.Add(":P_PRO_ACCOUNTANT", OracleDbType.Int32).Value = elem.Element("PRO_ACCOUNTANT")?.Value;
-                cmd.Parameters.Add(":P_ACCOUNTANT_ECONOMIST", OracleDbType.Int32).Value = elem.Element("ACCOUNTANT_ECONOMIST")?.Value;
-                cmd.Parameters.Add(":P_LAWYER", OracleDbType.Int32).Value = elem.Element("LAWYER")?.Value;
-                cmd.Parameters.Add(":P_INGENER", OracleDbType.Int32).Value = elem.Element("INGENER")?.Value;
-                cmd.Parameters.Add(":P_OTHER_PROF", OracleDbType.Int32).Value = elem.Element("OTHER_PROF")?.Value;
-                cmd.Parameters.Add(":P_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_INCLUDED_MAN", OracleDbType.Int32).Value = elem.Element("INCLUDED_MAN")?.Value;
-                cmd.Parameters.Add(":P_ONLINE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ONLINE_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_LOCAL_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("LOCAL_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("AUDIT_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_FOREIGN_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_FOREIGN_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_MAN_COUNT")?.Value;
-                cmd.Parameters.Add(":P_INSIDE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_INSIDE_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_MAN_COUNT")?.Value;
-                cmd.Parameters.Add(":P_ORG_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_ORG_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_MAN_COUNT")?.Value;
-                cmd.Parameters.Add(":P_RESEARCH_ALL", OracleDbType.Int32).Value = elem.Element("RESEARCH_ALL")?.Value;
-                cmd.Parameters.Add(":P_PUBLISHED_REPORT", OracleDbType.Int32).Value = elem.Element("PUBLISHED_REPORT")?.Value;
-                cmd.Parameters.Add(":P_NEWS_ARTICLE", OracleDbType.Int32).Value = elem.Element("NEWS_ARTICLE")?.Value;
-                cmd.Parameters.Add(":P_TV_NEWS_BROADCAST", OracleDbType.Int32).Value = elem.Element("TV_NEWS_BROADCAST")?.Value;
-                cmd.Parameters.Add(":P_ORG_NEWS", OracleDbType.Int32).Value = elem.Element("ORG_NEWS")?.Value;
-                cmd.Parameters.Add(":P_WEB_ACCESS", OracleDbType.Int32).Value = elem.Element("WEB_ACCESS")?.Value;
-                cmd.Parameters.Add(":P_RECEIVED_ALL", OracleDbType.Int32).Value = elem.Element("RECEIVED_ALL")?.Value;
-                cmd.Parameters.Add(":P_TAB_WORKERS", OracleDbType.Int32).Value = elem.Element("TAB_WORKERS")?.Value;
-                cmd.Parameters.Add(":P_TAB_SKILLS", OracleDbType.Int32).Value = elem.Element("TAB_SKILLS")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_LET", OracleDbType.Int32).Value = elem.Element("AUDIT_LET")?.Value;
-                cmd.Parameters.Add(":P_RECEIVED_OTHER", OracleDbType.Int32).Value = elem.Element("RECEIVED_OTHER")?.Value;
-                cmd.Parameters.Add(":P_DECIDED_TIME", OracleDbType.Int32).Value = elem.Element("DECIDED_TIME")?.Value;
-                cmd.Parameters.Add(":P_DEC_EXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_DEC_UNEXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_UNEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_APPROVED_BUDGET", OracleDbType.Decimal).Value = elem.Element("APPROVED_BUDGET")?.Value == null || elem.Element("APPROVED_BUDGET")?.Value == "" ? null : elem.Element("APPROVED_BUDGET")?.Value;
+                cmd.Parameters.Add(":P_PERFORMANCE_BUDGET", OracleDbType.Decimal).Value = elem.Element("PERFORMANCE_BUDGET")?.Value == null || elem.Element("PERFORMANCE_BUDGET")?.Value == "" ? null : elem.Element("PERFORMANCE_BUDGET")?.Value;
+                cmd.Parameters.Add(":P_WORKERS", OracleDbType.Int32).Value = elem.Element("WORKERS")?.Value == null || elem.Element("WORKERS")?.Value == "" ? null : elem.Element("WORKERS")?.Value;
+                cmd.Parameters.Add(":P_APPROVED_NUMBERS", OracleDbType.Int32).Value = elem.Element("APPROVED_NUMBERS")?.Value == null || elem.Element("APPROVED_NUMBERS")?.Value == "" ? null : elem.Element("APPROVED_NUMBERS")?.Value;
+                cmd.Parameters.Add(":P_DIRECTING_STAFF", OracleDbType.Int32).Value = elem.Element("DIRECTING_STAFF")?.Value == null || elem.Element("DIRECTING_STAFF")?.Value == "" ? null : elem.Element("DIRECTING_STAFF")?.Value;
+                cmd.Parameters.Add(":P_SENIOR_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("SENIOR_AUDITOR_ANALYST")?.Value == null || elem.Element("SENIOR_AUDITOR_ANALYST")?.Value == "" ? null : elem.Element("SENIOR_AUDITOR_ANALYST")?.Value;
+                cmd.Parameters.Add(":P_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("AUDITOR_ANALYST")?.Value == null || elem.Element("AUDITOR_ANALYST")?.Value == "" ? null : elem.Element("AUDITOR_ANALYST")?.Value;
+                cmd.Parameters.Add(":P_OTHER_OFFICE", OracleDbType.Int32).Value = elem.Element("OTHER_OFFICE")?.Value == null || elem.Element("OTHER_OFFICE")?.Value == "" ? null : elem.Element("OTHER_OFFICE")?.Value;
+                cmd.Parameters.Add(":P_EDU_DOCTOR", OracleDbType.Int32).Value = elem.Element("EDU_DOCTOR")?.Value == null || elem.Element("EDU_DOCTOR")?.Value == "" ? null : elem.Element("EDU_DOCTOR")?.Value;
+                cmd.Parameters.Add(":P_EDU_MAGISTR", OracleDbType.Int32).Value = elem.Element("EDU_MAGISTR")?.Value == null || elem.Element("EDU_MAGISTR")?.Value == "" ? null : elem.Element("EDU_MAGISTR")?.Value;
+                cmd.Parameters.Add(":P_EDU_BAKLAVR", OracleDbType.Int32).Value = elem.Element("EDU_BAKLAVR")?.Value == null || elem.Element("EDU_BAKLAVR")?.Value == "" ? null : elem.Element("EDU_BAKLAVR")?.Value;
+                cmd.Parameters.Add(":P_EDU_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_AMONGST")?.Value == null || elem.Element("EDU_AMONGST")?.Value == "" ? null : elem.Element("EDU_AMONGST")?.Value;
+                cmd.Parameters.Add(":P_EDU_JUNIOR_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_JUNIOR_AMONGST")?.Value == null || elem.Element("EDU_JUNIOR_AMONGST")?.Value == "" ? null : elem.Element("EDU_JUNIOR_AMONGST")?.Value;
+                cmd.Parameters.Add(":P_PRO_ACCOUNTANT", OracleDbType.Int32).Value = elem.Element("PRO_ACCOUNTANT")?.Value == null || elem.Element("PRO_ACCOUNTANT")?.Value == "" ? null : elem.Element("PRO_ACCOUNTANT")?.Value;
+                cmd.Parameters.Add(":P_ACCOUNTANT_ECONOMIST", OracleDbType.Int32).Value = elem.Element("ACCOUNTANT_ECONOMIST")?.Value == null || elem.Element("ACCOUNTANT_ECONOMIST")?.Value == "" ? null : elem.Element("ACCOUNTANT_ECONOMIST")?.Value;
+                cmd.Parameters.Add(":P_LAWYER", OracleDbType.Int32).Value = elem.Element("LAWYER")?.Value == null || elem.Element("LAWYER")?.Value == "" ? null : elem.Element("LAWYER")?.Value;
+                cmd.Parameters.Add(":P_INGENER", OracleDbType.Int32).Value = elem.Element("INGENER")?.Value == null || elem.Element("INGENER")?.Value == "" ? null : elem.Element("INGENER")?.Value;
+                cmd.Parameters.Add(":P_OTHER_PROF", OracleDbType.Int32).Value = elem.Element("OTHER_PROF")?.Value == null || elem.Element("OTHER_PROF")?.Value == "" ? null : elem.Element("OTHER_PROF")?.Value;
+                cmd.Parameters.Add(":P_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("STUDY_COUNT")?.Value == null || elem.Element("STUDY_COUNT")?.Value == "" ? null : elem.Element("STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_INCLUDED_MAN", OracleDbType.Int32).Value = elem.Element("INCLUDED_MAN")?.Value == null || elem.Element("INCLUDED_MAN")?.Value == "0" ? null : elem.Element("INCLUDED_MAN")?.Value;
+                cmd.Parameters.Add(":P_ONLINE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ONLINE_STUDY_COUNT")?.Value == null || elem.Element("ONLINE_STUDY_COUNT")?.Value == "" ? null : elem.Element("ONLINE_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_LOCAL_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("LOCAL_STUDY_COUNT")?.Value == null || elem.Element("LOCAL_STUDY_COUNT")?.Value == "" ? null : elem.Element("LOCAL_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("AUDIT_STUDY_COUNT")?.Value == null || elem.Element("AUDIT_STUDY_COUNT")?.Value == "" ? null : elem.Element("AUDIT_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_FOREIGN_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_STUDY_COUNT")?.Value == null || elem.Element("FOREIGN_STUDY_COUNT")?.Value == "" ? null : elem.Element("FOREIGN_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_FOREIGN_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_MAN_COUNT")?.Value == null || elem.Element("FOREIGN_MAN_COUNT")?.Value == "" ? null : elem.Element("FOREIGN_MAN_COUNT")?.Value;
+                cmd.Parameters.Add(":P_INSIDE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_STUDY_COUNT")?.Value == null || elem.Element("INSIDE_STUDY_COUNT")?.Value == "" ? null : elem.Element("INSIDE_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_INSIDE_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_MAN_COUNT")?.Value == null || elem.Element("INSIDE_MAN_COUNT")?.Value == "" ? null : elem.Element("INSIDE_MAN_COUNT")?.Value;
+                cmd.Parameters.Add(":P_ORG_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_STUDY_COUNT")?.Value == null || elem.Element("ORG_STUDY_COUNT")?.Value == "" ? null : elem.Element("ORG_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_ORG_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_MAN_COUNT")?.Value == null || elem.Element("ORG_MAN_COUNT")?.Value == "" ? null : elem.Element("ORG_MAN_COUNT")?.Value;
+                cmd.Parameters.Add(":P_RESEARCH_ALL", OracleDbType.Int32).Value = elem.Element("RESEARCH_ALL")?.Value == null || elem.Element("RESEARCH_ALL")?.Value == "0" ? null : elem.Element("RESEARCH_ALL")?.Value;
+                cmd.Parameters.Add(":P_PUBLISHED_REPORT", OracleDbType.Int32).Value = elem.Element("PUBLISHED_REPORT")?.Value == null || elem.Element("PUBLISHED_REPORT")?.Value == "" ? null : elem.Element("PUBLISHED_REPORT")?.Value;
+                cmd.Parameters.Add(":P_NEWS_ARTICLE", OracleDbType.Int32).Value = elem.Element("NEWS_ARTICLE")?.Value == null || elem.Element("NEWS_ARTICLE")?.Value == "" ? null : elem.Element("NEWS_ARTICLE")?.Value;
+                cmd.Parameters.Add(":P_TV_NEWS_BROADCAST", OracleDbType.Int32).Value = elem.Element("TV_NEWS_BROADCAST")?.Value == null || elem.Element("TV_NEWS_BROADCAST")?.Value == "" ? null : elem.Element("TV_NEWS_BROADCAST")?.Value;
+                cmd.Parameters.Add(":P_ORG_NEWS", OracleDbType.Int32).Value = elem.Element("ORG_NEWS")?.Value == null || elem.Element("ORG_NEWS")?.Value == "" ? null : elem.Element("ORG_NEWS")?.Value;
+                cmd.Parameters.Add(":P_WEB_ACCESS", OracleDbType.Int32).Value = elem.Element("WEB_ACCESS")?.Value == null || elem.Element("WEB_ACCESS")?.Value == "" ? null : elem.Element("WEB_ACCESS")?.Value;
+                cmd.Parameters.Add(":P_RECEIVED_ALL", OracleDbType.Int32).Value = elem.Element("RECEIVED_ALL")?.Value == null || elem.Element("RECEIVED_ALL")?.Value == "0" ? null : elem.Element("RECEIVED_ALL")?.Value;
+                cmd.Parameters.Add(":P_TAB_WORKERS", OracleDbType.Int32).Value = elem.Element("TAB_WORKERS")?.Value == null || elem.Element("TAB_WORKERS")?.Value == "" ? null : elem.Element("TAB_WORKERS")?.Value;
+                cmd.Parameters.Add(":P_TAB_SKILLS", OracleDbType.Int32).Value = elem.Element("TAB_SKILLS")?.Value == null || elem.Element("TAB_SKILLS")?.Value == "" ? null : elem.Element("TAB_SKILLS")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_LET", OracleDbType.Int32).Value = elem.Element("AUDIT_LET")?.Value == null || elem.Element("AUDIT_LET")?.Value == "" ? null : elem.Element("AUDIT_LET")?.Value;
+                cmd.Parameters.Add(":P_RECEIVED_OTHER", OracleDbType.Int32).Value = elem.Element("RECEIVED_OTHER")?.Value == null || elem.Element("RECEIVED_OTHER")?.Value == "" ? null : elem.Element("RECEIVED_OTHER")?.Value;
+                cmd.Parameters.Add(":P_DECIDED_TIME", OracleDbType.Int32).Value = elem.Element("DECIDED_TIME")?.Value == null || elem.Element("DECIDED_TIME")?.Value == "" ? null : elem.Element("DECIDED_TIME")?.Value;
+                cmd.Parameters.Add(":P_DEC_EXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_EXPIRED")?.Value == null || elem.Element("DEC_EXPIRED")?.Value == "" ? null : elem.Element("DEC_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_DEC_UNEXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_UNEXPIRED")?.Value == null || elem.Element("DEC_UNEXPIRED")?.Value == "" ? null : elem.Element("DEC_UNEXPIRED")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
@@ -7282,49 +7348,49 @@ namespace Audit.App_Func
                 // Set parameters
                 cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID")?.Value;
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
-                cmd.Parameters.Add(":P_APPROVED_BUDGET", OracleDbType.Int32).Value = elem.Element("APPROVED_BUDGET")?.Value;
-                cmd.Parameters.Add(":P_PERFORMANCE_BUDGET", OracleDbType.Int32).Value = elem.Element("PERFORMANCE_BUDGET")?.Value;
-                cmd.Parameters.Add(":P_WORKERS", OracleDbType.Int32).Value = elem.Element("WORKERS")?.Value;
-                cmd.Parameters.Add(":P_APPROVED_NUMBERS", OracleDbType.Int32).Value = elem.Element("APPROVED_NUMBERS")?.Value;
-                cmd.Parameters.Add(":P_DIRECTING_STAFF", OracleDbType.Int32).Value = elem.Element("DIRECTING_STAFF")?.Value;
-                cmd.Parameters.Add(":P_SENIOR_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("SENIOR_AUDITOR_ANALYST")?.Value;
-                cmd.Parameters.Add(":P_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("AUDITOR_ANALYST")?.Value;
-                cmd.Parameters.Add(":P_OTHER_OFFICE", OracleDbType.Int32).Value = elem.Element("OTHER_OFFICE")?.Value;
-                cmd.Parameters.Add(":P_EDU_DOCTOR", OracleDbType.Int32).Value = elem.Element("EDU_DOCTOR")?.Value;
-                cmd.Parameters.Add(":P_EDU_MAGISTR", OracleDbType.Int32).Value = elem.Element("EDU_MAGISTR")?.Value;
-                cmd.Parameters.Add(":P_EDU_BAKLAVR", OracleDbType.Int32).Value = elem.Element("EDU_BAKLAVR")?.Value;
-                cmd.Parameters.Add(":P_EDU_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_AMONGST")?.Value;
-                cmd.Parameters.Add(":P_EDU_JUNIOR_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_JUNIOR_AMONGST")?.Value;
-                cmd.Parameters.Add(":P_PRO_ACCOUNTANT", OracleDbType.Int32).Value = elem.Element("PRO_ACCOUNTANT")?.Value;
-                cmd.Parameters.Add(":P_ACCOUNTANT_ECONOMIST", OracleDbType.Int32).Value = elem.Element("ACCOUNTANT_ECONOMIST")?.Value;
-                cmd.Parameters.Add(":P_LAWYER", OracleDbType.Int32).Value = elem.Element("LAWYER")?.Value;
-                cmd.Parameters.Add(":P_INGENER", OracleDbType.Int32).Value = elem.Element("INGENER")?.Value;
-                cmd.Parameters.Add(":P_OTHER_PROF", OracleDbType.Int32).Value = elem.Element("OTHER_PROF")?.Value;
-                cmd.Parameters.Add(":P_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_INCLUDED_MAN", OracleDbType.Int32).Value = elem.Element("INCLUDED_MAN")?.Value;
-                cmd.Parameters.Add(":P_ONLINE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ONLINE_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_LOCAL_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("LOCAL_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("AUDIT_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_FOREIGN_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_FOREIGN_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_MAN_COUNT")?.Value;
-                cmd.Parameters.Add(":P_INSIDE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_INSIDE_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_MAN_COUNT")?.Value;
-                cmd.Parameters.Add(":P_ORG_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_STUDY_COUNT")?.Value;
-                cmd.Parameters.Add(":P_ORG_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_MAN_COUNT")?.Value;
-                cmd.Parameters.Add(":P_RESEARCH_ALL", OracleDbType.Int32).Value = elem.Element("RESEARCH_ALL")?.Value;
-                cmd.Parameters.Add(":P_PUBLISHED_REPORT", OracleDbType.Int32).Value = elem.Element("PUBLISHED_REPORT")?.Value;
-                cmd.Parameters.Add(":P_NEWS_ARTICLE", OracleDbType.Int32).Value = elem.Element("NEWS_ARTICLE")?.Value;
-                cmd.Parameters.Add(":P_TV_NEWS_BROADCAST", OracleDbType.Int32).Value = elem.Element("TV_NEWS_BROADCAST")?.Value;
-                cmd.Parameters.Add(":P_ORG_NEWS", OracleDbType.Int32).Value = elem.Element("ORG_NEWS")?.Value;
-                cmd.Parameters.Add(":P_WEB_ACCESS", OracleDbType.Int32).Value = elem.Element("WEB_ACCESS")?.Value;
-                cmd.Parameters.Add(":P_RECEIVED_ALL", OracleDbType.Int32).Value = elem.Element("RECEIVED_ALL")?.Value;
-                cmd.Parameters.Add(":P_TAB_WORKERS", OracleDbType.Int32).Value = elem.Element("TAB_WORKERS")?.Value;
-                cmd.Parameters.Add(":P_TAB_SKILLS", OracleDbType.Int32).Value = elem.Element("TAB_SKILLS")?.Value;
-                cmd.Parameters.Add(":P_AUDIT_LET", OracleDbType.Int32).Value = elem.Element("AUDIT_LET")?.Value;
-                cmd.Parameters.Add(":P_RECEIVED_OTHER", OracleDbType.Int32).Value = elem.Element("RECEIVED_OTHER")?.Value;
-                cmd.Parameters.Add(":P_DECIDED_TIME", OracleDbType.Int32).Value = elem.Element("DECIDED_TIME")?.Value;
-                cmd.Parameters.Add(":P_DEC_EXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_EXPIRED")?.Value;
-                cmd.Parameters.Add(":P_DEC_UNEXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_UNEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_APPROVED_BUDGET", OracleDbType.Decimal).Value = elem.Element("APPROVED_BUDGET")?.Value == null || elem.Element("APPROVED_BUDGET")?.Value == "" ? null : elem.Element("APPROVED_BUDGET")?.Value;
+                cmd.Parameters.Add(":P_PERFORMANCE_BUDGET", OracleDbType.Decimal).Value = elem.Element("PERFORMANCE_BUDGET")?.Value == null || elem.Element("PERFORMANCE_BUDGET")?.Value == "" ? null : elem.Element("PERFORMANCE_BUDGET")?.Value;
+                cmd.Parameters.Add(":P_WORKERS", OracleDbType.Int32).Value = elem.Element("WORKERS")?.Value == null || elem.Element("WORKERS")?.Value == "" ? null : elem.Element("WORKERS")?.Value;
+                cmd.Parameters.Add(":P_APPROVED_NUMBERS", OracleDbType.Int32).Value = elem.Element("APPROVED_NUMBERS")?.Value == null || elem.Element("APPROVED_NUMBERS")?.Value == "" ? null : elem.Element("APPROVED_NUMBERS")?.Value;
+                cmd.Parameters.Add(":P_DIRECTING_STAFF", OracleDbType.Int32).Value = elem.Element("DIRECTING_STAFF")?.Value == null || elem.Element("DIRECTING_STAFF")?.Value == "" ? null : elem.Element("DIRECTING_STAFF")?.Value;
+                cmd.Parameters.Add(":P_SENIOR_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("SENIOR_AUDITOR_ANALYST")?.Value == null || elem.Element("SENIOR_AUDITOR_ANALYST")?.Value == "" ? null : elem.Element("SENIOR_AUDITOR_ANALYST")?.Value;
+                cmd.Parameters.Add(":P_AUDITOR_ANALYST", OracleDbType.Int32).Value = elem.Element("AUDITOR_ANALYST")?.Value == null || elem.Element("AUDITOR_ANALYST")?.Value == "" ? null : elem.Element("AUDITOR_ANALYST")?.Value;
+                cmd.Parameters.Add(":P_OTHER_OFFICE", OracleDbType.Int32).Value = elem.Element("OTHER_OFFICE")?.Value == null || elem.Element("OTHER_OFFICE")?.Value == "" ? null : elem.Element("OTHER_OFFICE")?.Value;
+                cmd.Parameters.Add(":P_EDU_DOCTOR", OracleDbType.Int32).Value = elem.Element("EDU_DOCTOR")?.Value == null || elem.Element("EDU_DOCTOR")?.Value == "" ? null : elem.Element("EDU_DOCTOR")?.Value;
+                cmd.Parameters.Add(":P_EDU_MAGISTR", OracleDbType.Int32).Value = elem.Element("EDU_MAGISTR")?.Value == null || elem.Element("EDU_MAGISTR")?.Value == "" ? null : elem.Element("EDU_MAGISTR")?.Value;
+                cmd.Parameters.Add(":P_EDU_BAKLAVR", OracleDbType.Int32).Value = elem.Element("EDU_BAKLAVR")?.Value == null || elem.Element("EDU_BAKLAVR")?.Value == "" ? null : elem.Element("EDU_BAKLAVR")?.Value;
+                cmd.Parameters.Add(":P_EDU_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_AMONGST")?.Value == null || elem.Element("EDU_AMONGST")?.Value == "" ? null : elem.Element("EDU_AMONGST")?.Value;
+                cmd.Parameters.Add(":P_EDU_JUNIOR_AMONGST", OracleDbType.Int32).Value = elem.Element("EDU_JUNIOR_AMONGST")?.Value == null || elem.Element("EDU_JUNIOR_AMONGST")?.Value == "" ? null : elem.Element("EDU_JUNIOR_AMONGST")?.Value;
+                cmd.Parameters.Add(":P_PRO_ACCOUNTANT", OracleDbType.Int32).Value = elem.Element("PRO_ACCOUNTANT")?.Value == null || elem.Element("PRO_ACCOUNTANT")?.Value == "" ? null : elem.Element("PRO_ACCOUNTANT")?.Value;
+                cmd.Parameters.Add(":P_ACCOUNTANT_ECONOMIST", OracleDbType.Int32).Value = elem.Element("ACCOUNTANT_ECONOMIST")?.Value == null || elem.Element("ACCOUNTANT_ECONOMIST")?.Value == "" ? null : elem.Element("ACCOUNTANT_ECONOMIST")?.Value;
+                cmd.Parameters.Add(":P_LAWYER", OracleDbType.Int32).Value = elem.Element("LAWYER")?.Value == null || elem.Element("LAWYER")?.Value == "" ? null : elem.Element("LAWYER")?.Value;
+                cmd.Parameters.Add(":P_INGENER", OracleDbType.Int32).Value = elem.Element("INGENER")?.Value == null || elem.Element("INGENER")?.Value == "" ? null : elem.Element("INGENER")?.Value;
+                cmd.Parameters.Add(":P_OTHER_PROF", OracleDbType.Int32).Value = elem.Element("OTHER_PROF")?.Value == null || elem.Element("OTHER_PROF")?.Value == "" ? null : elem.Element("OTHER_PROF")?.Value;
+                cmd.Parameters.Add(":P_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("STUDY_COUNT")?.Value == null || elem.Element("STUDY_COUNT")?.Value == "" ? null : elem.Element("STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_INCLUDED_MAN", OracleDbType.Int32).Value = elem.Element("INCLUDED_MAN")?.Value == null || elem.Element("INCLUDED_MAN")?.Value == "0" ? null : elem.Element("INCLUDED_MAN")?.Value;
+                cmd.Parameters.Add(":P_ONLINE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ONLINE_STUDY_COUNT")?.Value == null || elem.Element("ONLINE_STUDY_COUNT")?.Value == "" ? null : elem.Element("ONLINE_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_LOCAL_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("LOCAL_STUDY_COUNT")?.Value == null || elem.Element("LOCAL_STUDY_COUNT")?.Value == "" ? null : elem.Element("LOCAL_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("AUDIT_STUDY_COUNT")?.Value == null || elem.Element("AUDIT_STUDY_COUNT")?.Value == "" ? null : elem.Element("AUDIT_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_FOREIGN_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_STUDY_COUNT")?.Value == null || elem.Element("FOREIGN_STUDY_COUNT")?.Value == "" ? null : elem.Element("FOREIGN_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_FOREIGN_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("FOREIGN_MAN_COUNT")?.Value == null || elem.Element("FOREIGN_MAN_COUNT")?.Value == "" ? null : elem.Element("FOREIGN_MAN_COUNT")?.Value;
+                cmd.Parameters.Add(":P_INSIDE_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_STUDY_COUNT")?.Value == null || elem.Element("INSIDE_STUDY_COUNT")?.Value == "" ? null : elem.Element("INSIDE_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_INSIDE_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("INSIDE_MAN_COUNT")?.Value == null || elem.Element("INSIDE_MAN_COUNT")?.Value == "" ? null : elem.Element("INSIDE_MAN_COUNT")?.Value;
+                cmd.Parameters.Add(":P_ORG_STUDY_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_STUDY_COUNT")?.Value == null || elem.Element("ORG_STUDY_COUNT")?.Value == "" ? null : elem.Element("ORG_STUDY_COUNT")?.Value;
+                cmd.Parameters.Add(":P_ORG_MAN_COUNT", OracleDbType.Int32).Value = elem.Element("ORG_MAN_COUNT")?.Value == null || elem.Element("ORG_MAN_COUNT")?.Value == "" ? null : elem.Element("ORG_MAN_COUNT")?.Value;
+                cmd.Parameters.Add(":P_RESEARCH_ALL", OracleDbType.Int32).Value = elem.Element("RESEARCH_ALL")?.Value == null || elem.Element("RESEARCH_ALL")?.Value == "0" ? null : elem.Element("RESEARCH_ALL")?.Value;
+                cmd.Parameters.Add(":P_PUBLISHED_REPORT", OracleDbType.Int32).Value = elem.Element("PUBLISHED_REPORT")?.Value == null || elem.Element("PUBLISHED_REPORT")?.Value == "" ? null : elem.Element("PUBLISHED_REPORT")?.Value;
+                cmd.Parameters.Add(":P_NEWS_ARTICLE", OracleDbType.Int32).Value = elem.Element("NEWS_ARTICLE")?.Value == null || elem.Element("NEWS_ARTICLE")?.Value == "" ? null : elem.Element("NEWS_ARTICLE")?.Value;
+                cmd.Parameters.Add(":P_TV_NEWS_BROADCAST", OracleDbType.Int32).Value = elem.Element("TV_NEWS_BROADCAST")?.Value == null || elem.Element("TV_NEWS_BROADCAST")?.Value == "" ? null : elem.Element("TV_NEWS_BROADCAST")?.Value;
+                cmd.Parameters.Add(":P_ORG_NEWS", OracleDbType.Int32).Value = elem.Element("ORG_NEWS")?.Value == null || elem.Element("ORG_NEWS")?.Value == "" ? null : elem.Element("ORG_NEWS")?.Value;
+                cmd.Parameters.Add(":P_WEB_ACCESS", OracleDbType.Int32).Value = elem.Element("WEB_ACCESS")?.Value == null || elem.Element("WEB_ACCESS")?.Value == "" ? null : elem.Element("WEB_ACCESS")?.Value;
+                cmd.Parameters.Add(":P_RECEIVED_ALL", OracleDbType.Int32).Value = elem.Element("RECEIVED_ALL")?.Value == null || elem.Element("RECEIVED_ALL")?.Value == "0" ? null : elem.Element("RECEIVED_ALL")?.Value;
+                cmd.Parameters.Add(":P_TAB_WORKERS", OracleDbType.Int32).Value = elem.Element("TAB_WORKERS")?.Value == null || elem.Element("TAB_WORKERS")?.Value == "" ? null : elem.Element("TAB_WORKERS")?.Value;
+                cmd.Parameters.Add(":P_TAB_SKILLS", OracleDbType.Int32).Value = elem.Element("TAB_SKILLS")?.Value == null || elem.Element("TAB_SKILLS")?.Value == "" ? null : elem.Element("TAB_SKILLS")?.Value;
+                cmd.Parameters.Add(":P_AUDIT_LET", OracleDbType.Int32).Value = elem.Element("AUDIT_LET")?.Value == null || elem.Element("AUDIT_LET")?.Value == "" ? null : elem.Element("AUDIT_LET")?.Value;
+                cmd.Parameters.Add(":P_RECEIVED_OTHER", OracleDbType.Int32).Value = elem.Element("RECEIVED_OTHER")?.Value == null || elem.Element("RECEIVED_OTHER")?.Value == "" ? null : elem.Element("RECEIVED_OTHER")?.Value;
+                cmd.Parameters.Add(":P_DECIDED_TIME", OracleDbType.Int32).Value = elem.Element("DECIDED_TIME")?.Value == null || elem.Element("DECIDED_TIME")?.Value == "" ? null : elem.Element("DECIDED_TIME")?.Value;
+                cmd.Parameters.Add(":P_DEC_EXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_EXPIRED")?.Value == null || elem.Element("DEC_EXPIRED")?.Value == "" ? null : elem.Element("DEC_EXPIRED")?.Value;
+                cmd.Parameters.Add(":P_DEC_UNEXPIRED", OracleDbType.Int32).Value = elem.Element("DEC_UNEXPIRED")?.Value == null || elem.Element("DEC_UNEXPIRED")?.Value == "" ? null : elem.Element("DEC_UNEXPIRED")?.Value;
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;

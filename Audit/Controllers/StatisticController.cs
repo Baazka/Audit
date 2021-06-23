@@ -4831,6 +4831,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult CM6AddEdit()
@@ -4980,6 +4981,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult CM7AddEdit()
@@ -5129,6 +5131,7 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            ViewBag.UserID = User.Identity.GetUserId();
             return View(res);
         }
         public ActionResult CM8AddEdit()

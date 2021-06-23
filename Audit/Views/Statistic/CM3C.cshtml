@@ -16,25 +16,27 @@
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN" || User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_DIRECTOR")
+        {
+            <div class="form-group-sm pr-2">
+                <label for="DeparmentID" class="col-form-label">Алба:</label>
+                @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            </div>
+        }
+            <div class="form-group-sm pr-2">
+                <label for="PeriodID" class="col-form-label">Он:</label>
+                @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+            </div>
 
-        <div class="form-group-sm pr-2">
-            <label for="DeparmentID" class="col-form-label">Алба:</label>
-            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            <div class="form-group-sm ml-auto">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM3C', 'СМ-3В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт')">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Excel</span>
+                </a>
+            </div>
         </div>
-        <div class="form-group-sm pr-2">
-            <label for="PeriodID" class="col-form-label">Он:</label>
-            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-        </div>
-
-        <div class="form-group-sm ml-auto">
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM3C', 'СМ-3В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт')">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-excel"></i>
-                </span>
-                <span class="text">Excel</span>
-            </a>
-        </div>
-    </div>
 </form>
 <div class="card">
     <div class="card-body">

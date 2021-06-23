@@ -194,7 +194,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.ACT_STATE_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -203,7 +203,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Орон нутгийн төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.ACT_LOCAL_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тухайн байгууллагад:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.ACT_ORG_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -221,7 +221,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бусад:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.ACT_OTHER_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -314,7 +314,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.COMPLETION_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_STATE_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -323,7 +323,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Орон нутгийн төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.COMPLETION_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_LOCAL_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -332,7 +332,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тухайн байгууллагад:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.COMPLETION_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_ORG_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -341,7 +341,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бусад:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.COMPLETION_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @*@Html.ValidationMessageFor(m => m.COMPLETION_OTHER_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -362,7 +362,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хуулийн байгууллагад шилжүүлсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount3", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.REMOVED_LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount3", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @*@Html.ValidationMessageFor(m => m.REMOVED_LAW_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -389,7 +389,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тушаалаар хүчингүй болгосон дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount3", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.REMOVED_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount3", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @*@Html.ValidationMessageFor(m => m.REMOVED_INVALID_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -425,7 +425,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_NONEXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -434,7 +434,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5 text-danger", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5 text-danger", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)", @readonly = "readonly" } })
                                         @*@Html.ValidationMessageFor(m => m.ACT_C2_EXPIRED, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>
@@ -455,7 +455,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Санхүүгийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.BENEFIT_FIN_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @*@Html.ValidationMessageFor(m => m.BENEFIT_FIN_AMOUNT, "", new { @class = "text-danger" })*@
                                     </div>
                                 </div>

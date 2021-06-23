@@ -194,7 +194,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         
                                     </div>
                                 </div>
@@ -203,7 +203,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Орон нутгийн төсөвт:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                        
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тухайн байгууллагад:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         
                                     </div>
                                 </div>
@@ -221,7 +221,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бусад:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         
                                     </div>
                                 </div>

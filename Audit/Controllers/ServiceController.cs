@@ -3554,7 +3554,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM1(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM1") != null)
                     response.data = (from item in res.Elements("CM1") select new CM1().SetXml(item)).ToList();
 
@@ -3600,7 +3600,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM2(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM2") != null)
                     response.data = (from item in res.Elements("CM2") select new CM2().SetXml(item)).ToList();
 
@@ -3646,7 +3646,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM3(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM3(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM3") != null)
                     response.data = (from item in res.Elements("CM3") select new CM3().SetXml(item)).ToList();
 
@@ -3692,7 +3692,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM4(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM4(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM4A") != null)
                     response.data = (from item in res.Elements("CM4") select new CM4().SetXml(item)).ToList();
 
@@ -3737,7 +3737,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM5(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM5") != null)
                     response.data = (from item in res.Elements("CM5") select new CM5().SetXml(item)).ToList();
 
@@ -3782,7 +3782,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM6(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM6(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM6") != null)
                     response.data = (from item in res.Elements("CM6") select new CM6List().SetXml(item)).ToList();
 
@@ -3827,7 +3827,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM7(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM7(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM7") != null)
                     response.data = (from item in res.Elements("CM7") select new CM7().SetXml(item)).ToList();
 
@@ -3872,7 +3872,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
-                XElement res = AppStatic.SystemController.CM8(elem, User.GetClaimData("USER_TYPE"));
+                XElement res = AppStatic.SystemController.CM8(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM8") != null)
                     response.data = (from item in res.Elements("CM8") select new CM8().SetXml(item)).ToList();
 

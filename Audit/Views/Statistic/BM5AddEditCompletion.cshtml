@@ -53,7 +53,11 @@
                                 </div>
                             </div>
                         </div>
-                        <h6 class="heading-1"><span>Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</span></h6>
+                        <h6 class="heading-1">
+                            <span>Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</span>
+                            <a href="#" type="button" onclick="hiddenFuncion(1)" class="close btn btn-sm btn-success btn-icon-split buttonGreen" id="Button_Completion">Хэрэгжилт нэмж бүртгэх</a>
+                            <a href="#" type="button" onclick="hiddenFuncion(2)" class="close btn btn-sm btn-default bg-secondary text-white" id="2Button_Completion">Буцах</a>
+                        </h6>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
@@ -61,6 +65,9 @@
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_DONE, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0" } })
                                     </div>
                                 </div>
                             </div>
@@ -71,6 +78,9 @@
                                         @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_DONE_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency text-danger", @placeholder = "0.00" } })
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -79,6 +89,9 @@
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_PROGRESS, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0", @readonly = "readonly" } })
                                     </div>
                                 </div>
                             </div>
@@ -89,6 +102,9 @@
                                         @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_PROGRESS_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0.00", @readonly = "readonly" } })
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -98,6 +114,9 @@
                                         @Html.EditorFor(m => m.COMPLETION_INVALID, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_INVALID, "", new { @class = "text-danger" })
                                     </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0" } })
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -106,6 +125,9 @@
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_INVALID_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-sm-4 completionShow hiddenCompletion">
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency text-danger", @placeholder = "0.00" } })
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +197,7 @@
     });
 </script>
 <script>
-
+    document.getElementById("2Button_Completion").style.display = "none";
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {
@@ -250,4 +272,25 @@
 
       }
   });
+    function hiddenFuncion(type) {
+        if (type == 1) {
+
+            document.getElementById("Button_Completion").style.display = "none";
+            document.getElementById("2Button_Completion").style.display = "block";
+            $(".completionShow").removeClass("hiddenCompletion");
+
+        }
+        if (type == 2) {
+            if ($("#COMPLETION_DONE").val() != "" || $("#COMPLETION_DONE").val() != "") {
+                alert("Та биелэлт нэмж бүртгэсэн байна!")
+            }
+            else {
+                document.getElementById("Button_Completion").style.display = "block";
+                document.getElementById("2Button_Completion").style.display = "none";
+                $(".completionShow").addClass("hiddenCompletion");
+            }
+
+        }
+
+    }
 </script>

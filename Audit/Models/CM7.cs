@@ -37,7 +37,8 @@ namespace Audit.Models
         public int? RESOLVED_COMPLAINT_COUNT { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string REFERENCE_NOT_COMP { get; set; }
-                
+        public int CREATED_BY { get; set; }
+        public int UPDATED_BY { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
         public int EXEC_TYPE { get; set; }
 
@@ -50,6 +51,10 @@ namespace Audit.Models
         {
             if (xml != null)
             {
+                if (xml.Element("CREATED_BY") != null)
+                    CREATED_BY = Convert.ToInt32(xml.Element("CREATED_BY").Value);
+                if (xml.Element("UPDATED_BY") != null)
+                    UPDATED_BY = Convert.ToInt32(xml.Element("UPDATED_BY").Value);
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
                 if (xml.Element("OFFICE_ID") != null)

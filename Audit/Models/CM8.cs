@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace Audit.Models
 {
@@ -16,57 +17,59 @@ namespace Audit.Models
     public class CM8
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "Төрийн аудитын байгууллага сонгоно уу.")]
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
 
-        public int APPROVED_BUDGET { get; set; }
-        public int PERFORMANCE_BUDGET { get; set; }
-        public int WORKERS { get; set; }
-        public int APPROVED_NUMBERS { get; set; }
-        public int DIRECTING_STAFF { get; set; }
-        public int SENIOR_AUDITOR_ANALYST { get; set; }
-        public int AUDITOR_ANALYST { get; set; }
-        public int OTHER_OFFICE { get; set; }
-        public int EDU_DOCTOR { get; set; }
-        public int EDU_MAGISTR { get; set; }
-        public int EDU_BAKLAVR { get; set; }
-        public int EDU_AMONGST { get; set; }
-        public int EDU_JUNIOR_AMONGST { get; set; }
-        public int PRO_ACCOUNTANT { get; set; }
-        public int ACCOUNTANT_ECONOMIST { get; set; }
-        public int LAWYER { get; set; }
-        public int INGENER { get; set; }
-        public int OTHER_PROF { get; set; }
-        public int STUDY_COUNT { get; set; }
-        public int INCLUDED_MAN { get; set; }
-        public int ONLINE_STUDY_COUNT { get; set; }
-        public int LOCAL_STUDY_COUNT { get; set; }
-        public int AUDIT_STUDY_COUNT { get; set; }
-        public int FOREIGN_STUDY_COUNT { get; set; }
-        public int FOREIGN_MAN_COUNT { get; set; }
-        public int INSIDE_STUDY_COUNT { get; set; }
-        public int INSIDE_MAN_COUNT { get; set; }
-        public int ORG_STUDY_COUNT { get; set; }
-        public int ORG_MAN_COUNT { get; set; }
-        public int RESEARCH_ALL { get; set; }
-        public int PUBLISHED_REPORT { get; set; }
-        public int NEWS_ARTICLE { get; set; }
-        public int TV_NEWS_BROADCAST { get; set; }
-        public int ORG_NEWS { get; set; }
-        public int WEB_ACCESS { get; set; }
-        public int RECEIVED_ALL { get; set; }
-        public int TAB_WORKERS { get; set; }
-        public int TAB_SKILLS { get; set; }
-        public int AUDIT_LET { get; set; }
-        public int RECEIVED_OTHER { get; set; }
-        public int DECIDED_TIME { get; set; }
-        public int DEC_EXPIRED { get; set; }
-        public int DEC_UNEXPIRED { get; set; }
-
+        public string APPROVED_BUDGET { get; set; }
+        public string PERFORMANCE_BUDGET { get; set; }
+        public int? WORKERS { get; set; }
+        public int? APPROVED_NUMBERS { get; set; }
+        public int? DIRECTING_STAFF { get; set; }
+        public int? SENIOR_AUDITOR_ANALYST { get; set; }
+        public int? AUDITOR_ANALYST { get; set; }
+        public int? OTHER_OFFICE { get; set; }
+        public int? EDU_DOCTOR { get; set; }
+        public int? EDU_MAGISTR { get; set; }
+        public int? EDU_BAKLAVR { get; set; }
+        public int? EDU_AMONGST { get; set; }
+        public int? EDU_JUNIOR_AMONGST { get; set; }
+        public int? PRO_ACCOUNTANT { get; set; }
+        public int? ACCOUNTANT_ECONOMIST { get; set; }
+        public int? LAWYER { get; set; }
+        public int? INGENER { get; set; }
+        public int? OTHER_PROF { get; set; }
+        public int? STUDY_COUNT { get; set; }
+        public int? INCLUDED_MAN { get; set; }
+        public int? ONLINE_STUDY_COUNT { get; set; }
+        public int? LOCAL_STUDY_COUNT { get; set; }
+        public int? AUDIT_STUDY_COUNT { get; set; }
+        public int? FOREIGN_STUDY_COUNT { get; set; }
+        public int? FOREIGN_MAN_COUNT { get; set; }
+        public int? INSIDE_STUDY_COUNT { get; set; }
+        public int? INSIDE_MAN_COUNT { get; set; }
+        public int? ORG_STUDY_COUNT { get; set; }
+        public int? ORG_MAN_COUNT { get; set; }
+        public int? RESEARCH_ALL { get; set; }
+        public int? PUBLISHED_REPORT { get; set; }
+        public int? NEWS_ARTICLE { get; set; }
+        public int? TV_NEWS_BROADCAST { get; set; }
+        public int? ORG_NEWS { get; set; }
+        public int? WEB_ACCESS { get; set; }
+        public int? RECEIVED_ALL { get; set; }
+        public int? TAB_WORKERS { get; set; }
+        public int? TAB_SKILLS { get; set; }
+        public int? AUDIT_LET { get; set; }
+        public int? RECEIVED_OTHER { get; set; }
+        public int? DECIDED_TIME { get; set; }
+        public int? DEC_EXPIRED { get; set; }
+        public int? DEC_UNEXPIRED { get; set; }
+        public int CREATED_BY { get; set; }
+        public int UPDATED_BY { get; set; }
         public int IS_ACTIVE { get; set; } = 1;
-        public int EXEC_TYPE { get; set; }
+        //public int EXEC_TYPE { get; set; }
 
         public DateTime? CREATED_DATE { get; set; }
         public DateTime? UPDATED_DATE { get; set; }
@@ -77,6 +80,10 @@ namespace Audit.Models
         {
             if (xml != null)
             {
+                if (xml.Element("CREATED_BY") != null)
+                    CREATED_BY = Convert.ToInt32(xml.Element("CREATED_BY").Value);
+                if (xml.Element("UPDATED_BY") != null)
+                    UPDATED_BY = Convert.ToInt32(xml.Element("UPDATED_BY").Value);
                 if (xml.Element("ID") != null)
                     ID = Convert.ToInt32(xml.Element("ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
@@ -91,9 +98,9 @@ namespace Audit.Models
                 if (xml.Element("STATISTIC_PERIOD") != null)
                     STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
                 if (xml.Element("APPROVED_BUDGET") != null)
-                    APPROVED_BUDGET = Convert.ToInt32(xml.Element("APPROVED_BUDGET").Value);
+                    APPROVED_BUDGET = Convert.ToDecimal(xml.Element("APPROVED_BUDGET").Value).ToString("#,0.##");
                 if (xml.Element("PERFORMANCE_BUDGET") != null)
-                    PERFORMANCE_BUDGET = Convert.ToInt32(xml.Element("PERFORMANCE_BUDGET").Value);
+                    PERFORMANCE_BUDGET = Convert.ToDecimal(xml.Element("PERFORMANCE_BUDGET").Value).ToString("#,0.##");
                 if (xml.Element("WORKERS") != null)
                     WORKERS = Convert.ToInt32(xml.Element("WORKERS").Value);
                 if (xml.Element("APPROVED_NUMBERS") != null)
@@ -179,8 +186,8 @@ namespace Audit.Models
 
                 if (xml.Element("IS_ACTIVE") != null)
                     IS_ACTIVE = Convert.ToInt32(xml.Element("IS_ACTIVE").Value);
-                if (xml.Element("EXEC_TYPE") != null)
-                    EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
+                //if (xml.Element("EXEC_TYPE") != null)
+                //    EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
                 if (xml.Element("CREATED_DATE") != null)
                     CREATED_DATE = Convert.ToDateTime(xml.Element("CREATED_DATE").Value);
 
@@ -193,8 +200,8 @@ namespace Audit.Models
                        new XElement("ID", ID),
                        new XElement("OFFICE_ID", OFFICE_ID),
                        new XElement("STATISTIC_PERIOD", STATISTIC_PERIOD),
-                       new XElement("APPROVED_BUDGET", APPROVED_BUDGET),
-                       new XElement("PERFORMANCE_BUDGET", PERFORMANCE_BUDGET),
+                       APPROVED_BUDGET != null ? new XElement("APPROVED_BUDGET", APPROVED_BUDGET.Split(',')) : new XElement("APPROVED_BUDGET", null),
+                       PERFORMANCE_BUDGET != null ? new XElement("PERFORMANCE_BUDGET", PERFORMANCE_BUDGET.Split(',')) : new XElement("PERFORMANCE_BUDGET", null),
                        new XElement("WORKERS", WORKERS),
                        new XElement("APPROVED_NUMBERS", APPROVED_NUMBERS),
                        new XElement("DIRECTING_STAFF", DIRECTING_STAFF),
@@ -236,7 +243,7 @@ namespace Audit.Models
                        new XElement("DECIDED_TIME", DECIDED_TIME),
                        new XElement("DEC_EXPIRED", DEC_EXPIRED),
                        new XElement("DEC_UNEXPIRED", DEC_UNEXPIRED),
-                       new XElement("EXEC_TYPE", EXEC_TYPE),
+                       //new XElement("EXEC_TYPE", EXEC_TYPE),
                        new XElement("IS_ACTIVE", IS_ACTIVE),
                        new XElement("CREATED_DATE", CREATED_DATE != null ? ((DateTime)CREATED_DATE).ToString("dd-MMM-yy") : null)
                        );

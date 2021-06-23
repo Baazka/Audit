@@ -15,53 +15,57 @@
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
-
-        <div class="form-group-sm pr-2">
-            <label for="DeparmentID" class="col-form-label">Алба:</label>
-            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-        </div>
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN" || User.GetClaimData("USER_TYPE").ToUpper() == "HEAD_DIRECTOR")
+        {
+            <div class="form-group-sm pr-2">
+                <label for="DeparmentID" class="col-form-label">Алба:</label>
+                @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            </div>
+        }
         <div class="form-group-sm pr-2">
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
-
-        <div class="form-group-sm ml-auto pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="CM8.loadTemplate();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Шинэ бүртгэл</span>
-            </a>
+        @if (User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_REGISTER" || User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "HAK_USER" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN")
+        {
+            <div class="form-group-sm ml-auto pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="CM8.loadTemplate();">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Шинэ бүртгэл</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="CheckUserTypeEdit('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">Засах</span>
+                </a>
+            </div>
+            <div class="form-group-sm pr-2">
+                <br />
+                <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CheckUserTypeDelete('@User.GetClaimData("USER_TYPE")');">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                    <span class="text">Устгах</span>
+                </a>
+            </div>
+        }
+            <div class="form-group-sm">
+                <br />
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM8', 'СМ-8. Дэмжих үйлчилгээ')">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-file-excel"></i>
+                    </span>
+                    <span class="text">Excel</span>
+                </a>
+            </div>
         </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-warning btn-icon-split disabled enableBtn" onclick="CM8.edit();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-edit"></i>
-                </span>
-                <span class="text">Засах</span>
-            </a>
-        </div>
-        <div class="form-group-sm pr-2">
-            <br />
-            <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CM8.delete();">
-                <span class="icon text-white-50">
-                    <i class="fas fa-trash-alt"></i>
-                </span>
-                <span class="text">Устгах</span>
-            </a>
-        </div>
-        <div class="form-group-sm">
-            <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM8', 'СМ-8. Дэмжих үйлчилгээ')">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-excel"></i>
-                </span>
-                <span class="text">Excel</span>
-            </a>
-        </div>
-    </div>
 </form>
 <div class="card">
     <div class="card-body">
@@ -147,6 +151,7 @@
 
 @section scripts{
     <script>
+        var userid = @ViewBag.UserID;
         $(document).ready(function () {
             cm8ListInit();
         });
@@ -156,6 +161,7 @@
                 $("#CM8 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
                 CM8.cm8ID = this.getAttribute("data-id");
+                CM8.rowdata = CM8.table.row(this).data();
             });
         }
         function cm8ListInit(pagelength = 10) {
@@ -259,6 +265,48 @@
                 }
             });
 
+        }
+
+        function CheckUserTypeEdit(userType) {
+
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER') {
+                if (CM8.cm8ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = CM8.rowdata.CREATED_BY;
+                    var update_by = CM8.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        CM8.edit();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг засхад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            if (userType == 'BRANCH_REGISTER' || userType == 'Admin') {
+                CM8.edit();
+            }
+        }
+        function CheckUserTypeDelete(userType) {
+            if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER' || userType == 'BRANCH_REGISTER' || userType == 'Admin') {
+                if (CM8.cm8ID == null) {
+                    alert("Бичлэг сонгоно уу");
+                }
+                else {
+                    var creat_by = CM8.rowdata.CREATED_BY;
+                    var update_by = CM8.rowdata.UPDATED_BY;
+                    if (creat_by == userid) {
+                        CM8.delete();
+                    } else {
+                        alert("Уучлаарай таны эрх энэ бүртгэлийг устгахад хүрэхгүй байна!");
+                    }
+
+                }
+            }
+            else {
+                alert("Уучлаарай таны эрх энэ бүртгэлийг устгахад хүрэхгүй байна!");
+            }
         }
         $('#DeparmentID').change(function () {
             cm8ListInit();
