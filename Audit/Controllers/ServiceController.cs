@@ -218,7 +218,10 @@ namespace Audit.Controllers
                 BM0 Niit = new BM0();
                 var typ = typeof(BM0);
                 if (res != null && res.Elements("BM0") != null)
-                     bm0Body = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
+                {
+                    bm0Body = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
+                    response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                }
 
                 if (bm0Body.Count > 0)
                 {
@@ -278,7 +281,7 @@ namespace Audit.Controllers
                 {
                     response.data = bm0Body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }

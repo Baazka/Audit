@@ -10,7 +10,6 @@
         <link rel="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css" />*@
 
     <style>
-       
     </style>
 </head>
 <div class="d-flex">
@@ -93,7 +92,7 @@
                     <span class="text">Засах</span>
                 </a>
             </div>
-      
+
             <div class="form-group-sm pr-2">
                 <br />
                 <a href="#" class="btn btn-sm btn-danger btn-icon-split disabled enableBtn" onclick="CheckUserTypeDelete('@User.GetClaimData("USER_TYPE")');">
@@ -118,7 +117,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            
+
             <table id="BM0" class="table table-bordered table-hover datatable display">
                 <thead>
                     <tr class="bg-light">
@@ -155,21 +154,21 @@
                         <th class="clickClass">Илүү цаг</th>
                     </tr>
                 </thead>
-                    <tbody>
-                    </tbody>
+                <tbody>
+                </tbody>
             </table>
-            </div>
         </div>
+    </div>
 </div>
 
 @section scripts{
     <script src="~/Scripts/jquery.multiselect.js"></script>
     @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>*@
-<script>
-    var userid = @ViewBag.UserID;
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>*@
+    <script>
+        var userid = @ViewBag.UserID;
         $(document).ready(function () {
             bm0ListInit();
 
@@ -784,5 +783,101 @@
             }, 5000
             )
         }
-</script>
-} 
+    </script>
+}
+
+@*SELECT BM.ID, BM.STATISTIC_PERIOD, RP.PERIOD_LABEL, RD1.DEPARTMENT_NAME, RAY.YEAR_LABEL, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, BM.TOPIC_CODE, BM.TOPIC_NAME, BM.ORDER_NO, BM.ORDER_DATE, RFT.FORM_TYPE_NAME, RPT.PROPOSAL_TYPE_NAME, RBT.BUDGET_TYPE_NAME, BM.CREATED_BY,
+                  BM.UPDATED_BY, BM.AUDIT_INCLUDED_COUNT, BM.AUDIT_INCLUDED_ORG, BM.WORKING_PERSON, BM.WORKING_DAY, BM.WORKING_ADDITION_TIME, BM.AUDIT_SERVICE_PAY, RDT.DEPARTMENT_SHORT_NAME, RD2.DEPARTMENT_NAME AS TEAM_DEPARTMENT_NAME,
+
+                  (SELECT LISTAGG(SU.USER_CODE||'-'||SU.USER_NAME,',') WITHIN GROUP (ORDER BY TD.ID)
+                    FROM AUD_STAT.BM0_TEAM_DATA TD
+
+                    INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID
+                    WHERE TD.TEAM_TYPE_ID = 1 AND TD.AUDIT_ID = BM.ID)
+
+                  (SELECT LISTAGG(SU.USER_CODE || '-' || SU.USER_NAME, ',') WITHIN GROUP(ORDER BY TD.ID)
+                    FROM AUD_STAT.BM0_TEAM_DATA TD
+
+                    INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID
+                    WHERE TD.TEAM_TYPE_ID = 2 AND TD.AUDIT_ID = BM.ID)
+                    AS AUDITOR_MEMBER,
+
+                    SUS.USER_CODE || '-' || SUS.USER_NAME AS AUDITOR_ENTRY
+
+                    FROM AUD_STAT.BM0_DATA BM
+                    INNER JOIN AUD_STAT.REF_PERIOD RP ON BM.STATISTIC_PERIOD = RP.ID
+                    INNER JOIN AUD_STAT.REF_AUDIT_YEAR RAY ON BM.AUDIT_YEAR = RAY.YEAR_ID
+                    INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON BM.AUDIT_TYPE = RAT.AUDIT_TYPE_ID
+                    INNER JOIN AUD_STAT.REF_TOPIC_TYPE RTT ON BM.TOPIC_TYPE = RTT.TOPIC_TYPE_ID
+                    LEFT JOIN AUD_STAT.REF_FORM_TYPE RFT ON BM.AUDIT_FORM_TYPE = RFT.FORM_TYPE_ID
+                    LEFT JOIN AUD_STAT.REF_PROPOSAL_TYPE RPT ON BM.AUDIT_PROPOSAL_TYPE = RPT.PROPOSAL_TYPE_ID
+                    LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON BM.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID
+                    INNER JOIN AUD_STAT.REF_DEPARTMENT_TYPE RDT ON BM.AUDIT_DEPARTMENT_TYPE = RDT.DEPARTMENT_TYPE_ID
+                    INNER JOIN AUD_ORG.REF_DEPARTMENT RD1 ON BM.DEPARTMENT_ID = RD1.DEPARTMENT_ID
+                    INNER JOIN AUD_ORG.REF_DEPARTMENT RD2 ON BM.AUDIT_DEPARTMENT_ID = RD2.DEPARTMENT_ID
+                    INNER JOIN AUD_REG.SYSTEM_USER SUS ON BM.AUDITOR_ENTRY_ID = SUS.USER_ID
+                    WHERE BM.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN
+                    ('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND BM.DEPARTMENT_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (BM.DEPARTMENT_ID = :V_FILTER_DEPARTMENT))
+                    AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'
+                    OR UPPER(RTT.TOPIC_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'
+                    OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%'
+                    OR UPPER(RPT.PROPOSAL_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RBT.BUDGET_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'
+                    OR UPPER(BM.AUDIT_INCLUDED_ORG) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RD2.DEPARTMENT_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'
+                    OR UPPER(SUS.USER_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(SUS.USER_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%')
+                    ORDER BY
+                    CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN BM.ID END ASC,
+                    CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND: ORDER_DIR = 'ASC' THEN RD1.DEPARTMENT_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND: ORDER_DIR = 'DESC' THEN RD1.DEPARTMENT_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,
+                    CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,
+                    CASE WHEN :ORDER_NAME = 'AUDIT_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RAT.AUDIT_TYPE_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'AUDIT_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RAT.AUDIT_TYPE_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'TOPIC_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RTT.TOPIC_TYPE_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'TOPIC_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RTT.TOPIC_TYPE_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_CODE END ASC,
+                    CASE WHEN :ORDER_NAME = 'TOPIC_CODE' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_CODE END DESC,
+                    CASE WHEN :ORDER_NAME = 'TOPIC_NAME' AND: ORDER_DIR = 'ASC' THEN BM.TOPIC_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'TOPIC_NAME' AND: ORDER_DIR = 'DESC' THEN BM.TOPIC_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'ORDER_NO' AND: ORDER_DIR = 'ASC' THEN BM.ORDER_NO END ASC,
+                    CASE WHEN :ORDER_NAME = 'ORDER_NO' AND: ORDER_DIR = 'DESC' THEN BM.ORDER_NO END DESC,
+                    CASE WHEN :ORDER_NAME = 'ORDER_DATE' AND: ORDER_DIR = 'ASC' THEN BM.ORDER_DATE END ASC,
+                    CASE WHEN :ORDER_NAME = 'ORDER_DATE' AND: ORDER_DIR = 'DESC' THEN BM.ORDER_DATE END DESC,
+                    CASE WHEN :ORDER_NAME = 'FORM_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RFT.FORM_TYPE_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'FORM_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RFT.FORM_TYPE_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'PROPOSAL_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RPT.PROPOSAL_TYPE_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'PROPOSAL_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RPT.PROPOSAL_TYPE_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND: ORDER_DIR = 'ASC' THEN RBT.BUDGET_TYPE_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND: ORDER_DIR = 'DESC' THEN RBT.BUDGET_TYPE_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'DEPARTMENT_SHORT_NAME' AND: ORDER_DIR = 'ASC' THEN RDT.DEPARTMENT_SHORT_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'DEPARTMENT_SHORT_NAME' AND: ORDER_DIR = 'DESC' THEN RDT.DEPARTMENT_SHORT_NAME END DESC,
+                    CASE WHEN :ORDER_NAME = 'TEAM_DEPARTMENT_NAME' AND: ORDER_DIR = 'ASC' THEN RD2.DEPARTMENT_NAME END ASC,
+                    CASE WHEN :ORDER_NAME = 'TEAM_DEPARTMENT_NAME' AND: ORDER_DIR = 'DESC' THEN RD2.DEPARTMENT_NAME END DESC
+                    OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS
+                    FETCH NEXT :PAGESIZE ROWS ONLY;
+
+                    SELECT BM.ID, BM.STATISTIC_PERIOD
+                   (SELECT LISTAGG(SU.USER_CODE||'-'||SU.USER_NAME,',') WITHIN GROUP (ORDER BY TD.ID)
+                    FROM AUD_STAT.BM0_TEAM_DATA TD
+                    INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID
+                    WHERE TD.TEAM_TYPE_ID = 1 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_LEAD,
+                    (SELECT LISTAGG(SU.USER_CODE || '-' || SU.USER_NAME, ',') WITHIN GROUP(ORDER BY TD.ID)
+                    FROM AUD_STAT.BM0_TEAM_DATA TD INNER JOIN AUD_REG.SYSTEM_USER SU ON TD.AUDITOR_ID = SU.USER_ID
+                    WHERE TD.TEAM_TYPE_ID = 2 AND TD.AUDIT_ID = BM.ID) AS AUDITOR_MEMBER,
+                    SUS.USER_CODE || '-' || SUS.USER_NAME AS AUDITOR_ENTRY
+                    FROM AUD_STAT.BM0_DATA BM
+                    FETCH NEXT 10 ROWS ONLY
+
+                    with rws as (
+  select t.*,
+         row_number () over (
+           partition by t.ID
+           order by t.ID
+         ) rn
+  from  AUD_STAT.BM0_TEAM_DATA t
+)
+  select * from rws
+  where  rn <= :num_rows;
+
+                    SELECT COUNT(BM.ID)
+                      FROM AUD_STAT.BM0_DATA BM
+                      where BM.IS_ACTIVE = 1 AND BM.STATISTIC_PERIOD = 2 AND BM.DEPARTMENT_ID = 101*@    
