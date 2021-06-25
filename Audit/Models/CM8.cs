@@ -26,6 +26,7 @@ namespace Audit.Models
         public string APPROVED_BUDGET { get; set; }
         public string PERFORMANCE_BUDGET { get; set; }
         public int? WORKERS { get; set; }
+        public int? MANAGER { get; set; }
         public int? APPROVED_NUMBERS { get; set; }
         public int? DIRECTING_STAFF { get; set; }
         public int? SENIOR_AUDITOR_ANALYST { get; set; }
@@ -103,6 +104,8 @@ namespace Audit.Models
                     PERFORMANCE_BUDGET = Convert.ToDecimal(xml.Element("PERFORMANCE_BUDGET").Value).ToString("#,0.##");
                 if (xml.Element("WORKERS") != null)
                     WORKERS = Convert.ToInt32(xml.Element("WORKERS").Value);
+                if (xml.Element("MANAGER") != null)
+                    MANAGER = Convert.ToInt32(xml.Element("MANAGER").Value);
                 if (xml.Element("APPROVED_NUMBERS") != null)
                     APPROVED_NUMBERS = Convert.ToInt32(xml.Element("APPROVED_NUMBERS").Value);
                 if (xml.Element("DIRECTING_STAFF") != null)
@@ -203,6 +206,7 @@ namespace Audit.Models
                        APPROVED_BUDGET != null ? new XElement("APPROVED_BUDGET", APPROVED_BUDGET.Split(',')) : new XElement("APPROVED_BUDGET", null),
                        PERFORMANCE_BUDGET != null ? new XElement("PERFORMANCE_BUDGET", PERFORMANCE_BUDGET.Split(',')) : new XElement("PERFORMANCE_BUDGET", null),
                        new XElement("WORKERS", WORKERS),
+                       new XElement("MANAGER", MANAGER),
                        new XElement("APPROVED_NUMBERS", APPROVED_NUMBERS),
                        new XElement("DIRECTING_STAFF", DIRECTING_STAFF),
                        new XElement("SENIOR_AUDITOR_ANALYST", SENIOR_AUDITOR_ANALYST),

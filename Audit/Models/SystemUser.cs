@@ -40,6 +40,7 @@ namespace Audit.Models
         public int USER_TYPE_ID { get; set; }
         public string USER_TYPE_NAME { get; set; }
         public string USER_EMAIL { get; set; }
+        public List<EditUser> editUser { get; set; } = new List<EditUser>();
         public DateTime USER_REG_DATE { get; set; }
         public SystemUser FromXml(XElement elem)
         {

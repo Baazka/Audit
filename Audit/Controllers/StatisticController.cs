@@ -182,6 +182,7 @@ namespace Audit.Controllers
         public PartialViewResult SystemUserModal(int AUDIT_ID ,int type)
         {
             List<SystemUser> systemuser = new List<SystemUser>();
+            SystemUser model = new SystemUser();
             if (Globals.systemusers.Count != 0)
                 systemuser = Globals.systemusers;
             else
@@ -190,7 +191,9 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("SystemUser") != null)
                 {
                     systemuser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
-                    ViewBag.EditUsers = (from ite in res.Elements("SystemUserEdit") select new SystemUser().FromXml(ite)).ToList();
+                    ViewBag.EditUsers = (from ite in res.Elements("SystemUserEdit") select new EditUser().FromXml(ite)).ToList();
+                    Globals.editUser = (from ite in res.Elements("SystemUserEdit") select new EditUser().FromXml(ite)).ToList();
+                    model.editUser = Globals.editUser;
                 }
             }
             return PartialView(systemuser);

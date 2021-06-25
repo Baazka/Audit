@@ -297,6 +297,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditUser.cs" />
     <Compile Include="Models\N1.cs" />
     <Compile Include="Models\Reports.cs" />
     <Compile Include="Models\BM7.cs" />

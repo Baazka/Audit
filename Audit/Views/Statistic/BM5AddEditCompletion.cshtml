@@ -47,7 +47,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.LAW_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @readonly = "readonly", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.LAW_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -55,8 +55,8 @@
                         </div>
                         <h6 class="heading-1">
                             <span>Хууль хяналтын байгууллагад шилжүүлсэн асуудлын хэрэгжилт</span>
-                            <a href="#" type="button" onclick="hiddenFuncion(1)" class="close btn btn-sm btn-success btn-icon-split buttonGreen" id="Button_Completion">Хэрэгжилт нэмж бүртгэх</a>
-                            <a href="#" type="button" onclick="hiddenFuncion(2)" class="close btn btn-sm btn-default bg-secondary text-white" id="2Button_Completion">Буцах</a>
+                            @*<a href="#" type="button" onclick="hiddenFuncion(1)" class="close btn btn-sm btn-success btn-icon-split buttonGreen" id="Button_Completion">Хэрэгжилт нэмж бүртгэх</a>
+                            <a href="#" type="button" onclick="hiddenFuncion(2)" class="close btn btn-sm btn-default bg-secondary text-white" id="2Button_Completion">Буцах</a>*@
                         </h6>
                         <div class="row">
                             <div class="col-12">
@@ -67,7 +67,7 @@
                                         @Html.ValidationMessageFor(m => m.COMPLETION_DONE, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4 completionShow hiddenCompletion">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0" } })
+                                        @*@Html.EditorFor(m => m.COMPLETION_DONE, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0" } })*@
                                     </div>
                                 </div>
                             </div>
@@ -75,11 +75,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Бүрэн шийдвэрлэгдсэн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00" , @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_DONE_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4 completionShow hiddenCompletion">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency text-danger", @placeholder = "0.00" } })
+                                        @*@Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency text-danger", @placeholder = "0.00" ,@onkeypress = "return validateFloatKeyPress(this, event)"} })*@
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                         @Html.ValidationMessageFor(m => m.COMPLETION_PROGRESS, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4 completionShow hiddenCompletion">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0", @readonly = "readonly" } })
+                                        @*@Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0", @readonly = "readonly" } })*@
                                     </div>
                                 </div>
                             </div>
@@ -99,11 +99,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хянагдаж байгаа дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.00", @readonly = "readonly", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_PROGRESS_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4 completionShow hiddenCompletion">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0.00", @readonly = "readonly" } })
+                                        @*@Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0.00", @readonly = "readonly",@onkeypress = "return validateFloatKeyPress(this, event)" } })*@
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                         @Html.ValidationMessageFor(m => m.COMPLETION_INVALID, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4 completionShow hiddenCompletion">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0" } })
+                                        @*@Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0" } })*@
                                     </div>
                                 </div>
                             </div>
@@ -123,11 +123,11 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хэрэгсэхгүй болсон дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00" } })
+                                        @Html.EditorFor(m => m.COMPLETION_INVALID_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00" , @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.COMPLETION_INVALID_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="col-sm-4 completionShow hiddenCompletion">
-                                        @Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency text-danger", @placeholder = "0.00" } })
+                                        @*@Html.EditorFor(m => m.COMPLETION_DONE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency text-danger", @placeholder = "0.00" ,@onkeypress = "return validateFloatKeyPress(this, event)"} })*@
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0.00", @readonly = "readonly" } })
+                                        @Html.EditorFor(m => m.LAW_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @placeholder = "0.00", @readonly = "readonly", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.LAW_C2_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -197,7 +197,7 @@
     });
 </script>
 <script>
-    document.getElementById("2Button_Completion").style.display = "none";
+    //document.getElementById("2Button_Completion").style.display = "none";
   $( function() {
       $(".datepicker").datepicker({
           beforeShow: function () {

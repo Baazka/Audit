@@ -35,6 +35,7 @@ namespace Audit.App_Func
         public static List<Reason> reasons { get; set; } = new List<Reason>();
 
         public static List<Period> periods { get; set; } = new List<Period>();
+        public static List<EditUser> editUser { get; set; } = new List<EditUser>();
 
         #region Stat
         public static List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();

@@ -201,7 +201,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount2", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount2", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                     </div>
                                 </div>
                             </div>

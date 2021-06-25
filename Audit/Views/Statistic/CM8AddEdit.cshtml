@@ -94,8 +94,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Менежер:</label>
                                     <div class="col-sm-4">
-                                        @*@Html.EditorFor(m => m.SENIOR_AUDITOR_ANALYST, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                            @Html.ValidationMessageFor(m => m.SENIOR_AUDITOR_ANALYST, "", new { @class = "text-danger" })*@
+                                        @Html.EditorFor(m => m.MANAGER, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.ValidationMessageFor(m => m.MANAGER, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
