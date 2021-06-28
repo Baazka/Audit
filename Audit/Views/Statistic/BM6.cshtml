@@ -103,7 +103,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            bm6ListInit();
+            setTimeout(function () { bm6ListInit(); }, 1000);
         });
 
         function bm6ListInit(pagelength = 10) {

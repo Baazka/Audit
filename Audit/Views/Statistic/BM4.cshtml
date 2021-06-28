@@ -140,7 +140,7 @@
     <script>
         var userid = @ViewBag.UserID;
         $(document).ready(function () {
-           bm4ListInit();
+            setTimeout(function () { bm4ListInit(); }, 1000);
         });
 
         $(".clickClass").click(function () {

@@ -43,6 +43,15 @@ namespace Audit.Models
         public string USER_EMAIL { get; set; }
         public List<EditUser> editUser { get; set; } = new List<EditUser>();
         public DateTime USER_REG_DATE { get; set; }
+
+
+        public int USER_ID_EDIT { get; set; }
+        public string USER_CODE_EDIT { get; set; }
+        public string USER_NAME_EDIT { get; set; }
+        public int DEPARTMENT_ID_EDIT { get; set; }
+        public int TEAM_TYPE_ID_EDIT { get; set; }
+        public int AUDIT_ID_EDIT { get; set; }
+        public string DEPARTMENT_NAME_EDIT { get; set; }
         public SystemUser FromXml(XElement elem)
         {
             if (elem.Element("USER_ID") != null)
@@ -67,6 +76,22 @@ namespace Audit.Models
                 this.USER_CODE = elem.Element("USER_CODE").Value;
             if (elem.Element("USER_REG_DATE") != null)
                 this.USER_REG_DATE = Convert.ToDateTime(elem.Element("USER_REG_DATE").Value);
+
+
+            if (elem.Element("USER_ID_EDIT") != null)
+                USER_ID_EDIT = Convert.ToInt32(elem.Element("USER_ID_EDIT").Value);
+            if (elem.Element("USER_CODE_EDIT") != null)
+                USER_CODE_EDIT = elem.Element("USER_CODE_EDIT").Value;
+            if (elem.Element("USER_NAME_EDIT") != null)
+                USER_NAME_EDIT = elem.Element("USER_NAME_EDIT").Value;
+            if (elem.Element("DEPARTMENT_ID_EDIT") != null)
+                DEPARTMENT_ID_EDIT = Convert.ToInt32(elem.Element("DEPARTMENT_ID_EDIT").Value);
+            if (elem.Element("TEAM_TYPE_ID_EDIT") != null)
+                TEAM_TYPE_ID_EDIT = Convert.ToInt32(elem.Element("TEAM_TYPE_ID_EDIT").Value);
+            if (elem.Element("AUDIT_ID_EDIT") != null)
+                AUDIT_ID_EDIT = Convert.ToInt32(elem.Element("AUDIT_ID_EDIT").Value);
+            if (elem.Element("DEPARTMENT_NAME_EDIT") != null)
+                DEPARTMENT_NAME_EDIT = elem.Element("DEPARTMENT_NAME_EDIT").Value;
             return this;
         }
     }

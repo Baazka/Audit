@@ -91,7 +91,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            nm3ListInit();
+            setTimeout(function () { nm3ListInit(); }, 1000);
         });
 
         function nm3ListInit(pagelength = 10) {            

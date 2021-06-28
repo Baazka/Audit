@@ -107,7 +107,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            bm7ListInit();
+            setTimeout(function () { bm7ListInit(); }, 1000);
         });
 
         function bm7ListInit(pagelength = 10) {

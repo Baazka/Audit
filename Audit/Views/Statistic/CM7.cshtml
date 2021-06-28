@@ -103,7 +103,8 @@
     <script>
         var userid = @ViewBag.UserID;
         $(document).ready(function () {
-            cm7ListInit();
+            
+            setTimeout(function () { cm7ListInit(); }, 1000);
         });
         function rowselected() {
             $("#CM7 tbody tr").on('click', function (event) {

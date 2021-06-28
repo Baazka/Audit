@@ -103,7 +103,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            cm3aListInit();
+            
+            setTimeout(function () { cm3aListInit(); }, 1000);
         });
 
         function cm3aListInit(pagelength = 10) {

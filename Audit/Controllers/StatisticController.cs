@@ -183,6 +183,7 @@ namespace Audit.Controllers
         {
             SystemUser response = new SystemUser();
             List<SystemUser> systemUser = new List<SystemUser>();
+            List<SystemUser> systemUserEdit = new List<SystemUser>();
             if (Globals.systemusers.Count != 0)
                 systemUser = Globals.systemusers;
             else
@@ -191,10 +192,12 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("SystemUser") != null)
                 {
                     systemUser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
-                    ViewBag.EditUsers = (from ite in res.Elements("SystemUserEdit") select new EditUser().FromXml(ite)).ToList();
+                    ViewBag.UserCount = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
+                    systemUserEdit = (from ite in res.Elements("SystemUserEdit") select new SystemUser().FromXml(ite)).ToList();
+                    ViewBag.UserEditCount = (from ite in res.Elements("SystemUserEdit") select new SystemUser().FromXml(ite)).ToList();
+                    ViewBag.Count = systemUserEdit.Count();
+                    systemUser.AddRange(systemUserEdit);
 
-                    //response.editUser = (from ite in res.Elements("SystemUserEdit") select new EditUser().FromXml(ite)).ToList();
-                    
                 }
             }
             return PartialView(systemUser);

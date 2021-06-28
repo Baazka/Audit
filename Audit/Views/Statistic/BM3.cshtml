@@ -150,7 +150,7 @@
     <script>
         var userid = @ViewBag.UserID;
         $(document).ready(function () {
-            bm3ListInit();
+            setTimeout(function () { bm3ListInit(); }, 1000);
         });
 
         $(".clickClass").click(function () {

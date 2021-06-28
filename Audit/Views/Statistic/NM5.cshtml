@@ -78,7 +78,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            nm5ListInit();
+            setTimeout(function () { nm5ListInit(); }, 1000);
         });
 
         function nm5ListInit(pagelength = 10) {

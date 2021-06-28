@@ -109,8 +109,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+            setTimeout(function () { nm1ListInit(); }, 1000);
             
-            nm1ListInit();
         });
 
         function nm1ListInit(pagelength = 10) {

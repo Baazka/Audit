@@ -115,7 +115,8 @@
     <script>
         var userid = @ViewBag.UserID;
         $(document).ready(function () {
-            cm6ListInit();
+            
+            setTimeout(function () { cm6ListInit(); }, 1000);
         });
         function rowselected() {
             $("#CM6 tbody tr").on('click', function (event) {

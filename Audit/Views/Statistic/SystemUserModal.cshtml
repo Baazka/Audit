@@ -12,17 +12,18 @@
                     <div class="col-5">
                         <select name="from[]" id="search" class="form-control form-control-sm" size="20" multiple="multiple">
 
-                            @if (Model.Count > 0)
+                            @if (((IEnumerable<dynamic>)ViewBag.UserCount).Count() > 0)
                             {
-                                foreach (var group in Model.GroupBy(m=>m.DEPARTMENT_ID))
-                                {
+                                
+                                    foreach (var group in Model.GroupBy(m => m.DEPARTMENT_ID))
+                                    {
                                     <optgroup label="@group.FirstOrDefault().DEPARTMENT_NAME">
                                     @foreach (var item in group)
                                         {
                                         <option value="@item.USER_ID">@item.USER_CODE @item.USER_NAME</option>
-                                        }                                        
-                                    </optgroup>                                    
-                                }
+                                    }                                        
+                                    </optgroup>  
+                                    }
                             }
                         </select>
                     </div>
@@ -54,35 +55,21 @@
 
                     <div class="col-5">
                         <select name="to[]" id="search_to" class="form-control form-control-sm" size="20" multiple="multiple">
-                            @if (((IEnumerable<dynamic>)ViewBag.EditUsers).Count() > 0)
+                            @if (((IEnumerable<dynamic>)ViewBag.UserEditCount).Count() > 0)
                             {
-                                //for (int i = 0; i < ((IEnumerable<dynamic>)ViewBag.EditUsers).Count(); i++)
-                                //{ 
-                                    <optgroup label="@ViewBag.EditUsers[0].DEPARTMENT_NAME">
-                                        @foreach (var group in ViewBag.EditUsers)
-                                        {
-
-                                            <option value="@group.USER_ID">@group.USER_CODE @group.USER_NAME</option>
-
-                                        }
-                                    </optgroup>
-                                //}
+                                    foreach (var group in Model.GroupBy(m => m.DEPARTMENT_ID_EDIT))
+                                    {
+                                        <optgroup label="@group.FirstOrDefault().DEPARTMENT_NAME_EDIT">
+                                            @foreach (var item in group)
+                                            {
+                                                <option value="@item.USER_ID_EDIT">@item.USER_CODE_EDIT @item.USER_NAME_EDIT</option>
+                                            }
+                                        </optgroup>
+                                    }
                             }
-                        @*@for (int i = 0; i < ((IEnumerable<dynamic>)ViewBag.EditUsers).Count(); i++)
-                            {
-                                foreach (var group in ViewBag.EditUsers)
-                                {
-                                    <optgroup label="@group.FirstOrDefault().DEPARTMENT_NAME">
-                                        @foreach (var item in group)
-                                        {
-                                            <option value="@item.USER_ID">@item.USER_CODE @item.USER_NAME</option>
-                                        }
-                                    </optgroup>
+                         
 
-                                }
-                            }*@
-
-                        </select>
+                                </select>
                     </div>
                 </div>
                 <hr />
@@ -96,9 +83,27 @@
 </div>
 <script type="text/javascript">
 
-    
+    var EditUserCount = @ViewBag.Count;
 
     jQuery(document).ready(function ($) {
+        if (EditUserCount > 0) {
+
+            $('#search_to optgroup').each(function () {
+                $(this).attr('id', "hiddenRemoveEdit" + this.label);
+            });
+            var edit = document.getElementById('hiddenRemoveEdit');
+            edit.remove();
+
+            $('#search optgroup').each(function () {
+                console.log(this.value);
+                $(this).attr('id', "hiddenRemove" + this.label);
+            });
+           
+            var el = document.getElementById('hiddenRemove');
+            el.remove();
+        }
+
+
         $('#search').multiselect({
             search: {
                 left: '<input type="text" name="q" class="form-control form-control-sm" placeholder="Хайх..." />',
@@ -108,6 +113,8 @@
                 return value.length > 3;
             }
         });
+
+
     });
     function Choose() {
         var values = [];
@@ -134,10 +141,12 @@
                 }
                 $('#usermodal').modal('hide');
             }
-        }   
-      
-         
+        }
+
+
     }
 
-   
+
+
 </script>
+

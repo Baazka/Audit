@@ -164,7 +164,7 @@
     <script>
         var userid = @ViewBag.UserID;
         $(document).ready(function () {
-            bm1ListInit();
+            setTimeout(function () { bm1ListInit(); }, 1000);
         });
         $(".clickClass").click(function () {
             $("#BM1 tbody tr").removeClass('row_selected');

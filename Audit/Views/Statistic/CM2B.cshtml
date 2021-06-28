@@ -105,7 +105,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            cm2bListInit();
+            
+            setTimeout(function () { cm2bListInit(); }, 1000);
         });
 
         function cm2bListInit(pagelength = 10) {

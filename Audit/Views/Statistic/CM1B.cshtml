@@ -74,7 +74,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            cm1bListInit();
+            
+            setTimeout(function () { cm1bListInit(); }, 1000);
         });
 
         function cm1bListInit(pagelength = 10) {

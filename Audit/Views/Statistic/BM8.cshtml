@@ -107,7 +107,7 @@
     <script>
          var userid = @ViewBag.UserID;
         $(document).ready(function () {
-            bm8ListInit();
+            setTimeout(function () { bm8ListInit(); }, 1000);
         });
 
         $(".clickClass").click(function () {

@@ -91,7 +91,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            cm1aListInit();
+            
+            setTimeout(function () { cm1aListInit(); }, 1000);
         });
        
         function cm1aListInit(pagelength = 10) {

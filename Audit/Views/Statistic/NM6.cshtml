@@ -96,7 +96,7 @@
 @section scripts{
 <script>
         $(document).ready(function () {
-            nm6ListInit();
+            setTimeout(function () { nm6ListInit(); }, 1000);
         });
 
     function nm6ListInit(pagelength = 10) {

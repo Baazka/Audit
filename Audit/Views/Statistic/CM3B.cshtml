@@ -102,7 +102,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            cm3bListInit();
+            
+            setTimeout(function () { cm3bListInit(); }, 1000);
         });
 
         function cm3bListInit(pagelength = 10) {

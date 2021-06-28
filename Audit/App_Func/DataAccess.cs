@@ -1128,7 +1128,7 @@ namespace Audit.App_Func
 
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, TD.TEAM_TYPE_ID, RD.DEPARTMENT_NAME,TD.AUDIT_ID , RD.DEPARTMENT_ID " +
+                cmd.CommandText = "SELECT SU.USER_ID AS USER_ID_EDIT, SU.USER_CODE AS USER_CODE_EDIT, SU.USER_NAME AS USER_NAME_EDIT, TD.TEAM_TYPE_ID AS TEAM_TYPE_ID_EDIT, RD.DEPARTMENT_NAME AS DEPARTMENT_NAME_EDIT,TD.AUDIT_ID AS AUDIT_ID_EDIT, RD.DEPARTMENT_ID AS DEPARTMENT_ID_EDIT " +
                                 "FROM AUD_REG.SYSTEM_USER SU " +
                                 "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON SU.USER_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
                                 "INNER JOIN AUD_STAT.BM0_TEAM_DATA TD ON SU.USER_ID = td.auditor_id " +

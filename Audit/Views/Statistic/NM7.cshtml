@@ -100,7 +100,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            nm7ListInit();
+            setTimeout(function () { nm7ListInit(); }, 1000);
         });
 
         function nm7ListInit(pagelength = 10) {

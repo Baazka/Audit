@@ -73,7 +73,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            cm1cListInit();
+            
+            setTimeout(function () { cm1cListInit(); }, 1000);
         });
 
         function cm1cListInit(pagelength = 10) {
