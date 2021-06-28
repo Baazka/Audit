@@ -93,7 +93,7 @@
         $(document).ready(function () {
             cm1aListInit();
         });
-
+       
         function cm1aListInit(pagelength = 10) {
             CM1A.table = $("#CM1A").DataTable({
                 "serverSide": true,
@@ -120,7 +120,7 @@
                     },
                     //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
                     //{ "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
-                    { "data": "IS_STATE", "name": "IS_STATE" },
+                    { "data": "IS_STATE", "name": "IS_STATE", "rowspan":"3" },
                     { "data": "WORKING_PERSON", "name": "WORKING_PERSON", "class": "text-right" },
                     { "data": "WORKING_DAY", "name": "WORKING_DAY", "class": "text-right" },
                     { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME", "class": "text-right" },
