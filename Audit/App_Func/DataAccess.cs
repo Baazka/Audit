@@ -2267,10 +2267,10 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_DELIVERY_DATE", OracleDbType.Varchar2).Value = elem.Element("ACT_DELIVERY_DATE")?.Value;
                 cmd.Parameters.Add(":P_ACT_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_AMOUNT")?.Value == null || elem.Element("ACT_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_AMOUNT")?.Value;
 
-                cmd.Parameters.Add(":P_ACT_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_STATE_AMOUNT")?.Value == null ? null : elem.Element("ACT_STATE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_LOCAL_AMOUNT")?.Value == null ? null : elem.Element("ACT_LOCAL_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_ORG_AMOUNT")?.Value == null ? null : elem.Element("ACT_ORG_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_OTHER_AMOUNT")?.Value == null ? null : elem.Element("ACT_OTHER_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_STATE_AMOUNT")?.Value == "" ? null : elem.Element("ACT_STATE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_LOCAL_AMOUNT")?.Value == "" ? null : elem.Element("ACT_LOCAL_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_ORG_AMOUNT")?.Value == "" ? null : elem.Element("ACT_ORG_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_OTHER_AMOUNT")?.Value == "" ? null : elem.Element("ACT_OTHER_AMOUNT")?.Value;
 
                 cmd.Parameters.Add(":P_ACT_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_ACT_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_ROLE")?.Value;
@@ -2354,10 +2354,10 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_AMOUNT")?.Value == null || elem.Element("ACT_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_AMOUNT")?.Value;
 
 
-                cmd.Parameters.Add(":P_ACT_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_STATE_AMOUNT")?.Value == null ? null : elem.Element("ACT_STATE_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_LOCAL_AMOUNT")?.Value == null ? null : elem.Element("ACT_LOCAL_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_ORG_AMOUNT")?.Value == null ? null : elem.Element("ACT_ORG_AMOUNT")?.Value;
-                cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_OTHER_AMOUNT")?.Value == null ? null : elem.Element("ACT_OTHER_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_STATE_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_STATE_AMOUNT")?.Value == "" ? null : elem.Element("ACT_STATE_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_LOCAL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_LOCAL_AMOUNT")?.Value == "" ? null : elem.Element("ACT_LOCAL_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_ORG_AMOUNT")?.Value == "" ? null : elem.Element("ACT_ORG_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_OTHER_AMOUNT")?.Value == "" ? null : elem.Element("ACT_OTHER_AMOUNT")?.Value;
 
                 
 

@@ -181,22 +181,23 @@ namespace Audit.Controllers
         }
         public PartialViewResult SystemUserModal(int AUDIT_ID ,int type)
         {
-            List<SystemUser> systemuser = new List<SystemUser>();
-            SystemUser model = new SystemUser();
+            SystemUser response = new SystemUser();
+            List<SystemUser> systemUser = new List<SystemUser>();
             if (Globals.systemusers.Count != 0)
-                systemuser = Globals.systemusers;
+                systemUser = Globals.systemusers;
             else
             {
                 XElement res = AppStatic.SystemController.SystemUser(AUDIT_ID, type, User.GetClaimData("DepartmentID"), User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("SystemUser") != null)
                 {
-                    systemuser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
+                    systemUser = (from item in res.Elements("SystemUser") select new SystemUser().FromXml(item)).ToList();
                     ViewBag.EditUsers = (from ite in res.Elements("SystemUserEdit") select new EditUser().FromXml(ite)).ToList();
-                    Globals.editUser = (from ite in res.Elements("SystemUserEdit") select new EditUser().FromXml(ite)).ToList();
-                    model.editUser = Globals.editUser;
+
+                    //response.editUser = (from ite in res.Elements("SystemUserEdit") select new EditUser().FromXml(ite)).ToList();
+                    
                 }
             }
-            return PartialView(systemuser);
+            return PartialView(systemUser);
         }
         public ActionResult BM0()
         {

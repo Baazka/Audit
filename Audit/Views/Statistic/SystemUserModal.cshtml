@@ -56,18 +56,21 @@
                         <select name="to[]" id="search_to" class="form-control form-control-sm" size="20" multiple="multiple">
                             @if (((IEnumerable<dynamic>)ViewBag.EditUsers).Count() > 0)
                             {
-                                <optgroup label="@ViewBag.EditUsers[0].DEPARTMENT_NAME">
-                                    @foreach (var group in ViewBag.EditUsers)
-                                    {
+                                //for (int i = 0; i < ((IEnumerable<dynamic>)ViewBag.EditUsers).Count(); i++)
+                                //{ 
+                                    <optgroup label="@ViewBag.EditUsers[0].DEPARTMENT_NAME">
+                                        @foreach (var group in ViewBag.EditUsers)
+                                        {
 
-                                        <option value="@group.USER_ID">@group.USER_CODE @group.USER_NAME</option>
+                                            <option value="@group.USER_ID">@group.USER_CODE @group.USER_NAME</option>
 
-                                    }
-                                </optgroup>
+                                        }
+                                    </optgroup>
+                                //}
                             }
-                            @*@for (int i = 0; i < ((IEnumerable<dynamic>)ViewBag.EditUsers).Count(); i++)
+                        @*@for (int i = 0; i < ((IEnumerable<dynamic>)ViewBag.EditUsers).Count(); i++)
                             {
-                                foreach (var group in Model.GroupBy(m => m.editUser[i].DEPARTMENT_ID))
+                                foreach (var group in ViewBag.EditUsers)
                                 {
                                     <optgroup label="@group.FirstOrDefault().DEPARTMENT_NAME">
                                         @foreach (var item in group)
@@ -92,6 +95,9 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    
+
     jQuery(document).ready(function ($) {
         $('#search').multiselect({
             search: {

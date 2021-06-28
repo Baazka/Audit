@@ -8,6 +8,7 @@ using System.Xml.Linq;
 namespace Audit.Models
 {
 
+
     public class SystemUser
     {
         public int UserID { get; set; }
@@ -61,7 +62,7 @@ namespace Audit.Models
             if (elem.Element("USER_TYPE_NAME") != null)
                 this.USER_TYPE_NAME = elem.Element("USER_TYPE_NAME").Value;
             if (elem.Element("USER_EMAIL") != null)
-                this.USER_EMAIL = elem.Element("USER_EMAIL").Value; 
+                this.USER_EMAIL = elem.Element("USER_EMAIL").Value;
             if (elem.Element("USER_CODE") != null)
                 this.USER_CODE = elem.Element("USER_CODE").Value;
             if (elem.Element("USER_REG_DATE") != null)
