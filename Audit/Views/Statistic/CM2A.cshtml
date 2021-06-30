@@ -117,7 +117,7 @@
     <script>
       
         $(document).ready(function () {
-
+           
             setTimeout(function () { cm2aListInit(); }, 1000);
         });
 
@@ -209,8 +209,6 @@
                                
                                 if (index !== 28)
                                     $('td', row).eq(index).attr('id', "tableBorder");
-                                //if (index === 1)
-                                //    $('td', row).eq(index).attr('rowspan', "3");
                             });
                         }
                     }
@@ -234,7 +232,7 @@
                         var td = $("td:eq(" + idx + ")", tr);
                         if (last !== group) {
                             td.attr("rowspan", 1);
-                           // td.text(group);
+                            //td.text(group);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
