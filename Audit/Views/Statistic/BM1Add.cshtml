@@ -325,7 +325,9 @@
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-  
+        $(".amount1").on("change", function () {
+            calculateSum2();
+        });
 
       function calculateSum1() {
           var sum = 0;

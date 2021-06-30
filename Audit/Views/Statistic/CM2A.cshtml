@@ -12,6 +12,15 @@
     </a>
     <h4>СМ-2А. Санхүүгийн тайлангийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</h4>
 </div>
+<style>
+
+    #tableBorder {
+        border-right-color: transparent !important;
+    }
+
+    .text-center sorting_1 {
+    }
+</style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -22,21 +31,21 @@
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
         }
-            <div class="form-group-sm pr-2">
-                <label for="PeriodID" class="col-form-label">Он:</label>
-                @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-            </div>
-
-            <div class="form-group-sm ml-auto">
-                <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM2A', 'СМ-2А. Санхүүгийн тайлангийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт')">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-file-excel"></i>
-                    </span>
-                    <span class="text">Excel</span>
-                </a>
-            </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
+
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('CM2A', 'СМ-2А. Санхүүгийн тайлангийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
 </form>
 <div class="card">
     <div class="card-body">
@@ -104,9 +113,11 @@
 </div>
 
 @section scripts{
+    <script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
     <script>
+      
         $(document).ready(function () {
-            
+
             setTimeout(function () { cm2aListInit(); }, 1000);
         });
 
@@ -121,6 +132,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
                         data.Type = 1;
+                        count = 0;
                         return data;
                     }
                 },
@@ -131,7 +143,18 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+
+                         
+                            if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага") {
+                                return "";
+                            }
+                            if (data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани") {
+                                return "";
+                            }
+                            else {
+                                return count = count + 1;
+                            }
+
                         }
                     },
                     { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
@@ -163,6 +186,7 @@
                     { "data": "C2_EXPIRED_COUNT", "name": "C2_EXPIRED_COUNT" },
                     { "data": "C2_EXPIRED_AMOUNT", "name": "C2_EXPIRED_AMOUNT" },
                 ],
+
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
@@ -173,7 +197,76 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                      
+                        if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+                                }
+                               
+                                if (index !== 28)
+                                    $('td', row).eq(index).attr('id', "tableBorder");
+                                //if (index === 1)
+                                //    $('td', row).eq(index).attr('rowspan', "3");
+                            });
+                        }
+                    }
+                },
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+
+                    // console.log('idx = ' + rows[0].cells.length);
+
+
+                    var idx = 0; // the first column is merged
+                    var last = null;
+                    var tr = null;
+                    var ltd = null;
+
+
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+                        if (last !== group) {
+                            td.attr("rowspan", 1);
+                           // td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                        } else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+                        }
+                    });
+                   idx = 1//Slightly revised. According to the needs of the project, complete the merge of the first five rows of the first and second columns
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+                        if (last !== group) {
+                            td.attr("rowspan", 1);
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 1;
+                        } else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 1;//the second five lines
+                            }
+                        }
+                    });
+                },
+
             });
 
         }

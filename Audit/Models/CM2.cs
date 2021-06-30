@@ -26,32 +26,32 @@ namespace Audit.Models
         public string BUDGET_TYPE { get; set; }
         public int IS_STATE { get; set; }
 
-        public int C1_COUNT { get; set; }
-        public decimal C1_AMOUNT { get; set; }
-        public int CURRENT_COUNT { get; set; }
-        public decimal CURRENT_AMOUNT { get; set; }
-        public int PREV_COUNT { get; set; }
-        public decimal PREV_AMOUNT { get; set; }
-        public int CY_COUNT { get; set; }
-        public decimal CY_AMOUNT { get; set; }
-        public int TOTAL_COUNT { get; set; }
-        public decimal TOTAL_AMOUNT { get; set; }
-        public int COMP_STATE_COUNT { get; set; }
-        public decimal COMP_STATE_AMOUNT { get; set; }
-        public int COMP_LOCAL_COUNT { get; set; }
-        public decimal COMP_LOCAL_AMOUNT { get; set; }
-        public int COMP_ORG_COUNT { get; set; }
-        public decimal COMP_ORG_AMOUNT { get; set; }
-        public int COMP_OTHER_COUNT { get; set; }
-        public decimal COMP_OTHER_AMOUNT { get; set; }
-        public int STATISTIC_COUNT { get; set; }
-        public decimal STATISTIC_AMOUNT { get; set; }
-        public int C2_COUNT { get; set; }
-        public decimal C2_AMOUNT { get; set; }
-        public int C2_NONEXPIRED_COUNT { get; set; }
-        public decimal C2_NONEXPIRED_AMOUNT { get; set; }
-        public int C2_EXPIRED_COUNT { get; set; }
-        public decimal C2_EXPIRED_AMOUNT { get; set; }
+        public int? C1_COUNT { get; set; }
+        public decimal? C1_AMOUNT { get; set; }
+        public int? CURRENT_COUNT { get; set; }
+        public decimal? CURRENT_AMOUNT { get; set; }
+        public int? PREV_COUNT { get; set; }
+        public decimal? PREV_AMOUNT { get; set; }
+        public int? CY_COUNT { get; set; }
+        public decimal? CY_AMOUNT { get; set; }
+        public int?TOTAL_COUNT { get; set; }
+        public decimal? TOTAL_AMOUNT { get; set; }
+        public int? COMP_STATE_COUNT { get; set; }
+        public decimal? COMP_STATE_AMOUNT { get; set; }
+        public int? COMP_LOCAL_COUNT { get; set; }
+        public decimal? COMP_LOCAL_AMOUNT { get; set; }
+        public int? COMP_ORG_COUNT { get; set; }
+        public decimal? COMP_ORG_AMOUNT { get; set; }
+        public int? COMP_OTHER_COUNT { get; set; }
+        public decimal? COMP_OTHER_AMOUNT { get; set; }
+        public int? STATISTIC_COUNT { get; set; }
+        public decimal? STATISTIC_AMOUNT { get; set; }
+        public int? C2_COUNT { get; set; }
+        public decimal? C2_AMOUNT { get; set; }
+        public int? C2_NONEXPIRED_COUNT { get; set; }
+        public decimal? C2_NONEXPIRED_AMOUNT { get; set; }
+        public int? C2_EXPIRED_COUNT { get; set; }
+        public decimal? C2_EXPIRED_AMOUNT { get; set; }
         public int EXEC_TYPE { get; set; }
 
         public DateTime? CREATED_DATE { get; set; }

@@ -3605,7 +3605,77 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.CM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM2") != null)
-                    response.data = (from item in res.Elements("CM2") select new CM2().SetXml(item)).ToList();
+                {
+                    List<CM2> body = new List<CM2>();
+                    List<CM2> cm2Detial = new List<CM2>();
+                    CM2 title = new CM2();
+
+                    body = (from item in res.Elements("CM2") select new CM2().SetXml(item)).ToList();
+
+                    //List<CM2> groupDecision = new List<CM2>();
+                    //groupDecision = body.FindAll(a => a.DECISION_TYPE.Equals("ТӨЛБӨРИЙН АКТ"));
+
+                    //List<CM2> groupDecision2 = new List<CM2>();
+                    //groupDecision2 = body.FindAll(a => a.DECISION_TYPE.Equals("АЛБАН ШААРДЛАГА"));
+
+                    //List<CM2> groupDecision3 = new List<CM2>();
+                    //groupDecision3 = body.FindAll(a => a.DECISION_TYPE.Equals("ЗӨВЛӨМЖ"));
+
+                    //List<CM2> Decision = new List<CM2>();
+                    //Decision.AddRange(groupDecision);
+                    //Decision.AddRange(groupDecision2);
+                    //Decision.AddRange(groupDecision3);
+                    if (request.Type == 1)
+                    {
+                        List<CM2> typeNeg = new List<CM2>();
+                        List<CM2> typeHoyor = new List<CM2>();
+
+                        List<CM2> temp = new List<CM2>();
+                        List<CM2> temp2 = new List<CM2>();
+
+                        typeNeg = body.FindAll(a => a.IS_STATE.Equals(1));
+                        typeHoyor = body.FindAll(a => a.IS_STATE.Equals(2));
+
+                        if (typeNeg.Count > 0)
+                        {
+                            temp = new List<CM2>();
+                            title = new CM2();
+                            title.DECISION_TYPE = "Нэг. Төрийн аудитын байгууллага";
+                            temp.Add(title);
+                            temp.AddRange(typeNeg.OrderBy(m => m.DECISION_TYPE));
+                            typeNeg = temp;
+                        }
+
+                        if (typeHoyor.Count > 0)
+                        {
+                           
+                            temp2 = new List<CM2>();
+                            title = new CM2();
+                            title.DECISION_TYPE = "Хоёр. Хараат бус аудитын компани";
+                            temp2.Add(title);
+                            temp2.AddRange(typeHoyor.OrderBy(m => m.DECISION_TYPE));
+                            typeHoyor = temp2;
+
+                        }
+
+
+
+                        List<CM2> types = new List<CM2>();
+                        types.AddRange(typeNeg);
+                        types.AddRange(typeHoyor);
+
+
+
+                        cm2Detial = types;
+
+                        response.data = cm2Detial;
+                    }
+                    else
+                    {
+                        response.data = (from item in res.Elements("CM2") select new CM2().SetXml(item)).ToList();
+                    }
+                   
+                }
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
