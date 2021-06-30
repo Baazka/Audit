@@ -172,7 +172,58 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+
+                    // console.log('idx = ' + rows[0].cells.length);
+
+
+                    var idx = 0; // the first column is merged
+                    var last = null;
+                    var tr = null;
+                    var ltd = null;
+
+
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+                        if (last !== group) {
+                            td.attr("rowspan", 1);
+                            //td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                        } else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+                        }
+                    });
+                    idx = 1//Slightly revised. According to the needs of the project, complete the merge of the first five rows of the first and second columns
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+                        if (last !== group) {
+                            td.attr("rowspan", 1);
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 1;
+                        } else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 1;//the second five lines
+                            }
+                        }
+                    });
+                },
             });
 
         }

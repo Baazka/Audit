@@ -26,30 +26,30 @@ namespace Audit.Models
         public string BUDGET_TYPE { get; set; }
         public int IS_STATE { get; set; }
 
-        public int C1_COUNT { get; set; }
-        public decimal C1_AMOUNT { get; set; }
-        public int CURRENT_COUNT { get; set; }
-        public decimal CURRENT_AMOUNT { get; set; }
-        public int TOTAL_COUNT { get; set; }
-        public decimal TOTAL_AMOUNT { get; set; }
-        public int COMPLETION_DONE_COUNT { get; set; }
-        public decimal COMPLETION_DONE_AMOUNT { get; set; }
-        public int COMPLETION_PROGRESS_COUNT { get; set; }
-        public decimal COMPLETION_PROGRESS_AMOUNT { get; set; }
-        public int LAW_COUNT { get; set; }
-        public decimal LAW_AMOUNT { get; set; }
-        public int LAW_CURRENT_COUNT { get; set; }
-        public decimal LAW_CURRENT_AMOUNT { get; set; }
-        public int LAW_TOTAL_COUNT { get; set; }
-        public decimal LAW_TOTAL_AMOUNT { get; set; }
-        public int LAW_COMP_DONE_COUNT { get; set; }
-        public decimal LAW_COMP_DONE_AMOUNT { get; set; }
-        public int LAW_COMP_PROG_COUNT { get; set; }
-        public decimal LAW_COMP_PROG_AMOUNT { get; set; }
-        public int LAW_COMP_INVALID_COUNT { get; set; }
-        public decimal LAW_COMP_INVALID_AMOUNT { get; set; }
-        public int C2_COUNT { get; set; }
-        public decimal C2_AMOUNT { get; set; }
+        public int? C1_COUNT { get; set; }
+        public decimal? C1_AMOUNT { get; set; }
+        public int? CURRENT_COUNT { get; set; }
+        public decimal? CURRENT_AMOUNT { get; set; }
+        public int? TOTAL_COUNT { get; set; }
+        public decimal? TOTAL_AMOUNT { get; set; }
+        public int? COMPLETION_DONE_COUNT { get; set; }
+        public decimal? COMPLETION_DONE_AMOUNT { get; set; }
+        public int? COMPLETION_PROGRESS_COUNT { get; set; }
+        public decimal? COMPLETION_PROGRESS_AMOUNT { get; set; }
+        public int? LAW_COUNT { get; set; }
+        public decimal? LAW_AMOUNT { get; set; }
+        public int? LAW_CURRENT_COUNT { get; set; }
+        public decimal? LAW_CURRENT_AMOUNT { get; set; }
+        public int? LAW_TOTAL_COUNT { get; set; }
+        public decimal? LAW_TOTAL_AMOUNT { get; set; }
+        public int? LAW_COMP_DONE_COUNT { get; set; }
+        public decimal? LAW_COMP_DONE_AMOUNT { get; set; }
+        public int? LAW_COMP_PROG_COUNT { get; set; }
+        public decimal? LAW_COMP_PROG_AMOUNT { get; set; }
+        public int? LAW_COMP_INVALID_COUNT { get; set; }
+        public decimal? LAW_COMP_INVALID_AMOUNT { get; set; }
+        public int? C2_COUNT { get; set; }
+        public decimal? C2_AMOUNT { get; set; }
         public int EXEC_TYPE { get; set; }
 
         public DateTime? CREATED_DATE { get; set; }
