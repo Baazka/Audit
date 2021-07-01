@@ -130,7 +130,13 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DECISION_TYPE === "НИЙТ ДҮН") {
+                                return "";
+                            }
+                            else {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
+                             
                         }
                     },
                     { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
@@ -173,6 +179,30 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.DECISION_TYPE === "НИЙТ ДҮН") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+
+
+                                }
+
+                            });
+                        }
+                        if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+                                }
+
+                                if (index !== 28)
+                                    $('td', row).eq(index).attr('id', "tableBorder");
+                            });
+                        }
+                    }
+                },
                 "drawCallback": function (settings) {
                     var api = this.api();
                     var rows = api.rows({ page: 'current' }).nodes();
