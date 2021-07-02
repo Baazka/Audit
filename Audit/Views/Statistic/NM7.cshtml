@@ -22,26 +22,26 @@
                 @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
         }
-            <div class="form-group-sm pr-2">
-                <label for="PeriodID" class="col-form-label">Он:</label>
-                @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
-            </div>
-
-            <div class="form-group-sm ml-auto">
-                <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM7', 'НМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын нэгтгэл')">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-file-excel"></i>
-                    </span>
-                    <span class="text">Excel</span>
-                </a>
-            </div>
+        <div class="form-group-sm pr-2">
+            <label for="PeriodID" class="col-form-label">Он:</label>
+            @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
+
+        <div class="form-group-sm ml-auto">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM7', 'НМ-7. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангиллын нэгтгэл')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
+        </div>
+    </div>
 </form>
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table id="NM7" class="table table-bordered table-hover datatable display">
+            <table id="NM7" class="table table-bordered table-hover datatable display" >
                 <thead>
                     <tr class="bg-light">
                         <th rowspan="3" class="text-center">№</th>
@@ -98,7 +98,9 @@
     </div>
 </div>
 @section scripts{
+    <script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
     <script>
+
         $(document).ready(function () {
             setTimeout(function () { nm7ListInit(); }, 1000);
         });
@@ -165,9 +167,9 @@
                     { width: 200, targets: 2 },
 
                 ],
-                scrollX: true,
+                //scrollX: true,
                 scrollCollapse: true,
-                autoWidth: true,
+                "scrollCollapse": true,
                 "destroy": true,
                 "paging": true,
                 "pageLength": pagelength,
