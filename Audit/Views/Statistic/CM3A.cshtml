@@ -139,16 +139,16 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.BUDGET_TYPE === "НИЙТ ДҮН") {
+                            if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН") {
                                 return "";
                             }
-                            if (data.BUDGET_TYPE === "Дүн") {
+                            if (data.BUDGET_TYPE_NAME === "Дүн") {
                                 return "";
                             }
-                            if (data.BUDGET_TYPE === "Нэг. Төрийн аудитын байгууллага") {
+                            if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага") {
                                 return "";
                             }
-                            if (data.BUDGET_TYPE === "Хоёр. Хараат бус аудитын компани") {
+                            if (data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
                                 return "";
                             }
                             else {
@@ -158,7 +158,7 @@
                             
                         }
                     },
-                    { "data": "BUDGET_TYPE", "name": "BUDGET_TYPE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "C1_COUNT", "name": "C1_COUNT" },
                     { "data": "C1_AMOUNT", "name": "C1_AMOUNT" },
                     { "data": "CURRENT_COUNT", "name": "CURRENT_COUNT" },
@@ -197,7 +197,7 @@
                 "language": datatables.language,
                 "createdRow": function (row, data, index) {
                     if (data !== undefined) {
-                        if (data.BUDGET_TYPE === "НИЙТ ДҮН" ) {
+                        if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН" ) {
                             $(row).children('td').each((index, td) => {
                                 if (index === 1) {
                                     $('td', row).eq(1).addClass('font-weight-bold');
@@ -207,7 +207,7 @@
 
                             });
                         }
-                        if (data.BUDGET_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.BUDGET_TYPE === "Хоёр. Хараат бус аудитын компани") {
+                        if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага" || data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
                             $(row).children('td').each((index, td) => {
                                 if (index === 1) {
                                     $('td', row).eq(1).addClass('font-weight-bold');

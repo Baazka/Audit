@@ -127,7 +127,7 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.BUDGET_TYPE === "НИЙТ ДҮН") {
+                            if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН") {
                                 return "";
                             }
                             else {
@@ -135,7 +135,7 @@
                             }
                         }
                     },
-                    { "data": "BUDGET_TYPE", "name": "BUDGET_TYPE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "C1_COUNT", "name": "C1_COUNT" },
                     { "data": "C1_AMOUNT", "name": "C1_AMOUNT" },
                     { "data": "CURRENT_COUNT", "name": "CURRENT_COUNT" },
@@ -174,7 +174,7 @@
                 "language": datatables.language,
                 "createdRow": function (row, data, index) {
                     if (data !== undefined) {
-                        if (data.BUDGET_TYPE === "НИЙТ ДҮН") {
+                        if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН") {
                             $(row).children('td').each((index, td) => {
                                 if (index === 1) {
                                     $('td', row).eq(1).addClass('font-weight-bold');

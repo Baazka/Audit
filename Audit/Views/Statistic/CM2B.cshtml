@@ -110,6 +110,7 @@
         });
 
         function cm2bListInit(pagelength = 10) {
+            var count = 0;
             CM2B.table = $("#CM2B").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -120,6 +121,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
                         data.Type = 2;
+                        count = 0;
                         return data;
                     }
                 },
@@ -128,19 +130,10 @@
                 },
                 "columns": [
                     {
-                        "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            if (data.DECISION_TYPE === "НИЙТ ДҮН") {
-                                return "";
-                            }
-                            else {
-                                return meta.row + meta.settings._iDisplayStart + 1;
-                            }
-                             
-                        }
+                        "data": "DECISION_TYPE", "sortable": false, "class": 'text-center',
                     },
                     { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
-                    { "data": "BUDGET_TYPE", "name": "BUDGET_TYPE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "C1_COUNT", "name": "C1_COUNT" },
                     { "data": "C1_AMOUNT", "name": "C1_AMOUNT" },
                     { "data": "CURRENT_COUNT", "name": "CURRENT_COUNT" },
@@ -179,80 +172,93 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language,
-                "createdRow": function (row, data, index) {
-                    if (data !== undefined) {
-                        if (data.DECISION_TYPE === "НИЙТ ДҮН") {
-                            $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
-
-
-                                }
-
-                            });
-                        }
-                        if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани") {
-                            $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
-                                }
-
-                                if (index !== 28)
-                                    $('td', row).eq(index).attr('id', "tableBorder");
-                            });
-                        }
-                    }
-                },
+               
                 "drawCallback": function (settings) {
                     var api = this.api();
                     var rows = api.rows({ page: 'current' }).nodes();
 
 
-                    // console.log('idx = ' + rows[0].cells.length);
 
+                    idx = 1
 
-                    var idx = 0; // the first column is merged
-                    var last = null;
-                    var tr = null;
-                    var ltd = null;
-
-
-                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
-                        tr = $(rows[i]);
-                        var td = $("td:eq(" + idx + ")", tr);
-                        if (last !== group) {
-                            td.attr("rowspan", 1);
-                            //td.text(group);
-                            ltd = td;
-                            last = group;
-                            td.css("vertical-align", "middle");
-                        } else {
-                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
-                            td.remove();
-                        }
-                    });
-                    idx = 1//Slightly revised. According to the needs of the project, complete the merge of the first five rows of the first and second columns
                     last = null;
                     tr = null;
                     ltd = null;
                     api.column(idx, { page: 'current' }).data().each(function (group, i) {
                         tr = $(rows[i]);
                         var td = $("td:eq(" + idx + ")", tr);
+
                         if (last !== group) {
+
                             td.attr("rowspan", 1);
                             td.text(group);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
                             idx = 1;
-                        } else {
+                        }
+                        else {
                             ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
                             td.remove();
+
                             if (parseInt(ltd.attr("rowspan")) === 5) {
-                                idx = 1;//the second five lines
+                                idx = 1;
                             }
+
                         }
+
                     });
+
+                    idx = 0
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+                            if (group === "ТӨЛБӨРИЙН АКТ" || group === "АЛБАН ШААРДЛАГА" || group === "ЗӨВЛӨМЖ") {
+                                td.text(count = count + 1);
+                            }
+                            else {
+                                td.text("");
+                            }
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
+                },
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.DECISION_TYPE === "НИЙТ ДҮН") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 1) {
+                                    $('td', row).eq(1).addClass('font-weight-bold');
+                                    //$('td', row).eq(0).attr("colspan", 2);
+                                    //$('td', row).eq(1).remove();
+                                    //$('td', row).eq(2).remove();
+
+                                }   
+                            });
+                        }
+                    }
                 },
             });
 

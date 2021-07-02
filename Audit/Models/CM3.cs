@@ -24,6 +24,7 @@ namespace Audit.Models
         public string AUDIT_TYPE { get; set; }
         public string DECISION_TYPE { get; set; }
         public string BUDGET_TYPE { get; set; }
+        public string BUDGET_TYPE_NAME { get; set; }
         public int IS_STATE { get; set; }
 
         public int? C1_COUNT { get; set; }
@@ -76,6 +77,8 @@ namespace Audit.Models
                     DECISION_TYPE = xml.Element("DECISION_TYPE").Value;
                 if (xml.Element("BUDGET_TYPE") != null)
                     BUDGET_TYPE = xml.Element("BUDGET_TYPE").Value;
+                if (xml.Element("BUDGET_TYPE_NAME") != null)
+                    BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
                 if (xml.Element("IS_STATE") != null)
                     IS_STATE = Convert.ToInt32(xml.Element("IS_STATE").Value);
                 
