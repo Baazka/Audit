@@ -185,7 +185,12 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.AUD_NAME === "НИЙТ ДҮН") {
+                                return "НИЙТ ДҮН";
+                            }
+                            else {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
                         }
                     },
                     { "data": "APPROVED_BUDGET", "name": "APPROVED_BUDGET" },
@@ -263,7 +268,21 @@
                 "language": datatables.language,
                 "drawCallback": function () {
                     rowselected();
-                }
+                },
+                //"createdRow": function (row, data, index) {
+                //    if (data !== undefined) {
+                //        if (data.AUD_NAME === "НИЙТ ДҮН") {
+                //            $(row).children('td').each((index, td) => {
+                //                if (index === 0) {
+                //                    $('td', row).eq(0).addClass('font-weight-bold');
+
+                //                }
+
+                //            });
+                //        }
+                //    }
+                //},
+              
             });
 
         }
@@ -299,7 +318,7 @@
                     var update_by = CM8.rowdata.UPDATED_BY;
                     if (creat_by == userid) {
                         CM8.delete();
-                    } else {
+                    } else{
                         alert("Уучлаарай таны эрх энэ бүртгэлийг устгахад хүрэхгүй байна!");
                     }
 

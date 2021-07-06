@@ -17,38 +17,38 @@ namespace Audit.Models
     {
         public int ID { get; set; }
         public int OFFICE_ID { get; set; }
-        public string DEPARTMENT_NAME { get; set; }
+        public string DECISION_TYPE { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
 
         public string AUDIT_TYPE { get; set; }
-        public string DECISION_TYPE { get; set; }
+        public string AUDIT_TYPE_NAME { get; set; }
 
-        public int INCOME_STATE_COUNT { get; set; }
+        public int? INCOME_STATE_COUNT { get; set; }
         public string INCOME_STATE_AMOUNT { get; set; }
-        public int INCOME_LOCAL_COUNT { get; set; }
+        public int? INCOME_LOCAL_COUNT { get; set; }
         public string INCOME_LOCAL_AMOUNT { get; set; }
 
-        public int BUDGET_STATE_COUNT { get; set; }
+        public int? BUDGET_STATE_COUNT { get; set; }
         public string BUDGET_STATE_AMOUNT { get; set; }
-        public int BUDGET_LOCAL_COUNT { get; set; }
+        public int? BUDGET_LOCAL_COUNT { get; set; }
         public string BUDGET_LOCAL_AMOUNT { get; set; }
 
-        public int ACCOUNTANT_COUNT { get; set; }
+        public int? ACCOUNTANT_COUNT { get; set; }
         public string ACCOUNTANT_AMOUNT { get; set; }
-        public int EFFICIENCY_COUNT { get; set; }
+        public int? EFFICIENCY_COUNT { get; set; }
         public string EFFICIENCY_AMOUNT { get; set; }
-        public int LAW_COUNT { get; set; }
+        public int? LAW_COUNT { get; set; }
         public string LAW_AMOUNT { get; set; }
-        public int MONITORING_COUNT { get; set; }
+        public int? MONITORING_COUNT { get; set; }
         public string MONITORING_AMOUNT { get; set; }
-        public int PURCHASE_COUNT { get; set; }
+        public int? PURCHASE_COUNT { get; set; }
         public string PURCHASE_AMOUNT { get; set; }
-        public int COST_COUNT { get; set; }
+        public int? COST_COUNT { get; set; }
         public string COST_AMOUNT { get; set; }
-        public int OTHER_COUNT { get; set; }
+        public int? OTHER_COUNT { get; set; }
         public string OTHER_AMOUNT { get; set; }
-        public int ALL_COUNT { get; set; }
+        public int? ALL_COUNT { get; set; }
         public string ALL_AMOUNT { get; set; }
 
         public int IS_ACTIVE { get; set; } = 1;
@@ -67,14 +67,14 @@ namespace Audit.Models
                     ID = Convert.ToInt32(xml.Element("ID").Value);
                 if (xml.Element("OFFICE_ID") != null)
                     OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
-                if (xml.Element("DEPARTMENT_NAME") != null)
-                    DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value;
                 if (xml.Element("STATISTIC_PERIOD") != null)
                     STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
                 if (xml.Element("PERIOD_LABEL") != null)
                     PERIOD_LABEL = xml.Element("PERIOD_LABEL").Value;
                 if (xml.Element("AUDIT_TYPE") != null)
                     AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
+                if (xml.Element("AUDIT_TYPE_NAME") != null)
+                    AUDIT_TYPE_NAME = xml.Element("AUDIT_TYPE_NAME").Value;
                 if (xml.Element("DECISION_TYPE") != null)
                     DECISION_TYPE = xml.Element("DECISION_TYPE").Value;
                 

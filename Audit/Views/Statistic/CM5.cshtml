@@ -12,6 +12,16 @@
     </a>
     <h4>СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал</h4>
 </div>
+<style>
+
+
+    .vertical {
+        writing-mode: vertical-rl;
+        -ms-writing-mode: tb-rl;
+        transform: rotate(180deg);
+    }
+
+</style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -44,8 +54,8 @@
             <table id="CM5" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="3"><span class="vertical">Аудитын төрөл</span></th>
                         <th rowspan="3" class="text-center">№</th>
-                        <th rowspan="3">Аудитын төрөл</th>
                         <th rowspan="3">Үзүүлэлт</th>
                         <th colspan="4">Орлого бүрдүүлэлттэй холбоотой</th>
                         <th colspan="4">Төсвийн төлөвлөлт, гүйцэтгэлтэй холбоотой</th>
@@ -105,6 +115,7 @@
         });
 
         function cm5ListInit() {
+            var count = 0;
             CM5.table = $("#CM5").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -114,6 +125,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        count = 0;
                         return data;
                     }
                 },
@@ -121,13 +133,18 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DECISION_TYPE === "Нийт дүн") {
+                                return "";
+                            }
+                            else {
+                                return count = count + 1
+                            }
                         }
                     },
-                    { "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
                     { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
                     { "data": "INCOME_STATE_COUNT", "name": "INCOME_STATE_COUNT" },
                     { "data": "INCOME_STATE_AMOUNT", "name": "INCOME_STATE_AMOUNT" },
@@ -162,7 +179,51 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.DECISION_TYPE === "Нийт дүн") {
+                            count = 0;
+                        }
+                    }
+                },
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+                    idx = 0
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+                            td.text(""); 
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            td.append('<span class="vertical" style="font-size:13px">' + group + '</span>');
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
+                },
+               
             });
 
         }

@@ -22,7 +22,7 @@ namespace Audit.Models
         public string DEPARTMENT_NAME { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-
+        public string AUD_NAME { get; set; }
         public string APPROVED_BUDGET { get; set; }
         public string PERFORMANCE_BUDGET { get; set; }
         public int? WORKERS { get; set; }
@@ -81,6 +81,8 @@ namespace Audit.Models
         {
             if (xml != null)
             {
+                if (xml.Element("AUD_NAME") != null)
+                    AUD_NAME = xml.Element("AUD_NAME").Value;
                 if (xml.Element("CREATED_BY") != null)
                     CREATED_BY = Convert.ToInt32(xml.Element("CREATED_BY").Value);
                 if (xml.Element("UPDATED_BY") != null)

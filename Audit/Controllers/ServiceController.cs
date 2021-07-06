@@ -7141,9 +7141,149 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", null));
 
                 XElement res = AppStatic.SystemController.CM6(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
+                List<CM6List> body = new List<CM6List>();
+                List<CM6List> total = new List<CM6List>();
+                CM6List Niit = new CM6List();
+                var typ = typeof(CM6List);
                 if (res != null && res.Elements("CM6") != null)
-                    response.data = (from item in res.Elements("CM6") select new CM6List().SetXml(item)).ToList();
+                {
+                    
+                    body = (from item in res.Elements("CM6") select new CM6List().SetXml(item)).ToList();
+                }
+                if (body.Count > 0)
+                {
+                    var depname = typ.GetProperty("AUD_NAME");
 
+                    var pay = typ.GetProperty("ALL_AMOUNT");
+                    var pay1 = typ.GetProperty("PROCESSED_INCOMED_AMOUNT");
+                    var pay2 = typ.GetProperty("PROCESSED_COSTS_AMOUNT");
+                    var pay3 = typ.GetProperty("ALL_C2_AMOUNT");
+                    var pay4 = typ.GetProperty("ACCEPTED_INCOMED_AMOUNT");
+                    var pay5 = typ.GetProperty("ACCEPTED_COSTS_AMOUNT");
+
+
+                    var count = typ.GetProperty("ALL_COUNT");
+                    var count1 = typ.GetProperty("PROCESSED_INCOMED_COUNT");
+                    var count2 = typ.GetProperty("PROCESSED_COSTS_COUNT");
+                    var count3 = typ.GetProperty("ALL_C1_COUNT");
+                    var count4 = typ.GetProperty("ACCEPTED_INCOMED_COUNT");
+                    var count5 = typ.GetProperty("ACCEPTED_COSTS_COUNT");
+
+
+                    Decimal AMOUNT = 0;
+                    Decimal AMOUNT1 = 0;
+                    Decimal AMOUNT2 = 0;
+                    Decimal AMOUNT3 = 0;
+                    Decimal AMOUNT4 = 0;
+                    Decimal AMOUNT5 = 0;
+
+                    int NUMBER = 0;
+                    int NUMBER1 = 0;
+                    int NUMBER2 = 0;
+                    int NUMBER3 = 0;
+                    int NUMBER4 = 0;
+                    int NUMBER5 = 0;
+
+                    foreach (CM6List data in body)
+                    {
+                        if (data.ALL_AMOUNT != null)
+                        {
+                            string strNii = data.ALL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT += Amount;
+
+                        }
+                        if (data.PROCESSED_INCOMED_AMOUNT != null)
+                        {
+                            string strNii = data.PROCESSED_INCOMED_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT1 += Amount;
+
+                        }
+                        if (data.PROCESSED_COSTS_AMOUNT != null)
+                        {
+                            string strNii = data.PROCESSED_COSTS_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT2 += Amount;
+
+                        }
+                        if (data.ALL_C2_AMOUNT != null)
+                        {
+                            string strNii = data.ALL_C2_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT3 += Amount;
+
+                        }
+                        if (data.ACCEPTED_INCOMED_AMOUNT != null)
+                        {
+                            string strNii = data.ACCEPTED_INCOMED_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT4 += Amount;
+
+                        }
+                        if (data.ACCEPTED_COSTS_AMOUNT != null)
+                        {
+                            string strNii = data.ACCEPTED_COSTS_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT5 += Amount;
+
+                        }
+                       
+
+                        if (data.ALL_COUNT != 0)
+                        {
+                            NUMBER += Convert.ToInt32(data.ALL_COUNT);
+                        }
+                        if (data.PROCESSED_INCOMED_COUNT != 0)
+                        {
+                            NUMBER1 += Convert.ToInt32(data.PROCESSED_INCOMED_COUNT);
+                        }
+                        if (data.PROCESSED_COSTS_COUNT != 0)
+                        {
+                            NUMBER2 += Convert.ToInt32(data.PROCESSED_COSTS_COUNT);
+                        }
+                        if (data.ALL_C1_COUNT != 0)
+                        {
+                            NUMBER3 += Convert.ToInt32(data.ALL_C1_COUNT);
+                        }
+                        if (data.ACCEPTED_INCOMED_COUNT != 0)
+                        {
+                            NUMBER4 += Convert.ToInt32(data.ACCEPTED_INCOMED_COUNT);
+                        }
+                        if (data.ACCEPTED_COSTS_COUNT != 0)
+                        {
+                            NUMBER5 += Convert.ToInt32(data.ACCEPTED_COSTS_COUNT);
+                        }
+                        
+                    }
+
+
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
+
+                    count.SetValue(Niit, NUMBER);
+                    count1.SetValue(Niit, NUMBER1);
+                    count2.SetValue(Niit, NUMBER2);
+                    count3.SetValue(Niit, NUMBER3);
+                    count4.SetValue(Niit, NUMBER4);
+                    count5.SetValue(Niit, NUMBER5);
+
+                    depname.SetValue(Niit, "НИЙТ ДҮН");
+
+
+                    total = body;
+                    total.Add(Niit);
+
+                    response.data = total;
+                }
+                else
+                {
+                    response.data = body;
+                }
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
@@ -7186,9 +7326,95 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", null));
 
                 XElement res = AppStatic.SystemController.CM7(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
+                List<CM7> body = new List<CM7>();
+                List<CM7> total = new List<CM7>();
+                CM7 Niit = new CM7();
+                var typ = typeof(CM7);
                 if (res != null && res.Elements("CM7") != null)
-                    response.data = (from item in res.Elements("CM7") select new CM7().SetXml(item)).ToList();
+                    body = (from item in res.Elements("CM7") select new CM7().SetXml(item)).ToList();
+                if (body.Count > 0)
+                {
+                    var depname = typ.GetProperty("AUD_NAME");
 
+
+                    var count = typ.GetProperty("REFERENCE_COUNT");
+                    var count1 = typ.GetProperty("BUDGET_EXPENSES");
+                    var count2 = typ.GetProperty("HUMAN_RESOURCES");
+                    var count3 = typ.GetProperty("PLANNED_COMPLETED");
+                    var count4 = typ.GetProperty("OTHER");
+                    var count5 = typ.GetProperty("COMP_DONE");
+                    var count6 = typ.GetProperty("COMP_PROGRESS");
+                    var count7 = typ.GetProperty("RESOLVED_COMPLAINT_COUNT");
+
+
+
+                    int NUMBER = 0;
+                    int NUMBER1 = 0;
+                    int NUMBER2 = 0;
+                    int NUMBER3 = 0;
+                    int NUMBER4 = 0;
+                    int NUMBER5 = 0;
+                    int NUMBER6 = 0;
+                    int NUMBER7 = 0;
+
+                    foreach (CM7 data in body)
+                    {
+                        if (data.REFERENCE_COUNT != 0)
+                        {
+                            NUMBER += Convert.ToInt32(data.REFERENCE_COUNT);
+                        }
+                        if (data.BUDGET_EXPENSES != 0)
+                        {
+                            NUMBER1 += Convert.ToInt32(data.BUDGET_EXPENSES);
+                        }
+                        if (data.HUMAN_RESOURCES != 0)
+                        {
+                            NUMBER2 += Convert.ToInt32(data.HUMAN_RESOURCES);
+                        }
+                        if (data.PLANNED_COMPLETED != 0)
+                        {
+                            NUMBER3 += Convert.ToInt32(data.PLANNED_COMPLETED);
+                        }
+                        if (data.OTHER != 0)
+                        {
+                            NUMBER4 += Convert.ToInt32(data.OTHER);
+                        }
+                        if (data.COMP_DONE != 0)
+                        {
+                            NUMBER5 += Convert.ToInt32(data.COMP_DONE);
+                        }
+                        if (data.COMP_PROGRESS != 0)
+                        {
+                            NUMBER6 += Convert.ToInt32(data.COMP_PROGRESS);
+                        }
+                        if (data.RESOLVED_COMPLAINT_COUNT != 0)
+                        {
+                            NUMBER7 += Convert.ToInt32(data.RESOLVED_COMPLAINT_COUNT);
+                        }
+                    }
+
+
+                    count.SetValue(Niit, NUMBER);
+                    count1.SetValue(Niit, NUMBER1);
+                    count2.SetValue(Niit, NUMBER2);
+                    count3.SetValue(Niit, NUMBER3);
+                    count4.SetValue(Niit, NUMBER4);
+                    count5.SetValue(Niit, NUMBER5);
+                    count6.SetValue(Niit, NUMBER6);
+                    count7.SetValue(Niit, NUMBER7);
+
+                    depname.SetValue(Niit, "НИЙТ ДҮН");
+
+
+                    total = body;
+                    total.Add(Niit);
+
+                    response.data = total;
+                }
+                else
+                {
+                    response.data = body;
+                }
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
@@ -7231,9 +7457,353 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", null));
 
                 XElement res = AppStatic.SystemController.CM8(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
+                List<CM8> body = new List<CM8>();
+                List<CM8> total = new List<CM8>();
+                CM8 Niit = new CM8();
+                var typ = typeof(CM8);
                 if (res != null && res.Elements("CM8") != null)
-                    response.data = (from item in res.Elements("CM8") select new CM8().SetXml(item)).ToList();
+                    body = (from item in res.Elements("CM8") select new CM8().SetXml(item)).ToList();
+                if (body.Count > 0)
+                {
+                    var depname = typ.GetProperty("AUD_NAME");
 
+                    var pay = typ.GetProperty("APPROVED_BUDGET");
+                    var pay1 = typ.GetProperty("PERFORMANCE_BUDGET");
+
+                    var count = typ.GetProperty("APPROVED_NUMBERS");
+                    var count1 = typ.GetProperty("WORKERS");
+                    var count2 = typ.GetProperty("DIRECTING_STAFF");
+                    var count3 = typ.GetProperty("MANAGER");
+                    var count4 = typ.GetProperty("SENIOR_AUDITOR_ANALYST");
+                    var count5 = typ.GetProperty("AUDITOR_ANALYST");
+                    var count6 = typ.GetProperty("OTHER_OFFICE");
+                    var count7 = typ.GetProperty("EDU_DOCTOR");
+                    var count8 = typ.GetProperty("EDU_MAGISTR");
+                    var count9 = typ.GetProperty("EDU_BAKLAVR");
+                    var count10 = typ.GetProperty("EDU_AMONGST");
+                    var count11 = typ.GetProperty("EDU_JUNIOR_AMONGST");
+
+                    var count12 = typ.GetProperty("PRO_ACCOUNTANT");
+                    var count13 = typ.GetProperty("ACCOUNTANT_ECONOMIST");
+                    var count14 = typ.GetProperty("LAWYER");
+                    var count15 = typ.GetProperty("INGENER");
+                    var count16 = typ.GetProperty("OTHER_PROF");
+                    var count17 = typ.GetProperty("STUDY_COUNT");
+                    var count18 = typ.GetProperty("INCLUDED_MAN");
+                    var count19 = typ.GetProperty("ONLINE_STUDY_COUNT");
+                    var count20 = typ.GetProperty("LOCAL_STUDY_COUNT");
+                    var count21 = typ.GetProperty("AUDIT_STUDY_COUNT");
+                    var count22 = typ.GetProperty("FOREIGN_STUDY_COUNT");
+                    var count23 = typ.GetProperty("FOREIGN_MAN_COUNT");
+                    var count24 = typ.GetProperty("INSIDE_STUDY_COUNT");
+                    var count25 = typ.GetProperty("INSIDE_MAN_COUNT");
+                    var count26 = typ.GetProperty("ORG_STUDY_COUNT");
+                    var count27 = typ.GetProperty("ORG_MAN_COUNT");
+                    var count28 = typ.GetProperty("RESEARCH_ALL");
+                    var count29 = typ.GetProperty("PUBLISHED_REPORT");
+                    var count30 = typ.GetProperty("NEWS_ARTICLE");
+                    var count31 = typ.GetProperty("TV_NEWS_BROADCAST");
+                    var count32 = typ.GetProperty("ORG_NEWS");
+                    var count33 = typ.GetProperty("WEB_ACCESS");
+                    var count34 = typ.GetProperty("RECEIVED_ALL");
+                    var count35 = typ.GetProperty("TAB_WORKERS");
+                    var count36 = typ.GetProperty("TAB_SKILLS");
+                    var count37 = typ.GetProperty("AUDIT_LET");
+                    var count38 = typ.GetProperty("RECEIVED_OTHER");
+                    var count39 = typ.GetProperty("DECIDED_TIME");
+                    var count40 = typ.GetProperty("DEC_EXPIRED");
+                    var count41 = typ.GetProperty("DEC_UNEXPIRED");
+
+                    Decimal AMOUNT = 0;
+                    Decimal AMOUNT1 = 0;
+
+                    int NUMBER = 0;
+                    int NUMBER1 = 0;
+                    int NUMBER2 = 0;
+                    int NUMBER3 = 0;
+                    int NUMBER4 = 0;
+                    int NUMBER5 = 0;
+                    int NUMBER6 = 0;
+                    int NUMBER7 = 0;
+                    int NUMBER8 = 0;
+                    int NUMBER9 = 0;
+                    int NUMBER10 = 0;
+                    int NUMBER11 = 0;
+                    int NUMBER12 = 0;
+                    int NUMBER13 = 0;
+                    int NUMBER14 = 0;
+                    int NUMBER15 = 0;
+                    int NUMBER16 = 0;
+                    int NUMBER17 = 0;
+                    int NUMBER18 = 0;
+                    int NUMBER19 = 0;
+                    int NUMBER20 = 0;
+                    int NUMBER21 = 0;
+                    int NUMBER22 = 0;
+                    int NUMBER23 = 0;
+                    int NUMBER24 = 0;
+                    int NUMBER25 = 0;
+                    int NUMBER26 = 0;
+                    int NUMBER27 = 0;
+                    int NUMBER28 = 0;
+                    int NUMBER29 = 0;
+                    int NUMBER30 = 0;
+                    int NUMBER31 = 0;
+                    int NUMBER32 = 0;
+                    int NUMBER33 = 0;
+                    int NUMBER34 = 0;
+                    int NUMBER35 = 0;
+                    int NUMBER36 = 0;
+                    int NUMBER37 = 0;
+                    int NUMBER38 = 0;
+                    int NUMBER39 = 0;
+                    int NUMBER40 = 0;
+                    int NUMBER41 = 0;
+
+                    foreach (CM8 data in body)
+                    {
+                        if (data.APPROVED_BUDGET != null)
+                        {
+                            string strNii = data.APPROVED_BUDGET.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT += Amount;
+
+                        }
+                        if (data.PERFORMANCE_BUDGET != null)
+                        {
+                            string strNii = data.PERFORMANCE_BUDGET.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            AMOUNT1 += Amount;
+
+                        }
+                        if (data.APPROVED_NUMBERS != 0)
+                        {
+                            NUMBER += Convert.ToInt32(data.APPROVED_NUMBERS);
+                        }
+                        if (data.WORKERS != 0)
+                        {
+                            NUMBER1 += Convert.ToInt32(data.WORKERS);
+                        }
+                        if (data.DIRECTING_STAFF != 0)
+                        {
+                            NUMBER2 += Convert.ToInt32(data.DIRECTING_STAFF);
+                        }
+                        if (data.MANAGER != 0)
+                        {
+                            NUMBER3 += Convert.ToInt32(data.MANAGER);
+                        }
+                        if (data.SENIOR_AUDITOR_ANALYST != 0)
+                        {
+                            NUMBER4 += Convert.ToInt32(data.SENIOR_AUDITOR_ANALYST);
+                        }
+                        if (data.AUDITOR_ANALYST != 0)
+                        {
+                            NUMBER5 += Convert.ToInt32(data.AUDITOR_ANALYST);
+                        }
+                        if (data.OTHER_OFFICE != 0)
+                        {
+                            NUMBER6 += Convert.ToInt32(data.OTHER_OFFICE);
+                        }
+                        if (data.EDU_DOCTOR != 0)
+                        {
+                            NUMBER7 += Convert.ToInt32(data.EDU_DOCTOR);
+                        }
+                        if (data.EDU_MAGISTR != 0)
+                        {
+                            NUMBER8 += Convert.ToInt32(data.EDU_MAGISTR);
+                        }
+                        if (data.EDU_BAKLAVR != 0)
+                        {
+                            NUMBER9 += Convert.ToInt32(data.EDU_BAKLAVR);
+                        }
+                        if (data.EDU_AMONGST != 0)
+                        {
+                            NUMBER10 += Convert.ToInt32(data.EDU_AMONGST);
+                        }
+                        if (data.EDU_JUNIOR_AMONGST != 0)
+                        {
+                            NUMBER11 += Convert.ToInt32(data.EDU_JUNIOR_AMONGST);
+                        }
+                        if (data.PRO_ACCOUNTANT != 0)
+                        {
+                            NUMBER12 += Convert.ToInt32(data.PRO_ACCOUNTANT);
+                        }
+                        if (data.ACCOUNTANT_ECONOMIST != 0)
+                        {
+                            NUMBER13 += Convert.ToInt32(data.ACCOUNTANT_ECONOMIST);
+                        }
+                        if (data.LAWYER != 0)
+                        {
+                            NUMBER14 += Convert.ToInt32(data.LAWYER);
+                        }
+                        if (data.INGENER != 0)
+                        {
+                            NUMBER15 += Convert.ToInt32(data.INGENER);
+                        }
+                        if (data.OTHER_PROF != 0)
+                        {
+                            NUMBER16 += Convert.ToInt32(data.OTHER_PROF);
+                        }
+                        if (data.STUDY_COUNT != 0)
+                        {
+                            NUMBER17 += Convert.ToInt32(data.STUDY_COUNT);
+                        }
+                        if (data.INCLUDED_MAN != 0)
+                        {
+                            NUMBER18 += Convert.ToInt32(data.INCLUDED_MAN);
+                        }
+                        if (data.ONLINE_STUDY_COUNT != 0)
+                        {
+                            NUMBER19 += Convert.ToInt32(data.ONLINE_STUDY_COUNT);
+                        }
+                        if (data.LOCAL_STUDY_COUNT != 0)
+                        {
+                            NUMBER20 += Convert.ToInt32(data.LOCAL_STUDY_COUNT);
+                        }
+                        if (data.AUDIT_STUDY_COUNT != 0)
+                        {
+                            NUMBER21 += Convert.ToInt32(data.AUDIT_STUDY_COUNT);
+                        }
+                        if (data.FOREIGN_STUDY_COUNT != 0)
+                        {
+                            NUMBER22 += Convert.ToInt32(data.FOREIGN_STUDY_COUNT);
+                        }
+                        if (data.FOREIGN_MAN_COUNT != 0)
+                        {
+                            NUMBER23 += Convert.ToInt32(data.FOREIGN_MAN_COUNT);
+                        }
+                        if (data.INSIDE_STUDY_COUNT != 0)
+                        {
+                            NUMBER24 += Convert.ToInt32(data.INSIDE_STUDY_COUNT);
+                        }
+                        if (data.INSIDE_MAN_COUNT != 0)
+                        {
+                            NUMBER25 += Convert.ToInt32(data.INSIDE_MAN_COUNT);
+                        }
+                        if (data.ORG_STUDY_COUNT != 0)
+                        {
+                            NUMBER26 += Convert.ToInt32(data.ORG_STUDY_COUNT);
+                        }
+                        if (data.ORG_MAN_COUNT != 0)
+                        {
+                            NUMBER27 += Convert.ToInt32(data.ORG_MAN_COUNT);
+                        }
+                        if (data.RESEARCH_ALL != 0)
+                        {
+                            NUMBER28 += Convert.ToInt32(data.RESEARCH_ALL);
+                        }
+                        if (data.PUBLISHED_REPORT != 0)
+                        {
+                            NUMBER29 += Convert.ToInt32(data.PUBLISHED_REPORT);
+                        }
+                        if (data.NEWS_ARTICLE != 0)
+                        {
+                            NUMBER30 += Convert.ToInt32(data.NEWS_ARTICLE);
+                        }
+                        if (data.TV_NEWS_BROADCAST != 0)
+                        {
+                            NUMBER31 += Convert.ToInt32(data.TV_NEWS_BROADCAST);
+                        }
+                        if (data.ORG_NEWS != 0)
+                        {
+                            NUMBER32 += Convert.ToInt32(data.ORG_NEWS);
+                        }
+                        if (data.WEB_ACCESS != 0)
+                        {
+                            NUMBER33 += Convert.ToInt32(data.WEB_ACCESS);
+                        }
+                        if (data.RECEIVED_ALL != 0)
+                        {
+                            NUMBER34 += Convert.ToInt32(data.RECEIVED_ALL);
+                        }
+                        if (data.TAB_WORKERS != 0)
+                        {
+                            NUMBER35 += Convert.ToInt32(data.TAB_WORKERS);
+                        }
+                        if (data.TAB_SKILLS != 0)
+                        {
+                            NUMBER36 += Convert.ToInt32(data.TAB_SKILLS);
+                        }
+                        if (data.AUDIT_LET != 0)
+                        {
+                            NUMBER37 += Convert.ToInt32(data.AUDIT_LET);
+                        }
+                        if (data.RECEIVED_OTHER != 0)
+                        {
+                            NUMBER38 += Convert.ToInt32(data.RECEIVED_OTHER);
+                        }
+                        if (data.DECIDED_TIME != 0)
+                        {
+                            NUMBER39 += Convert.ToInt32(data.DECIDED_TIME);
+                        }
+                        if (data.DEC_EXPIRED != 0)
+                        {
+                            NUMBER40 += Convert.ToInt32(data.DEC_EXPIRED);
+                        }
+                        if (data.DEC_UNEXPIRED != 0)
+                        {
+                            NUMBER41 += Convert.ToInt32(data.DEC_UNEXPIRED);
+                        }
+                    }
+
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
+
+                    count.SetValue(Niit, NUMBER);
+                    count1.SetValue(Niit, NUMBER1);
+                    count2.SetValue(Niit, NUMBER2);
+                    count3.SetValue(Niit, NUMBER3);
+                    count4.SetValue(Niit, NUMBER4);
+                    count5.SetValue(Niit, NUMBER5);
+                    count6.SetValue(Niit, NUMBER6);
+                    count7.SetValue(Niit, NUMBER7);
+                    count8.SetValue(Niit, NUMBER8);
+                    count9.SetValue(Niit, NUMBER9);
+                    count10.SetValue(Niit, NUMBER10);
+                    count11.SetValue(Niit, NUMBER11);
+                    count12.SetValue(Niit, NUMBER12);
+                    count13.SetValue(Niit, NUMBER13);
+                    count14.SetValue(Niit, NUMBER14);
+                    count15.SetValue(Niit, NUMBER15);
+                    count16.SetValue(Niit, NUMBER16);
+                    count17.SetValue(Niit, NUMBER17);
+                    count18.SetValue(Niit, NUMBER18);
+                    count19.SetValue(Niit, NUMBER19);
+                    count20.SetValue(Niit, NUMBER20);
+                    count21.SetValue(Niit, NUMBER21);
+                    count22.SetValue(Niit, NUMBER22);
+                    count23.SetValue(Niit, NUMBER23);
+                    count24.SetValue(Niit, NUMBER24);
+                    count25.SetValue(Niit, NUMBER25);
+                    count26.SetValue(Niit, NUMBER26);
+                    count27.SetValue(Niit, NUMBER27);
+                    count28.SetValue(Niit, NUMBER28);
+                    count29.SetValue(Niit, NUMBER29);
+                    count30.SetValue(Niit, NUMBER30);
+                    count31.SetValue(Niit, NUMBER31);
+                    count32.SetValue(Niit, NUMBER32);
+                    count33.SetValue(Niit, NUMBER33);
+                    count34.SetValue(Niit, NUMBER34);
+                    count35.SetValue(Niit, NUMBER35);
+                    count36.SetValue(Niit, NUMBER36);
+                    count37.SetValue(Niit, NUMBER37);
+                    count38.SetValue(Niit, NUMBER38);
+                    count39.SetValue(Niit, NUMBER39);
+                    count40.SetValue(Niit, NUMBER40);
+                    count41.SetValue(Niit, NUMBER41);
+
+                    depname.SetValue(Niit, "НИЙТ ДҮН");
+
+
+                    total = body;
+                    total.Add(Niit);
+
+                    response.data = total;
+                }
+                else
+                {
+                    response.data = body;
+                }
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
