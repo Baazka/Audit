@@ -28,7 +28,7 @@
         {
             <div class="form-group-sm pr-2">
                 <label for="DeparmentID" class="col-form-label">Алба:</label>
-                @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Cонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
             </div>
         }
         <div class="form-group-sm pr-2">
@@ -53,6 +53,7 @@
             <table id="CM2A" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="4" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Шийдвэрийн төрөл</th>
                         <th rowspan="4">Ангилал</th>
@@ -121,7 +122,7 @@
             setTimeout(function () { cm2aListInit(); }, 1000);
         });
 
-        function cm2aListInit(pagelength = 10) {
+        function cm2aListInit(pagelength = -1) {
             var count = 0;
             CM2A.table = $("#CM2A").DataTable({
                 "serverSide": true,
@@ -141,29 +142,8 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
-                    {
-                        "data": "DECISION_TYPE", "sortable": false, "class": 'text-center',
-                       // render: function (data, type, row, meta) {
-
-                           // if (data.DECISION_TYPE === "НИЙТ ДҮН") {
-                           //     return "";
-                           // }
-                           // else if (data.BUDGET_TYPE === "Дүн") {
-                           //     return "";
-                           // }
-                           //else if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага") {
-                           //     return "";
-                           // }
-                           //else if (data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани") {
-                           //     return "";
-                           // }
-                            //else {
-                            //    //return meta.row + meta.settings._iDisplayStart + 1;
-                            //    return count = count + 1;
-                            //}
-
-                        //}
-                    },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    { "data": "DECISION_TYPE", "sortable": false, "class": 'text-center', },
                     { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "C1_COUNT", "name": "C1_COUNT" },
@@ -207,22 +187,21 @@
                 "language": datatables.language,
                 "createdRow": function (row, data, index) {
                     if (data !== undefined) {
-                        if (data.DECISION_TYPE === "НИЙТ ДҮН") {
+                        if (data.BUDGET_TYPE_NAME === "Дүн") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
+                                if (index === 3) {
+                                    $('td', row).eq(3).addClass('font-weight-bold');
 
                                 }
-
                             });
                         }
-                        if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани") {
+                        if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани" || data.DECISION_TYPE === "Нийт дүн") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
+                                if (index === 0) {
+                                    $('td', row).eq(0).addClass('font-weight-bold');
                                 }
 
-                                if (index !== 28)
+                                if (index !== 29)
                                     $('td', row).eq(index).attr('id', "tableBorder");
                             });
                         }
@@ -232,36 +211,81 @@
                     var api = this.api();
                     var rows = api.rows({ page: 'current' }).nodes();
 
-
                    
-                    idx = 1
+                   
+                    idx2 = 2
                     
                     last = null;
                     tr = null;
                     ltd = null;
-                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                    api.column(idx2, { page: 'current' }).data().each(function (group, i) {
                         tr = $(rows[i]);
-                        var td = $("td:eq(" + idx + ")", tr);
+                        var td = $("td:eq(" + idx2 + ")", tr);
                         
                         if (last !== group) {
                             
                             td.attr("rowspan", 1);
-                            td.text(group);
+                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нэг. Төрийн аудитын байгууллага" || group === "Нийт дүн") {
+                                td.text("");
+                            }
+                            else {
+                                td.text(group);
+                            }
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
-                            idx = 1;
+                            idx2 = 2;
                         }
                         else {
                             ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
                             td.remove();
                             
                             if (parseInt(ltd.attr("rowspan")) === 5) {
-                                idx = 1;
+                                idx2 = 2;
                             }
                             
                         }
                         
+                    });
+
+
+
+                    idx1 = 1
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx1, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx1 + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нийт дүн") {
+                                count = 0;
+                            }
+                            if (group === "ТӨЛБӨРИЙН АКТ" || group === "АЛБАН ШААРДЛАГА" || group === "ЗӨВЛӨМЖ") {
+                                td.text(count = count + 1);
+                            }
+                            else {
+                                td.text("");
+                            }
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx1 = 1;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx1 = 1;
+                            }
+
+                        }
+
                     });
 
                     idx = 0
@@ -276,15 +300,8 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            if (group === "Хоёр. Хараат бус аудитын компани") {
-                                count = 0;
-                            }
-                            if (group === "ТӨЛБӨРИЙН АКТ" || group === "АЛБАН ШААРДЛАГА" || group === "ЗӨВЛӨМЖ") {
-                                td.text(count = count + 1);
-                            }
-                            else {
-                                td.text("");
-                            }
+
+                            td.text(group);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");

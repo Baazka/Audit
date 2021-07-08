@@ -44,6 +44,7 @@
             <table id="CM2C" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="4" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Шийдвэрийн төрөл</th>
                         <th rowspan="4">Ангилал</th>
@@ -130,6 +131,7 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     {
                         "data": "DECISION_TYPE", "sortable": false, "class": 'text-center',
                     },
@@ -173,36 +175,93 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.BUDGET_TYPE_NAME === "Дүн") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 3) {
+                                    $('td', row).eq(3).addClass('font-weight-bold');
+
+                                }
+                            });
+                        }
+                    }
+                },
                 "drawCallback": function (settings) {
                     var api = this.api();
                     var rows = api.rows({ page: 'current' }).nodes();
 
 
 
-                    idx = 1
+                    idx2 = 2
 
                     last = null;
                     tr = null;
                     ltd = null;
-                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                    api.column(idx2, { page: 'current' }).data().each(function (group, i) {
                         tr = $(rows[i]);
-                        var td = $("td:eq(" + idx + ")", tr);
+                        var td = $("td:eq(" + idx2 + ")", tr);
 
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            td.text(group);
+                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нэг. Төрийн аудитын байгууллага" || group === "Нийт дүн") {
+                                td.text("");
+                            }
+                            else {
+                                td.text(group);
+                            }
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
-                            idx = 1;
+                            idx2 = 2;
                         }
                         else {
                             ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
                             td.remove();
 
                             if (parseInt(ltd.attr("rowspan")) === 5) {
-                                idx = 1;
+                                idx2 = 2;
+                            }
+
+                        }
+
+                    });
+
+
+
+                    idx1 = 1
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx1, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx1 + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нийт дүн") {
+                                count = 0;
+                            }
+                            if (group === "ТӨЛБӨРИЙН АКТ" || group === "АЛБАН ШААРДЛАГА" || group === "ЗӨВЛӨМЖ") {
+                                td.text(count = count + 1);
+                            }
+                            else {
+                                td.text("");
+                            }
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx1 = 1;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx1 = 1;
                             }
 
                         }
@@ -221,12 +280,8 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            if (group === "ТӨЛБӨРИЙН АКТ" || group === "АЛБАН ШААРДЛАГА" || group === "ЗӨВЛӨМЖ") {
-                                td.text(count = count + 1);
-                            }
-                            else {
-                                td.text("");
-                            }
+
+                            td.text(group);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
@@ -244,19 +299,6 @@
 
                     });
 
-                },
-                "createdRow": function (row, data, index) {
-                    if (data !== undefined) {
-                        if (data.DECISION_TYPE === "НИЙТ ДҮН") {
-                            $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
-
-                                }
-
-                            });
-                        }
-                    }
                 },
             });
 
