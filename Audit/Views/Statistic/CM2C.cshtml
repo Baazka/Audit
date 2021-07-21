@@ -111,7 +111,7 @@
             setTimeout(function () { cm2cListInit(); }, 1000);
         });
 
-        function cm2cListInit(pagelength = 10) {
+        function cm2cListInit(pagelength = -1) {
             var count = 0;
             CM2C.table = $("#CM2C").DataTable({
                 "serverSide": true,

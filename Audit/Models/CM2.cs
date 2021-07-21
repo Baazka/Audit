@@ -77,8 +77,12 @@ namespace Audit.Models
                     AUDIT_TYPE = xml.Element("AUDIT_TYPE").Value;
                 if (xml.Element("DECISION_TYPE") != null)
                     DECISION_TYPE = xml.Element("DECISION_TYPE").Value;
+
                 if (xml.Element("BUDGET_TYPE") != null)
                     BUDGET_TYPE = xml.Element("BUDGET_TYPE").Value;
+                if (xml.Element("BUDGET_TYPE") == null)
+                    BUDGET_TYPE = "";
+
                 if (xml.Element("BUDGET_TYPE_NAME") != null)
                     BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
                 if (xml.Element("IS_STATE") != null)
