@@ -16,8 +16,11 @@
 
     #tableBorder {
         border-right-color: transparent !important;
+        
     }
-
+    .tableBackround {
+        background-color: #80808069 !important;
+    }
     .text-center sorting_1 {
     }
 </style>
@@ -203,6 +206,8 @@
 
                                 if (index !== 29)
                                     $('td', row).eq(index).attr('id', "tableBorder");
+                                if (index !== 30)
+                                    $('td', row).eq(index).addClass('tableBackround');
                             });
                         }
                     }
