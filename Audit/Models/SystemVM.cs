@@ -18,17 +18,31 @@ namespace Audit.Models
         public string ORG_CONCENTRATOR_NAME { get; set; }
         public string STATUS_NAME { get; set; }
         public string INFORMATION_DETAIL { get; set; }
-        public int TAB1_IS_FINISH { get; set; }
-        public int TAB2_IS_FINISH { get; set; }
-        public int TAB3_IS_FINISH { get; set; }
         public int[] status { get; set; }
         public List<string> violation { get; set; }
         public int? DeparmentID { get; set; }
-        public int[] budget_type { get; set; }
+        public int? PARENT_BUDGET_ID { get; set; }
+        public int? BUDGET_LEVEL_ID { get; set; }
+        public int? budget_type { get; set; }
     }
     public class OrgListResponse : DataTableAjaxResponModel
     {
         public List<OrgList> data { get; set; } = new List<OrgList>();
+    }
+
+    public class AuditOrgListRequest : DataTableAjaxPostModel
+    {
+        public int ORG_ID { get; set; }
+        public string ORG_TYPE { get; set; }
+        public string SOURCE_TYPE_NAME { get; set; }
+        public string ORG_REGISTER_NO { get; set; }
+        public string PROPERTY_TYPE_NAME { get; set; }
+        public string ORG_REG_DATE { get; set; }
+        public string ORG_LEGAL_NAME { get; set; }
+    }
+    public class AuditOrgListResponse : DataTableAjaxResponModel
+    {
+        public List<AuditOrgList> data { get; set; } = new List<AuditOrgList>();
     }
 
     public class MirrorOrgListRequest : DataTableAjaxPostModel

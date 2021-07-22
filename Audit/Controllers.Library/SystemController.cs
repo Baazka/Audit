@@ -268,6 +268,43 @@ namespace Audit.Controllers.Library
 
             return null;
         }
+
+        public XElement AuditOrgList(XElement element)
+        {
+            try
+            {
+                ClearError();
+
+                if (!this.IsValid) { return null; }
+
+                XElement requestXml = new XElement("Request",
+                                               new XElement("Function", "AuditOrgList"), 
+                                               new XElement("Parameters",
+                                                   element));
+
+                DataResponse response = GetDataResponse(requestXml);
+
+                if (!response.Status)
+                {
+                    this.AddError(response.Code, response.Message);
+                }
+
+                Message = response.Message;
+                Status = response.Status;
+
+                if (response.Status)
+                {
+                    return response.XmlData;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.AddError(ex);
+            }
+
+            return null;
+        }
+
         public XElement OrgDetail(int orgid)
         {
             try

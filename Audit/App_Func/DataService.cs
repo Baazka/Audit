@@ -45,6 +45,7 @@ namespace Audit.App_Func
             functions.Add("UserProfile", (request) => DataAccess.UserProfile(request));
             functions.Add("UserCodeChange", (request) => DataAccess.UserCodeChange(request));
             functions.Add("OrgList", (request) => DataAccess.OrgList(request));
+            functions.Add("AuditOrgList", (request) => DataAccess.AuditOrgList(request));
             functions.Add("OrgDetail", (request) => DataAccess.OrgDetail(request));
             functions.Add("OrgUB", (request) => DataAccess.OrgUB(request));
             functions.Add("OrgUBsingle", (request) => DataAccess.OrgUBsingle(request));

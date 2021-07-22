@@ -524,42 +524,35 @@ namespace Audit.Models
     public class OrgList
     {
         public int ORG_ID { get;set; }
-        public int ORG_DEPARTMENT_ID { get; set; }
+        public string ENT_PARENT_ID { get; set; }
+        public string ENT_NAME { get; set; }
+        public string BUDGET_SHORT_NAME { get; set; }
+        public string BUDGET_LEVEL_NAME { get; set; }
         public string DEPARTMENT_NAME { get; set; }
-        public string ORG_REGISTER_NO { get; set; }
-        public string ORG_NAME { get; set; }
-        public string ORG_CODE { get; set; }
         public int ORG_BUDGET_TYPE_ID { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-        public string VIOLATION_DETAIL { get; set; }
+        public string ENT_VIOLATION { get; set; }
         public int ORG_CONCENTRATOR_ID { get; set; }
         public string ORG_CONCENTRATOR_NAME { get; set; }
         public int ORG_STATUS_ID { get; set; }
         public string STATUS_NAME { get; set; }
-        public string INFORMATION_DETAIL { get; set; }
-        public int TAB1_IS_FINISH { get; set; }
-        public int TAB2_IS_FINISH { get; set; }
-        public int TAB3_IS_FINISH { get; set; }
+        public string ENT_INFO { get; set; }
         public OrgList FromXml(XElement elem)
         {
             if (elem.Element("ORG_ID") != null)
                 ORG_ID = Convert.ToInt32(elem.Element("ORG_ID").Value);
-            if (elem.Element("ORG_DEPARTMENT_ID") != null)
-                ORG_DEPARTMENT_ID = Convert.ToInt32(elem.Element("ORG_DEPARTMENT_ID").Value);
+            if (elem.Element("ENT_PARENT_ID") != null)
+                ENT_PARENT_ID = elem.Element("ENT_PARENT_ID").Value;
+            if (elem.Element("ENT_NAME") != null)
+                ENT_NAME = elem.Element("ENT_NAME").Value;
+            if (elem.Element("BUDGET_SHORT_NAME") != null)
+                BUDGET_SHORT_NAME = elem.Element("BUDGET_SHORT_NAME").Value;
+            if (elem.Element("BUDGET_LEVEL_NAME") != null)
+                BUDGET_LEVEL_NAME = elem.Element("BUDGET_LEVEL_NAME").Value;
             if (elem.Element("DEPARTMENT_NAME") != null)
                 DEPARTMENT_NAME = elem.Element("DEPARTMENT_NAME").Value;
-            if (elem.Element("ORG_REGISTER_NO") != null)
-                ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
-            if (elem.Element("ORG_NAME") != null)
-                ORG_NAME = elem.Element("ORG_NAME").Value;
-            if (elem.Element("ORG_CODE") != null)
-                ORG_CODE = elem.Element("ORG_CODE").Value;
-            if (elem.Element("ORG_BUDGET_TYPE_ID") != null)
-                ORG_BUDGET_TYPE_ID = Convert.ToInt32(elem.Element("ORG_BUDGET_TYPE_ID").Value);
-            if (elem.Element("BUDGET_TYPE_NAME") != null)
-                BUDGET_TYPE_NAME = elem.Element("BUDGET_TYPE_NAME").Value;
-            if (elem.Element("VIOLATION_DETAIL") != null)
-                VIOLATION_DETAIL = elem.Element("VIOLATION_DETAIL").Value;
+            if (elem.Element("ENT_VIOLATION") != null)
+                ENT_VIOLATION = elem.Element("ENT_VIOLATION").Value;
             if (elem.Element("ORG_CONCENTRATOR_ID") != null)
                 ORG_CONCENTRATOR_ID = Convert.ToInt32(elem.Element("ORG_CONCENTRATOR_ID").Value);
             if (elem.Element("ORG_CONCENTRATOR_NAME") != null)
@@ -568,14 +561,36 @@ namespace Audit.Models
                 ORG_STATUS_ID = Convert.ToInt32(elem.Element("ORG_STATUS_ID").Value);
             if (elem.Element("STATUS_NAME") != null)
                 STATUS_NAME = elem.Element("STATUS_NAME").Value;
-            if (elem.Element("INFORMATION_DETAIL") != null)
-                INFORMATION_DETAIL = elem.Element("INFORMATION_DETAIL").Value;
-            if (elem.Element("TAB1_IS_FINISH") != null)
-                TAB1_IS_FINISH = Convert.ToInt32( elem.Element("TAB1_IS_FINISH").Value);
-            if (elem.Element("TAB2_IS_FINISH") != null)
-                TAB2_IS_FINISH = Convert.ToInt32(elem.Element("TAB2_IS_FINISH").Value);
-            if (elem.Element("TAB3_IS_FINISH") != null)
-                TAB3_IS_FINISH = Convert.ToInt32(elem.Element("TAB3_IS_FINISH").Value);
+            if (elem.Element("ENT_INFO") != null)
+                ENT_INFO = elem.Element("ENT_INFO").Value;
+
+            return this;
+        }
+    }
+
+    public class AuditOrgList
+    {
+        public int ORG_ID { get; set; }
+        public string ORG_LEGAL_NAME { get; set; }
+        public string ORG_REGISTER_NO { get; set; }
+        public string PROPERTY_TYPE_NAME { get; set; }
+        public string ORG_REG_DATE { get; set; }
+        public string SOURCE_TYPE_NAME { get; set; }
+       
+        public AuditOrgList FromXml(XElement elem)
+        {
+            if (elem.Element("ORG_ID") != null)
+                ORG_ID = Convert.ToInt32(elem.Element("ORG_ID").Value);
+            if (elem.Element("ORG_LEGAL_NAME") != null)
+                ORG_LEGAL_NAME = elem.Element("ORG_LEGAL_NAME").Value;
+            if (elem.Element("ORG_REGISTER_NO") != null)
+                ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
+            if (elem.Element("PROPERTY_TYPE_NAME") != null)
+                PROPERTY_TYPE_NAME = elem.Element("PROPERTY_TYPE_NAME").Value;
+            if (elem.Element("ORG_REG_DATE") != null)
+                ORG_REG_DATE = elem.Element("ORG_REG_DATE").Value;
+            if (elem.Element("SOURCE_TYPE_NAME") != null)
+                SOURCE_TYPE_NAME = elem.Element("SOURCE_TYPE_NAME").Value;
 
             return this;
         }

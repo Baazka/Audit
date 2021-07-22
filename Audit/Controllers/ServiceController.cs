@@ -39,18 +39,68 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_DEPARTMENT", null));
 
+                if (request.PARENT_BUDGET_ID != null && request.PARENT_BUDGET_ID != 0)
+                    elem.Add(new XElement("V_PARENT_BUDGET_ID", request.PARENT_BUDGET_ID));
+                else
+                    elem.Add(new XElement("V_PARENT_BUDGET_ID", null));
 
                 if (request.budget_type != null)
-                {
-                    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
-                    elem.Add(new XElement("V_BUDGET_TYPE", ss));
-                }
+                    elem.Add(new XElement("V_BUDGET_TYPE", request.budget_type));
                 else
                     elem.Add(new XElement("V_BUDGET_TYPE", null));
+
+                if (request.BUDGET_LEVEL_ID != null)
+                    elem.Add(new XElement("V_BUDGET_LEVEL_ID", request.BUDGET_LEVEL_ID));
+                else
+                    elem.Add(new XElement("V_BUDGET_LEVEL_ID", null));
+                //if (request.budget_type != null)
+                //{
+                //    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
+                //    elem.Add(new XElement("V_BUDGET_TYPE", ss));
+                //}
+                //else
+                //    elem.Add(new XElement("V_BUDGET_TYPE", null));
 
                 XElement res = AppStatic.SystemController.OrgList(elem, User.GetClaimData("DepartmentID"));
                 if (res != null && res.Elements("OrgList") != null)
                     response.data = (from item in res.Elements("OrgList") select new OrgList().FromXml(item)).ToList();
+
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsFiltered = response.recordsTotal;
+                response.draw = request.draw;
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
+            return response;
+        }
+
+        [HttpPost]
+        public AuditOrgListResponse AuditOrgList(OrgListRequest request)
+        {
+            AuditOrgListResponse response = new AuditOrgListResponse();
+            try
+            {
+                XElement elem = new XElement("Request");
+
+                elem.Add(new XElement("PageSize", request.length == -1 ? int.MaxValue : request.length));
+                elem.Add(new XElement("PageNumber", request.start));
+                if (request.order.Count > 0)
+                {
+                    elem.Add(new XElement("OrderName", request.columns[request.order[0].column].name));
+                    elem.Add(new XElement("OrderDir", request.order[0].dir.ToUpper()));
+                }
+
+                if (!string.IsNullOrEmpty(request.search.value))
+                    elem.Add(new XElement("Search", request.search.value));
+                else
+                    elem.Add(new XElement("Search", null));
+
+               
+                XElement res = AppStatic.SystemController.AuditOrgList(elem);
+                if (res != null && res.Elements("AuditOrgList") != null)
+                    response.data = (from item in res.Elements("AuditOrgList") select new AuditOrgList().FromXml(item)).ToList();
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -90,7 +140,7 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_DEPARTMENT", null));
 
                 if (request.PARENT_BUDGET_ID != null && request.PARENT_BUDGET_ID != 0)
-                    elem.Add(new XElement("V_ParentBudgetID", request.PARENT_BUDGET_ID));
+                    elem.Add(new XElement("V_PARENT_BUDGET_ID", request.PARENT_BUDGET_ID));
                 else
                     elem.Add(new XElement("V_ParentBudgetID", null));
 

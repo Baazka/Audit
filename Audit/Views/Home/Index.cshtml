@@ -18,13 +18,44 @@
 }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
-        @if (Role.hasHeadAuditorRole(User))
-        {
-            <div class="form-group-sm pr-2">
-                <label for="DeparmentID" class="col-form-label">Алба:</label>
-                @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-            </div>
-        }
+        <div class="form-group-sm pr-2">
+            <label for="PARENT_BUDGET_ID" class="col-form-label">Төсвийн ерөнхийлөн захирагч:</label>
+            @Html.DropDownListFor(model => model.PARENT_BUDGET_ID, Model.parentBudgetTypes.Select(m => new SelectListItem { Text = m.PARENT_BUGDET_NAME, Value = m.PARENT_BUDGET_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @style = "width: 189px;" })
+        </div>
+
+        <div class="form-group-sm pr-2">
+            <label for="BudgetTypeID" class="col-form-label">Төсөв захирагчийн ангилал:</label>
+
+            @Html.DropDownListFor(model => model.BudgetTypeID, new SelectList(
+                     new List<Object>{
+                          new { value = "" , text = "Сонгоно уу" },
+                          new { value = 1 , text = "ТЕЗ" },
+                          new { value = 2 , text = "ТТЗ" },
+                          new { value = 3 , text = "ТШЗ" },
+                         }, "value", "text"), new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm pr-2">
+            <label for="BUDGET_LEVEL_ID" class="col-form-label">Төсвийн ангилал:</label>
+
+            @Html.DropDownListFor(model => model.BUDGET_LEVEL_ID, new SelectList(
+                     new List<Object>{
+                          new { value = "" , text = "Сонгоно уу" },
+                          new { value = 1 , text = "Улсын төсөв" },
+                          new { value = 2 , text = "Орон нутгийн төсөв" },
+                          new { value = 3 , text = "Нийгмийн даатгалын сан" },
+                          new { value = 4 , text = "Эрүүл мэндийн даатгалын сан" },
+                         }, "value", "text"), new { @class = "form-control form-control-sm" })
+        </div>
+
+        @*@if (Role.hasHeadAuditorRole(User))
+        {*@
+        <div class="form-group-sm pr-2">
+            <label for="DeparmentID" class="col-form-label">Алба:</label>
+            @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        @*}*@
+
         <div class="form-group-sm pr-2">
             <label for="StatusID" class="col-form-label">Төлөв:</label><br />
             @Html.ListBoxFor(model => model.StatusIDs, Model.Status, new { id = "status" })
@@ -33,17 +64,18 @@
             <label for="ViolationID" class="col-form-label">Алдаа:</label><br />
             @Html.ListBoxFor(model => model.ViolationIDs, Model.Violation, new { id = "violation" })
         </div>
-        @if (Model.menuRoles.Any(m=>m.ROLE_NAME == "RECORD_ADD")) { 
-    <div class="form-group-sm ml-auto pr-2">
-        <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Organization.loadTemplate();">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Шинэ бүртгэл</span>
-        </a>
-    </div>
+        @if (Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_ADD"))
+        {
+            <div class="form-group-sm ml-auto pr-2">
+                <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Organization.loadTemplate();">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Шинэ бүртгэл</span>
+                </a>
+            </div>
         }
-        
+
         <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
                 <span class="icon text-white-50">
@@ -63,15 +95,15 @@
                         <thead>
                             <tr>
                                 <th class="text-center">№</th>
-                                <th>Алба</th>
-                                <th>Регистр</th>
-                                <th>Шалгагдагч байгууллагын нэр</th>
-                                <th>СТАУС бүртгэлийн код</th>
-                                <th>Төвлөрүүлэн захирагч</th>
                                 <th>Дээд шатны төсөв захирагч</th>
+                                <th>Шалгагдагч байгууллагын нэр</th>
+                                <th>Төсөв захирагчийн ангилал</th>
+                                <th>Төсвийн ангилал</th>
+                                <th>Харъяа аудитын газар</th>
+                                @*<th>Дээд шатны төсөв захирагч</th>*@
                                 <th>Алдааны мэдээлэл</th>
                                 <th>Төлөв</th>
-                                <th>Сануулга</th>
+                                @*<th>Сануулга</th>*@
                                 <th>Үйлдэл</th>
                             </tr>
                         </thead>
@@ -102,6 +134,9 @@
                         data.status = $('#status').val();
                         data.violation = $('#violation option:selected').toArray().map(item => item.text).join();
                         data.DeparmentID = $('#DeparmentID').val();
+                        data.budget_type = $('#BudgetTypeID').val();
+                        data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         return data;
                     }
                 },
@@ -117,15 +152,13 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
+                    { "data": "ENT_PARENT_ID", "name": "ENT_PARENT_ID" },
+                    { "data": "ENT_NAME", "name": "ENT_NAME" },
+                    { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
+                    { "data": "BUDGET_LEVEL_NAME", "name": "BUDGET_LEVEL_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
-                    { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO", "sortable": false },
-                    { "data": "ORG_NAME", "name": "ORG_NAME" },
-                    { "data": "ORG_CODE", "name": "ORG_CODE" },
-                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "ORG_CONCENTRATOR_NAME", "name": "ORG_CONCENTRATOR_NAME" },
-                    { "data": "VIOLATION_DETAIL", "name": "VIOLATION_DETAIL" },
-                    { "data": "STATUS_NAME", "name": "STATUS_NAME" },
-                    { "data": "INFORMATION_DETAIL", "name": "INFORMATION_DETAIL" },
+                    { "data": "ENT_VIOLATION", "name": "ENT_VIOLATION" },
+                    { "data": "ENT_INFO", "name": "ENT_INFO" },
                     {
                     "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
@@ -178,6 +211,15 @@
             }
         });
         $('#DeparmentID').change(function () {
+            orgListInit();
+        });
+        $('#PARENT_BUDGET_ID').change(function () {
+            orgListInit();
+        });
+        $('#BudgetTypeID').change(function () {
+            orgListInit();
+        });
+        $('#BUDGET_LEVEL_ID').change(function () {
             orgListInit();
         });
         var Organization = {

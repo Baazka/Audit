@@ -1,25 +1,61 @@
 ﻿@model System.Xml.Linq.XElement
-    @using Audit.App_Func
+@using Audit.App_Func
+
+<style>
+    #nav ul.sub-nav {
+        display: none;
+    }
+
+    #nav ul.visible {
+        display: block;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.parent').click(function () {
+            $('.sub-nav').toggleClass('visible');
+        });
+    });
+</script>
+
+
+<hr class="sidebar-divider">
 
 @if (Model.Elements("MenuList").Count() != 0)
 {
     foreach (var i in Model.Elements("MenuList"))
     {
+        if (@i.Element("MENU_ID").Value.ToString() == "1")
+        {
+        <ul id="nav" style="color:#FFF; list-style: none;">
+            <li class="parent nav-link d-none d-md-inline" id="sidebarToggle" style="background:none;">
+                <i class="fas fa-fw fa-file-alt"></i><br>
+                <span style="font-weight:bold; font-size:10px; text-align:center;margin-left: -10px;">Бүртгэл</span>
+                <ul class="sub-nav" style="list-style:none;margin-left: -36px;">
+                    <li><i class="fas fa-fw fa-clipboard-check"></i> <a href="/home/index?id=0wYeD2pBlqglb+Z5gtZAGA==" style="color: #FFF;font-weight:bold; font-size:0.85rem;"> Аудитад шалгагдагч</a></li>
+                    <li><i class="fas fa-fw fa-list-ol"></i> <a href="/home/AudOrg" style="color: #FFF;font-weight:bold; font-size:0.85rem;">Аудитад хамрагдагч</a></li>
+                </ul>
+            </li>
+        </ul>
+        }
+        else{
         <li class="nav-item active">
             <a class="nav-link" href="@i.Element("MENU_ROUTE").Value?id=@Globals.Encrypt(i.Element("MENU_ID").Value)">
                 <i class="fas fa-fw fa-file-alt"></i>
                 <span>@i.Element("MENU_NAME").Value</span>
             </a>
         </li>
+        }
         <hr class="sidebar-divider">
     }
 }
+
 @*<li class="nav-item active">
-    <a class="nav-link" href="@Url.Action("Index", "Exam")">
-        <i class="fas fa-fw fa-paste"></i>
-        <span>Шалгагдагч</span>
-    </a>
-</li>*@
+        <a class="nav-link" href="@Url.Action("Index", "Exam")">
+            <i class="fas fa-fw fa-paste"></i>
+            <span>Шалгагдагч</span>
+        </a>
+    </li>*@
 <!-- Divider -->
 <!--<hr class="sidebar-divider">-->
 <!-- Nav Item - Tables -->
