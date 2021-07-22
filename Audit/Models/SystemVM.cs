@@ -36,9 +36,13 @@ namespace Audit.Models
         public string ORG_TYPE { get; set; }
         public string SOURCE_TYPE_NAME { get; set; }
         public string ORG_REGISTER_NO { get; set; }
+        public string LEGAL_STATUS_NAME { get; set; }
         public string PROPERTY_TYPE_NAME { get; set; }
         public string ORG_REG_DATE { get; set; }
         public string ORG_LEGAL_NAME { get; set; }
+        public int? LEGAL_STATUS_ID { get; set; }
+        public int? PROPERTY_TYPE_ID { get; set; }
+        public int? SOURCE_TYPE_ID { get; set; }
     }
     public class AuditOrgListResponse : DataTableAjaxResponModel
     {

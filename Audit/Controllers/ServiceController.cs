@@ -77,7 +77,7 @@ namespace Audit.Controllers
         }
 
         [HttpPost]
-        public AuditOrgListResponse AuditOrgList(OrgListRequest request)
+        public AuditOrgListResponse AuditOrgList(AuditOrgListRequest request)
         {
             AuditOrgListResponse response = new AuditOrgListResponse();
             try
@@ -97,7 +97,21 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("Search", null));
 
-               
+                if (request.LEGAL_STATUS_ID != null)
+                    elem.Add(new XElement("V_LEGAL_STATUS_ID", request.LEGAL_STATUS_ID));
+                else
+                    elem.Add(new XElement("V_LEGAL_STATUS_ID", null));
+
+                if (request.PROPERTY_TYPE_ID != null)
+                    elem.Add(new XElement("V_PROPERTY_TYPE_ID", request.PROPERTY_TYPE_ID));
+                else
+                    elem.Add(new XElement("V_PROPERTY_TYPE_ID", null));
+
+                if (request.SOURCE_TYPE_ID != null)
+                    elem.Add(new XElement("V_SOURCE_TYPE_ID", request.SOURCE_TYPE_ID));
+                else
+                    elem.Add(new XElement("V_SOURCE_TYPE_ID", null));
+
                 XElement res = AppStatic.SystemController.AuditOrgList(elem);
                 if (res != null && res.Elements("AuditOrgList") != null)
                     response.data = (from item in res.Elements("AuditOrgList") select new AuditOrgList().FromXml(item)).ToList();

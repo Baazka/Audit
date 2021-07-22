@@ -494,6 +494,9 @@ namespace Audit.Models
         public int DeparmentID { get; set; }
         public int PARENT_BUDGET_ID { get; set; }
         public int BUDGET_LEVEL_ID { get; set; }
+        public int LEGAL_STATUS_ID { get; set; }
+        public int PROPERTY_TYPE_ID { get; set; }
+        public int SOURCE_TYPE_ID { get; set; }
         public int[] StatusIDs { get; set; }
         public MultiSelectList Status { get; set; }
         public int[] BudgetTypeIDs { get; set; }
@@ -503,6 +506,9 @@ namespace Audit.Models
         public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
+        public List<LegalStatus> LegalStatuses { get; set; } = new List<LegalStatus>();
+        public List<PropertyType> PropertyTypes { get; set; } = new List<PropertyType>();
+        public List<SourceType> SourceTypes { get; set; } = new List<SourceType>();
         public List<BudgetLevel> budgetLevel { get; set; } = new List<BudgetLevel>();
         public List<Status> statuses { get; set; } = new List<Status>();
         public List<Violation> violations { get; set; } = new List<Violation>();
@@ -524,7 +530,7 @@ namespace Audit.Models
     public class OrgList
     {
         public int ORG_ID { get;set; }
-        public string ENT_PARENT_ID { get; set; }
+        public string TEZ_NAME { get; set; }
         public string ENT_NAME { get; set; }
         public string BUDGET_SHORT_NAME { get; set; }
         public string BUDGET_LEVEL_NAME { get; set; }
@@ -541,8 +547,8 @@ namespace Audit.Models
         {
             if (elem.Element("ORG_ID") != null)
                 ORG_ID = Convert.ToInt32(elem.Element("ORG_ID").Value);
-            if (elem.Element("ENT_PARENT_ID") != null)
-                ENT_PARENT_ID = elem.Element("ENT_PARENT_ID").Value;
+            if (elem.Element("TEZ_NAME") != null)
+                TEZ_NAME = elem.Element("TEZ_NAME").Value;
             if (elem.Element("ENT_NAME") != null)
                 ENT_NAME = elem.Element("ENT_NAME").Value;
             if (elem.Element("BUDGET_SHORT_NAME") != null)
@@ -573,6 +579,7 @@ namespace Audit.Models
         public int ORG_ID { get; set; }
         public string ORG_LEGAL_NAME { get; set; }
         public string ORG_REGISTER_NO { get; set; }
+        public string LEGAL_STATUS_NAME { get; set; }
         public string PROPERTY_TYPE_NAME { get; set; }
         public string ORG_REG_DATE { get; set; }
         public string SOURCE_TYPE_NAME { get; set; }
@@ -585,6 +592,8 @@ namespace Audit.Models
                 ORG_LEGAL_NAME = elem.Element("ORG_LEGAL_NAME").Value;
             if (elem.Element("ORG_REGISTER_NO") != null)
                 ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
+            if (elem.Element("LEGAL_STATUS_NAME") != null)
+                LEGAL_STATUS_NAME = elem.Element("LEGAL_STATUS_NAME").Value;
             if (elem.Element("PROPERTY_TYPE_NAME") != null)
                 PROPERTY_TYPE_NAME = elem.Element("PROPERTY_TYPE_NAME").Value;
             if (elem.Element("ORG_REG_DATE") != null)

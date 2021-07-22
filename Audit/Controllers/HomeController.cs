@@ -691,9 +691,41 @@ namespace Audit.Controllers
             return PartialView(item);
         }
 
-        public ActionResult AudOrg() {
+        public ActionResult AudOrg(){
             OrgVM res = new OrgVM();
-            
+            try
+            {
+                //XElement response = AppStatic.SystemController.MenuRole(Convert.ToInt32(User.Identity.GetUserId()), Convert.ToInt32(Globals.Decrypt(id)));
+                //if (response != null && response.Elements("MenuRole") != null)
+                //    res.menuRoles = (from item in response.Elements("MenuRole") select new MenuRole().FromXml(item)).ToList();
+
+                if (Globals.LegalStatuses.Count > 0 || Globals.PropertyTypes.Count > 0 || Globals.SourceTypes.Count > 0)
+                {
+                    res.LegalStatuses = Globals.LegalStatuses;
+                    res.PropertyTypes = Globals.PropertyTypes;
+                    res.SourceTypes = Globals.SourceTypes;
+                }
+                else
+                {
+                    XElement responseLegalStatuses = SendLibraryRequest("LegalStatus");
+                    Globals.LegalStatuses = (from item in responseLegalStatuses.Elements("Library") select new LegalStatus().FromXml(item)).ToList();
+                    res.LegalStatuses = Globals.LegalStatuses;
+
+                    XElement responsePropertyTypes = SendLibraryRequest("PropertyType");
+                    Globals.PropertyTypes = (from item in responsePropertyTypes.Elements("Library") select new PropertyType().FromXml(item)).ToList();
+                    res.PropertyTypes = Globals.PropertyTypes;
+
+                    XElement responseSourceTypes = SendLibraryRequest("SourceType");
+                    Globals.SourceTypes = (from item in responseSourceTypes.Elements("Library") select new SourceType().FromXml(item)).ToList();
+                    res.SourceTypes = Globals.SourceTypes;
+
+                    return View(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.WriteErrorLog(ex);
+            }
             return View(res);
         }
 

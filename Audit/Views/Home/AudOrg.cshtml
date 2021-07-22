@@ -1,7 +1,26 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
 
+<form method="post" id="FilterForm">
+    <div class="d-flex flex-wrap mb-2">
+        <div class="form-group-sm pr-2">
+            <label for="LEGAL_STATUS_ID" class="col-form-label">Хариуцлагын хэлбэр:</label>
+            @Html.DropDownListFor(model => model.LEGAL_STATUS_ID, Model.LegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
 
+        <div class="form-group-sm pr-2">
+            <label for="PROPERTY_TYPE_ID" class="col-form-label">Өмчийн хэлбэр:</label>
+            @Html.DropDownListFor(model => model.PROPERTY_TYPE_ID, Model.PropertyTypes.Select(m => new SelectListItem { Text = m.PROPERTY_TYPE_NAME, Value = m.PROPERTY_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm pr-2">
+            <label for="SOURCE_TYPE_ID" class="col-form-label">Мэдээллийн эх үүсвэр:</label>
+            @Html.DropDownListFor(model => model.SOURCE_TYPE_ID, Model.SourceTypes.Select(m => new SelectListItem { Text = m.SOURCE_TYPE_NAME, Value = m.SOURCE_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+
+    </div>
+</form>
 <div class="row mb-2">
     <div class="col-12" id="OrgList">
         <div class="card">
@@ -13,8 +32,9 @@
                                 <th class="text-center">№</th>
                                 <th>Аудитад хамрагдагчийн нэр</th>
                                 <th>Регистрийн дугаар</th>
+                                <th>Хариуцлагын хэлбэр</th>
+                                <th>Өмчийн хэлбэр</th>
                                 <th>Байгуулагдсан огноо</th>
-                                <th>Байгуулагын төрөл</th>
                                 <th>Мэдээллийн эх үүсвэр</th>
                             </tr>
                         </thead>
@@ -41,7 +61,9 @@
                     url: "/api/service/AuditOrgList",
                     type: 'POST',
                     data: function (data) {
-                        data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
+                        data.LEGAL_STATUS_ID = $('#LEGAL_STATUS_ID').val();
+                        data.PROPERTY_TYPE_ID = $('#PROPERTY_TYPE_ID').val();
+                        data.SOURCE_TYPE_ID = $('#SOURCE_TYPE_ID').val();
                         return data;
                     }
                 },
@@ -59,8 +81,9 @@
                     },
                     { "data": "ORG_LEGAL_NAME", "name": "ORG_LEGAL_NAME" },
                     { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO" },
-                    { "data": "ORG_REG_DATE", "name": "ORG_REG_DATE" },
+                    { "data": "LEGAL_STATUS_NAME", "name": "LEGAL_STATUS_NAME" },
                     { "data": "PROPERTY_TYPE_NAME", "name": "PROPERTY_TYPE_NAME" },
+                    { "data": "ORG_REG_DATE", "name": "ORG_REG_DATE" },
                     { "data": "SOURCE_TYPE_NAME", "name": "SOURCE_TYPE_NAME" },
                     
                 ],
@@ -78,32 +101,16 @@
 
             });
         }
-        $('#status').multiselect({
-            nonSelectedText: "Сонгоно уу",
-            buttonClass: 'form-control form-control-sm',
-            onChange: function (option, checked, select) {
-                orgListInit();
-            }
-        });
-        $('#violation').multiselect({
-            nonSelectedText: "Сонгоно уу",
-            buttonClass: 'form-control form-control-sm',
-            onChange: function (option, checked, select) {
-                orgListInit();
-            }
-        });
-        $('#DeparmentID').change(function () {
+        $('#LEGAL_STATUS_ID').change(function () {
             orgListInit();
         });
-        $('#PARENT_BUDGET_ID').change(function () {
+        $('#PROPERTY_TYPE_ID').change(function () {
             orgListInit();
         });
-        $('#BudgetTypeID').change(function () {
+        $('#SOURCE_TYPE_ID').change(function () {
             orgListInit();
         });
-        $('#BUDGET_LEVEL_ID').change(function () {
-            orgListInit();
-        });
+
 
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').prop('disabled', true);

@@ -207,6 +207,12 @@ namespace Audit.App_Func
                     cmd.CommandText = "SELECT A.OPEN_ENT_TEZ PARENT_BUDGET_ID, B.ENT_NAME PARENT_BUGDET_NAME FROM AUD_MIRRORACC.OPENACC_ENTITY A INNER JOIN AUD_ORG.AUDIT_ENTITY B ON A.OPEN_ENT_TEZ = B.ENT_ID GROUP BY A.OPEN_ENT_TEZ, B.ENT_NAME ORDER BY B.ENT_NAME ASC";
                 else if (libName == "BudgetLevel")
                     cmd.CommandText = "SELECT BUDGET_LEVEL_ID, BUDGET_LEVEL_NAME FROM AUD_ORG.REF_BUDGET_LEVEL";
+                else if (libName == "LegalStatus")
+                    cmd.CommandText = "SELECT LEGAL_STATUS_ID, LEGAL_STATUS_NAME FROM AUD_ORG.REF_LEGAL_STATUS ORDER BY LEGAL_STATUS_NAME";
+                else if (libName == "PropertyType")
+                    cmd.CommandText = "SELECT PROPERTY_TYPE_ID, PROPERTY_TYPE_NAME FROM AUD_ORG.REF_PROPERTY_TYPE ORDER BY PROPERTY_TYPE_NAME";
+                else if (libName == "SourceType")
+                    cmd.CommandText = "SELECT SOURCE_TYPE_ID, SOURCE_TYPE_NAME FROM AUD_ORG.REF_SOURCE_TYPE";
                 else if (libName == "Status")
                     cmd.CommandText = "SELECT STATUS_ID, STATUS_NAME FROM REF_STATUS WHERE IS_ACTIVE = 1 ORDER BY STATUS_ID ASC";
                 else if (libName == "Violation")
@@ -397,8 +403,9 @@ namespace Audit.App_Func
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
 
-                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE.ENT_PARENT_ID ,AE.ENT_NAME , RBT.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME, RD.DEPARTMENT_NAME, AE.ENT_VIOLATION, AE.ENT_INFO " +
+                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME , RBT.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME, RD.DEPARTMENT_NAME, AE.ENT_VIOLATION, AE.ENT_INFO " +
                                 "FROM AUD_ORG.AUDIT_ENTITY AE " +
+                                "INNER JOIN AUD_ORG.AUDIT_ENTITY AE_PARENT ON AE.ENT_TEZ = AE_PARENT.ENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON AE.ENT_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON AE.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
@@ -410,7 +417,7 @@ namespace Audit.App_Func
                                 //"AND (:V_VIOLATION IS NULL OR (R1.VIOLATION_DETAIL LIKE '%'||:V_VIOLATION||'%')) " +
                                 "AND (:V_SEARCH IS NULL OR UPPER(AE.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 "OR UPPER(RBT.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RBL.BUDGET_LEVEL_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                "OR UPPER(RD.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AE.ENT_PARENT_ID) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
+                                "OR UPPER(RD.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AE_PARENT.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
                                 //"OR UPPER(R1.VIOLATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(R1.INFORMATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 //"OR UPPER(RS.STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
                                 "ORDER BY " +
@@ -422,9 +429,9 @@ namespace Audit.App_Func
                                 "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'ASC' THEN RBT.BUDGET_SHORT_NAME END ASC, " +
                                 "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'DESC' THEN RBT.BUDGET_SHORT_NAME END DESC, " +
                                 "CASE WHEN :ORDER_NAME = 'BUDGET_LEVEL_NAME' AND :ORDER_DIR = 'ASC' THEN RBL.BUDGET_LEVEL_NAME END ASC, " +
-                                "CASE WHEN :ORDER_NAME = 'BUDGET_LEVEL_NAME' AND :ORDER_DIR = 'DESC' THEN RBL.BUDGET_LEVEL_NAME END DESC " +
-                                //"CASE WHEN :ORDER_NAME = 'ORG_CODE' AND :ORDER_DIR = 'ASC' THEN R1.ORG_CODE END ASC, " +
-                                //"CASE WHEN :ORDER_NAME = 'ORG_CODE' AND :ORDER_DIR = 'DESC' THEN R1.ORG_CODE END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'BUDGET_LEVEL_NAME' AND :ORDER_DIR = 'DESC' THEN RBL.BUDGET_LEVEL_NAME END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'TEZ_NAME' AND :ORDER_DIR = 'ASC' THEN AE_PARENT.ENT_NAME END ASC, " +
+                                "CASE WHEN :ORDER_NAME = 'TEZ_NAME' AND :ORDER_DIR = 'DESC' THEN AE_PARENT.ENT_NAME END DESC " +
                                 //"CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND :ORDER_DIR = 'ASC' THEN RB.BUDGET_TYPE_NAME END ASC, " +
                                 //"CASE WHEN :ORDER_NAME = 'BUDGET_TYPE_NAME' AND :ORDER_DIR = 'DESC' THEN RB.BUDGET_TYPE_NAME END DESC, " +
                                 //"CASE WHEN :ORDER_NAME = 'CONCENTRATOR_NAME' AND :ORDER_DIR = 'ASC' THEN R2.ORG_NAME END ASC, " +
@@ -538,9 +545,9 @@ namespace Audit.App_Func
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val",
                     OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
                 //cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID")?.Value, System.Data.ParameterDirection.Input);
-                //cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-                //cmd.Parameters.Add(":P_PARENT_BUDGET_ID", OracleDbType.Int32, req.Element("V_PARENT_BUDGET_ID") != null && !string.IsNullOrEmpty(req.Element("V_PARENT_BUDGET_ID").Value) ? req.Element("V_PARENT_BUDGET_ID")?.Value : null, System.Data.ParameterDirection.Input);
-                //cmd.Parameters.Add(":P_BUDGET_TYPE", OracleDbType.Int32, req.Element("V_BUDGET_TYPE") != null && !string.IsNullOrEmpty(req.Element("V_BUDGET_TYPE").Value) ? req.Element("V_BUDGET_TYPE")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_LEGAL_STATUS_ID", OracleDbType.Int32, req.Element("V_LEGAL_STATUS_ID") != null && !string.IsNullOrEmpty(req.Element("V_LEGAL_STATUS_ID").Value) ? req.Element("V_LEGAL_STATUS_ID")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_PROPERTY_TYPE_ID", OracleDbType.Int32, req.Element("V_PROPERTY_TYPE_ID") != null && !string.IsNullOrEmpty(req.Element("V_PROPERTY_TYPE_ID").Value) ? req.Element("V_PROPERTY_TYPE_ID")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_SOURCE_TYPE_ID", OracleDbType.Int32, req.Element("V_SOURCE_TYPE_ID") != null && !string.IsNullOrEmpty(req.Element("V_SOURCE_TYPE_ID").Value) ? req.Element("V_SOURCE_TYPE_ID")?.Value : null, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":P_BUDGET_LEVEL_ID", OracleDbType.Int32, req.Element("V_BUDGET_LEVEL_ID") != null && !string.IsNullOrEmpty(req.Element("V_BUDGET_LEVEL_ID").Value) ? req.Element("V_BUDGET_LEVEL_ID")?.Value : null, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":P_STATUS", OracleDbType.Varchar2, req.Element("V_STATUS") != null && !string.IsNullOrEmpty(req.Element("V_STATUS").Value) ? req.Element("V_STATUS")?.Value : null, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":P_VIOLATION", OracleDbType.Varchar2, req.Element("V_VIOLATION") != null && !string.IsNullOrEmpty(req.Element("V_VIOLATION").Value) ? req.Element("V_VIOLATION")?.Value.Replace(",", "%") : null, System.Data.ParameterDirection.Input);
@@ -554,23 +561,32 @@ namespace Audit.App_Func
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
 
-                cmd.CommandText = "SELECT AO.ORG_ID, AO.ORG_LEGAL_NAME, AO.ORG_REGISTER_NO, TO_CHAR(AO.ORG_REG_DATE, 'YYYY-MM-DD') ORG_REG_DATE, RPT.PROPERTY_TYPE_NAME, RST.SOURCE_TYPE_NAME " +
+                cmd.CommandText = "SELECT AO.ORG_ID, AO.ORG_LEGAL_NAME, AO.ORG_REGISTER_NO, TO_CHAR(AO.ORG_REG_DATE, 'YYYY-MM-DD') ORG_REG_DATE, RLS.LEGAL_STATUS_NAME, RPT.PROPERTY_TYPE_NAME, RST.SOURCE_TYPE_NAME " +
                                 "FROM AUD_ORG.AUDIT_ORGANIZATION AO " +
                                 "INNER JOIN AUD_ORG.REF_SOURCE_TYPE RST ON AO.ORG_SOURCE_TYPE = RST.SOURCE_TYPE_ID " +
+                                "INNER JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AO.ORG_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
                                 "INNER JOIN AUD_ORG.REF_PROPERTY_TYPE RPT ON AO.ORG_PROPERTY_TYPE = RPT.PROPERTY_TYPE_ID " +
-                                "WHERE (:V_SEARCH IS NULL OR UPPER(AO.ORG_LEGAL_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                                "WHERE (:V_LEGAL_STATUS_ID IS NULL OR AO.ORG_LEGAL_STATUS = :V_LEGAL_STATUS_ID) " +
+                                "AND (:V_PROPERTY_TYPE_ID IS NULL OR AO.ORG_PROPERTY_TYPE = :V_PROPERTY_TYPE_ID) " +
+                                "AND (:V_SOURCE_TYPE_ID IS NULL OR AO.ORG_SOURCE_TYPE = :V_SOURCE_TYPE_ID) " +
+                                "AND (:V_SEARCH IS NULL OR UPPER(AO.ORG_LEGAL_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 "OR UPPER(AO.ORG_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AO.ORG_REG_DATE) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                "OR UPPER(AO.ORG_SOURCE_TYPE) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AO.ORG_ID) LIKE '%'||UPPER(:V_SEARCH)||'%') " +        
+                                "OR UPPER(RST.SOURCE_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
+                                "OR UPPER(RLS.LEGAL_STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RPT.PROPERTY_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +        
                                 "ORDER BY " +
                                 "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN AO.ORG_LEGAL_NAME END ASC, " +
                                 "CASE WHEN :ORDER_NAME = 'ORG_LEGAL_NAME' AND :ORDER_DIR = 'ASC' THEN AO.ORG_LEGAL_NAME END ASC, " +
-                                "CASE WHEN :ORDER_NAME = 'ORG_LEGAL_NAME' AND :ORDER_DIR = 'DESC' THEN AO.ORG_LEGAL_NAME END DESC " +
-                                //"CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN RD.DEPARTMENT_NAME END ASC, " +
-                                //"CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'DESC' THEN RD.DEPARTMENT_NAME END DESC, " +
-                                //"CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'ASC' THEN RBT.BUDGET_SHORT_NAME END ASC, " +
-                                //"CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'DESC' THEN RBT.BUDGET_SHORT_NAME END DESC, " +
-                                //"CASE WHEN :ORDER_NAME = 'BUDGET_LEVEL_NAME' AND :ORDER_DIR = 'ASC' THEN RBL.BUDGET_LEVEL_NAME END ASC, " +
-                                //"CASE WHEN :ORDER_NAME = 'BUDGET_LEVEL_NAME' AND :ORDER_DIR = 'DESC' THEN RBL.BUDGET_LEVEL_NAME END DESC " +
+                                "CASE WHEN :ORDER_NAME = 'ORG_LEGAL_NAME' AND :ORDER_DIR = 'DESC' THEN AO.ORG_LEGAL_NAME END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'ORG_REGISTER_NO' AND :ORDER_DIR = 'ASC' THEN AO.ORG_REGISTER_NO END ASC, " +
+                                "CASE WHEN :ORDER_NAME = 'ORG_REGISTER_NO' AND :ORDER_DIR = 'DESC' THEN AO.ORG_REGISTER_NO END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'ORG_REG_DATE' AND :ORDER_DIR = 'ASC' THEN AO.ORG_REG_DATE END ASC, " +
+                                "CASE WHEN :ORDER_NAME = 'ORG_REG_DATE' AND :ORDER_DIR = 'DESC' THEN AO.ORG_REG_DATE END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'PROPERTY_TYPE_NAME' AND :ORDER_DIR = 'ASC' THEN RPT.PROPERTY_TYPE_NAME END ASC, " +
+                                "CASE WHEN :ORDER_NAME = 'PROPERTY_TYPE_NAME' AND :ORDER_DIR = 'DESC' THEN RPT.PROPERTY_TYPE_NAME END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'SOURCE_TYPE_NAME' AND :ORDER_DIR = 'ASC' THEN RST.SOURCE_TYPE_NAME END ASC, " +
+                                "CASE WHEN :ORDER_NAME = 'SOURCE_TYPE_NAME' AND :ORDER_DIR = 'DESC' THEN RST.SOURCE_TYPE_NAME END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'LEGAL_STATUS_NAME' AND :ORDER_DIR = 'ASC' THEN RLS.LEGAL_STATUS_NAME END ASC, " +
+                                "CASE WHEN :ORDER_NAME = 'LEGAL_STATUS_NAME' AND :ORDER_DIR = 'DESC' THEN RLS.LEGAL_STATUS_NAME END DESC " +
                                 "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                                 "FETCH NEXT :PAGESIZE ROWS ONLY";
 
@@ -581,6 +597,9 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_LEGAL_STATUS_ID", OracleDbType.Int32, req.Element("V_LEGAL_STATUS_ID") != null && !string.IsNullOrEmpty(req.Element("V_LEGAL_STATUS_ID").Value) ? req.Element("V_LEGAL_STATUS_ID")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_PROPERTY_TYPE_ID", OracleDbType.Int32, req.Element("V_PROPERTY_TYPE_ID") != null && !string.IsNullOrEmpty(req.Element("V_PROPERTY_TYPE_ID").Value) ? req.Element("V_PROPERTY_TYPE_ID")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_SOURCE_TYPE_ID", OracleDbType.Int32, req.Element("V_SOURCE_TYPE_ID") != null && !string.IsNullOrEmpty(req.Element("V_SOURCE_TYPE_ID").Value) ? req.Element("V_SOURCE_TYPE_ID")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
 

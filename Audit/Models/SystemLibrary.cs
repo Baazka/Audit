@@ -89,6 +89,49 @@ namespace Audit.Models
             return this;
         }
     }
+
+    public class LegalStatus
+    {
+        public int LEGAL_STATUS_ID { get; set; }
+        public string LEGAL_STATUS_NAME { get; set; }
+        public LegalStatus FromXml(XElement elem)
+        {
+            if (elem.Element("LEGAL_STATUS_ID") != null)
+                LEGAL_STATUS_ID = Convert.ToInt32(elem.Element("LEGAL_STATUS_ID").Value);
+            if (elem.Element("LEGAL_STATUS_NAME") != null)
+                LEGAL_STATUS_NAME = elem.Element("LEGAL_STATUS_NAME").Value;
+            return this;
+        }
+    }
+
+    public class PropertyType
+    {
+        public int PROPERTY_TYPE_ID { get; set; }
+        public string PROPERTY_TYPE_NAME { get; set; }
+        public PropertyType FromXml(XElement elem)
+        {
+            if (elem.Element("PROPERTY_TYPE_ID") != null)
+                PROPERTY_TYPE_ID = Convert.ToInt32(elem.Element("PROPERTY_TYPE_ID").Value);
+            if (elem.Element("PROPERTY_TYPE_NAME") != null)
+                PROPERTY_TYPE_NAME = elem.Element("PROPERTY_TYPE_NAME").Value;
+            return this;
+        }
+    }
+
+    public class SourceType
+    {
+        public int SOURCE_TYPE_ID { get; set; }
+        public string SOURCE_TYPE_NAME { get; set; }
+        public SourceType FromXml(XElement elem)
+        {
+            if (elem.Element("SOURCE_TYPE_ID") != null)
+                SOURCE_TYPE_ID = Convert.ToInt32(elem.Element("SOURCE_TYPE_ID").Value);
+            if (elem.Element("SOURCE_TYPE_NAME") != null)
+                SOURCE_TYPE_NAME = elem.Element("SOURCE_TYPE_NAME").Value;
+            return this;
+        }
+    }
+
     public class BudgetLevel
     {
         public int BUDGET_LEVEL_ID { get; set; }
