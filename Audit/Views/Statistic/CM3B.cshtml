@@ -44,6 +44,7 @@
             <table id="CM3B" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="4" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Үзүүлэлт</th>
                         <th colspan="10">Албан тушаалтанд хариуцлага тооцуулах санал</th>
@@ -106,7 +107,7 @@
             setTimeout(function () { cm3bListInit(); }, 1000);
         });
 
-        function cm3bListInit(pagelength = 10) {
+        function cm3bListInit(pagelength = -1) {
             CM3B.table = $("#CM3B").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -124,10 +125,11 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
                                 return "";
                             }
                             else {
@@ -174,10 +176,10 @@
                 "language": datatables.language,
                 "createdRow": function (row, data, index) {
                     if (data !== undefined) {
-                        if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН") {
+                        if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
+                                if (index === 0) {
+                                    $('td', row).eq(0).addClass('font-weight-bold');
 
 
                                 }
@@ -185,6 +187,46 @@
                             });
                         }
                     }
+                },
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+
+
+
+
+                    idx = 0
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
                 },
             });
 

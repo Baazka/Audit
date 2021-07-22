@@ -53,6 +53,7 @@
             <table id="CM3A" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="4" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="4" class="text-center">№</th>
                         <th rowspan="4">Үзүүлэлт</th>
                         <th colspan="10">Албан тушаалтанд хариуцлага тооцуулах санал</th>
@@ -116,7 +117,7 @@
             setTimeout(function () { cm3aListInit(); }, 1000);
         });
 
-        function cm3aListInit(pagelength = 10) {
+        function cm3aListInit(pagelength = -1) {
             var count = 0;
             CM3A.table = $("#CM3A").DataTable({
                 "serverSide": true,
@@ -136,19 +137,20 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
                                 return "";
                             }
                             if (data.BUDGET_TYPE_NAME === "Дүн") {
                                 return "";
                             }
-                            if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага") {
+                            if (data.DEPARTMENT_NAME === "Нэг. Төрийн аудитын байгууллага") {
                                 return "";
                             }
-                            if (data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+                            if (data.DEPARTMENT_NAME === "Хоёр. Хараат бус аудитын компани") {
                                 return "";
                             }
                             else {
@@ -158,6 +160,7 @@
                             
                         }
                     },
+                    
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "C1_COUNT", "name": "C1_COUNT" },
                     { "data": "C1_AMOUNT", "name": "C1_AMOUNT" },
@@ -195,81 +198,74 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language,
-                "createdRow": function (row, data, index) {
+                "createdRow": function (row, data, index) { 
                     if (data !== undefined) {
-                        if (data.BUDGET_TYPE_NAME === "НИЙТ ДҮН" ) {
+                        if (data.BUDGET_TYPE_NAME === "Дүн" || data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
-
+                                if (index === 2) {
+                                    $('td', row).eq(2).addClass('font-weight-bold');
 
                                 }
+                                if (index === 0) {
+                                    $('td', row).eq(0).addClass('font-weight-bold');
 
+                                }
                             });
                         }
-                        if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага" || data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+                        if (data.DEPARTMENT_NAME === "Нэг. Төрийн аудитын байгууллага" || data.DEPARTMENT_NAME === "Хоёр. Хараат бус аудитын компани" ) {
                             $(row).children('td').each((index, td) => {
-                                if (index === 1) {
-                                    $('td', row).eq(1).addClass('font-weight-bold');
+                                if (index === 0) {
+                                    $('td', row).eq(0).addClass('font-weight-bold');
                                 }
 
-                                if (index !== 25)
+                                if (index !== 26)
                                     $('td', row).eq(index).attr('id', "tableBorder");
                             });
                         }
                     }
                 },
-                // "drawCallback": function (settings) {
-                //    var api = this.api();
-                //    var rows = api.rows({ page: 'current' }).nodes();
+
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
 
 
-                //    // console.log('idx = ' + rows[0].cells.length);
+                   
+                  
 
+                    idx = 0
 
-                //    var idx = 0; // the first column is merged
-                //    var last = null;
-                //    var tr = null;
-                //    var ltd = null;
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
 
+                        if (last !== group) {
 
-                //    api.column(idx, { page: 'current' }).data().each(function (group, i) {
-                //        tr = $(rows[i]);
-                //        var td = $("td:eq(" + idx + ")", tr);
-                //        if (last !== group) {
-                //            td.attr("rowspan", 1);
-                //            //td.text(group);
-                //            ltd = td;
-                //            last = group;
-                //            td.css("vertical-align", "middle");
-                //        } else {
-                //            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
-                //            td.remove();
-                //        }
-                //    });
-                //   idx = 1//Slightly revised. According to the needs of the project, complete the merge of the first five rows of the first and second columns
-                //    last = null;
-                //    tr = null;
-                //    ltd = null;
-                //    api.column(idx, { page: 'current' }).data().each(function (group, i) {
-                //        tr = $(rows[i]);
-                //        var td = $("td:eq(" + idx + ")", tr);
-                //        if (last !== group) {
-                //            td.attr("rowspan", 1);
-                //            td.text(group);
-                //            ltd = td;
-                //            last = group;
-                //            td.css("vertical-align", "middle");
-                //            idx = 1;
-                //        } else {
-                //            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
-                //            td.remove();
-                //            if (parseInt(ltd.attr("rowspan")) === 5) {
-                //                idx = 1;//the second five lines
-                //            }
-                //        }
-                //    });
-                //},
+                            td.attr("rowspan", 1);
+
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
+                },
+            
             });
 
         }
