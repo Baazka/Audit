@@ -19,7 +19,7 @@
         
     }
     .tableBackround {
-        background-color: #80808069 !important;
+        background-color: #8080804a !important;
     }
     .text-center sorting_1 {
     }
@@ -200,13 +200,13 @@
                         }
                         if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани" || data.DECISION_TYPE === "Нийт дүн") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 0) {
-                                    $('td', row).eq(0).addClass('font-weight-bold');
+                                if (index === 2) {
+                                    $('td', row).eq(2).addClass('font-weight-bold');
                                 }
 
-                                if (index !== 29)
+                                if (index !== 29 && index !== 0)
                                     $('td', row).eq(index).attr('id', "tableBorder");
-                                if (index !== 30)
+                                if (index !== 30 && index !== 0)
                                     $('td', row).eq(index).addClass('tableBackround');
                             });
                         }
@@ -230,12 +230,7 @@
                         if (last !== group) {
                             
                             td.attr("rowspan", 1);
-                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нэг. Төрийн аудитын байгууллага" || group === "Нийт дүн") {
-                                td.text("");
-                            }
-                            else {
-                                td.text(group);
-                            }
+                            td.text(group);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
@@ -267,7 +262,7 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нийт дүн") {
+                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нийт дүн" || group === "Нэг. Төрийн аудитын байгууллага") {
                                 count = 0;
                             }
                             if (group === "ТӨЛБӨРИЙН АКТ" || group === "АЛБАН ШААРДЛАГА" || group === "ЗӨВЛӨМЖ") {
