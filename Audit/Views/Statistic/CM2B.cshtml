@@ -179,7 +179,6 @@
                             $(row).children('td').each((index, td) => {
                                 if (index === 3) {
                                     $('td', row).eq(3).addClass('font-weight-bold');
-
                                 }
                             });
                         }
@@ -203,12 +202,7 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нэг. Төрийн аудитын байгууллага" || group === "Нийт дүн") {
-                                td.text("");
-                            }
-                            else {
-                                td.text(group);
-                            }
+                            td.text(group);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
@@ -240,15 +234,7 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            if (group === "Хоёр. Хараат бус аудитын компани" || group === "Нийт дүн") {
-                                count = 0;
-                            }
-                            if (group === "ТӨЛБӨРИЙН АКТ" || group === "АЛБАН ШААРДЛАГА" || group === "ЗӨВЛӨМЖ") {
-                                td.text(count = count + 1);
-                            }
-                            else {
-                                td.text("");
-                            }
+                            td.text(count = count + 1);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
@@ -278,7 +264,6 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-
                             td.text(group);
                             ltd = td;
                             last = group;
