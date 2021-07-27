@@ -17,7 +17,12 @@
     #tableBorder {
         border-right-color: transparent !important;
     }
-
+    .tableBackround {
+        background-color: #8080804a !important;
+    }
+    .tableBackroundDun {
+        background-color: #17a2b81f !important;
+    }
     .text-center sorting_1 {
     }
 </style>
@@ -141,16 +146,19 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             if (data.BUDGET_TYPE_NAME === "Дүн") {
+                                count = 0;
                                 return "";
                             }
-                            if (data.DEPARTMENT_NAME === "Нэг. Төрийн аудитын байгууллага") {
+                            if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага") {
+                           
                                 return "";
                             }
-                            if (data.DEPARTMENT_NAME === "Хоёр. Хараат бус аудитын компани") {
+                            if (data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+                                
                                 return "";
                             }
                             else {
@@ -200,28 +208,37 @@
                 "language": datatables.language,
                 "createdRow": function (row, data, index) { 
                     if (data !== undefined) {
-                        if (data.BUDGET_TYPE_NAME === "Дүн" || data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                        if (data.BUDGET_TYPE_NAME === "Дүн" ) {
                             $(row).children('td').each((index, td) => {
-                                if (index === 2) {
+                                if (index === 2)
                                     $('td', row).eq(2).addClass('font-weight-bold');
 
-                                }
-                                if (index === 0) {
-                                    $('td', row).eq(0).addClass('font-weight-bold');
-
-                                }
+                                if (index !== 27 && index !== 0)
+                                    $('td', row).eq(index).addClass('tableBackroundDun');
                             });
                         }
-                        if (data.DEPARTMENT_NAME === "Нэг. Төрийн аудитын байгууллага" || data.DEPARTMENT_NAME === "Хоёр. Хараат бус аудитын компани" ) {
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 0) {
+                                if (index === 0)
                                     $('td', row).eq(0).addClass('font-weight-bold');
-                                }
 
-                                if (index !== 26)
-                                    $('td', row).eq(index).attr('id', "tableBorder");
+                                if (index !== 27)
+                                    $('td', row).eq(index).addClass('tableBackround');
                             });
                         }
+                        if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага" || data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 2)
+                                    $('td', row).eq(2).addClass('font-weight-bold');
+
+                                if (index !== 26 && index !== 0)
+                                    $('td', row).eq(index).attr('id', "tableBorder");
+                                if (index !== 27 && index !== 0)
+                                    $('td', row).eq(index).addClass('tableBackround');
+                               
+                            });
+                        }
+                      
                     }
                 },
 
@@ -230,6 +247,7 @@
                     var rows = api.rows({ page: 'current' }).nodes();
 
 
+        
                    
                   
 

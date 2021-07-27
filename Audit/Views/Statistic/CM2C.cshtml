@@ -12,6 +12,11 @@
     </a>
     <h4>СМ-2В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</h4>
 </div>
+<style>
+    .tableBackroundDun {
+        background-color: #17a2b81f !important;
+    }
+</style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -183,6 +188,8 @@
                                     $('td', row).eq(3).addClass('font-weight-bold');
 
                                 }
+                                if (index !== 30 && index !== 2)
+                                    $('td', row).eq(index).addClass('tableBackroundDun');
                             });
                         }
                     }

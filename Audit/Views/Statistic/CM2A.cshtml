@@ -21,6 +21,9 @@
     .tableBackround {
         background-color: #8080804a !important;
     }
+    .tableBackroundDun {
+        background-color: #17a2b81f !important;
+    }
     .text-center sorting_1 {
     }
 </style>
@@ -192,12 +195,13 @@
                     if (data !== undefined) {
                         if (data.BUDGET_TYPE_NAME === "Дүн") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 3) {
+                                if (index === 3) 
                                     $('td', row).eq(3).addClass('font-weight-bold');
-
-                                }
+                                if (index !== 30 && index !== 2)
+                                    $('td', row).eq(index).addClass('tableBackroundDun');
                             });
                         }
+
                         if (data.DECISION_TYPE === "Нэг. Төрийн аудитын байгууллага" || data.DECISION_TYPE === "Хоёр. Хараат бус аудитын компани" || data.DECISION_TYPE === "Нийт дүн") {
                             $(row).children('td').each((index, td) => {
                                 if (index === 2) {

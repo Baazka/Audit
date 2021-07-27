@@ -10029,497 +10029,358 @@ namespace Audit.Controllers
                         count10.SetValue(Niit, NUMBER10);
                         count11.SetValue(Niit, NUMBER11);
 
-                        depname.SetValue(Niit, "НИЙТ ДҮН");
+                        depname.SetValue(Niit, "Нийт дүн");
 
                         if (request.Type == 1)
                         {
 
-                            List<CM3> typeNeg = new List<CM3>();
-                            List<CM3> typeHoyor = new List<CM3>();
-
-                            List<CM3> temp = new List<CM3>();
-                            List<CM3> temp2 = new List<CM3>();
-
-                            typeNeg = body.FindAll(a => a.IS_STATE.Equals(1));
-                            typeHoyor = body.FindAll(a => a.IS_STATE.Equals(2));
-
-                            if (typeNeg.Count > 0)
-                            {
-                                CM3 DECNiit = new CM3();
-                                var DECdepname = typ.GetProperty("BUDGET_TYPE_NAME");
-                                var DEPdepname = typ.GetProperty("DEPARTMENT_NAME");
-                                
-
-                                var DECpay = typ.GetProperty("C1_AMOUNT");
-                                var DECpay1 = typ.GetProperty("CURRENT_AMOUNT");
-                                var DECpay2 = typ.GetProperty("TOTAL_AMOUNT");
-                                var DECpay3 = typ.GetProperty("COMPLETION_DONE_AMOUNT");
-                                var DECpay4 = typ.GetProperty("COMPLETION_PROGRESS_AMOUNT");
-                                var DECpay5 = typ.GetProperty("LAW_AMOUNT");
-                                var DECpay6 = typ.GetProperty("LAW_CURRENT_AMOUNT");
-                                var DECpay7 = typ.GetProperty("LAW_TOTAL_AMOUNT");
-                                var DECpay8 = typ.GetProperty("LAW_COMP_DONE_AMOUNT");
-                                var DECpay9 = typ.GetProperty("LAW_COMP_PROG_AMOUNT");
-                                var DECpay10 = typ.GetProperty("LAW_COMP_INVALID_AMOUNT");
-                                var DECpay11 = typ.GetProperty("C2_AMOUNT");
+                            List<CM3> UAG = new List<CM3>();
+                            List<CM3> UAG1 = new List<CM3>();
+                            List<CM3> UAG2 = new List<CM3>();
+                            CM3ListResponse UAGdata1 = new CM3ListResponse();
+                            CM3ListResponse UAGdata2 = new CM3ListResponse();
+                            UAG = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Үндэсний аудитын газар"));
+                            UAG1 = UAG.FindAll(a => a.IS_STATE.Equals(1));
+                            UAG2 = UAG.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UAG1.Count > 0)
+                                UAGdata1 = CM3TypesList(UAG1, 1);
+                            if (UAG2.Count > 0)
+                                UAGdata2 = CM3TypesList(UAG2, 2);
 
 
-                                var DECcount = typ.GetProperty("C1_COUNT");
-                                var DECcount1 = typ.GetProperty("CURRENT_COUNT");
-                                var DECcount2 = typ.GetProperty("TOTAL_COUNT");
-                                var DECcount3 = typ.GetProperty("COMPLETION_DONE_COUNT");
-                                var DECcount4 = typ.GetProperty("COMPLETION_PROGRESS_COUNT");
-                                var DECcount5 = typ.GetProperty("LAW_COUNT");
-                                var DECcount6 = typ.GetProperty("LAW_CURRENT_COUNT");
-                                var DECcount7 = typ.GetProperty("LAW_TOTAL_COUNT");
-                                var DECcount8 = typ.GetProperty("LAW_COMP_DONE_COUNT");
-                                var DECcount9 = typ.GetProperty("LAW_COMP_PROG_COUNT");
-                                var DECcount10 = typ.GetProperty("LAW_COMP_INVALID_COUNT");
-                                var DECcount11 = typ.GetProperty("C2_COUNT");
+                            List<CM3> NT = new List<CM3>();
+                            List<CM3> NT1 = new List<CM3>();
+                            List<CM3> NT2 = new List<CM3>();
+                            CM3ListResponse NTdata1 = new CM3ListResponse();
+                            CM3ListResponse NTdata2 = new CM3ListResponse();
+                            NT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Нийслэл дэх ТАГ"));
+                            NT1 = NT.FindAll(a => a.IS_STATE.Equals(1));
+                            NT2 = NT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (NT1.Count > 0)
+                                NTdata1 = CM3TypesList(NT1, 1);
+                            if (NT2.Count > 0)
+                                NTdata2 = CM3TypesList(NT2, 2);
 
+                            List<CM3> ART = new List<CM3>();
+                            List<CM3> ART1 = new List<CM3>();
+                            List<CM3> ART2 = new List<CM3>();
+                            CM3ListResponse ARTdata1 = new CM3ListResponse();
+                            CM3ListResponse ARTdata2 = new CM3ListResponse();
+                            ART = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Архангай аймаг дахь ТАГ"));
+                            ART1 = ART.FindAll(a => a.IS_STATE.Equals(1));
+                            ART2 = ART.FindAll(a => a.IS_STATE.Equals(2));
+                            if (ART1.Count > 0)
+                                ARTdata1 = CM3TypesList(ART1, 1);
+                            if (ART2.Count > 0)
+                                ARTdata2 = CM3TypesList(ART2, 2);
 
-                                decimal DECAMOUNT = 0;
-                                decimal DECAMOUNT1 = 0;
-                                decimal DECAMOUNT2 = 0;
-                                decimal DECAMOUNT3 = 0;
-                                decimal DECAMOUNT4 = 0;
-                                decimal DECAMOUNT5 = 0;
-                                decimal DECAMOUNT6 = 0;
-                                decimal DECAMOUNT7 = 0;
-                                decimal DECAMOUNT8 = 0;
-                                decimal DECAMOUNT9 = 0;
-                                decimal DECAMOUNT10 = 0;
-                                decimal DECAMOUNT11 = 0;
+                            List<CM3> BUT = new List<CM3>();
+                            List<CM3> BUT1 = new List<CM3>();
+                            List<CM3> BUT2 = new List<CM3>();
+                            CM3ListResponse BUTdata1 = new CM3ListResponse();
+                            CM3ListResponse BUTdata2 = new CM3ListResponse();
+                            BUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Баян-Өлгий аймаг дахь ТАГ"));
+                            BUT1 = BUT.FindAll(a => a.IS_STATE.Equals(1));
+                            BUT2 = BUT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (BUT1.Count > 0)
+                                BUTdata1 = CM3TypesList(BUT1, 1);
+                            if (BUT2.Count > 0)
+                                BUTdata2 = CM3TypesList(BUT2, 2);
 
-                                int DECNUMBER = 0;
-                                int DECNUMBER1 = 0;
-                                int DECNUMBER2 = 0;
-                                int DECNUMBER3 = 0;
-                                int DECNUMBER4 = 0;
-                                int DECNUMBER5 = 0;
-                                int DECNUMBER6 = 0;
-                                int DECNUMBER7 = 0;
-                                int DECNUMBER8 = 0;
-                                int DECNUMBER9 = 0;
-                                int DECNUMBER10 = 0;
-                                int DECNUMBER11 = 0;
+                            List<CM3> BHT = new List<CM3>();
+                            List<CM3> BHT1 = new List<CM3>();
+                            List<CM3> BHT2 = new List<CM3>();
+                            CM3ListResponse BHTdata1 = new CM3ListResponse();
+                            CM3ListResponse BHTdata2 = new CM3ListResponse();
+                            BHT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Баянхонгор аймаг дахь ТАГ"));
+                            BHT1 = BHT.FindAll(a => a.IS_STATE.Equals(1));
+                            BHT2 = BHT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (BHT1.Count > 0)
+                                BHTdata1 = CM3TypesList(BHT1, 1);
+                            if (BHT2.Count > 0)
+                                BHTdata2 = CM3TypesList(BHT2, 2);
 
-                                temp = new List<CM3>();
-                                title = new CM3();
-                                title.DEPARTMENT_NAME = "Нэг. Төрийн аудитын байгууллага";
-                                foreach (CM3 data in typeNeg)
-                                {
+                            List<CM3> BLT = new List<CM3>();
+                            List<CM3> BLT1 = new List<CM3>();
+                            List<CM3> BLT2 = new List<CM3>();
+                            CM3ListResponse BLTdata1 = new CM3ListResponse();
+                            CM3ListResponse BLTdata2 = new CM3ListResponse();
+                            BLT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Булган аймаг дахь ТАГ"));
+                            BLT1 = BLT.FindAll(a => a.IS_STATE.Equals(1));
+                            BLT2 = BLT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (BLT1.Count > 0)
+                                BLTdata1 = CM3TypesList(BLT1, 1);
+                            if (BLT2.Count > 0)
+                                BLTdata2 = CM3TypesList(BLT2, 2);
 
-                                    if (data.C1_AMOUNT != null)
-                                    {
-                                        string strNii = data.C1_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT += Amount;
+                            List<CM3> GAT = new List<CM3>();
+                            List<CM3> GAT1 = new List<CM3>();
+                            List<CM3> GAT2 = new List<CM3>();
+                            CM3ListResponse GATdata1 = new CM3ListResponse();
+                            CM3ListResponse GATdata2 = new CM3ListResponse();
+                            GAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Говь-Алтай аймаг дахь ТАГ"));
+                            GAT1 = GAT.FindAll(a => a.IS_STATE.Equals(1));
+                            GAT2 = GAT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (GAT1.Count > 0)
+                                GATdata1 = CM3TypesList(GAT1, 1);
+                            if (GAT2.Count > 0)
+                                GATdata2 = CM3TypesList(GAT2, 2);
 
-                                    }
-                                    if (data.CURRENT_AMOUNT != null)
-                                    {
-                                        string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT1 += Amount;
+                            List<CM3> GST = new List<CM3>();
+                            List<CM3> GST1 = new List<CM3>();
+                            List<CM3> GST2 = new List<CM3>();
+                            CM3ListResponse GSTdata1 = new CM3ListResponse();
+                            CM3ListResponse GSTdata2 = new CM3ListResponse();
+                            GST = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Говьсүмбэр аймаг дахь ТАГ"));
+                            GST1 = GST.FindAll(a => a.IS_STATE.Equals(1));
+                            GST2 = GST.FindAll(a => a.IS_STATE.Equals(2));
+                            if (GST1.Count > 0)
+                                GSTdata1 = CM3TypesList(GST1, 1);
+                            if (GST2.Count > 0)
+                                GSTdata2 = CM3TypesList(GST2, 2);
 
-                                    }
-                                    if (data.TOTAL_AMOUNT != null)
-                                    {
-                                        string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT2 += Amount;
+                            List<CM3> DAT = new List<CM3>();
+                            List<CM3> DAT1 = new List<CM3>();
+                            List<CM3> DAT2 = new List<CM3>();
+                            CM3ListResponse DATdata1 = new CM3ListResponse();
+                            CM3ListResponse DATdata2 = new CM3ListResponse();
+                            DAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дархан-Уул аймаг дахь ТАГ"));
+                            DAT1 = DAT.FindAll(a => a.IS_STATE.Equals(1));
+                            DAT2 = DAT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DAT1.Count > 0)
+                                DATdata1 = CM3TypesList(DAT1, 1);
+                            if (DAT2.Count > 0)
+                                DATdata2 = CM3TypesList(DAT2, 2);
 
-                                    }
-                                    if (data.COMPLETION_DONE_AMOUNT != null)
-                                    {
-                                        string strNii = data.COMPLETION_DONE_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT3 += Amount;
+                            List<CM3> DOT = new List<CM3>();
+                            List<CM3> DOT1 = new List<CM3>();
+                            List<CM3> DOT2 = new List<CM3>();
+                            CM3ListResponse DOTdata1 = new CM3ListResponse();
+                            CM3ListResponse DOTdata2 = new CM3ListResponse();
+                            DOT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дорноговь аймаг дахь ТАГ"));
+                            DOT1 = DOT.FindAll(a => a.IS_STATE.Equals(1));
+                            DOT2 = DOT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DOT1.Count > 0)
+                                DOTdata1 = CM3TypesList(DOT1, 1);
+                            if (DOT2.Count > 0)
+                                DOTdata2 = CM3TypesList(DOT2, 2);
 
-                                    }
-                                    if (data.COMPLETION_PROGRESS_AMOUNT != null)
-                                    {
-                                        string strNii = data.COMPLETION_PROGRESS_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT4 += Amount;
+                            List<CM3> DNT = new List<CM3>();
+                            List<CM3> DNT1 = new List<CM3>();
+                            List<CM3> DNT2 = new List<CM3>();
+                            CM3ListResponse DNTdata1 = new CM3ListResponse();
+                            CM3ListResponse DNTdata2 = new CM3ListResponse();
+                            DNT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дорнод аймаг дахь ТАГ"));
+                            DNT1 = DNT.FindAll(a => a.IS_STATE.Equals(1));
+                            DNT2 = DNT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DNT1.Count > 0)
+                                DNTdata1 = CM3TypesList(DNT1, 1);
+                            if (DNT2.Count > 0)
+                                DNTdata2 = CM3TypesList(DNT2, 2);
 
-                                    }
-                                    if (data.LAW_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT5 += Amount;
+                            List<CM3> DGT = new List<CM3>();
+                            List<CM3> DGT1 = new List<CM3>();
+                            List<CM3> DGT2 = new List<CM3>();
+                            CM3ListResponse DGTdata1 = new CM3ListResponse();
+                            CM3ListResponse DGTdata2 = new CM3ListResponse();
+                            DGT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дундговь аймаг дахь ТАГ"));
+                            DGT1 = DGT.FindAll(a => a.IS_STATE.Equals(1));
+                            DGT2 = DGT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DGT1.Count > 0)
+                                DGTdata1 = CM3TypesList(DGT1, 1);
+                            if (DGT2.Count > 0)
+                                DGTdata2 = CM3TypesList(DGT2, 2);
 
-                                    }
-                                    if (data.LAW_CURRENT_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_CURRENT_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT6 += Amount;
+                            List<CM3> ZAT = new List<CM3>();
+                            List<CM3> ZAT1 = new List<CM3>();
+                            List<CM3> ZAT2 = new List<CM3>();
+                            CM3ListResponse ZATdata1 = new CM3ListResponse();
+                            CM3ListResponse ZATdata2 = new CM3ListResponse();
+                            ZAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Завхан аймаг дахь ТАГ"));
+                            ZAT1 = ZAT.FindAll(a => a.IS_STATE.Equals(1));
+                            ZAT2 = ZAT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (ZAT1.Count > 0)
+                                ZATdata1 = CM3TypesList(ZAT1, 1);
+                            if (ZAT2.Count > 0)
+                                ZATdata2 = CM3TypesList(ZAT2, 2);
 
-                                    }
-                                    if (data.LAW_TOTAL_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_TOTAL_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT7 += Amount;
+                            List<CM3> ORT = new List<CM3>();
+                            List<CM3> ORT1 = new List<CM3>();
+                            List<CM3> ORT2 = new List<CM3>();
+                            CM3ListResponse ORTdata1 = new CM3ListResponse();
+                            CM3ListResponse ORTdata2 = new CM3ListResponse();
+                            ORT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Орхон аймаг дахь ТАГ"));
+                            ORT1 = ORT.FindAll(a => a.IS_STATE.Equals(1));
+                            ORT2 = ORT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (ORT1.Count > 0)
+                                ORTdata1 = CM3TypesList(ORT1, 1);
+                            if (ORT2.Count > 0)
+                                ORTdata2 = CM3TypesList(ORT2, 2);
 
-                                    }
-                                    if (data.LAW_COMP_DONE_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_COMP_DONE_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT8 += Amount;
+                            List<CM3> UVT = new List<CM3>();
+                            List<CM3> UVT1 = new List<CM3>();
+                            List<CM3> UVT2 = new List<CM3>();
+                            CM3ListResponse UVTdata1 = new CM3ListResponse();
+                            CM3ListResponse UVTdata2 = new CM3ListResponse();
+                            UVT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Өвөрхангай аймаг дахь ТАГ"));
+                            UVT1 = UVT.FindAll(a => a.IS_STATE.Equals(1));
+                            UVT2 = UVT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UVT1.Count > 0)
+                                UVTdata1 = CM3TypesList(UVT1, 1);
+                            if (UVT2.Count > 0)
+                                UVTdata2 = CM3TypesList(UVT2, 2);
+                            List<CM3> UMT = new List<CM3>();
+                            List<CM3> UMT1 = new List<CM3>();
+                            List<CM3> UMT2 = new List<CM3>();
+                            CM3ListResponse UMTdata1 = new CM3ListResponse();
+                            CM3ListResponse UMTdata2 = new CM3ListResponse();
+                            UMT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Өмнөговь аймаг дахь ТАГ"));
+                            UMT1 = UMT.FindAll(a => a.IS_STATE.Equals(1));
+                            UMT2 = UMT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UMT1.Count > 0)
+                                UMTdata1 = CM3TypesList(UMT1, 1);
+                            if (UMT2.Count > 0)
+                                UMTdata2 = CM3TypesList(UMT2, 2);
 
-                                    }
-                                    if (data.LAW_COMP_PROG_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_COMP_PROG_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT9 += Amount;
+                            List<CM3> SBT = new List<CM3>();
+                            List<CM3> SBT1 = new List<CM3>();
+                            List<CM3> SBT2 = new List<CM3>();
+                            CM3ListResponse SBTdata1 = new CM3ListResponse();
+                            CM3ListResponse SBTdata2 = new CM3ListResponse();
+                            SBT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Сүхбаатар аймаг дахь ТАГ"));
+                            SBT1 = SBT.FindAll(a => a.IS_STATE.Equals(1));
+                            SBT2 = SBT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (SBT1.Count > 0)
+                                SBTdata1 = CM3TypesList(SBT1, 1);
+                            if (SBT2.Count > 0)
+                                SBTdata2 = CM3TypesList(SBT2, 2);
 
-                                    }
-                                    if (data.LAW_COMP_INVALID_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_COMP_INVALID_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT10 += Amount;
+                            List<CM3> SET = new List<CM3>();
+                            List<CM3> SET1 = new List<CM3>();
+                            List<CM3> SET2 = new List<CM3>();
+                            CM3ListResponse SETdata1 = new CM3ListResponse();
+                            CM3ListResponse SETdata2 = new CM3ListResponse();
+                            SET = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Сэлэнгэ аймаг дахь ТАГ"));
+                            SET1 = SET.FindAll(a => a.IS_STATE.Equals(1));
+                            SET2 = SET.FindAll(a => a.IS_STATE.Equals(2));
+                            if (SET1.Count > 0)
+                                SETdata1 = CM3TypesList(SET1, 1);
+                            if (SET2.Count > 0)
+                                SETdata2 = CM3TypesList(SET2, 2);
 
-                                    }
-                                    if (data.C2_AMOUNT != null)
-                                    {
-                                        string strNii = data.C2_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DECAMOUNT11 += Amount;
+                            List<CM3> TUT = new List<CM3>();
+                            List<CM3> TUT1 = new List<CM3>();
+                            List<CM3> TUT2 = new List<CM3>();
+                            CM3ListResponse TUTdata1 = new CM3ListResponse();
+                            CM3ListResponse TUTdata2 = new CM3ListResponse();
+                            TUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Төв аймаг дахь ТАГ"));
+                            TUT1 = TUT.FindAll(a => a.IS_STATE.Equals(1));
+                            TUT2 = TUT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (TUT1.Count > 0)
+                                TUTdata1 = CM3TypesList(TUT1, 1);
+                            if (TUT2.Count > 0)
+                                TUTdata2 = CM3TypesList(TUT2, 2);
 
-                                    }
+                            List<CM3> UST = new List<CM3>();
+                            List<CM3> UST1 = new List<CM3>();
+                            List<CM3> UST2 = new List<CM3>();
+                            CM3ListResponse USTdata1 = new CM3ListResponse();
+                            CM3ListResponse USTdata2 = new CM3ListResponse();
+                            UST = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Увс аймаг дахь ТАГ"));
+                            UST1 = UST.FindAll(a => a.IS_STATE.Equals(1));
+                            UST2 = UST.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UST1.Count > 0)
+                                USTdata1 = CM3TypesList(UST1, 1);
+                            if (UST2.Count > 0)
+                                USTdata2 = CM3TypesList(UST2, 2);
 
-                                    if (data.C1_COUNT != 0)
-                                    {
-                                        DECNUMBER += Convert.ToInt32(data.C1_COUNT);
-                                    }
-                                    if (data.CURRENT_COUNT != 0)
-                                    {
-                                        DECNUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                                    }
-                                    if (data.TOTAL_COUNT != 0)
-                                    {
-                                        DECNUMBER2 += Convert.ToInt32(data.TOTAL_COUNT);
-                                    }
-                                    if (data.COMPLETION_DONE_COUNT != 0)
-                                    {
-                                        DECNUMBER3 += Convert.ToInt32(data.COMPLETION_DONE_COUNT);
-                                    }
-                                    if (data.COMPLETION_PROGRESS_COUNT != 0)
-                                    {
-                                        DECNUMBER4 += Convert.ToInt32(data.COMPLETION_PROGRESS_COUNT);
-                                    }
-                                    if (data.LAW_COUNT != 0)
-                                    {
-                                        DECNUMBER5 += Convert.ToInt32(data.LAW_COUNT);
-                                    }
-                                    if (data.LAW_CURRENT_COUNT != 0)
-                                    {
-                                        DECNUMBER6 += Convert.ToInt32(data.LAW_CURRENT_COUNT);
-                                    }
-                                    if (data.LAW_TOTAL_COUNT != 0)
-                                    {
-                                        DECNUMBER7 += Convert.ToInt32(data.LAW_TOTAL_COUNT);
-                                    }
-                                    if (data.LAW_COMP_DONE_COUNT != 0)
-                                    {
-                                        DECNUMBER8 += Convert.ToInt32(data.LAW_COMP_DONE_COUNT);
-                                    }
-                                    if (data.LAW_COMP_PROG_COUNT != 0)
-                                    {
-                                        DECNUMBER9 += Convert.ToInt32(data.LAW_COMP_PROG_COUNT);
-                                    }
-                                    if (data.LAW_COMP_INVALID_COUNT != 0)
-                                    {
-                                        DECNUMBER10 += Convert.ToInt32(data.LAW_COMP_INVALID_COUNT);
-                                    }
-                                    if (data.C2_COUNT != 0)
-                                    {
-                                        DECNUMBER11 += Convert.ToInt32(data.C2_COUNT);
-                                    }
-                                    //DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
-                                }
-                                DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.##"));
-                                DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.##"));
-                                DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.##"));
-                                DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.##"));
-                                DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.##"));
-                                DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.##"));
-                                DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.##"));
-                                DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.##"));
-                                DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.##"));
-                                DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.##"));
-                                DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.##"));
-                                DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.##"));
+                            List<CM3> HOT = new List<CM3>();
+                            List<CM3> HOT1 = new List<CM3>();
+                            List<CM3> HOT2 = new List<CM3>();
+                            CM3ListResponse HOTdata1 = new CM3ListResponse();
+                            CM3ListResponse HOTdata2 = new CM3ListResponse();
+                            HOT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Ховд аймаг дахь ТАГ"));
+                            HOT1 = HOT.FindAll(a => a.IS_STATE.Equals(1));
+                            HOT2 = HOT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (HOT1.Count > 0)
+                                HOTdata1 = CM3TypesList(HOT1, 1);
+                            if (HOT2.Count > 0)
+                                HOTdata2 = CM3TypesList(HOT2, 2);
 
-                                DECcount.SetValue(DECNiit, DECNUMBER);
-                                DECcount1.SetValue(DECNiit, DECNUMBER1);
-                                DECcount2.SetValue(DECNiit, DECNUMBER2);
-                                DECcount3.SetValue(DECNiit, DECNUMBER3);
-                                DECcount4.SetValue(DECNiit, DECNUMBER4);
-                                DECcount5.SetValue(DECNiit, DECNUMBER5);
-                                DECcount6.SetValue(DECNiit, DECNUMBER6);
-                                DECcount7.SetValue(DECNiit, DECNUMBER7);
-                                DECcount8.SetValue(DECNiit, DECNUMBER8);
-                                DECcount9.SetValue(DECNiit, DECNUMBER9);
-                                DECcount10.SetValue(DECNiit, DECNUMBER10);
-                                DECcount11.SetValue(DECNiit, DECNUMBER11);
+                            List<CM3> HUT = new List<CM3>();
+                            List<CM3> HUT1 = new List<CM3>();
+                            List<CM3> HUT2 = new List<CM3>();
+                            CM3ListResponse HUTdata1 = new CM3ListResponse();
+                            CM3ListResponse HUTdata2 = new CM3ListResponse();
+                            HUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Хөвсгөл аймаг дахь ТАГ"));
+                            HUT1 = HUT.FindAll(a => a.IS_STATE.Equals(1));
+                            HUT2 = HUT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (HUT1.Count > 0)
+                                HUTdata1 = CM3TypesList(HUT1, 1);
+                            if (HUT2.Count > 0)
+                                HUTdata2 = CM3TypesList(HUT2, 2);
 
-                                DECdepname.SetValue(DECNiit, "Дүн");
-
-                                temp.Add(title);
-                                temp.AddRange(typeNeg.OrderBy(m => m.DEPARTMENT_NAME));
-                                temp.Add(DECNiit);
-                                typeNeg = temp;
-                            }
-
-                            if (typeHoyor.Count > 0)
-                            {
-                                CM3 DEC2Niit = new CM3();
-                                var DEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                                var DEP22depname = typ.GetProperty("DEPARTMENT_NAME");
-
-                                var DEC2pay = typ.GetProperty("C1_AMOUNT");
-                                var DEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                                var DEC2pay2 = typ.GetProperty("TOTAL_AMOUNT");
-                                var DEC2pay3 = typ.GetProperty("COMPLETION_DONE_AMOUNT");
-                                var DEC2pay4 = typ.GetProperty("COMPLETION_PROGRESS_AMOUNT");
-                                var DEC2pay5 = typ.GetProperty("LAW_AMOUNT");
-                                var DEC2pay6 = typ.GetProperty("LAW_CURRENT_AMOUNT");
-                                var DEC2pay7 = typ.GetProperty("LAW_TOTAL_AMOUNT");
-                                var DEC2pay8 = typ.GetProperty("LAW_COMP_DONE_AMOUNT");
-                                var DEC2pay9 = typ.GetProperty("LAW_COMP_PROG_AMOUNT");
-                                var DEC2pay10 = typ.GetProperty("LAW_COMP_INVALID_AMOUNT");
-                                var DEC2pay11 = typ.GetProperty("C2_AMOUNT");
-
-
-                                var DEC2count = typ.GetProperty("C1_COUNT");
-                                var DEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                                var DEC2count2 = typ.GetProperty("TOTAL_COUNT");
-                                var DEC2count3 = typ.GetProperty("COMPLETION_DONE_COUNT");
-                                var DEC2count4 = typ.GetProperty("COMPLETION_PROGRESS_COUNT");
-                                var DEC2count5 = typ.GetProperty("LAW_COUNT");
-                                var DEC2count6 = typ.GetProperty("LAW_CURRENT_COUNT");
-                                var DEC2count7 = typ.GetProperty("LAW_TOTAL_COUNT");
-                                var DEC2count8 = typ.GetProperty("LAW_COMP_DONE_COUNT");
-                                var DEC2count9 = typ.GetProperty("LAW_COMP_PROG_COUNT");
-                                var DEC2count10 = typ.GetProperty("LAW_COMP_INVALID_COUNT");
-                                var DEC2count11 = typ.GetProperty("C2_COUNT");
-
-
-                                decimal DEC2AMOUNT = 0;
-                                decimal DEC2AMOUNT1 = 0;
-                                decimal DEC2AMOUNT2 = 0;
-                                decimal DEC2AMOUNT3 = 0;
-                                decimal DEC2AMOUNT4 = 0;
-                                decimal DEC2AMOUNT5 = 0;
-                                decimal DEC2AMOUNT6 = 0;
-                                decimal DEC2AMOUNT7 = 0;
-                                decimal DEC2AMOUNT8 = 0;
-                                decimal DEC2AMOUNT9 = 0;
-                                decimal DEC2AMOUNT10 = 0;
-                                decimal DEC2AMOUNT11 = 0;
-
-                                int DEC2NUMBER = 0;
-                                int DEC2NUMBER1 = 0;
-                                int DEC2NUMBER2 = 0;
-                                int DEC2NUMBER3 = 0;
-                                int DEC2NUMBER4 = 0;
-                                int DEC2NUMBER5 = 0;
-                                int DEC2NUMBER6 = 0;
-                                int DEC2NUMBER7 = 0;
-                                int DEC2NUMBER8 = 0;
-                                int DEC2NUMBER9 = 0;
-                                int DEC2NUMBER10 = 0;
-                                int DEC2NUMBER11 = 0;
-
-                                temp2 = new List<CM3>();
-                                title = new CM3();
-                                title.DEPARTMENT_NAME = "Хоёр. Хараат бус аудитын компани";
-                                foreach (CM3 data in typeHoyor)
-                                {
-
-                                    if (data.C1_AMOUNT != null)
-                                    {
-                                        string strNii = data.C1_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT += Amount;
-
-                                    }
-                                    if (data.CURRENT_AMOUNT != null)
-                                    {
-                                        string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT1 += Amount;
-
-                                    }
-                                    if (data.TOTAL_AMOUNT != null)
-                                    {
-                                        string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT2 += Amount;
-
-                                    }
-                                    if (data.COMPLETION_DONE_AMOUNT != null)
-                                    {
-                                        string strNii = data.COMPLETION_DONE_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT3 += Amount;
-
-                                    }
-                                    if (data.COMPLETION_PROGRESS_AMOUNT != null)
-                                    {
-                                        string strNii = data.COMPLETION_PROGRESS_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT4 += Amount;
-
-                                    }
-                                    if (data.LAW_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT5 += Amount;
-
-                                    }
-                                    if (data.LAW_CURRENT_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_CURRENT_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT6 += Amount;
-
-                                    }
-                                    if (data.LAW_TOTAL_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_TOTAL_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT7 += Amount;
-
-                                    }
-                                    if (data.LAW_COMP_DONE_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_COMP_DONE_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT8 += Amount;
-
-                                    }
-                                    if (data.LAW_COMP_PROG_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_COMP_PROG_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT9 += Amount;
-
-                                    }
-                                    if (data.LAW_COMP_INVALID_AMOUNT != null)
-                                    {
-                                        string strNii = data.LAW_COMP_INVALID_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT10 += Amount;
-
-                                    }
-                                    if (data.C2_AMOUNT != null)
-                                    {
-                                        string strNii = data.C2_AMOUNT.Replace(",", "");
-                                        Decimal Amount = Convert.ToDecimal(strNii);
-                                        DEC2AMOUNT11 += Amount;
-
-                                    }
-
-                                    if (data.C1_COUNT != 0)
-                                    {
-                                        DEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                                    }
-                                    if (data.CURRENT_COUNT != 0)
-                                    {
-                                        DEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                                    }
-                                    if (data.TOTAL_COUNT != 0)
-                                    {
-                                        DEC2NUMBER2 += Convert.ToInt32(data.TOTAL_COUNT);
-                                    }
-                                    if (data.COMPLETION_DONE_COUNT != 0)
-                                    {
-                                        DEC2NUMBER3 += Convert.ToInt32(data.COMPLETION_DONE_COUNT);
-                                    }
-                                    if (data.COMPLETION_PROGRESS_COUNT != 0)
-                                    {
-                                        DEC2NUMBER4 += Convert.ToInt32(data.COMPLETION_PROGRESS_COUNT);
-                                    }
-                                    if (data.LAW_COUNT != 0)
-                                    {
-                                        DEC2NUMBER5 += Convert.ToInt32(data.LAW_COUNT);
-                                    }
-                                    if (data.LAW_CURRENT_COUNT != 0)
-                                    {
-                                        DEC2NUMBER6 += Convert.ToInt32(data.LAW_CURRENT_COUNT);
-                                    }
-                                    if (data.LAW_TOTAL_COUNT != 0)
-                                    {
-                                        DEC2NUMBER7 += Convert.ToInt32(data.LAW_TOTAL_COUNT);
-                                    }
-                                    if (data.LAW_COMP_DONE_COUNT != 0)
-                                    {
-                                        DEC2NUMBER8 += Convert.ToInt32(data.LAW_COMP_DONE_COUNT);
-                                    }
-                                    if (data.LAW_COMP_PROG_COUNT != 0)
-                                    {
-                                        DEC2NUMBER9 += Convert.ToInt32(data.LAW_COMP_PROG_COUNT);
-                                    }
-                                    if (data.LAW_COMP_INVALID_COUNT != 0)
-                                    {
-                                        DEC2NUMBER10 += Convert.ToInt32(data.LAW_COMP_INVALID_COUNT);
-                                    }
-                                    if (data.C2_COUNT != 0)
-                                    {
-                                        DEC2NUMBER11 += Convert.ToInt32(data.C2_COUNT);
-                                    }
-                                    //DEP22depname.SetValue(DEC2Niit, data.DEPARTMENT_NAME);
-                                }
-                                DEC2pay.SetValue(DEC2Niit, DEC2AMOUNT.ToString("#,0.##"));
-                                DEC2pay1.SetValue(DEC2Niit, DEC2AMOUNT1.ToString("#,0.##"));
-                                DEC2pay2.SetValue(DEC2Niit, DEC2AMOUNT2.ToString("#,0.##"));
-                                DEC2pay3.SetValue(DEC2Niit, DEC2AMOUNT3.ToString("#,0.##"));
-                                DEC2pay4.SetValue(DEC2Niit, DEC2AMOUNT4.ToString("#,0.##"));
-                                DEC2pay5.SetValue(DEC2Niit, DEC2AMOUNT5.ToString("#,0.##"));
-                                DEC2pay6.SetValue(DEC2Niit, DEC2AMOUNT6.ToString("#,0.##"));
-                                DEC2pay7.SetValue(DEC2Niit, DEC2AMOUNT7.ToString("#,0.##"));
-                                DEC2pay8.SetValue(DEC2Niit, DEC2AMOUNT8.ToString("#,0.##"));
-                                DEC2pay9.SetValue(DEC2Niit, DEC2AMOUNT9.ToString("#,0.##"));
-                                DEC2pay10.SetValue(DEC2Niit, DEC2AMOUNT10.ToString("#,0.##"));
-                                DEC2pay11.SetValue(DEC2Niit, DEC2AMOUNT11.ToString("#,0.##"));
-
-                                DEC2count.SetValue(DEC2Niit, DEC2NUMBER);
-                                DEC2count1.SetValue(DEC2Niit, DEC2NUMBER1);
-                                DEC2count2.SetValue(DEC2Niit, DEC2NUMBER2);
-                                DEC2count3.SetValue(DEC2Niit, DEC2NUMBER3);
-                                DEC2count4.SetValue(DEC2Niit, DEC2NUMBER4);
-                                DEC2count5.SetValue(DEC2Niit, DEC2NUMBER5);
-                                DEC2count6.SetValue(DEC2Niit, DEC2NUMBER6);
-                                DEC2count7.SetValue(DEC2Niit, DEC2NUMBER7);
-                                DEC2count8.SetValue(DEC2Niit, DEC2NUMBER8);
-                                DEC2count9.SetValue(DEC2Niit, DEC2NUMBER9);
-                                DEC2count10.SetValue(DEC2Niit, DEC2NUMBER10);
-                                DEC2count11.SetValue(DEC2Niit, DEC2NUMBER11);
-
-                                DEC2depname.SetValue(DEC2Niit, "Дүн");
-
-                                temp2.Add(title);
-                                temp2.AddRange(typeHoyor.OrderBy(m => m.DEPARTMENT_NAME));
-                                temp2.Add(DEC2Niit);
-                                typeHoyor = temp2;
-
-                            }
-
+                            List<CM3> HET = new List<CM3>();
+                            List<CM3> HET1 = new List<CM3>();
+                            List<CM3> HET2 = new List<CM3>();
+                            CM3ListResponse HETdata1 = new CM3ListResponse();
+                            CM3ListResponse HETdata2 = new CM3ListResponse();
+                            HET = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Хэнтий аймаг дахь ТАГ"));
+                            HET1 = HET.FindAll(a => a.IS_STATE.Equals(1));
+                            HET2 = HET.FindAll(a => a.IS_STATE.Equals(2));
+                            if (HET1.Count > 0)
+                                HETdata1 = CM3TypesList(HET1, 1);
+                            if (HET2.Count > 0)
+                                HETdata2 = CM3TypesList(HET2, 2);
 
 
                             List<CM3> types = new List<CM3>();
-                            types.AddRange(typeNeg);
-                            types.AddRange(typeHoyor);
+                            types.AddRange(UAGdata1.data);
+                            types.AddRange(UAGdata2.data);
+                            types.AddRange(NTdata1.data);
+                            types.AddRange(NTdata2.data);
+                            types.AddRange(ARTdata1.data);
+                            types.AddRange(ARTdata2.data);
+                            types.AddRange(BUTdata1.data);
+                            types.AddRange(BUTdata2.data);
+                            types.AddRange(BHTdata1.data);
+                            types.AddRange(BHTdata2.data);
+                            types.AddRange(BLTdata1.data);
+                            types.AddRange(BLTdata2.data);
+                            types.AddRange(GATdata1.data);
+                            types.AddRange(GATdata2.data);
+                            types.AddRange(GSTdata1.data);
+                            types.AddRange(GSTdata2.data);
+                            types.AddRange(DATdata1.data);
+                            types.AddRange(DATdata2.data);
+                            types.AddRange(DOTdata1.data);
+                            types.AddRange(DOTdata2.data);
+                            types.AddRange(DNTdata1.data);
+                            types.AddRange(DNTdata2.data);
+                            types.AddRange(DGTdata1.data);
+                            types.AddRange(DGTdata2.data);
+                            types.AddRange(ZATdata1.data);
+                            types.AddRange(ZATdata2.data);
+                            types.AddRange(ORTdata1.data);
+                            types.AddRange(ORTdata2.data);
+                            types.AddRange(UVTdata1.data);
+                            types.AddRange(UVTdata2.data);
+                            types.AddRange(UMTdata1.data);
+                            types.AddRange(UMTdata2.data);
+                            types.AddRange(SBTdata1.data);
+                            types.AddRange(SBTdata2.data);
+                            types.AddRange(SETdata1.data);
+                            types.AddRange(SETdata2.data);
+                            types.AddRange(TUTdata1.data);
+                            types.AddRange(TUTdata2.data);
+                            types.AddRange(USTdata1.data);
+                            types.AddRange(USTdata2.data);
+                            types.AddRange(HOTdata1.data);
+                            types.AddRange(HOTdata2.data);
+                            types.AddRange(HUTdata1.data);
+                            types.AddRange(HUTdata2.data);
+                            types.AddRange(HETdata1.data);
+                            types.AddRange(HETdata2.data);
 
 
 
@@ -10554,7 +10415,266 @@ namespace Audit.Controllers
             }
             return response;
         }
-      
+        public CM3ListResponse CM3TypesList(List<CM3> request, int dataType)
+        {
+            CM3ListResponse response = new CM3ListResponse();
+            var typ = typeof(CM3);
+            List<CM3> requestData = new List<CM3>();
+            requestData = request;
+
+            if (requestData.Count > 0)
+            {
+
+                List<CM3> temp = new List<CM3>();
+
+                CM3 title = new CM3();
+
+
+                if (dataType == 1)
+                    title.BUDGET_TYPE_NAME = "Нэг. Төрийн аудитын байгууллага";
+                if (dataType == 2)
+                    title.BUDGET_TYPE_NAME = "Хоёр. Хараат бус аудитын компани";
+
+                title.DEPARTMENT_NAME = requestData.FirstOrDefault().DEPARTMENT_NAME;
+               
+                    CM3 DECNiit = new CM3();
+                    var DECdepname = typ.GetProperty("BUDGET_TYPE_NAME");
+                    var DEPdepname = typ.GetProperty("DEPARTMENT_NAME");
+
+
+                    var DECpay = typ.GetProperty("C1_AMOUNT");
+                    var DECpay1 = typ.GetProperty("CURRENT_AMOUNT");
+                    var DECpay2 = typ.GetProperty("TOTAL_AMOUNT");
+                    var DECpay3 = typ.GetProperty("COMPLETION_DONE_AMOUNT");
+                    var DECpay4 = typ.GetProperty("COMPLETION_PROGRESS_AMOUNT");
+                    var DECpay5 = typ.GetProperty("LAW_AMOUNT");
+                    var DECpay6 = typ.GetProperty("LAW_CURRENT_AMOUNT");
+                    var DECpay7 = typ.GetProperty("LAW_TOTAL_AMOUNT");
+                    var DECpay8 = typ.GetProperty("LAW_COMP_DONE_AMOUNT");
+                    var DECpay9 = typ.GetProperty("LAW_COMP_PROG_AMOUNT");
+                    var DECpay10 = typ.GetProperty("LAW_COMP_INVALID_AMOUNT");
+                    var DECpay11 = typ.GetProperty("C2_AMOUNT");
+
+
+                    var DECcount = typ.GetProperty("C1_COUNT");
+                    var DECcount1 = typ.GetProperty("CURRENT_COUNT");
+                    var DECcount2 = typ.GetProperty("TOTAL_COUNT");
+                    var DECcount3 = typ.GetProperty("COMPLETION_DONE_COUNT");
+                    var DECcount4 = typ.GetProperty("COMPLETION_PROGRESS_COUNT");
+                    var DECcount5 = typ.GetProperty("LAW_COUNT");
+                    var DECcount6 = typ.GetProperty("LAW_CURRENT_COUNT");
+                    var DECcount7 = typ.GetProperty("LAW_TOTAL_COUNT");
+                    var DECcount8 = typ.GetProperty("LAW_COMP_DONE_COUNT");
+                    var DECcount9 = typ.GetProperty("LAW_COMP_PROG_COUNT");
+                    var DECcount10 = typ.GetProperty("LAW_COMP_INVALID_COUNT");
+                    var DECcount11 = typ.GetProperty("C2_COUNT");
+
+
+                    decimal DECAMOUNT = 0;
+                    decimal DECAMOUNT1 = 0;
+                    decimal DECAMOUNT2 = 0;
+                    decimal DECAMOUNT3 = 0;
+                    decimal DECAMOUNT4 = 0;
+                    decimal DECAMOUNT5 = 0;
+                    decimal DECAMOUNT6 = 0;
+                    decimal DECAMOUNT7 = 0;
+                    decimal DECAMOUNT8 = 0;
+                    decimal DECAMOUNT9 = 0;
+                    decimal DECAMOUNT10 = 0;
+                    decimal DECAMOUNT11 = 0;
+
+                    int DECNUMBER = 0;
+                    int DECNUMBER1 = 0;
+                    int DECNUMBER2 = 0;
+                    int DECNUMBER3 = 0;
+                    int DECNUMBER4 = 0;
+                    int DECNUMBER5 = 0;
+                    int DECNUMBER6 = 0;
+                    int DECNUMBER7 = 0;
+                    int DECNUMBER8 = 0;
+                    int DECNUMBER9 = 0;
+                    int DECNUMBER10 = 0;
+                    int DECNUMBER11 = 0;
+
+                    foreach (CM3 data in requestData)
+                    {
+
+                        if (data.C1_AMOUNT != null)
+                        {
+                            string strNii = data.C1_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT += Amount;
+
+                        }
+                        if (data.CURRENT_AMOUNT != null)
+                        {
+                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT1 += Amount;
+
+                        }
+                        if (data.TOTAL_AMOUNT != null)
+                        {
+                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT2 += Amount;
+
+                        }
+                        if (data.COMPLETION_DONE_AMOUNT != null)
+                        {
+                            string strNii = data.COMPLETION_DONE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT3 += Amount;
+
+                        }
+                        if (data.COMPLETION_PROGRESS_AMOUNT != null)
+                        {
+                            string strNii = data.COMPLETION_PROGRESS_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT4 += Amount;
+
+                        }
+                        if (data.LAW_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT5 += Amount;
+
+                        }
+                        if (data.LAW_CURRENT_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_CURRENT_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT6 += Amount;
+
+                        }
+                        if (data.LAW_TOTAL_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_TOTAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT7 += Amount;
+
+                        }
+                        if (data.LAW_COMP_DONE_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_COMP_DONE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT8 += Amount;
+
+                        }
+                        if (data.LAW_COMP_PROG_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_COMP_PROG_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT9 += Amount;
+
+                        }
+                        if (data.LAW_COMP_INVALID_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_COMP_INVALID_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT10 += Amount;
+
+                        }
+                        if (data.C2_AMOUNT != null)
+                        {
+                            string strNii = data.C2_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            DECAMOUNT11 += Amount;
+
+                        }
+
+                        if (data.C1_COUNT != 0)
+                        {
+                            DECNUMBER += Convert.ToInt32(data.C1_COUNT);
+                        }
+                        if (data.CURRENT_COUNT != 0)
+                        {
+                            DECNUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+                        }
+                        if (data.TOTAL_COUNT != 0)
+                        {
+                            DECNUMBER2 += Convert.ToInt32(data.TOTAL_COUNT);
+                        }
+                        if (data.COMPLETION_DONE_COUNT != 0)
+                        {
+                            DECNUMBER3 += Convert.ToInt32(data.COMPLETION_DONE_COUNT);
+                        }
+                        if (data.COMPLETION_PROGRESS_COUNT != 0)
+                        {
+                            DECNUMBER4 += Convert.ToInt32(data.COMPLETION_PROGRESS_COUNT);
+                        }
+                        if (data.LAW_COUNT != 0)
+                        {
+                            DECNUMBER5 += Convert.ToInt32(data.LAW_COUNT);
+                        }
+                        if (data.LAW_CURRENT_COUNT != 0)
+                        {
+                            DECNUMBER6 += Convert.ToInt32(data.LAW_CURRENT_COUNT);
+                        }
+                        if (data.LAW_TOTAL_COUNT != 0)
+                        {
+                            DECNUMBER7 += Convert.ToInt32(data.LAW_TOTAL_COUNT);
+                        }
+                        if (data.LAW_COMP_DONE_COUNT != 0)
+                        {
+                            DECNUMBER8 += Convert.ToInt32(data.LAW_COMP_DONE_COUNT);
+                        }
+                        if (data.LAW_COMP_PROG_COUNT != 0)
+                        {
+                            DECNUMBER9 += Convert.ToInt32(data.LAW_COMP_PROG_COUNT);
+                        }
+                        if (data.LAW_COMP_INVALID_COUNT != 0)
+                        {
+                            DECNUMBER10 += Convert.ToInt32(data.LAW_COMP_INVALID_COUNT);
+                        }
+                        if (data.C2_COUNT != 0)
+                        {
+                            DECNUMBER11 += Convert.ToInt32(data.C2_COUNT);
+                        }
+                        DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
+                    }
+                    DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.##"));
+                    DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.##"));
+                    DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.##"));
+                    DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.##"));
+                    DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.##"));
+                    DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.##"));
+                    DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.##"));
+                    DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.##"));
+                    DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.##"));
+                    DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.##"));
+                    DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.##"));
+                    DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.##"));
+
+                    DECcount.SetValue(DECNiit, DECNUMBER);
+                    DECcount1.SetValue(DECNiit, DECNUMBER1);
+                    DECcount2.SetValue(DECNiit, DECNUMBER2);
+                    DECcount3.SetValue(DECNiit, DECNUMBER3);
+                    DECcount4.SetValue(DECNiit, DECNUMBER4);
+                    DECcount5.SetValue(DECNiit, DECNUMBER5);
+                    DECcount6.SetValue(DECNiit, DECNUMBER6);
+                    DECcount7.SetValue(DECNiit, DECNUMBER7);
+                    DECcount8.SetValue(DECNiit, DECNUMBER8);
+                    DECcount9.SetValue(DECNiit, DECNUMBER9);
+                    DECcount10.SetValue(DECNiit, DECNUMBER10);
+                    DECcount11.SetValue(DECNiit, DECNUMBER11);
+
+                    DECdepname.SetValue(DECNiit, "Дүн");
+
+                if (dataType != 0)
+                    temp.Add(title);
+
+                temp.AddRange(requestData.OrderBy(m => m.DEPARTMENT_NAME));
+                temp.Add(DECNiit);
+                requestData = temp;
+
+              
+            }
+
+            response.data = requestData;
+            return response;
+        }
         [HttpPost]
         public CM4ListResponse CM4List(CM4ListRequest request)
         {

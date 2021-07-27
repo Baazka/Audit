@@ -13,6 +13,11 @@
     </a>
     <h4>СМ-3В. Нийцлийн аудитаар илрүүлсэн алдаа, зөрчлийн хэрэгжилт</h4>
 </div>
+<style>
+    .tableBackround {
+        background-color: #8080804a !important;
+    }
+</style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -129,7 +134,7 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -176,14 +181,17 @@
                 "language": datatables.language,
                 "createdRow": function (row, data, index) {
                     if (data !== undefined) {
-                        if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
                             $(row).children('td').each((index, td) => {
-                                if (index === 0) {
+                                if (index === 0)
                                     $('td', row).eq(0).addClass('font-weight-bold');
 
+                                $(row).children('td').each((index, td) => {
 
-                                }
+                                    if (index !== 27)
+                                        $('td', row).eq(index).addClass('tableBackround');
 
+                                });
                             });
                         }
                     }
