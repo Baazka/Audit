@@ -181,7 +181,6 @@
                 "createdRow": function (row, data, index) {
                     if (data !== undefined) {
                         if (data.BUDGET_TYPE_NAME === "Дүн") {
-                            count = 0;
                             $(row).children('td').each((index, td) => {
                                 if (index === 3) {
                                     $('td', row).eq(3).addClass('font-weight-bold');
@@ -255,7 +254,7 @@
                             if (parseInt(ltd.attr("rowspan")) === 5) {
                                 idx1 = 1;
                             }
-
+                              
                         }
 
                     });
