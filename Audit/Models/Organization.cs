@@ -532,6 +532,7 @@ namespace Audit.Models
         public int ORG_ID { get;set; }
         public string TEZ_NAME { get; set; }
         public string ENT_NAME { get; set; }
+        public string ORG_REGISTER_NO { get; set; }
         public string BUDGET_SHORT_NAME { get; set; }
         public string BUDGET_LEVEL_NAME { get; set; }
         public string DEPARTMENT_NAME { get; set; }
@@ -551,6 +552,8 @@ namespace Audit.Models
                 TEZ_NAME = elem.Element("TEZ_NAME").Value;
             if (elem.Element("ENT_NAME") != null)
                 ENT_NAME = elem.Element("ENT_NAME").Value;
+            if (elem.Element("ORG_REGISTER_NO") != null)
+                ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
             if (elem.Element("BUDGET_SHORT_NAME") != null)
                 BUDGET_SHORT_NAME = elem.Element("BUDGET_SHORT_NAME").Value;
             if (elem.Element("BUDGET_LEVEL_NAME") != null)

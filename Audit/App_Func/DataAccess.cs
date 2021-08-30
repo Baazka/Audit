@@ -403,12 +403,13 @@ namespace Audit.App_Func
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
 
-                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME , RBT.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME, RD.DEPARTMENT_NAME, AE.ENT_VIOLATION, AE.ENT_INFO " +
+                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME ,AO.ORG_REGISTER_NO ,RBT.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME, RD.DEPARTMENT_NAME, AE.ENT_VIOLATION, AE.ENT_INFO " +
                                 "FROM AUD_ORG.AUDIT_ENTITY AE " +
                                 "INNER JOIN AUD_ORG.AUDIT_ENTITY AE_PARENT ON AE.ENT_TEZ = AE_PARENT.ENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON AE.ENT_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON AE.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
+                                "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
                                 "WHERE (:V_DEPARTMENT IS NULL OR AE.ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                 "AND (:V_PARENT_BUDGET_ID IS NULL OR AE.ENT_TEZ = :V_PARENT_BUDGET_ID) " +
                                 "AND (:V_BUDGET_TYPE IS NULL OR AE.ENT_BUDGET_TYPE = :V_BUDGET_TYPE) " +
@@ -417,7 +418,7 @@ namespace Audit.App_Func
                                 //"AND (:V_VIOLATION IS NULL OR (R1.VIOLATION_DETAIL LIKE '%'||:V_VIOLATION||'%')) " +
                                 "AND (:V_SEARCH IS NULL OR UPPER(AE.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 "OR UPPER(RBT.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RBL.BUDGET_LEVEL_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                "OR UPPER(RD.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AE_PARENT.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
+                                "OR UPPER(RD.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AE_PARENT.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AO.ORG_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
                                 //"OR UPPER(R1.VIOLATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(R1.INFORMATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 //"OR UPPER(RS.STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
                                 "ORDER BY " +
