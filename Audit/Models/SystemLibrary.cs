@@ -104,6 +104,20 @@ namespace Audit.Models
         }
     }
 
+    public class OrgLegalStatus
+    {
+        public int LEGAL_STATUS_ID { get; set; }
+        public string LEGAL_STATUS_NAME { get; set; }
+        public OrgLegalStatus FromXml(XElement elem)
+        {
+            if (elem.Element("LEGAL_STATUS_ID") != null)
+                LEGAL_STATUS_ID = Convert.ToInt32(elem.Element("LEGAL_STATUS_ID").Value);
+            if (elem.Element("LEGAL_STATUS_NAME") != null)
+                LEGAL_STATUS_NAME = elem.Element("LEGAL_STATUS_NAME").Value;
+            return this;
+        }
+    }
+
     public class PropertyType
     {
         public int PROPERTY_TYPE_ID { get; set; }
@@ -132,19 +146,6 @@ namespace Audit.Models
         }
     }
 
-    public class BudgetLevel
-    {
-        public int BUDGET_LEVEL_ID { get; set; }
-        public string BUDGET_LEVEL_NAME { get; set; }
-        public BudgetLevel FromXml(XElement elem)
-        {
-            if (elem.Element("BUDGET_LEVEL_ID") != null)
-                BUDGET_LEVEL_ID = Convert.ToInt32(elem.Element("BUDGET_LEVEL_ID").Value);
-            if (elem.Element("BUDGET_LEVEL_NAME") != null)
-                BUDGET_LEVEL_NAME = elem.Element("BUDGET_LEVEL_NAME").Value;
-            return this;
-        }
-    }
     public class BudgetType
     {
         public int BUDGET_TYPE_ID { get; set; }
@@ -158,6 +159,21 @@ namespace Audit.Models
             return this;
         }
     }
+
+    public class BudgetLevel
+    {
+        public int BUDGET_LEVEL_ID { get; set; }
+        public string BUDGET_LEVEL_NAME { get; set; }
+        public BudgetLevel FromXml(XElement elem)
+        {
+            if (elem.Element("BUDGET_LEVEL_ID") != null)
+                BUDGET_LEVEL_ID = Convert.ToInt32(elem.Element("BUDGET_LEVEL_ID").Value);
+            if (elem.Element("BUDGET_LEVEL_NAME") != null)
+                BUDGET_LEVEL_NAME = elem.Element("BUDGET_LEVEL_NAME").Value;
+            return this;
+        }
+    }
+
     public class SubBudgetType
     {
         public int BUDGET_TYPE_ID { get; set; }

@@ -11,6 +11,15 @@ namespace Audit.Models
     public class Organization
     {
         public int ORG_ID { get; set; }
+        public string TEZ_NAME { get; set; }
+        public string ENT_NAME { get; set; }
+        public string ORG_REGISTER_NO { get; set; }
+        public string ENT_BUDGET_TYPE { get; set; }
+        public string ENT_BUDGET_LEVEL { get; set; }
+        public string ORG_LEGAL_STATUS { get; set; }
+        public string ORG_PROPERTY_TYPE { get; set; }
+        public string ENT_DEPARTMENT_ID { get; set; }
+
         public bool IsShow { get; set; } = false;
         public int ORGB_ID { get; set; }
         public int ORGB_ID2 { get; set; }
@@ -24,8 +33,8 @@ namespace Audit.Models
         [Required(ErrorMessage = "Регистрийн дугаар оруулна уу.")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Тоон утга оруулна уу.")]
         [StringLength(int.MaxValue, MinimumLength = 7, ErrorMessage = "7 оронтой байна.")]
-        public string ORG_REGISTER_NO { get; set; }
-        [Required(ErrorMessage = "УБ-ийн дугаар оруулна уу.")]
+        //public string ORG_REGISTER_NO { get; set; }
+        //[Required(ErrorMessage = "УБ-ийн дугаар оруулна уу.")]
         public string ORG_REGISTER_NUMBER { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? ORG_REG_DATE { get; set; }
@@ -134,8 +143,11 @@ namespace Audit.Models
 
         public List<ActivityLib> activities { get; set; } = new List<ActivityLib>();
         public List<BudgetType> budgetTypes { get; set; } = new List<BudgetType>();
+        public List<BudgetLevel> budgetLevels { get; set; } = new List<BudgetLevel>();
+        public List<OrgLegalStatus> OrgLegalStatuses { get; set; } = new List<OrgLegalStatus>();
         public List<SubBudgetType> subBudgetTypes { get; set; } = new List<SubBudgetType>();
         public List<Department> departments { get; set; } = new List<Department>();
+        public List<PropertyType> propertyTypes { get; set; } = new List<PropertyType>();
         public List<Committee> committees { get; set; } = new List<Committee>();
         public List<TaxOffice> taxOffices { get; set; } = new List<TaxOffice>();
         public List<CostType> costTypes { get; set; } = new List<CostType>();
@@ -162,177 +174,193 @@ namespace Audit.Models
         {
             if (elem.Element("ORG_ID") != null)
                 ORG_ID = Convert.ToInt32(elem.Element("ORG_ID").Value);
-            if (elem.Element("ORGB_ID") != null)
-                ORGB_ID = Convert.ToInt32(elem.Element("ORGB_ID").Value);
-            if (elem.Element("ORGB_ID2") != null)
-                ORGB_ID2 = Convert.ToInt32(elem.Element("ORGB_ID2").Value);
-            if (elem.Element("ORGP_ID") != null)
-                ORGP_ID = Convert.ToInt32(elem.Element("ORGP_ID").Value);
-            if (elem.Element("ORGP_ID2") != null)
-                ORGP_ID2 = Convert.ToInt32(elem.Element("ORGP_ID2").Value);
-            if (elem.Element("ORG_DEPARTMENT_ID") != null)
-                ORG_DEPARTMENT_ID = Convert.ToInt32(elem.Element("ORG_DEPARTMENT_ID").Value);
-            if (elem.Element("ORG_CODE") != null)
-                ORG_CODE = elem.Element("ORG_CODE").Value;
-            if (elem.Element("ORG_NAME") != null)
-                ORG_NAME = elem.Element("ORG_NAME").Value;
+            if (elem.Element("TEZ_NAME") != null)
+                TEZ_NAME = elem.Element("TEZ_NAME").Value;
+            if (elem.Element("ENT_NAME") != null)
+                ENT_NAME = elem.Element("ENT_NAME").Value;
             if (elem.Element("ORG_REGISTER_NO") != null)
                 ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
-            if (elem.Element("ORG_REGISTER_NUMBER") != null)
-                ORG_REGISTER_NUMBER = elem.Element("ORG_REGISTER_NUMBER").Value;
-            if (elem.Element("ORG_CONCENTRATOR_NAME") != null)
-                ORG_CONCENTRATOR_NAME = elem.Element("ORG_CONCENTRATOR_NAME").Value;
-            if (elem.Element("BUDGET_TYPE_NAME") != null)
-                BUDGET_TYPE_NAME = elem.Element("BUDGET_TYPE_NAME").Value;
-            if (elem.Element("ORG_REG_DATE") != null)
-                ORG_REG_DATE = Convert.ToDateTime(elem.Element("ORG_REG_DATE").Value);
-            if (elem.Element("ORG_OFFICE_ID") != null)
-                ORG_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_OFFICE_ID").Value);
-            if (elem.Element("ORG_SUB_OFFICE_ID") != null)
-                ORG_SUB_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_SUB_OFFICE_ID").Value);
-            if (elem.Element("ORG_ADDRESS") != null)
-                ORG_ADDRESS = elem.Element("ORG_ADDRESS").Value;
-            if (elem.Element("ORG_WEBSITE") != null)
-                ORG_WEBSITE = elem.Element("ORG_WEBSITE").Value;
-            if (elem.Element("ORG_EMAIL") != null)
-                ORG_EMAIL = elem.Element("ORG_EMAIL").Value;
-            if (elem.Element("ORG_PHONE") != null)
-                ORG_PHONE = elem.Element("ORG_PHONE").Value;
-            if (elem.Element("ORG_FAX") != null)
-                ORG_FAX = elem.Element("ORG_FAX").Value;
-            //bank
-            if (elem.Element("ORGB_BANK_ID") != null)
-                ORGB_BANK_ID = Convert.ToInt32(elem.Element("ORGB_BANK_ID").Value);
-            if (elem.Element("ORGB_BANK_ACCOUNT") != null)
-                ORGB_BANK_ACCOUNT = elem.Element("ORGB_BANK_ACCOUNT").Value;
-            if (elem.Element("ORGB_DESCRIPTION") != null)
-                ORGB_DESCRIPTION = elem.Element("ORGB_DESCRIPTION").Value;
-            if (elem.Element("ORGB_BANK_ID2") != null)
-                ORGB_BANK_ID2 = Convert.ToInt32(elem.Element("ORGB_BANK_ID2").Value);
-            if (elem.Element("ORGB_BANK_ACCOUNT2") != null)
-                ORGB_BANK_ACCOUNT2 = elem.Element("ORGB_BANK_ACCOUNT2").Value;
-            if (elem.Element("ORGB_DESCRIPTION2") != null)
-                ORGB_DESCRIPTION2 = elem.Element("ORGB_DESCRIPTION2").Value;
+            if (elem.Element("ENT_BUDGET_TYPE") != null)
+                ENT_BUDGET_TYPE = elem.Element("ENT_BUDGET_TYPE").Value;
+            if (elem.Element("ENT_BUDGET_LEVEL") != null)
+                ENT_BUDGET_LEVEL = elem.Element("ENT_BUDGET_LEVEL").Value;
+            if (elem.Element("ORG_LEGAL_STATUS") != null)
+                ORG_LEGAL_STATUS = elem.Element("ORG_LEGAL_STATUS").Value;
+            if (elem.Element("ORG_PROPERTY_TYPE") != null)
+                ORG_PROPERTY_TYPE = elem.Element("ORG_PROPERTY_TYPE").Value;
+            if (elem.Element("ENT_DEPARTMENT_ID") != null)
+                ENT_DEPARTMENT_ID = elem.Element("ENT_DEPARTMENT_ID").Value;
+            //if (elem.Element("ORGB_ID") != null)
+            //    ORGB_ID = Convert.ToInt32(elem.Element("ORGB_ID").Value);
+            //if (elem.Element("ORGB_ID2") != null)
+            //    ORGB_ID2 = Convert.ToInt32(elem.Element("ORGB_ID2").Value);
+            //if (elem.Element("ORGP_ID") != null)
+            //    ORGP_ID = Convert.ToInt32(elem.Element("ORGP_ID").Value);
+            //if (elem.Element("ORGP_ID2") != null)
+            //    ORGP_ID2 = Convert.ToInt32(elem.Element("ORGP_ID2").Value);
+            //if (elem.Element("ORG_DEPARTMENT_ID") != null)
+            //    ORG_DEPARTMENT_ID = Convert.ToInt32(elem.Element("ORG_DEPARTMENT_ID").Value);
+            //if (elem.Element("ORG_CODE") != null)
+            //    ORG_CODE = elem.Element("ORG_CODE").Value;
+            //if (elem.Element("ORG_NAME") != null)
+            //    ORG_NAME = elem.Element("ORG_NAME").Value;
+            //if (elem.Element("ORG_REGISTER_NO") != null)
+            //    ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
+            //if (elem.Element("ORG_REGISTER_NUMBER") != null)
+            //    ORG_REGISTER_NUMBER = elem.Element("ORG_REGISTER_NUMBER").Value;
+            //if (elem.Element("ORG_CONCENTRATOR_NAME") != null)
+            //    ORG_CONCENTRATOR_NAME = elem.Element("ORG_CONCENTRATOR_NAME").Value;
+            //if (elem.Element("BUDGET_TYPE_NAME") != null)
+            //    BUDGET_TYPE_NAME = elem.Element("BUDGET_TYPE_NAME").Value;
+            //if (elem.Element("ORG_REG_DATE") != null)
+            //    ORG_REG_DATE = Convert.ToDateTime(elem.Element("ORG_REG_DATE").Value);
+            //if (elem.Element("ORG_OFFICE_ID") != null)
+            //    ORG_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_OFFICE_ID").Value);
+            //if (elem.Element("ORG_SUB_OFFICE_ID") != null)
+            //    ORG_SUB_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_SUB_OFFICE_ID").Value);
+            //if (elem.Element("ORG_ADDRESS") != null)
+            //    ORG_ADDRESS = elem.Element("ORG_ADDRESS").Value;
+            //if (elem.Element("ORG_WEBSITE") != null)
+            //    ORG_WEBSITE = elem.Element("ORG_WEBSITE").Value;
+            //if (elem.Element("ORG_EMAIL") != null)
+            //    ORG_EMAIL = elem.Element("ORG_EMAIL").Value;
+            //if (elem.Element("ORG_PHONE") != null)
+            //    ORG_PHONE = elem.Element("ORG_PHONE").Value;
+            //if (elem.Element("ORG_FAX") != null)
+            //    ORG_FAX = elem.Element("ORG_FAX").Value;
+            ////bank
+            //if (elem.Element("ORGB_BANK_ID") != null)
+            //    ORGB_BANK_ID = Convert.ToInt32(elem.Element("ORGB_BANK_ID").Value);
+            //if (elem.Element("ORGB_BANK_ACCOUNT") != null)
+            //    ORGB_BANK_ACCOUNT = elem.Element("ORGB_BANK_ACCOUNT").Value;
+            //if (elem.Element("ORGB_DESCRIPTION") != null)
+            //    ORGB_DESCRIPTION = elem.Element("ORGB_DESCRIPTION").Value;
+            //if (elem.Element("ORGB_BANK_ID2") != null)
+            //    ORGB_BANK_ID2 = Convert.ToInt32(elem.Element("ORGB_BANK_ID2").Value);
+            //if (elem.Element("ORGB_BANK_ACCOUNT2") != null)
+            //    ORGB_BANK_ACCOUNT2 = elem.Element("ORGB_BANK_ACCOUNT2").Value;
+            //if (elem.Element("ORGB_DESCRIPTION2") != null)
+            //    ORGB_DESCRIPTION2 = elem.Element("ORGB_DESCRIPTION2").Value;
 
-            //udirdlaga
-            if (elem.Element("ORGP_ROLE") != null)
-                ORGP_ROLE = elem.Element("ORGP_ROLE").Value;
-            if (elem.Element("ORGP_ROLE_DATE") != null)
-                ORGP_ROLE_DATE = Convert.ToDateTime(elem.Element("ORGP_ROLE_DATE").Value);
-            if (elem.Element("ORGP_REGISTER_NO") != null)
-                ORGP_REGISTER_NO = elem.Element("ORGP_REGISTER_NO").Value;
-            if (elem.Element("ORGP_LASTNAME") != null)
-                ORGP_LASTNAME = elem.Element("ORGP_LASTNAME").Value;
-            if (elem.Element("ORGP_FIRSTNAME") != null)
-                ORGP_FIRSTNAME = elem.Element("ORGP_FIRSTNAME").Value;
-            if (elem.Element("ORGP_PHONE") != null)
-                ORGP_PHONE = elem.Element("ORGP_PHONE").Value;
-            if (elem.Element("ORGP_EMAIL") != null)
-                ORGP_EMAIL = elem.Element("ORGP_EMAIL").Value;
-            if (elem.Element("ORGP_EXPERIENCE_YEAR") != null)
-                ORGP_EXPERIENCE_YEAR = elem.Element("ORGP_EXPERIENCE_YEAR").Value;
-            if (elem.Element("ORGP_PROFESSION") != null)
-                ORGP_PROFESSION = elem.Element("ORGP_PROFESSION").Value;
+            ////udirdlaga
+            //if (elem.Element("ORGP_ROLE") != null)
+            //    ORGP_ROLE = elem.Element("ORGP_ROLE").Value;
+            //if (elem.Element("ORGP_ROLE_DATE") != null)
+            //    ORGP_ROLE_DATE = Convert.ToDateTime(elem.Element("ORGP_ROLE_DATE").Value);
+            //if (elem.Element("ORGP_REGISTER_NO") != null)
+            //    ORGP_REGISTER_NO = elem.Element("ORGP_REGISTER_NO").Value;
+            //if (elem.Element("ORGP_LASTNAME") != null)
+            //    ORGP_LASTNAME = elem.Element("ORGP_LASTNAME").Value;
+            //if (elem.Element("ORGP_FIRSTNAME") != null)
+            //    ORGP_FIRSTNAME = elem.Element("ORGP_FIRSTNAME").Value;
+            //if (elem.Element("ORGP_PHONE") != null)
+            //    ORGP_PHONE = elem.Element("ORGP_PHONE").Value;
+            //if (elem.Element("ORGP_EMAIL") != null)
+            //    ORGP_EMAIL = elem.Element("ORGP_EMAIL").Value;
+            //if (elem.Element("ORGP_EXPERIENCE_YEAR") != null)
+            //    ORGP_EXPERIENCE_YEAR = elem.Element("ORGP_EXPERIENCE_YEAR").Value;
+            //if (elem.Element("ORGP_PROFESSION") != null)
+            //    ORGP_PROFESSION = elem.Element("ORGP_PROFESSION").Value;
 
-            //nybo
-            if (elem.Element("ORGP_ROLE2") != null)
-                ORGP_ROLE2 = elem.Element("ORGP_ROLE2").Value;
-            if (elem.Element("ORGP_ROLE_DATE2") != null)
-                ORGP_ROLE_DATE2 = Convert.ToDateTime(elem.Element("ORGP_ROLE_DATE2").Value);
-            if (elem.Element("ORGP_REGISTER_NO2") != null)
-                ORGP_REGISTER_NO2 = elem.Element("ORGP_REGISTER_NO2").Value;
-            if (elem.Element("ORGP_LASTNAME2") != null)
-                ORGP_LASTNAME2 = elem.Element("ORGP_LASTNAME2").Value;
-            if (elem.Element("ORGP_FIRSTNAME2") != null)
-                ORGP_FIRSTNAME2 = elem.Element("ORGP_FIRSTNAME2").Value;
-            if (elem.Element("ORGP_PHONE2") != null)
-                ORGP_PHONE2 = elem.Element("ORGP_PHONE2").Value;
-            if (elem.Element("ORGP_EMAIL2") != null)
-                ORGP_EMAIL2 = elem.Element("ORGP_EMAIL2").Value;
-            if (elem.Element("ORGP_EXPERIENCE_YEAR2") != null)
-                ORGP_EXPERIENCE_YEAR2 = elem.Element("ORGP_EXPERIENCE_YEAR2").Value;
-            if (elem.Element("ORGP_PROFESSION2") != null)
-                ORGP_PROFESSION2 = elem.Element("ORGP_PROFESSION2").Value;
+            ////nybo
+            //if (elem.Element("ORGP_ROLE2") != null)
+            //    ORGP_ROLE2 = elem.Element("ORGP_ROLE2").Value;
+            //if (elem.Element("ORGP_ROLE_DATE2") != null)
+            //    ORGP_ROLE_DATE2 = Convert.ToDateTime(elem.Element("ORGP_ROLE_DATE2").Value);
+            //if (elem.Element("ORGP_REGISTER_NO2") != null)
+            //    ORGP_REGISTER_NO2 = elem.Element("ORGP_REGISTER_NO2").Value;
+            //if (elem.Element("ORGP_LASTNAME2") != null)
+            //    ORGP_LASTNAME2 = elem.Element("ORGP_LASTNAME2").Value;
+            //if (elem.Element("ORGP_FIRSTNAME2") != null)
+            //    ORGP_FIRSTNAME2 = elem.Element("ORGP_FIRSTNAME2").Value;
+            //if (elem.Element("ORGP_PHONE2") != null)
+            //    ORGP_PHONE2 = elem.Element("ORGP_PHONE2").Value;
+            //if (elem.Element("ORGP_EMAIL2") != null)
+            //    ORGP_EMAIL2 = elem.Element("ORGP_EMAIL2").Value;
+            //if (elem.Element("ORGP_EXPERIENCE_YEAR2") != null)
+            //    ORGP_EXPERIENCE_YEAR2 = elem.Element("ORGP_EXPERIENCE_YEAR2").Value;
+            //if (elem.Element("ORGP_PROFESSION2") != null)
+            //    ORGP_PROFESSION2 = elem.Element("ORGP_PROFESSION2").Value;
 
-            if (elem.Element("ORG_BUDGET_TYPE_ID") != null)
-                ORG_BUDGET_TYPE_ID = Convert.ToInt32(elem.Element("ORG_BUDGET_TYPE_ID").Value);
-            if (elem.Element("ORG_ACTIVITY_ID") != null)
-                ORG_ACTIVITY_ID = Convert.ToInt32(elem.Element("ORG_ACTIVITY_ID").Value);
-            if (elem.Element("ORG_SUB_BUDGET_TYPE_ID") != null)
-                ORG_SUB_BUDGET_TYPE_ID = Convert.ToInt32(elem.Element("ORG_SUB_BUDGET_TYPE_ID").Value);
-            if (elem.Element("ORG_COMMITTEE_ID") != null)
-                ORG_COMMITTEE_ID = Convert.ToInt32(elem.Element("ORG_COMMITTEE_ID").Value);
-            if (elem.Element("ORG_TAX_OFFICE_ID") != null)
-                ORG_TAX_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_TAX_OFFICE_ID").Value);
-            if (elem.Element("ORG_COST_TYPE_ID") != null)
-                ORG_COST_TYPE_ID = Convert.ToInt32(elem.Element("ORG_COST_TYPE_ID").Value);
-            if (elem.Element("ORG_INSURANCE_OFFICE_ID") != null)
-                ORG_INSURANCE_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_INSURANCE_OFFICE_ID").Value);
-            if (elem.Element("ORG_FIN_OFFICE_ID") != null)
-                ORG_FIN_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_FIN_OFFICE_ID").Value);
-            if (elem.Element("ORG_FINANCING_TYPE_ID") != null)
-                ORG_FINANCING_TYPE_ID = Convert.ToInt32(elem.Element("ORG_FINANCING_TYPE_ID").Value);
-            
+            //if (elem.Element("ORG_BUDGET_TYPE_ID") != null)
+            //    ORG_BUDGET_TYPE_ID = Convert.ToInt32(elem.Element("ORG_BUDGET_TYPE_ID").Value);
+            //if (elem.Element("ORG_ACTIVITY_ID") != null)
+            //    ORG_ACTIVITY_ID = Convert.ToInt32(elem.Element("ORG_ACTIVITY_ID").Value);
+            //if (elem.Element("ORG_SUB_BUDGET_TYPE_ID") != null)
+            //    ORG_SUB_BUDGET_TYPE_ID = Convert.ToInt32(elem.Element("ORG_SUB_BUDGET_TYPE_ID").Value);
+            //if (elem.Element("ORG_COMMITTEE_ID") != null)
+            //    ORG_COMMITTEE_ID = Convert.ToInt32(elem.Element("ORG_COMMITTEE_ID").Value);
+            //if (elem.Element("ORG_TAX_OFFICE_ID") != null)
+            //    ORG_TAX_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_TAX_OFFICE_ID").Value);
+            //if (elem.Element("ORG_COST_TYPE_ID") != null)
+            //    ORG_COST_TYPE_ID = Convert.ToInt32(elem.Element("ORG_COST_TYPE_ID").Value);
+            //if (elem.Element("ORG_INSURANCE_OFFICE_ID") != null)
+            //    ORG_INSURANCE_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_INSURANCE_OFFICE_ID").Value);
+            //if (elem.Element("ORG_FIN_OFFICE_ID") != null)
+            //    ORG_FIN_OFFICE_ID = Convert.ToInt32(elem.Element("ORG_FIN_OFFICE_ID").Value);
+            //if (elem.Element("ORG_FINANCING_TYPE_ID") != null)
+            //    ORG_FINANCING_TYPE_ID = Convert.ToInt32(elem.Element("ORG_FINANCING_TYPE_ID").Value);
+
             return this;
         }
         public XElement ToXml()
         {
             return new XElement("Organization",
-                       new XElement("ORG_ID", ORG_ID),
-                       new XElement("ORGB_ID", ORGB_ID),
-                       new XElement("ORGB_ID2", ORGB_ID2),
-                       new XElement("ORGP_ID", ORGP_ID),
-                       new XElement("ORGP_ID2", ORGP_ID2),
-                       new XElement("ORG_CODE", ORG_CODE),
-                       new XElement("ORG_NAME", ORG_NAME),
-                       new XElement("ORG_REGISTER_NO", ORG_REGISTER_NO),
-                       new XElement("ORG_REGISTER_NUMBER", ORG_REGISTER_NUMBER),
-                       new XElement("ORG_REG_DATE", ORG_REG_DATE != null ? ((DateTime)ORG_REG_DATE).ToString("yyyy/MM/dd") : null),
-                       new XElement("ORG_OFFICE_ID", ORG_OFFICE_ID),
-                       new XElement("ORG_SUB_OFFICE_ID", ORG_SUB_OFFICE_ID),
-                       new XElement("ORG_ADDRESS", ORG_ADDRESS),
-                       new XElement("ORG_WEBSITE", ORG_WEBSITE),
-                       new XElement("ORG_EMAIL", ORG_EMAIL),
-                       new XElement("ORG_PHONE", ORG_PHONE),
-                       new XElement("ORG_FAX", ORG_FAX),
+                       new XElement("ORG_ID", ORG_ID)
+                       //new XElement("ORGB_ID", ORGB_ID),
+                       //new XElement("ORGB_ID2", ORGB_ID2),
+                       //new XElement("ORGP_ID", ORGP_ID),
+                       //new XElement("ORGP_ID2", ORGP_ID2),
+                       //new XElement("ORG_CODE", ORG_CODE),
+                       //new XElement("ORG_NAME", ORG_NAME),
+                       //new XElement("ORG_REGISTER_NO", ORG_REGISTER_NO),
+                       //new XElement("ORG_REGISTER_NUMBER", ORG_REGISTER_NUMBER),
+                       //new XElement("ORG_REG_DATE", ORG_REG_DATE != null ? ((DateTime)ORG_REG_DATE).ToString("yyyy/MM/dd") : null),
+                       //new XElement("ORG_OFFICE_ID", ORG_OFFICE_ID),
+                       //new XElement("ORG_SUB_OFFICE_ID", ORG_SUB_OFFICE_ID),
+                       //new XElement("ORG_ADDRESS", ORG_ADDRESS),
+                       //new XElement("ORG_WEBSITE", ORG_WEBSITE),
+                       //new XElement("ORG_EMAIL", ORG_EMAIL),
+                       //new XElement("ORG_PHONE", ORG_PHONE),
+                       //new XElement("ORG_FAX", ORG_FAX),
 
-                       new XElement("ORGB_BANK_ID", ORGB_BANK_ID),
-                       new XElement("ORGB_BANK_ACCOUNT", ORGB_BANK_ACCOUNT),
-                       new XElement("ORGB_DESCRIPTION", ORGB_DESCRIPTION),
-                       new XElement("ORGB_BANK_ID2", ORGB_BANK_ID2),
-                       new XElement("ORGB_BANK_ACCOUNT2", ORGB_BANK_ACCOUNT2),
-                       new XElement("ORGB_DESCRIPTION2", ORGB_DESCRIPTION2),
+                       //new XElement("ORGB_BANK_ID", ORGB_BANK_ID),
+                       //new XElement("ORGB_BANK_ACCOUNT", ORGB_BANK_ACCOUNT),
+                       //new XElement("ORGB_DESCRIPTION", ORGB_DESCRIPTION),
+                       //new XElement("ORGB_BANK_ID2", ORGB_BANK_ID2),
+                       //new XElement("ORGB_BANK_ACCOUNT2", ORGB_BANK_ACCOUNT2),
+                       //new XElement("ORGB_DESCRIPTION2", ORGB_DESCRIPTION2),
 
-                       new XElement("ORGP_ROLE", ORGP_ROLE),
-                       new XElement("ORGP_ROLE_DATE", ORGP_ROLE_DATE != null ? ((DateTime)ORGP_ROLE_DATE).ToString("yyyy/MM/dd") : null),
-                       new XElement("ORGP_REGISTER_NO", ORGP_REGISTER_NO),
-                       new XElement("ORGP_LASTNAME", ORGP_LASTNAME),
-                       new XElement("ORGP_FIRSTNAME", ORGP_FIRSTNAME),
-                       new XElement("ORGP_PHONE", ORGP_PHONE),
-                       new XElement("ORGP_EMAIL", ORGP_EMAIL),
-                       new XElement("ORGP_EXPERIENCE_YEAR", ORGP_EXPERIENCE_YEAR),
-                       new XElement("ORGP_PROFESSION", ORGP_PROFESSION),
+                       //new XElement("ORGP_ROLE", ORGP_ROLE),
+                       //new XElement("ORGP_ROLE_DATE", ORGP_ROLE_DATE != null ? ((DateTime)ORGP_ROLE_DATE).ToString("yyyy/MM/dd") : null),
+                       //new XElement("ORGP_REGISTER_NO", ORGP_REGISTER_NO),
+                       //new XElement("ORGP_LASTNAME", ORGP_LASTNAME),
+                       //new XElement("ORGP_FIRSTNAME", ORGP_FIRSTNAME),
+                       //new XElement("ORGP_PHONE", ORGP_PHONE),
+                       //new XElement("ORGP_EMAIL", ORGP_EMAIL),
+                       //new XElement("ORGP_EXPERIENCE_YEAR", ORGP_EXPERIENCE_YEAR),
+                       //new XElement("ORGP_PROFESSION", ORGP_PROFESSION),
 
-                       new XElement("ORGP_ROLE2", ORGP_ROLE2),
-                       new XElement("ORGP_ROLE_DATE2", ORGP_ROLE_DATE2 !=null ? ((DateTime)ORGP_ROLE_DATE2).ToString("yyyy/MM/dd") : null),
-                       new XElement("ORGP_REGISTER_NO2", ORGP_REGISTER_NO2),
-                       new XElement("ORGP_LASTNAME2", ORGP_LASTNAME2),
-                       new XElement("ORGP_FIRSTNAME2", ORGP_FIRSTNAME2),
-                       new XElement("ORGP_PHONE2", ORGP_PHONE2),
-                       new XElement("ORGP_EMAIL2", ORGP_EMAIL2),
-                       new XElement("ORGP_EXPERIENCE_YEAR2", ORGP_EXPERIENCE_YEAR2),
-                       new XElement("ORGP_PROFESSION2", ORGP_PROFESSION2),
+                       //new XElement("ORGP_ROLE2", ORGP_ROLE2),
+                       //new XElement("ORGP_ROLE_DATE2", ORGP_ROLE_DATE2 !=null ? ((DateTime)ORGP_ROLE_DATE2).ToString("yyyy/MM/dd") : null),
+                       //new XElement("ORGP_REGISTER_NO2", ORGP_REGISTER_NO2),
+                       //new XElement("ORGP_LASTNAME2", ORGP_LASTNAME2),
+                       //new XElement("ORGP_FIRSTNAME2", ORGP_FIRSTNAME2),
+                       //new XElement("ORGP_PHONE2", ORGP_PHONE2),
+                       //new XElement("ORGP_EMAIL2", ORGP_EMAIL2),
+                       //new XElement("ORGP_EXPERIENCE_YEAR2", ORGP_EXPERIENCE_YEAR2),
+                       //new XElement("ORGP_PROFESSION2", ORGP_PROFESSION2),
 
-                       new XElement("ORG_BUDGET_TYPE_ID", ORG_BUDGET_TYPE_ID),
-                       new XElement("ORG_ACTIVITY_ID", ORG_ACTIVITY_ID),
-                       new XElement("ORG_SUB_BUDGET_TYPE_ID", ORG_SUB_BUDGET_TYPE_ID),
-                       new XElement("ORG_DEPARTMENT_ID", ORG_DEPARTMENT_ID),
-                       new XElement("ORG_COMMITTEE_ID", ORG_COMMITTEE_ID),
-                       new XElement("ORG_TAX_OFFICE_ID", ORG_TAX_OFFICE_ID),
-                       new XElement("ORG_COST_TYPE_ID", ORG_COST_TYPE_ID),
-                       new XElement("ORG_INSURANCE_OFFICE_ID", ORG_INSURANCE_OFFICE_ID),
-                       new XElement("ORG_FIN_OFFICE_ID", ORG_FIN_OFFICE_ID), 
-                       new XElement("ORG_FINANCING_TYPE_ID", ORG_FINANCING_TYPE_ID)
+                       //new XElement("ORG_BUDGET_TYPE_ID", ORG_BUDGET_TYPE_ID),
+                       //new XElement("ORG_ACTIVITY_ID", ORG_ACTIVITY_ID),
+                       //new XElement("ORG_SUB_BUDGET_TYPE_ID", ORG_SUB_BUDGET_TYPE_ID),
+                       //new XElement("ORG_DEPARTMENT_ID", ORG_DEPARTMENT_ID),
+                       //new XElement("ORG_COMMITTEE_ID", ORG_COMMITTEE_ID),
+                       //new XElement("ORG_TAX_OFFICE_ID", ORG_TAX_OFFICE_ID),
+                       //new XElement("ORG_COST_TYPE_ID", ORG_COST_TYPE_ID),
+                       //new XElement("ORG_INSURANCE_OFFICE_ID", ORG_INSURANCE_OFFICE_ID),
+                       //new XElement("ORG_FIN_OFFICE_ID", ORG_FIN_OFFICE_ID), 
+                       //new XElement("ORG_FINANCING_TYPE_ID", ORG_FINANCING_TYPE_ID)
                        );
         }
     }
@@ -506,7 +534,7 @@ namespace Audit.Models
         public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
-        public List<LegalStatus> LegalStatuses { get; set; } = new List<LegalStatus>();
+        public List<OrgLegalStatus> OrgLegalStatuses { get; set; } = new List<OrgLegalStatus>();
         public List<PropertyType> PropertyTypes { get; set; } = new List<PropertyType>();
         public List<SourceType> SourceTypes { get; set; } = new List<SourceType>();
         public List<BudgetLevel> budgetLevel { get; set; } = new List<BudgetLevel>();
@@ -533,6 +561,8 @@ namespace Audit.Models
         public string TEZ_NAME { get; set; }
         public string ENT_NAME { get; set; }
         public string ORG_REGISTER_NO { get; set; }
+        public string LEGAL_STATUS_NAME { get; set; }
+        public string PROPERTY_TYPE_NAME { get; set; }
         public string BUDGET_SHORT_NAME { get; set; }
         public string BUDGET_LEVEL_NAME { get; set; }
         public string DEPARTMENT_NAME { get; set; }
@@ -554,6 +584,10 @@ namespace Audit.Models
                 ENT_NAME = elem.Element("ENT_NAME").Value;
             if (elem.Element("ORG_REGISTER_NO") != null)
                 ORG_REGISTER_NO = elem.Element("ORG_REGISTER_NO").Value;
+            if (elem.Element("LEGAL_STATUS_NAME") != null)
+                LEGAL_STATUS_NAME = elem.Element("LEGAL_STATUS_NAME").Value;
+            if (elem.Element("PROPERTY_TYPE_NAME") != null)
+                PROPERTY_TYPE_NAME = elem.Element("PROPERTY_TYPE_NAME").Value;
             if (elem.Element("BUDGET_SHORT_NAME") != null)
                 BUDGET_SHORT_NAME = elem.Element("BUDGET_SHORT_NAME").Value;
             if (elem.Element("BUDGET_LEVEL_NAME") != null)

@@ -5,7 +5,7 @@
     <div class="d-flex flex-wrap mb-2">
         <div class="form-group-sm pr-2">
             <label for="LEGAL_STATUS_ID" class="col-form-label">Хариуцлагын хэлбэр:</label>
-            @Html.DropDownListFor(model => model.LEGAL_STATUS_ID, Model.LegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            @Html.DropDownListFor(model => model.LEGAL_STATUS_ID, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
 
         <div class="form-group-sm pr-2">
@@ -36,6 +36,7 @@
                                 <th>Өмчийн хэлбэр</th>
                                 <th>Байгуулагдсан огноо</th>
                                 <th>Мэдээллийн эх үүсвэр</th>
+                                <th>Үйлдэл</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,7 +86,15 @@
                     { "data": "PROPERTY_TYPE_NAME", "name": "PROPERTY_TYPE_NAME" },
                     { "data": "ORG_REG_DATE", "name": "ORG_REG_DATE" },
                     { "data": "SOURCE_TYPE_NAME", "name": "SOURCE_TYPE_NAME" },
-                    
+                    {
+                    "data": null, "sortable": false, "class": 'text-center',
+                        render: function (data, type, row, meta) {
+                            /*var tmp = '<div class="btn-group"><a href="#" class="btn btn-sm" onclick="Organization.loadTemplate(' + data.ORG_ID + ')"><i class="fa fa-plus text-info"></i> Шалгагдагчид нэмэх</a></div>';*/
+                            var tmp = '<div class="btn-group"><a href="#" class="btn btn-sm"><i class="fa fa-plus text-info"></i> Шалгагдагчид нэмэх</a></div>';
+                        return tmp;
+                        }
+                    }
+
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -111,6 +120,47 @@
             orgListInit();
         });
 
+        var Organization = {
+            loadTemplate: function () {
+                $.ajax({
+                    url: "@Url.Action("OrgAddEdit", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.display(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
+            var ct = xhr.getResponseHeader("content-type") || "";
+            if (ct.indexOf("html") > -1) {
+                Organization.display(data);
+            }
+            if (ct.indexOf('json') > -1) {
+                if (data.error) {
+                    Message.error(data.message);
+                } else {
+                    $('.modal-backdrop:first').remove()
+                    Organization.close();
+
+                    if (deleted == true) {
+                        if (!data.error)
+                            table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
+                    }
+                    if (confirmed == false && deleted == false) {
+                        orgListInit();
+                    }
+                    Message.success(data.message);
+                }
+            }
+            }
+        }
 
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').prop('disabled', true);

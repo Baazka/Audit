@@ -21,11 +21,11 @@ namespace Audit.App_Func
         public static List<Office> offices { get; set; } = new List<Office>();
         public static List<SubOffice> subOffices { get; set; } = new List<SubOffice>();
         public static List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
-        public static List<LegalStatus> LegalStatuses { get; set; } = new List<LegalStatus>();
+        public static List<OrgLegalStatus> OrgLegalStatuses { get; set; } = new List<OrgLegalStatus>();
         public static List<PropertyType> PropertyTypes { get; set; } = new List<PropertyType>();
         public static List<SourceType> SourceTypes { get; set; } = new List<SourceType>();
-        public static List<BudgetLevel> budgetLevel { get; set; } = new List<BudgetLevel>();
         public static List<BudgetType> budgetTypes { get; set; } = new List<BudgetType>();
+        public static List<BudgetLevel> budgetLevels { get; set; } = new List<BudgetLevel>();
         public static List<ActivityLib> activities { get; set; } = new List<ActivityLib>();
         public static List<SubBudgetType> subBudgetTypes { get; set; } = new List<SubBudgetType>();
         public static List<Committee> committees { get; set; } = new List<Committee>();

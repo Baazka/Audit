@@ -48,6 +48,16 @@
                          }, "value", "text"), new { @class = "form-control form-control-sm" })
         </div>
 
+        <div class="form-group-sm pr-2" style="width:13%">
+            <label for="LEGAL_STATUS_ID" class="col-form-label">Хариуцлагын хэлбэр:</label>
+            @Html.DropDownListFor(model => model.LEGAL_STATUS_ID, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
+        <div class="form-group-sm pr-2" style="width:13%">
+            <label for="PROPERTY_TYPE_ID" class="col-form-label">Өмчийн хэлбэр:</label>
+            @Html.DropDownListFor(model => model.PROPERTY_TYPE_ID, Model.PropertyTypes.Select(m => new SelectListItem { Text = m.PROPERTY_TYPE_NAME, Value = m.PROPERTY_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+
         @*@if (Role.hasHeadAuditorRole(User))
         {*@
         <div class="form-group-sm pr-2">
@@ -56,14 +66,17 @@
         </div>
         @*}*@
 
-        <div class="form-group-sm pr-2">
+
+
+        @*<div class="form-group-sm pr-2">
             <label for="StatusID" class="col-form-label">Төлөв:</label><br />
             @Html.ListBoxFor(model => model.StatusIDs, Model.Status, new { id = "status" })
         </div>
         <div class="form-group-sm pr-2">
             <label for="ViolationID" class="col-form-label">Алдаа:</label><br />
             @Html.ListBoxFor(model => model.ViolationIDs, Model.Violation, new { id = "violation" })
-        </div>
+        </div>*@
+
         @if (Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_ADD"))
         {
             <div class="form-group-sm ml-auto pr-2">
@@ -100,10 +113,12 @@
                                 <th>Регистрийн дугаар</th>
                                 <th>Төсөв захирагчийн ангилал</th>
                                 <th>Төсвийн ангилал</th>
+                                <th>Хариуцлагын хэлбэр</th>
+                                <th>Өмчийн хэлбэр</th>
                                 <th>Харъяа аудитын газар</th>
                                 @*<th>Дээд шатны төсөв захирагч</th>*@
-                                <th>Алдааны мэдээлэл</th>
-                                <th>Төлөв</th>
+                                @*<th>Алдааны мэдээлэл</th>
+                                <th>Төлөв</th>*@
                                 @*<th>Сануулга</th>*@
                                 <th>Үйлдэл</th>
                             </tr>
@@ -138,6 +153,8 @@
                         data.budget_type = $('#BudgetTypeID').val();
                         data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
                         data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
+                        data.LEGAL_STATUS_ID = $('#LEGAL_STATUS_ID').val();
+                        data.PROPERTY_TYPE_ID = $('#PROPERTY_TYPE_ID').val();
                         return data;
                     }
                 },
@@ -158,9 +175,11 @@
                     { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO" },
                     { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
                     { "data": "BUDGET_LEVEL_NAME", "name": "BUDGET_LEVEL_NAME" },
+                    { "data": "LEGAL_STATUS_NAME", "name": "LEGAL_STATUS_NAME" },
+                    { "data": "PROPERTY_TYPE_NAME", "name": "PROPERTY_TYPE_NAME" },
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
-                    { "data": "ENT_VIOLATION", "name": "ENT_VIOLATION" },
-                    { "data": "ENT_INFO", "name": "ENT_INFO" },
+                    //{ "data": "ENT_VIOLATION", "name": "ENT_VIOLATION" },
+                    //{ "data": "ENT_INFO", "name": "ENT_INFO" },
                     {
                     "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
@@ -224,6 +243,13 @@
         $('#BUDGET_LEVEL_ID').change(function () {
             orgListInit();
         });
+        $('#LEGAL_STATUS_ID').change(function () {
+            orgListInit();
+        });
+        $('#PROPERTY_TYPE_ID').change(function () {
+            orgListInit();
+        });
+
         var Organization = {
             OrgID: null,
         display: function (data) {

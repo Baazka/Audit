@@ -23,6 +23,8 @@ namespace Audit.Models
         public int? DeparmentID { get; set; }
         public int? PARENT_BUDGET_ID { get; set; }
         public int? BUDGET_LEVEL_ID { get; set; }
+        public int? LEGAL_STATUS_ID { get; set; }
+        public int? PROPERTY_TYPE_ID { get; set; }
         public int? budget_type { get; set; }
     }
     public class OrgListResponse : DataTableAjaxResponModel

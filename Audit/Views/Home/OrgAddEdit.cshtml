@@ -33,7 +33,7 @@
 
                             </li>
                         }
-                        @if (Model != null && Model.organizationUBs.Count != 0)
+                        @*@if (Model != null && Model.organizationUBs.Count != 0)
                         {
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="ub-tab" data-toggle="tab" href="#ub" role="tab" aria-selected="false">УБ</a>
@@ -56,7 +56,7 @@
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="lib-tab" data-toggle="tab" href="#lib" role="tab" aria-selected="false">Лавлах</a>
                             </li>
-                        }
+                        }*@
                     </ul>
                     <div class="tab-content" id="myTabContent" style="background-color: #e7e7e5; padding:0 10px">
                         <div class="tab-pane fade show active" id="staus" role="tabpanel" aria-labelledby="staus-tab">
@@ -66,464 +66,507 @@
                                 </div>
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @Html.HiddenFor(m => m.ORG_ID)
-                                @Html.HiddenFor(m => m.ORGB_ID)
+                                @*@Html.HiddenFor(m => m.ORGB_ID)
                                 @Html.HiddenFor(m => m.ORGB_ID2)
                                 @Html.HiddenFor(m => m.ORGP_ID)
-                                @Html.HiddenFor(m => m.ORGP_ID2)
+                                @Html.HiddenFor(m => m.ORGP_ID2)*@
                                 <h6>Байгууллагатай холбоотой мэдээлэл</h6>
+                                <hr>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Дугаар:</label>
+                                            <label class="col-sm-4 col-form-label">Дээд шатны төсөв захирагч:</label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_CODE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_CODE, "", new { @class = "text-danger" })
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Байгуулагдсан огноо:</label>
+                                            <label class="col-sm-4 col-form-label">Төсөв захирагчийн ангилал:</label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_REG_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_REG_DATE, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ENT_BUDGET_TYPE, Model.budgetTypes.Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ENT_BUDGET_TYPE, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+
+                                    <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Цахим хуудас:</label>
+                                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллагын нэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_WEBSITE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_WEBSITE, "", new { @class = "text-danger" })
+                                                @Html.EditorFor(m => m.ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
+                                                @Html.ValidationMessageFor(m => m.ENT_NAME, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Төсвийн ангилал:</label>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(model => model.ENT_BUDGET_LEVEL, Model.budgetLevels.Select(m => new SelectListItem { Text = m.BUDGET_LEVEL_NAME, Value = m.BUDGET_LEVEL_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ENT_BUDGET_LEVEL, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Регистрийн дугаар:</label>
                                             <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_REGISTER_NO, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                                @Html.EditorFor(m => m.ORG_REGISTER_NO, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = "readonly" } })
                                                 @Html.ValidationMessageFor(m => m.ORG_REGISTER_NO, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Аймаг/нийслэл:</label>
+                                            <label class="col-sm-4 col-form-label">Хариуцлагын хэлбэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_OFFICE_ID, Model.offices.Select(m => new SelectListItem { Text = m.OFFICE_NAME, Value = m.OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_OFFICE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">И-мэйл:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_EMAIL, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_EMAIL, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">УБ-ийн дугаар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_REGISTER_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_REGISTER_NUMBER, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Сум/дүүрэг:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_SUB_OFFICE_ID, Model.subOffices.Where(m => m.OFFICE_ID == Model.ORG_OFFICE_ID).Select(m => new SelectListItem { Text = m.SUB_OFFICE_NAME, Value = m.SUB_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-
-                                                @if (Model.subOffices.Count() > 0)
-                                                {
-                                                    @Html.DropDownList("ddSubOfficeHidden", Model.subOffices.Select(m => new SelectListItem() { Text = m.SUB_OFFICE_NAME, Value = m.OFFICE_ID.ToString() + ":" + m.SUB_OFFICE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                                }
-                                                @Html.ValidationMessageFor(m => m.ORG_SUB_OFFICE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Утас:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_PHONE, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Нэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_NAME, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Албан ёсны хаяг:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_ADDRESS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_ADDRESS, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Факс:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORG_FAX, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORG_FAX, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <h6>Банк</h6>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Урсгал санхүүжилтийн данс:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORGB_BANK_ID, Model.banks.Select(m => new SelectListItem { Text = m.BANK_NAME, Value = m.BANK_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORGB_BANK_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Дансны дугаар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGB_BANK_ACCOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGB_BANK_ACCOUNT, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Тайлбар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGB_DESCRIPTION, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGB_DESCRIPTION, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ORG_LEGAL_STATUS, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ORG_LEGAL_STATUS, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Нэмэлт санхүүжилтийн данс:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORGB_BANK_ID2, Model.banks.Select(m => new SelectListItem { Text = m.BANK_NAME, Value = m.BANK_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORGB_BANK_ID2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Дансны дугаар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGB_BANK_ACCOUNT2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGB_BANK_ACCOUNT2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Тайлбар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGB_DESCRIPTION2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGB_DESCRIPTION2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <h6>Бусад мэдээлэл</h6>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Төсөв захирагч:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_BUDGET_TYPE_ID, Model.budgetTypes.Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_BUDGET_TYPE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Үйл ажиллагааны ангилал:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_ACTIVITY_ID, Model.activities.Select(m => new SelectListItem { Text = m.ACTIVITY_NAME, Value = m.ACTIVITY_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @*@Html.ValidationMessageFor(m => m.ORG_ACTIVITY_ID, "", new { @class = "text-danger" })*@
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Хэлбэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_SUB_BUDGET_TYPE_ID, Model.subBudgetTypes.Where(m => m.BUDGET_TYPE_ID == Model.ORG_BUDGET_TYPE_ID).Select(m => new SelectListItem { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.SUB_BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-
-                                                @if (Model.budgetTypes.Count() > 0)
-                                                {
-                                                    @Html.DropDownList("ddSubBudgetHidden", Model.subBudgetTypes.Select(m => new SelectListItem() { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() + ":" + m.SUB_BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
-                                                }
-                                                @Html.ValidationMessageFor(m => m.ORG_SUB_BUDGET_TYPE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Харъяа аудитын газар:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_DEPARTMENT_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_DEPARTMENT_ID, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ENT_DEPARTMENT_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ENT_DEPARTMENT_ID, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Харъяа байнгын хороо:</label>
+                                            <label class="col-sm-4 col-form-label">Өмчийн хэлбэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_COMMITTEE_ID, Model.committees.Select(m => new SelectListItem { Text = m.COMMITTEE_NAME, Value = m.COMMITTEE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_COMMITTEE_ID, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ORG_PROPERTY_TYPE, Model.propertyTypes.Select(m => new SelectListItem { Text = m.PROPERTY_TYPE_NAME, Value = m.PROPERTY_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ORG_PROPERTY_TYPE, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Харъяалагдах татварын газар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_TAX_OFFICE_ID, Model.taxOffices.Select(m => new SelectListItem { Text = m.TAX_OFFICE_NAME, Value = m.TAX_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_TAX_OFFICE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Төсвийн зардлын хөтөлбөрийн ангилал:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_COST_TYPE_ID, Model.costTypes.Select(m => new SelectListItem { Text = m.COST_TYPE_NAME, Value = m.COST_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_COST_TYPE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Харьцдаг НД байгууллага:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_INSURANCE_OFFICE_ID, Model.insuranceOffices.Select(m => new SelectListItem { Text = m.INSURANCE_OFFICE_NAME, Value = m.INSURANCE_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_INSURANCE_OFFICE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Харъяа төрийн сан:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_FIN_OFFICE_ID, Model.finOffices.Select(m => new SelectListItem { Text = m.FIN_OFFICE_NAME, Value = m.FIN_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_FIN_OFFICE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Санхүүжилтийн хэлбэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_FINANCING_TYPE_ID, Model.financingTypes.Select(m => new SelectListItem { Text = m.FINANCING_TYPE_NAME, Value = m.FINANCING_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_FINANCING_TYPE_ID, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <h6>Байгууллагын удирдлагатай холбоотой мэдээлэл</h6>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Удирдлагын албан тушаал:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_ROLE, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Удирдлагын овог:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_LASTNAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_LASTNAME, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Удирдлагын нэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_FIRSTNAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_FIRSTNAME, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Регистрийн дугаар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_REGISTER_NO, new { htmlAttributes = new { @class = "form-control form-control-sm", @style = "text-transform:uppercase" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_REGISTER_NO, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Мэргэжил:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_PROFESSION, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_PROFESSION, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Ажилласан жил:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_EXPERIENCE_YEAR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_EXPERIENCE_YEAR, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Утас:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_PHONE, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">И-мэйл:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_EMAIL, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_EMAIL, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Огноо:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_ROLE_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <h6>Байгууллагын нягтлан бодогчтой холбоотой мэдээлэл</h6>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Нягтлангийн албан тушаал:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_ROLE2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_ROLE2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Нягтлангийн овог:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_LASTNAME2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_LASTNAME2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Нягтлангийн нэр:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_FIRSTNAME2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_FIRSTNAME2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
 
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Регистрийн дугаар:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_REGISTER_NO2, new { htmlAttributes = new { @class = "form-control form-control-sm", @style = "text-transform:uppercase" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_REGISTER_NO2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Мэргэжил:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_PROFESSION2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_PROFESSION2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Ажилласан жил:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_EXPERIENCE_YEAR2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_EXPERIENCE_YEAR2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Утас:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_PHONE2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_PHONE2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">И-мэйл:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_EMAIL2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                                @Html.ValidationMessageFor(m => m.ORGP_EMAIL2, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">Огноо:</label>
-                                            <div class="col-sm-8">
-                                                @Html.EditorFor(m => m.ORGP_ROLE_DATE2, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div style="text-align: right">
-                                    @if (Model != null && Model.ORG_ID != 0 && Model.IsShow)
-                                    {
-                                        <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" onclick="Organization.confirm(@Model.ORG_ID)">Баталгаажуулах</button>
-                                    }
-                                    <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
-                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
-                                </div>
+                                    @*<div class="col-6">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Аймаг:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_OFFICE_ID, Model.offices.Select(m => new SelectListItem { Text = m.OFFICE_NAME, Value = m.OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_OFFICE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+                                    @*<div class="col-6">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">И-мэйл:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORG_EMAIL, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORG_EMAIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">УБ-ийн дугаар:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORG_REGISTER_NUMBER, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORG_REGISTER_NUMBER, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+                                    @*<div class="col-4">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Сум/дүүрэг:</label>
+            <div class="col-sm-8">
+                @Html.DropDownListFor(model => model.ORG_SUB_OFFICE_ID, Model.subOffices.Where(m => m.OFFICE_ID == Model.ORG_OFFICE_ID).Select(m => new SelectListItem { Text = m.SUB_OFFICE_NAME, Value = m.SUB_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
 
-                            </fieldset>
+                @if (Model.subOffices.Count() > 0)
+                {
+                    @Html.DropDownList("ddSubOfficeHidden", Model.subOffices.Select(m => new SelectListItem() { Text = m.SUB_OFFICE_NAME, Value = m.OFFICE_ID.ToString() + ":" + m.SUB_OFFICE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                }
+                @Html.ValidationMessageFor(m => m.ORG_SUB_OFFICE_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        </div>*@
+                                    @*<div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Утас:</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(m => m.ORG_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                        @Html.ValidationMessageFor(m => m.ORG_PHONE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Нэр:</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(m => m.ORG_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                        @Html.ValidationMessageFor(m => m.ORG_NAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Албан ёсны хаяг:</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(m => m.ORG_ADDRESS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                        @Html.ValidationMessageFor(m => m.ORG_ADDRESS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Факс:</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(m => m.ORG_FAX, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                        @Html.ValidationMessageFor(m => m.ORG_FAX, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                                    <hr />
+                                    <!--<h6>Банк</h6>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Урсгал санхүүжилтийн данс:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORGB_BANK_ID, Model.banks.Select(m => new SelectListItem { Text = m.BANK_NAME, Value = m.BANK_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORGB_BANK_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Дансны дугаар:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGB_BANK_ACCOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGB_BANK_ACCOUNT, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Тайлбар:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGB_DESCRIPTION, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGB_DESCRIPTION, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Нэмэлт санхүүжилтийн данс:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORGB_BANK_ID2, Model.banks.Select(m => new SelectListItem { Text = m.BANK_NAME, Value = m.BANK_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORGB_BANK_ID2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Дансны дугаар:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGB_BANK_ACCOUNT2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGB_BANK_ACCOUNT2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Тайлбар:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGB_DESCRIPTION2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGB_DESCRIPTION2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <h6>Бусад мэдээлэл</h6>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Төсөв захирагч:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_BUDGET_TYPE_ID, Model.budgetTypes.Select(m => new SelectListItem { Text = m.BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_BUDGET_TYPE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Үйл ажиллагааны ангилал:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_ACTIVITY_ID, Model.activities.Select(m => new SelectListItem { Text = m.ACTIVITY_NAME, Value = m.ACTIVITY_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })-->
+                                    @*@Html.ValidationMessageFor(m => m.ORG_ACTIVITY_ID, "", new { @class = "text-danger" })*@
+                                    @*</div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Хэлбэр:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_SUB_BUDGET_TYPE_ID, Model.subBudgetTypes.Where(m => m.BUDGET_TYPE_ID == Model.ORG_BUDGET_TYPE_ID).Select(m => new SelectListItem { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.SUB_BUDGET_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+
+                    @if (Model.budgetTypes.Count() > 0)
+                    {
+                        @Html.DropDownList("ddSubBudgetHidden", Model.subBudgetTypes.Select(m => new SelectListItem() { Text = m.SUB_BUDGET_TYPE_NAME, Value = m.BUDGET_TYPE_ID.ToString() + ":" + m.SUB_BUDGET_TYPE_ID.ToString() }), htmlAttributes: new { @class = "d-none" })
+                    }
+                    @Html.ValidationMessageFor(m => m.ORG_SUB_BUDGET_TYPE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Харъяа аудитын газар:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_DEPARTMENT_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_DEPARTMENT_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Харъяа байнгын хороо:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_COMMITTEE_ID, Model.committees.Select(m => new SelectListItem { Text = m.COMMITTEE_NAME, Value = m.COMMITTEE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_COMMITTEE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Харъяалагдах татварын газар:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_TAX_OFFICE_ID, Model.taxOffices.Select(m => new SelectListItem { Text = m.TAX_OFFICE_NAME, Value = m.TAX_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_TAX_OFFICE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Төсвийн зардлын хөтөлбөрийн ангилал:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_COST_TYPE_ID, Model.costTypes.Select(m => new SelectListItem { Text = m.COST_TYPE_NAME, Value = m.COST_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_COST_TYPE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Харьцдаг НД байгууллага:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_INSURANCE_OFFICE_ID, Model.insuranceOffices.Select(m => new SelectListItem { Text = m.INSURANCE_OFFICE_NAME, Value = m.INSURANCE_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_INSURANCE_OFFICE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Харъяа төрийн сан:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_FIN_OFFICE_ID, Model.finOffices.Select(m => new SelectListItem { Text = m.FIN_OFFICE_NAME, Value = m.FIN_OFFICE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_FIN_OFFICE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Санхүүжилтийн хэлбэр:</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(model => model.ORG_FINANCING_TYPE_ID, Model.financingTypes.Select(m => new SelectListItem { Text = m.FINANCING_TYPE_NAME, Value = m.FINANCING_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                    @Html.ValidationMessageFor(m => m.ORG_FINANCING_TYPE_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>*@
+  
+    <h6>Байгууллагын удирдлагатай холбоотой мэдээлэл</h6>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Удирдлагын албан тушаал:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_ROLE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Удирдлагын овог:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_LASTNAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_LASTNAME, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Удирдлагын нэр:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_FIRSTNAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_FIRSTNAME, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Регистрийн дугаар:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_REGISTER_NO, new { htmlAttributes = new { @class = "form-control form-control-sm", @style = "text-transform:uppercase" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_REGISTER_NO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Мэргэжил:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_PROFESSION, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_PROFESSION, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Ажилласан жил:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_EXPERIENCE_YEAR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_EXPERIENCE_YEAR, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Утас:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_PHONE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">И-мэйл:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_EMAIL, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_EMAIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Огноо:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_ROLE_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <h6>Байгууллагын нягтлан бодогчтой холбоотой мэдээлэл</h6>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Нягтлангийн албан тушаал:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_ROLE2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_ROLE2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Нягтлангийн овог:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_LASTNAME2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_LASTNAME2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Нягтлангийн нэр:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_FIRSTNAME2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_FIRSTNAME2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Регистрийн дугаар:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_REGISTER_NO2, new { htmlAttributes = new { @class = "form-control form-control-sm", @style = "text-transform:uppercase" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_REGISTER_NO2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Мэргэжил:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_PROFESSION2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_PROFESSION2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Ажилласан жил:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_EXPERIENCE_YEAR2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_EXPERIENCE_YEAR2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Утас:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_PHONE2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_PHONE2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">И-мэйл:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_EMAIL2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ORGP_EMAIL2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Огноо:</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(m => m.ORGP_ROLE_DATE2, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div style="text-align: right">
+        @*@if (Model != null && Model.ORG_ID != 0 && Model.IsShow)
+        {
+            <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" onclick="Organization.confirm(@Model.ORG_ID)">Баталгаажуулах</button>
+        }*@
+        <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+        <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+    </div>
+    <br><br>
+</fieldset>
+
                         </div>
                         @if (Model != null && Model.organizationUBs.Count != 0)
                         {

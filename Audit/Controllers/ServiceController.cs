@@ -53,6 +53,17 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_BUDGET_LEVEL_ID", request.BUDGET_LEVEL_ID));
                 else
                     elem.Add(new XElement("V_BUDGET_LEVEL_ID", null));
+
+                if (request.LEGAL_STATUS_ID != null)
+                    elem.Add(new XElement("V_LEGAL_STATUS_ID", request.LEGAL_STATUS_ID));
+                else
+                    elem.Add(new XElement("V_LEGAL_STATUS_ID", null));
+
+                if (request.PROPERTY_TYPE_ID != null)
+                    elem.Add(new XElement("V_PROPERTY_TYPE_ID", request.PROPERTY_TYPE_ID));
+                else
+                    elem.Add(new XElement("V_PROPERTY_TYPE_ID", null));
+
                 //if (request.budget_type != null)
                 //{
                 //    string ss = String.Join(",", request.budget_type.Select(p => p.ToString()).ToArray());
