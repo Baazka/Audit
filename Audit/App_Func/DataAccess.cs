@@ -951,7 +951,7 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("Organization");
                 // Open a connection to the database
-                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["RegConfig"]);
+                OracleConnection con = new OracleConnection(System.Configuration.ConfigurationManager.AppSettings["OrgConfig"]);
                 con.Open();
 
                 // Create and execute the command
@@ -963,60 +963,60 @@ namespace Audit.App_Func
                 OracleParameter retParam = cmd.Parameters.Add(":Ret_val", OracleDbType.Int32, System.Data.ParameterDirection.ReturnValue);
 
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = elem.Element("ORG_ID").Value;
-                cmd.Parameters.Add(":P_ORGBID1", OracleDbType.Int32).Value = elem.Element("ORGB_ID").Value;
-                cmd.Parameters.Add(":P_ORGBID2", OracleDbType.Int32).Value = elem.Element("ORGB_ID2").Value;
-                cmd.Parameters.Add(":P_ORGPID1", OracleDbType.Int32).Value = elem.Element("ORGP_ID").Value;
-                cmd.Parameters.Add(":P_ORGPID2", OracleDbType.Int32).Value = elem.Element("ORGP_ID2").Value;
+                cmd.Parameters.Add(":P_ENT_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("ENT_BUDGET_TYPE").Value;
+                cmd.Parameters.Add(":P_ENT_BUDGET_LEVEL", OracleDbType.Int32).Value = elem.Element("ENT_BUDGET_LEVEL").Value;
+                //cmd.Parameters.Add(":P_ORGPID1", OracleDbType.Int32).Value = elem.Element("ORGP_ID").Value;
+                //cmd.Parameters.Add(":P_ORGPID2", OracleDbType.Int32).Value = elem.Element("ORGP_ID2").Value;
 
-                cmd.Parameters.Add(":P_ORGCODE", OracleDbType.Varchar2).Value = elem.Element("ORG_CODE")?.Value;
-                cmd.Parameters.Add(":P_ORGREGNO", OracleDbType.Int32).Value = elem.Element("ORG_REGISTER_NO")?.Value;
-                cmd.Parameters.Add(":P_UBNUMBER", OracleDbType.Varchar2).Value = elem.Element("ORG_REGISTER_NUMBER")?.Value;
-                cmd.Parameters.Add(":P_ORGNAME", OracleDbType.Varchar2).Value = elem.Element("ORG_NAME")?.Value;
-                cmd.Parameters.Add(":P_ORGDATE", OracleDbType.Varchar2).Value = elem.Element("ORG_REG_DATE")?.Value;
-                cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_OFFICE_ID")?.Value;
-                cmd.Parameters.Add(":P_SUBOFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_SUB_OFFICE_ID")?.Value;
-                cmd.Parameters.Add(":P_ORGADDRESS", OracleDbType.Varchar2).Value = elem.Element("ORG_ADDRESS")?.Value;
-                cmd.Parameters.Add(":P_WEB", OracleDbType.Varchar2).Value = elem.Element("ORG_WEBSITE")?.Value;
-                cmd.Parameters.Add(":P_EMAIL", OracleDbType.Varchar2).Value = elem.Element("ORG_EMAIL")?.Value;
-                cmd.Parameters.Add(":P_ORGPHONE", OracleDbType.Varchar2).Value = elem.Element("ORG_PHONE")?.Value;
-                cmd.Parameters.Add(":P_FAX", OracleDbType.Varchar2).Value = elem.Element("ORG_FAX")?.Value;
+                //cmd.Parameters.Add(":P_ORGCODE", OracleDbType.Varchar2).Value = elem.Element("ORG_CODE")?.Value;
+                //cmd.Parameters.Add(":P_ORGREGNO", OracleDbType.Int32).Value = elem.Element("ORG_REGISTER_NO")?.Value;
+                //cmd.Parameters.Add(":P_UBNUMBER", OracleDbType.Varchar2).Value = elem.Element("ORG_REGISTER_NUMBER")?.Value;
+                //cmd.Parameters.Add(":P_ORGNAME", OracleDbType.Varchar2).Value = elem.Element("ORG_NAME")?.Value;
+                //cmd.Parameters.Add(":P_ORGDATE", OracleDbType.Varchar2).Value = elem.Element("ORG_REG_DATE")?.Value;
+                //cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_OFFICE_ID")?.Value;
+                //cmd.Parameters.Add(":P_SUBOFFICE_ID", OracleDbType.Int32).Value = elem.Element("ORG_SUB_OFFICE_ID")?.Value;
+                //cmd.Parameters.Add(":P_ORGADDRESS", OracleDbType.Varchar2).Value = elem.Element("ORG_ADDRESS")?.Value;
+                //cmd.Parameters.Add(":P_WEB", OracleDbType.Varchar2).Value = elem.Element("ORG_WEBSITE")?.Value;
+                //cmd.Parameters.Add(":P_EMAIL", OracleDbType.Varchar2).Value = elem.Element("ORG_EMAIL")?.Value;
+                //cmd.Parameters.Add(":P_ORGPHONE", OracleDbType.Varchar2).Value = elem.Element("ORG_PHONE")?.Value;
+                //cmd.Parameters.Add(":P_FAX", OracleDbType.Varchar2).Value = elem.Element("ORG_FAX")?.Value;
 
-                cmd.Parameters.Add(":P_BANKID1", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID")?.Value;
-                cmd.Parameters.Add(":P_BANKID2", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID2")?.Value;
-                cmd.Parameters.Add(":P_BANKACCOUNT1", OracleDbType.Int64).Value = elem.Element("ORGB_BANK_ACCOUNT")?.Value;
-                cmd.Parameters.Add(":P_BANKACCOUNT2", OracleDbType.Int64).Value = elem.Element("ORGB_BANK_ACCOUNT2")?.Value;
-                cmd.Parameters.Add(":P_BANKDESC1", OracleDbType.Varchar2).Value = elem.Element("ORGB_DESCRIPTION")?.Value;
-                cmd.Parameters.Add(":P_BANKDESC2", OracleDbType.Varchar2).Value = elem.Element("ORGB_DESCRIPTION2")?.Value;
+                //cmd.Parameters.Add(":P_BANKID1", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID")?.Value;
+                //cmd.Parameters.Add(":P_BANKID2", OracleDbType.Int32).Value = elem.Element("ORGB_BANK_ID2")?.Value;
+                //cmd.Parameters.Add(":P_BANKACCOUNT1", OracleDbType.Int64).Value = elem.Element("ORGB_BANK_ACCOUNT")?.Value;
+                //cmd.Parameters.Add(":P_BANKACCOUNT2", OracleDbType.Int64).Value = elem.Element("ORGB_BANK_ACCOUNT2")?.Value;
+                //cmd.Parameters.Add(":P_BANKDESC1", OracleDbType.Varchar2).Value = elem.Element("ORGB_DESCRIPTION")?.Value;
+                //cmd.Parameters.Add(":P_BANKDESC2", OracleDbType.Varchar2).Value = elem.Element("ORGB_DESCRIPTION2")?.Value;
 
-                cmd.Parameters.Add(":P_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_BUDGET_TYPE_ID")?.Value;
-                cmd.Parameters.Add(":P_ACTIVITY", OracleDbType.Int32).Value = elem.Element("ORG_ACTIVITY_ID")?.Value;
-                cmd.Parameters.Add(":P_SUB_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_SUB_BUDGET_TYPE_ID")?.Value;
-                cmd.Parameters.Add(":P_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("ORG_DEPARTMENT_ID")?.Value;
-                cmd.Parameters.Add(":P_COMMITTEE", OracleDbType.Int32).Value = elem.Element("ORG_COMMITTEE_ID")?.Value;
-                cmd.Parameters.Add(":P_TAXOFFICE", OracleDbType.Int32).Value = elem.Element("ORG_TAX_OFFICE_ID")?.Value;
-                cmd.Parameters.Add(":P_COST_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_COST_TYPE_ID")?.Value;
-                cmd.Parameters.Add(":P_INSURANCE", OracleDbType.Int32).Value = elem.Element("ORG_INSURANCE_OFFICE_ID")?.Value;
-                cmd.Parameters.Add(":P_FINOFFICE", OracleDbType.Int32).Value = elem.Element("ORG_FIN_OFFICE_ID")?.Value;
-                cmd.Parameters.Add(":P_FINANCING_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_FINANCING_TYPE_ID")?.Value;
+                //cmd.Parameters.Add(":P_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_BUDGET_TYPE_ID")?.Value;
+                //cmd.Parameters.Add(":P_ACTIVITY", OracleDbType.Int32).Value = elem.Element("ORG_ACTIVITY_ID")?.Value;
+                //cmd.Parameters.Add(":P_SUB_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_SUB_BUDGET_TYPE_ID")?.Value;
+                //cmd.Parameters.Add(":P_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("ORG_DEPARTMENT_ID")?.Value;
+                //cmd.Parameters.Add(":P_COMMITTEE", OracleDbType.Int32).Value = elem.Element("ORG_COMMITTEE_ID")?.Value;
+                //cmd.Parameters.Add(":P_TAXOFFICE", OracleDbType.Int32).Value = elem.Element("ORG_TAX_OFFICE_ID")?.Value;
+                //cmd.Parameters.Add(":P_COST_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_COST_TYPE_ID")?.Value;
+                //cmd.Parameters.Add(":P_INSURANCE", OracleDbType.Int32).Value = elem.Element("ORG_INSURANCE_OFFICE_ID")?.Value;
+                //cmd.Parameters.Add(":P_FINOFFICE", OracleDbType.Int32).Value = elem.Element("ORG_FIN_OFFICE_ID")?.Value;
+                //cmd.Parameters.Add(":P_FINANCING_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_FINANCING_TYPE_ID")?.Value;
 
-                cmd.Parameters.Add(":P_ROLE1", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE")?.Value;
-                cmd.Parameters.Add(":P_ROLE2", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE2")?.Value;
-                cmd.Parameters.Add(":P_REGNO1", OracleDbType.Varchar2).Value = elem.Element("ORGP_REGISTER_NO")?.Value;
-                cmd.Parameters.Add(":P_REGNO2", OracleDbType.Varchar2).Value = elem.Element("ORGP_REGISTER_NO2")?.Value;
-                cmd.Parameters.Add(":P_LNAME1", OracleDbType.Varchar2).Value = elem.Element("ORGP_LASTNAME")?.Value;
-                cmd.Parameters.Add(":P_LNAME2", OracleDbType.Varchar2).Value = elem.Element("ORGP_LASTNAME2")?.Value;
-                cmd.Parameters.Add(":P_FNAME1", OracleDbType.Varchar2).Value = elem.Element("ORGP_FIRSTNAME")?.Value;
-                cmd.Parameters.Add(":P_FNAME2", OracleDbType.Varchar2).Value = elem.Element("ORGP_FIRSTNAME2")?.Value;
-                cmd.Parameters.Add(":P_ROLEDATE1", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE_DATE")?.Value;
-                cmd.Parameters.Add(":P_ROLEDATE2", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE_DATE2")?.Value;
-                cmd.Parameters.Add(":P_PHONE1", OracleDbType.Varchar2).Value = elem.Element("ORGP_PHONE")?.Value;
-                cmd.Parameters.Add(":P_PHONE2", OracleDbType.Varchar2).Value = elem.Element("ORGP_PHONE2")?.Value;
-                cmd.Parameters.Add(":P_EMAIL1", OracleDbType.Varchar2).Value = elem.Element("ORGP_EMAIL")?.Value;
-                cmd.Parameters.Add(":P_EMAIL2", OracleDbType.Varchar2).Value = elem.Element("ORGP_EMAIL2")?.Value;
-                cmd.Parameters.Add(":P_WYEAR1", OracleDbType.Varchar2).Value = elem.Element("ORGP_EXPERIENCE_YEAR")?.Value;
-                cmd.Parameters.Add(":P_WYEAR2", OracleDbType.Varchar2).Value = elem.Element("ORGP_EXPERIENCE_YEAR2")?.Value;
-                cmd.Parameters.Add(":P_PROF1", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION")?.Value;
-                cmd.Parameters.Add(":P_PROF2", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION2")?.Value;
+                //cmd.Parameters.Add(":P_ROLE1", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE")?.Value;
+                //cmd.Parameters.Add(":P_ROLE2", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE2")?.Value;
+                //cmd.Parameters.Add(":P_REGNO1", OracleDbType.Varchar2).Value = elem.Element("ORGP_REGISTER_NO")?.Value;
+                //cmd.Parameters.Add(":P_REGNO2", OracleDbType.Varchar2).Value = elem.Element("ORGP_REGISTER_NO2")?.Value;
+                //cmd.Parameters.Add(":P_LNAME1", OracleDbType.Varchar2).Value = elem.Element("ORGP_LASTNAME")?.Value;
+                //cmd.Parameters.Add(":P_LNAME2", OracleDbType.Varchar2).Value = elem.Element("ORGP_LASTNAME2")?.Value;
+                //cmd.Parameters.Add(":P_FNAME1", OracleDbType.Varchar2).Value = elem.Element("ORGP_FIRSTNAME")?.Value;
+                //cmd.Parameters.Add(":P_FNAME2", OracleDbType.Varchar2).Value = elem.Element("ORGP_FIRSTNAME2")?.Value;
+                //cmd.Parameters.Add(":P_ROLEDATE1", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE_DATE")?.Value;
+                //cmd.Parameters.Add(":P_ROLEDATE2", OracleDbType.Varchar2).Value = elem.Element("ORGP_ROLE_DATE2")?.Value;
+                //cmd.Parameters.Add(":P_PHONE1", OracleDbType.Varchar2).Value = elem.Element("ORGP_PHONE")?.Value;
+                //cmd.Parameters.Add(":P_PHONE2", OracleDbType.Varchar2).Value = elem.Element("ORGP_PHONE2")?.Value;
+                //cmd.Parameters.Add(":P_EMAIL1", OracleDbType.Varchar2).Value = elem.Element("ORGP_EMAIL")?.Value;
+                //cmd.Parameters.Add(":P_EMAIL2", OracleDbType.Varchar2).Value = elem.Element("ORGP_EMAIL2")?.Value;
+                //cmd.Parameters.Add(":P_WYEAR1", OracleDbType.Varchar2).Value = elem.Element("ORGP_EXPERIENCE_YEAR")?.Value;
+                //cmd.Parameters.Add(":P_WYEAR2", OracleDbType.Varchar2).Value = elem.Element("ORGP_EXPERIENCE_YEAR2")?.Value;
+                //cmd.Parameters.Add(":P_PROF1", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION")?.Value;
+                //cmd.Parameters.Add(":P_PROF2", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION2")?.Value;
 
                 cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
 

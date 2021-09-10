@@ -583,7 +583,7 @@ namespace Audit.Controllers
         public ActionResult OrgAddEdit(Organization organization)
         {
             ModelState.Remove("ORG_ACTIVITY_ID");
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 if(organization.ORG_ID != 0)
                 {
@@ -592,13 +592,13 @@ namespace Audit.Controllers
                     else
                         AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
                 }
-                else
-                {
-                    if (AppStatic.SystemController.OrgInsert(Convert.ToInt32(User.Identity.GetUserId()), organization.ToXml()))
-                        return Json(new { error = false, message = AppStatic.SystemController.Message });
-                    else
-                        AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
-                }
+                //else
+                //{
+                //    if (AppStatic.SystemController.OrgInsert(Convert.ToInt32(User.Identity.GetUserId()), organization.ToXml()))
+                //        return Json(new { error = false, message = AppStatic.SystemController.Message });
+                //    else
+                //        AppStatic.SetError(AppStatic.SystemController.GetErrors(), AppStatic.SystemController.Message, ModelState);
+                //}
             }
             try
             {

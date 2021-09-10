@@ -306,9 +306,9 @@ namespace Audit.Models
         public XElement ToXml()
         {
             return new XElement("Organization",
-                       new XElement("ORG_ID", ORG_ID)
-                       //new XElement("ORGB_ID", ORGB_ID),
-                       //new XElement("ORGB_ID2", ORGB_ID2),
+                       new XElement("ORG_ID", ORG_ID),
+                       new XElement("ENT_BUDGET_TYPE", ENT_BUDGET_TYPE),
+                       new XElement("ENT_BUDGET_LEVEL", ENT_BUDGET_LEVEL)
                        //new XElement("ORGP_ID", ORGP_ID),
                        //new XElement("ORGP_ID2", ORGP_ID2),
                        //new XElement("ORG_CODE", ORG_CODE),
