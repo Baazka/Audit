@@ -111,13 +111,13 @@ namespace Audit.Models
                 if (xml.Element("TPA_COUNT") != null)
                     TPA_COUNT = Convert.ToInt32(xml.Element("TPA_COUNT").Value);
                 if (xml.Element("TPA_AMOUNT") != null)
-                    TPA_AMOUNT = Convert.ToDecimal(xml.Element("TPA_AMOUNT").Value).ToString("#,0.##");
+                    TPA_AMOUNT = Convert.ToDecimal(xml.Element("TPA_AMOUNT").Value).ToString("#,0.00");
                 if (xml.Element("AUDITED_INCLUDED_ORG") != null)
                     AUDITED_INCLUDED_ORG = Convert.ToInt32(xml.Element("AUDITED_INCLUDED_ORG").Value);
                 if (xml.Element("BENEFIT_FIN_COUNT") != null)
                     BENEFIT_FIN_COUNT = Convert.ToInt32(xml.Element("BENEFIT_FIN_COUNT").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
-                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value).ToString("#,0.##");
+                    BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value).ToString("#,0.00");
                 if (xml.Element("BENEFIT_NONFIN") != null)
                     BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
                 if (xml.Element("EXEC_TYPE") != null)

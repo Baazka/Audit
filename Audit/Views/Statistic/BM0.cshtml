@@ -164,9 +164,9 @@
 @section scripts{
     <script src="~/Scripts/jquery.multiselect.js"></script>
     @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-        <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>*@
+      <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+      <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>*@
     <script>
         var userid = @ViewBag.UserID;
         $(document).ready(function () {
@@ -210,7 +210,7 @@
 
                 "columns": [
                     {
-                        "data": null, "sortable": false, "class": 'text-center',
+                        "data": null, "class": 'text-center',
                         render: function (data, type, row, meta) {
                             if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
                                 return "";
@@ -231,7 +231,7 @@
                     { "data": "FORM_TYPE_NAME", "name": "FORM_TYPE_NAME" },
                     { "data": "PROPOSAL_TYPE_NAME", "name": "PROPOSAL_TYPE_NAME" },
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "AUDIT_INCLUDED_COUNT", "name": "AUDIT_INCLUDED_COUNT", "sortable": false },
+                    { "data": "AUDIT_INCLUDED_COUNT", "name": "AUDIT_INCLUDED_COUNT", "sortable": false},
                     { "data": "AUDIT_INCLUDED_ORG", "name": "AUDIT_INCLUDED_ORG", "sortable": false  },
                     { "data": "WORKING_PERSON", "name": "WORKING_PERSON", "class": "text-right", "sortable": false  },
                     { "data": "WORKING_DAY", "name": "WORKING_DAY", "class": "text-right", "sortable": false  },
@@ -256,14 +256,13 @@
                     //}
                 ],
                 columnDefs: [
-                    { width: 200, targets: 6 },
-                    { width: 100, targets: 10 },
-                    { width: 200, targets: 13 },
+                    { width: 400, targets: 6 },
+                    { width: 500, targets: 13 },
                     { width: 150, targets: 20 },
                     { width: 150, targets: 21 },
                     { width: 150, targets: 22 },
                 ],
-                //scrollX: true,
+                scrollX: true,
                 autoWidth: true,
                 "destroy": true,
                 "pageLength": pagelength,

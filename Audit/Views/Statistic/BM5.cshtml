@@ -165,7 +165,7 @@
                 },
                 "columns": [
                     {
-                        "data": null, "sortable": false, "class": 'text-center',
+                        "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
                             if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
                                 return "";
@@ -211,13 +211,13 @@
                     //}
                 ],
                 columnDefs: [
-                    { width: 200, targets: 4 },
+                    { width: 300, targets: 5 },
                     { width: 200, targets: 7 },
-                    { width: 400, targets: 8 },
+                    { width: 500, targets: 8 },
                     { width: 100, targets: 9 },
 
                 ],
-                //scrollX: true,
+                scrollX: true,
                 scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,

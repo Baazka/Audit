@@ -15,7 +15,7 @@
 <style>
 
     #tableBorder {
-        border-right-color: transparent !important;
+       border-right-color: transparent !important;
         
     }
     .tableBackround {
@@ -61,7 +61,7 @@
                     <tr class="bg-light">
                         <th rowspan="4" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="4" class="text-center">№</th>
-                        <th rowspan="4">Шийдвэрийн төрөл</th>
+                        <th rowspan="4" >Шийдвэрийн төрөл</th>
                         <th rowspan="4">Ангилал</th>
                         <th rowspan="3" colspan="2">Эхний үлдэгдэл</th>
                         <th rowspan="3" colspan="2">Тайлант хугацаанд нэмэгдсэн</th>
@@ -148,38 +148,37 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
-                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
-                    { "data": "DECISION_TYPE", "sortable": false, "class": 'text-center', },
-                    { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
-                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "C1_COUNT", "name": "C1_COUNT" },
-                    { "data": "C1_AMOUNT", "name": "C1_AMOUNT" },
-                    { "data": "CURRENT_COUNT", "name": "CURRENT_COUNT" },
-                    { "data": "CURRENT_AMOUNT", "name": "CURRENT_AMOUNT" },
-                    { "data": "PREV_COUNT", "name": "PREV_COUNT" },
-                    { "data": "PREV_AMOUNT", "name": "PREV_AMOUNT" },
-                    { "data": "CY_COUNT", "name": "CY_COUNT" },
-                    { "data": "CY_AMOUNT", "name": "CY_AMOUNT" },
-                    { "data": "TOTAL_COUNT", "name": "TOTAL_COUNT" },
-                    { "data": "TOTAL_AMOUNT", "name": "TOTAL_AMOUNT" },
-                    { "data": "COMP_STATE_COUNT", "name": "COMP_STATE_COUNT" },
-                    { "data": "COMP_STATE_AMOUNT", "name": "COMP_STATE_AMOUNT" },
-                    { "data": "COMP_LOCAL_COUNT", "name": "COMP_LOCAL_COUNT" },
-                    { "data": "COMP_LOCAL_AMOUNT", "name": "COMP_LOCAL_AMOUNT" },
-                    { "data": "COMP_ORG_COUNT", "name": "COMP_ORG_COUNT" },
-                    { "data": "COMP_ORG_AMOUNT", "name": "COMP_ORG_AMOUNT" },
-                    { "data": "COMP_OTHER_COUNT", "name": "COMP_OTHER_COUNT" },
-                    { "data": "COMP_OTHER_AMOUNT", "name": "COMP_OTHER_AMOUNT" },
-                    { "data": "STATISTIC_COUNT", "name": "STATISTIC_COUNT" },
-                    { "data": "STATISTIC_AMOUNT", "name": "STATISTIC_AMOUNT" },
-                    { "data": "C2_COUNT", "name": "C2_COUNT" },
-                    { "data": "C2_AMOUNT", "name": "C2_AMOUNT" },
-                    { "data": "C2_NONEXPIRED_COUNT", "name": "C2_NONEXPIRED_COUNT" },
-                    { "data": "C2_NONEXPIRED_AMOUNT", "name": "C2_NONEXPIRED_AMOUNT" },
-                    { "data": "C2_EXPIRED_COUNT", "name": "C2_EXPIRED_COUNT" },
-                    { "data": "C2_EXPIRED_AMOUNT", "name": "C2_EXPIRED_AMOUNT" },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME",  },
+                    { "data": "DECISION_TYPE", "class": 'text-center',   },
+                    { "data": "DECISION_TYPE", "name": "DECISION_TYPE", },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME",  },
+                    { "data": "C1_COUNT", "name": "C1_COUNT", "class": "text-right",  },
+                    { "data": "C1_AMOUNT", "name": "C1_AMOUNT", "class": "text-right", },
+                    { "data": "CURRENT_COUNT", "name": "CURRENT_COUNT", "class": "text-right",  },
+                    { "data": "CURRENT_AMOUNT", "name": "CURRENT_AMOUNT", "class": "text-right",  },
+                    { "data": "PREV_COUNT", "name": "PREV_COUNT", "class": "text-right", },
+                    { "data": "PREV_AMOUNT", "name": "PREV_AMOUNT", "class": "text-right",  },
+                    { "data": "CY_COUNT", "name": "CY_COUNT", "class": "text-right",  },
+                    { "data": "CY_AMOUNT", "name": "CY_AMOUNT", "class": "text-right", },
+                    { "data": "TOTAL_COUNT", "name": "TOTAL_COUNT", "class": "text-right", },
+                    { "data": "TOTAL_AMOUNT", "name": "TOTAL_AMOUNT", "class": "text-right", },
+                    { "data": "COMP_STATE_COUNT", "name": "COMP_STATE_COUNT", "class": "text-right", },
+                    { "data": "COMP_STATE_AMOUNT", "name": "COMP_STATE_AMOUNT", "class": "text-right", },
+                    { "data": "COMP_LOCAL_COUNT", "name": "COMP_LOCAL_COUNT", "class": "text-right",  },
+                    { "data": "COMP_LOCAL_AMOUNT", "name": "COMP_LOCAL_AMOUNT", "class": "text-right", },
+                    { "data": "COMP_ORG_COUNT", "name": "COMP_ORG_COUNT", "class": "text-right",},
+                    { "data": "COMP_ORG_AMOUNT", "name": "COMP_ORG_AMOUNT", "class": "text-right", },
+                    { "data": "COMP_OTHER_COUNT", "name": "COMP_OTHER_COUNT", "class": "text-right", },
+                    { "data": "COMP_OTHER_AMOUNT", "name": "COMP_OTHER_AMOUNT", "class": "text-right", },
+                    { "data": "STATISTIC_COUNT", "name": "STATISTIC_COUNT", "class": "text-right",  },
+                    { "data": "STATISTIC_AMOUNT", "name": "STATISTIC_AMOUNT", "class": "text-right",  },
+                    { "data": "C2_COUNT", "name": "C2_COUNT", "class": "text-right", },
+                    { "data": "C2_AMOUNT", "name": "C2_AMOUNT", "class": "text-right",  },
+                    { "data": "C2_NONEXPIRED_COUNT", "name": "C2_NONEXPIRED_COUNT", "class": "text-right",  },
+                    { "data": "C2_NONEXPIRED_AMOUNT", "name": "C2_NONEXPIRED_AMOUNT", "class": "text-right", },
+                    { "data": "C2_EXPIRED_COUNT", "name": "C2_EXPIRED_COUNT", "class": "text-right", },
+                    { "data": "C2_EXPIRED_AMOUNT", "name": "C2_EXPIRED_AMOUNT", "class": "text-right", },
                 ],
-
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
@@ -206,10 +205,25 @@
                             $(row).children('td').each((index, td) => {
                                 if (index === 2) {
                                     $('td', row).eq(2).addClass('font-weight-bold');
+                                    
                                 }
 
-                                if (index !== 29 && index !== 0)
+                                if (index !== 29 && index !== 0) {
                                     $('td', row).eq(index).attr('id', "tableBorder");
+
+                                    
+                                }
+                                if (index === 2)
+                                    $('td', row).eq(index).attr("colspan", 3);
+
+
+                                if (index === 27)
+                                    $('td', row).eq(27).remove();
+                                if (index === 28)
+                                    $('td', row).eq(28).remove();
+                                if (index === 29)
+                                    $('td', row).eq(29).remove();
+                                   
                                 if (index !== 30 && index !== 0)
                                     $('td', row).eq(index).addClass('tableBackround');
                             });

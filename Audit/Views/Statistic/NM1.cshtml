@@ -132,7 +132,7 @@
                 },
                 "columns": [
                     {
-                        "data": null, "sortable": false, "class": 'text-center',
+                        "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
                             if (data.TOPIC_CODE === "НИЙТ ДҮН") {
                                 return "";
@@ -177,8 +177,10 @@
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN", "class": "text-right" },
                     //{ "data": "EXEC_TYPE", "name": "EXEC_TYPE" },
                 ],
-               
-                //scrollX: true,
+                columnDefs: [
+                    { width: 400, targets: 2 },
+                ],
+                scrollX: true,
                 scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,
