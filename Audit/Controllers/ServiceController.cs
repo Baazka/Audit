@@ -338,7 +338,7 @@ namespace Audit.Controllers
                             COUNT3 += Convert.ToInt32(nm3.AUDIT_INCLUDED_COUNT);
                         }
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
                     time.SetValue(Niit, COUNT);
                     day.SetValue(Niit, COUNT1);
                     person.SetValue(Niit, COUNT2);
@@ -568,23 +568,23 @@ namespace Audit.Controllers
                             NUMBER1 += Convert.ToInt32(data.BENEFIT_NONFIN);
                         }
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
-                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.##"));
-                    pay12.SetValue(Niit, AMOUNT12.ToString("#,0.##"));
-                    pay13.SetValue(Niit, AMOUNT13.ToString("#,0.##"));
-                    pay14.SetValue(Niit, AMOUNT14.ToString("#,0.##"));
-                    pay15.SetValue(Niit, AMOUNT15.ToString("#,0.##"));
-                    pay16.SetValue(Niit, AMOUNT16.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
+                    pay12.SetValue(Niit, AMOUNT12.ToString("#,0.00"));
+                    pay13.SetValue(Niit, AMOUNT13.ToString("#,0.00"));
+                    pay14.SetValue(Niit, AMOUNT14.ToString("#,0.00"));
+                    pay15.SetValue(Niit, AMOUNT15.ToString("#,0.00"));
+                    pay16.SetValue(Niit, AMOUNT16.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -768,17 +768,17 @@ namespace Audit.Controllers
                             NUMBER1 += Convert.ToInt32(data.BENEFIT_NONFIN);
                         }
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -948,12 +948,12 @@ namespace Audit.Controllers
                             NUMBER6 += Convert.ToInt32(data.REFERENCE_COUNT);
                         }
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -1085,9 +1085,9 @@ namespace Audit.Controllers
                         }
                       
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -1242,11 +1242,11 @@ namespace Audit.Controllers
                        
                        
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -1485,17 +1485,17 @@ namespace Audit.Controllers
                         }
 
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -1752,17 +1752,17 @@ namespace Audit.Controllers
                             NUMBER12 += Convert.ToInt32(data.ALL_COUNT);
                         }
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -1868,7 +1868,7 @@ namespace Audit.Controllers
                  
 
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
 
@@ -2150,19 +2150,19 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
-                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.##"));
-                    pay12.SetValue(Niit, AMOUNT12.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
+                    pay12.SetValue(Niit, AMOUNT12.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -2455,19 +2455,19 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
-                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.##"));
-                    pay12.SetValue(Niit, AMOUNT12.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
+                    pay12.SetValue(Niit, AMOUNT12.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -2566,7 +2566,7 @@ namespace Audit.Controllers
                             Decimal Amount2 = Convert.ToDecimal(strNii2);
                             AMOUNTRE = Amount1 - Amount2;
 
-                            nm3.C2_AMOUNT = AMOUNTRE.ToString("#,0.##");
+                            nm3.C2_AMOUNT = AMOUNTRE.ToString("#,0.00");
                         }
                     }
 
@@ -2715,13 +2715,13 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -2858,9 +2858,9 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -3018,11 +3018,11 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -3272,17 +3272,17 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -3552,18 +3552,18 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
-                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -4581,19 +4581,19 @@ namespace Audit.Controllers
                         }
                         DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
                     }
-                    DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.##"));
-                    DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.##"));
-                    DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.##"));
-                    DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.##"));
-                    DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.##"));
-                    DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.##"));
-                    DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.##"));
-                    DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.##"));
-                    DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.##"));
-                    DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.##"));
-                    DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.##"));
-                    DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.##"));
-                    DECpay12.SetValue(DECNiit, DECAMOUNT12.ToString("#,0.##"));
+                    DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.00"));
+                    DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.00"));
+                    DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.00"));
+                    DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.00"));
+                    DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.00"));
+                    DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.00"));
+                    DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.00"));
+                    DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.00"));
+                    DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.00"));
+                    DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.00"));
+                    DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.00"));
+                    DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.00"));
+                    DECpay12.SetValue(DECNiit, DECAMOUNT12.ToString("#,0.00"));
 
                     DECcount.SetValue(DECNiit, DECNUMBER);
                     DECcount1.SetValue(DECNiit, DECNUMBER1);
@@ -4834,19 +4834,20 @@ namespace Audit.Controllers
                         }
                         DEPdepname2.SetValue(DECNiit2, data.DEPARTMENT_NAME);
                     }
-                    DECType2pay.SetValue(DECNiit2, DECTYPE2AMOUNT.ToString("#,0.##"));
-                    DECType2pay1.SetValue(DECNiit2, DECTYPE2AMOUNT1.ToString("#,0.##"));
-                    DECType2pay2.SetValue(DECNiit2, DECTYPE2AMOUNT2.ToString("#,0.##"));
-                    DECType2pay3.SetValue(DECNiit2, DECTYPE2AMOUNT3.ToString("#,0.##"));
-                    DECType2pay4.SetValue(DECNiit2, DECTYPE2AMOUNT4.ToString("#,0.##"));
-                    DECType2pay5.SetValue(DECNiit2, DECTYPE2AMOUNT5.ToString("#,0.##"));
-                    DECType2pay6.SetValue(DECNiit2, DECTYPE2AMOUNT6.ToString("#,0.##"));
-                    DECType2pay7.SetValue(DECNiit2, DECTYPE2AMOUNT7.ToString("#,0.##"));
-                    DECType2pay8.SetValue(DECNiit2, DECTYPE2AMOUNT8.ToString("#,0.##"));
-                    DECType2pay9.SetValue(DECNiit2, DECTYPE2AMOUNT9.ToString("#,0.##"));
-                    DECType2pay10.SetValue(DECNiit2, DECTYPE2AMOUNT10.ToString("#,0.##"));
-                    DECType2pay11.SetValue(DECNiit2, DECTYPE2AMOUNT11.ToString("#,0.##"));
-                    DECType2pay12.SetValue(DECNiit2, DECTYPE2AMOUNT12.ToString("#,0.##"));
+                    DECType2pay.SetValue(DECNiit2, DECTYPE2AMOUNT.ToString("#,0.00"));
+                    DECType2pay1.SetValue(DECNiit2, DECTYPE2AMOUNT1.ToString("#,0.00"));
+                    DECType2pay2.SetValue(DECNiit2, DECTYPE2AMOUNT2.ToString("#,0.00"));
+                    DECType2pay3.SetValue(DECNiit2, DECTYPE2AMOUNT3.ToString("#,0.00"));
+                    DECType2pay4.SetValue(DECNiit2, DECTYPE2AMOUNT4.ToString("#,0.00"));
+                    DECType2pay5.SetValue(DECNiit2, DECTYPE2AMOUNT5.ToString("#,0.00"));
+                    DECType2pay6.SetValue(DECNiit2, DECTYPE2AMOUNT6.ToString("#,0.00"));
+                    DECType2pay7.SetValue(DECNiit2, DECTYPE2AMOUNT7.ToString("#,0.00"));
+                    DECType2pay8.SetValue(DECNiit2, DECTYPE2AMOUNT8.ToString("#,0.00"));
+                    DECType2pay9.SetValue(DECNiit2, DECTYPE2AMOUNT9.ToString("#,0.00"));
+                    DECType2pay10.SetValue(DECNiit2, DECTYPE2AMOUNT10.ToString("#,0.00"));
+                    DECType2pay11.SetValue(DECNiit2, DECTYPE2AMOUNT11.ToString("#,0.00"));
+                    DECType2pay12.SetValue(DECNiit2, DECTYPE2AMOUNT12.ToString("#,0.00" +
+                        ""));
 
                     DECType2count.SetValue(DECNiit2, DECTYPE2NUMBER);
                     DECType2count1.SetValue(DECNiit2, DECTYPE2NUMBER1);
@@ -5086,19 +5087,19 @@ namespace Audit.Controllers
                         }
                         DEPdepname3.SetValue(DECNiit3, data.DEPARTMENT_NAME);
                     }
-                    DECType3pay.SetValue(DECNiit3, DECTYPE3AMOUNT.ToString("#,0.##"));
-                    DECType3pay1.SetValue(DECNiit3, DECTYPE3AMOUNT1.ToString("#,0.##"));
-                    DECType3pay2.SetValue(DECNiit3, DECTYPE3AMOUNT2.ToString("#,0.##"));
-                    DECType3pay3.SetValue(DECNiit3, DECTYPE3AMOUNT3.ToString("#,0.##"));
-                    DECType3pay4.SetValue(DECNiit3, DECTYPE3AMOUNT4.ToString("#,0.##"));
-                    DECType3pay5.SetValue(DECNiit3, DECTYPE3AMOUNT5.ToString("#,0.##"));
-                    DECType3pay6.SetValue(DECNiit3, DECTYPE3AMOUNT6.ToString("#,0.##"));
-                    DECType3pay7.SetValue(DECNiit3, DECTYPE3AMOUNT7.ToString("#,0.##"));
-                    DECType3pay8.SetValue(DECNiit3, DECTYPE3AMOUNT8.ToString("#,0.##"));
-                    DECType3pay9.SetValue(DECNiit3, DECTYPE3AMOUNT9.ToString("#,0.##"));
-                    DECType3pay10.SetValue(DECNiit3, DECTYPE3AMOUNT10.ToString("#,0.##"));
-                    DECType3pay11.SetValue(DECNiit3, DECTYPE3AMOUNT11.ToString("#,0.##"));
-                    DECType3pay12.SetValue(DECNiit3, DECTYPE3AMOUNT12.ToString("#,0.##"));
+                    DECType3pay.SetValue(DECNiit3, DECTYPE3AMOUNT.ToString("#,0.00"));
+                    DECType3pay1.SetValue(DECNiit3, DECTYPE3AMOUNT1.ToString("#,0.00"));
+                    DECType3pay2.SetValue(DECNiit3, DECTYPE3AMOUNT2.ToString("#,0.00"));
+                    DECType3pay3.SetValue(DECNiit3, DECTYPE3AMOUNT3.ToString("#,0.00"));
+                    DECType3pay4.SetValue(DECNiit3, DECTYPE3AMOUNT4.ToString("#,0.00"));
+                    DECType3pay5.SetValue(DECNiit3, DECTYPE3AMOUNT5.ToString("#,0.00"));
+                    DECType3pay6.SetValue(DECNiit3, DECTYPE3AMOUNT6.ToString("#,0.00"));
+                    DECType3pay7.SetValue(DECNiit3, DECTYPE3AMOUNT7.ToString("#,0.00"));
+                    DECType3pay8.SetValue(DECNiit3, DECTYPE3AMOUNT8.ToString("#,0.00"));
+                    DECType3pay9.SetValue(DECNiit3, DECTYPE3AMOUNT9.ToString("#,0.00"));
+                    DECType3pay10.SetValue(DECNiit3, DECTYPE3AMOUNT10.ToString("#,0.00"));
+                    DECType3pay11.SetValue(DECNiit3, DECTYPE3AMOUNT11.ToString("#,0.00"));
+                    DECType3pay12.SetValue(DECNiit3, DECTYPE3AMOUNT12.ToString("#,0.00"));
 
                     DECType3count.SetValue(DECNiit3, DECTYPE3NUMBER);
                     DECType3count1.SetValue(DECNiit3, DECTYPE3NUMBER1);
@@ -5426,19 +5427,21 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00" +
+                        "" +
+                        ""));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -5677,19 +5680,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -5928,19 +5931,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -6179,19 +6182,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -6430,19 +6433,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -6689,19 +6692,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -6940,19 +6943,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -7191,19 +7194,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -7442,19 +7445,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -7693,19 +7696,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -7952,19 +7955,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -8203,19 +8206,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -8454,19 +8457,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -8705,19 +8708,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -8956,19 +8959,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -9215,19 +9218,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.##"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -9467,19 +9470,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname2.SetValue(totalDEC2Niit2, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2Type2pay.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT.ToString("#,0.##"));
-                    totalDEC2Type2pay1.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT1.ToString("#,0.##"));
-                    totalDEC2Type2pay2.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT2.ToString("#,0.##"));
-                    totalDEC2Type2pay3.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT3.ToString("#,0.##"));
-                    totalDEC2Type2pay4.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT4.ToString("#,0.##"));
-                    totalDEC2Type2pay5.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT5.ToString("#,0.##"));
-                    totalDEC2Type2pay6.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT6.ToString("#,0.##"));
-                    totalDEC2Type2pay7.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT7.ToString("#,0.##"));
-                    totalDEC2Type2pay8.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT8.ToString("#,0.##"));
-                    totalDEC2Type2pay9.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT9.ToString("#,0.##"));
-                    totalDEC2Type2pay10.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT10.ToString("#,0.##"));
-                    totalDEC2Type2pay11.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT11.ToString("#,0.##"));
-                    totalDEC2Type2pay12.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT12.ToString("#,0.##"));
+                    totalDEC2Type2pay.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT.ToString("#,0.00"));
+                    totalDEC2Type2pay1.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2Type2pay2.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2Type2pay3.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2Type2pay4.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2Type2pay5.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2Type2pay6.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2Type2pay7.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2Type2pay8.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2Type2pay9.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2Type2pay10.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2Type2pay11.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT11.ToString("#,0.00"));
+                    totalDEC2Type2pay12.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2Type2count.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER);
                     totalDEC2Type2count1.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER1);
@@ -9719,19 +9722,19 @@ namespace Audit.Controllers
                         }
                         totalDEP2depname3.SetValue(totalDEC2Niit3, data.DEPARTMENT_NAME);
                     }
-                    totalDEC2Type3pay.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT.ToString("#,0.##"));
-                    totalDEC2Type3pay1.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT1.ToString("#,0.##"));
-                    totalDEC2Type3pay2.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT2.ToString("#,0.##"));
-                    totalDEC2Type3pay3.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT3.ToString("#,0.##"));
-                    totalDEC2Type3pay4.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT4.ToString("#,0.##"));
-                    totalDEC2Type3pay5.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT5.ToString("#,0.##"));
-                    totalDEC2Type3pay6.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT6.ToString("#,0.##"));
-                    totalDEC2Type3pay7.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT7.ToString("#,0.##"));
-                    totalDEC2Type3pay8.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT8.ToString("#,0.##"));
-                    totalDEC2Type3pay9.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT9.ToString("#,0.##"));
-                    totalDEC2Type3pay10.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT10.ToString("#,0.##"));
-                    totalDEC2Type3pay11.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT11.ToString("#,0.##"));
-                    totalDEC2Type3pay12.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT12.ToString("#,0.##"));
+                    totalDEC2Type3pay.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT.ToString("#,0.00"));
+                    totalDEC2Type3pay1.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT1.ToString("#,0.00"));
+                    totalDEC2Type3pay2.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT2.ToString("#,0.00"));
+                    totalDEC2Type3pay3.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT3.ToString("#,0.00"));
+                    totalDEC2Type3pay4.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT4.ToString("#,0.00"));
+                    totalDEC2Type3pay5.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT5.ToString("#,0.00"));
+                    totalDEC2Type3pay6.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT6.ToString("#,0.00"));
+                    totalDEC2Type3pay7.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT7.ToString("#,0.00"));
+                    totalDEC2Type3pay8.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT8.ToString("#,0.00"));
+                    totalDEC2Type3pay9.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT9.ToString("#,0.00"));
+                    totalDEC2Type3pay10.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT10.ToString("#,0.00"));
+                    totalDEC2Type3pay11.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT11.ToString("#,0.00"));
+                    totalDEC2Type3pay12.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT12.ToString("#,0.00"));
 
                     totalDEC2Type3count.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER);
                     totalDEC2Type3count1.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER1);
@@ -10014,18 +10017,18 @@ namespace Audit.Controllers
                         }
 
 
-                        pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                        pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                        pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                        pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                        pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                        pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
-                        pay6.SetValue(Niit, AMOUNT6.ToString("#,0.##"));
-                        pay7.SetValue(Niit, AMOUNT7.ToString("#,0.##"));
-                        pay8.SetValue(Niit, AMOUNT8.ToString("#,0.##"));
-                        pay9.SetValue(Niit, AMOUNT9.ToString("#,0.##"));
-                        pay10.SetValue(Niit, AMOUNT10.ToString("#,0.##"));
-                        pay11.SetValue(Niit, AMOUNT11.ToString("#,0.##"));
+                        pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                        pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                        pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                        pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                        pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                        pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                        pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                        pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                        pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                        pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                        pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+                        pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
 
                         count.SetValue(Niit, NUMBER);
                         count1.SetValue(Niit, NUMBER1);
@@ -10645,18 +10648,18 @@ namespace Audit.Controllers
                         }
                         DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
                     }
-                    DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.##"));
-                    DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.##"));
-                    DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.##"));
-                    DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.##"));
-                    DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.##"));
-                    DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.##"));
-                    DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.##"));
-                    DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.##"));
-                    DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.##"));
-                    DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.##"));
-                    DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.##"));
-                    DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.##"));
+                    DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.00"));
+                    DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.00"));
+                    DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.00"));
+                    DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.00"));
+                    DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.00"));
+                    DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.00"));
+                    DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.00"));
+                    DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.00"));
+                    DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.00"));
+                    DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.00"));
+                    DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.00"));
+                    DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.00"));
 
                     DECcount.SetValue(DECNiit, DECNUMBER);
                     DECcount1.SetValue(DECNiit, DECNUMBER1);
@@ -10760,7 +10763,7 @@ namespace Audit.Controllers
 
                 if (request.PeriodID != null)
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
-                else
+                else 
                     elem.Add(new XElement("V_PERIOD", null));
 
                 XElement res = AppStatic.SystemController.CM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
@@ -10926,12 +10929,12 @@ namespace Audit.Controllers
                     }
 
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.##"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.##"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.##"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
@@ -11414,8 +11417,8 @@ namespace Audit.Controllers
                         }
                     }
 
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.##"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.##"));
+                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);

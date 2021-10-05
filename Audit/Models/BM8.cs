@@ -193,7 +193,7 @@ namespace Audit.Models
                 if (xml.Element("CORRECTED_COUNT") != null)
                     CORRECTED_COUNT = Convert.ToInt32(xml.Element("CORRECTED_COUNT").Value);
                 if (xml.Element("CORRECTED_AMOUNT") != null)
-                    CORRECTED_AMOUNT = Convert.ToDecimal(xml.Element("CORRECTED_AMOUNT").Value).ToString("#,0.##");
+                    CORRECTED_AMOUNT = Convert.ToDecimal(xml.Element("CORRECTED_AMOUNT").Value).ToString("#,0.00");
             }
             return this;
         }
