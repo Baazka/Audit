@@ -414,7 +414,8 @@ namespace Audit.App_Func
                                 "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
                                 "LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AO.ORG_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
                                 "LEFT JOIN AUD_ORG.REF_PROPERTY_TYPE RPT ON AO.ORG_PROPERTY_TYPE = RPT.PROPERTY_TYPE_ID " +
-                                "WHERE (:V_DEPARTMENT IS NULL OR AE.ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
+                                "WHERE (:DEP_ID = 101 OR (:DEP_ID !=101 AND AE.ENT_DEPARTMENT_ID = :DEP_ID)) " +
+                                "AND (:V_DEPARTMENT IS NULL OR AE.ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                 "AND (:V_PARENT_BUDGET_ID IS NULL OR AE.ENT_TEZ = :V_PARENT_BUDGET_ID) " +
                                 "AND (:V_BUDGET_TYPE IS NULL OR AE.ENT_BUDGET_TYPE = :V_BUDGET_TYPE) " +
                                 "AND (:V_BUDGET_LEVEL_ID IS NULL OR AE.ENT_BUDGET_LEVEL = :V_BUDGET_LEVEL_ID) " +
