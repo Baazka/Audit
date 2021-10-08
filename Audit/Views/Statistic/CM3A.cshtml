@@ -170,30 +170,30 @@
                     },
                     
                     { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
-                    { "data": "C1_COUNT", "name": "C1_COUNT" },
-                    { "data": "C1_AMOUNT", "name": "C1_AMOUNT" },
-                    { "data": "CURRENT_COUNT", "name": "CURRENT_COUNT" },
-                    { "data": "CURRENT_AMOUNT", "name": "CURRENT_AMOUNT" },
-                    { "data": "TOTAL_COUNT", "name": "TOTAL_COUNT" },
-                    { "data": "TOTAL_AMOUNT", "name": "TOTAL_AMOUNT" },
-                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT" },
-                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT" },
-                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT" },
-                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT" },
-                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
-                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
-                    { "data": "LAW_CURRENT_COUNT", "name": "LAW_CURRENT_COUNT" },
-                    { "data": "LAW_CURRENT_AMOUNT", "name": "LAW_CURRENT_AMOUNT" },
-                    { "data": "LAW_TOTAL_COUNT", "name": "LAW_TOTAL_COUNT" },
-                    { "data": "LAW_TOTAL_AMOUNT", "name": "LAW_TOTAL_AMOUNT" },
-                    { "data": "LAW_COMP_DONE_COUNT", "name": "LAW_COMP_DONE_COUNT" },
-                    { "data": "LAW_COMP_DONE_AMOUNT", "name": "LAW_COMP_DONE_AMOUNT" },
-                    { "data": "LAW_COMP_PROG_COUNT", "name": "LAW_COMP_PROG_COUNT" },
-                    { "data": "LAW_COMP_PROG_AMOUNT", "name": "LAW_COMP_PROG_AMOUNT" },
-                    { "data": "LAW_COMP_INVALID_COUNT", "name": "LAW_COMP_INVALID_COUNT" },
-                    { "data": "LAW_COMP_INVALID_AMOUNT", "name": "LAW_COMP_INVALID_AMOUNT" },
-                    { "data": "C2_COUNT", "name": "C2_COUNT" },
-                    { "data": "C2_AMOUNT", "name": "C2_AMOUNT" },
+                    { "data": "C1_COUNT", "name": "C1_COUNT", "class": "text-right",},
+                    { "data": "C1_AMOUNT", "name": "C1_AMOUNT", "class": "text-right",},
+                    { "data": "CURRENT_COUNT", "name": "CURRENT_COUNT", "class": "text-right",},
+                    { "data": "CURRENT_AMOUNT", "name": "CURRENT_AMOUNT", "class": "text-right",},
+                    { "data": "TOTAL_COUNT", "name": "TOTAL_COUNT", "class": "text-right",},
+                    { "data": "TOTAL_AMOUNT", "name": "TOTAL_AMOUNT", "class": "text-right",},
+                    { "data": "COMPLETION_DONE_COUNT", "name": "COMPLETION_DONE_COUNT", "class": "text-right",},
+                    { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right",},
+                    { "data": "COMPLETION_PROGRESS_COUNT", "name": "COMPLETION_PROGRESS_COUNT", "class": "text-right",},
+                    { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right",},
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT", "class": "text-right",},
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right",},
+                    { "data": "LAW_CURRENT_COUNT", "name": "LAW_CURRENT_COUNT", "class": "text-right",},
+                    { "data": "LAW_CURRENT_AMOUNT", "name": "LAW_CURRENT_AMOUNT", "class": "text-right",},
+                    { "data": "LAW_TOTAL_COUNT", "name": "LAW_TOTAL_COUNT", "class": "text-right",},
+                    { "data": "LAW_TOTAL_AMOUNT", "name": "LAW_TOTAL_AMOUNT", "class": "text-right",},
+                    { "data": "LAW_COMP_DONE_COUNT", "name": "LAW_COMP_DONE_COUNT", "class": "text-right",},
+                    { "data": "LAW_COMP_DONE_AMOUNT", "name": "LAW_COMP_DONE_AMOUNT", "class": "text-right",},
+                    { "data": "LAW_COMP_PROG_COUNT", "name": "LAW_COMP_PROG_COUNT", "class": "text-right",},
+                    { "data": "LAW_COMP_PROG_AMOUNT", "name": "LAW_COMP_PROG_AMOUNT", "class": "text-right",},
+                    { "data": "LAW_COMP_INVALID_COUNT", "name": "LAW_COMP_INVALID_COUNT", "class": "text-right",},
+                    { "data": "LAW_COMP_INVALID_AMOUNT", "name": "LAW_COMP_INVALID_AMOUNT", "class": "text-right",},
+                    { "data": "C2_COUNT", "name": "C2_COUNT", "class": "text-right",},
+                    { "data": "C2_AMOUNT", "name": "C2_AMOUNT", "class": "text-right",},
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -230,9 +230,24 @@
                             $(row).children('td').each((index, td) => {
                                 if (index === 2)
                                     $('td', row).eq(2).addClass('font-weight-bold');
+                              
+                                if (index === 2)
+                                    $('td', row).eq(index).attr("colspan", 4);
+
+
+                                if (index === 22)
+                                    $('td', row).eq(22).remove();
+                                if (index === 23)
+                                    $('td', row).eq(23).remove();
+                                if (index === 24)
+                                    $('td', row).eq(24).remove();
+                                if (index === 25)
+                                    $('td', row).eq(25).remove();
+
 
                                 if (index !== 26 && index !== 0)
                                     $('td', row).eq(index).attr('id', "tableBorder");
+
                                 if (index !== 27 && index !== 0)
                                     $('td', row).eq(index).addClass('tableBackround');
                                

@@ -4,7 +4,8 @@
     ViewBag.Title = "BM1";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+</style>
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
@@ -67,18 +68,18 @@
                 </a>
             </div>
         }
-            <div class="form-group-sm">
-                <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-file-excel"></i>
-                    </span>
-                    <span class="text">Excel</span>
-                </a>
-            </div>
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
         </div>
+    </div>
 </form>
-<div class="card">
+<div class="card" id="CardH">
     <div class="card-body">
         <div class="table-responsive">
             <table id="BM1" class="table table-bordered table-hover datatable display">
@@ -161,8 +162,13 @@
 </div>
 
 @section scripts{
+  
     <script>
         var userid = @ViewBag.UserID;
+        var scl = window.innerHeight - 277;
+        //var scl = document.getElementById("CardH").offsetHeight + 108;
+
+        //alert(document.documentElement.clientWidth);
         $(document).ready(function () {
             setTimeout(function () { bm1ListInit(); }, 1000);
         });
@@ -180,7 +186,7 @@
                 BM1.rowdata = BM1.table.row(this).data();
             });
         }
-        function bm1ListInit(pagelength = 10) {
+        function bm1ListInit(pagelength = 10, scrollH = scl) {
             BM1.table = $("#BM1").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -198,7 +204,7 @@
                 },
                 "columns": [
                     {
-                        "data": null, "sortable": false, "class": 'text-center',
+                        "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
                             if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
                                 return "";
@@ -257,11 +263,12 @@
                 ],
                 columnDefs: [
                     { width: 80, targets: 4 },
-                    { width: 200, targets: 5 },
+                    { width: 400, targets: 5 },
                     { width: 80, targets: 11 },
                     { width: 300, targets: 12 },
                 ],
-                //scrollX: true,
+                scrollX: true,
+                scrollY: 392,
                 scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,

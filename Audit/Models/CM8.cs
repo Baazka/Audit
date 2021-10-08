@@ -101,9 +101,9 @@ namespace Audit.Models
                 if (xml.Element("STATISTIC_PERIOD") != null)
                     STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
                 if (xml.Element("APPROVED_BUDGET") != null)
-                    APPROVED_BUDGET = Convert.ToDecimal(xml.Element("APPROVED_BUDGET").Value).ToString("#,0.##");
+                    APPROVED_BUDGET = Convert.ToDecimal(xml.Element("APPROVED_BUDGET").Value).ToString("#,0.00");
                 if (xml.Element("PERFORMANCE_BUDGET") != null)
-                    PERFORMANCE_BUDGET = Convert.ToDecimal(xml.Element("PERFORMANCE_BUDGET").Value).ToString("#,0.##");
+                    PERFORMANCE_BUDGET = Convert.ToDecimal(xml.Element("PERFORMANCE_BUDGET").Value).ToString("#,0.00");
                 if (xml.Element("WORKERS") != null)
                     WORKERS = Convert.ToInt32(xml.Element("WORKERS").Value);
                 if (xml.Element("MANAGER") != null)

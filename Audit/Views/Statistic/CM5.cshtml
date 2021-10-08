@@ -110,7 +110,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            
+
             setTimeout(function () { cm5ListInit(); }, 1000);
         });
 
@@ -169,6 +169,7 @@
                     { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
                     { "data": "ALL_COUNT", "name": "ALL_COUNT" },
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
+                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
                 ],
                 "destroy": true,
                 "scrollCollapse": true,
@@ -203,7 +204,7 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            td.text(""); 
+                            td.text("");
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
@@ -223,7 +224,7 @@
                     });
 
                 },
-               
+
             });
 
         }

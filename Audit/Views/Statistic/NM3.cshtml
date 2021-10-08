@@ -112,7 +112,7 @@
                 },
                 "columns": [
                     {
-                        "data": null, "sortable": false, "class": 'text-center',
+                        "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
                             if (data.TOPIC_CODE === "НИЙТ ДҮН") {
                                 return "";
@@ -149,10 +149,10 @@
                     { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME", "class": "text-right" },
                 ],
                 columnDefs: [
-                    { width: 200, targets: 2 },
+                    { width: 400, targets: 2 },
 
                 ],
-                //scrollX: true,
+                scrollX: true,
                 scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,

@@ -409,7 +409,7 @@ namespace Audit.App_Func
                                 "FROM AUD_ORG.AUDIT_ENTITY AE " +
                                 "INNER JOIN AUD_ORG.AUDIT_ENTITY AE_PARENT ON AE.ENT_TEZ = AE_PARENT.ENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON AE.ENT_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
-                                "INNER JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                                "LEFT JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON AE.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
                                 "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
                                 "LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AO.ORG_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
@@ -1019,7 +1019,7 @@ namespace Audit.App_Func
                 //cmd.Parameters.Add(":P_PROF1", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION")?.Value;
                 //cmd.Parameters.Add(":P_PROF2", OracleDbType.Varchar2).Value = elem.Element("ORGP_PROFESSION2")?.Value;
 
-                cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                //cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
 
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
