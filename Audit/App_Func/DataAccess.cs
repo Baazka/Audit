@@ -409,7 +409,7 @@ namespace Audit.App_Func
                                 "FROM AUD_ORG.AUDIT_ENTITY AE " +
                                 "INNER JOIN AUD_ORG.AUDIT_ENTITY AE_PARENT ON AE.ENT_TEZ = AE_PARENT.ENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON AE.ENT_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
-                                "LEFT JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                                "INNER JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON AE.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
                                 "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
                                 "LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AO.ORG_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
@@ -654,7 +654,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME ,AO.ORG_REGISTER_NO, AO.ORG_LEGAL_STATUS, AO.ORG_PROPERTY_TYPE, AE.ENT_BUDGET_TYPE, AE.ENT_BUDGET_LEVEL, AE.ENT_DEPARTMENT_ID " +
+                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME ,AO.ORG_REGISTER_NO, AO.ORG_LEGAL_STATUS, AO.ORG_PROPERTY_TYPE, AE.ENT_BUDGET_TYPE, AE.ENT_BUDGET_LEVEL, AE.ENT_DEPARTMENT_ID, AE.ENT_HEAD_ROLE, AE.ENT_HEAD_NAME, AE.ENT_HEAD_PHONE, AE.ENT_ACC_ROLE, AE.ENT_ACC_NAME, AE.ENT_ACC_PHONE " +
                 "FROM AUD_ORG.AUDIT_ENTITY AE " +
                 "INNER JOIN AUD_ORG.AUDIT_ENTITY AE_PARENT ON AE.ENT_TEZ = AE_PARENT.ENT_ID " +
                 "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
@@ -966,6 +966,15 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = elem.Element("ORG_ID").Value;
                 cmd.Parameters.Add(":P_ENT_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("ENT_BUDGET_TYPE").Value;
                 cmd.Parameters.Add(":P_ENT_BUDGET_LEVEL", OracleDbType.Int32).Value = elem.Element("ENT_BUDGET_LEVEL").Value;
+                cmd.Parameters.Add(":P_ORG_LEGAL_STATUS", OracleDbType.Int32).Value = elem.Element("ORG_LEGAL_STATUS").Value;
+                cmd.Parameters.Add(":P_ORG_PROPERTY_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_PROPERTY_TYPE").Value;
+                cmd.Parameters.Add(":P_ENT_HEAD_ROLE", OracleDbType.Varchar2).Value = elem.Element("ENT_HEAD_ROLE").Value;
+                cmd.Parameters.Add(":P_ENT_HEAD_NAME", OracleDbType.Varchar2).Value = elem.Element("ENT_HEAD_NAME").Value;
+                cmd.Parameters.Add(":P_ENT_HEAD_PHONE", OracleDbType.Varchar2).Value = elem.Element("ENT_HEAD_PHONE").Value;
+                cmd.Parameters.Add(":P_ENT_ACC_ROLE", OracleDbType.Varchar2).Value = elem.Element("ENT_ACC_ROLE").Value;
+                cmd.Parameters.Add(":P_ENT_ACC_NAME", OracleDbType.Varchar2).Value = elem.Element("ENT_ACC_NAME").Value;
+                cmd.Parameters.Add(":P_ENT_ACC_PHONE", OracleDbType.Varchar2).Value = elem.Element("ENT_ACC_PHONE").Value;
+                cmd.Parameters.Add(":P_USERID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 //cmd.Parameters.Add(":P_ORGPID1", OracleDbType.Int32).Value = elem.Element("ORGP_ID").Value;
                 //cmd.Parameters.Add(":P_ORGPID2", OracleDbType.Int32).Value = elem.Element("ORGP_ID2").Value;
 
@@ -1029,7 +1038,7 @@ namespace Audit.App_Func
 
                 bool responseVal = Convert.ToInt32(responseValue.ToString()) != 0 ? true : false;
 
-                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
+                response.CreateResponse(responseVal, string.Empty, "Амжилттай хадгаллаа");
             }
             catch (Exception ex)
             {
