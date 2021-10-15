@@ -208,7 +208,7 @@ namespace Audit.App_Func
                 else if (libName == "BudgetLevel")
                     cmd.CommandText = "SELECT BUDGET_LEVEL_ID, BUDGET_LEVEL_NAME FROM AUD_ORG.REF_BUDGET_LEVEL";
                 else if (libName == "OrgLegalStatus")
-                    cmd.CommandText = "SELECT RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME FROM AUD_ORG.AUDIT_ENTITY AE INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AO.ORG_LEGAL_STATUS = RLS.LEGAL_STATUS_ID WHERE RLS.LEGAL_STATUS_NAME IS NOT NULL GROUP BY RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME ORDER BY RLS.LEGAL_STATUS_ID";         
+                    cmd.CommandText = "SELECT RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME FROM AUD_ORG.AUDIT_ENTITY AE LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AE.ENT_LEGAL_STATUS = RLS.LEGAL_STATUS_ID WHERE RLS.LEGAL_STATUS_NAME IS NOT NULL GROUP BY RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME ORDER BY RLS.LEGAL_STATUS_ID";         
                 else if (libName == "PropertyType")
                     cmd.CommandText = "SELECT PROPERTY_TYPE_ID, PROPERTY_TYPE_NAME FROM AUD_ORG.REF_PROPERTY_TYPE ORDER BY PROPERTY_TYPE_ID";
                 else if (libName == "SourceType")
@@ -411,16 +411,16 @@ namespace Audit.App_Func
                                 "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON AE.ENT_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON AE.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
+                                "LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AE.ENT_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
+                                "LEFT JOIN AUD_ORG.REF_PROPERTY_TYPE RPT ON AE.ENT_PROPERTY_TYPE = RPT.PROPERTY_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
-                                "LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AO.ORG_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
-                                "LEFT JOIN AUD_ORG.REF_PROPERTY_TYPE RPT ON AO.ORG_PROPERTY_TYPE = RPT.PROPERTY_TYPE_ID " +
                                 "WHERE (:DEP_ID = 101 OR (:DEP_ID !=101 AND AE.ENT_DEPARTMENT_ID = :DEP_ID)) " +
                                 "AND (:V_DEPARTMENT IS NULL OR AE.ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                 "AND (:V_PARENT_BUDGET_ID IS NULL OR AE.ENT_TEZ = :V_PARENT_BUDGET_ID) " +
                                 "AND (:V_BUDGET_TYPE IS NULL OR AE.ENT_BUDGET_TYPE = :V_BUDGET_TYPE) " +
                                 "AND (:V_BUDGET_LEVEL_ID IS NULL OR AE.ENT_BUDGET_LEVEL = :V_BUDGET_LEVEL_ID) " +
-                                "AND (:V_LEGAL_STATUS_ID IS NULL OR AO.ORG_LEGAL_STATUS = :V_LEGAL_STATUS_ID) " +
-                                "AND (:V_PROPERTY_TYPE_ID IS NULL OR AO.ORG_PROPERTY_TYPE = :V_PROPERTY_TYPE_ID) " +
+                                "AND (:V_LEGAL_STATUS_ID IS NULL OR AE.ENT_LEGAL_STATUS = :V_LEGAL_STATUS_ID) " +
+                                "AND (:V_PROPERTY_TYPE_ID IS NULL OR AE.ENT_PROPERTY_TYPE = :V_PROPERTY_TYPE_ID) " +
                                 //"AND (:V_STATUS IS NULL OR (R1.ORG_STATUS_ID IN (:V_STATUS))) " +
                                 //"AND (:V_VIOLATION IS NULL OR (R1.VIOLATION_DETAIL LIKE '%'||:V_VIOLATION||'%')) " +
                                 "AND (:V_SEARCH IS NULL OR UPPER(AE.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RPT.PROPERTY_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
@@ -654,12 +654,10 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME ,AO.ORG_REGISTER_NO, AO.ORG_LEGAL_STATUS, AO.ORG_PROPERTY_TYPE, AE.ENT_BUDGET_TYPE, AE.ENT_BUDGET_LEVEL, AE.ENT_DEPARTMENT_ID, AE.ENT_HEAD_ROLE, AE.ENT_HEAD_NAME, AE.ENT_HEAD_PHONE, AE.ENT_ACC_ROLE, AE.ENT_ACC_NAME, AE.ENT_ACC_PHONE " +
+                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME ,AO.ORG_REGISTER_NO, AE.ENT_LEGAL_STATUS, AE.ENT_PROPERTY_TYPE, AE.ENT_BUDGET_TYPE, AE.ENT_BUDGET_LEVEL, AE.ENT_DEPARTMENT_ID, AE.ENT_HEAD_ROLE, AE.ENT_HEAD_NAME, AE.ENT_HEAD_PHONE, AE.ENT_ACC_ROLE, AE.ENT_ACC_NAME, AE.ENT_ACC_PHONE " +
                 "FROM AUD_ORG.AUDIT_ENTITY AE " +
                 "INNER JOIN AUD_ORG.AUDIT_ENTITY AE_PARENT ON AE.ENT_TEZ = AE_PARENT.ENT_ID " +
                 "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
-                "LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AO.ORG_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
-                "LEFT JOIN AUD_ORG.REF_PROPERTY_TYPE RPT ON AO.ORG_PROPERTY_TYPE = RPT.PROPERTY_TYPE_ID " +
                 "WHERE AE.ENT_ID = :ORG_ID";
                 //cmd.CommandText = "SELECT RO.ORG_ID, RO.ORG_DEPARTMENT_ID, RO.ORG_CODE, RO.ORG_NAME, RO.ORG_REGISTER_NO, RO.ORG_REGISTER_NUMBER, RO.ORG_REG_DATE, RO.ORG_OFFICE_ID, ORG_FIN_OFFICE_ID, " +
                 //    "RO.ORG_SUB_OFFICE_ID, RO.ORG_ADDRESS, RO.ORG_WEBSITE, RO.ORG_EMAIL, RO.ORG_PHONE, RO.ORG_FAX," +
@@ -966,8 +964,8 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ORGID", OracleDbType.Int32).Value = elem.Element("ORG_ID").Value;
                 cmd.Parameters.Add(":P_ENT_BUDGET_TYPE", OracleDbType.Int32).Value = elem.Element("ENT_BUDGET_TYPE").Value;
                 cmd.Parameters.Add(":P_ENT_BUDGET_LEVEL", OracleDbType.Int32).Value = elem.Element("ENT_BUDGET_LEVEL").Value;
-                cmd.Parameters.Add(":P_ORG_LEGAL_STATUS", OracleDbType.Int32).Value = elem.Element("ORG_LEGAL_STATUS").Value;
-                cmd.Parameters.Add(":P_ORG_PROPERTY_TYPE", OracleDbType.Int32).Value = elem.Element("ORG_PROPERTY_TYPE").Value;
+                cmd.Parameters.Add(":P_ENT_LEGAL_STATUS", OracleDbType.Int32).Value = elem.Element("ENT_LEGAL_STATUS").Value;
+                cmd.Parameters.Add(":P_ENT_PROPERTY_TYPE", OracleDbType.Int32).Value = elem.Element("ENT_PROPERTY_TYPE").Value;
                 cmd.Parameters.Add(":P_ENT_HEAD_ROLE", OracleDbType.Varchar2).Value = elem.Element("ENT_HEAD_ROLE").Value;
                 cmd.Parameters.Add(":P_ENT_HEAD_NAME", OracleDbType.Varchar2).Value = elem.Element("ENT_HEAD_NAME").Value;
                 cmd.Parameters.Add(":P_ENT_HEAD_PHONE", OracleDbType.Varchar2).Value = elem.Element("ENT_HEAD_PHONE").Value;

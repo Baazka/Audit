@@ -16,8 +16,8 @@ namespace Audit.Models
         public string ORG_REGISTER_NO { get; set; }
         public string ENT_BUDGET_TYPE { get; set; }
         public string ENT_BUDGET_LEVEL { get; set; }
-        public string ORG_LEGAL_STATUS { get; set; }
-        public string ORG_PROPERTY_TYPE { get; set; }
+        public string ENT_LEGAL_STATUS { get; set; }
+        public string ENT_PROPERTY_TYPE { get; set; }
         public string ENT_DEPARTMENT_ID { get; set; }
         public string ENT_HEAD_ROLE { get; set; }
         public string ENT_HEAD_NAME { get; set; }
@@ -190,10 +190,10 @@ namespace Audit.Models
                 ENT_BUDGET_TYPE = elem.Element("ENT_BUDGET_TYPE").Value;
             if (elem.Element("ENT_BUDGET_LEVEL") != null)
                 ENT_BUDGET_LEVEL = elem.Element("ENT_BUDGET_LEVEL").Value;
-            if (elem.Element("ORG_LEGAL_STATUS") != null)
-                ORG_LEGAL_STATUS = elem.Element("ORG_LEGAL_STATUS").Value;
-            if (elem.Element("ORG_PROPERTY_TYPE") != null)
-                ORG_PROPERTY_TYPE = elem.Element("ORG_PROPERTY_TYPE").Value;
+            if (elem.Element("ENT_LEGAL_STATUS") != null)
+                ENT_LEGAL_STATUS = elem.Element("ENT_LEGAL_STATUS").Value;
+            if (elem.Element("ENT_PROPERTY_TYPE") != null)
+                ENT_PROPERTY_TYPE = elem.Element("ENT_PROPERTY_TYPE").Value;
             if (elem.Element("ENT_DEPARTMENT_ID") != null)
                 ENT_DEPARTMENT_ID = elem.Element("ENT_DEPARTMENT_ID").Value;
             if (elem.Element("ENT_HEAD_ROLE") != null)
@@ -328,8 +328,8 @@ namespace Audit.Models
                        new XElement("ORG_ID", ORG_ID),
                        new XElement("ENT_BUDGET_TYPE", ENT_BUDGET_TYPE),
                        new XElement("ENT_BUDGET_LEVEL", ENT_BUDGET_LEVEL),
-                       new XElement("ORG_LEGAL_STATUS", ORG_LEGAL_STATUS),
-                       new XElement("ORG_PROPERTY_TYPE", ORG_PROPERTY_TYPE),
+                       new XElement("ENT_LEGAL_STATUS", ENT_LEGAL_STATUS),
+                       new XElement("ENT_PROPERTY_TYPE", ENT_PROPERTY_TYPE),
                        new XElement("ENT_HEAD_NAME", ENT_HEAD_NAME),
                        new XElement("ENT_HEAD_ROLE", ENT_HEAD_ROLE),
                        new XElement("ENT_HEAD_PHONE", ENT_HEAD_PHONE),

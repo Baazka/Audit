@@ -124,8 +124,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Хариуцлагын хэлбэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_LEGAL_STATUS, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_LEGAL_STATUS, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ENT_LEGAL_STATUS, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ENT_LEGAL_STATUS, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
@@ -143,8 +143,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Өмчийн хэлбэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_PROPERTY_TYPE, Model.propertyTypes.Select(m => new SelectListItem { Text = m.PROPERTY_TYPE_NAME, Value = m.PROPERTY_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_PROPERTY_TYPE, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ENT_PROPERTY_TYPE, Model.propertyTypes.Select(m => new SelectListItem { Text = m.PROPERTY_TYPE_NAME, Value = m.PROPERTY_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ENT_PROPERTY_TYPE, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
