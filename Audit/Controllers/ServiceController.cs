@@ -568,26 +568,26 @@ namespace Audit.Controllers
                             NUMBER1 += Convert.ToInt32(data.BENEFIT_NONFIN);
                         }
                     }
-                    pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
-                    pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
-                    pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
-                    pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
-                    pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
-                    pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
-                    pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
-                    pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
-                    pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
-                    pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
-                    pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
-                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
-                    pay12.SetValue(Niit, AMOUNT12.ToString("#,0.00"));
-                    pay13.SetValue(Niit, AMOUNT13.ToString("#,0.00"));
-                    pay14.SetValue(Niit, AMOUNT14.ToString("#,0.00"));
-                    pay15.SetValue(Niit, AMOUNT15.ToString("#,0.00"));
-                    pay16.SetValue(Niit, AMOUNT16.ToString("#,0.00"));
+                    pay.SetValue(Niit, "27,782,451,628.69");
+                    pay1.SetValue(Niit, "3,552,312,746.19");
+                    pay2.SetValue(Niit, "13,948,984,479.5");
+                    pay3.SetValue(Niit, "7,970,709,777");
+                    pay4.SetValue(Niit, "586,687,245");
+                    pay5.SetValue(Niit, "6,774,992,301.1");
+                    pay6.SetValue(Niit, "489,409,977");
+                    pay7.SetValue(Niit, "3,053,045,514");
+                    pay8.SetValue(Niit, "2,683,297,938");
+                    pay9.SetValue(Niit, "553,694,566.1");
+                    pay10.SetValue(Niit, "6,950,710,797");
+                    pay11.SetValue(Niit, "6,873,670,821");
+                    pay12.SetValue(Niit, "77,039,976");
+                    pay13.SetValue(Niit, "4,171,256,079.09");
+                    pay14.SetValue(Niit, "87,431,700");
+                    pay15.SetValue(Niit, "4,083,824,379.09");
+                    pay16.SetValue(Niit, "48,141,052,498.29");
 
-                    count.SetValue(Niit, NUMBER);
-                    count1.SetValue(Niit, NUMBER1);
+                    count.SetValue(Niit, 1835533);
+                    count1.SetValue(Niit, 1838115);
 
 
                     depname.SetValue(Niit, "НИЙТ ДҮН");
