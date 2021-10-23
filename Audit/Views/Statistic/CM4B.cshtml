@@ -86,7 +86,7 @@
             setTimeout(function () { cm4bListInit(); }, 1000);
         });
 
-        function cm4bListInit() {
+        function cm4bListInit(pagelength = -1) {
             CM4B.table = $("#CM4B").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -96,6 +96,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Type = 2;
                         return data;
                     }
                 },

@@ -86,7 +86,7 @@
             setTimeout(function () { cm4cListInit(); }, 1000);
         });
 
-        function cm4cListInit() {
+        function cm4cListInit(pagelength = -1) {
             CM4C.table = $("#CM4C").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -96,6 +96,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Type = 3;
                         return data;
                     }
                 },
@@ -139,6 +140,7 @@
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
+                "pageLength": pagelength,
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,

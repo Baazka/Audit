@@ -158,7 +158,7 @@
                 BM4.rowdata = BM4.table.row(this).data();
             });
         }
-        function bm4ListInit(pagelength = 100) {
+        function bm4ListInit(pagelength = 10) {
             BM4.table = $("#BM4").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -178,7 +178,7 @@
                     {
                         "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -486,7 +486,7 @@
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').addClass('disabled');
             BM4.table.destroy();
-            bm4sListInit(-1);
+            bm4ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));

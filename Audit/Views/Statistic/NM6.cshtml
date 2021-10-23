@@ -119,7 +119,7 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.TOPIC_CODE === "НИЙТ ДҮН") {
+                            if (data.TOPIC_CODE === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -172,7 +172,18 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+
+                        if (data.TOPIC_CODE === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
             });
 
         }

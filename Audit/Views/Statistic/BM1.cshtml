@@ -4,8 +4,7 @@
     ViewBag.Title = "BM1";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-</style>
+
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
@@ -165,7 +164,7 @@
   
     <script>
         var userid = @ViewBag.UserID;
-        var scl = window.innerHeight - 277;
+        //var scl = window.innerHeight - 277;
         //var scl = document.getElementById("CardH").offsetHeight + 108;
 
         //alert(document.documentElement.clientWidth);
@@ -186,7 +185,7 @@
                 BM1.rowdata = BM1.table.row(this).data();
             });
         }
-        function bm1ListInit(pagelength = 10, scrollH = scl) {
+        function bm1ListInit(pagelength = 10) {
             BM1.table = $("#BM1").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -206,7 +205,7 @@
                     {
                         "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -280,6 +279,17 @@
                 "stateSave": false,
                 lengthChange: true,
                 "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                      
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+                       
+                    }
+                },
                 "drawCallback": function () {
                     rowselected();
                 }

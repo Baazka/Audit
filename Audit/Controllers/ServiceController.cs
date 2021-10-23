@@ -289,13 +289,16 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM0(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM0> bm0Body = new List<BM0>();
+                List<BM0> AllData = new List<BM0>();
                 List<BM0> bm0 = new List<BM0>();
                 BM0 Niit = new BM0();
                 var typ = typeof(BM0);
                 if (res != null && res.Elements("BM0") != null)
                 {
                     bm0Body = (from item in res.Elements("BM0") select new BM0().SetXml(item)).ToList();
-                    response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                    AllData = (from item in res.Elements("RowCount") select new BM0().SetXml(item)).ToList();
+                    //response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                    response.recordsTotal = AllData.Count();
                 }
 
                 if (bm0Body.Count > 0)
@@ -313,7 +316,7 @@ namespace Audit.Controllers
                     int COUNT3 = 0;
                     Decimal AMOUNT = 0;
 
-                    foreach (BM0 nm3 in bm0Body)
+                    foreach (BM0 nm3 in AllData)
                     {
                         if (nm3.AUDIT_SERVICE_PAY != "0" && nm3.AUDIT_SERVICE_PAY != null)
                         {
@@ -344,7 +347,7 @@ namespace Audit.Controllers
                     person.SetValue(Niit, COUNT2);
                     included.SetValue(Niit, COUNT3);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     bm0 = bm0Body;
@@ -401,11 +404,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM1List> Body = new List<BM1List>();
+                List<BM1List> AllData = new List<BM1List>();
                 List<BM1List> list = new List<BM1List>();
                 BM1List Niit = new BM1List();
                 var typ = typeof(BM1List);
                 if (res != null && res.Elements("BM1") != null)
+                {
                     Body = (from item in res.Elements("BM1") select new BM1List().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new BM1List().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                   
 
                 if (Body.Count > 0)
                 {
@@ -454,7 +463,7 @@ namespace Audit.Controllers
                     int NUMBER1 = 0;
 
 
-                    foreach (BM1List data in Body)
+                    foreach (BM1List data in AllData)
                     {
                         if (data.ACT_AMOUNT != "0" && data.ACT_AMOUNT != null)
                         {
@@ -590,10 +599,11 @@ namespace Audit.Controllers
                     count1.SetValue(Niit, NUMBER1);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
                     list = Body;
                     list.Add(Niit);
+                    
 
                     response.data = list;
                 }
@@ -602,7 +612,6 @@ namespace Audit.Controllers
                     response.data = Body;
                 }
                 
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -647,13 +656,15 @@ namespace Audit.Controllers
                 response.recordsTotal = 0;
                 XElement res = AppStatic.SystemController.BM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM2List> Body = new List<BM2List>();
+                List<BM2List> AllData = new List<BM2List>();
                 List<BM2List> list = new List<BM2List>();
                 BM2List Niit = new BM2List();
                 var typ = typeof(BM2List);
                 if (res != null && res.Elements("BM2") != null)
                 {
                     Body = (from item in res.Elements("BM2") select new BM2List().SetXml(item)).ToList();
-                    response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                    AllData = (from item in res.Elements("RowCount") select new BM2List().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
                 }
                 if (Body.Count > 0)
                 {
@@ -689,7 +700,7 @@ namespace Audit.Controllers
                     int NUMBER = 0;
                     int NUMBER1 = 0;
 
-                    foreach (BM2List data in Body)
+                    foreach (BM2List data in AllData)
                     {
                         if (data.CLAIM_VIOLATION_AMOUNT != "0" && data.CLAIM_VIOLATION_AMOUNT != null)
                         {
@@ -784,7 +795,7 @@ namespace Audit.Controllers
                     count1.SetValue(Niit, NUMBER1);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     list = Body;
@@ -838,11 +849,14 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM3(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM3List> Body = new List<BM3List>();
+                List<BM3List> AllData = new List<BM3List>();
                 List<BM3List> list = new List<BM3List>();
                 BM3List Niit = new BM3List();
                 var typ = typeof(BM3List);
                 if (res != null && res.Elements("BM3") != null)
                     Body = (from item in res.Elements("BM3") select new BM3List().SetXml(item)).ToList();
+                AllData = (from item in res.Elements("RowCount") select new BM3List().SetXml(item)).ToList();
+                response.recordsTotal = AllData.Count();
 
                 if (Body.Count > 0)
                 {
@@ -878,7 +892,7 @@ namespace Audit.Controllers
                     int NUMBER5 = 0;
                     int NUMBER6 = 0;
 
-                    foreach (BM3List data in Body)
+                    foreach (BM3List data in AllData)
                     {
                         if (data.REFERENCE_AMOUNT != "0" && data.REFERENCE_AMOUNT != null)
                         {
@@ -964,7 +978,7 @@ namespace Audit.Controllers
                     count6.SetValue(Niit, NUMBER6);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     list = Body;
@@ -976,7 +990,7 @@ namespace Audit.Controllers
                 {
                     response.data = Body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -1019,11 +1033,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM4(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM4List> Body = new List<BM4List>();
+                List<BM4List> AllData = new List<BM4List>();
                 List<BM4List> list = new List<BM4List>();
                 BM4List Niit = new BM4List();
                 var typ = typeof(BM4List);
                 if (res != null && res.Elements("BM4") != null)
+                {
                     Body = (from item in res.Elements("BM4") select new BM4List().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new BM4List().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                    
 
 
                 if (Body.Count > 0)
@@ -1046,7 +1066,7 @@ namespace Audit.Controllers
                     int NUMBER1 = 0;
                     int NUMBER2 = 0;
 
-                    foreach (BM4List data in Body)
+                    foreach (BM4List data in AllData)
                     {
                         if (data.PROPOSAL_AMOUNT != "0" && data.PROPOSAL_AMOUNT != null)
                         {
@@ -1094,7 +1114,7 @@ namespace Audit.Controllers
                     count2.SetValue(Niit, NUMBER2);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     list = Body;
@@ -1106,7 +1126,6 @@ namespace Audit.Controllers
                 {
                     response.data = Body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -1149,11 +1168,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM5List> Body = new List<BM5List>();
+                List<BM5List> AllData = new List<BM5List>();
                 List<BM5List> list = new List<BM5List>();
                 BM5List Niit = new BM5List();
                 var typ = typeof(BM5List);
                 if (res != null && res.Elements("BM5") != null)
+                {
                     Body = (from item in res.Elements("BM5") select new BM5List().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("BM5") select new BM5List().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                   
 
                 if (Body.Count > 0)
                 {
@@ -1183,7 +1208,7 @@ namespace Audit.Controllers
                     int NUMBER3 = 0;
                     int NUMBER4 = 0;
 
-                    foreach (BM5List data in Body)
+                    foreach (BM5List data in AllData)
                     {
                         if (data.LAW_AMOUNT != "0" && data.LAW_AMOUNT != null)
                         {
@@ -1255,7 +1280,7 @@ namespace Audit.Controllers
                     count4.SetValue(Niit, NUMBER4);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     list = Body;
@@ -1267,7 +1292,7 @@ namespace Audit.Controllers
                 {
                     response.data = Body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -1310,11 +1335,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM6(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM6> Body = new List<BM6>();
+                List<BM6> AllData = new List<BM6>();
                 List<BM6> list = new List<BM6>();
                 BM6 Niit = new BM6();
                 var typ = typeof(BM6);
                 if (res != null && res.Elements("BM6") != null)
+                {
                     Body = (from item in res.Elements("BM6") select new BM6().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new BM6().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                   
                 if (Body.Count > 0)
                 {
                     var depname = typ.GetProperty("DEPARTMENT_NAME");
@@ -1367,7 +1398,7 @@ namespace Audit.Controllers
                     int NUMBER9 = 0;
                     int NUMBER10 = 0;
 
-                    foreach (BM6 data in Body)
+                    foreach (BM6 data in AllData)
                     {
                         if (data.VIOLATION_AMOUNT != "0" && data.VIOLATION_AMOUNT != null)
                         {
@@ -1510,7 +1541,7 @@ namespace Audit.Controllers
                     count10.SetValue(Niit, NUMBER10);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     list = Body;
@@ -1522,7 +1553,7 @@ namespace Audit.Controllers
                 {
                     response.data = Body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -1565,11 +1596,16 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM7(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM7> Body = new List<BM7>();
+                List<BM7> AllData = new List<BM7>();
                 List<BM7> list = new List<BM7>();
                 BM7 Niit = new BM7();
                 var typ = typeof(BM7);
                 if (res != null && res.Elements("BM7") != null)
+                {
                     Body = (from item in res.Elements("BM7") select new BM7().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new BM7().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
 
                 if (Body.Count > 0)
                 {
@@ -1627,7 +1663,7 @@ namespace Audit.Controllers
                     int NUMBER11 = 0;
                     int NUMBER12 = 0;
 
-                    foreach (BM7 data in Body)
+                    foreach (BM7 data in AllData)
                     {
                         if (data.INCOME_STATE_AMOUNT != "0" && data.INCOME_STATE_AMOUNT != null)
                         {
@@ -1779,7 +1815,7 @@ namespace Audit.Controllers
                     count12.SetValue(Niit, NUMBER12);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     list = Body;
@@ -1791,7 +1827,6 @@ namespace Audit.Controllers
                 {
                     response.data = Body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -1834,11 +1869,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.BM8(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM8List> Body = new List<BM8List>();
+                List<BM8List> AllData = new List<BM8List>();
                 List<BM8List> list = new List<BM8List>();
                 BM8List Niit = new BM8List();
                 var typ = typeof(BM8List);
                 if (res != null && res.Elements("BM8") != null)
+                {
                     Body = (from item in res.Elements("BM8") select new BM8List().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new BM8List().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                    
                 if (Body.Count > 0)
                 {
                     var depname = typ.GetProperty("DEPARTMENT_NAME");
@@ -1851,7 +1892,7 @@ namespace Audit.Controllers
 
                     int NUMBER = 0;
 
-                    foreach (BM8List data in Body)
+                    foreach (BM8List data in AllData)
                     {
                         if (data.CORRECTED_AMOUNT != "0" && data.CORRECTED_AMOUNT != null)
                         {
@@ -1873,7 +1914,7 @@ namespace Audit.Controllers
                     count.SetValue(Niit, NUMBER);
 
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     list = Body;
@@ -1885,7 +1926,7 @@ namespace Audit.Controllers
                 {
                     response.data = Body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -1928,9 +1969,15 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.NM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<NM1> body = new List<NM1>();
+                List<NM1> AllData = new List<NM1>();
 
                 if (res != null && res.Elements("NM1") != null)
+                {
                     body = (from item in res.Elements("NM1") select new NM1().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new NM1().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                    
                 if (body.Count > 0)
                 {
                     List<NM1> total = new List<NM1>();
@@ -1997,7 +2044,7 @@ namespace Audit.Controllers
                     int NUMBER12 = 0;
                     int NUMBER13 = 0;
 
-                    foreach (NM1 data in body)
+                    foreach (NM1 data in AllData)
                     {
                         if (data.ACT_AMOUNT != null)
                         {
@@ -2179,7 +2226,7 @@ namespace Audit.Controllers
                     count12.SetValue(Niit, NUMBER12);
                     count13.SetValue(Niit, NUMBER13);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -2191,7 +2238,7 @@ namespace Audit.Controllers
                 {
                     response.data = body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -2235,10 +2282,16 @@ namespace Audit.Controllers
                 XElement res = AppStatic.SystemController.NM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
 
                 List<NM2> body = new List<NM2>();
+                List<NM2> AllData = new List<NM2>();
                 List<NM2> total = new List<NM2>();
                 NM2 Niit = new NM2();
                 if (res != null && res.Elements("NM2") != null)
+                {
                     body = (from item in res.Elements("NM2") select new NM2().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new NM2().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                    
                 if (body.Count > 0)
                 {
                     var typ = typeof(NM2);
@@ -2302,7 +2355,7 @@ namespace Audit.Controllers
                     int NUMBER12 = 0;
                     int NUMBER13 = 0;
 
-                    foreach (NM2 data in body)
+                    foreach (NM2 data in AllData)
                     {
                         if (data.CLAIM_VIOLATION_AMOUNT != null)
                         {
@@ -2484,7 +2537,7 @@ namespace Audit.Controllers
                     count12.SetValue(Niit, NUMBER12);
                     count13.SetValue(Niit, NUMBER13);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -2496,7 +2549,7 @@ namespace Audit.Controllers
                 {
                     response.data = body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -2539,16 +2592,22 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.NM3(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<NM3> body = new List<NM3>();
+                List<NM3> AllData = new List<NM3>();
                 List<NM3> total = new List<NM3>();
                 NM3 Niit = new NM3();
                 var typ = typeof(NM3);
                 if (res != null && res.Elements("NM3") != null)
+                {
                     body = (from item in res.Elements("NM3") select new NM3().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new NM3().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                    
                 if (body.Count > 0)
                 {
                     int COUNTRE = 0;
                     Decimal AMOUNTRE = 0;
-                    foreach (NM3 nm3 in body)
+                    foreach (NM3 nm3 in AllData)
                     {
                         if (nm3.REFERENCE_COUNT != null && nm3.COMPLETION_DONE_COUNT != null)
                         {
@@ -2556,7 +2615,7 @@ namespace Audit.Controllers
                             nm3.C2_COUNT = COUNTRE;
                         }
                     }
-                    foreach (NM3 nm3 in body)
+                    foreach (NM3 nm3 in AllData)
                     {
                         if (nm3.REFERENCE_AMOUNT != null && nm3.COMPLETION_DONE_AMOUNT != null)
                         {
@@ -2615,7 +2674,7 @@ namespace Audit.Controllers
                     int NUMBER9 = 0;
                     int NUMBER10 = 0;
 
-                    foreach (NM3 data in body)
+                    foreach (NM3 data in AllData)
                     {
                         if (data.REFERENCE_AMOUNT != null)
                         {
@@ -2735,7 +2794,7 @@ namespace Audit.Controllers
                     count9.SetValue(Niit, NUMBER9);
                     count10.SetValue(Niit, NUMBER10);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -2747,7 +2806,7 @@ namespace Audit.Controllers
                 {
                     response.data = body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -2790,11 +2849,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.NM4(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<NM4> body = new List<NM4>();
+                List<NM4> AllData = new List<NM4>();
                 List<NM4> total = new List<NM4>();
                 NM4 Niit = new NM4();
                 var typ = typeof(NM4);
                 if (res != null && res.Elements("NM4") != null)
+                {
                     body = (from item in res.Elements("NM4") select new NM4().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new NM4().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                    
                 if (body.Count > 0)
                 {
                     var depname = typ.GetProperty("TOPIC_CODE");
@@ -2816,7 +2881,7 @@ namespace Audit.Controllers
                     int NUMBER1 = 0;
                     int NUMBER2 = 0;
 
-                    foreach (NM4 data in body)
+                    foreach (NM4 data in AllData)
                     {
                         if (data.PROPOSAL_AMOUNT != null)
                         {
@@ -2866,7 +2931,7 @@ namespace Audit.Controllers
                     count1.SetValue(Niit, NUMBER1);
                     count2.SetValue(Niit, NUMBER2);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -2878,7 +2943,6 @@ namespace Audit.Controllers
                 {
                     response.data = body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -2921,11 +2985,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.NM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<NM5> body = new List<NM5>();
+                List<NM5> AllData = new List<NM5>();
                 List<NM5> total = new List<NM5>();
                 NM5 Niit = new NM5();
                 var typ = typeof(NM5);
                 if (res != null && res.Elements("NM5") != null)
+                {
                     body = (from item in res.Elements("NM5") select new NM5().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new NM5().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                 
                 if (body.Count > 0)
                 {
                     var depname = typ.GetProperty("TOPIC_CODE");
@@ -2955,7 +3025,7 @@ namespace Audit.Controllers
                     int NUMBER3 = 0;
                     int NUMBER4 = 0;
 
-                    foreach (NM5 data in body)
+                    foreach (NM5 data in AllData)
                     {
                         if (data.LAW_AMOUNT != null)
                         {
@@ -3030,7 +3100,7 @@ namespace Audit.Controllers
                     count3.SetValue(Niit, NUMBER3);
                     count4.SetValue(Niit, NUMBER4);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -3042,7 +3112,6 @@ namespace Audit.Controllers
                 {
                     response.data = body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -3085,11 +3154,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.NM6(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<NM6> body = new List<NM6>();
+                List<NM6> AllData = new List<NM6>();
                 List<NM6> total = new List<NM6>();
                 NM6 Niit = new NM6();
                 var typ = typeof(NM6);
                 if (res != null && res.Elements("NM6") != null)
+                {
                     body = (from item in res.Elements("NM6") select new NM6().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new NM6().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                    
                 if (body.Count > 0)
                 {
                     var depname = typ.GetProperty("TOPIC_CODE");
@@ -3144,7 +3219,7 @@ namespace Audit.Controllers
                     int NUMBER9 = 0;
                     int NUMBER10 = 0;
 
-                    foreach (NM6 data in body)
+                    foreach (NM6 data in AllData)
                     {
                         if (data.VIOLATION_AMOUNT != null)
                         {
@@ -3296,7 +3371,7 @@ namespace Audit.Controllers
                     count9.SetValue(Niit, NUMBER9);
                     count10.SetValue(Niit, NUMBER10);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -3308,7 +3383,7 @@ namespace Audit.Controllers
                 {
                     response.data = body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -3351,11 +3426,17 @@ namespace Audit.Controllers
 
                 XElement res = AppStatic.SystemController.NM7(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<NM7> body = new List<NM7>();
+                List<NM7> AllData = new List<NM7>(); 
                 List<NM7> total = new List<NM7>();
                 NM7 Niit = new NM7();
                 var typ = typeof(NM7);
                 if (res != null && res.Elements("NM7") != null)
+                {
                     body = (from item in res.Elements("NM7") select new NM7().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new NM7().SetXml(item)).ToList();
+                    response.recordsTotal = AllData.Count();
+                }
+                  
                 if (body.Count > 0)
                 {
                     var depname = typ.GetProperty("TOPIC_CODE");
@@ -3414,7 +3495,7 @@ namespace Audit.Controllers
                     int NUMBER10 = 0;
                     int NUMBER11 = 0;
 
-                    foreach (NM7 data in body)
+                    foreach (NM7 data in AllData)
                     {
                         if (data.INCOME_STATE_AMOUNT != null)
                         {
@@ -3578,7 +3659,7 @@ namespace Audit.Controllers
                     count10.SetValue(Niit, NUMBER10);
                     count11.SetValue(Niit, NUMBER11);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -3590,7 +3671,6 @@ namespace Audit.Controllers
                 {
                     response.data = body;
                 }
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }
@@ -10722,8 +10802,603 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", null));
 
                 XElement res = AppStatic.SystemController.CM4(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
-                if (res != null && res.Elements("CM4A") != null)
-                    response.data = (from item in res.Elements("CM4") select new CM4().SetXml(item)).ToList();
+                List<CM4> total = new List<CM4>();
+                CM4 Niit = new CM4();
+                var typ = typeof(CM4);
+
+                if (res != null && res.Elements("CM4") != null)
+                {
+                    List<CM4> body = new List<CM4>();
+                    List<CM4> CM4Detial = new List<CM4>();
+                    CM4 title = new CM4();
+                    CM4 total1 = new CM4();
+                    CM4 total2 = new CM4();
+
+                    body = (from item in res.Elements("CM4") select new CM4().SetXml(item)).ToList();
+                    if (body.Count > 0)
+                    {
+                        var depname = typ.GetProperty("DEPARTMENT_NAME");
+
+
+                        var pay = typ.GetProperty("VIOLATION_AMOUNT");
+                        var pay1 = typ.GetProperty("ERROR_AMOUNT");
+                        var pay2 = typ.GetProperty("ALL_AMOUNT");
+                        var pay3 = typ.GetProperty("CORRECTED_ERROR_AMOUNT");
+                        var pay4 = typ.GetProperty("OTHER_ERROR_AMOUNT");
+                        var pay5 = typ.GetProperty("ACT_AMOUNT");
+                        var pay6 = typ.GetProperty("CLAIM_AMOUNT");
+                        var pay7 = typ.GetProperty("REFERENCE_AMOUNT");
+                        var pay8 = typ.GetProperty("PROPOSAL_AMOUNT");
+                        var pay9 = typ.GetProperty("LAW_AMOUNT");
+                        var pay10 = typ.GetProperty("OTHER_AMOUNT");
+
+
+                        var count = typ.GetProperty("VIOLATION_COUNT");
+                        var count1 = typ.GetProperty("ERROR_COUNT");
+                        var count2 = typ.GetProperty("ALL_COUNT");
+                        var count3 = typ.GetProperty("CORRECTED_ERROR_COUNT");
+                        var count4 = typ.GetProperty("OTHER_ERROR_COUNT");
+                        var count5 = typ.GetProperty("ACT_COUNT");
+                        var count6 = typ.GetProperty("CLAIM_COUNT");
+                        var count7 = typ.GetProperty("REFERENCE_COUNT");
+                        var count8 = typ.GetProperty("PROPOSAL_COUNT");
+                        var count9 = typ.GetProperty("LAW_COUNT");
+                        var count10 = typ.GetProperty("OTHER_COUNT");
+
+
+                        decimal AMOUNT = 0;
+                        decimal AMOUNT1 = 0;
+                        decimal AMOUNT2 = 0;
+                        decimal AMOUNT3 = 0;
+                        decimal AMOUNT4 = 0;
+                        decimal AMOUNT5 = 0;
+                        decimal AMOUNT6 = 0;
+                        decimal AMOUNT7 = 0;
+                        decimal AMOUNT8 = 0;
+                        decimal AMOUNT9 = 0;
+                        decimal AMOUNT10 = 0;
+
+                        int NUMBER = 0;
+                        int NUMBER1 = 0;
+                        int NUMBER2 = 0;
+                        int NUMBER3 = 0;
+                        int NUMBER4 = 0;
+                        int NUMBER5 = 0;
+                        int NUMBER6 = 0;
+                        int NUMBER7 = 0;
+                        int NUMBER8 = 0;
+                        int NUMBER9 = 0;
+                        int NUMBER10 = 0;
+
+                        foreach (CM4 data in body)
+                        {
+                            if (data.VIOLATION_AMOUNT != null)
+                            {
+                                string strNii = data.VIOLATION_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT += Amount;
+
+                            }
+                            if (data.ERROR_AMOUNT != null)
+                            {
+                                string strNii = data.ERROR_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT1 += Amount;
+
+                            }
+                            if (data.ALL_AMOUNT != null)
+                            {
+                                string strNii = data.ALL_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT2 += Amount;
+
+                            }
+                            if (data.CORRECTED_ERROR_AMOUNT != null)
+                            {
+                                string strNii = data.CORRECTED_ERROR_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT3 += Amount;
+
+                            }
+                            if (data.OTHER_ERROR_AMOUNT != null)
+                            {
+                                string strNii = data.OTHER_ERROR_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT4 += Amount;
+
+                            }
+                            if (data.ACT_AMOUNT != null)
+                            {
+                                string strNii = data.ACT_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT5 += Amount;
+
+                            }
+                            if (data.CLAIM_AMOUNT != null)
+                            {
+                                string strNii = data.CLAIM_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT6 += Amount;
+
+                            }
+                            if (data.REFERENCE_AMOUNT != null)
+                            {
+                                string strNii = data.REFERENCE_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT7 += Amount;
+
+                            }
+                            if (data.PROPOSAL_AMOUNT != null)
+                            {
+                                string strNii = data.PROPOSAL_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT8 += Amount;
+
+                            }
+                            if (data.LAW_AMOUNT != null)
+                            {
+                                string strNii = data.LAW_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT9 += Amount;
+
+                            }
+                            if (data.OTHER_AMOUNT != null)
+                            {
+                                string strNii = data.OTHER_AMOUNT.Replace(",", "");
+                                Decimal Amount = Convert.ToDecimal(strNii);
+                                AMOUNT10 += Amount;
+
+                            }
+                           
+
+                            if (data.VIOLATION_COUNT != 0)
+                            {
+                                NUMBER += Convert.ToInt32(data.VIOLATION_COUNT);
+                            }
+                            if (data.ERROR_COUNT != 0)
+                            {
+                                NUMBER1 += Convert.ToInt32(data.ERROR_COUNT);
+                            }
+                            if (data.ALL_COUNT != 0)
+                            {
+                                NUMBER2 += Convert.ToInt32(data.ALL_COUNT);
+                            }
+                            if (data.CORRECTED_ERROR_COUNT != 0)
+                            {
+                                NUMBER3 += Convert.ToInt32(data.CORRECTED_ERROR_COUNT);
+                            }
+                            if (data.OTHER_ERROR_COUNT != 0)
+                            {
+                                NUMBER4 += Convert.ToInt32(data.OTHER_ERROR_COUNT);
+                            }
+                            if (data.ACT_COUNT != 0)
+                            {
+                                NUMBER5 += Convert.ToInt32(data.ACT_COUNT);
+                            }
+                            if (data.CLAIM_COUNT != 0)
+                            {
+                                NUMBER6 += Convert.ToInt32(data.CLAIM_COUNT);
+                            }
+                            if (data.REFERENCE_COUNT != 0)
+                            {
+                                NUMBER7 += Convert.ToInt32(data.REFERENCE_COUNT);
+                            }
+                            if (data.PROPOSAL_COUNT != 0)
+                            {
+                                NUMBER8 += Convert.ToInt32(data.PROPOSAL_COUNT);
+                            }
+                            if (data.LAW_COUNT != 0)
+                            {
+                                NUMBER9 += Convert.ToInt32(data.LAW_COUNT);
+                            }
+                            if (data.OTHER_COUNT != 0)
+                            {
+                                NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
+                            }
+
+                        }
+
+
+                        pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                        pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                        pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                        pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                        pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                        pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                        pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                        pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                        pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                        pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                        pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+
+                        count.SetValue(Niit, NUMBER);
+                        count1.SetValue(Niit, NUMBER1);
+                        count2.SetValue(Niit, NUMBER2);
+                        count3.SetValue(Niit, NUMBER3);
+                        count4.SetValue(Niit, NUMBER4);
+                        count5.SetValue(Niit, NUMBER5);
+                        count6.SetValue(Niit, NUMBER6);
+                        count7.SetValue(Niit, NUMBER7);
+                        count8.SetValue(Niit, NUMBER8);
+                        count9.SetValue(Niit, NUMBER9);
+                        count10.SetValue(Niit, NUMBER10);
+
+                        depname.SetValue(Niit, "Нийт дүн");
+
+
+                        if (request.Type == 1)
+                        {
+
+                            List<CM4> UAG = new List<CM4>();
+                            List<CM4> UAG1 = new List<CM4>();
+                            List<CM4> UAG2 = new List<CM4>();
+                            CM4ListResponse UAGdata1 = new CM4ListResponse();
+                            CM4ListResponse UAGdata2 = new CM4ListResponse();
+                            UAG = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Үндэсний аудитын газар"));
+                            UAG1 = UAG.FindAll(a => a.IS_STATE.Equals(1));
+                            UAG2 = UAG.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UAG1.Count > 0)
+                                UAGdata1 = CM4TypesList(UAG1, 1);
+                            if (UAG2.Count > 0)
+                                UAGdata2 = CM4TypesList(UAG2, 2);
+
+
+                            List<CM4> NT = new List<CM4>();
+                            List<CM4> NT1 = new List<CM4>();
+                            List<CM4> NT2 = new List<CM4>();
+                            CM4ListResponse NTdata1 = new CM4ListResponse();
+                            CM4ListResponse NTdata2 = new CM4ListResponse();
+                            NT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Нийслэл дэх ТАГ"));
+                            NT1 = NT.FindAll(a => a.IS_STATE.Equals(1));
+                            NT2 = NT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (NT1.Count > 0)
+                                NTdata1 = CM4TypesList(NT1, 1);
+                            if (NT2.Count > 0)
+                                NTdata2 = CM4TypesList(NT2, 2);
+
+                            List<CM4> ART = new List<CM4>();
+                            List<CM4> ART1 = new List<CM4>();
+                            List<CM4> ART2 = new List<CM4>();
+                            CM4ListResponse ARTdata1 = new CM4ListResponse();
+                            CM4ListResponse ARTdata2 = new CM4ListResponse();
+                            ART = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Архангай аймаг дахь ТАГ"));
+                            ART1 = ART.FindAll(a => a.IS_STATE.Equals(1));
+                            ART2 = ART.FindAll(a => a.IS_STATE.Equals(2));
+                            if (ART1.Count > 0)
+                                ARTdata1 = CM4TypesList(ART1, 1);
+                            if (ART2.Count > 0)
+                                ARTdata2 = CM4TypesList(ART2, 2);
+
+                            List<CM4> BUT = new List<CM4>();
+                            List<CM4> BUT1 = new List<CM4>();
+                            List<CM4> BUT2 = new List<CM4>();
+                            CM4ListResponse BUTdata1 = new CM4ListResponse();
+                            CM4ListResponse BUTdata2 = new CM4ListResponse();
+                            BUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Баян-Өлгий аймаг дахь ТАГ"));
+                            BUT1 = BUT.FindAll(a => a.IS_STATE.Equals(1));
+                            BUT2 = BUT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (BUT1.Count > 0)
+                                BUTdata1 = CM4TypesList(BUT1, 1);
+                            if (BUT2.Count > 0)
+                                BUTdata2 = CM4TypesList(BUT2, 2);
+
+                            List<CM4> BHT = new List<CM4>();
+                            List<CM4> BHT1 = new List<CM4>();
+                            List<CM4> BHT2 = new List<CM4>();
+                            CM4ListResponse BHTdata1 = new CM4ListResponse();
+                            CM4ListResponse BHTdata2 = new CM4ListResponse();
+                            BHT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Баянхонгор аймаг дахь ТАГ"));
+                            BHT1 = BHT.FindAll(a => a.IS_STATE.Equals(1));
+                            BHT2 = BHT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (BHT1.Count > 0)
+                                BHTdata1 = CM4TypesList(BHT1, 1);
+                            if (BHT2.Count > 0)
+                                BHTdata2 = CM4TypesList(BHT2, 2);
+
+                            List<CM4> BLT = new List<CM4>();
+                            List<CM4> BLT1 = new List<CM4>();
+                            List<CM4> BLT2 = new List<CM4>();
+                            CM4ListResponse BLTdata1 = new CM4ListResponse();
+                            CM4ListResponse BLTdata2 = new CM4ListResponse();
+                            BLT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Булган аймаг дахь ТАГ"));
+                            BLT1 = BLT.FindAll(a => a.IS_STATE.Equals(1));
+                            BLT2 = BLT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (BLT1.Count > 0)
+                                BLTdata1 = CM4TypesList(BLT1, 1);
+                            if (BLT2.Count > 0)
+                                BLTdata2 = CM4TypesList(BLT2, 2);
+
+                            List<CM4> GAT = new List<CM4>();
+                            List<CM4> GAT1 = new List<CM4>();
+                            List<CM4> GAT2 = new List<CM4>();
+                            CM4ListResponse GATdata1 = new CM4ListResponse();
+                            CM4ListResponse GATdata2 = new CM4ListResponse();
+                            GAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Говь-Алтай аймаг дахь ТАГ"));
+                            GAT1 = GAT.FindAll(a => a.IS_STATE.Equals(1));
+                            GAT2 = GAT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (GAT1.Count > 0)
+                                GATdata1 = CM4TypesList(GAT1, 1);
+                            if (GAT2.Count > 0)
+                                GATdata2 = CM4TypesList(GAT2, 2);
+
+                            List<CM4> GST = new List<CM4>();
+                            List<CM4> GST1 = new List<CM4>();
+                            List<CM4> GST2 = new List<CM4>();
+                            CM4ListResponse GSTdata1 = new CM4ListResponse();
+                            CM4ListResponse GSTdata2 = new CM4ListResponse();
+                            GST = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Говьсүмбэр аймаг дахь ТАГ"));
+                            GST1 = GST.FindAll(a => a.IS_STATE.Equals(1));
+                            GST2 = GST.FindAll(a => a.IS_STATE.Equals(2));
+                            if (GST1.Count > 0)
+                                GSTdata1 = CM4TypesList(GST1, 1);
+                            if (GST2.Count > 0)
+                                GSTdata2 = CM4TypesList(GST2, 2);
+
+                            List<CM4> DAT = new List<CM4>();
+                            List<CM4> DAT1 = new List<CM4>();
+                            List<CM4> DAT2 = new List<CM4>();
+                            CM4ListResponse DATdata1 = new CM4ListResponse();
+                            CM4ListResponse DATdata2 = new CM4ListResponse();
+                            DAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дархан-Уул аймаг дахь ТАГ"));
+                            DAT1 = DAT.FindAll(a => a.IS_STATE.Equals(1));
+                            DAT2 = DAT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DAT1.Count > 0)
+                                DATdata1 = CM4TypesList(DAT1, 1);
+                            if (DAT2.Count > 0)
+                                DATdata2 = CM4TypesList(DAT2, 2);
+
+                            List<CM4> DOT = new List<CM4>();
+                            List<CM4> DOT1 = new List<CM4>();
+                            List<CM4> DOT2 = new List<CM4>();
+                            CM4ListResponse DOTdata1 = new CM4ListResponse();
+                            CM4ListResponse DOTdata2 = new CM4ListResponse();
+                            DOT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дорноговь аймаг дахь ТАГ"));
+                            DOT1 = DOT.FindAll(a => a.IS_STATE.Equals(1));
+                            DOT2 = DOT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DOT1.Count > 0)
+                                DOTdata1 = CM4TypesList(DOT1, 1);
+                            if (DOT2.Count > 0)
+                                DOTdata2 = CM4TypesList(DOT2, 2);
+
+                            List<CM4> DNT = new List<CM4>();
+                            List<CM4> DNT1 = new List<CM4>();
+                            List<CM4> DNT2 = new List<CM4>();
+                            CM4ListResponse DNTdata1 = new CM4ListResponse();
+                            CM4ListResponse DNTdata2 = new CM4ListResponse();
+                            DNT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дорнод аймаг дахь ТАГ"));
+                            DNT1 = DNT.FindAll(a => a.IS_STATE.Equals(1));
+                            DNT2 = DNT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DNT1.Count > 0)
+                                DNTdata1 = CM4TypesList(DNT1, 1);
+                            if (DNT2.Count > 0)
+                                DNTdata2 = CM4TypesList(DNT2, 2);
+
+                            List<CM4> DGT = new List<CM4>();
+                            List<CM4> DGT1 = new List<CM4>();
+                            List<CM4> DGT2 = new List<CM4>();
+                            CM4ListResponse DGTdata1 = new CM4ListResponse();
+                            CM4ListResponse DGTdata2 = new CM4ListResponse();
+                            DGT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дундговь аймаг дахь ТАГ"));
+                            DGT1 = DGT.FindAll(a => a.IS_STATE.Equals(1));
+                            DGT2 = DGT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (DGT1.Count > 0)
+                                DGTdata1 = CM4TypesList(DGT1, 1);
+                            if (DGT2.Count > 0)
+                                DGTdata2 = CM4TypesList(DGT2, 2);
+
+                            List<CM4> ZAT = new List<CM4>();
+                            List<CM4> ZAT1 = new List<CM4>();
+                            List<CM4> ZAT2 = new List<CM4>();
+                            CM4ListResponse ZATdata1 = new CM4ListResponse();
+                            CM4ListResponse ZATdata2 = new CM4ListResponse();
+                            ZAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Завхан аймаг дахь ТАГ"));
+                            ZAT1 = ZAT.FindAll(a => a.IS_STATE.Equals(1));
+                            ZAT2 = ZAT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (ZAT1.Count > 0)
+                                ZATdata1 = CM4TypesList(ZAT1, 1);
+                            if (ZAT2.Count > 0)
+                                ZATdata2 = CM4TypesList(ZAT2, 2);
+
+                            List<CM4> ORT = new List<CM4>();
+                            List<CM4> ORT1 = new List<CM4>();
+                            List<CM4> ORT2 = new List<CM4>();
+                            CM4ListResponse ORTdata1 = new CM4ListResponse();
+                            CM4ListResponse ORTdata2 = new CM4ListResponse();
+                            ORT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Орхон аймаг дахь ТАГ"));
+                            ORT1 = ORT.FindAll(a => a.IS_STATE.Equals(1));
+                            ORT2 = ORT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (ORT1.Count > 0)
+                                ORTdata1 = CM4TypesList(ORT1, 1);
+                            if (ORT2.Count > 0)
+                                ORTdata2 = CM4TypesList(ORT2, 2);
+
+                            List<CM4> UVT = new List<CM4>();
+                            List<CM4> UVT1 = new List<CM4>();
+                            List<CM4> UVT2 = new List<CM4>();
+                            CM4ListResponse UVTdata1 = new CM4ListResponse();
+                            CM4ListResponse UVTdata2 = new CM4ListResponse();
+                            UVT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Өвөрхангай аймаг дахь ТАГ"));
+                            UVT1 = UVT.FindAll(a => a.IS_STATE.Equals(1));
+                            UVT2 = UVT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UVT1.Count > 0)
+                                UVTdata1 = CM4TypesList(UVT1, 1);
+                            if (UVT2.Count > 0)
+                                UVTdata2 = CM4TypesList(UVT2, 2);
+                            List<CM4> UMT = new List<CM4>();
+                            List<CM4> UMT1 = new List<CM4>();
+                            List<CM4> UMT2 = new List<CM4>();
+                            CM4ListResponse UMTdata1 = new CM4ListResponse();
+                            CM4ListResponse UMTdata2 = new CM4ListResponse();
+                            UMT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Өмнөговь аймаг дахь ТАГ"));
+                            UMT1 = UMT.FindAll(a => a.IS_STATE.Equals(1));
+                            UMT2 = UMT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UMT1.Count > 0)
+                                UMTdata1 = CM4TypesList(UMT1, 1);
+                            if (UMT2.Count > 0)
+                                UMTdata2 = CM4TypesList(UMT2, 2);
+
+                            List<CM4> SBT = new List<CM4>();
+                            List<CM4> SBT1 = new List<CM4>();
+                            List<CM4> SBT2 = new List<CM4>();
+                            CM4ListResponse SBTdata1 = new CM4ListResponse();
+                            CM4ListResponse SBTdata2 = new CM4ListResponse();
+                            SBT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Сүхбаатар аймаг дахь ТАГ"));
+                            SBT1 = SBT.FindAll(a => a.IS_STATE.Equals(1));
+                            SBT2 = SBT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (SBT1.Count > 0)
+                                SBTdata1 = CM4TypesList(SBT1, 1);
+                            if (SBT2.Count > 0)
+                                SBTdata2 = CM4TypesList(SBT2, 2);
+
+                            List<CM4> SET = new List<CM4>();
+                            List<CM4> SET1 = new List<CM4>();
+                            List<CM4> SET2 = new List<CM4>();
+                            CM4ListResponse SETdata1 = new CM4ListResponse();
+                            CM4ListResponse SETdata2 = new CM4ListResponse();
+                            SET = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Сэлэнгэ аймаг дахь ТАГ"));
+                            SET1 = SET.FindAll(a => a.IS_STATE.Equals(1));
+                            SET2 = SET.FindAll(a => a.IS_STATE.Equals(2));
+                            if (SET1.Count > 0)
+                                SETdata1 = CM4TypesList(SET1, 1);
+                            if (SET2.Count > 0)
+                                SETdata2 = CM4TypesList(SET2, 2);
+
+                            List<CM4> TUT = new List<CM4>();
+                            List<CM4> TUT1 = new List<CM4>();
+                            List<CM4> TUT2 = new List<CM4>();
+                            CM4ListResponse TUTdata1 = new CM4ListResponse();
+                            CM4ListResponse TUTdata2 = new CM4ListResponse();
+                            TUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Төв аймаг дахь ТАГ"));
+                            TUT1 = TUT.FindAll(a => a.IS_STATE.Equals(1));
+                            TUT2 = TUT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (TUT1.Count > 0)
+                                TUTdata1 = CM4TypesList(TUT1, 1);
+                            if (TUT2.Count > 0)
+                                TUTdata2 = CM4TypesList(TUT2, 2);
+
+                            List<CM4> UST = new List<CM4>();
+                            List<CM4> UST1 = new List<CM4>();
+                            List<CM4> UST2 = new List<CM4>();
+                            CM4ListResponse USTdata1 = new CM4ListResponse();
+                            CM4ListResponse USTdata2 = new CM4ListResponse();
+                            UST = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Увс аймаг дахь ТАГ"));
+                            UST1 = UST.FindAll(a => a.IS_STATE.Equals(1));
+                            UST2 = UST.FindAll(a => a.IS_STATE.Equals(2));
+                            if (UST1.Count > 0)
+                                USTdata1 = CM4TypesList(UST1, 1);
+                            if (UST2.Count > 0)
+                                USTdata2 = CM4TypesList(UST2, 2);
+
+                            List<CM4> HOT = new List<CM4>();
+                            List<CM4> HOT1 = new List<CM4>();
+                            List<CM4> HOT2 = new List<CM4>();
+                            CM4ListResponse HOTdata1 = new CM4ListResponse();
+                            CM4ListResponse HOTdata2 = new CM4ListResponse();
+                            HOT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Ховд аймаг дахь ТАГ"));
+                            HOT1 = HOT.FindAll(a => a.IS_STATE.Equals(1));
+                            HOT2 = HOT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (HOT1.Count > 0)
+                                HOTdata1 = CM4TypesList(HOT1, 1);
+                            if (HOT2.Count > 0)
+                                HOTdata2 = CM4TypesList(HOT2, 2);
+
+                            List<CM4> HUT = new List<CM4>();
+                            List<CM4> HUT1 = new List<CM4>();
+                            List<CM4> HUT2 = new List<CM4>();
+                            CM4ListResponse HUTdata1 = new CM4ListResponse();
+                            CM4ListResponse HUTdata2 = new CM4ListResponse();
+                            HUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Хөвсгөл аймаг дахь ТАГ"));
+                            HUT1 = HUT.FindAll(a => a.IS_STATE.Equals(1));
+                            HUT2 = HUT.FindAll(a => a.IS_STATE.Equals(2));
+                            if (HUT1.Count > 0)
+                                HUTdata1 = CM4TypesList(HUT1, 1);
+                            if (HUT2.Count > 0)
+                                HUTdata2 = CM4TypesList(HUT2, 2);
+
+                            List<CM4> HET = new List<CM4>();
+                            List<CM4> HET1 = new List<CM4>();
+                            List<CM4> HET2 = new List<CM4>();
+                            CM4ListResponse HETdata1 = new CM4ListResponse();
+                            CM4ListResponse HETdata2 = new CM4ListResponse();
+                            HET = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Хэнтий аймаг дахь ТАГ"));
+                            HET1 = HET.FindAll(a => a.IS_STATE.Equals(1));
+                            HET2 = HET.FindAll(a => a.IS_STATE.Equals(2));
+                            if (HET1.Count > 0)
+                                HETdata1 = CM4TypesList(HET1, 1);
+                            if (HET2.Count > 0)
+                                HETdata2 = CM4TypesList(HET2, 2);
+
+
+                            List<CM4> types = new List<CM4>();
+                            types.AddRange(UAGdata1.data);
+                            types.AddRange(UAGdata2.data);
+                            types.AddRange(NTdata1.data);
+                            types.AddRange(NTdata2.data);
+                            types.AddRange(ARTdata1.data);
+                            types.AddRange(ARTdata2.data);
+                            types.AddRange(BUTdata1.data);
+                            types.AddRange(BUTdata2.data);
+                            types.AddRange(BHTdata1.data);
+                            types.AddRange(BHTdata2.data);
+                            types.AddRange(BLTdata1.data);
+                            types.AddRange(BLTdata2.data);
+                            types.AddRange(GATdata1.data);
+                            types.AddRange(GATdata2.data);
+                            types.AddRange(GSTdata1.data);
+                            types.AddRange(GSTdata2.data);
+                            types.AddRange(DATdata1.data);
+                            types.AddRange(DATdata2.data);
+                            types.AddRange(DOTdata1.data);
+                            types.AddRange(DOTdata2.data);
+                            types.AddRange(DNTdata1.data);
+                            types.AddRange(DNTdata2.data);
+                            types.AddRange(DGTdata1.data);
+                            types.AddRange(DGTdata2.data);
+                            types.AddRange(ZATdata1.data);
+                            types.AddRange(ZATdata2.data);
+                            types.AddRange(ORTdata1.data);
+                            types.AddRange(ORTdata2.data);
+                            types.AddRange(UVTdata1.data);
+                            types.AddRange(UVTdata2.data);
+                            types.AddRange(UMTdata1.data);
+                            types.AddRange(UMTdata2.data);
+                            types.AddRange(SBTdata1.data);
+                            types.AddRange(SBTdata2.data);
+                            types.AddRange(SETdata1.data);
+                            types.AddRange(SETdata2.data);
+                            types.AddRange(TUTdata1.data);
+                            types.AddRange(TUTdata2.data);
+                            types.AddRange(USTdata1.data);
+                            types.AddRange(USTdata2.data);
+                            types.AddRange(HOTdata1.data);
+                            types.AddRange(HOTdata2.data);
+                            types.AddRange(HUTdata1.data);
+                            types.AddRange(HUTdata2.data);
+                            types.AddRange(HETdata1.data);
+                            types.AddRange(HETdata2.data);
+
+
+
+                            CM4Detial = types;
+                            CM4Detial.Add(Niit);
+
+                            response.data = CM4Detial;
+                        }
+                        else
+                        {
+                            total.AddRange(body.OrderBy(m => m.DEPARTMENT_NAME));
+                            total.Add(Niit);
+
+                            response.data = total;
+                        }
+                    }
+
+
+                    else
+                    {
+                        response.data = body;
+                    }
+                }
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -10733,6 +11408,251 @@ namespace Audit.Controllers
             {
                 Globals.WriteErrorLog(ex);
             }
+            return response;
+        }
+        public CM4ListResponse CM4TypesList(List<CM4> request, int dataType)
+        {
+            CM4ListResponse response = new CM4ListResponse();
+            var typ = typeof(CM4);
+            List<CM4> requestData = new List<CM4>();
+            requestData = request;
+
+            if (requestData.Count > 0)
+            {
+
+                List<CM4> temp = new List<CM4>();
+
+                CM4 title = new CM4();
+
+
+                if (dataType == 1)
+                    title.BUDGET_TYPE_NAME = "Нэг. Төрийн аудитын байгууллага";
+                if (dataType == 2)
+                    title.BUDGET_TYPE_NAME = "Хоёр. Хараат бус аудитын компани";
+
+                title.DEPARTMENT_NAME = requestData.FirstOrDefault().DEPARTMENT_NAME;
+
+                CM4 Niit = new CM4();
+                var depname = typ.GetProperty("BUDGET_TYPE_NAME");
+                var DEPdepname = typ.GetProperty("DEPARTMENT_NAME");
+
+
+
+                var pay = typ.GetProperty("VIOLATION_AMOUNT");
+                var pay1 = typ.GetProperty("ERROR_AMOUNT");
+                var pay2 = typ.GetProperty("ALL_AMOUNT");
+                var pay3 = typ.GetProperty("CORRECTED_ERROR_AMOUNT");
+                var pay4 = typ.GetProperty("OTHER_ERROR_AMOUNT");
+                var pay5 = typ.GetProperty("ACT_AMOUNT");
+                var pay6 = typ.GetProperty("CLAIM_AMOUNT");
+                var pay7 = typ.GetProperty("REFERENCE_AMOUNT");
+                var pay8 = typ.GetProperty("PROPOSAL_AMOUNT");
+                var pay9 = typ.GetProperty("LAW_AMOUNT");
+                var pay10 = typ.GetProperty("OTHER_AMOUNT");
+
+
+                var count = typ.GetProperty("VIOLATION_COUNT");
+                var count1 = typ.GetProperty("ERROR_COUNT");
+                var count2 = typ.GetProperty("ALL_COUNT");
+                var count3 = typ.GetProperty("CORRECTED_ERROR_COUNT");
+                var count4 = typ.GetProperty("OTHER_ERROR_COUNT");
+                var count5 = typ.GetProperty("ACT_COUNT");
+                var count6 = typ.GetProperty("CLAIM_COUNT");
+                var count7 = typ.GetProperty("REFERENCE_COUNT");
+                var count8 = typ.GetProperty("PROPOSAL_COUNT");
+                var count9 = typ.GetProperty("LAW_COUNT");
+                var count10 = typ.GetProperty("OTHER_COUNT");
+
+
+                decimal AMOUNT = 0;
+                decimal AMOUNT1 = 0;
+                decimal AMOUNT2 = 0;
+                decimal AMOUNT3 = 0;
+                decimal AMOUNT4 = 0;
+                decimal AMOUNT5 = 0;
+                decimal AMOUNT6 = 0;
+                decimal AMOUNT7 = 0;
+                decimal AMOUNT8 = 0;
+                decimal AMOUNT9 = 0;
+                decimal AMOUNT10 = 0;
+
+                int NUMBER = 0;
+                int NUMBER1 = 0;
+                int NUMBER2 = 0;
+                int NUMBER3 = 0;
+                int NUMBER4 = 0;
+                int NUMBER5 = 0;
+                int NUMBER6 = 0;
+                int NUMBER7 = 0;
+                int NUMBER8 = 0;
+                int NUMBER9 = 0;
+                int NUMBER10 = 0;
+
+
+                foreach (CM4 data in requestData)
+                {
+                    if (data.VIOLATION_AMOUNT != null)
+                    {
+                        string strNii = data.VIOLATION_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT += Amount;
+
+                    }
+                    if (data.ERROR_AMOUNT != null)
+                    {
+                        string strNii = data.ERROR_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT1 += Amount;
+
+                    }
+                    if (data.ALL_AMOUNT != null)
+                    {
+                        string strNii = data.ALL_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT2 += Amount;
+
+                    }
+                    if (data.CORRECTED_ERROR_AMOUNT != null)
+                    {
+                        string strNii = data.CORRECTED_ERROR_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT3 += Amount;
+
+                    }
+                    if (data.OTHER_ERROR_AMOUNT != null)
+                    {
+                        string strNii = data.OTHER_ERROR_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT4 += Amount;
+
+                    }
+                    if (data.ACT_AMOUNT != null)
+                    {
+                        string strNii = data.ACT_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT5 += Amount;
+
+                    }
+                    if (data.CLAIM_AMOUNT != null)
+                    {
+                        string strNii = data.CLAIM_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT6 += Amount;
+
+                    }
+                    if (data.REFERENCE_AMOUNT != null)
+                    {
+                        string strNii = data.REFERENCE_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT7 += Amount;
+
+                    }
+                    if (data.PROPOSAL_AMOUNT != null)
+                    {
+                        string strNii = data.PROPOSAL_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT8 += Amount;
+
+                    }
+                    if (data.LAW_AMOUNT != null)
+                    {
+                        string strNii = data.LAW_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT9 += Amount;
+
+                    }
+                    if (data.OTHER_AMOUNT != null)
+                    {
+                        string strNii = data.OTHER_AMOUNT.Replace(",", "");
+                        Decimal Amount = Convert.ToDecimal(strNii);
+                        AMOUNT10 += Amount;
+
+                    }
+
+
+                    if (data.VIOLATION_COUNT != 0)
+                    {
+                        NUMBER += Convert.ToInt32(data.VIOLATION_COUNT);
+                    }
+                    if (data.ERROR_COUNT != 0)
+                    {
+                        NUMBER1 += Convert.ToInt32(data.ERROR_COUNT);
+                    }
+                    if (data.ALL_COUNT != 0)
+                    {
+                        NUMBER2 += Convert.ToInt32(data.ALL_COUNT);
+                    }
+                    if (data.CORRECTED_ERROR_COUNT != 0)
+                    {
+                        NUMBER3 += Convert.ToInt32(data.CORRECTED_ERROR_COUNT);
+                    }
+                    if (data.OTHER_ERROR_COUNT != 0)
+                    {
+                        NUMBER4 += Convert.ToInt32(data.OTHER_ERROR_COUNT);
+                    }
+                    if (data.ACT_COUNT != 0)
+                    {
+                        NUMBER5 += Convert.ToInt32(data.ACT_COUNT);
+                    }
+                    if (data.CLAIM_COUNT != 0)
+                    {
+                        NUMBER6 += Convert.ToInt32(data.CLAIM_COUNT);
+                    }
+                    if (data.REFERENCE_COUNT != 0)
+                    {
+                        NUMBER7 += Convert.ToInt32(data.REFERENCE_COUNT);
+                    }
+                    if (data.PROPOSAL_COUNT != 0)
+                    {
+                        NUMBER8 += Convert.ToInt32(data.PROPOSAL_COUNT);
+                    }
+                    if (data.LAW_COUNT != 0)
+                    {
+                        NUMBER9 += Convert.ToInt32(data.LAW_COUNT);
+                    }
+                    if (data.OTHER_COUNT != 0)
+                    {
+                        NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
+                    }
+
+                }
+                pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
+                pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));
+                pay2.SetValue(Niit, AMOUNT2.ToString("#,0.00"));
+                pay3.SetValue(Niit, AMOUNT3.ToString("#,0.00"));
+                pay4.SetValue(Niit, AMOUNT4.ToString("#,0.00"));
+                pay5.SetValue(Niit, AMOUNT5.ToString("#,0.00"));
+                pay6.SetValue(Niit, AMOUNT6.ToString("#,0.00"));
+                pay7.SetValue(Niit, AMOUNT7.ToString("#,0.00"));
+                pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
+                pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
+                pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+
+                count.SetValue(Niit, NUMBER);
+                count1.SetValue(Niit, NUMBER1);
+                count2.SetValue(Niit, NUMBER2);
+                count3.SetValue(Niit, NUMBER3);
+                count4.SetValue(Niit, NUMBER4);
+                count5.SetValue(Niit, NUMBER5);
+                count6.SetValue(Niit, NUMBER6);
+                count7.SetValue(Niit, NUMBER7);
+                count8.SetValue(Niit, NUMBER8);
+                count9.SetValue(Niit, NUMBER9);
+                count10.SetValue(Niit, NUMBER10);
+
+                depname.SetValue(Niit, "Дүн");
+
+                if (dataType != 0)
+                    temp.Add(title);
+
+                temp.AddRange(requestData.OrderBy(m => m.DEPARTMENT_NAME));
+                temp.Add(Niit);
+                requestData = temp;
+
+
+            }
+
+            response.data = requestData;
             return response;
         }
         [HttpPost]
@@ -10943,7 +11863,7 @@ namespace Audit.Controllers
                     count4.SetValue(Niit, NUMBER4);
                     count5.SetValue(Niit, NUMBER5);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -11074,7 +11994,7 @@ namespace Audit.Controllers
                     count6.SetValue(Niit, NUMBER6);
                     count7.SetValue(Niit, NUMBER7);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -11463,7 +12383,7 @@ namespace Audit.Controllers
                     count40.SetValue(Niit, NUMBER40);
                     count41.SetValue(Niit, NUMBER41);
 
-                    depname.SetValue(Niit, "НИЙТ ДҮН");
+                    depname.SetValue(Niit, "Нийт дүн");
 
 
                     total = body;
@@ -11685,7 +12605,7 @@ namespace Audit.Controllers
                                 }
                                 total = Convert.ToDecimal(prop.GetValue(Medeelsen)) + Convert.ToDecimal(prop.GetValue(Medeeleegui)) + Convert.ToDecimal(prop.GetValue(HugtsaaHotsorson)) + Convert.ToDecimal(prop.GetValue(Shaardlaggui));
                                 prop.SetValue(Niit, total.ToString());
-                                orgname.SetValue(Niit, "НИЙТ ДҮН");
+                                orgname.SetValue(Niit, "Нийт дүн");
 
                                 if (total != 0)
                                 {
@@ -11710,7 +12630,7 @@ namespace Audit.Controllers
                     }
                     if (Niit.ORGNAME == null)
                     {
-                        orgname.SetValue(Niit, "НИЙТ ДҮН");
+                        orgname.SetValue(Niit, "Нийт дүн");
                     }
                     if (Medeelsen.ORGNAME == null)
                     {
@@ -11958,7 +12878,7 @@ namespace Audit.Controllers
                                     }
                                     total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
                                     prop.SetValue(Niit, total.ToString());
-                                    orgname.SetValue(Niit, "НИЙТ ДҮН");
+                                    orgname.SetValue(Niit, "Нийт дүн");
 
                                     if (total != 0)
                                     {
@@ -11986,7 +12906,7 @@ namespace Audit.Controllers
                                 decimal tempToo2 =!String.IsNullOrEmpty(test) ? Convert.ToDecimal(prop.GetValue(Niit)) : 0;
                                 total = tempToo2 + tempToo;
                                 prop.SetValue(Niit, total != 0 ? String.Format("{0:#,###.##}", total) : "");
-                                orgname.SetValue(Niit, "НИЙТ ДҮН");
+                                orgname.SetValue(Niit, "Нийт дүн");
                                 //math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
                             }
                             }
@@ -11999,7 +12919,7 @@ namespace Audit.Controllers
                     }
                     if (Niit.ORGNAME == null)
                     {
-                        orgname.SetValue(Niit, "НИЙТ ДҮН");
+                        orgname.SetValue(Niit, "Нийт дүн");
                     }
                     if (Medeelsen.ORGNAME == null)
                     {
@@ -12299,7 +13219,7 @@ namespace Audit.Controllers
 
                                         total = Convert.ToInt32(prop.GetValue(Medeelsen)) + Convert.ToInt32(prop.GetValue(Medeeleegui)) + Convert.ToInt32(prop.GetValue(HugtsaaHotsorson)) + Convert.ToInt32(prop.GetValue(Shaardlaggui));
                                         prop.SetValue(Niit, total.ToString());
-                                        orgname.SetValue(Niit, "НИЙТ ДҮН");
+                                        orgname.SetValue(Niit, "Нийт дүн");
                                         prop.SetValue(n, "1");
 
                                         if (total != 0)
@@ -12330,7 +13250,7 @@ namespace Audit.Controllers
                                     decimal tempToo2 = !String.IsNullOrEmpty(test) ? Convert.ToDecimal(prop.GetValue(Niit)) : 0;
                                     total = tempToo2 + tempToo;
                                     prop.SetValue(Niit, total != 0 ? String.Format("{0:0.#}", total) : "");
-                                    orgname.SetValue(Niit, "НИЙТ ДҮН");
+                                    orgname.SetValue(Niit, "Нийт дүн");
                                     //math1 = 100 - 100 * Convert.ToInt32(prop.GetValue(Medeeleegui)) / total - Convert.ToInt32(prop.GetValue(HugtsaaHotsorson));
                                 }
 
@@ -12342,7 +13262,7 @@ namespace Audit.Controllers
                     }
                     if (Niit.ORGNAME == null)
                     {
-                        orgname.SetValue(Niit, "НИЙТ ДҮН");
+                        orgname.SetValue(Niit, "Нийт дүн");
                     }
                     if (Medeelsen.ORGNAME == null)
                     {
