@@ -12,15 +12,28 @@
     </a>
     <h4>СМ-5. Тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн ангилал</h4>
 </div>
+
 <style>
 
+    #tableBorder {
+        border-right-color: transparent !important;
+    }
 
+    .tableBackround {
+        background-color: #8080804a !important;
+    }
+
+    .tableBackroundDun {
+        background-color: #17a2b81f !important;
+    }
+
+    .text-center sorting_1 {
+    }
     .vertical {
         writing-mode: vertical-rl;
         -ms-writing-mode: tb-rl;
         transform: rotate(180deg);
     }
-
 </style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
@@ -114,7 +127,7 @@
             setTimeout(function () { cm5ListInit(); }, 1000);
         });
 
-        function cm5ListInit() {
+        function cm5ListInit(pagelength = -1) {
             var count = 0;
             CM5.table = $("#CM5").DataTable({
                 "serverSide": true,
@@ -171,8 +184,12 @@
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
                 ],
+                scrollX: true,
+                scrollY: 392,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
+                "pageLength": pagelength,
                 "paging": true,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
