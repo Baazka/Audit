@@ -1649,19 +1649,19 @@ namespace Audit.Controllers
                     Decimal AMOUNT9 = 0;
                     Decimal AMOUNT10 = 0;
 
-                    int NUMBER = 0;
-                    int NUMBER1 = 0;
-                    int NUMBER2 = 0;
-                    int NUMBER3 = 0;
-                    int NUMBER4 = 0;
-                    int NUMBER5 = 0;
-                    int NUMBER6 = 0;
-                    int NUMBER7 = 0;
-                    int NUMBER8 = 0;
-                    int NUMBER9 = 0;
-                    int NUMBER10 = 0;
-                    int NUMBER11 = 0;
-                    int NUMBER12 = 0;
+                    Int64 NUMBER = 0;
+                    Int64 NUMBER1 = 0;
+                    Int64 NUMBER2 = 0;
+                    Int64 NUMBER3 = 0;
+                    Int64 NUMBER4 = 0;
+                    Int64 NUMBER5 = 0;
+                    Int64 NUMBER6 = 0;
+                    Int64 NUMBER7 = 0;
+                    Int64 NUMBER8 = 0;
+                    Int64 NUMBER9 = 0;
+                    Int64 NUMBER10 = 0;
+                    Int64 NUMBER11 = 0;
+                    Int64 NUMBER12 = 0;
 
                     foreach (BM7 data in AllData)
                     {
@@ -1737,55 +1737,55 @@ namespace Audit.Controllers
 
                         if (data.INCOME_STATE_COUNT != 0 && data.INCOME_STATE_COUNT != null)
                         {
-                            NUMBER += Convert.ToInt32(data.INCOME_STATE_COUNT);
+                            NUMBER += Convert.ToInt64(data.INCOME_STATE_COUNT);
                         }
                         if (data.INCOME_LOCAL_COUNT != 0 && data.INCOME_LOCAL_COUNT != null)
                         {
-                            NUMBER1 += Convert.ToInt32(data.INCOME_LOCAL_COUNT);
+                            NUMBER1 += Convert.ToInt64(data.INCOME_LOCAL_COUNT);
                         }
                         if (data.INCOME_LOCAL_NUMBER != 0 && data.INCOME_LOCAL_NUMBER != null)
                         {
-                            NUMBER2 += Convert.ToInt32(data.INCOME_LOCAL_NUMBER);
+                            NUMBER2 += Convert.ToInt64(data.INCOME_LOCAL_NUMBER);
                         }
                         if (data.BUDGET_STATE_COUNT != 0 && data.BUDGET_STATE_COUNT != null)
                         {
-                            NUMBER3 += Convert.ToInt32(data.BUDGET_STATE_COUNT);
+                            NUMBER3 += Convert.ToInt64(data.BUDGET_STATE_COUNT);
                         }
                         if (data.BUDGET_LOCAL_COUNT != 0 && data.BUDGET_LOCAL_COUNT != null)
                         {
-                            NUMBER4 += Convert.ToInt32(data.BUDGET_LOCAL_COUNT);
+                            NUMBER4 += Convert.ToInt64(data.BUDGET_LOCAL_COUNT);
                         }
                         if (data.ACCOUNTANT_COUNT != 0 && data.ACCOUNTANT_COUNT != null)
                         {
-                            NUMBER5 += Convert.ToInt32(data.ACCOUNTANT_COUNT);
+                            NUMBER5 += Convert.ToInt64(data.ACCOUNTANT_COUNT);
                         }
                         if (data.EFFICIENCY_COUNT != 0 && data.EFFICIENCY_COUNT != null)
                         {
-                            NUMBER6 += Convert.ToInt32(data.EFFICIENCY_COUNT);
+                            NUMBER6 += Convert.ToInt64(data.EFFICIENCY_COUNT);
                         }
                         if (data.LAW_COUNT != 0 && data.LAW_COUNT != null)
                         {
-                            NUMBER7 += Convert.ToInt32(data.LAW_COUNT);
+                            NUMBER7 += Convert.ToInt64(data.LAW_COUNT);
                         }
                         if (data.MONITORING_COUNT != 0 && data.MONITORING_COUNT != null)
                         {
-                            NUMBER8 += Convert.ToInt32(data.MONITORING_COUNT);
+                            NUMBER8 += Convert.ToInt64(data.MONITORING_COUNT);
                         }
                         if (data.PURCHASE_COUNT != 0 && data.PURCHASE_COUNT != null)
                         {
-                            NUMBER9 += Convert.ToInt32(data.PURCHASE_COUNT);
+                            NUMBER9 += Convert.ToInt64(data.PURCHASE_COUNT);
                         }
                         if (data.COST_COUNT != 0 && data.COST_COUNT != null)
                         {
-                            NUMBER10 += Convert.ToInt32(data.COST_COUNT);
+                            NUMBER10 += Convert.ToInt64(data.COST_COUNT);
                         }
                         if (data.OTHER_COUNT != 0 && data.OTHER_COUNT != null)
                         {
-                            NUMBER11 += Convert.ToInt32(data.OTHER_COUNT);
+                            NUMBER11 += Convert.ToInt64(data.OTHER_COUNT);
                         }
                         if (data.ALL_COUNT != 0 && data.ALL_COUNT != null)
                         {
-                            NUMBER12 += Convert.ToInt32(data.ALL_COUNT);
+                            NUMBER12 += Convert.ToInt64(data.ALL_COUNT);
                         }
                     }
                     pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));

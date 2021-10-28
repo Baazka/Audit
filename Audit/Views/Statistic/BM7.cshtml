@@ -123,9 +123,7 @@
                         return data;
                     }
                 },
-                createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ID);
-                },
+             
                 "columns": [
                     {
                         "data": null,  "class": 'text-center',
@@ -188,6 +186,7 @@
                 lengthChange: true,
                 "language": datatables.language,
                 "createdRow": function (row, data, index) {
+                    $(row).attr('data-id', data.ID);
                     if (data !== undefined) {
 
                         if (data.DEPARTMENT_NAME === "Нийт дүн") {
