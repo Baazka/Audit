@@ -465,7 +465,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Огноо:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_ROLE_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                    @Html.EditorFor(m => m.ORGP_ROLE_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                 </div>
             </div>
         </div>*@
@@ -550,7 +550,7 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Огноо:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_ROLE_DATE2, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                    @Html.EditorFor(m => m.ORGP_ROLE_DATE2, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                 </div>
             </div>
         </div>*@
