@@ -6618,7 +6618,7 @@ namespace Audit.App_Func
                      "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.BUDGET_TYPE END ASC,  " +
                      "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.BUDGET_TYPE END DESC " +
                      "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
-                     "FETCH NEXT: PAGESIZE ROWS ONLY ";
+                     "FETCH NEXT: PAGESIZE ROWS ONLY";
                 }
                 else
                 {
@@ -6649,7 +6649,7 @@ namespace Audit.App_Func
                     "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.BUDGET_TYPE END ASC,  " +
                     "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.BUDGET_TYPE END DESC " +
                     "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT: PAGESIZE ROWS ONLY ";
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
                 }
 
 
