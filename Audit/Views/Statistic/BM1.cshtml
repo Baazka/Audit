@@ -161,7 +161,7 @@
 </div>
 
 @section scripts{
-  
+
     <script>
         var userid = @ViewBag.UserID;
         //var scl = window.innerHeight - 277;
@@ -198,7 +198,7 @@
                         return data;
                     }
                 },
-                
+
                 "columns": [
                     {
                         "data": null,  "class": 'text-center',
@@ -280,13 +280,13 @@
                 "createdRow": function (row, data, index) {
                     $(row).attr('data-id', data.ID);
                     if (data !== undefined) {
-                      
+
                         if (data.DEPARTMENT_NAME === "Нийт дүн") {
                             $(row).children('td').each((index, td) => {
                                 $('td', row).eq(index).attr('id', "tableNiitDun");
                             });
                         }
-                       
+
                     }
                 },
                 "drawCallback": function () {

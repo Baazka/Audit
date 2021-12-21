@@ -302,18 +302,19 @@
             }
         }
     }
+
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            CM4B.table.destroy();
             cm4bListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM4B.table.destroy();
                 cm4bListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }
