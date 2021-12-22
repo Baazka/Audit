@@ -339,6 +339,10 @@ namespace Audit.Controllers
             {
                 ModelState.Remove("AUDITOR_MEMBER");
             }
+            if (bm0.AUDIT_TYPE != 1)
+            {
+                ModelState.Remove("AUDIT_BUDGET_TYPE");
+            }
             if (ModelState.IsValid)
             {
                 if (bm0.ID != 0)

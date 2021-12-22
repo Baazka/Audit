@@ -73,7 +73,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Аудитын төрөл: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                        @Html.DropDownListFor(model => model.AUDIT_TYPE, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm audit_type" })
                                         @Html.ValidationMessageFor(m => m.AUDIT_TYPE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12" id="Tusuv_Zahiragch">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төсөв захирагчийн ангилал: <span class="required">*</span></label>
                                     <div class="col-sm-4">
@@ -380,48 +380,61 @@
               $("#Bm0Modal #AUDITOR_MEMBERS").val(stringArrayMembers);
 
         }
+        if ($("#AUDIT_TYPE").val() == 1) {
+                document.getElementById("Tusuv_Zahiragch").style.display = "block";
+            }
+            else {
+                document.getElementById("Tusuv_Zahiragch").style.display = "none";
+            }
     });
-  $( function() {
-      $(".datepicker").datepicker({
+    $(function () {
+        $(".datepicker").datepicker({
 
-          beforeShow: function () {
-              setTimeout(function () {
-                  $('.ui-datepicker').css('z-index', 99999999999999);
-              }, 0);
-          },
-          changeMonth: true,
-          changeYear: true,
-          dateFormat: "yy.mm.dd",
-          firstDay: 1,
-          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
-          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
-          //maxDate: "+0D",
-          showOn: "button",
-          buttonImage: "@Url.Content("~/Images/calendar.png")",
-          buttonImageOnly: true,
-          buttonText: "Select date"
-      });
-      if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1)
-          $('.team_department').removeClass('d-none');
-      else
-          $('.team_audit').removeClass('d-none');
-      $("input[name='AUDIT_DEPARTMENT_TYPE']").click(function () {
-          if (this.value == 1) {
-              $('.team_department').removeClass('d-none');
-              $('.team_audit').addClass('d-none');
-              document.getElementById("teamdata").style.display = "block";
-              document.getElementById("teamdata2").style.display = "block";
-          }
-          else if (this.value == 2) {
+            beforeShow: function () {
+                setTimeout(function () {
+                    $('.ui-datepicker').css('z-index', 99999999999999);
+                }, 0);
+            },
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy.mm.dd",
+            firstDay: 1,
+            dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+            monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+            //maxDate: "+0D",
+            showOn: "button",
+            buttonImage: "@Url.Content("~/Images/calendar.png")",
+            buttonImageOnly: true,
+            buttonText: "Select date"
+        });
+        if ($("input[name='AUDIT_DEPARTMENT_TYPE']:checked").val() == 1)
+            $('.team_department').removeClass('d-none');
+        else
+            $('.team_audit').removeClass('d-none');
+        $("input[name='AUDIT_DEPARTMENT_TYPE']").click(function () {
+            if (this.value == 1) {
+                $('.team_department').removeClass('d-none');
+                $('.team_audit').addClass('d-none');
+                document.getElementById("teamdata").style.display = "block";
+                document.getElementById("teamdata2").style.display = "block";
+            }
+            else if (this.value == 2) {
 
-              $('.team_department').addClass('d-none');
-              $('.team_audit').removeClass('d-none');
-              document.getElementById("teamdata").style.display = "none";
-              document.getElementById("teamdata2").style.display = "none";
-          }
-      });
-
-
+                $('.team_department').addClass('d-none');
+                $('.team_audit').removeClass('d-none');
+                document.getElementById("teamdata").style.display = "none";
+                document.getElementById("teamdata2").style.display = "none";
+            }
+        });
+       
+        $(".audit_type").on("change", function () {
+            if (this.value == 1) {
+                document.getElementById("Tusuv_Zahiragch").style.display = "block";
+            }
+            else {
+                document.getElementById("Tusuv_Zahiragch").style.display = "none";
+            }
+        });
   });
 
 </script>

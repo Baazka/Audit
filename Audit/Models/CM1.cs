@@ -18,9 +18,9 @@ namespace Audit.Models
         public int ID { get; set; }
         public int OFFICE_ID { get; set; }
         public string DEPARTMENT_NAME { get; set; }
-        public int STATISTIC_PERIOD { get; set; }
+        public int STATISTIC_PERIOD { get; set; } 
         public string PERIOD_LABEL { get; set; }
-
+        public string BUDGET_TYPE_NAME { get; set; }
         public string AUDIT_TYPE { get; set; }
         public string CATEGORY_TYPE { get; set; }
         public int IS_STATE { get; set; }
@@ -64,6 +64,8 @@ namespace Audit.Models
                     OFFICE_ID = Convert.ToInt32(xml.Element("OFFICE_ID").Value);
                 if (xml.Element("DEPARTMENT_NAME") != null)
                     DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value;
+                if (xml.Element("BUDGET_TYPE_NAME") != null)
+                    BUDGET_TYPE_NAME = xml.Element("BUDGET_TYPE_NAME").Value;
                 if (xml.Element("STATISTIC_PERIOD") != null)
                     STATISTIC_PERIOD = Convert.ToInt32(xml.Element("STATISTIC_PERIOD").Value);
                 if (xml.Element("PERIOD_LABEL") != null)

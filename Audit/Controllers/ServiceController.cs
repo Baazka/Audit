@@ -3715,6 +3715,7 @@ namespace Audit.Controllers
                 XElement res = AppStatic.SystemController.CM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 if (res != null && res.Elements("CM1") != null)
                     response.data = (from item in res.Elements("CM1") select new CM1().SetXml(item)).ToList();
+         
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -3726,6 +3727,266 @@ namespace Audit.Controllers
             }
             return response;
         }
+        //public CM1ListResponse CM1TypesList(List<CM1> request, int dataType)
+        //{
+        //    CM1ListResponse response = new CM1ListResponse();
+        //    var typ = typeof(CM1);
+        //    List<CM1> requestData = new List<CM1>();
+        //    requestData = request;
+
+        //    if (requestData.Count > 0)
+        //    {
+
+        //        List<CM1> temp = new List<CM1>();
+
+        //        CM1 title = new CM1();
+
+
+        //        if (dataType == 1)
+        //            title.BUDGET_TYPE_NAME = "Нэг. Төрийн аудитын байгууллага";
+        //        if (dataType == 2)
+        //            title.BUDGET_TYPE_NAME = "Хоёр. Хараат бус аудитын компани";
+
+        //        title.DEPARTMENT_NAME = requestData.FirstOrDefault().DEPARTMENT_NAME;
+
+        //        CM1 DECNiit = new CM1();
+        //        var DECdepname = typ.GetProperty("BUDGET_TYPE_NAME");
+        //        var DEPdepname = typ.GetProperty("DEPARTMENT_NAME");
+
+
+        //        var DECpay = typ.GetProperty("C1_AMOUNT");
+        //        var DECpay1 = typ.GetProperty("CURRENT_AMOUNT");
+        //        var DECpay2 = typ.GetProperty("TOTAL_AMOUNT");
+        //        var DECpay3 = typ.GetProperty("COMPLETION_DONE_AMOUNT");
+        //        var DECpay4 = typ.GetProperty("COMPLETION_PROGRESS_AMOUNT");
+        //        var DECpay5 = typ.GetProperty("LAW_AMOUNT");
+        //        var DECpay6 = typ.GetProperty("LAW_CURRENT_AMOUNT");
+        //        var DECpay7 = typ.GetProperty("LAW_TOTAL_AMOUNT");
+        //        var DECpay8 = typ.GetProperty("LAW_COMP_DONE_AMOUNT");
+        //        var DECpay9 = typ.GetProperty("LAW_COMP_PROG_AMOUNT");
+        //        var DECpay10 = typ.GetProperty("LAW_COMP_INVALID_AMOUNT");
+        //        var DECpay11 = typ.GetProperty("C2_AMOUNT");
+
+
+        //        var DECcount = typ.GetProperty("C1_COUNT");
+        //        var DECcount1 = typ.GetProperty("CURRENT_COUNT");
+        //        var DECcount2 = typ.GetProperty("TOTAL_COUNT");
+        //        var DECcount3 = typ.GetProperty("COMPLETION_DONE_COUNT");
+        //        var DECcount4 = typ.GetProperty("COMPLETION_PROGRESS_COUNT");
+        //        var DECcount5 = typ.GetProperty("LAW_COUNT");
+        //        var DECcount6 = typ.GetProperty("LAW_CURRENT_COUNT");
+        //        var DECcount7 = typ.GetProperty("LAW_TOTAL_COUNT");
+        //        var DECcount8 = typ.GetProperty("LAW_COMP_DONE_COUNT");
+        //        var DECcount9 = typ.GetProperty("LAW_COMP_PROG_COUNT");
+        //        var DECcount10 = typ.GetProperty("LAW_COMP_INVALID_COUNT");
+        //        var DECcount11 = typ.GetProperty("C2_COUNT");
+
+
+        //        decimal DECAMOUNT = 0;
+        //        decimal DECAMOUNT1 = 0;
+        //        decimal DECAMOUNT2 = 0;
+        //        decimal DECAMOUNT3 = 0;
+        //        decimal DECAMOUNT4 = 0;
+        //        decimal DECAMOUNT5 = 0;
+        //        decimal DECAMOUNT6 = 0;
+        //        decimal DECAMOUNT7 = 0;
+        //        decimal DECAMOUNT8 = 0;
+        //        decimal DECAMOUNT9 = 0;
+        //        decimal DECAMOUNT10 = 0;
+        //        decimal DECAMOUNT11 = 0;
+
+        //        int DECNUMBER = 0;
+        //        int DECNUMBER1 = 0;
+        //        int DECNUMBER2 = 0;
+        //        int DECNUMBER3 = 0;
+        //        int DECNUMBER4 = 0;
+        //        int DECNUMBER5 = 0;
+        //        int DECNUMBER6 = 0;
+        //        int DECNUMBER7 = 0;
+        //        int DECNUMBER8 = 0;
+        //        int DECNUMBER9 = 0;
+        //        int DECNUMBER10 = 0;
+        //        int DECNUMBER11 = 0;
+
+        //        foreach (CM1 data in requestData)
+        //        {
+
+        //            if (data.C1_AMOUNT != null)
+        //            {
+        //                string strNii = data.C1_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT += Amount;
+
+        //            }
+        //            if (data.CURRENT_AMOUNT != null)
+        //            {
+        //                string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT1 += Amount;
+
+        //            }
+        //            if (data.TOTAL_AMOUNT != null)
+        //            {
+        //                string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT2 += Amount;
+
+        //            }
+        //            if (data.COMPLETION_DONE_AMOUNT != null)
+        //            {
+        //                string strNii = data.COMPLETION_DONE_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT3 += Amount;
+
+        //            }
+        //            if (data.COMPLETION_PROGRESS_AMOUNT != null)
+        //            {
+        //                string strNii = data.COMPLETION_PROGRESS_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT4 += Amount;
+
+        //            }
+        //            if (data.LAW_AMOUNT != null)
+        //            {
+        //                string strNii = data.LAW_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT5 += Amount;
+
+        //            }
+        //            if (data.LAW_CURRENT_AMOUNT != null)
+        //            {
+        //                string strNii = data.LAW_CURRENT_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT6 += Amount;
+
+        //            }
+        //            if (data.LAW_TOTAL_AMOUNT != null)
+        //            {
+        //                string strNii = data.LAW_TOTAL_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT7 += Amount;
+
+        //            }
+        //            if (data.LAW_COMP_DONE_AMOUNT != null)
+        //            {
+        //                string strNii = data.LAW_COMP_DONE_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT8 += Amount;
+
+        //            }
+        //            if (data.LAW_COMP_PROG_AMOUNT != null)
+        //            {
+        //                string strNii = data.LAW_COMP_PROG_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT9 += Amount;
+
+        //            }
+        //            if (data.LAW_COMP_INVALID_AMOUNT != null)
+        //            {
+        //                string strNii = data.LAW_COMP_INVALID_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT10 += Amount;
+
+        //            }
+        //            if (data.C2_AMOUNT != null)
+        //            {
+        //                string strNii = data.C2_AMOUNT.Replace(",", "");
+        //                Decimal Amount = Convert.ToDecimal(strNii);
+        //                DECAMOUNT11 += Amount;
+
+        //            }
+
+        //            if (data.C1_COUNT != 0)
+        //            {
+        //                DECNUMBER += Convert.ToInt32(data.C1_COUNT);
+        //            }
+        //            if (data.CURRENT_COUNT != 0)
+        //            {
+        //                DECNUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+        //            }
+        //            if (data.TOTAL_COUNT != 0)
+        //            {
+        //                DECNUMBER2 += Convert.ToInt32(data.TOTAL_COUNT);
+        //            }
+        //            if (data.COMPLETION_DONE_COUNT != 0)
+        //            {
+        //                DECNUMBER3 += Convert.ToInt32(data.COMPLETION_DONE_COUNT);
+        //            }
+        //            if (data.COMPLETION_PROGRESS_COUNT != 0)
+        //            {
+        //                DECNUMBER4 += Convert.ToInt32(data.COMPLETION_PROGRESS_COUNT);
+        //            }
+        //            if (data.LAW_COUNT != 0)
+        //            {
+        //                DECNUMBER5 += Convert.ToInt32(data.LAW_COUNT);
+        //            }
+        //            if (data.LAW_CURRENT_COUNT != 0)
+        //            {
+        //                DECNUMBER6 += Convert.ToInt32(data.LAW_CURRENT_COUNT);
+        //            }
+        //            if (data.LAW_TOTAL_COUNT != 0)
+        //            {
+        //                DECNUMBER7 += Convert.ToInt32(data.LAW_TOTAL_COUNT);
+        //            }
+        //            if (data.LAW_COMP_DONE_COUNT != 0)
+        //            {
+        //                DECNUMBER8 += Convert.ToInt32(data.LAW_COMP_DONE_COUNT);
+        //            }
+        //            if (data.LAW_COMP_PROG_COUNT != 0)
+        //            {
+        //                DECNUMBER9 += Convert.ToInt32(data.LAW_COMP_PROG_COUNT);
+        //            }
+        //            if (data.LAW_COMP_INVALID_COUNT != 0)
+        //            {
+        //                DECNUMBER10 += Convert.ToInt32(data.LAW_COMP_INVALID_COUNT);
+        //            }
+        //            if (data.C2_COUNT != 0)
+        //            {
+        //                DECNUMBER11 += Convert.ToInt32(data.C2_COUNT);
+        //            }
+        //            DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
+        //        }
+        //        DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.00"));
+        //        DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.00"));
+        //        DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.00"));
+        //        DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.00"));
+        //        DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.00"));
+        //        DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.00"));
+        //        DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.00"));
+        //        DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.00"));
+        //        DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.00"));
+        //        DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.00"));
+        //        DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.00"));
+        //        DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.00"));
+
+        //        DECcount.SetValue(DECNiit, DECNUMBER);
+        //        DECcount1.SetValue(DECNiit, DECNUMBER1);
+        //        DECcount2.SetValue(DECNiit, DECNUMBER2);
+        //        DECcount3.SetValue(DECNiit, DECNUMBER3);
+        //        DECcount4.SetValue(DECNiit, DECNUMBER4);
+        //        DECcount5.SetValue(DECNiit, DECNUMBER5);
+        //        DECcount6.SetValue(DECNiit, DECNUMBER6);
+        //        DECcount7.SetValue(DECNiit, DECNUMBER7);
+        //        DECcount8.SetValue(DECNiit, DECNUMBER8);
+        //        DECcount9.SetValue(DECNiit, DECNUMBER9);
+        //        DECcount10.SetValue(DECNiit, DECNUMBER10);
+        //        DECcount11.SetValue(DECNiit, DECNUMBER11);
+
+        //        DECdepname.SetValue(DECNiit, "Дүн");
+
+        //        if (dataType != 0)
+        //            temp.Add(title);
+
+        //        temp.AddRange(requestData.OrderBy(m => m.DEPARTMENT_NAME));
+        //        temp.Add(DECNiit);
+        //        requestData = temp;
+
+
+        //    }
+
+        //    response.data = requestData;
+        //    return response;
+        //}
         [HttpPost]
         public CM2ListResponse CM2List(CM2ListRequest request)
         {
