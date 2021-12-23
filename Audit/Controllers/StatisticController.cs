@@ -543,7 +543,7 @@ namespace Audit.Controllers
                 ? Json(new { error = false, message = AppStatic.SystemController.Message })
                 : Json(new { error = true, message = AppStatic.SystemController.Message });
         }
-
+         
         public ActionResult BM1()
         {
             BM1VM res = new BM1VM();

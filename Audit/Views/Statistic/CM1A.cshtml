@@ -12,6 +12,23 @@
     </a>
     <h4>СМ-1А. Санхүүгийн тайлангийн аудитын ерөнхий мэдээлэл</h4>
 </div>
+<style>
+
+    #tableBorder {
+        border-right-color: transparent !important;
+    }
+
+    .tableBackround {
+        background-color: #8080804a !important;
+    }
+
+    .tableBackroundDun {
+        background-color: #17a2b81f !important;
+    }
+
+    .text-center sorting_1 {
+    }
+</style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -44,6 +61,7 @@
             <table id="CM1A" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="3" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Үзүүлэлт</th>
                         <th colspan="3">Ажилласан</th>
@@ -95,7 +113,8 @@
             setTimeout(function () { cm1aListInit(); }, 1000);
         });
        
-        function cm1aListInit(pagelength = 10) {
+        function cm1aListInit(pagelength = -1) {
+            var count = 0;
             CM1A.table = $("#CM1A").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -106,22 +125,44 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
                         data.Type = 1;
+                        count = 0;
                         return data;
                     }
                 },
+              
                 createdRow: function (row, data, dataIndex) {
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                                return "";
+                            }
+                            if (data.BUDGET_TYPE_NAME === "Дүн") {
+                                count = 0;
+                                return "";
+                            }
+                            if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага") {
+
+                                return "";
+                            }
+                            if (data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+
+                                return "";
+                            }
+                            else {
+                                return count = count + 1;
+                            }
+
                         }
                     },
                     //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
                     //{ "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
-                    { "data": "IS_STATE", "name": "IS_STATE", "rowspan":"3" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    //{ "data": "IS_STATE", "name": "IS_STATE", "rowspan":"3" },
                     { "data": "WORKING_PERSON", "name": "WORKING_PERSON", "class": "text-right" },
                     { "data": "WORKING_DAY", "name": "WORKING_DAY", "class": "text-right" },
                     { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME", "class": "text-right" },
@@ -161,7 +202,99 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.BUDGET_TYPE_NAME === "Дүн") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 2)
+                                    $('td', row).eq(2).addClass('font-weight-bold');
+
+                                if (index !== 25 && index !== 0)
+                                    $('td', row).eq(index).addClass('tableBackroundDun');
+                            });
+                        }
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 0)
+                                    $('td', row).eq(0).addClass('font-weight-bold');
+
+                                if (index !== 25)
+                                    $('td', row).eq(index).addClass('tableBackround');
+                            });
+                        }
+                        if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага" || data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 2)
+                                    $('td', row).eq(2).addClass('font-weight-bold');
+
+                                if (index === 2)
+                                    $('td', row).eq(index).attr("colspan", 4);
+
+
+                                if (index === 19)
+                                    $('td', row).eq(19).remove();
+                                if (index === 20)
+                                    $('td', row).eq(20).remove();
+                                if (index === 21)
+                                    $('td', row).eq(21).remove();
+                                if (index === 22)
+                                    $('td', row).eq(22).remove();
+
+
+                                if (index !== 23 && index !== 0)
+                                    $('td', row).eq(index).attr('id', "tableBorder");
+
+                                if (index !== 24 && index !== 0)
+                                    $('td', row).eq(index).addClass('tableBackround');
+
+                            });
+                        }
+
+                    }
+                },
+
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+
+
+
+
+
+                    idx = 0
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
+                },
             });
 
         }
