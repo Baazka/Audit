@@ -12521,8 +12521,334 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", null));
 
                 XElement res = AppStatic.SystemController.CM5(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
+           
+
                 if (res != null && res.Elements("CM5") != null)
-                    response.data = (from item in res.Elements("CM5") select new CM5().SetXml(item)).ToList();
+                {
+                    List<CM5> body = new List<CM5>();
+                    List<CM5> CM5Detial = new List<CM5>();
+                    CM5 title = new CM5();
+                    List<CM5> total = new List<CM5>();
+                    var typ = typeof(CM5);
+
+                    body = (from item in res.Elements("CM5") select new CM5().SetXml(item)).ToList();
+                    if (body.Count > 0)
+                    {
+
+
+                        List<CM5> temp = new List<CM5>();
+                        List<CM5> totaltemp = new List<CM5>();
+
+
+                        List<CM5> UAG = new List<CM5>();
+                        List<CM5> UAG1 = new List<CM5>();
+                        List<CM5> UAG2 = new List<CM5>();
+                        CM5ListResponse UAGdata1 = new CM5ListResponse();
+                        CM5ListResponse UAGdata2 = new CM5ListResponse();
+                        CM5ListResponse UAGTotal = new CM5ListResponse();
+                        UAG = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Үндэсний аудитын газар"));
+                        if (UAG.Count > 0)
+                            UAGTotal = CM5TotalList(UAG);
+
+                        List<CM5> NT = new List<CM5>();
+                        List<CM5> NT1 = new List<CM5>();
+                        List<CM5> NT2 = new List<CM5>();
+                        CM5ListResponse NTdata1 = new CM5ListResponse();
+                        CM5ListResponse NTdata2 = new CM5ListResponse();
+                        CM5ListResponse NTTotal = new CM5ListResponse();
+                        NT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Нийслэл дэх ТАГ"));
+                        if (NT.Count > 0)
+                            NTTotal = CM5TotalList(NT);
+
+                        List<CM5> ART = new List<CM5>();
+                        List<CM5> ART1 = new List<CM5>();
+                        List<CM5> ART2 = new List<CM5>();
+                        CM5ListResponse ARTdata1 = new CM5ListResponse();
+                        CM5ListResponse ARTdata2 = new CM5ListResponse();
+                        CM5ListResponse ARTTotal = new CM5ListResponse();
+                        ART = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Архангай аймаг дахь ТАГ"));
+                        if (ART.Count > 0)
+                            ARTTotal = CM5TotalList(ART);
+
+                        List<CM5> BUT = new List<CM5>();
+                        List<CM5> BUT1 = new List<CM5>();
+                        List<CM5> BUT2 = new List<CM5>();
+                        CM5ListResponse BUTdata1 = new CM5ListResponse();
+                        CM5ListResponse BUTdata2 = new CM5ListResponse();
+                        CM5ListResponse BUTTotal = new CM5ListResponse();
+                        BUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Баян-Өлгий аймаг дахь ТАГ"));
+                        if (BUT.Count > 0)
+                            BUTTotal = CM5TotalList(BUT);
+
+                        List<CM5> BHT = new List<CM5>();
+                        List<CM5> BHT1 = new List<CM5>();
+                        List<CM5> BHT2 = new List<CM5>();
+                        CM5ListResponse BHTdata1 = new CM5ListResponse();
+                        CM5ListResponse BHTdata2 = new CM5ListResponse();
+                        CM5ListResponse BHTTotal = new CM5ListResponse();
+                        BHT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Баянхонгор аймаг дахь ТАГ"));
+                        if (BHT.Count > 0)
+                            BHTTotal = CM5TotalList(BHT);
+
+                        List<CM5> BLT = new List<CM5>();
+                        List<CM5> BLT1 = new List<CM5>();
+                        List<CM5> BLT2 = new List<CM5>();
+                        CM5ListResponse BLTdata1 = new CM5ListResponse();
+                        CM5ListResponse BLTdata2 = new CM5ListResponse();
+                        CM5ListResponse BLTTotal = new CM5ListResponse();
+                        BLT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Булган аймаг дахь ТАГ"));
+                        if (BLT.Count > 0)
+                            BLTTotal = CM5TotalList(BLT);
+
+                        List<CM5> GAT = new List<CM5>();
+                        List<CM5> GAT1 = new List<CM5>();
+                        List<CM5> GAT2 = new List<CM5>();
+                        CM5ListResponse GATdata1 = new CM5ListResponse();
+                        CM5ListResponse GATdata2 = new CM5ListResponse();
+                        CM5ListResponse GATTotal = new CM5ListResponse();
+                        GAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Говь-Алтай аймаг дахь ТАГ"));
+                        if (GAT.Count > 0)
+                            GATTotal = CM5TotalList(GAT);
+
+                        List<CM5> GST = new List<CM5>();
+                        List<CM5> GST1 = new List<CM5>();
+                        List<CM5> GST2 = new List<CM5>();
+                        CM5ListResponse GSTdata1 = new CM5ListResponse();
+                        CM5ListResponse GSTdata2 = new CM5ListResponse();
+                        CM5ListResponse GSTTotal = new CM5ListResponse();
+                        GST = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Говьсүмбэр аймаг дахь ТАГ"));
+                        if (GST.Count > 0)
+                            GSTTotal = CM5TotalList(GST);
+
+                        List<CM5> DAT = new List<CM5>();
+                        List<CM5> DAT1 = new List<CM5>();
+                        List<CM5> DAT2 = new List<CM5>();
+                        CM5ListResponse DATdata1 = new CM5ListResponse();
+                        CM5ListResponse DATdata2 = new CM5ListResponse();
+                        CM5ListResponse DATTotal = new CM5ListResponse();
+                        DAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дархан-Уул аймаг дахь ТАГ"));
+                        if (DAT.Count > 0)
+                            DATTotal = CM5TotalList(DAT);
+
+                        List<CM5> DOT = new List<CM5>();
+                        List<CM5> DOT1 = new List<CM5>();
+                        List<CM5> DOT2 = new List<CM5>();
+                        CM5ListResponse DOTdata1 = new CM5ListResponse();
+                        CM5ListResponse DOTdata2 = new CM5ListResponse();
+                        CM5ListResponse DOTTotal = new CM5ListResponse();
+                        DOT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дорноговь аймаг дахь ТАГ"));
+                        if (DOT.Count > 0)
+                            DOTTotal = CM5TotalList(DOT);
+
+                        List<CM5> DNT = new List<CM5>();
+                        List<CM5> DNT1 = new List<CM5>();
+                        List<CM5> DNT2 = new List<CM5>();
+                        CM5ListResponse DNTdata1 = new CM5ListResponse();
+                        CM5ListResponse DNTdata2 = new CM5ListResponse();
+                        CM5ListResponse DNTTotal = new CM5ListResponse();
+                        DNT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дорнод аймаг дахь ТАГ"));
+                        if (DNT.Count > 0)
+                            DNTTotal = CM5TotalList(DNT);
+
+                        List<CM5> DGT = new List<CM5>();
+                        List<CM5> DGT1 = new List<CM5>();
+                        List<CM5> DGT2 = new List<CM5>();
+                        CM5ListResponse DGTdata1 = new CM5ListResponse();
+                        CM5ListResponse DGTdata2 = new CM5ListResponse();
+                        CM5ListResponse DGTTotal = new CM5ListResponse();
+                        DGT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Дундговь аймаг дахь ТАГ"));
+                        if (DGT.Count > 0)
+                            DGTTotal = CM5TotalList(DGT);
+
+                        List<CM5> ZAT = new List<CM5>();
+                        List<CM5> ZAT1 = new List<CM5>();
+                        List<CM5> ZAT2 = new List<CM5>();
+                        CM5ListResponse ZATdata1 = new CM5ListResponse();
+                        CM5ListResponse ZATdata2 = new CM5ListResponse();
+                        CM5ListResponse ZATTotal = new CM5ListResponse();
+                        ZAT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Завхан аймаг дахь ТАГ"));
+                        if (ZAT.Count > 0)
+                            ZATTotal = CM5TotalList(ZAT);
+
+                        List<CM5> ORT = new List<CM5>();
+                        List<CM5> ORT1 = new List<CM5>();
+                        List<CM5> ORT2 = new List<CM5>();
+                        CM5ListResponse ORTdata1 = new CM5ListResponse();
+                        CM5ListResponse ORTdata2 = new CM5ListResponse();
+                        CM5ListResponse ORTTotal = new CM5ListResponse();
+                        ORT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Орхон аймаг дахь ТАГ"));
+                        if (ORT.Count > 0)
+                            ORTTotal = CM5TotalList(ORT);
+
+                        List<CM5> UVT = new List<CM5>();
+                        List<CM5> UVT1 = new List<CM5>();
+                        List<CM5> UVT2 = new List<CM5>();
+                        CM5ListResponse UVTdata1 = new CM5ListResponse();
+                        CM5ListResponse UVTdata2 = new CM5ListResponse();
+                        CM5ListResponse UVTTotal = new CM5ListResponse();
+                        UVT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Өвөрхангай аймаг дахь ТАГ"));
+                        if (UVT.Count > 0)
+                            UVTTotal = CM5TotalList(UVT);
+
+                        List<CM5> UMT = new List<CM5>();
+                        List<CM5> UMT1 = new List<CM5>();
+                        List<CM5> UMT2 = new List<CM5>();
+                        CM5ListResponse UMTdata1 = new CM5ListResponse();
+                        CM5ListResponse UMTdata2 = new CM5ListResponse();
+                        CM5ListResponse UMTTotal = new CM5ListResponse();
+                        UMT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Өмнөговь аймаг дахь ТАГ"));
+                        if (UMT.Count > 0)
+                            UMTTotal = CM5TotalList(UMT);
+
+                        List<CM5> SBT = new List<CM5>();
+                        List<CM5> SBT1 = new List<CM5>();
+                        List<CM5> SBT2 = new List<CM5>();
+                        CM5ListResponse SBTdata1 = new CM5ListResponse();
+                        CM5ListResponse SBTdata2 = new CM5ListResponse();
+                        CM5ListResponse SBTTotal = new CM5ListResponse();
+                        SBT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Сүхбаатар аймаг дахь ТАГ"));
+                        if (SBT.Count > 0)
+                            SBTTotal = CM5TotalList(SBT);
+
+                        List<CM5> SET = new List<CM5>();
+                        List<CM5> SET1 = new List<CM5>();
+                        List<CM5> SET2 = new List<CM5>();
+                        CM5ListResponse SETdata1 = new CM5ListResponse();
+                        CM5ListResponse SETdata2 = new CM5ListResponse();
+                        CM5ListResponse SETTotal = new CM5ListResponse();
+                        SET = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Сэлэнгэ аймаг дахь ТАГ"));
+                        if (SET.Count > 0)
+                            SETTotal = CM5TotalList(SET);
+
+                        List<CM5> TUT = new List<CM5>();
+                        List<CM5> TUT1 = new List<CM5>();
+                        List<CM5> TUT2 = new List<CM5>();
+                        CM5ListResponse TUTdata1 = new CM5ListResponse();
+                        CM5ListResponse TUTdata2 = new CM5ListResponse();
+                        CM5ListResponse TUTTotal = new CM5ListResponse();
+                        TUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Төв аймаг дахь ТАГ"));
+                        if (TUT.Count > 0)
+                            TUTTotal = CM5TotalList(TUT);
+
+                        List<CM5> UST = new List<CM5>();
+                        List<CM5> UST1 = new List<CM5>();
+                        List<CM5> UST2 = new List<CM5>();
+                        CM5ListResponse USTdata1 = new CM5ListResponse();
+                        CM5ListResponse USTdata2 = new CM5ListResponse();
+                        CM5ListResponse USTTotal = new CM5ListResponse();
+                        UST = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Увс аймаг дахь ТАГ"));
+                        if (UST.Count > 0)
+                            USTTotal = CM5TotalList(UST);
+
+                        List<CM5> HOT = new List<CM5>();
+                        List<CM5> HOT1 = new List<CM5>();
+                        List<CM5> HOT2 = new List<CM5>();
+                        CM5ListResponse HOTdata1 = new CM5ListResponse();
+                        CM5ListResponse HOTdata2 = new CM5ListResponse();
+                        CM5ListResponse HOTTotal = new CM5ListResponse();
+                        HOT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Ховд аймаг дахь ТАГ"));
+                        if (HOT.Count > 0)
+                            HOTTotal = CM5TotalList(HOT);
+
+                        List<CM5> HUT = new List<CM5>();
+                        List<CM5> HUT1 = new List<CM5>();
+                        List<CM5> HUT2 = new List<CM5>();
+                        CM5ListResponse HUTdata1 = new CM5ListResponse();
+                        CM5ListResponse HUTdata2 = new CM5ListResponse();
+                        CM5ListResponse HUTTotal = new CM5ListResponse();
+                        HUT = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Хөвсгөл аймаг дахь ТАГ"));
+                        if (HUT.Count > 0)
+                            HUTTotal = CM5TotalList(HUT);
+
+                        List<CM5> HET = new List<CM5>();
+                        List<CM5> HET1 = new List<CM5>();
+                        List<CM5> HET2 = new List<CM5>();
+                        CM5ListResponse HETdata1 = new CM5ListResponse();
+                        CM5ListResponse HETdata2 = new CM5ListResponse();
+                        CM5ListResponse HETTotal = new CM5ListResponse();
+                        HET = body.FindAll(a => a.DEPARTMENT_NAME.Equals("Хэнтий аймаг дахь ТАГ"));
+                        if (HET.Count > 0)
+                            HETTotal = CM5TotalList(HET);
+
+
+                        List<CM5> types = new List<CM5>();
+                        types.AddRange(UAGdata1.data);
+                        types.AddRange(UAGdata2.data);
+                        types.AddRange(UAGTotal.data);
+                        types.AddRange(NTdata1.data);
+                        types.AddRange(NTdata2.data);
+                        types.AddRange(NTTotal.data);
+                        types.AddRange(ARTdata1.data);
+                        types.AddRange(ARTdata2.data);
+                        types.AddRange(ARTTotal.data);
+                        types.AddRange(BUTdata1.data);
+                        types.AddRange(BUTdata2.data);
+                        types.AddRange(BUTTotal.data);
+                        types.AddRange(BHTdata1.data);
+                        types.AddRange(BHTdata2.data);
+                        types.AddRange(BHTTotal.data);
+                        types.AddRange(BLTdata1.data);
+                        types.AddRange(BLTdata2.data);
+                        types.AddRange(BLTTotal.data);
+                        types.AddRange(GATdata1.data);
+                        types.AddRange(GATdata2.data);
+                        types.AddRange(GATTotal.data);
+                        types.AddRange(GSTdata1.data);
+                        types.AddRange(GSTdata2.data);
+                        types.AddRange(GSTTotal.data);
+                        types.AddRange(DATdata1.data);
+                        types.AddRange(DATdata2.data);
+                        types.AddRange(DATTotal.data);
+                        types.AddRange(DOTdata1.data);
+                        types.AddRange(DOTdata2.data);
+                        types.AddRange(DOTTotal.data);
+                        types.AddRange(DNTdata1.data);
+                        types.AddRange(DNTdata2.data);
+                        types.AddRange(DNTTotal.data);
+                        types.AddRange(DGTdata1.data);
+                        types.AddRange(DGTdata2.data);
+                        types.AddRange(DGTTotal.data);
+                        types.AddRange(ZATdata1.data);
+                        types.AddRange(ZATdata2.data);
+                        types.AddRange(ZATTotal.data);
+                        types.AddRange(ORTdata1.data);
+                        types.AddRange(ORTdata2.data);
+                        types.AddRange(ORTTotal.data);
+                        types.AddRange(UVTdata1.data);
+                        types.AddRange(UVTdata2.data);
+                        types.AddRange(UVTTotal.data);
+                        types.AddRange(UMTdata1.data);
+                        types.AddRange(UMTdata2.data);
+                        types.AddRange(UMTTotal.data);
+                        types.AddRange(SBTdata1.data);
+                        types.AddRange(SBTdata2.data);
+                        types.AddRange(SBTTotal.data);
+                        types.AddRange(SETdata1.data);
+                        types.AddRange(SETdata2.data);
+                        types.AddRange(SETTotal.data);
+                        types.AddRange(TUTdata1.data);
+                        types.AddRange(TUTdata2.data);
+                        types.AddRange(TUTTotal.data);
+                        types.AddRange(USTdata1.data);
+                        types.AddRange(USTdata2.data);
+                        types.AddRange(USTTotal.data);
+                        types.AddRange(HOTdata1.data);
+                        types.AddRange(HOTdata2.data);
+                        types.AddRange(HOTTotal.data);
+                        types.AddRange(HUTdata1.data);
+                        types.AddRange(HUTdata2.data);
+                        types.AddRange(HUTTotal.data);
+                        types.AddRange(HETdata1.data);
+                        types.AddRange(HETdata2.data);
+                        types.AddRange(HETTotal.data);
+
+                        CM5Detial = types;
+
+                        response.data = CM5Detial;
+
+
+                    }
+                }
 
                 response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
@@ -12534,920 +12860,892 @@ namespace Audit.Controllers
             }
             return response;
         }
-        public CM2ListResponse Cm5TypesList(List<CM2> request, int dataType)
+        //public CM5ListResponse CM5TypesList(List<CM5> request, int dataType)
+        //{
+        //    CM2ListResponse response = new CM2ListResponse();
+        //    var typ = typeof(CM2);
+        //    List<CM2> requestData = new List<CM2>();
+        //    requestData = request;
+
+        //    if (requestData.Count > 0)
+        //    {
+        //        List<CM2> type1 = new List<CM2>();
+        //        List<CM2> type2 = new List<CM2>();
+        //        List<CM2> type3 = new List<CM2>();
+
+        //        List<CM2> templist1 = new List<CM2>();
+        //        List<CM2> templist2 = new List<CM2>();
+        //        List<CM2> templist3 = new List<CM2>();
+
+        //        type1 = requestData.FindAll(a => a.DECISION_TYPE.Equals("ТӨЛБӨРИЙН АКТ"));
+        //        type2 = requestData.FindAll(a => a.DECISION_TYPE.Equals("АЛБАН ШААРДЛАГА"));
+        //        type3 = requestData.FindAll(a => a.DECISION_TYPE.Equals("ЗӨВЛӨМЖ"));
+
+        //        List<CM2> temp = new List<CM2>();
+
+        //        CM2 title = new CM2();
+
+
+        //        if (dataType == 1)
+        //            title.DECISION_TYPE = "Нэг. Төрийн аудитын байгууллага";
+        //        if (dataType == 2)
+        //            title.DECISION_TYPE = "Хоёр. Хараат бус аудитын компани";
+        //        title.DEPARTMENT_NAME = requestData.FirstOrDefault().DEPARTMENT_NAME;
+
+        //        if (type1.Count > 0)
+        //        {
+
+        //            CM2 DECNiit = new CM2();
+        //            var DECdepname = typ.GetProperty("BUDGET_TYPE_NAME");
+        //            var DEPdepname = typ.GetProperty("DEPARTMENT_NAME");
+        //            var DECISION_TYPEdepname = typ.GetProperty("DECISION_TYPE");
+
+        //            var DECpay = typ.GetProperty("C1_AMOUNT");
+        //            var DECpay1 = typ.GetProperty("CURRENT_AMOUNT");
+        //            var DECpay2 = typ.GetProperty("PREV_AMOUNT");
+        //            var DECpay3 = typ.GetProperty("CY_AMOUNT");
+        //            var DECpay4 = typ.GetProperty("TOTAL_AMOUNT");
+        //            var DECpay5 = typ.GetProperty("COMP_STATE_AMOUNT");
+        //            var DECpay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
+        //            var DECpay7 = typ.GetProperty("COMP_ORG_AMOUNT");
+        //            var DECpay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
+        //            var DECpay9 = typ.GetProperty("STATISTIC_AMOUNT");
+        //            var DECpay10 = typ.GetProperty("C2_AMOUNT");
+        //            var DECpay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
+        //            var DECpay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
+
+
+        //            var DECcount = typ.GetProperty("C1_COUNT");
+        //            var DECcount1 = typ.GetProperty("CURRENT_COUNT");
+        //            var DECcount2 = typ.GetProperty("PREV_COUNT");
+        //            var DECcount3 = typ.GetProperty("CY_COUNT");
+        //            var DECcount4 = typ.GetProperty("TOTAL_COUNT");
+        //            var DECcount5 = typ.GetProperty("COMP_STATE_COUNT");
+        //            var DECcount6 = typ.GetProperty("COMP_LOCAL_COUNT");
+        //            var DECcount7 = typ.GetProperty("COMP_ORG_COUNT");
+        //            var DECcount8 = typ.GetProperty("COMP_OTHER_COUNT");
+        //            var DECcount9 = typ.GetProperty("STATISTIC_COUNT");
+        //            var DECcount10 = typ.GetProperty("C2_COUNT");
+        //            var DECcount11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
+        //            var DECcount12 = typ.GetProperty("C2_EXPIRED_COUNT");
+
+
+        //            decimal DECAMOUNT = 0;
+        //            decimal DECAMOUNT1 = 0;
+        //            decimal DECAMOUNT2 = 0;
+        //            decimal DECAMOUNT3 = 0;
+        //            decimal DECAMOUNT4 = 0;
+        //            decimal DECAMOUNT5 = 0;
+        //            decimal DECAMOUNT6 = 0;
+        //            decimal DECAMOUNT7 = 0;
+        //            decimal DECAMOUNT8 = 0;
+        //            decimal DECAMOUNT9 = 0;
+        //            decimal DECAMOUNT10 = 0;
+        //            decimal DECAMOUNT11 = 0;
+        //            decimal DECAMOUNT12 = 0;
+
+        //            int DECNUMBER = 0;
+        //            int DECNUMBER1 = 0;
+        //            int DECNUMBER2 = 0;
+        //            int DECNUMBER3 = 0;
+        //            int DECNUMBER4 = 0;
+        //            int DECNUMBER5 = 0;
+        //            int DECNUMBER6 = 0;
+        //            int DECNUMBER7 = 0;
+        //            int DECNUMBER8 = 0;
+        //            int DECNUMBER9 = 0;
+        //            int DECNUMBER10 = 0;
+        //            int DECNUMBER11 = 0;
+        //            int DECNUMBER12 = 0;
+
+
+        //            foreach (CM2 data in type1)
+        //            {
+        //                if (data.C1_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C1_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT += Amount;
+
+        //                }
+        //                if (data.CURRENT_AMOUNT != null)
+        //                {
+        //                    string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT1 += Amount;
+
+        //                }
+        //                if (data.PREV_AMOUNT != null)
+        //                {
+        //                    string strNii = data.PREV_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT2 += Amount;
+
+        //                }
+        //                if (data.CY_AMOUNT != null)
+        //                {
+        //                    string strNii = data.CY_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT3 += Amount;
+
+        //                }
+        //                if (data.TOTAL_AMOUNT != null)
+        //                {
+        //                    string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT4 += Amount;
+
+        //                }
+        //                if (data.COMP_STATE_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT5 += Amount;
+
+        //                }
+        //                if (data.COMP_LOCAL_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT6 += Amount;
+
+        //                }
+        //                if (data.COMP_ORG_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT7 += Amount;
+
+        //                }
+        //                if (data.COMP_OTHER_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT8 += Amount;
+
+        //                }
+        //                if (data.STATISTIC_AMOUNT != null)
+        //                {
+        //                    string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT9 += Amount;
+
+        //                }
+        //                if (data.C2_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT10 += Amount;
+
+        //                }
+        //                if (data.C2_NONEXPIRED_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT11 += Amount;
+
+        //                }
+        //                if (data.C2_EXPIRED_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECAMOUNT12 += Amount;
+
+        //                }
+
+
+
+        //                if (data.C1_COUNT != 0)
+        //                {
+        //                    DECNUMBER += Convert.ToInt32(data.C1_COUNT);
+        //                }
+        //                if (data.CURRENT_COUNT != 0)
+        //                {
+        //                    DECNUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+        //                }
+        //                if (data.PREV_COUNT != 0)
+        //                {
+        //                    DECNUMBER2 += Convert.ToInt32(data.PREV_COUNT);
+        //                }
+        //                if (data.CY_COUNT != 0)
+        //                {
+        //                    DECNUMBER3 += Convert.ToInt32(data.CY_COUNT);
+        //                }
+        //                if (data.TOTAL_COUNT != 0)
+        //                {
+        //                    DECNUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
+        //                }
+        //                if (data.COMP_STATE_COUNT != 0)
+        //                {
+        //                    DECNUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
+        //                }
+        //                if (data.COMP_LOCAL_COUNT != 0)
+        //                {
+        //                    DECNUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
+        //                }
+        //                if (data.COMP_ORG_COUNT != 0)
+        //                {
+        //                    DECNUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
+        //                }
+        //                if (data.COMP_OTHER_COUNT != 0)
+        //                {
+        //                    DECNUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
+        //                }
+        //                if (data.STATISTIC_COUNT != 0)
+        //                {
+        //                    DECNUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
+        //                }
+        //                if (data.C2_COUNT != 0)
+        //                {
+        //                    DECNUMBER10 += Convert.ToInt32(data.C2_COUNT);
+        //                }
+        //                if (data.C2_NONEXPIRED_COUNT != 0)
+        //                {
+        //                    DECNUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
+        //                }
+        //                if (data.C2_EXPIRED_COUNT != 0)
+        //                {
+        //                    DECNUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
+        //                }
+        //                DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
+        //            }
+        //            DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.00"));
+        //            DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.00"));
+        //            DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.00"));
+        //            DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.00"));
+        //            DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.00"));
+        //            DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.00"));
+        //            DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.00"));
+        //            DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.00"));
+        //            DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.00"));
+        //            DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.00"));
+        //            DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.00"));
+        //            DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.00"));
+        //            DECpay12.SetValue(DECNiit, DECAMOUNT12.ToString("#,0.00"));
+
+        //            DECcount.SetValue(DECNiit, DECNUMBER);
+        //            DECcount1.SetValue(DECNiit, DECNUMBER1);
+        //            DECcount2.SetValue(DECNiit, DECNUMBER2);
+        //            DECcount3.SetValue(DECNiit, DECNUMBER3);
+        //            DECcount4.SetValue(DECNiit, DECNUMBER4);
+        //            DECcount5.SetValue(DECNiit, DECNUMBER5);
+        //            DECcount6.SetValue(DECNiit, DECNUMBER6);
+        //            DECcount7.SetValue(DECNiit, DECNUMBER7);
+        //            DECcount8.SetValue(DECNiit, DECNUMBER8);
+        //            DECcount9.SetValue(DECNiit, DECNUMBER9);
+        //            DECcount10.SetValue(DECNiit, DECNUMBER10);
+        //            DECcount11.SetValue(DECNiit, DECNUMBER11);
+        //            DECcount12.SetValue(DECNiit, DECNUMBER12);
+
+        //            DECdepname.SetValue(DECNiit, "Дүн");
+
+        //            DECISION_TYPEdepname.SetValue(DECNiit, "ТӨЛБӨРИЙН АКТ");
+
+        //            templist1.AddRange(type1.OrderBy(m => m.DECISION_TYPE));
+        //            templist1.Add(DECNiit);
+        //            type1 = templist1;
+        //        }
+        //        if (type2.Count > 0)
+        //        {
+
+        //            CM2 DECNiit2 = new CM2();
+        //            var DECdepname2 = typ.GetProperty("BUDGET_TYPE_NAME");
+        //            var DEPdepname2 = typ.GetProperty("DEPARTMENT_NAME");
+        //            var DECISION_TYPEdepname2 = typ.GetProperty("DECISION_TYPE");
+
+        //            var DECType2pay = typ.GetProperty("C1_AMOUNT");
+        //            var DECType2pay1 = typ.GetProperty("CURRENT_AMOUNT");
+        //            var DECType2pay2 = typ.GetProperty("PREV_AMOUNT");
+        //            var DECType2pay3 = typ.GetProperty("CY_AMOUNT");
+        //            var DECType2pay4 = typ.GetProperty("TOTAL_AMOUNT");
+        //            var DECType2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
+        //            var DECType2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
+        //            var DECType2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
+        //            var DECType2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
+        //            var DECType2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
+        //            var DECType2pay10 = typ.GetProperty("C2_AMOUNT");
+        //            var DECType2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
+        //            var DECType2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
+
+
+        //            var DECType2count = typ.GetProperty("C1_COUNT");
+        //            var DECType2count1 = typ.GetProperty("CURRENT_COUNT");
+        //            var DECType2count2 = typ.GetProperty("PREV_COUNT");
+        //            var DECType2count3 = typ.GetProperty("CY_COUNT");
+        //            var DECType2count4 = typ.GetProperty("TOTAL_COUNT");
+        //            var DECType2count5 = typ.GetProperty("COMP_STATE_COUNT");
+        //            var DECType2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
+        //            var DECType2count7 = typ.GetProperty("COMP_ORG_COUNT");
+        //            var DECType2count8 = typ.GetProperty("COMP_OTHER_COUNT");
+        //            var DECType2count9 = typ.GetProperty("STATISTIC_COUNT");
+        //            var DECType2count10 = typ.GetProperty("C2_COUNT");
+        //            var DECType2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
+        //            var DECType2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
+
+
+        //            decimal DECTYPE2AMOUNT = 0;
+        //            decimal DECTYPE2AMOUNT1 = 0;
+        //            decimal DECTYPE2AMOUNT2 = 0;
+        //            decimal DECTYPE2AMOUNT3 = 0;
+        //            decimal DECTYPE2AMOUNT4 = 0;
+        //            decimal DECTYPE2AMOUNT5 = 0;
+        //            decimal DECTYPE2AMOUNT6 = 0;
+        //            decimal DECTYPE2AMOUNT7 = 0;
+        //            decimal DECTYPE2AMOUNT8 = 0;
+        //            decimal DECTYPE2AMOUNT9 = 0;
+        //            decimal DECTYPE2AMOUNT10 = 0;
+        //            decimal DECTYPE2AMOUNT11 = 0;
+        //            decimal DECTYPE2AMOUNT12 = 0;
+
+        //            int DECTYPE2NUMBER = 0;
+        //            int DECTYPE2NUMBER1 = 0;
+        //            int DECTYPE2NUMBER2 = 0;
+        //            int DECTYPE2NUMBER3 = 0;
+        //            int DECTYPE2NUMBER4 = 0;
+        //            int DECTYPE2NUMBER5 = 0;
+        //            int DECTYPE2NUMBER6 = 0;
+        //            int DECTYPE2NUMBER7 = 0;
+        //            int DECTYPE2NUMBER8 = 0;
+        //            int DECTYPE2NUMBER9 = 0;
+        //            int DECTYPE2NUMBER10 = 0;
+        //            int DECTYPE2NUMBER11 = 0;
+        //            int DECTYPE2NUMBER12 = 0;
+
+
+        //            foreach (CM2 data in type2)
+        //            {
+        //                if (data.C1_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C1_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT += Amount;
+
+        //                }
+        //                if (data.CURRENT_AMOUNT != null)
+        //                {
+        //                    string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT1 += Amount;
+
+        //                }
+        //                if (data.PREV_AMOUNT != null)
+        //                {
+        //                    string strNii = data.PREV_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT2 += Amount;
+
+        //                }
+        //                if (data.CY_AMOUNT != null)
+        //                {
+        //                    string strNii = data.CY_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT3 += Amount;
+
+        //                }
+        //                if (data.TOTAL_AMOUNT != null)
+        //                {
+        //                    string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT4 += Amount;
+
+        //                }
+        //                if (data.COMP_STATE_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT5 += Amount;
+
+        //                }
+        //                if (data.COMP_LOCAL_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT6 += Amount;
+
+        //                }
+        //                if (data.COMP_ORG_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT7 += Amount;
+
+        //                }
+        //                if (data.COMP_OTHER_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT8 += Amount;
+
+        //                }
+        //                if (data.STATISTIC_AMOUNT != null)
+        //                {
+        //                    string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT9 += Amount;
+
+        //                }
+        //                if (data.C2_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT10 += Amount;
+
+        //                }
+        //                if (data.C2_NONEXPIRED_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT11 += Amount;
+
+        //                }
+        //                if (data.C2_EXPIRED_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE2AMOUNT12 += Amount;
+
+        //                }
+
+
+
+        //                if (data.C1_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER += Convert.ToInt32(data.C1_COUNT);
+        //                }
+        //                if (data.CURRENT_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+        //                }
+        //                if (data.PREV_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
+        //                }
+        //                if (data.CY_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
+        //                }
+        //                if (data.TOTAL_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
+        //                }
+        //                if (data.COMP_STATE_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
+        //                }
+        //                if (data.COMP_LOCAL_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
+        //                }
+        //                if (data.COMP_ORG_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
+        //                }
+        //                if (data.COMP_OTHER_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
+        //                }
+        //                if (data.STATISTIC_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
+        //                }
+        //                if (data.C2_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
+        //                }
+        //                if (data.C2_NONEXPIRED_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
+        //                }
+        //                if (data.C2_EXPIRED_COUNT != 0)
+        //                {
+        //                    DECTYPE2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
+        //                }
+        //                DEPdepname2.SetValue(DECNiit2, data.DEPARTMENT_NAME);
+        //            }
+        //            DECType2pay.SetValue(DECNiit2, DECTYPE2AMOUNT.ToString("#,0.00"));
+        //            DECType2pay1.SetValue(DECNiit2, DECTYPE2AMOUNT1.ToString("#,0.00"));
+        //            DECType2pay2.SetValue(DECNiit2, DECTYPE2AMOUNT2.ToString("#,0.00"));
+        //            DECType2pay3.SetValue(DECNiit2, DECTYPE2AMOUNT3.ToString("#,0.00"));
+        //            DECType2pay4.SetValue(DECNiit2, DECTYPE2AMOUNT4.ToString("#,0.00"));
+        //            DECType2pay5.SetValue(DECNiit2, DECTYPE2AMOUNT5.ToString("#,0.00"));
+        //            DECType2pay6.SetValue(DECNiit2, DECTYPE2AMOUNT6.ToString("#,0.00"));
+        //            DECType2pay7.SetValue(DECNiit2, DECTYPE2AMOUNT7.ToString("#,0.00"));
+        //            DECType2pay8.SetValue(DECNiit2, DECTYPE2AMOUNT8.ToString("#,0.00"));
+        //            DECType2pay9.SetValue(DECNiit2, DECTYPE2AMOUNT9.ToString("#,0.00"));
+        //            DECType2pay10.SetValue(DECNiit2, DECTYPE2AMOUNT10.ToString("#,0.00"));
+        //            DECType2pay11.SetValue(DECNiit2, DECTYPE2AMOUNT11.ToString("#,0.00"));
+        //            DECType2pay12.SetValue(DECNiit2, DECTYPE2AMOUNT12.ToString("#,0.00" +
+        //                ""));
+
+        //            DECType2count.SetValue(DECNiit2, DECTYPE2NUMBER);
+        //            DECType2count1.SetValue(DECNiit2, DECTYPE2NUMBER1);
+        //            DECType2count2.SetValue(DECNiit2, DECTYPE2NUMBER2);
+        //            DECType2count3.SetValue(DECNiit2, DECTYPE2NUMBER3);
+        //            DECType2count4.SetValue(DECNiit2, DECTYPE2NUMBER4);
+        //            DECType2count5.SetValue(DECNiit2, DECTYPE2NUMBER5);
+        //            DECType2count6.SetValue(DECNiit2, DECTYPE2NUMBER6);
+        //            DECType2count7.SetValue(DECNiit2, DECTYPE2NUMBER7);
+        //            DECType2count8.SetValue(DECNiit2, DECTYPE2NUMBER8);
+        //            DECType2count9.SetValue(DECNiit2, DECTYPE2NUMBER9);
+        //            DECType2count10.SetValue(DECNiit2, DECTYPE2NUMBER10);
+        //            DECType2count11.SetValue(DECNiit2, DECTYPE2NUMBER11);
+        //            DECType2count12.SetValue(DECNiit2, DECTYPE2NUMBER12);
+
+        //            DECdepname2.SetValue(DECNiit2, "Дүн");
+        //            DECISION_TYPEdepname2.SetValue(DECNiit2, "АЛБАН ШААРДЛАГА");
+
+        //            templist2.AddRange(type2.OrderBy(m => m.DECISION_TYPE));
+        //            templist2.Add(DECNiit2);
+        //            type2 = templist2;
+        //        }
+        //        if (type3.Count > 0)
+        //        {
+
+        //            CM2 DECNiit3 = new CM2();
+        //            var DECdepname3 = typ.GetProperty("BUDGET_TYPE_NAME");
+        //            var DEPdepname3 = typ.GetProperty("DEPARTMENT_NAME");
+        //            var DECISION_TYPEdepname3 = typ.GetProperty("DECISION_TYPE");
+
+        //            var DECType3pay = typ.GetProperty("C1_AMOUNT");
+        //            var DECType3pay1 = typ.GetProperty("CURRENT_AMOUNT");
+        //            var DECType3pay2 = typ.GetProperty("PREV_AMOUNT");
+        //            var DECType3pay3 = typ.GetProperty("CY_AMOUNT");
+        //            var DECType3pay4 = typ.GetProperty("TOTAL_AMOUNT");
+        //            var DECType3pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
+        //            var DECType3pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
+        //            var DECType3pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
+        //            var DECType3pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
+        //            var DECType3pay9 = typ.GetProperty("STATISTIC_AMOUNT");
+        //            var DECType3pay10 = typ.GetProperty("C2_AMOUNT");
+        //            var DECType3pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
+        //            var DECType3pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
+
+
+        //            var DECType3count = typ.GetProperty("C1_COUNT");
+        //            var DECType3count1 = typ.GetProperty("CURRENT_COUNT");
+        //            var DECType3count2 = typ.GetProperty("PREV_COUNT");
+        //            var DECType3count3 = typ.GetProperty("CY_COUNT");
+        //            var DECType3count4 = typ.GetProperty("TOTAL_COUNT");
+        //            var DECType3count5 = typ.GetProperty("COMP_STATE_COUNT");
+        //            var DECType3count6 = typ.GetProperty("COMP_LOCAL_COUNT");
+        //            var DECType3count7 = typ.GetProperty("COMP_ORG_COUNT");
+        //            var DECType3count8 = typ.GetProperty("COMP_OTHER_COUNT");
+        //            var DECType3count9 = typ.GetProperty("STATISTIC_COUNT");
+        //            var DECType3count10 = typ.GetProperty("C2_COUNT");
+        //            var DECType3count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
+        //            var DECType3count12 = typ.GetProperty("C2_EXPIRED_COUNT");
+
+
+        //            decimal DECTYPE3AMOUNT = 0;
+        //            decimal DECTYPE3AMOUNT1 = 0;
+        //            decimal DECTYPE3AMOUNT2 = 0;
+        //            decimal DECTYPE3AMOUNT3 = 0;
+        //            decimal DECTYPE3AMOUNT4 = 0;
+        //            decimal DECTYPE3AMOUNT5 = 0;
+        //            decimal DECTYPE3AMOUNT6 = 0;
+        //            decimal DECTYPE3AMOUNT7 = 0;
+        //            decimal DECTYPE3AMOUNT8 = 0;
+        //            decimal DECTYPE3AMOUNT9 = 0;
+        //            decimal DECTYPE3AMOUNT10 = 0;
+        //            decimal DECTYPE3AMOUNT11 = 0;
+        //            decimal DECTYPE3AMOUNT12 = 0;
+
+        //            int DECTYPE3NUMBER = 0;
+        //            int DECTYPE3NUMBER1 = 0;
+        //            int DECTYPE3NUMBER2 = 0;
+        //            int DECTYPE3NUMBER3 = 0;
+        //            int DECTYPE3NUMBER4 = 0;
+        //            int DECTYPE3NUMBER5 = 0;
+        //            int DECTYPE3NUMBER6 = 0;
+        //            int DECTYPE3NUMBER7 = 0;
+        //            int DECTYPE3NUMBER8 = 0;
+        //            int DECTYPE3NUMBER9 = 0;
+        //            int DECTYPE3NUMBER10 = 0;
+        //            int DECTYPE3NUMBER11 = 0;
+        //            int DECTYPE3NUMBER12 = 0;
+
+
+        //            foreach (CM2 data in type3)
+        //            {
+        //                if (data.C1_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C1_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT += Amount;
+
+        //                }
+        //                if (data.CURRENT_AMOUNT != null)
+        //                {
+        //                    string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT1 += Amount;
+
+        //                }
+        //                if (data.PREV_AMOUNT != null)
+        //                {
+        //                    string strNii = data.PREV_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT2 += Amount;
+
+        //                }
+        //                if (data.CY_AMOUNT != null)
+        //                {
+        //                    string strNii = data.CY_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT3 += Amount;
+
+        //                }
+        //                if (data.TOTAL_AMOUNT != null)
+        //                {
+        //                    string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT4 += Amount;
+
+        //                }
+        //                if (data.COMP_STATE_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT5 += Amount;
+
+        //                }
+        //                if (data.COMP_LOCAL_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT6 += Amount;
+
+        //                }
+        //                if (data.COMP_ORG_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT7 += Amount;
+
+        //                }
+        //                if (data.COMP_OTHER_AMOUNT != null)
+        //                {
+        //                    string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT8 += Amount;
+
+        //                }
+        //                if (data.STATISTIC_AMOUNT != null)
+        //                {
+        //                    string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT9 += Amount;
+
+        //                }
+        //                if (data.C2_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT10 += Amount;
+
+        //                }
+        //                if (data.C2_NONEXPIRED_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT11 += Amount;
+
+        //                }
+        //                if (data.C2_EXPIRED_AMOUNT != null)
+        //                {
+        //                    string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
+        //                    Decimal Amount = Convert.ToDecimal(strNii);
+        //                    DECTYPE3AMOUNT12 += Amount;
+
+        //                }
+
+
+
+        //                if (data.C1_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER += Convert.ToInt32(data.C1_COUNT);
+        //                }
+        //                if (data.CURRENT_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+        //                }
+        //                if (data.PREV_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
+        //                }
+        //                if (data.CY_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER3 += Convert.ToInt32(data.CY_COUNT);
+        //                }
+        //                if (data.TOTAL_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
+        //                }
+        //                if (data.COMP_STATE_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
+        //                }
+        //                if (data.COMP_LOCAL_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
+        //                }
+        //                if (data.COMP_ORG_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
+        //                }
+        //                if (data.COMP_OTHER_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
+        //                }
+        //                if (data.STATISTIC_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
+        //                }
+        //                if (data.C2_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER10 += Convert.ToInt32(data.C2_COUNT);
+        //                }
+        //                if (data.C2_NONEXPIRED_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
+        //                }
+        //                if (data.C2_EXPIRED_COUNT != 0)
+        //                {
+        //                    DECTYPE3NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
+        //                }
+        //                DEPdepname3.SetValue(DECNiit3, data.DEPARTMENT_NAME);
+        //            }
+        //            DECType3pay.SetValue(DECNiit3, DECTYPE3AMOUNT.ToString("#,0.00"));
+        //            DECType3pay1.SetValue(DECNiit3, DECTYPE3AMOUNT1.ToString("#,0.00"));
+        //            DECType3pay2.SetValue(DECNiit3, DECTYPE3AMOUNT2.ToString("#,0.00"));
+        //            DECType3pay3.SetValue(DECNiit3, DECTYPE3AMOUNT3.ToString("#,0.00"));
+        //            DECType3pay4.SetValue(DECNiit3, DECTYPE3AMOUNT4.ToString("#,0.00"));
+        //            DECType3pay5.SetValue(DECNiit3, DECTYPE3AMOUNT5.ToString("#,0.00"));
+        //            DECType3pay6.SetValue(DECNiit3, DECTYPE3AMOUNT6.ToString("#,0.00"));
+        //            DECType3pay7.SetValue(DECNiit3, DECTYPE3AMOUNT7.ToString("#,0.00"));
+        //            DECType3pay8.SetValue(DECNiit3, DECTYPE3AMOUNT8.ToString("#,0.00"));
+        //            DECType3pay9.SetValue(DECNiit3, DECTYPE3AMOUNT9.ToString("#,0.00"));
+        //            DECType3pay10.SetValue(DECNiit3, DECTYPE3AMOUNT10.ToString("#,0.00"));
+        //            DECType3pay11.SetValue(DECNiit3, DECTYPE3AMOUNT11.ToString("#,0.00"));
+        //            DECType3pay12.SetValue(DECNiit3, DECTYPE3AMOUNT12.ToString("#,0.00"));
+
+        //            DECType3count.SetValue(DECNiit3, DECTYPE3NUMBER);
+        //            DECType3count1.SetValue(DECNiit3, DECTYPE3NUMBER1);
+        //            DECType3count2.SetValue(DECNiit3, DECTYPE3NUMBER2);
+        //            DECType3count3.SetValue(DECNiit3, DECTYPE3NUMBER3);
+        //            DECType3count4.SetValue(DECNiit3, DECTYPE3NUMBER4);
+        //            DECType3count5.SetValue(DECNiit3, DECTYPE3NUMBER5);
+        //            DECType3count6.SetValue(DECNiit3, DECTYPE3NUMBER6);
+        //            DECType3count7.SetValue(DECNiit3, DECTYPE3NUMBER7);
+        //            DECType3count8.SetValue(DECNiit3, DECTYPE3NUMBER8);
+        //            DECType3count9.SetValue(DECNiit3, DECTYPE3NUMBER9);
+        //            DECType3count10.SetValue(DECNiit3, DECTYPE3NUMBER10);
+        //            DECType3count11.SetValue(DECNiit3, DECTYPE3NUMBER11);
+        //            DECType3count12.SetValue(DECNiit3, DECTYPE3NUMBER12);
+
+        //            DECdepname3.SetValue(DECNiit3, "Дүн");
+        //            DECISION_TYPEdepname3.SetValue(DECNiit3, "ЗӨВЛӨМЖ");
+
+        //            templist3.AddRange(type3.OrderBy(m => m.DECISION_TYPE));
+        //            templist3.Add(DECNiit3);
+        //            type3 = templist3;
+        //        }
+
+        //        if (dataType != 0)
+        //            temp.Add(title);
+
+        //        temp.AddRange(type1);
+        //        temp.AddRange(type2);
+        //        temp.AddRange(type3);
+        //        requestData = temp;
+        //    }
+
+        //    response.data = requestData;
+        //    return response;
+        //}
+        public CM5ListResponse CM5TotalList(List<CM5> request)
         {
-            CM2ListResponse response = new CM2ListResponse();
-            var typ = typeof(CM2);
-            List<CM2> requestData = new List<CM2>();
+            CM5ListResponse response = new CM5ListResponse();
+            var typ = typeof(CM5);
+            List<CM5> requestData = new List<CM5>();
             requestData = request;
 
             if (requestData.Count > 0)
             {
-                List<CM2> type1 = new List<CM2>();
-                List<CM2> type2 = new List<CM2>();
-                List<CM2> type3 = new List<CM2>();
+                List<CM5> Bigdata = new List<CM5>();
 
-                List<CM2> templist1 = new List<CM2>();
-                List<CM2> templist2 = new List<CM2>();
-                List<CM2> templist3 = new List<CM2>();
+                List<CM5> totalCompanytype1 = new List<CM5>();
+                List<CM5> totalCompanytype2 = new List<CM5>();
+                List<CM5> totalCompanytype3 = new List<CM5>();
+                List<CM5> totalCompanytype4 = new List<CM5>();
+                List<CM5> totalCompanytype5 = new List<CM5>();
+                List<CM5> totalCompanytype6 = new List<CM5>();
 
-                type1 = requestData.FindAll(a => a.DECISION_TYPE.Equals("ТӨЛБӨРИЙН АКТ"));
-                type2 = requestData.FindAll(a => a.DECISION_TYPE.Equals("АЛБАН ШААРДЛАГА"));
-                type3 = requestData.FindAll(a => a.DECISION_TYPE.Equals("ЗӨВЛӨМЖ"));
+                List<CM5> totalCompanytemplist1 = new List<CM5>();
+                List<CM5> totalCompanytemplist2 = new List<CM5>();
+                List<CM5> totalCompanytemplist3 = new List<CM5>();
+                List<CM5> totalCompanytemplist4 = new List<CM5>();
+                List<CM5> totalCompanytemplist5 = new List<CM5>();
+                List<CM5> totalCompanytemplist6 = new List<CM5>();
 
-                List<CM2> temp = new List<CM2>();
+                List<CM5> BudgetTypes1 = new List<CM5>();
+                List<CM5> BudgetTypes2 = new List<CM5>();
+                List<CM5> BudgetTypes3 = new List<CM5>();
+                List<CM5> BudgetTypes4 = new List<CM5>();
+                List<CM5> BudgetTypes5 = new List<CM5>();
+                List<CM5> BudgetTypes6 = new List<CM5>();
 
-                CM2 title = new CM2();
+
+                Bigdata.AddRange(requestData.OrderBy(m => m.AUDIT_TYPE_NAME));
+
+                List<CM5> totaltemp = new List<CM5>();
+
+                totalCompanytype1 = requestData.FindAll(a => a.DECISION_TYPE.Equals("Төлбөрийн акт"));
+                totalCompanytype2 = requestData.FindAll(a => a.DECISION_TYPE.Equals("Албан шаардлага"));
+                totalCompanytype3 = requestData.FindAll(a => a.DECISION_TYPE.Equals("Зөвлөмж"));
+                totalCompanytype4 = requestData.FindAll(a => a.DECISION_TYPE.Equals("Залруулга"));
+                totalCompanytype5 = requestData.FindAll(a => a.DECISION_TYPE.Equals("Албан тушаалтанд хариуцлага тооцуулах санал"));
+                totalCompanytype6 = requestData.FindAll(a => a.DECISION_TYPE.Equals("Хууль хяналтын байгууллагад шилжүүлсэн асуудал"));
 
 
-                if (dataType == 1)
-                    title.DECISION_TYPE = "Нэг. Төрийн аудитын байгууллага";
-                if (dataType == 2)
-                    title.DECISION_TYPE = "Хоёр. Хараат бус аудитын компани";
-                title.DEPARTMENT_NAME = requestData.FirstOrDefault().DEPARTMENT_NAME;
+              
 
-                if (type1.Count > 0)
+              
+
+                if (totalCompanytype1.Count > 0)
                 {
 
-                    CM2 DECNiit = new CM2();
-                    var DECdepname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var DEPdepname = typ.GetProperty("DEPARTMENT_NAME");
-                    var DECISION_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var DECpay = typ.GetProperty("C1_AMOUNT");
-                    var DECpay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var DECpay2 = typ.GetProperty("PREV_AMOUNT");
-                    var DECpay3 = typ.GetProperty("CY_AMOUNT");
-                    var DECpay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var DECpay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var DECpay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var DECpay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var DECpay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var DECpay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var DECpay10 = typ.GetProperty("C2_AMOUNT");
-                    var DECpay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var DECpay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var DECcount = typ.GetProperty("C1_COUNT");
-                    var DECcount1 = typ.GetProperty("CURRENT_COUNT");
-                    var DECcount2 = typ.GetProperty("PREV_COUNT");
-                    var DECcount3 = typ.GetProperty("CY_COUNT");
-                    var DECcount4 = typ.GetProperty("TOTAL_COUNT");
-                    var DECcount5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var DECcount6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var DECcount7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var DECcount8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var DECcount9 = typ.GetProperty("STATISTIC_COUNT");
-                    var DECcount10 = typ.GetProperty("C2_COUNT");
-                    var DECcount11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var DECcount12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal DECAMOUNT = 0;
-                    decimal DECAMOUNT1 = 0;
-                    decimal DECAMOUNT2 = 0;
-                    decimal DECAMOUNT3 = 0;
-                    decimal DECAMOUNT4 = 0;
-                    decimal DECAMOUNT5 = 0;
-                    decimal DECAMOUNT6 = 0;
-                    decimal DECAMOUNT7 = 0;
-                    decimal DECAMOUNT8 = 0;
-                    decimal DECAMOUNT9 = 0;
-                    decimal DECAMOUNT10 = 0;
-                    decimal DECAMOUNT11 = 0;
-                    decimal DECAMOUNT12 = 0;
-
-                    int DECNUMBER = 0;
-                    int DECNUMBER1 = 0;
-                    int DECNUMBER2 = 0;
-                    int DECNUMBER3 = 0;
-                    int DECNUMBER4 = 0;
-                    int DECNUMBER5 = 0;
-                    int DECNUMBER6 = 0;
-                    int DECNUMBER7 = 0;
-                    int DECNUMBER8 = 0;
-                    int DECNUMBER9 = 0;
-                    int DECNUMBER10 = 0;
-                    int DECNUMBER11 = 0;
-                    int DECNUMBER12 = 0;
-
-
-                    foreach (CM2 data in type1)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECAMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            DECNUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            DECNUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            DECNUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            DECNUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            DECNUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            DECNUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            DECNUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            DECNUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            DECNUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            DECNUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            DECNUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            DECNUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            DECNUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
-                    }
-                    DECpay.SetValue(DECNiit, DECAMOUNT.ToString("#,0.00"));
-                    DECpay1.SetValue(DECNiit, DECAMOUNT1.ToString("#,0.00"));
-                    DECpay2.SetValue(DECNiit, DECAMOUNT2.ToString("#,0.00"));
-                    DECpay3.SetValue(DECNiit, DECAMOUNT3.ToString("#,0.00"));
-                    DECpay4.SetValue(DECNiit, DECAMOUNT4.ToString("#,0.00"));
-                    DECpay5.SetValue(DECNiit, DECAMOUNT5.ToString("#,0.00"));
-                    DECpay6.SetValue(DECNiit, DECAMOUNT6.ToString("#,0.00"));
-                    DECpay7.SetValue(DECNiit, DECAMOUNT7.ToString("#,0.00"));
-                    DECpay8.SetValue(DECNiit, DECAMOUNT8.ToString("#,0.00"));
-                    DECpay9.SetValue(DECNiit, DECAMOUNT9.ToString("#,0.00"));
-                    DECpay10.SetValue(DECNiit, DECAMOUNT10.ToString("#,0.00"));
-                    DECpay11.SetValue(DECNiit, DECAMOUNT11.ToString("#,0.00"));
-                    DECpay12.SetValue(DECNiit, DECAMOUNT12.ToString("#,0.00"));
-
-                    DECcount.SetValue(DECNiit, DECNUMBER);
-                    DECcount1.SetValue(DECNiit, DECNUMBER1);
-                    DECcount2.SetValue(DECNiit, DECNUMBER2);
-                    DECcount3.SetValue(DECNiit, DECNUMBER3);
-                    DECcount4.SetValue(DECNiit, DECNUMBER4);
-                    DECcount5.SetValue(DECNiit, DECNUMBER5);
-                    DECcount6.SetValue(DECNiit, DECNUMBER6);
-                    DECcount7.SetValue(DECNiit, DECNUMBER7);
-                    DECcount8.SetValue(DECNiit, DECNUMBER8);
-                    DECcount9.SetValue(DECNiit, DECNUMBER9);
-                    DECcount10.SetValue(DECNiit, DECNUMBER10);
-                    DECcount11.SetValue(DECNiit, DECNUMBER11);
-                    DECcount12.SetValue(DECNiit, DECNUMBER12);
-
-                    DECdepname.SetValue(DECNiit, "Дүн");
-
-                    DECISION_TYPEdepname.SetValue(DECNiit, "ТӨЛБӨРИЙН АКТ");
-
-                    templist1.AddRange(type1.OrderBy(m => m.DECISION_TYPE));
-                    templist1.Add(DECNiit);
-                    type1 = templist1;
-                }
-                if (type2.Count > 0)
-                {
-
-                    CM2 DECNiit2 = new CM2();
-                    var DECdepname2 = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var DEPdepname2 = typ.GetProperty("DEPARTMENT_NAME");
-                    var DECISION_TYPEdepname2 = typ.GetProperty("DECISION_TYPE");
-
-                    var DECType2pay = typ.GetProperty("C1_AMOUNT");
-                    var DECType2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var DECType2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var DECType2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var DECType2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var DECType2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var DECType2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var DECType2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var DECType2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var DECType2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var DECType2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var DECType2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var DECType2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var DECType2count = typ.GetProperty("C1_COUNT");
-                    var DECType2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var DECType2count2 = typ.GetProperty("PREV_COUNT");
-                    var DECType2count3 = typ.GetProperty("CY_COUNT");
-                    var DECType2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var DECType2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var DECType2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var DECType2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var DECType2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var DECType2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var DECType2count10 = typ.GetProperty("C2_COUNT");
-                    var DECType2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var DECType2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal DECTYPE2AMOUNT = 0;
-                    decimal DECTYPE2AMOUNT1 = 0;
-                    decimal DECTYPE2AMOUNT2 = 0;
-                    decimal DECTYPE2AMOUNT3 = 0;
-                    decimal DECTYPE2AMOUNT4 = 0;
-                    decimal DECTYPE2AMOUNT5 = 0;
-                    decimal DECTYPE2AMOUNT6 = 0;
-                    decimal DECTYPE2AMOUNT7 = 0;
-                    decimal DECTYPE2AMOUNT8 = 0;
-                    decimal DECTYPE2AMOUNT9 = 0;
-                    decimal DECTYPE2AMOUNT10 = 0;
-                    decimal DECTYPE2AMOUNT11 = 0;
-                    decimal DECTYPE2AMOUNT12 = 0;
-
-                    int DECTYPE2NUMBER = 0;
-                    int DECTYPE2NUMBER1 = 0;
-                    int DECTYPE2NUMBER2 = 0;
-                    int DECTYPE2NUMBER3 = 0;
-                    int DECTYPE2NUMBER4 = 0;
-                    int DECTYPE2NUMBER5 = 0;
-                    int DECTYPE2NUMBER6 = 0;
-                    int DECTYPE2NUMBER7 = 0;
-                    int DECTYPE2NUMBER8 = 0;
-                    int DECTYPE2NUMBER9 = 0;
-                    int DECTYPE2NUMBER10 = 0;
-                    int DECTYPE2NUMBER11 = 0;
-                    int DECTYPE2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in type2)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            DECTYPE2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        DEPdepname2.SetValue(DECNiit2, data.DEPARTMENT_NAME);
-                    }
-                    DECType2pay.SetValue(DECNiit2, DECTYPE2AMOUNT.ToString("#,0.00"));
-                    DECType2pay1.SetValue(DECNiit2, DECTYPE2AMOUNT1.ToString("#,0.00"));
-                    DECType2pay2.SetValue(DECNiit2, DECTYPE2AMOUNT2.ToString("#,0.00"));
-                    DECType2pay3.SetValue(DECNiit2, DECTYPE2AMOUNT3.ToString("#,0.00"));
-                    DECType2pay4.SetValue(DECNiit2, DECTYPE2AMOUNT4.ToString("#,0.00"));
-                    DECType2pay5.SetValue(DECNiit2, DECTYPE2AMOUNT5.ToString("#,0.00"));
-                    DECType2pay6.SetValue(DECNiit2, DECTYPE2AMOUNT6.ToString("#,0.00"));
-                    DECType2pay7.SetValue(DECNiit2, DECTYPE2AMOUNT7.ToString("#,0.00"));
-                    DECType2pay8.SetValue(DECNiit2, DECTYPE2AMOUNT8.ToString("#,0.00"));
-                    DECType2pay9.SetValue(DECNiit2, DECTYPE2AMOUNT9.ToString("#,0.00"));
-                    DECType2pay10.SetValue(DECNiit2, DECTYPE2AMOUNT10.ToString("#,0.00"));
-                    DECType2pay11.SetValue(DECNiit2, DECTYPE2AMOUNT11.ToString("#,0.00"));
-                    DECType2pay12.SetValue(DECNiit2, DECTYPE2AMOUNT12.ToString("#,0.00" +
-                        ""));
-
-                    DECType2count.SetValue(DECNiit2, DECTYPE2NUMBER);
-                    DECType2count1.SetValue(DECNiit2, DECTYPE2NUMBER1);
-                    DECType2count2.SetValue(DECNiit2, DECTYPE2NUMBER2);
-                    DECType2count3.SetValue(DECNiit2, DECTYPE2NUMBER3);
-                    DECType2count4.SetValue(DECNiit2, DECTYPE2NUMBER4);
-                    DECType2count5.SetValue(DECNiit2, DECTYPE2NUMBER5);
-                    DECType2count6.SetValue(DECNiit2, DECTYPE2NUMBER6);
-                    DECType2count7.SetValue(DECNiit2, DECTYPE2NUMBER7);
-                    DECType2count8.SetValue(DECNiit2, DECTYPE2NUMBER8);
-                    DECType2count9.SetValue(DECNiit2, DECTYPE2NUMBER9);
-                    DECType2count10.SetValue(DECNiit2, DECTYPE2NUMBER10);
-                    DECType2count11.SetValue(DECNiit2, DECTYPE2NUMBER11);
-                    DECType2count12.SetValue(DECNiit2, DECTYPE2NUMBER12);
-
-                    DECdepname2.SetValue(DECNiit2, "Дүн");
-                    DECISION_TYPEdepname2.SetValue(DECNiit2, "АЛБАН ШААРДЛАГА");
-
-                    templist2.AddRange(type2.OrderBy(m => m.DECISION_TYPE));
-                    templist2.Add(DECNiit2);
-                    type2 = templist2;
-                }
-                if (type3.Count > 0)
-                {
-
-                    CM2 DECNiit3 = new CM2();
-                    var DECdepname3 = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var DEPdepname3 = typ.GetProperty("DEPARTMENT_NAME");
-                    var DECISION_TYPEdepname3 = typ.GetProperty("DECISION_TYPE");
-
-                    var DECType3pay = typ.GetProperty("C1_AMOUNT");
-                    var DECType3pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var DECType3pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var DECType3pay3 = typ.GetProperty("CY_AMOUNT");
-                    var DECType3pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var DECType3pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var DECType3pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var DECType3pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var DECType3pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var DECType3pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var DECType3pay10 = typ.GetProperty("C2_AMOUNT");
-                    var DECType3pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var DECType3pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var DECType3count = typ.GetProperty("C1_COUNT");
-                    var DECType3count1 = typ.GetProperty("CURRENT_COUNT");
-                    var DECType3count2 = typ.GetProperty("PREV_COUNT");
-                    var DECType3count3 = typ.GetProperty("CY_COUNT");
-                    var DECType3count4 = typ.GetProperty("TOTAL_COUNT");
-                    var DECType3count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var DECType3count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var DECType3count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var DECType3count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var DECType3count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var DECType3count10 = typ.GetProperty("C2_COUNT");
-                    var DECType3count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var DECType3count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal DECTYPE3AMOUNT = 0;
-                    decimal DECTYPE3AMOUNT1 = 0;
-                    decimal DECTYPE3AMOUNT2 = 0;
-                    decimal DECTYPE3AMOUNT3 = 0;
-                    decimal DECTYPE3AMOUNT4 = 0;
-                    decimal DECTYPE3AMOUNT5 = 0;
-                    decimal DECTYPE3AMOUNT6 = 0;
-                    decimal DECTYPE3AMOUNT7 = 0;
-                    decimal DECTYPE3AMOUNT8 = 0;
-                    decimal DECTYPE3AMOUNT9 = 0;
-                    decimal DECTYPE3AMOUNT10 = 0;
-                    decimal DECTYPE3AMOUNT11 = 0;
-                    decimal DECTYPE3AMOUNT12 = 0;
-
-                    int DECTYPE3NUMBER = 0;
-                    int DECTYPE3NUMBER1 = 0;
-                    int DECTYPE3NUMBER2 = 0;
-                    int DECTYPE3NUMBER3 = 0;
-                    int DECTYPE3NUMBER4 = 0;
-                    int DECTYPE3NUMBER5 = 0;
-                    int DECTYPE3NUMBER6 = 0;
-                    int DECTYPE3NUMBER7 = 0;
-                    int DECTYPE3NUMBER8 = 0;
-                    int DECTYPE3NUMBER9 = 0;
-                    int DECTYPE3NUMBER10 = 0;
-                    int DECTYPE3NUMBER11 = 0;
-                    int DECTYPE3NUMBER12 = 0;
-
-
-                    foreach (CM2 data in type3)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            DECTYPE3AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            DECTYPE3NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        DEPdepname3.SetValue(DECNiit3, data.DEPARTMENT_NAME);
-                    }
-                    DECType3pay.SetValue(DECNiit3, DECTYPE3AMOUNT.ToString("#,0.00"));
-                    DECType3pay1.SetValue(DECNiit3, DECTYPE3AMOUNT1.ToString("#,0.00"));
-                    DECType3pay2.SetValue(DECNiit3, DECTYPE3AMOUNT2.ToString("#,0.00"));
-                    DECType3pay3.SetValue(DECNiit3, DECTYPE3AMOUNT3.ToString("#,0.00"));
-                    DECType3pay4.SetValue(DECNiit3, DECTYPE3AMOUNT4.ToString("#,0.00"));
-                    DECType3pay5.SetValue(DECNiit3, DECTYPE3AMOUNT5.ToString("#,0.00"));
-                    DECType3pay6.SetValue(DECNiit3, DECTYPE3AMOUNT6.ToString("#,0.00"));
-                    DECType3pay7.SetValue(DECNiit3, DECTYPE3AMOUNT7.ToString("#,0.00"));
-                    DECType3pay8.SetValue(DECNiit3, DECTYPE3AMOUNT8.ToString("#,0.00"));
-                    DECType3pay9.SetValue(DECNiit3, DECTYPE3AMOUNT9.ToString("#,0.00"));
-                    DECType3pay10.SetValue(DECNiit3, DECTYPE3AMOUNT10.ToString("#,0.00"));
-                    DECType3pay11.SetValue(DECNiit3, DECTYPE3AMOUNT11.ToString("#,0.00"));
-                    DECType3pay12.SetValue(DECNiit3, DECTYPE3AMOUNT12.ToString("#,0.00"));
-
-                    DECType3count.SetValue(DECNiit3, DECTYPE3NUMBER);
-                    DECType3count1.SetValue(DECNiit3, DECTYPE3NUMBER1);
-                    DECType3count2.SetValue(DECNiit3, DECTYPE3NUMBER2);
-                    DECType3count3.SetValue(DECNiit3, DECTYPE3NUMBER3);
-                    DECType3count4.SetValue(DECNiit3, DECTYPE3NUMBER4);
-                    DECType3count5.SetValue(DECNiit3, DECTYPE3NUMBER5);
-                    DECType3count6.SetValue(DECNiit3, DECTYPE3NUMBER6);
-                    DECType3count7.SetValue(DECNiit3, DECTYPE3NUMBER7);
-                    DECType3count8.SetValue(DECNiit3, DECTYPE3NUMBER8);
-                    DECType3count9.SetValue(DECNiit3, DECTYPE3NUMBER9);
-                    DECType3count10.SetValue(DECNiit3, DECTYPE3NUMBER10);
-                    DECType3count11.SetValue(DECNiit3, DECTYPE3NUMBER11);
-                    DECType3count12.SetValue(DECNiit3, DECTYPE3NUMBER12);
-
-                    DECdepname3.SetValue(DECNiit3, "Дүн");
-                    DECISION_TYPEdepname3.SetValue(DECNiit3, "ЗӨВЛӨМЖ");
-
-                    templist3.AddRange(type3.OrderBy(m => m.DECISION_TYPE));
-                    templist3.Add(DECNiit3);
-                    type3 = templist3;
-                }
-
-                if (dataType != 0)
-                    temp.Add(title);
-
-                temp.AddRange(type1);
-                temp.AddRange(type2);
-                temp.AddRange(type3);
-                requestData = temp;
-            }
-
-            response.data = requestData;
-            return response;
-        }
-        public CM2ListResponse Cm5TotalList(List<CM2> request)
-        {
-            CM2ListResponse response = new CM2ListResponse();
-            var typ = typeof(CM2);
-            List<CM2> requestData = new List<CM2>();
-            requestData = request;
-            if (requestData.Count > 0)
-            {
-
-                List<CM2> totalCompanytype1 = new List<CM2>();
-                List<CM2> totalCompanytype2 = new List<CM2>();
-                List<CM2> totalCompanytype3 = new List<CM2>();
-
-                List<CM2> totalCompanytemplist1 = new List<CM2>();
-                List<CM2> totalCompanytemplist2 = new List<CM2>();
-                List<CM2> totalCompanytemplist3 = new List<CM2>();
-
-                List<CM2> BudgetTypes1 = new List<CM2>();
-                List<CM2> BudgetTypes2 = new List<CM2>();
-                List<CM2> BudgetTypes3 = new List<CM2>();
-
-
-                List<CM2> BUDGET1totalCompanytype1 = new List<CM2>();
-                List<CM2> BUDGET2totalCompanytype1 = new List<CM2>();
-                List<CM2> BUDGET3totalCompanytype1 = new List<CM2>();
-                List<CM2> BUDGET4totalCompanytype1 = new List<CM2>();
-                List<CM2> BUDGET5totalCompanytype1 = new List<CM2>();
-
-                List<CM2> BUDGET1totalCompanytype2 = new List<CM2>();
-                List<CM2> BUDGET2totalCompanytype2 = new List<CM2>();
-                List<CM2> BUDGET3totalCompanytype2 = new List<CM2>();
-                List<CM2> BUDGET4totalCompanytype2 = new List<CM2>();
-                List<CM2> BUDGET5totalCompanytype2 = new List<CM2>();
-
-                List<CM2> BUDGET1totalCompanytype3 = new List<CM2>();
-                List<CM2> BUDGET2totalCompanytype3 = new List<CM2>();
-                List<CM2> BUDGET3totalCompanytype3 = new List<CM2>();
-                List<CM2> BUDGET4totalCompanytype3 = new List<CM2>();
-                List<CM2> BUDGET5totalCompanytype3 = new List<CM2>();
-
-                List<CM2> BudgetTypes1totaltemp = new List<CM2>();
-                List<CM2> BudgetTypes2totaltemp = new List<CM2>();
-                List<CM2> BudgetTypes3totaltemp = new List<CM2>();
-
-                List<CM2> totaltemp = new List<CM2>();
-                CM2 title = new CM2();
-
-                totalCompanytype1 = requestData.FindAll(a => a.DECISION_TYPE.Equals("ТӨЛБӨРИЙН АКТ"));
-
-                BUDGET1totalCompanytype1 = totalCompanytype1.FindAll(a => a.BUDGET_TYPE.Equals("1"));
-                BUDGET2totalCompanytype1 = totalCompanytype1.FindAll(a => a.BUDGET_TYPE.Equals("2"));
-                BUDGET3totalCompanytype1 = totalCompanytype1.FindAll(a => a.BUDGET_TYPE.Equals("3"));
-                BUDGET4totalCompanytype1 = totalCompanytype1.FindAll(a => a.BUDGET_TYPE.Equals("4"));
-                BUDGET5totalCompanytype1 = totalCompanytype1.FindAll(a => a.BUDGET_TYPE.Equals("5"));
-
-                totalCompanytype2 = requestData.FindAll(a => a.DECISION_TYPE.Equals("АЛБАН ШААРДЛАГА"));
-
-                BUDGET1totalCompanytype2 = totalCompanytype2.FindAll(a => a.BUDGET_TYPE.Equals("1"));
-                BUDGET2totalCompanytype2 = totalCompanytype2.FindAll(a => a.BUDGET_TYPE.Equals("2"));
-                BUDGET3totalCompanytype2 = totalCompanytype2.FindAll(a => a.BUDGET_TYPE.Equals("3"));
-                BUDGET4totalCompanytype2 = totalCompanytype2.FindAll(a => a.BUDGET_TYPE.Equals("4"));
-                BUDGET5totalCompanytype2 = totalCompanytype2.FindAll(a => a.BUDGET_TYPE.Equals("5"));
-
-                totalCompanytype3 = requestData.FindAll(a => a.DECISION_TYPE.Equals("ЗӨВЛӨМЖ"));
-
-                BUDGET1totalCompanytype3 = totalCompanytype3.FindAll(a => a.BUDGET_TYPE.Equals("1"));
-                BUDGET2totalCompanytype3 = totalCompanytype3.FindAll(a => a.BUDGET_TYPE.Equals("2"));
-                BUDGET3totalCompanytype3 = totalCompanytype3.FindAll(a => a.BUDGET_TYPE.Equals("3"));
-                BUDGET4totalCompanytype3 = totalCompanytype3.FindAll(a => a.BUDGET_TYPE.Equals("4"));
-                BUDGET5totalCompanytype3 = totalCompanytype3.FindAll(a => a.BUDGET_TYPE.Equals("5"));
-
-
-                title.DECISION_TYPE = "Нийт дүн";
-                title.DEPARTMENT_NAME = requestData.FirstOrDefault().DEPARTMENT_NAME;
-
-                if (BUDGET1totalCompanytype1.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
+                    CM5 totalDEC2Niit = new CM5();
+                    var totalDEC2depname = typ.GetProperty("AUDIT_TYPE_NAME");
                     var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
                     var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
 
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
+                    var totalDEC2pay = typ.GetProperty("INCOME_STATE_AMOUNT");
+                    var totalDEC2pay1 = typ.GetProperty("BUDGET_STATE_AMOUNT");
+                    var totalDEC2pay2 = typ.GetProperty("BUDGET_LOCAL_AMOUNT");
+                    var totalDEC2pay3 = typ.GetProperty("ACCOUNTANT_AMOUNT");
+                    var totalDEC2pay4 = typ.GetProperty("EFFICIENCY_AMOUNT");
+                    var totalDEC2pay5 = typ.GetProperty("LAW_AMOUNT");
+                    var totalDEC2pay6 = typ.GetProperty("MONITORING_AMOUNT");
+                    var totalDEC2pay7 = typ.GetProperty("PURCHASE_AMOUNT");
+                    var totalDEC2pay8 = typ.GetProperty("COST_AMOUNT");
+                    var totalDEC2pay9 = typ.GetProperty("OTHER_AMOUNT");
+                    var totalDEC2pay10 = typ.GetProperty("ALL_AMOUNT");
+                    var totalDEC2pay11 = typ.GetProperty("INCOME_LOCAL_AMOUNT");
 
 
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
+                    var totalDEC2count = typ.GetProperty("INCOME_STATE_COUNT");
+                    var totalDEC2count1 = typ.GetProperty("INCOME_LOCAL_COUNT");
+                    var totalDEC2count2 = typ.GetProperty("BUDGET_STATE_COUNT");
+                    var totalDEC2count3 = typ.GetProperty("BUDGET_LOCAL_COUNT");
+                    var totalDEC2count4 = typ.GetProperty("ACCOUNTANT_COUNT");
+                    var totalDEC2count5 = typ.GetProperty("EFFICIENCY_COUNT");
+                    var totalDEC2count6 = typ.GetProperty("LAW_COUNT");
+                    var totalDEC2count7 = typ.GetProperty("MONITORING_COUNT");
+                    var totalDEC2count8 = typ.GetProperty("PURCHASE_COUNT");
+                    var totalDEC2count9 = typ.GetProperty("COST_COUNT");
+                    var totalDEC2count10 = typ.GetProperty("OTHER_COUNT");
+                    var totalDEC2count11 = typ.GetProperty("ALL_COUNT");
 
 
                     decimal totalDEC2AMOUNT = 0;
@@ -13462,7 +13760,6 @@ namespace Audit.Controllers
                     decimal totalDEC2AMOUNT9 = 0;
                     decimal totalDEC2AMOUNT10 = 0;
                     decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
 
                     int totalDEC2NUMBER = 0;
                     int totalDEC2NUMBER1 = 0;
@@ -13476,158 +13773,148 @@ namespace Audit.Controllers
                     int totalDEC2NUMBER9 = 0;
                     int totalDEC2NUMBER10 = 0;
                     int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
 
 
-                    foreach (CM2 data in BUDGET1totalCompanytype1)
+                    foreach (CM5 data in totalCompanytype1)
                     {
-                        if (data.C1_AMOUNT != null)
+                        if (data.INCOME_STATE_AMOUNT != null)
                         {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
+                            string strNii = data.INCOME_STATE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT += Amount;
 
                         }
-                        if (data.CURRENT_AMOUNT != null)
+                        if (data.BUDGET_STATE_AMOUNT != null)
                         {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+                            string strNii = data.BUDGET_STATE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT1 += Amount;
 
                         }
-                        if (data.PREV_AMOUNT != null)
+                        if (data.BUDGET_LOCAL_AMOUNT != null)
                         {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
+                            string strNii = data.BUDGET_LOCAL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT2 += Amount;
 
                         }
-                        if (data.CY_AMOUNT != null)
+                        if (data.ACCOUNTANT_AMOUNT != null)
                         {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
+                            string strNii = data.ACCOUNTANT_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT3 += Amount;
 
                         }
-                        if (data.TOTAL_AMOUNT != null)
+                        if (data.EFFICIENCY_AMOUNT != null)
                         {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+                            string strNii = data.EFFICIENCY_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT4 += Amount;
 
                         }
-                        if (data.COMP_STATE_AMOUNT != null)
+                        if (data.LAW_AMOUNT != null)
                         {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
+                            string strNii = data.LAW_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT5 += Amount;
 
                         }
-                        if (data.COMP_LOCAL_AMOUNT != null)
+                        if (data.MONITORING_AMOUNT != null)
                         {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
+                            string strNii = data.MONITORING_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT6 += Amount;
 
                         }
-                        if (data.COMP_ORG_AMOUNT != null)
+                        if (data.PURCHASE_AMOUNT != null)
                         {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
+                            string strNii = data.PURCHASE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT7 += Amount;
 
                         }
-                        if (data.COMP_OTHER_AMOUNT != null)
+                        if (data.COST_AMOUNT != null)
                         {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
+                            string strNii = data.COST_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT8 += Amount;
 
                         }
-                        if (data.STATISTIC_AMOUNT != null)
+                        if (data.OTHER_AMOUNT != null)
                         {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
+                            string strNii = data.OTHER_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT9 += Amount;
 
                         }
-                        if (data.C2_AMOUNT != null)
+                        if (data.ALL_AMOUNT != null)
                         {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
+                            string strNii = data.ALL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT10 += Amount;
 
                         }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
+                        if (data.INCOME_LOCAL_AMOUNT != null)
                         {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
+                            string strNii = data.INCOME_LOCAL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
                             totalDEC2AMOUNT11 += Amount;
 
                         }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
 
 
 
-                        if (data.C1_COUNT != 0)
+                        if (data.INCOME_STATE_COUNT != 0)
                         {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
+                            totalDEC2NUMBER += Convert.ToInt32(data.INCOME_STATE_COUNT);
                         }
-                        if (data.CURRENT_COUNT != 0)
+                        if (data.INCOME_LOCAL_COUNT != 0)
                         {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+                            totalDEC2NUMBER1 += Convert.ToInt32(data.INCOME_LOCAL_COUNT);
                         }
-                        if (data.PREV_COUNT != 0)
+                        if (data.BUDGET_STATE_COUNT != 0)
                         {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
+                            totalDEC2NUMBER2 += Convert.ToInt32(data.BUDGET_STATE_COUNT);
                         }
-                        if (data.CY_COUNT != 0)
+                        if (data.BUDGET_LOCAL_COUNT != 0)
                         {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
+                            totalDEC2NUMBER3 += Convert.ToInt32(data.BUDGET_LOCAL_COUNT);
                         }
-                        if (data.TOTAL_COUNT != 0)
+                        if (data.ACCOUNTANT_COUNT != 0)
                         {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
+                            totalDEC2NUMBER4 += Convert.ToInt32(data.ACCOUNTANT_COUNT);
                         }
-                        if (data.COMP_STATE_COUNT != 0)
+                        if (data.EFFICIENCY_COUNT != 0)
                         {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
+                            totalDEC2NUMBER5 += Convert.ToInt32(data.EFFICIENCY_COUNT);
                         }
-                        if (data.COMP_LOCAL_COUNT != 0)
+                        if (data.LAW_COUNT != 0)
                         {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
+                            totalDEC2NUMBER6 += Convert.ToInt32(data.LAW_COUNT);
                         }
-                        if (data.COMP_ORG_COUNT != 0)
+                        if (data.MONITORING_COUNT != 0)
                         {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
+                            totalDEC2NUMBER7 += Convert.ToInt32(data.MONITORING_COUNT);
                         }
-                        if (data.COMP_OTHER_COUNT != 0)
+                        if (data.PURCHASE_COUNT != 0)
                         {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
+                            totalDEC2NUMBER8 += Convert.ToInt32(data.PURCHASE_COUNT);
                         }
-                        if (data.STATISTIC_COUNT != 0)
+                        if (data.COST_COUNT != 0)
                         {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
+                            totalDEC2NUMBER9 += Convert.ToInt32(data.COST_COUNT);
                         }
-                        if (data.C2_COUNT != 0)
+                        if (data.OTHER_COUNT != 0)
                         {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
+                            totalDEC2NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
                         }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
+                        if (data.ALL_COUNT != 0)
                         {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
+                            totalDEC2NUMBER11 += Convert.ToInt32(data.ALL_COUNT);
                         }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
+                      
                         totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
+                        totalDEC2depname.SetValue(totalDEC2Niit, data.DECISION_TYPE);
                     }
                     totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
                     totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
@@ -13641,9 +13928,6 @@ namespace Audit.Controllers
                     totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
                     totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
                     totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00" +
-                        "" +
-                        ""));
 
                     totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
                     totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
@@ -13657,4318 +13941,1208 @@ namespace Audit.Controllers
                     totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
                     totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
                     totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
 
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТШЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ТӨЛБӨРИЙН АКТ");
-                    BUDGET1totalCompanytype1 = new List<CM2>();
+                    totalDEC2depname.SetValue(totalDEC2Niit, "Нийт");
+                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "Төлбөрийн акт");
 
-                    BUDGET1totalCompanytype1.Add(totalDEC2Niit);
-                }
-                if (BUDGET2totalCompanytype1.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET2totalCompanytype1)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТTЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ТӨЛБӨРИЙН АКТ");
-                    BUDGET2totalCompanytype1 = new List<CM2>();
-
-                    BUDGET2totalCompanytype1.Add(totalDEC2Niit);
-                }
-                if (BUDGET3totalCompanytype1.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET3totalCompanytype1)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТЕЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ТӨЛБӨРИЙН АКТ");
-                    BUDGET3totalCompanytype1 = new List<CM2>();
-
-                    BUDGET3totalCompanytype1.Add(totalDEC2Niit);
-                }
-                if (BUDGET4totalCompanytype1.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET4totalCompanytype1)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТБОНӨХЭ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ТӨЛБӨРИЙН АКТ");
-                    BUDGET4totalCompanytype1 = new List<CM2>();
-
-                    BUDGET4totalCompanytype1.Add(totalDEC2Niit);
-                }
-                if (BUDGET5totalCompanytype1.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET5totalCompanytype1)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ЗГСНТ, НТГТ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ТӨЛБӨРИЙН АКТ");
-                    BUDGET5totalCompanytype1 = new List<CM2>();
-
-                    BUDGET5totalCompanytype1.Add(totalDEC2Niit);
-                }
-
-                BudgetTypes1totaltemp.AddRange(BUDGET1totalCompanytype1);
-                BudgetTypes1totaltemp.AddRange(BUDGET2totalCompanytype1);
-                BudgetTypes1totaltemp.AddRange(BUDGET3totalCompanytype1);
-                BudgetTypes1totaltemp.AddRange(BUDGET4totalCompanytype1);
-                BudgetTypes1totaltemp.AddRange(BUDGET5totalCompanytype1);
-                BudgetTypes1 = BudgetTypes1totaltemp;
-
-                if (BUDGET1totalCompanytype2.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET1totalCompanytype2)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТШЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "АЛБАН ШААРДЛАГА");
-                    BUDGET1totalCompanytype2 = new List<CM2>();
-
-                    BUDGET1totalCompanytype2.Add(totalDEC2Niit);
-                }
-                if (BUDGET2totalCompanytype2.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET2totalCompanytype2)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТTЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "АЛБАН ШААРДЛАГА");
-                    BUDGET2totalCompanytype2 = new List<CM2>();
-
-                    BUDGET2totalCompanytype2.Add(totalDEC2Niit);
-                }
-                if (BUDGET3totalCompanytype2.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET3totalCompanytype2)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТЕЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "АЛБАН ШААРДЛАГА");
-                    BUDGET3totalCompanytype2 = new List<CM2>();
-
-                    BUDGET3totalCompanytype2.Add(totalDEC2Niit);
-                }
-                if (BUDGET4totalCompanytype2.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET4totalCompanytype2)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТБОНӨХЭ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "АЛБАН ШААРДЛАГА");
-                    BUDGET4totalCompanytype2 = new List<CM2>();
-
-                    BUDGET4totalCompanytype2.Add(totalDEC2Niit);
-                }
-                if (BUDGET5totalCompanytype2.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET5totalCompanytype2)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ЗГСНТ, НТГТ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "АЛБАН ШААРДЛАГА");
-                    BUDGET5totalCompanytype2 = new List<CM2>();
-
-                    BUDGET5totalCompanytype2.Add(totalDEC2Niit);
-                }
-
-                BudgetTypes2totaltemp.AddRange(BUDGET1totalCompanytype2);
-                BudgetTypes2totaltemp.AddRange(BUDGET2totalCompanytype2);
-                BudgetTypes2totaltemp.AddRange(BUDGET3totalCompanytype2);
-                BudgetTypes2totaltemp.AddRange(BUDGET4totalCompanytype2);
-                BudgetTypes2totaltemp.AddRange(BUDGET5totalCompanytype2);
-                BudgetTypes2 = BudgetTypes2totaltemp;
-
-                if (BUDGET1totalCompanytype3.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET1totalCompanytype3)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТШЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ЗӨВЛӨМЖ");
-                    BUDGET1totalCompanytype3 = new List<CM2>();
-
-                    BUDGET1totalCompanytype3.Add(totalDEC2Niit);
-                }
-                if (BUDGET2totalCompanytype3.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET2totalCompanytype3)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТTЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ЗӨВЛӨМЖ");
-                    BUDGET2totalCompanytype3 = new List<CM2>();
-
-                    BUDGET2totalCompanytype3.Add(totalDEC2Niit);
-                }
-                if (BUDGET3totalCompanytype3.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET3totalCompanytype3)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТЕЗ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ЗӨВЛӨМЖ");
-                    BUDGET3totalCompanytype3 = new List<CM2>();
-
-                    BUDGET3totalCompanytype3.Add(totalDEC2Niit);
-                }
-                if (BUDGET4totalCompanytype3.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET4totalCompanytype3)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ТБОНӨХЭ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ЗӨВЛӨМЖ");
-                    BUDGET4totalCompanytype3 = new List<CM2>();
-
-                    BUDGET4totalCompanytype3.Add(totalDEC2Niit);
-                }
-                if (BUDGET5totalCompanytype3.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BUDGET5totalCompanytype3)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "ЗГСНТ, НТГТ");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ЗӨВЛӨМЖ");
-                    BUDGET5totalCompanytype3 = new List<CM2>();
-
-                    BUDGET5totalCompanytype3.Add(totalDEC2Niit);
-                }
-
-                BudgetTypes3totaltemp.AddRange(BUDGET1totalCompanytype3);
-                BudgetTypes3totaltemp.AddRange(BUDGET2totalCompanytype3);
-                BudgetTypes3totaltemp.AddRange(BUDGET3totalCompanytype3);
-                BudgetTypes3totaltemp.AddRange(BUDGET4totalCompanytype3);
-                BudgetTypes3totaltemp.AddRange(BUDGET5totalCompanytype3);
-                BudgetTypes3 = BudgetTypes3totaltemp;
-
-                if (BudgetTypes1.Count > 0)
-                {
-
-                    CM2 totalDEC2Niit = new CM2();
-                    var totalDEC2depname = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
-
-                    var totalDEC2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
-
-
-                    decimal totalDEC2AMOUNT = 0;
-                    decimal totalDEC2AMOUNT1 = 0;
-                    decimal totalDEC2AMOUNT2 = 0;
-                    decimal totalDEC2AMOUNT3 = 0;
-                    decimal totalDEC2AMOUNT4 = 0;
-                    decimal totalDEC2AMOUNT5 = 0;
-                    decimal totalDEC2AMOUNT6 = 0;
-                    decimal totalDEC2AMOUNT7 = 0;
-                    decimal totalDEC2AMOUNT8 = 0;
-                    decimal totalDEC2AMOUNT9 = 0;
-                    decimal totalDEC2AMOUNT10 = 0;
-                    decimal totalDEC2AMOUNT11 = 0;
-                    decimal totalDEC2AMOUNT12 = 0;
-
-                    int totalDEC2NUMBER = 0;
-                    int totalDEC2NUMBER1 = 0;
-                    int totalDEC2NUMBER2 = 0;
-                    int totalDEC2NUMBER3 = 0;
-                    int totalDEC2NUMBER4 = 0;
-                    int totalDEC2NUMBER5 = 0;
-                    int totalDEC2NUMBER6 = 0;
-                    int totalDEC2NUMBER7 = 0;
-                    int totalDEC2NUMBER8 = 0;
-                    int totalDEC2NUMBER9 = 0;
-                    int totalDEC2NUMBER10 = 0;
-                    int totalDEC2NUMBER11 = 0;
-                    int totalDEC2NUMBER12 = 0;
-
-
-                    foreach (CM2 data in BudgetTypes1)
-                    {
-                        if (data.C1_AMOUNT != null)
-                        {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT += Amount;
-
-                        }
-                        if (data.CURRENT_AMOUNT != null)
-                        {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT1 += Amount;
-
-                        }
-                        if (data.PREV_AMOUNT != null)
-                        {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT2 += Amount;
-
-                        }
-                        if (data.CY_AMOUNT != null)
-                        {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT3 += Amount;
-
-                        }
-                        if (data.TOTAL_AMOUNT != null)
-                        {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT4 += Amount;
-
-                        }
-                        if (data.COMP_STATE_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT5 += Amount;
-
-                        }
-                        if (data.COMP_LOCAL_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT6 += Amount;
-
-                        }
-                        if (data.COMP_ORG_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT7 += Amount;
-
-                        }
-                        if (data.COMP_OTHER_AMOUNT != null)
-                        {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT8 += Amount;
-
-                        }
-                        if (data.STATISTIC_AMOUNT != null)
-                        {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT9 += Amount;
-
-                        }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT10 += Amount;
-
-                        }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2AMOUNT12 += Amount;
-
-                        }
-
-
-
-                        if (data.C1_COUNT != 0)
-                        {
-                            totalDEC2NUMBER += Convert.ToInt32(data.C1_COUNT);
-                        }
-                        if (data.CURRENT_COUNT != 0)
-                        {
-                            totalDEC2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
-                        }
-                        if (data.PREV_COUNT != 0)
-                        {
-                            totalDEC2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
-                        }
-                        if (data.CY_COUNT != 0)
-                        {
-                            totalDEC2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
-                        }
-                        if (data.TOTAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
-                        }
-                        if (data.COMP_STATE_COUNT != 0)
-                        {
-                            totalDEC2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
-                        }
-                        if (data.COMP_LOCAL_COUNT != 0)
-                        {
-                            totalDEC2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
-                        }
-                        if (data.COMP_ORG_COUNT != 0)
-                        {
-                            totalDEC2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
-                        }
-                        if (data.COMP_OTHER_COUNT != 0)
-                        {
-                            totalDEC2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
-                        }
-                        if (data.STATISTIC_COUNT != 0)
-                        {
-                            totalDEC2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
-                        }
-                        if (data.C2_COUNT != 0)
-                        {
-                            totalDEC2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
-                        }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
-                        }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
-                    }
-                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
-                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2pay12.SetValue(totalDEC2Niit, totalDEC2AMOUNT12.ToString("#,0.00"));
-
-                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
-                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
-                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
-                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
-                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
-                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
-                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
-                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
-                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
-                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
-                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
-                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
-                    totalDEC2count12.SetValue(totalDEC2Niit, totalDEC2NUMBER12);
-
-                    totalDEC2depname.SetValue(totalDEC2Niit, "Дүн");
-                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "ТӨЛБӨРИЙН АКТ");
-
-                    totalCompanytemplist1.AddRange(BudgetTypes1.OrderBy(m => m.DECISION_TYPE));
                     totalCompanytemplist1.Add(totalDEC2Niit);
                     BudgetTypes1 = totalCompanytemplist1;
                 }
-                if (BudgetTypes2.Count > 0)
+                if (totalCompanytype2.Count > 0)
                 {
 
-                    CM2 totalDEC2Niit2 = new CM2();
-                    var totalDEC2depname2 = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname2 = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname2 = typ.GetProperty("DECISION_TYPE");
+                    CM5 totalDEC2Niit = new CM5();
+                    var totalDEC2depname = typ.GetProperty("AUDIT_TYPE_NAME");
+                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
+                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
 
-                    var totalDEC2Type2pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2Type2pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2Type2pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2Type2pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2Type2pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2Type2pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2Type2pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2Type2pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2Type2pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2Type2pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2Type2pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2Type2pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2Type2pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2Type2count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2Type2count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2Type2count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2Type2count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2Type2count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2Type2count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2Type2count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2Type2count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2Type2count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2Type2count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2Type2count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2Type2count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2Type2count12 = typ.GetProperty("C2_EXPIRED_COUNT");
+                    var totalDEC2pay = typ.GetProperty("INCOME_STATE_AMOUNT");
+                    var totalDEC2pay1 = typ.GetProperty("BUDGET_STATE_AMOUNT");
+                    var totalDEC2pay2 = typ.GetProperty("BUDGET_LOCAL_AMOUNT");
+                    var totalDEC2pay3 = typ.GetProperty("ACCOUNTANT_AMOUNT");
+                    var totalDEC2pay4 = typ.GetProperty("EFFICIENCY_AMOUNT");
+                    var totalDEC2pay5 = typ.GetProperty("LAW_AMOUNT");
+                    var totalDEC2pay6 = typ.GetProperty("MONITORING_AMOUNT");
+                    var totalDEC2pay7 = typ.GetProperty("PURCHASE_AMOUNT");
+                    var totalDEC2pay8 = typ.GetProperty("COST_AMOUNT");
+                    var totalDEC2pay9 = typ.GetProperty("OTHER_AMOUNT");
+                    var totalDEC2pay10 = typ.GetProperty("ALL_AMOUNT");
+                    var totalDEC2pay11 = typ.GetProperty("INCOME_LOCAL_AMOUNT");
 
 
-                    decimal totalDEC2Type2AMOUNT = 0;
-                    decimal totalDEC2Type2AMOUNT1 = 0;
-                    decimal totalDEC2Type2AMOUNT2 = 0;
-                    decimal totalDEC2Type2AMOUNT3 = 0;
-                    decimal totalDEC2Type2AMOUNT4 = 0;
-                    decimal totalDEC2Type2AMOUNT5 = 0;
-                    decimal totalDEC2Type2AMOUNT6 = 0;
-                    decimal totalDEC2Type2AMOUNT7 = 0;
-                    decimal totalDEC2Type2AMOUNT8 = 0;
-                    decimal totalDEC2Type2AMOUNT9 = 0;
-                    decimal totalDEC2Type2AMOUNT10 = 0;
-                    decimal totalDEC2Type2AMOUNT11 = 0;
-                    decimal totalDEC2Type2AMOUNT12 = 0;
-
-                    int totalDEC2Type2NUMBER = 0;
-                    int totalDEC2Type2NUMBER1 = 0;
-                    int totalDEC2Type2NUMBER2 = 0;
-                    int totalDEC2Type2NUMBER3 = 0;
-                    int totalDEC2Type2NUMBER4 = 0;
-                    int totalDEC2Type2NUMBER5 = 0;
-                    int totalDEC2Type2NUMBER6 = 0;
-                    int totalDEC2Type2NUMBER7 = 0;
-                    int totalDEC2Type2NUMBER8 = 0;
-                    int totalDEC2Type2NUMBER9 = 0;
-                    int totalDEC2Type2NUMBER10 = 0;
-                    int totalDEC2Type2NUMBER11 = 0;
-                    int totalDEC2Type2NUMBER12 = 0;
+                    var totalDEC2count = typ.GetProperty("INCOME_STATE_COUNT");
+                    var totalDEC2count1 = typ.GetProperty("INCOME_LOCAL_COUNT");
+                    var totalDEC2count2 = typ.GetProperty("BUDGET_STATE_COUNT");
+                    var totalDEC2count3 = typ.GetProperty("BUDGET_LOCAL_COUNT");
+                    var totalDEC2count4 = typ.GetProperty("ACCOUNTANT_COUNT");
+                    var totalDEC2count5 = typ.GetProperty("EFFICIENCY_COUNT");
+                    var totalDEC2count6 = typ.GetProperty("LAW_COUNT");
+                    var totalDEC2count7 = typ.GetProperty("MONITORING_COUNT");
+                    var totalDEC2count8 = typ.GetProperty("PURCHASE_COUNT");
+                    var totalDEC2count9 = typ.GetProperty("COST_COUNT");
+                    var totalDEC2count10 = typ.GetProperty("OTHER_COUNT");
+                    var totalDEC2count11 = typ.GetProperty("ALL_COUNT");
 
 
-                    foreach (CM2 data in BudgetTypes2)
+                    decimal totalDEC2AMOUNT = 0;
+                    decimal totalDEC2AMOUNT1 = 0;
+                    decimal totalDEC2AMOUNT2 = 0;
+                    decimal totalDEC2AMOUNT3 = 0;
+                    decimal totalDEC2AMOUNT4 = 0;
+                    decimal totalDEC2AMOUNT5 = 0;
+                    decimal totalDEC2AMOUNT6 = 0;
+                    decimal totalDEC2AMOUNT7 = 0;
+                    decimal totalDEC2AMOUNT8 = 0;
+                    decimal totalDEC2AMOUNT9 = 0;
+                    decimal totalDEC2AMOUNT10 = 0;
+                    decimal totalDEC2AMOUNT11 = 0;
+
+                    int totalDEC2NUMBER = 0;
+                    int totalDEC2NUMBER1 = 0;
+                    int totalDEC2NUMBER2 = 0;
+                    int totalDEC2NUMBER3 = 0;
+                    int totalDEC2NUMBER4 = 0;
+                    int totalDEC2NUMBER5 = 0;
+                    int totalDEC2NUMBER6 = 0;
+                    int totalDEC2NUMBER7 = 0;
+                    int totalDEC2NUMBER8 = 0;
+                    int totalDEC2NUMBER9 = 0;
+                    int totalDEC2NUMBER10 = 0;
+                    int totalDEC2NUMBER11 = 0;
+
+
+                    foreach (CM5 data in totalCompanytype2)
                     {
-                        if (data.C1_AMOUNT != null)
+                        if (data.INCOME_STATE_AMOUNT != null)
                         {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
+                            string strNii = data.INCOME_STATE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT += Amount;
+                            totalDEC2AMOUNT += Amount;
 
                         }
-                        if (data.CURRENT_AMOUNT != null)
+                        if (data.BUDGET_STATE_AMOUNT != null)
                         {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+                            string strNii = data.BUDGET_STATE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT1 += Amount;
+                            totalDEC2AMOUNT1 += Amount;
 
                         }
-                        if (data.PREV_AMOUNT != null)
+                        if (data.BUDGET_LOCAL_AMOUNT != null)
                         {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
+                            string strNii = data.BUDGET_LOCAL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT2 += Amount;
+                            totalDEC2AMOUNT2 += Amount;
 
                         }
-                        if (data.CY_AMOUNT != null)
+                        if (data.ACCOUNTANT_AMOUNT != null)
                         {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
+                            string strNii = data.ACCOUNTANT_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT3 += Amount;
+                            totalDEC2AMOUNT3 += Amount;
 
                         }
-                        if (data.TOTAL_AMOUNT != null)
+                        if (data.EFFICIENCY_AMOUNT != null)
                         {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+                            string strNii = data.EFFICIENCY_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT4 += Amount;
+                            totalDEC2AMOUNT4 += Amount;
 
                         }
-                        if (data.COMP_STATE_AMOUNT != null)
+                        if (data.LAW_AMOUNT != null)
                         {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
+                            string strNii = data.LAW_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT5 += Amount;
+                            totalDEC2AMOUNT5 += Amount;
 
                         }
-                        if (data.COMP_LOCAL_AMOUNT != null)
+                        if (data.MONITORING_AMOUNT != null)
                         {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
+                            string strNii = data.MONITORING_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT6 += Amount;
+                            totalDEC2AMOUNT6 += Amount;
 
                         }
-                        if (data.COMP_ORG_AMOUNT != null)
+                        if (data.PURCHASE_AMOUNT != null)
                         {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
+                            string strNii = data.PURCHASE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT7 += Amount;
+                            totalDEC2AMOUNT7 += Amount;
 
                         }
-                        if (data.COMP_OTHER_AMOUNT != null)
+                        if (data.COST_AMOUNT != null)
                         {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
+                            string strNii = data.COST_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT8 += Amount;
+                            totalDEC2AMOUNT8 += Amount;
 
                         }
-                        if (data.STATISTIC_AMOUNT != null)
+                        if (data.OTHER_AMOUNT != null)
                         {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
+                            string strNii = data.OTHER_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT9 += Amount;
+                            totalDEC2AMOUNT9 += Amount;
 
                         }
-                        if (data.C2_AMOUNT != null)
+                        if (data.ALL_AMOUNT != null)
                         {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
+                            string strNii = data.ALL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT10 += Amount;
+                            totalDEC2AMOUNT10 += Amount;
 
                         }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
+                        if (data.INCOME_LOCAL_AMOUNT != null)
                         {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
+                            string strNii = data.INCOME_LOCAL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type2AMOUNT12 += Amount;
+                            totalDEC2AMOUNT11 += Amount;
 
                         }
 
 
 
-                        if (data.C1_COUNT != 0)
+                        if (data.INCOME_STATE_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER += Convert.ToInt32(data.C1_COUNT);
+                            totalDEC2NUMBER += Convert.ToInt32(data.INCOME_STATE_COUNT);
                         }
-                        if (data.CURRENT_COUNT != 0)
+                        if (data.INCOME_LOCAL_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+                            totalDEC2NUMBER1 += Convert.ToInt32(data.INCOME_LOCAL_COUNT);
                         }
-                        if (data.PREV_COUNT != 0)
+                        if (data.BUDGET_STATE_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
+                            totalDEC2NUMBER2 += Convert.ToInt32(data.BUDGET_STATE_COUNT);
                         }
-                        if (data.CY_COUNT != 0)
+                        if (data.BUDGET_LOCAL_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER3 += Convert.ToInt32(data.CY_COUNT);
+                            totalDEC2NUMBER3 += Convert.ToInt32(data.BUDGET_LOCAL_COUNT);
                         }
-                        if (data.TOTAL_COUNT != 0)
+                        if (data.ACCOUNTANT_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
+                            totalDEC2NUMBER4 += Convert.ToInt32(data.ACCOUNTANT_COUNT);
                         }
-                        if (data.COMP_STATE_COUNT != 0)
+                        if (data.EFFICIENCY_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
+                            totalDEC2NUMBER5 += Convert.ToInt32(data.EFFICIENCY_COUNT);
                         }
-                        if (data.COMP_LOCAL_COUNT != 0)
+                        if (data.LAW_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
+                            totalDEC2NUMBER6 += Convert.ToInt32(data.LAW_COUNT);
                         }
-                        if (data.COMP_ORG_COUNT != 0)
+                        if (data.MONITORING_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
+                            totalDEC2NUMBER7 += Convert.ToInt32(data.MONITORING_COUNT);
                         }
-                        if (data.COMP_OTHER_COUNT != 0)
+                        if (data.PURCHASE_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
+                            totalDEC2NUMBER8 += Convert.ToInt32(data.PURCHASE_COUNT);
                         }
-                        if (data.STATISTIC_COUNT != 0)
+                        if (data.COST_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
+                            totalDEC2NUMBER9 += Convert.ToInt32(data.COST_COUNT);
                         }
-                        if (data.C2_COUNT != 0)
+                        if (data.OTHER_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER10 += Convert.ToInt32(data.C2_COUNT);
+                            totalDEC2NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
                         }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
+                        if (data.ALL_COUNT != 0)
                         {
-                            totalDEC2Type2NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
+                            totalDEC2NUMBER11 += Convert.ToInt32(data.ALL_COUNT);
                         }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2Type2NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname2.SetValue(totalDEC2Niit2, data.DEPARTMENT_NAME);
+
+                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
+                        totalDEC2depname.SetValue(totalDEC2Niit, data.DECISION_TYPE);
                     }
-                    totalDEC2Type2pay.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT.ToString("#,0.00"));
-                    totalDEC2Type2pay1.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT1.ToString("#,0.00"));
-                    totalDEC2Type2pay2.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT2.ToString("#,0.00"));
-                    totalDEC2Type2pay3.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT3.ToString("#,0.00"));
-                    totalDEC2Type2pay4.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT4.ToString("#,0.00"));
-                    totalDEC2Type2pay5.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT5.ToString("#,0.00"));
-                    totalDEC2Type2pay6.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT6.ToString("#,0.00"));
-                    totalDEC2Type2pay7.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT7.ToString("#,0.00"));
-                    totalDEC2Type2pay8.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT8.ToString("#,0.00"));
-                    totalDEC2Type2pay9.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT9.ToString("#,0.00"));
-                    totalDEC2Type2pay10.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT10.ToString("#,0.00"));
-                    totalDEC2Type2pay11.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT11.ToString("#,0.00"));
-                    totalDEC2Type2pay12.SetValue(totalDEC2Niit2, totalDEC2Type2AMOUNT12.ToString("#,0.00"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
 
-                    totalDEC2Type2count.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER);
-                    totalDEC2Type2count1.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER1);
-                    totalDEC2Type2count2.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER2);
-                    totalDEC2Type2count3.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER3);
-                    totalDEC2Type2count4.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER4);
-                    totalDEC2Type2count5.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER5);
-                    totalDEC2Type2count6.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER6);
-                    totalDEC2Type2count7.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER7);
-                    totalDEC2Type2count8.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER8);
-                    totalDEC2Type2count9.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER9);
-                    totalDEC2Type2count10.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER10);
-                    totalDEC2Type2count11.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER11);
-                    totalDEC2Type2count12.SetValue(totalDEC2Niit2, totalDEC2Type2NUMBER12);
+                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
+                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
+                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
+                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
+                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
+                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
+                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
+                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
+                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
+                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
+                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
+                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
 
-                    totalDEC2depname2.SetValue(totalDEC2Niit2, "Дүн");
-                    totalDECISION2_TYPEdepname2.SetValue(totalDEC2Niit2, "АЛБАН ШААРДЛАГА");
+                    totalDEC2depname.SetValue(totalDEC2Niit, "Нийт");
+                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "Албан шаардлага");
 
-                    totalCompanytemplist2.AddRange(BudgetTypes2.OrderBy(m => m.DECISION_TYPE));
-                    totalCompanytemplist2.Add(totalDEC2Niit2);
+                   
+                    totalCompanytemplist2.Add(totalDEC2Niit);
                     BudgetTypes2 = totalCompanytemplist2;
                 }
-                if (BudgetTypes3.Count > 0)
+                if (totalCompanytype3.Count > 0)
                 {
 
-                    CM2 totalDEC2Niit3 = new CM2();
-                    var totalDEC2depname3 = typ.GetProperty("BUDGET_TYPE_NAME");
-                    var totalDEP2depname3 = typ.GetProperty("DEPARTMENT_NAME");
-                    var totalDECISION2_TYPEdepname3 = typ.GetProperty("DECISION_TYPE");
+                    CM5 totalDEC2Niit = new CM5();
+                    var totalDEC2depname = typ.GetProperty("AUDIT_TYPE_NAME");
+                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
+                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
 
-                    var totalDEC2Type3pay = typ.GetProperty("C1_AMOUNT");
-                    var totalDEC2Type3pay1 = typ.GetProperty("CURRENT_AMOUNT");
-                    var totalDEC2Type3pay2 = typ.GetProperty("PREV_AMOUNT");
-                    var totalDEC2Type3pay3 = typ.GetProperty("CY_AMOUNT");
-                    var totalDEC2Type3pay4 = typ.GetProperty("TOTAL_AMOUNT");
-                    var totalDEC2Type3pay5 = typ.GetProperty("COMP_STATE_AMOUNT");
-                    var totalDEC2Type3pay6 = typ.GetProperty("COMP_LOCAL_AMOUNT");
-                    var totalDEC2Type3pay7 = typ.GetProperty("COMP_ORG_AMOUNT");
-                    var totalDEC2Type3pay8 = typ.GetProperty("COMP_OTHER_AMOUNT");
-                    var totalDEC2Type3pay9 = typ.GetProperty("STATISTIC_AMOUNT");
-                    var totalDEC2Type3pay10 = typ.GetProperty("C2_AMOUNT");
-                    var totalDEC2Type3pay11 = typ.GetProperty("C2_NONEXPIRED_AMOUNT");
-                    var totalDEC2Type3pay12 = typ.GetProperty("C2_EXPIRED_AMOUNT");
-
-
-                    var totalDEC2Type3count = typ.GetProperty("C1_COUNT");
-                    var totalDEC2Type3count1 = typ.GetProperty("CURRENT_COUNT");
-                    var totalDEC2Type3count2 = typ.GetProperty("PREV_COUNT");
-                    var totalDEC2Type3count3 = typ.GetProperty("CY_COUNT");
-                    var totalDEC2Type3count4 = typ.GetProperty("TOTAL_COUNT");
-                    var totalDEC2Type3count5 = typ.GetProperty("COMP_STATE_COUNT");
-                    var totalDEC2Type3count6 = typ.GetProperty("COMP_LOCAL_COUNT");
-                    var totalDEC2Type3count7 = typ.GetProperty("COMP_ORG_COUNT");
-                    var totalDEC2Type3count8 = typ.GetProperty("COMP_OTHER_COUNT");
-                    var totalDEC2Type3count9 = typ.GetProperty("STATISTIC_COUNT");
-                    var totalDEC2Type3count10 = typ.GetProperty("C2_COUNT");
-                    var totalDEC2Type3count11 = typ.GetProperty("C2_NONEXPIRED_COUNT");
-                    var totalDEC2Type3count12 = typ.GetProperty("C2_EXPIRED_COUNT");
+                    var totalDEC2pay = typ.GetProperty("INCOME_STATE_AMOUNT");
+                    var totalDEC2pay1 = typ.GetProperty("BUDGET_STATE_AMOUNT");
+                    var totalDEC2pay2 = typ.GetProperty("BUDGET_LOCAL_AMOUNT");
+                    var totalDEC2pay3 = typ.GetProperty("ACCOUNTANT_AMOUNT");
+                    var totalDEC2pay4 = typ.GetProperty("EFFICIENCY_AMOUNT");
+                    var totalDEC2pay5 = typ.GetProperty("LAW_AMOUNT");
+                    var totalDEC2pay6 = typ.GetProperty("MONITORING_AMOUNT");
+                    var totalDEC2pay7 = typ.GetProperty("PURCHASE_AMOUNT");
+                    var totalDEC2pay8 = typ.GetProperty("COST_AMOUNT");
+                    var totalDEC2pay9 = typ.GetProperty("OTHER_AMOUNT");
+                    var totalDEC2pay10 = typ.GetProperty("ALL_AMOUNT");
+                    var totalDEC2pay11 = typ.GetProperty("INCOME_LOCAL_AMOUNT");
 
 
-                    decimal totalDEC2Type3AMOUNT = 0;
-                    decimal totalDEC2Type3AMOUNT1 = 0;
-                    decimal totalDEC2Type3AMOUNT2 = 0;
-                    decimal totalDEC2Type3AMOUNT3 = 0;
-                    decimal totalDEC2Type3AMOUNT4 = 0;
-                    decimal totalDEC2Type3AMOUNT5 = 0;
-                    decimal totalDEC2Type3AMOUNT6 = 0;
-                    decimal totalDEC2Type3AMOUNT7 = 0;
-                    decimal totalDEC2Type3AMOUNT8 = 0;
-                    decimal totalDEC2Type3AMOUNT9 = 0;
-                    decimal totalDEC2Type3AMOUNT10 = 0;
-                    decimal totalDEC2Type3AMOUNT11 = 0;
-                    decimal totalDEC2Type3AMOUNT12 = 0;
-
-                    int totalDEC2Type3NUMBER = 0;
-                    int totalDEC2Type3NUMBER1 = 0;
-                    int totalDEC2Type3NUMBER2 = 0;
-                    int totalDEC2Type3NUMBER3 = 0;
-                    int totalDEC2Type3NUMBER4 = 0;
-                    int totalDEC2Type3NUMBER5 = 0;
-                    int totalDEC2Type3NUMBER6 = 0;
-                    int totalDEC2Type3NUMBER7 = 0;
-                    int totalDEC2Type3NUMBER8 = 0;
-                    int totalDEC2Type3NUMBER9 = 0;
-                    int totalDEC2Type3NUMBER10 = 0;
-                    int totalDEC2Type3NUMBER11 = 0;
-                    int totalDEC2Type3NUMBER12 = 0;
+                    var totalDEC2count = typ.GetProperty("INCOME_STATE_COUNT");
+                    var totalDEC2count1 = typ.GetProperty("INCOME_LOCAL_COUNT");
+                    var totalDEC2count2 = typ.GetProperty("BUDGET_STATE_COUNT");
+                    var totalDEC2count3 = typ.GetProperty("BUDGET_LOCAL_COUNT");
+                    var totalDEC2count4 = typ.GetProperty("ACCOUNTANT_COUNT");
+                    var totalDEC2count5 = typ.GetProperty("EFFICIENCY_COUNT");
+                    var totalDEC2count6 = typ.GetProperty("LAW_COUNT");
+                    var totalDEC2count7 = typ.GetProperty("MONITORING_COUNT");
+                    var totalDEC2count8 = typ.GetProperty("PURCHASE_COUNT");
+                    var totalDEC2count9 = typ.GetProperty("COST_COUNT");
+                    var totalDEC2count10 = typ.GetProperty("OTHER_COUNT");
+                    var totalDEC2count11 = typ.GetProperty("ALL_COUNT");
 
 
-                    foreach (CM2 data in BudgetTypes3)
+                    decimal totalDEC2AMOUNT = 0;
+                    decimal totalDEC2AMOUNT1 = 0;
+                    decimal totalDEC2AMOUNT2 = 0;
+                    decimal totalDEC2AMOUNT3 = 0;
+                    decimal totalDEC2AMOUNT4 = 0;
+                    decimal totalDEC2AMOUNT5 = 0;
+                    decimal totalDEC2AMOUNT6 = 0;
+                    decimal totalDEC2AMOUNT7 = 0;
+                    decimal totalDEC2AMOUNT8 = 0;
+                    decimal totalDEC2AMOUNT9 = 0;
+                    decimal totalDEC2AMOUNT10 = 0;
+                    decimal totalDEC2AMOUNT11 = 0;
+
+                    int totalDEC2NUMBER = 0;
+                    int totalDEC2NUMBER1 = 0;
+                    int totalDEC2NUMBER2 = 0;
+                    int totalDEC2NUMBER3 = 0;
+                    int totalDEC2NUMBER4 = 0;
+                    int totalDEC2NUMBER5 = 0;
+                    int totalDEC2NUMBER6 = 0;
+                    int totalDEC2NUMBER7 = 0;
+                    int totalDEC2NUMBER8 = 0;
+                    int totalDEC2NUMBER9 = 0;
+                    int totalDEC2NUMBER10 = 0;
+                    int totalDEC2NUMBER11 = 0;
+
+
+                    foreach (CM5 data in totalCompanytype3)
                     {
-                        if (data.C1_AMOUNT != null)
+                        if (data.INCOME_STATE_AMOUNT != null)
                         {
-                            string strNii = data.C1_AMOUNT.Replace(",", "");
+                            string strNii = data.INCOME_STATE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT += Amount;
+                            totalDEC2AMOUNT += Amount;
 
                         }
-                        if (data.CURRENT_AMOUNT != null)
+                        if (data.BUDGET_STATE_AMOUNT != null)
                         {
-                            string strNii = data.CURRENT_AMOUNT.Replace(",", "");
+                            string strNii = data.BUDGET_STATE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT1 += Amount;
+                            totalDEC2AMOUNT1 += Amount;
 
                         }
-                        if (data.PREV_AMOUNT != null)
+                        if (data.BUDGET_LOCAL_AMOUNT != null)
                         {
-                            string strNii = data.PREV_AMOUNT.Replace(",", "");
+                            string strNii = data.BUDGET_LOCAL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT2 += Amount;
+                            totalDEC2AMOUNT2 += Amount;
 
                         }
-                        if (data.CY_AMOUNT != null)
+                        if (data.ACCOUNTANT_AMOUNT != null)
                         {
-                            string strNii = data.CY_AMOUNT.Replace(",", "");
+                            string strNii = data.ACCOUNTANT_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT3 += Amount;
+                            totalDEC2AMOUNT3 += Amount;
 
                         }
-                        if (data.TOTAL_AMOUNT != null)
+                        if (data.EFFICIENCY_AMOUNT != null)
                         {
-                            string strNii = data.TOTAL_AMOUNT.Replace(",", "");
+                            string strNii = data.EFFICIENCY_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT4 += Amount;
+                            totalDEC2AMOUNT4 += Amount;
 
                         }
-                        if (data.COMP_STATE_AMOUNT != null)
+                        if (data.LAW_AMOUNT != null)
                         {
-                            string strNii = data.COMP_STATE_AMOUNT.Replace(",", "");
+                            string strNii = data.LAW_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT5 += Amount;
+                            totalDEC2AMOUNT5 += Amount;
 
                         }
-                        if (data.COMP_LOCAL_AMOUNT != null)
+                        if (data.MONITORING_AMOUNT != null)
                         {
-                            string strNii = data.COMP_LOCAL_AMOUNT.Replace(",", "");
+                            string strNii = data.MONITORING_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT6 += Amount;
+                            totalDEC2AMOUNT6 += Amount;
 
                         }
-                        if (data.COMP_ORG_AMOUNT != null)
+                        if (data.PURCHASE_AMOUNT != null)
                         {
-                            string strNii = data.COMP_ORG_AMOUNT.Replace(",", "");
+                            string strNii = data.PURCHASE_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT7 += Amount;
+                            totalDEC2AMOUNT7 += Amount;
 
                         }
-                        if (data.COMP_OTHER_AMOUNT != null)
+                        if (data.COST_AMOUNT != null)
                         {
-                            string strNii = data.COMP_OTHER_AMOUNT.Replace(",", "");
+                            string strNii = data.COST_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT8 += Amount;
+                            totalDEC2AMOUNT8 += Amount;
 
                         }
-                        if (data.STATISTIC_AMOUNT != null)
+                        if (data.OTHER_AMOUNT != null)
                         {
-                            string strNii = data.STATISTIC_AMOUNT.Replace(",", "");
+                            string strNii = data.OTHER_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT9 += Amount;
+                            totalDEC2AMOUNT9 += Amount;
 
                         }
-                        if (data.C2_AMOUNT != null)
+                        if (data.ALL_AMOUNT != null)
                         {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
+                            string strNii = data.ALL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT10 += Amount;
+                            totalDEC2AMOUNT10 += Amount;
 
                         }
-                        if (data.C2_NONEXPIRED_AMOUNT != null)
+                        if (data.INCOME_LOCAL_AMOUNT != null)
                         {
-                            string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
+                            string strNii = data.INCOME_LOCAL_AMOUNT.Replace(",", "");
                             Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT11 += Amount;
-
-                        }
-                        if (data.C2_EXPIRED_AMOUNT != null)
-                        {
-                            string strNii = data.C2_EXPIRED_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            totalDEC2Type3AMOUNT12 += Amount;
+                            totalDEC2AMOUNT11 += Amount;
 
                         }
 
 
 
-                        if (data.C1_COUNT != 0)
+                        if (data.INCOME_STATE_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER += Convert.ToInt32(data.C1_COUNT);
+                            totalDEC2NUMBER += Convert.ToInt32(data.INCOME_STATE_COUNT);
                         }
-                        if (data.CURRENT_COUNT != 0)
+                        if (data.INCOME_LOCAL_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER1 += Convert.ToInt32(data.CURRENT_COUNT);
+                            totalDEC2NUMBER1 += Convert.ToInt32(data.INCOME_LOCAL_COUNT);
                         }
-                        if (data.PREV_COUNT != 0)
+                        if (data.BUDGET_STATE_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER2 += Convert.ToInt32(data.PREV_COUNT);
+                            totalDEC2NUMBER2 += Convert.ToInt32(data.BUDGET_STATE_COUNT);
                         }
-                        if (data.CY_COUNT != 0)
+                        if (data.BUDGET_LOCAL_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER3 += Convert.ToInt32(data.CY_COUNT);
+                            totalDEC2NUMBER3 += Convert.ToInt32(data.BUDGET_LOCAL_COUNT);
                         }
-                        if (data.TOTAL_COUNT != 0)
+                        if (data.ACCOUNTANT_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER4 += Convert.ToInt32(data.TOTAL_COUNT);
+                            totalDEC2NUMBER4 += Convert.ToInt32(data.ACCOUNTANT_COUNT);
                         }
-                        if (data.COMP_STATE_COUNT != 0)
+                        if (data.EFFICIENCY_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER5 += Convert.ToInt32(data.COMP_STATE_COUNT);
+                            totalDEC2NUMBER5 += Convert.ToInt32(data.EFFICIENCY_COUNT);
                         }
-                        if (data.COMP_LOCAL_COUNT != 0)
+                        if (data.LAW_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER6 += Convert.ToInt32(data.COMP_LOCAL_COUNT);
+                            totalDEC2NUMBER6 += Convert.ToInt32(data.LAW_COUNT);
                         }
-                        if (data.COMP_ORG_COUNT != 0)
+                        if (data.MONITORING_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER7 += Convert.ToInt32(data.COMP_ORG_COUNT);
+                            totalDEC2NUMBER7 += Convert.ToInt32(data.MONITORING_COUNT);
                         }
-                        if (data.COMP_OTHER_COUNT != 0)
+                        if (data.PURCHASE_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER8 += Convert.ToInt32(data.COMP_OTHER_COUNT);
+                            totalDEC2NUMBER8 += Convert.ToInt32(data.PURCHASE_COUNT);
                         }
-                        if (data.STATISTIC_COUNT != 0)
+                        if (data.COST_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER9 += Convert.ToInt32(data.STATISTIC_COUNT);
+                            totalDEC2NUMBER9 += Convert.ToInt32(data.COST_COUNT);
                         }
-                        if (data.C2_COUNT != 0)
+                        if (data.OTHER_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER10 += Convert.ToInt32(data.C2_COUNT);
+                            totalDEC2NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
                         }
-                        if (data.C2_NONEXPIRED_COUNT != 0)
+                        if (data.ALL_COUNT != 0)
                         {
-                            totalDEC2Type3NUMBER11 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
+                            totalDEC2NUMBER11 += Convert.ToInt32(data.ALL_COUNT);
                         }
-                        if (data.C2_EXPIRED_COUNT != 0)
-                        {
-                            totalDEC2Type3NUMBER12 += Convert.ToInt32(data.C2_EXPIRED_COUNT);
-                        }
-                        totalDEP2depname3.SetValue(totalDEC2Niit3, data.DEPARTMENT_NAME);
+
+                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
+                        totalDEC2depname.SetValue(totalDEC2Niit, data.DECISION_TYPE);
                     }
-                    totalDEC2Type3pay.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT.ToString("#,0.00"));
-                    totalDEC2Type3pay1.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT1.ToString("#,0.00"));
-                    totalDEC2Type3pay2.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT2.ToString("#,0.00"));
-                    totalDEC2Type3pay3.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT3.ToString("#,0.00"));
-                    totalDEC2Type3pay4.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT4.ToString("#,0.00"));
-                    totalDEC2Type3pay5.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT5.ToString("#,0.00"));
-                    totalDEC2Type3pay6.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT6.ToString("#,0.00"));
-                    totalDEC2Type3pay7.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT7.ToString("#,0.00"));
-                    totalDEC2Type3pay8.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT8.ToString("#,0.00"));
-                    totalDEC2Type3pay9.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT9.ToString("#,0.00"));
-                    totalDEC2Type3pay10.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT10.ToString("#,0.00"));
-                    totalDEC2Type3pay11.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT11.ToString("#,0.00"));
-                    totalDEC2Type3pay12.SetValue(totalDEC2Niit3, totalDEC2Type3AMOUNT12.ToString("#,0.00"));
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
 
-                    totalDEC2Type3count.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER);
-                    totalDEC2Type3count1.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER1);
-                    totalDEC2Type3count2.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER2);
-                    totalDEC2Type3count3.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER3);
-                    totalDEC2Type3count4.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER4);
-                    totalDEC2Type3count5.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER5);
-                    totalDEC2Type3count6.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER6);
-                    totalDEC2Type3count7.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER7);
-                    totalDEC2Type3count8.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER8);
-                    totalDEC2Type3count9.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER9);
-                    totalDEC2Type3count10.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER10);
-                    totalDEC2Type3count11.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER11);
-                    totalDEC2Type3count12.SetValue(totalDEC2Niit3, totalDEC2Type3NUMBER12);
+                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
+                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
+                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
+                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
+                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
+                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
+                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
+                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
+                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
+                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
+                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
+                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
 
-                    totalDEC2depname3.SetValue(totalDEC2Niit3, "Дүн");
-                    totalDECISION2_TYPEdepname3.SetValue(totalDEC2Niit3, "ЗӨВЛӨМЖ");
+                    totalDEC2depname.SetValue(totalDEC2Niit, "Нийт");
+                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "Зөвлөмж");
 
-                    totalCompanytemplist3.AddRange(BudgetTypes3.OrderBy(m => m.DECISION_TYPE));
-                    totalCompanytemplist3.Add(totalDEC2Niit3);
+
+                    totalCompanytemplist3.Add(totalDEC2Niit);
                     BudgetTypes3 = totalCompanytemplist3;
+                }
+                if (totalCompanytype4.Count > 0)
+                {
+
+                    CM5 totalDEC2Niit = new CM5();
+                    var totalDEC2depname = typ.GetProperty("AUDIT_TYPE_NAME");
+                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
+                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
+
+                    var totalDEC2pay = typ.GetProperty("INCOME_STATE_AMOUNT");
+                    var totalDEC2pay1 = typ.GetProperty("BUDGET_STATE_AMOUNT");
+                    var totalDEC2pay2 = typ.GetProperty("BUDGET_LOCAL_AMOUNT");
+                    var totalDEC2pay3 = typ.GetProperty("ACCOUNTANT_AMOUNT");
+                    var totalDEC2pay4 = typ.GetProperty("EFFICIENCY_AMOUNT");
+                    var totalDEC2pay5 = typ.GetProperty("LAW_AMOUNT");
+                    var totalDEC2pay6 = typ.GetProperty("MONITORING_AMOUNT");
+                    var totalDEC2pay7 = typ.GetProperty("PURCHASE_AMOUNT");
+                    var totalDEC2pay8 = typ.GetProperty("COST_AMOUNT");
+                    var totalDEC2pay9 = typ.GetProperty("OTHER_AMOUNT");
+                    var totalDEC2pay10 = typ.GetProperty("ALL_AMOUNT");
+                    var totalDEC2pay11 = typ.GetProperty("INCOME_LOCAL_AMOUNT");
+
+
+                    var totalDEC2count = typ.GetProperty("INCOME_STATE_COUNT");
+                    var totalDEC2count1 = typ.GetProperty("INCOME_LOCAL_COUNT");
+                    var totalDEC2count2 = typ.GetProperty("BUDGET_STATE_COUNT");
+                    var totalDEC2count3 = typ.GetProperty("BUDGET_LOCAL_COUNT");
+                    var totalDEC2count4 = typ.GetProperty("ACCOUNTANT_COUNT");
+                    var totalDEC2count5 = typ.GetProperty("EFFICIENCY_COUNT");
+                    var totalDEC2count6 = typ.GetProperty("LAW_COUNT");
+                    var totalDEC2count7 = typ.GetProperty("MONITORING_COUNT");
+                    var totalDEC2count8 = typ.GetProperty("PURCHASE_COUNT");
+                    var totalDEC2count9 = typ.GetProperty("COST_COUNT");
+                    var totalDEC2count10 = typ.GetProperty("OTHER_COUNT");
+                    var totalDEC2count11 = typ.GetProperty("ALL_COUNT");
+
+
+                    decimal totalDEC2AMOUNT = 0;
+                    decimal totalDEC2AMOUNT1 = 0;
+                    decimal totalDEC2AMOUNT2 = 0;
+                    decimal totalDEC2AMOUNT3 = 0;
+                    decimal totalDEC2AMOUNT4 = 0;
+                    decimal totalDEC2AMOUNT5 = 0;
+                    decimal totalDEC2AMOUNT6 = 0;
+                    decimal totalDEC2AMOUNT7 = 0;
+                    decimal totalDEC2AMOUNT8 = 0;
+                    decimal totalDEC2AMOUNT9 = 0;
+                    decimal totalDEC2AMOUNT10 = 0;
+                    decimal totalDEC2AMOUNT11 = 0;
+
+                    int totalDEC2NUMBER = 0;
+                    int totalDEC2NUMBER1 = 0;
+                    int totalDEC2NUMBER2 = 0;
+                    int totalDEC2NUMBER3 = 0;
+                    int totalDEC2NUMBER4 = 0;
+                    int totalDEC2NUMBER5 = 0;
+                    int totalDEC2NUMBER6 = 0;
+                    int totalDEC2NUMBER7 = 0;
+                    int totalDEC2NUMBER8 = 0;
+                    int totalDEC2NUMBER9 = 0;
+                    int totalDEC2NUMBER10 = 0;
+                    int totalDEC2NUMBER11 = 0;
+
+
+                    foreach (CM5 data in totalCompanytype4)
+                    {
+                        if (data.INCOME_STATE_AMOUNT != null)
+                        {
+                            string strNii = data.INCOME_STATE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT += Amount;
+
+                        }
+                        if (data.BUDGET_STATE_AMOUNT != null)
+                        {
+                            string strNii = data.BUDGET_STATE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT1 += Amount;
+
+                        }
+                        if (data.BUDGET_LOCAL_AMOUNT != null)
+                        {
+                            string strNii = data.BUDGET_LOCAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT2 += Amount;
+
+                        }
+                        if (data.ACCOUNTANT_AMOUNT != null)
+                        {
+                            string strNii = data.ACCOUNTANT_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT3 += Amount;
+
+                        }
+                        if (data.EFFICIENCY_AMOUNT != null)
+                        {
+                            string strNii = data.EFFICIENCY_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT4 += Amount;
+
+                        }
+                        if (data.LAW_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT5 += Amount;
+
+                        }
+                        if (data.MONITORING_AMOUNT != null)
+                        {
+                            string strNii = data.MONITORING_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT6 += Amount;
+
+                        }
+                        if (data.PURCHASE_AMOUNT != null)
+                        {
+                            string strNii = data.PURCHASE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT7 += Amount;
+
+                        }
+                        if (data.COST_AMOUNT != null)
+                        {
+                            string strNii = data.COST_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT8 += Amount;
+
+                        }
+                        if (data.OTHER_AMOUNT != null)
+                        {
+                            string strNii = data.OTHER_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT9 += Amount;
+
+                        }
+                        if (data.ALL_AMOUNT != null)
+                        {
+                            string strNii = data.ALL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT10 += Amount;
+
+                        }
+                        if (data.INCOME_LOCAL_AMOUNT != null)
+                        {
+                            string strNii = data.INCOME_LOCAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT11 += Amount;
+
+                        }
 
 
 
+                        if (data.INCOME_STATE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER += Convert.ToInt32(data.INCOME_STATE_COUNT);
+                        }
+                        if (data.INCOME_LOCAL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER1 += Convert.ToInt32(data.INCOME_LOCAL_COUNT);
+                        }
+                        if (data.BUDGET_STATE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER2 += Convert.ToInt32(data.BUDGET_STATE_COUNT);
+                        }
+                        if (data.BUDGET_LOCAL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER3 += Convert.ToInt32(data.BUDGET_LOCAL_COUNT);
+                        }
+                        if (data.ACCOUNTANT_COUNT != 0)
+                        {
+                            totalDEC2NUMBER4 += Convert.ToInt32(data.ACCOUNTANT_COUNT);
+                        }
+                        if (data.EFFICIENCY_COUNT != 0)
+                        {
+                            totalDEC2NUMBER5 += Convert.ToInt32(data.EFFICIENCY_COUNT);
+                        }
+                        if (data.LAW_COUNT != 0)
+                        {
+                            totalDEC2NUMBER6 += Convert.ToInt32(data.LAW_COUNT);
+                        }
+                        if (data.MONITORING_COUNT != 0)
+                        {
+                            totalDEC2NUMBER7 += Convert.ToInt32(data.MONITORING_COUNT);
+                        }
+                        if (data.PURCHASE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER8 += Convert.ToInt32(data.PURCHASE_COUNT);
+                        }
+                        if (data.COST_COUNT != 0)
+                        {
+                            totalDEC2NUMBER9 += Convert.ToInt32(data.COST_COUNT);
+                        }
+                        if (data.OTHER_COUNT != 0)
+                        {
+                            totalDEC2NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
+                        }
+                        if (data.ALL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER11 += Convert.ToInt32(data.ALL_COUNT);
+                        }
+
+                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
+                        totalDEC2depname.SetValue(totalDEC2Niit, data.DECISION_TYPE);
+                    }
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+
+                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
+                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
+                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
+                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
+                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
+                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
+                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
+                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
+                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
+                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
+                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
+                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
+
+                    totalDEC2depname.SetValue(totalDEC2Niit, "Нийт");
+                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "Залруулга");
+
+
+                    totalCompanytemplist4.Add(totalDEC2Niit);
+                    BudgetTypes4 = totalCompanytemplist4;
+                }
+                if (totalCompanytype5.Count > 0)
+                {
+
+                    CM5 totalDEC2Niit = new CM5();
+                    var totalDEC2depname = typ.GetProperty("AUDIT_TYPE_NAME");
+                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
+                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
+
+                    var totalDEC2pay = typ.GetProperty("INCOME_STATE_AMOUNT");
+                    var totalDEC2pay1 = typ.GetProperty("BUDGET_STATE_AMOUNT");
+                    var totalDEC2pay2 = typ.GetProperty("BUDGET_LOCAL_AMOUNT");
+                    var totalDEC2pay3 = typ.GetProperty("ACCOUNTANT_AMOUNT");
+                    var totalDEC2pay4 = typ.GetProperty("EFFICIENCY_AMOUNT");
+                    var totalDEC2pay5 = typ.GetProperty("LAW_AMOUNT");
+                    var totalDEC2pay6 = typ.GetProperty("MONITORING_AMOUNT");
+                    var totalDEC2pay7 = typ.GetProperty("PURCHASE_AMOUNT");
+                    var totalDEC2pay8 = typ.GetProperty("COST_AMOUNT");
+                    var totalDEC2pay9 = typ.GetProperty("OTHER_AMOUNT");
+                    var totalDEC2pay10 = typ.GetProperty("ALL_AMOUNT");
+                    var totalDEC2pay11 = typ.GetProperty("INCOME_LOCAL_AMOUNT");
+
+
+                    var totalDEC2count = typ.GetProperty("INCOME_STATE_COUNT");
+                    var totalDEC2count1 = typ.GetProperty("INCOME_LOCAL_COUNT");
+                    var totalDEC2count2 = typ.GetProperty("BUDGET_STATE_COUNT");
+                    var totalDEC2count3 = typ.GetProperty("BUDGET_LOCAL_COUNT");
+                    var totalDEC2count4 = typ.GetProperty("ACCOUNTANT_COUNT");
+                    var totalDEC2count5 = typ.GetProperty("EFFICIENCY_COUNT");
+                    var totalDEC2count6 = typ.GetProperty("LAW_COUNT");
+                    var totalDEC2count7 = typ.GetProperty("MONITORING_COUNT");
+                    var totalDEC2count8 = typ.GetProperty("PURCHASE_COUNT");
+                    var totalDEC2count9 = typ.GetProperty("COST_COUNT");
+                    var totalDEC2count10 = typ.GetProperty("OTHER_COUNT");
+                    var totalDEC2count11 = typ.GetProperty("ALL_COUNT");
+
+
+                    decimal totalDEC2AMOUNT = 0;
+                    decimal totalDEC2AMOUNT1 = 0;
+                    decimal totalDEC2AMOUNT2 = 0;
+                    decimal totalDEC2AMOUNT3 = 0;
+                    decimal totalDEC2AMOUNT4 = 0;
+                    decimal totalDEC2AMOUNT5 = 0;
+                    decimal totalDEC2AMOUNT6 = 0;
+                    decimal totalDEC2AMOUNT7 = 0;
+                    decimal totalDEC2AMOUNT8 = 0;
+                    decimal totalDEC2AMOUNT9 = 0;
+                    decimal totalDEC2AMOUNT10 = 0;
+                    decimal totalDEC2AMOUNT11 = 0;
+
+                    int totalDEC2NUMBER = 0;
+                    int totalDEC2NUMBER1 = 0;
+                    int totalDEC2NUMBER2 = 0;
+                    int totalDEC2NUMBER3 = 0;
+                    int totalDEC2NUMBER4 = 0;
+                    int totalDEC2NUMBER5 = 0;
+                    int totalDEC2NUMBER6 = 0;
+                    int totalDEC2NUMBER7 = 0;
+                    int totalDEC2NUMBER8 = 0;
+                    int totalDEC2NUMBER9 = 0;
+                    int totalDEC2NUMBER10 = 0;
+                    int totalDEC2NUMBER11 = 0;
+
+
+                    foreach (CM5 data in totalCompanytype5)
+                    {
+                        if (data.INCOME_STATE_AMOUNT != null)
+                        {
+                            string strNii = data.INCOME_STATE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT += Amount;
+
+                        }
+                        if (data.BUDGET_STATE_AMOUNT != null)
+                        {
+                            string strNii = data.BUDGET_STATE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT1 += Amount;
+
+                        }
+                        if (data.BUDGET_LOCAL_AMOUNT != null)
+                        {
+                            string strNii = data.BUDGET_LOCAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT2 += Amount;
+
+                        }
+                        if (data.ACCOUNTANT_AMOUNT != null)
+                        {
+                            string strNii = data.ACCOUNTANT_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT3 += Amount;
+
+                        }
+                        if (data.EFFICIENCY_AMOUNT != null)
+                        {
+                            string strNii = data.EFFICIENCY_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT4 += Amount;
+
+                        }
+                        if (data.LAW_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT5 += Amount;
+
+                        }
+                        if (data.MONITORING_AMOUNT != null)
+                        {
+                            string strNii = data.MONITORING_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT6 += Amount;
+
+                        }
+                        if (data.PURCHASE_AMOUNT != null)
+                        {
+                            string strNii = data.PURCHASE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT7 += Amount;
+
+                        }
+                        if (data.COST_AMOUNT != null)
+                        {
+                            string strNii = data.COST_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT8 += Amount;
+
+                        }
+                        if (data.OTHER_AMOUNT != null)
+                        {
+                            string strNii = data.OTHER_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT9 += Amount;
+
+                        }
+                        if (data.ALL_AMOUNT != null)
+                        {
+                            string strNii = data.ALL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT10 += Amount;
+
+                        }
+                        if (data.INCOME_LOCAL_AMOUNT != null)
+                        {
+                            string strNii = data.INCOME_LOCAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT11 += Amount;
+
+                        }
+
+
+
+                        if (data.INCOME_STATE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER += Convert.ToInt32(data.INCOME_STATE_COUNT);
+                        }
+                        if (data.INCOME_LOCAL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER1 += Convert.ToInt32(data.INCOME_LOCAL_COUNT);
+                        }
+                        if (data.BUDGET_STATE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER2 += Convert.ToInt32(data.BUDGET_STATE_COUNT);
+                        }
+                        if (data.BUDGET_LOCAL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER3 += Convert.ToInt32(data.BUDGET_LOCAL_COUNT);
+                        }
+                        if (data.ACCOUNTANT_COUNT != 0)
+                        {
+                            totalDEC2NUMBER4 += Convert.ToInt32(data.ACCOUNTANT_COUNT);
+                        }
+                        if (data.EFFICIENCY_COUNT != 0)
+                        {
+                            totalDEC2NUMBER5 += Convert.ToInt32(data.EFFICIENCY_COUNT);
+                        }
+                        if (data.LAW_COUNT != 0)
+                        {
+                            totalDEC2NUMBER6 += Convert.ToInt32(data.LAW_COUNT);
+                        }
+                        if (data.MONITORING_COUNT != 0)
+                        {
+                            totalDEC2NUMBER7 += Convert.ToInt32(data.MONITORING_COUNT);
+                        }
+                        if (data.PURCHASE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER8 += Convert.ToInt32(data.PURCHASE_COUNT);
+                        }
+                        if (data.COST_COUNT != 0)
+                        {
+                            totalDEC2NUMBER9 += Convert.ToInt32(data.COST_COUNT);
+                        }
+                        if (data.OTHER_COUNT != 0)
+                        {
+                            totalDEC2NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
+                        }
+                        if (data.ALL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER11 += Convert.ToInt32(data.ALL_COUNT);
+                        }
+
+                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
+                        totalDEC2depname.SetValue(totalDEC2Niit, data.DECISION_TYPE);
+                    }
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+
+                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
+                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
+                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
+                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
+                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
+                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
+                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
+                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
+                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
+                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
+                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
+                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
+
+                    totalDEC2depname.SetValue(totalDEC2Niit, "Нийт");
+                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "Албан тушаалтанд хариуцлага тооцуулах санал");
+
+
+                    totalCompanytemplist5.Add(totalDEC2Niit);
+                    BudgetTypes5 = totalCompanytemplist5;
+                }
+                if (totalCompanytype6.Count > 0)
+                {
+
+                    CM5 totalDEC2Niit = new CM5();
+                    var totalDEC2depname = typ.GetProperty("AUDIT_TYPE_NAME");
+                    var totalDEP2depname = typ.GetProperty("DEPARTMENT_NAME");
+                    var totalDECISION2_TYPEdepname = typ.GetProperty("DECISION_TYPE");
+
+                    var totalDEC2pay = typ.GetProperty("INCOME_STATE_AMOUNT");
+                    var totalDEC2pay1 = typ.GetProperty("BUDGET_STATE_AMOUNT");
+                    var totalDEC2pay2 = typ.GetProperty("BUDGET_LOCAL_AMOUNT");
+                    var totalDEC2pay3 = typ.GetProperty("ACCOUNTANT_AMOUNT");
+                    var totalDEC2pay4 = typ.GetProperty("EFFICIENCY_AMOUNT");
+                    var totalDEC2pay5 = typ.GetProperty("LAW_AMOUNT");
+                    var totalDEC2pay6 = typ.GetProperty("MONITORING_AMOUNT");
+                    var totalDEC2pay7 = typ.GetProperty("PURCHASE_AMOUNT");
+                    var totalDEC2pay8 = typ.GetProperty("COST_AMOUNT");
+                    var totalDEC2pay9 = typ.GetProperty("OTHER_AMOUNT");
+                    var totalDEC2pay10 = typ.GetProperty("ALL_AMOUNT");
+                    var totalDEC2pay11 = typ.GetProperty("INCOME_LOCAL_AMOUNT");
+
+
+                    var totalDEC2count = typ.GetProperty("INCOME_STATE_COUNT");
+                    var totalDEC2count1 = typ.GetProperty("INCOME_LOCAL_COUNT");
+                    var totalDEC2count2 = typ.GetProperty("BUDGET_STATE_COUNT");
+                    var totalDEC2count3 = typ.GetProperty("BUDGET_LOCAL_COUNT");
+                    var totalDEC2count4 = typ.GetProperty("ACCOUNTANT_COUNT");
+                    var totalDEC2count5 = typ.GetProperty("EFFICIENCY_COUNT");
+                    var totalDEC2count6 = typ.GetProperty("LAW_COUNT");
+                    var totalDEC2count7 = typ.GetProperty("MONITORING_COUNT");
+                    var totalDEC2count8 = typ.GetProperty("PURCHASE_COUNT");
+                    var totalDEC2count9 = typ.GetProperty("COST_COUNT");
+                    var totalDEC2count10 = typ.GetProperty("OTHER_COUNT");
+                    var totalDEC2count11 = typ.GetProperty("ALL_COUNT");
+
+
+                    decimal totalDEC2AMOUNT = 0;
+                    decimal totalDEC2AMOUNT1 = 0;
+                    decimal totalDEC2AMOUNT2 = 0;
+                    decimal totalDEC2AMOUNT3 = 0;
+                    decimal totalDEC2AMOUNT4 = 0;
+                    decimal totalDEC2AMOUNT5 = 0;
+                    decimal totalDEC2AMOUNT6 = 0;
+                    decimal totalDEC2AMOUNT7 = 0;
+                    decimal totalDEC2AMOUNT8 = 0;
+                    decimal totalDEC2AMOUNT9 = 0;
+                    decimal totalDEC2AMOUNT10 = 0;
+                    decimal totalDEC2AMOUNT11 = 0;
+
+                    int totalDEC2NUMBER = 0;
+                    int totalDEC2NUMBER1 = 0;
+                    int totalDEC2NUMBER2 = 0;
+                    int totalDEC2NUMBER3 = 0;
+                    int totalDEC2NUMBER4 = 0;
+                    int totalDEC2NUMBER5 = 0;
+                    int totalDEC2NUMBER6 = 0;
+                    int totalDEC2NUMBER7 = 0;
+                    int totalDEC2NUMBER8 = 0;
+                    int totalDEC2NUMBER9 = 0;
+                    int totalDEC2NUMBER10 = 0;
+                    int totalDEC2NUMBER11 = 0;
+
+
+                    foreach (CM5 data in totalCompanytype6)
+                    {
+                        if (data.INCOME_STATE_AMOUNT != null)
+                        {
+                            string strNii = data.INCOME_STATE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT += Amount;
+
+                        }
+                        if (data.BUDGET_STATE_AMOUNT != null)
+                        {
+                            string strNii = data.BUDGET_STATE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT1 += Amount;
+
+                        }
+                        if (data.BUDGET_LOCAL_AMOUNT != null)
+                        {
+                            string strNii = data.BUDGET_LOCAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT2 += Amount;
+
+                        }
+                        if (data.ACCOUNTANT_AMOUNT != null)
+                        {
+                            string strNii = data.ACCOUNTANT_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT3 += Amount;
+
+                        }
+                        if (data.EFFICIENCY_AMOUNT != null)
+                        {
+                            string strNii = data.EFFICIENCY_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT4 += Amount;
+
+                        }
+                        if (data.LAW_AMOUNT != null)
+                        {
+                            string strNii = data.LAW_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT5 += Amount;
+
+                        }
+                        if (data.MONITORING_AMOUNT != null)
+                        {
+                            string strNii = data.MONITORING_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT6 += Amount;
+
+                        }
+                        if (data.PURCHASE_AMOUNT != null)
+                        {
+                            string strNii = data.PURCHASE_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT7 += Amount;
+
+                        }
+                        if (data.COST_AMOUNT != null)
+                        {
+                            string strNii = data.COST_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT8 += Amount;
+
+                        }
+                        if (data.OTHER_AMOUNT != null)
+                        {
+                            string strNii = data.OTHER_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT9 += Amount;
+
+                        }
+                        if (data.ALL_AMOUNT != null)
+                        {
+                            string strNii = data.ALL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT10 += Amount;
+
+                        }
+                        if (data.INCOME_LOCAL_AMOUNT != null)
+                        {
+                            string strNii = data.INCOME_LOCAL_AMOUNT.Replace(",", "");
+                            Decimal Amount = Convert.ToDecimal(strNii);
+                            totalDEC2AMOUNT11 += Amount;
+
+                        }
+
+
+
+                        if (data.INCOME_STATE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER += Convert.ToInt32(data.INCOME_STATE_COUNT);
+                        }
+                        if (data.INCOME_LOCAL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER1 += Convert.ToInt32(data.INCOME_LOCAL_COUNT);
+                        }
+                        if (data.BUDGET_STATE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER2 += Convert.ToInt32(data.BUDGET_STATE_COUNT);
+                        }
+                        if (data.BUDGET_LOCAL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER3 += Convert.ToInt32(data.BUDGET_LOCAL_COUNT);
+                        }
+                        if (data.ACCOUNTANT_COUNT != 0)
+                        {
+                            totalDEC2NUMBER4 += Convert.ToInt32(data.ACCOUNTANT_COUNT);
+                        }
+                        if (data.EFFICIENCY_COUNT != 0)
+                        {
+                            totalDEC2NUMBER5 += Convert.ToInt32(data.EFFICIENCY_COUNT);
+                        }
+                        if (data.LAW_COUNT != 0)
+                        {
+                            totalDEC2NUMBER6 += Convert.ToInt32(data.LAW_COUNT);
+                        }
+                        if (data.MONITORING_COUNT != 0)
+                        {
+                            totalDEC2NUMBER7 += Convert.ToInt32(data.MONITORING_COUNT);
+                        }
+                        if (data.PURCHASE_COUNT != 0)
+                        {
+                            totalDEC2NUMBER8 += Convert.ToInt32(data.PURCHASE_COUNT);
+                        }
+                        if (data.COST_COUNT != 0)
+                        {
+                            totalDEC2NUMBER9 += Convert.ToInt32(data.COST_COUNT);
+                        }
+                        if (data.OTHER_COUNT != 0)
+                        {
+                            totalDEC2NUMBER10 += Convert.ToInt32(data.OTHER_COUNT);
+                        }
+                        if (data.ALL_COUNT != 0)
+                        {
+                            totalDEC2NUMBER11 += Convert.ToInt32(data.ALL_COUNT);
+                        }
+
+                        totalDEP2depname.SetValue(totalDEC2Niit, data.DEPARTMENT_NAME);
+                        totalDEC2depname.SetValue(totalDEC2Niit, data.DECISION_TYPE);
+                    }
+                    totalDEC2pay.SetValue(totalDEC2Niit, totalDEC2AMOUNT.ToString("#,0.00"));
+                    totalDEC2pay1.SetValue(totalDEC2Niit, totalDEC2AMOUNT1.ToString("#,0.00"));
+                    totalDEC2pay2.SetValue(totalDEC2Niit, totalDEC2AMOUNT2.ToString("#,0.00"));
+                    totalDEC2pay3.SetValue(totalDEC2Niit, totalDEC2AMOUNT3.ToString("#,0.00"));
+                    totalDEC2pay4.SetValue(totalDEC2Niit, totalDEC2AMOUNT4.ToString("#,0.00"));
+                    totalDEC2pay5.SetValue(totalDEC2Niit, totalDEC2AMOUNT5.ToString("#,0.00"));
+                    totalDEC2pay6.SetValue(totalDEC2Niit, totalDEC2AMOUNT6.ToString("#,0.00"));
+                    totalDEC2pay7.SetValue(totalDEC2Niit, totalDEC2AMOUNT7.ToString("#,0.00"));
+                    totalDEC2pay8.SetValue(totalDEC2Niit, totalDEC2AMOUNT8.ToString("#,0.00"));
+                    totalDEC2pay9.SetValue(totalDEC2Niit, totalDEC2AMOUNT9.ToString("#,0.00"));
+                    totalDEC2pay10.SetValue(totalDEC2Niit, totalDEC2AMOUNT10.ToString("#,0.00"));
+                    totalDEC2pay11.SetValue(totalDEC2Niit, totalDEC2AMOUNT11.ToString("#,0.00"));
+
+                    totalDEC2count.SetValue(totalDEC2Niit, totalDEC2NUMBER);
+                    totalDEC2count1.SetValue(totalDEC2Niit, totalDEC2NUMBER1);
+                    totalDEC2count2.SetValue(totalDEC2Niit, totalDEC2NUMBER2);
+                    totalDEC2count3.SetValue(totalDEC2Niit, totalDEC2NUMBER3);
+                    totalDEC2count4.SetValue(totalDEC2Niit, totalDEC2NUMBER4);
+                    totalDEC2count5.SetValue(totalDEC2Niit, totalDEC2NUMBER5);
+                    totalDEC2count6.SetValue(totalDEC2Niit, totalDEC2NUMBER6);
+                    totalDEC2count7.SetValue(totalDEC2Niit, totalDEC2NUMBER7);
+                    totalDEC2count8.SetValue(totalDEC2Niit, totalDEC2NUMBER8);
+                    totalDEC2count9.SetValue(totalDEC2Niit, totalDEC2NUMBER9);
+                    totalDEC2count10.SetValue(totalDEC2Niit, totalDEC2NUMBER10);
+                    totalDEC2count11.SetValue(totalDEC2Niit, totalDEC2NUMBER11);
+
+                    totalDEC2depname.SetValue(totalDEC2Niit, "Нийт");
+                    totalDECISION2_TYPEdepname.SetValue(totalDEC2Niit, "Хууль хяналтын байгууллагад шилжүүлсэн асуудал");
+
+
+                    totalCompanytemplist6.Add(totalDEC2Niit);
+                    BudgetTypes6 = totalCompanytemplist6;
                 }
 
 
 
-                totaltemp.Add(title);
+                totaltemp.AddRange(Bigdata);
                 totaltemp.AddRange(BudgetTypes1);
                 totaltemp.AddRange(BudgetTypes2);
                 totaltemp.AddRange(BudgetTypes3);
+                totaltemp.AddRange(BudgetTypes4);
+                totaltemp.AddRange(BudgetTypes5);
+                totaltemp.AddRange(BudgetTypes6);
                 requestData = totaltemp;
             }
 
