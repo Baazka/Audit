@@ -4312,7 +4312,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
 
                 dtTableCount.TableName = "RowCount";
-                var count = dtTableCount.Rows[0][0];
+                //var count = dtTableCount.Rows[0][0];
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;

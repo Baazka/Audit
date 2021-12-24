@@ -1175,7 +1175,7 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("BM5") != null)
                 {
                     Body = (from item in res.Elements("BM5") select new BM5List().SetXml(item)).ToList();
-                    AllData = (from item in res.Elements("BM5") select new BM5List().SetXml(item)).ToList();
+                    AllData = (from item in res.Elements("RowCount") select new BM5List().SetXml(item)).ToList();
                     response.recordsTotal = AllData.Count();
                 }
                    
