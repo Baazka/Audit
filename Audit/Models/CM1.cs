@@ -24,30 +24,30 @@ namespace Audit.Models
         public string AUDIT_TYPE { get; set; }
         public string CATEGORY_TYPE { get; set; }
         public int IS_STATE { get; set; }
-        public int WORKING_PERSON { get; set; }
-        public int WORKING_DAY { get; set; }
-        public int WORKING_ADDITION_TIME { get; set; }
-        public int EXECUTORY { get; set; }
-        public int EXEC_DECISION { get; set; }
-        public int EXEC_COLLECTION { get; set; }
-        public int EXEC_TRUSTED { get; set; }
-        public int PERFORMED { get; set; }
-        public int PERF_DECISION { get; set; }
-        public int PERF_COLLECTION { get; set; }
-        public int PERF_TRUSTED { get; set; }
-        public int PERF_NOT_AUDITED { get; set; }
-        public int PROPOSAL { get; set; }
-        public int PROP_UNVIOLATED { get; set; }
-        public int PROP_RESTRICTED { get; set; }
-        public int PROP_NEGATIVE { get; set; }
-        public int PROP_NOT { get; set; }
-        public int TPA_COUNT { get; set; }
+        public Int64? WORKING_PERSON { get; set; }
+        public Int64? WORKING_DAY { get; set; }
+        public Int64? WORKING_ADDITION_TIME { get; set; }
+        public Int64? EXECUTORY { get; set; }
+        public Int64? EXEC_DECISION { get; set; }
+        public Int64? EXEC_COLLECTION { get; set; }
+        public Int64? EXEC_TRUSTED { get; set; }
+        public Int64? PERFORMED { get; set; }
+        public Int64? PERF_DECISION { get; set; }
+        public Int64? PERF_COLLECTION { get; set; }
+        public Int64? PERF_TRUSTED { get; set; }
+        public Int64? PERF_NOT_AUDITED { get; set; }
+        public Int64? PROPOSAL { get; set; }
+        public Int64? PROP_UNVIOLATED { get; set; }
+        public Int64? PROP_RESTRICTED { get; set; }
+        public Int64? PROP_NEGATIVE { get; set; }
+        public Int64? PROP_NOT { get; set; }
+        public Int64? TPA_COUNT { get; set; }
         public string TPA_AMOUNT { get; set; }
-        public int AUDITED_INCLUDED_ORG { get; set; }
-        public int BENEFIT_FIN_COUNT { get; set; }
+        public Int64? AUDITED_INCLUDED_ORG { get; set; }
+        public Int64? BENEFIT_FIN_COUNT { get; set; }
         public string BENEFIT_FIN_AMOUNT { get; set; }
-        public int BENEFIT_NONFIN { get; set; }
-        public int EXEC_TYPE { get; set; }
+        public Int64? BENEFIT_NONFIN { get; set; }
+        public Int64? EXEC_TYPE { get; set; }
 
         public DateTime? CREATED_DATE { get; set; }
         public DateTime? UPDATED_DATE { get; set; }
@@ -77,53 +77,53 @@ namespace Audit.Models
                 if (xml.Element("IS_STATE") != null)
                     IS_STATE = Convert.ToInt32(xml.Element("IS_STATE").Value);
                 if (xml.Element("WORKING_PERSON") != null)
-                    WORKING_PERSON = Convert.ToInt32(xml.Element("WORKING_PERSON").Value);
+                    WORKING_PERSON = Convert.ToInt64(xml.Element("WORKING_PERSON").Value);
                 if (xml.Element("WORKING_DAY") != null)
-                    WORKING_DAY = Convert.ToInt32(xml.Element("WORKING_DAY").Value);
+                    WORKING_DAY = Convert.ToInt64(xml.Element("WORKING_DAY").Value);
                 if (xml.Element("WORKING_ADDITION_TIME") != null)
-                    WORKING_ADDITION_TIME = Convert.ToInt32(xml.Element("WORKING_ADDITION_TIME").Value);
+                    WORKING_ADDITION_TIME = Convert.ToInt64(xml.Element("WORKING_ADDITION_TIME").Value);
                 if (xml.Element("EXECUTORY") != null)
-                    EXECUTORY = Convert.ToInt32(xml.Element("EXECUTORY").Value);
+                    EXECUTORY = Convert.ToInt64(xml.Element("EXECUTORY").Value);
                 if (xml.Element("EXEC_DECISION") != null)
-                    EXEC_DECISION = Convert.ToInt32(xml.Element("EXEC_DECISION").Value);
+                    EXEC_DECISION = Convert.ToInt64(xml.Element("EXEC_DECISION").Value);
                 if (xml.Element("EXEC_COLLECTION") != null)
-                    EXEC_COLLECTION = Convert.ToInt32(xml.Element("EXEC_COLLECTION").Value);
+                    EXEC_COLLECTION = Convert.ToInt64(xml.Element("EXEC_COLLECTION").Value);
                 if (xml.Element("EXEC_TRUSTED") != null)
-                    EXEC_TRUSTED = Convert.ToInt32(xml.Element("EXEC_TRUSTED").Value);
+                    EXEC_TRUSTED = Convert.ToInt64(xml.Element("EXEC_TRUSTED").Value);
                 if (xml.Element("PERFORMED") != null)
-                    PERFORMED = Convert.ToInt32(xml.Element("PERFORMED").Value);
+                    PERFORMED = Convert.ToInt64(xml.Element("PERFORMED").Value);
                 if (xml.Element("PERF_DECISION") != null)
-                    PERF_DECISION = Convert.ToInt32(xml.Element("PERF_DECISION").Value);
+                    PERF_DECISION = Convert.ToInt64(xml.Element("PERF_DECISION").Value);
                 if (xml.Element("PERF_COLLECTION") != null)
-                    PERF_COLLECTION = Convert.ToInt32(xml.Element("PERF_COLLECTION").Value);
+                    PERF_COLLECTION = Convert.ToInt64(xml.Element("PERF_COLLECTION").Value);
                 if (xml.Element("PERF_TRUSTED") != null)
-                    PERF_TRUSTED = Convert.ToInt32(xml.Element("PERF_TRUSTED").Value);
+                    PERF_TRUSTED = Convert.ToInt64(xml.Element("PERF_TRUSTED").Value);
                 if (xml.Element("PERF_NOT_AUDITED") != null)
-                    PERF_NOT_AUDITED = Convert.ToInt32(xml.Element("PERF_NOT_AUDITED").Value);
+                    PERF_NOT_AUDITED = Convert.ToInt64(xml.Element("PERF_NOT_AUDITED").Value);
                 if (xml.Element("PROPOSAL") != null)
-                    PROPOSAL = Convert.ToInt32(xml.Element("PROPOSAL").Value);
+                    PROPOSAL = Convert.ToInt64(xml.Element("PROPOSAL").Value);
                 if (xml.Element("PROP_UNVIOLATED") != null)
-                    PROP_UNVIOLATED = Convert.ToInt32(xml.Element("PROP_UNVIOLATED").Value);
+                    PROP_UNVIOLATED = Convert.ToInt64(xml.Element("PROP_UNVIOLATED").Value);
                 if (xml.Element("PROP_RESTRICTED") != null)
-                    PROP_RESTRICTED = Convert.ToInt32(xml.Element("PROP_RESTRICTED").Value);
+                    PROP_RESTRICTED = Convert.ToInt64(xml.Element("PROP_RESTRICTED").Value);
                 if (xml.Element("PROP_NEGATIVE") != null)
-                    PROP_NEGATIVE = Convert.ToInt32(xml.Element("PROP_NEGATIVE").Value);
+                    PROP_NEGATIVE = Convert.ToInt64(xml.Element("PROP_NEGATIVE").Value);
                 if (xml.Element("PROP_NOT") != null)
-                    PROP_NOT = Convert.ToInt32(xml.Element("PROP_NOT").Value);
+                    PROP_NOT = Convert.ToInt64(xml.Element("PROP_NOT").Value);
                 if (xml.Element("TPA_COUNT") != null)
-                    TPA_COUNT = Convert.ToInt32(xml.Element("TPA_COUNT").Value);
+                    TPA_COUNT = Convert.ToInt64(xml.Element("TPA_COUNT").Value);
                 if (xml.Element("TPA_AMOUNT") != null)
                     TPA_AMOUNT = Convert.ToDecimal(xml.Element("TPA_AMOUNT").Value).ToString("#,0.00");
                 if (xml.Element("AUDITED_INCLUDED_ORG") != null)
-                    AUDITED_INCLUDED_ORG = Convert.ToInt32(xml.Element("AUDITED_INCLUDED_ORG").Value);
+                    AUDITED_INCLUDED_ORG = Convert.ToInt64(xml.Element("AUDITED_INCLUDED_ORG").Value);
                 if (xml.Element("BENEFIT_FIN_COUNT") != null)
-                    BENEFIT_FIN_COUNT = Convert.ToInt32(xml.Element("BENEFIT_FIN_COUNT").Value);
+                    BENEFIT_FIN_COUNT = Convert.ToInt64(xml.Element("BENEFIT_FIN_COUNT").Value);
                 if (xml.Element("BENEFIT_FIN_AMOUNT") != null)
                     BENEFIT_FIN_AMOUNT = Convert.ToDecimal(xml.Element("BENEFIT_FIN_AMOUNT").Value).ToString("#,0.00");
                 if (xml.Element("BENEFIT_NONFIN") != null)
-                    BENEFIT_NONFIN = Convert.ToInt32(xml.Element("BENEFIT_NONFIN").Value);
+                    BENEFIT_NONFIN = Convert.ToInt64(xml.Element("BENEFIT_NONFIN").Value);
                 if (xml.Element("EXEC_TYPE") != null)
-                    EXEC_TYPE = Convert.ToInt32(xml.Element("EXEC_TYPE").Value);
+                    EXEC_TYPE = Convert.ToInt64(xml.Element("EXEC_TYPE").Value);
                 if (xml.Element("CREATED_DATE") != null)
                     CREATED_DATE = Convert.ToDateTime(xml.Element("CREATED_DATE").Value);
 

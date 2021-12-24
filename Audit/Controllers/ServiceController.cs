@@ -3780,28 +3780,28 @@ namespace Audit.Controllers
                         //decimal AMOUNT10 = 0;
                         //decimal AMOUNT11 = 0;
 
-                       // int NUMBER = 0;
-                        int NUMBER1 = 0;
-                        int NUMBER2 = 0;
-                        int NUMBER3 = 0;
-                        int NUMBER4 = 0;
-                        int NUMBER5 = 0;
-                        int NUMBER6 = 0;
-                        int NUMBER7 = 0;
-                        int NUMBER8 = 0;
-                        int NUMBER9 = 0;
-                        int NUMBER10 = 0;
-                        int NUMBER11 = 0;
-                        int NUMBER12 = 0;
-                        int NUMBER13 = 0;
-                        int NUMBER14 = 0;
-                        int NUMBER15 = 0;
-                        int NUMBER16 = 0;
-                        int NUMBER17 = 0;
-                        int NUMBER18 = 0;
-                        int NUMBER19 = 0;
-                        int NUMBER20 = 0;
-                        int NUMBER21 = 0;
+                        // ToInt64 NUMBER = 0;
+                        Int64 NUMBER1 = 0;
+                        Int64 NUMBER2 = 0;
+                        Int64 NUMBER3 = 0;
+                        Int64 NUMBER4 = 0;
+                        Int64 NUMBER5 = 0;
+                        Int64 NUMBER6 = 0;
+                        Int64 NUMBER7 = 0;
+                        Int64 NUMBER8 = 0;
+                        Int64 NUMBER9 = 0;
+                        Int64 NUMBER10 = 0;
+                        Int64 NUMBER11 = 0;
+                        Int64 NUMBER12 = 0;
+                        Int64 NUMBER13 = 0;
+                        Int64 NUMBER14 = 0;
+                        Int64 NUMBER15 = 0;
+                        Int64 NUMBER16 = 0;
+                        Int64 NUMBER17 = 0;
+                        Int64 NUMBER18 = 0;
+                        Int64 NUMBER19 = 0;
+                        Int64 NUMBER20 = 0;
+                        Int64 NUMBER21 = 0;
 
                         foreach (CM1 data in body)
                         {
@@ -3819,95 +3819,95 @@ namespace Audit.Controllers
                                 AMOUNT1 += Amount;
 
                             }
-                           
+
 
                             //if (data.IS_STATE != 0)
                             //{
-                            //    NUMBER += Convert.ToInt32(data.IS_STATE);
+                            //    NUMBER += Convert.ToInt64(data.IS_STATE);
                             //}
                             if (data.WORKING_PERSON != 0)
                             {
-                                NUMBER1 += Convert.ToInt32(data.WORKING_PERSON);
+                                NUMBER1 += Convert.ToInt64(data.WORKING_PERSON);
                             }
                             if (data.WORKING_DAY != 0)
                             {
-                                NUMBER2 += Convert.ToInt32(data.WORKING_DAY);
+                                NUMBER2 += Convert.ToInt64(data.WORKING_DAY);
                             }
                             if (data.WORKING_ADDITION_TIME != 0)
                             {
-                                NUMBER3 += Convert.ToInt32(data.WORKING_ADDITION_TIME);
+                                NUMBER3 += Convert.ToInt64(data.WORKING_ADDITION_TIME);
                             }
                             if (data.EXECUTORY != 0)
                             {
-                                NUMBER4 += Convert.ToInt32(data.EXECUTORY);
+                                NUMBER4 += Convert.ToInt64(data.EXECUTORY);
                             }
                             if (data.EXEC_DECISION != 0)
                             {
-                                NUMBER5 += Convert.ToInt32(data.EXEC_DECISION);
+                                NUMBER5 += Convert.ToInt64(data.EXEC_DECISION);
                             }
                             if (data.EXEC_COLLECTION != 0)
                             {
-                                NUMBER6 += Convert.ToInt32(data.EXEC_COLLECTION);
+                                NUMBER6 += Convert.ToInt64(data.EXEC_COLLECTION);
                             }
                             if (data.EXEC_TRUSTED != 0)
                             {
-                                NUMBER7 += Convert.ToInt32(data.EXEC_TRUSTED);
+                                NUMBER7 += Convert.ToInt64(data.EXEC_TRUSTED);
                             }
                             if (data.PERFORMED != 0)
                             {
-                                NUMBER8 += Convert.ToInt32(data.PERFORMED);
+                                NUMBER8 += Convert.ToInt64(data.PERFORMED);
                             }
                             if (data.PERF_DECISION != 0)
                             {
-                                NUMBER9 += Convert.ToInt32(data.PERF_DECISION);
+                                NUMBER9 += Convert.ToInt64(data.PERF_DECISION);
                             }
                             if (data.PERF_COLLECTION != 0)
                             {
-                                NUMBER10 += Convert.ToInt32(data.PERF_COLLECTION);
+                                NUMBER10 += Convert.ToInt64(data.PERF_COLLECTION);
                             }
                             if (data.PERF_TRUSTED != 0)
                             {
-                                NUMBER11 += Convert.ToInt32(data.PERF_TRUSTED);
+                                NUMBER11 += Convert.ToInt64(data.PERF_TRUSTED);
                             }
                             if (data.PERF_NOT_AUDITED != 0)
                             {
-                                NUMBER12 += Convert.ToInt32(data.PERF_NOT_AUDITED);
+                                NUMBER12 += Convert.ToInt64(data.PERF_NOT_AUDITED);
                             }
                             if (data.PROPOSAL != 0)
                             {
-                                NUMBER13 += Convert.ToInt32(data.PROPOSAL);
+                                NUMBER13 += Convert.ToInt64(data.PROPOSAL);
                             }
                             if (data.PROP_UNVIOLATED != 0)
                             {
-                                NUMBER14 += Convert.ToInt32(data.PROP_UNVIOLATED);
+                                NUMBER14 += Convert.ToInt64(data.PROP_UNVIOLATED);
                             }
                             if (data.PROP_RESTRICTED != 0)
                             {
-                                NUMBER15 += Convert.ToInt32(data.PROP_RESTRICTED);
+                                NUMBER15 += Convert.ToInt64(data.PROP_RESTRICTED);
                             }
                             if (data.PROP_NEGATIVE != 0)
                             {
-                                NUMBER16 += Convert.ToInt32(data.PROP_NEGATIVE);
+                                NUMBER16 += Convert.ToInt64(data.PROP_NEGATIVE);
                             }
                             if (data.PROP_NOT != 0)
                             {
-                                NUMBER17 += Convert.ToInt32(data.PROP_NOT);
+                                NUMBER17 += Convert.ToInt64(data.PROP_NOT);
                             }
                             if (data.TPA_COUNT != 0)
                             {
-                                NUMBER18 += Convert.ToInt32(data.TPA_COUNT);
+                                NUMBER18 += Convert.ToInt64(data.TPA_COUNT);
                             }
                             if (data.BENEFIT_FIN_COUNT != 0)
                             {
-                                NUMBER19 += Convert.ToInt32(data.BENEFIT_FIN_COUNT);
+                                NUMBER19 += Convert.ToInt64(data.BENEFIT_FIN_COUNT);
                             }
                             if (data.BENEFIT_NONFIN != 0)
                             {
-                                NUMBER20 += Convert.ToInt32(data.BENEFIT_NONFIN);
+                                NUMBER20 += Convert.ToInt64(data.BENEFIT_NONFIN);
                             }
                             if (data.AUDITED_INCLUDED_ORG != 0)
                             {
-                                NUMBER21 += Convert.ToInt32(data.AUDITED_INCLUDED_ORG);
+                                NUMBER21 += Convert.ToInt64(data.AUDITED_INCLUDED_ORG);
                             }
                         }
 
@@ -4366,7 +4366,7 @@ namespace Audit.Controllers
                 var DECpay1 = typ.GetProperty("BENEFIT_FIN_AMOUNT");
 
 
-               // var DECcount = typ.GetProperty("IS_STATE");
+                // var DECcount = typ.GetProperty("IS_STATE");
                 var DECcount1 = typ.GetProperty("WORKING_PERSON");
                 var DECcount2 = typ.GetProperty("WORKING_DAY");
                 var DECcount3 = typ.GetProperty("WORKING_ADDITION_TIME");
@@ -4395,27 +4395,27 @@ namespace Audit.Controllers
                 decimal DECAMOUNT1 = 0;
 
                 //int DECNUMBER = 0;
-                int DECNUMBER1 = 0;
-                int DECNUMBER2 = 0;
-                int DECNUMBER3 = 0;
-                int DECNUMBER4 = 0;
-                int DECNUMBER5 = 0;
-                int DECNUMBER6 = 0;
-                int DECNUMBER7 = 0;
-                int DECNUMBER8 = 0;
-                int DECNUMBER9 = 0;
-                int DECNUMBER10 = 0;
-                int DECNUMBER11 = 0;
-                int DECNUMBER12 = 0;
-                int DECNUMBER13 = 0;
-                int DECNUMBER14 = 0;
-                int DECNUMBER15 = 0;
-                int DECNUMBER16 = 0;
-                int DECNUMBER17 = 0;
-                int DECNUMBER18 = 0;
-                int DECNUMBER19 = 0;
-                int DECNUMBER20 = 0;
-                int DECNUMBER21 = 0;
+                Int64 DECNUMBER1 = 0;
+                Int64 DECNUMBER2 = 0;
+                Int64 DECNUMBER3 = 0;
+                Int64 DECNUMBER4 = 0;
+                Int64 DECNUMBER5 = 0;
+                Int64 DECNUMBER6 = 0;
+                Int64 DECNUMBER7 = 0;
+                Int64 DECNUMBER8 = 0;
+                Int64 DECNUMBER9 = 0;
+                Int64 DECNUMBER10 = 0;
+                Int64 DECNUMBER11 = 0;
+                Int64 DECNUMBER12 = 0;
+                Int64 DECNUMBER13 = 0;
+                Int64 DECNUMBER14 = 0;
+                Int64 DECNUMBER15 = 0;
+                Int64 DECNUMBER16 = 0;
+                Int64 DECNUMBER17 = 0;
+                Int64 DECNUMBER18 = 0;
+                Int64 DECNUMBER19 = 0;
+                Int64 DECNUMBER20 = 0;
+                Int64 DECNUMBER21 = 0;
 
                 foreach (CM1 data in requestData)
                 {
@@ -4434,96 +4434,96 @@ namespace Audit.Controllers
                         DECAMOUNT1 += Amount;
 
                     }
-                   
+
 
                     //if (data.IS_STATE != 0)
                     //{
-                    //    DECNUMBER += Convert.ToInt32(data.IS_STATE);
+                    //    DECNUMBER += Convert.ToInt64(data.IS_STATE);
                     //}
                     if (data.WORKING_PERSON != 0)
                     {
-                        DECNUMBER1 += Convert.ToInt32(data.WORKING_PERSON);
+                        DECNUMBER1 += Convert.ToInt64(data.WORKING_PERSON);
                     }
                     if (data.WORKING_DAY != 0)
                     {
-                        DECNUMBER2 += Convert.ToInt32(data.WORKING_DAY);
+                        DECNUMBER2 += Convert.ToInt64(data.WORKING_DAY);
                     }
                     if (data.WORKING_ADDITION_TIME != 0)
                     {
-                        DECNUMBER3 += Convert.ToInt32(data.WORKING_ADDITION_TIME);
+                        DECNUMBER3 += Convert.ToInt64(data.WORKING_ADDITION_TIME);
                     }
                     if (data.EXECUTORY != 0)
                     {
-                        DECNUMBER4 += Convert.ToInt32(data.EXECUTORY);
+                        DECNUMBER4 += Convert.ToInt64(data.EXECUTORY);
                     }
                     if (data.EXEC_DECISION != 0)
                     {
-                        DECNUMBER5 += Convert.ToInt32(data.EXEC_DECISION);
+                        DECNUMBER5 += Convert.ToInt64(data.EXEC_DECISION);
                     }
                     if (data.EXEC_COLLECTION != 0)
                     {
-                        DECNUMBER6 += Convert.ToInt32(data.EXEC_COLLECTION);
+                        DECNUMBER6 += Convert.ToInt64(data.EXEC_COLLECTION);
                     }
                     if (data.EXEC_TRUSTED != 0)
                     {
-                        DECNUMBER7 += Convert.ToInt32(data.EXEC_TRUSTED);
+                        DECNUMBER7 += Convert.ToInt64(data.EXEC_TRUSTED);
                     }
                     if (data.PERFORMED != 0)
                     {
-                        DECNUMBER8 += Convert.ToInt32(data.PERFORMED);
+                        DECNUMBER8 += Convert.ToInt64(data.PERFORMED);
                     }
                     if (data.PERF_DECISION != 0)
                     {
-                        DECNUMBER9 += Convert.ToInt32(data.PERF_DECISION);
+                        DECNUMBER9 += Convert.ToInt64(data.PERF_DECISION);
                     }
                     if (data.PERF_COLLECTION != 0)
                     {
-                        DECNUMBER10 += Convert.ToInt32(data.PERF_COLLECTION);
+                        DECNUMBER10 += Convert.ToInt64(data.PERF_COLLECTION);
                     }
                     if (data.PERF_TRUSTED != 0)
                     {
-                        DECNUMBER11 += Convert.ToInt32(data.PERF_TRUSTED);
+                        DECNUMBER11 += Convert.ToInt64(data.PERF_TRUSTED);
                     }
 
                     if (data.PERF_NOT_AUDITED != 0)
                     {
-                        DECNUMBER12 += Convert.ToInt32(data.PERF_NOT_AUDITED);
+                        DECNUMBER12 += Convert.ToInt64(data.PERF_NOT_AUDITED);
                     }
                     if (data.PROPOSAL != 0)
                     {
-                        DECNUMBER13 += Convert.ToInt32(data.PROPOSAL);
+                        DECNUMBER13 += Convert.ToInt64(data.PROPOSAL);
                     }
                     if (data.PROP_UNVIOLATED != 0)
                     {
-                        DECNUMBER14 += Convert.ToInt32(data.PROP_UNVIOLATED);
+                        DECNUMBER14 += Convert.ToInt64(data.PROP_UNVIOLATED);
                     }
                     if (data.PROP_RESTRICTED != 0)
                     {
-                        DECNUMBER15 += Convert.ToInt32(data.PROP_RESTRICTED);
+                        DECNUMBER15 += Convert.ToInt64(data.PROP_RESTRICTED);
                     }
                     if (data.PROP_NEGATIVE != 0)
                     {
-                        DECNUMBER16 += Convert.ToInt32(data.PROP_NEGATIVE);
+                        DECNUMBER16 += Convert.ToInt64(data.PROP_NEGATIVE);
                     }
                     if (data.PROP_NOT != 0)
                     {
-                        DECNUMBER17 += Convert.ToInt32(data.PROP_NOT);
+                        DECNUMBER17 += Convert.ToInt64(data.PROP_NOT);
                     }
                     if (data.TPA_COUNT != 0)
                     {
-                        DECNUMBER18 += Convert.ToInt32(data.TPA_COUNT);
+                        DECNUMBER18 += Convert.ToInt64(data.TPA_COUNT);
                     }
                     if (data.BENEFIT_FIN_COUNT != 0)
                     {
-                        DECNUMBER19 += Convert.ToInt32(data.BENEFIT_FIN_COUNT);
+                        DECNUMBER19 += Convert.ToInt64(data.BENEFIT_FIN_COUNT);
                     }
                     if (data.BENEFIT_NONFIN != 0)
                     {
-                        DECNUMBER20 += Convert.ToInt32(data.BENEFIT_NONFIN);
+                        DECNUMBER20 += Convert.ToInt64(data.BENEFIT_NONFIN);
                     }
                     if (data.AUDITED_INCLUDED_ORG != 0)
                     {
-                        DECNUMBER21 += Convert.ToInt32(data.AUDITED_INCLUDED_ORG);
+                        DECNUMBER21 += Convert.ToInt64(data.AUDITED_INCLUDED_ORG);
                     }
                     DEPdepname.SetValue(DECNiit, data.DEPARTMENT_NAME);
                 }
