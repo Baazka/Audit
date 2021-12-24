@@ -411,18 +411,20 @@
     }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            CM5.table.destroy();
             cm5ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM5.table.destroy();
                 cm5ListInit();
                 $('#exportXLSX').prop('disabled', false);
             }, 5000
             )
         }
+
+      
     </script>
 }
