@@ -1622,10 +1622,11 @@ namespace Audit.Controllers
                     var pay8 = typ.GetProperty("COST_AMOUNT");
                     var pay9 = typ.GetProperty("OTHER_AMOUNT");
                     var pay10 = typ.GetProperty("ALL_AMOUNT");
+                    var pay11 = typ.GetProperty("INCOME_LOCAL_NUMBER");
 
                     var count = typ.GetProperty("INCOME_STATE_COUNT");
                     var count1 = typ.GetProperty("INCOME_LOCAL_COUNT");
-                    var count2 = typ.GetProperty("INCOME_LOCAL_NUMBER");
+                    //var count2 = typ.GetProperty("INCOME_LOCAL_NUMBER");
                     var count3 = typ.GetProperty("BUDGET_STATE_COUNT");
                     var count4 = typ.GetProperty("BUDGET_LOCAL_COUNT");
                     var count5 = typ.GetProperty("ACCOUNTANT_COUNT");
@@ -1648,10 +1649,11 @@ namespace Audit.Controllers
                     Decimal AMOUNT8 = 0;
                     Decimal AMOUNT9 = 0;
                     Decimal AMOUNT10 = 0;
+                    Decimal AMOUNT11 = 0;
 
                     Int64 NUMBER = 0;
                     Int64 NUMBER1 = 0;
-                    Int64 NUMBER2 = 0;
+                    //Int64 NUMBER2 = 0;
                     Int64 NUMBER3 = 0;
                     Int64 NUMBER4 = 0;
                     Int64 NUMBER5 = 0;
@@ -1732,7 +1734,12 @@ namespace Audit.Controllers
                             Decimal Amount1 = Convert.ToDecimal(strNii);
                             AMOUNT10 += Amount1;
                         }
-
+                        if (data.INCOME_LOCAL_NUMBER != "0" && data.INCOME_LOCAL_NUMBER != null)
+                        {
+                            string strNii = data.INCOME_LOCAL_NUMBER.Replace(",", "");
+                            Decimal Amount1 = Convert.ToDecimal(strNii);
+                            AMOUNT11 += Amount1;
+                        }
 
 
                         if (data.INCOME_STATE_COUNT != 0 && data.INCOME_STATE_COUNT != null)
@@ -1743,10 +1750,10 @@ namespace Audit.Controllers
                         {
                             NUMBER1 += Convert.ToInt64(data.INCOME_LOCAL_COUNT);
                         }
-                        if (data.INCOME_LOCAL_NUMBER != 0 && data.INCOME_LOCAL_NUMBER != null)
-                        {
-                            NUMBER2 += Convert.ToInt64(data.INCOME_LOCAL_NUMBER);
-                        }
+                        //if (data.INCOME_LOCAL_NUMBER != 0 && data.INCOME_LOCAL_NUMBER != null)
+                        //{
+                        //    NUMBER2 += Convert.ToInt64(data.INCOME_LOCAL_NUMBER);
+                        //}
                         if (data.BUDGET_STATE_COUNT != 0 && data.BUDGET_STATE_COUNT != null)
                         {
                             NUMBER3 += Convert.ToInt64(data.BUDGET_STATE_COUNT);
@@ -1799,10 +1806,11 @@ namespace Audit.Controllers
                     pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
                     pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
                     pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
-                    count2.SetValue(Niit, NUMBER2);
+                    //count2.SetValue(Niit, NUMBER2);
                     count3.SetValue(Niit, NUMBER3);
                     count4.SetValue(Niit, NUMBER4);
                     count5.SetValue(Niit, NUMBER5);
