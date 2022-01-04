@@ -173,6 +173,7 @@
             });
         }
         function bm2ListInit(pagelength = 10) {
+           
             BM2.table = $("#BM2").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -185,14 +186,11 @@
                         return data;
                     }
                 },
-                createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ID);
-                },
                 "columns": [
                     {
                         "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -278,7 +276,20 @@
                 "language": datatables.language,
                 "drawCallback": function () {
                     rowselected();
-                }
+                },
+                "createdRow": function (row, data, index) {
+                    $(row).attr('data-id', data.ID);
+                    if (data !== undefined) {
+
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
+              
             });
 
         }

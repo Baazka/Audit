@@ -12,6 +12,11 @@
     </a>
     <h4>СМ-4В. Нийцлийн аудитаар тайлант хугацаанд илрүүлсэн алдаа, зөрчлийн шийдвэрлэлт</h4>
 </div>
+<style>
+    .tableBackround {
+        background-color: #8080804a !important;
+    }
+</style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -44,6 +49,7 @@
             <table id="CM4C" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="3" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Үзүүлэлт</th>
                         <th rowspan="2" colspan="2">Нийт зөрчил</th>
@@ -86,7 +92,7 @@
             setTimeout(function () { cm4cListInit(); }, 1000);
         });
 
-        function cm4cListInit() {
+        function cm4cListInit(pagelength = -1) {
             CM4C.table = $("#CM4C").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -96,6 +102,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Type = 3;
                         return data;
                     }
                 },
@@ -103,46 +110,107 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                                return "";
+                            }
+                            else {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
                         }
                     },
-                    //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
-                    //{ "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
-                    { "data": "IS_STATE", "name": "IS_STATE" },
-                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT" },
-                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT" },
-                    { "data": "EXEC_COLLECTION", "name": "EXEC_COLLECTION" },
-                    { "data": "EXEC_TRUSTED", "name": "EXEC_TRUSTED" },
-                    { "data": "PERFORMED", "name": "PERFORMED" },
-                    { "data": "PERF_DECISION", "name": "PERF_DECISION" },
-                    { "data": "PERF_COLLECTION", "name": "PERF_COLLECTION" },
-                    { "data": "PERF_TRUSTED", "name": "PERF_TRUSTED" },
-                    { "data": "PERF_NOT_AUDITED", "name": "PERF_NOT_AUDITED" },
-                    { "data": "PROPOSAL", "name": "PROPOSAL" },
-                    { "data": "PROP_UNVIOLATED", "name": "PROP_UNVIOLATED" },
-                    { "data": "PROP_RESTRICTED", "name": "PROP_RESTRICTED" },
-                    { "data": "PROP_NEGATIVE", "name": "PROP_NEGATIVE" },
-                    { "data": "PROP_NOT", "name": "PROP_NOT" },
-                    { "data": "TPA_COUNT", "name": "TPA_COUNT" },
-                    { "data": "TPA_AMOUNT", "name": "TPA_AMOUNT" },
-                    { "data": "AUDITED_INCLUDED_ORG", "name": "AUDITED_INCLUDED_ORG" },
-                    { "data": "BENEFIT_FIN_COUNT", "name": "BENEFIT_FIN_COUNT" },
-                    { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
-                    { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT", "class": "text-right", },
+                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT", "class": "text-right", },
+                    { "data": "ACT_COUNT", "name": "ACT_COUNT", "class": "text-right", },
+                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT", "class": "text-right", },
+                    { "data": "CLAIM_COUNT", "name": "CLAIM_COUNT", "class": "text-right", },
+                    { "data": "CLAIM_AMOUNT", "name": "CLAIM_AMOUNT", "class": "text-right", },
+                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT", "class": "text-right", },
+                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT", "class": "text-right", },
+                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT", "class": "text-right", },
+                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT", "class": "text-right", },
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT", "class": "text-right", },
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right", },
+                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT", "class": "text-right", },
+                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT", "class": "text-right", },
+
                 ],
+                scrollX: true,
+                scrollY: 392,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
+                "pageLength": pagelength,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
                 "info": true,
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 0)
+                                    $('td', row).eq(0).addClass('font-weight-bold');
+
+                                $(row).children('td').each((index, td) => {
+
+                                    if (index !== 27)
+                                        $('td', row).eq(index).addClass('tableBackround');
+
+                                });
+                            });
+                        }
+                    }
+                },
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+
+
+
+
+                    idx = 0
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
+                },
             });
 
         }
@@ -234,18 +302,19 @@
             }
         }
     }
+      
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            CM4C.table.destroy();
             cm4cListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM4C.table.destroy();
                 cm4cListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

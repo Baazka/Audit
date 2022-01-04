@@ -136,8 +136,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @*<input class="form-control form-control-sm datepicker"/>*@
-                                        @Html.EditorFor(m => m.CLAIM_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @*<input class="form-control form-control-sm datepicker",@readonly = "readonly" />*@
+                                        @Html.EditorFor(m => m.CLAIM_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.CLAIM_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_SUBMITTED_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийг барагдуулах: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_DELIVERY_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

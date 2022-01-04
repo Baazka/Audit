@@ -62,7 +62,7 @@
                         <th colspan="2" rowspan="2">Худалдан авалттай холбоотой</th>
                         <th colspan="2" rowspan="2">Зориулалт бус зарцуулалттай холбоотой</th>
                         <th colspan="2" rowspan="2">Бусад</th>
-                        <th colspan="2" rowspan="2">Алдаа зөрчлийн нийт дүн</th>
+                        <th colspan="2" rowspan="2">Алдаа зөрчлийн Нийт дүн</th>
                     </tr>
                     <tr class="bg-light">
                         <th colspan="2">Улсын төсөв</th>
@@ -123,14 +123,12 @@
                         return data;
                     }
                 },
-                createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ID);
-                },
+             
                 "columns": [
                     {
                         "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -186,7 +184,19 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    $(row).attr('data-id', data.ID);
+                    if (data !== undefined) {
+
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
             });
 
         }

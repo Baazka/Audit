@@ -246,7 +246,7 @@
                         render: function (data, type, row, meta) {
 
 
-                            if (data.ORGNAME === "НИЙТ ДҮН") {
+                            if (data.ORGNAME === "Нийт дүн") {
                                 return "";
                             }
                             else if (data.ORGNAME === "Мэдээлсэн") {
@@ -372,7 +372,7 @@
                 "ordering": false,
                 "createdRow": function (row, data, index) {
                     if (data !== undefined) {
-                        if (data.ORGNAME === "НИЙТ ДҮН" || data.ORGNAME === "Мэдээлсэн"
+                        if (data.ORGNAME === "Нийт дүн" || data.ORGNAME === "Мэдээлсэн"
                             || data.ORGNAME === "Мэдээлээгүй" || data.ORGNAME === "Хугацаа хоцроосон" || data.ORGNAME === "Мэдээлсэн байдлын хэрэгжилтийн хувь" ||
                             data.ORGNAME === "Мэдээлэх шаардлагагүй, хамааралгүй" || data.ORGNAME === "Хугацаа хоцролтын хэрэгжилтийн хувь") {
                             $(row).children('td').each((index, td) => {

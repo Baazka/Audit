@@ -124,8 +124,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Хариуцлагын хэлбэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_LEGAL_STATUS, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_LEGAL_STATUS, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ENT_LEGAL_STATUS, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ENT_LEGAL_STATUS, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Харъяа аудитын газар:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ENT_DEPARTMENT_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.DropDownListFor(model => model.ENT_DEPARTMENT_ID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @readonly = "readonly" })
                                                 @Html.ValidationMessageFor(m => m.ENT_DEPARTMENT_ID, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
@@ -143,8 +143,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Өмчийн хэлбэр:</label>
                                             <div class="col-sm-8">
-                                                @Html.DropDownListFor(model => model.ORG_PROPERTY_TYPE, Model.propertyTypes.Select(m => new SelectListItem { Text = m.PROPERTY_TYPE_NAME, Value = m.PROPERTY_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
-                                                @Html.ValidationMessageFor(m => m.ORG_PROPERTY_TYPE, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(model => model.ENT_PROPERTY_TYPE, Model.propertyTypes.Select(m => new SelectListItem { Text = m.PROPERTY_TYPE_NAME, Value = m.PROPERTY_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+                                                @Html.ValidationMessageFor(m => m.ENT_PROPERTY_TYPE, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
@@ -393,12 +393,12 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Удирдлагын албан тушаал:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                    @Html.ValidationMessageFor(m => m.ORGP_ROLE, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.ENT_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ENT_HEAD_ROLE, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        @*<div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Удирдлагын овог:</label>
                 <div class="col-sm-8">
@@ -406,17 +406,17 @@
                     @Html.ValidationMessageFor(m => m.ORGP_LASTNAME, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Удирдлагын нэр:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_FIRSTNAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                    @Html.ValidationMessageFor(m => m.ORGP_FIRSTNAME, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.ENT_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ENT_HEAD_NAME, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        @*<div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Регистрийн дугаар:</label>
                 <div class="col-sm-8">
@@ -442,17 +442,17 @@
                     @Html.ValidationMessageFor(m => m.ORGP_EXPERIENCE_YEAR, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Утас:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                    @Html.ValidationMessageFor(m => m.ORGP_PHONE, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.ENT_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ENT_HEAD_PHONE, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        @*<div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">И-мэйл:</label>
                 <div class="col-sm-8">
@@ -465,10 +465,10 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Огноо:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_ROLE_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                    @Html.EditorFor(m => m.ORGP_ROLE_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <hr />
     <h6>Байгууллагын нягтлан бодогчтой холбоотой мэдээлэл</h6>
@@ -477,12 +477,12 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Нягтлангийн албан тушаал:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_ROLE2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                    @Html.ValidationMessageFor(m => m.ORGP_ROLE2, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.ENT_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ENT_ACC_ROLE, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        @*<div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Нягтлангийн овог:</label>
                 <div class="col-sm-8">
@@ -490,18 +490,18 @@
                     @Html.ValidationMessageFor(m => m.ORGP_LASTNAME2, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Нягтлангийн нэр:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_FIRSTNAME2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                    @Html.ValidationMessageFor(m => m.ORGP_FIRSTNAME2, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.ENT_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ENT_ACC_NAME, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        <div class="col-4">
+        @*<div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Регистрийн дугаар:</label>
                 <div class="col-sm-8">
@@ -527,17 +527,17 @@
                     @Html.ValidationMessageFor(m => m.ORGP_EXPERIENCE_YEAR2, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Утас:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_PHONE2, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                    @Html.ValidationMessageFor(m => m.ORGP_PHONE2, "", new { @class = "text-danger" })
+                    @Html.EditorFor(m => m.ENT_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    @Html.ValidationMessageFor(m => m.ENT_ACC_PHONE, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        @*<div class="col-4">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">И-мэйл:</label>
                 <div class="col-sm-8">
@@ -550,10 +550,10 @@
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Огноо:</label>
                 <div class="col-sm-8">
-                    @Html.EditorFor(m => m.ORGP_ROLE_DATE2, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                    @Html.EditorFor(m => m.ORGP_ROLE_DATE2, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <hr />
     <div style="text-align: right">

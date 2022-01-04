@@ -20,7 +20,8 @@ namespace Audit.Models
         public string DECISION_TYPE { get; set; }
         public int STATISTIC_PERIOD { get; set; }
         public string PERIOD_LABEL { get; set; }
-
+        public string DEPARTMENT_NAME { get; set; }
+        public int IS_STATE { get; set; }
         public string AUDIT_TYPE { get; set; }
         public string AUDIT_TYPE_NAME { get; set; }
 
@@ -85,8 +86,10 @@ namespace Audit.Models
                 if (xml.Element("INCOME_LOCAL_COUNT") != null)
                     INCOME_LOCAL_COUNT = Convert.ToInt32(xml.Element("INCOME_LOCAL_COUNT").Value);
                 if (xml.Element("INCOME_LOCAL_AMOUNT") != null)
-                    INCOME_LOCAL_AMOUNT = Convert.ToDecimal(xml.Element("INCOME_LOCAL_AMOUNT").Value).ToString("#,0.00"); 
-                                
+                    INCOME_LOCAL_AMOUNT = Convert.ToDecimal(xml.Element("INCOME_LOCAL_AMOUNT").Value).ToString("#,0.00");
+                if (xml.Element("DEPARTMENT_NAME") != null)
+                    DEPARTMENT_NAME = xml.Element("DEPARTMENT_NAME").Value;
+
                 if (xml.Element("BUDGET_STATE_COUNT") != null)
                     BUDGET_STATE_COUNT = Convert.ToInt32(xml.Element("BUDGET_STATE_COUNT").Value);
                 if (xml.Element("BUDGET_STATE_AMOUNT") != null)

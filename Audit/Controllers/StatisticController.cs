@@ -339,6 +339,10 @@ namespace Audit.Controllers
             {
                 ModelState.Remove("AUDITOR_MEMBER");
             }
+            if (bm0.AUDIT_TYPE != 1)
+            {
+                ModelState.Remove("AUDIT_BUDGET_TYPE");
+            }
             if (ModelState.IsValid)
             {
                 if (bm0.ID != 0)
@@ -539,7 +543,7 @@ namespace Audit.Controllers
                 ? Json(new { error = false, message = AppStatic.SystemController.Message })
                 : Json(new { error = true, message = AppStatic.SystemController.Message });
         }
-
+         
         public ActionResult BM1()
         {
             BM1VM res = new BM1VM();

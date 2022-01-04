@@ -175,7 +175,7 @@ namespace Audit.Models
                 if (xml.Element("RECEIVED_ALL") != null)
                     RECEIVED_ALL = Convert.ToInt32(xml.Element("RECEIVED_ALL").Value);
                 if (xml.Element("TAB_WORKERS") != null)
-                    TAB_WORKERS = Convert.ToInt32(xml.Element("TAB_SKILLS").Value);
+                    TAB_WORKERS = Convert.ToInt32(xml.Element("TAB_WORKERS").Value);
                 if (xml.Element("TAB_SKILLS") != null)
                     TAB_SKILLS = Convert.ToInt32(xml.Element("TAB_SKILLS").Value);
                 if (xml.Element("AUDIT_LET") != null)

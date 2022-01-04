@@ -42,9 +42,9 @@ namespace Audit.Models
         public string FORM_TYPE_NAME { get; set; }
         public int? AUDIT_PROPOSAL_TYPE { get; set; }
         public string PROPOSAL_TYPE_NAME { get; set; }
+        [Required(ErrorMessage = "Төсөв захирагчийн ангилал оруулна уу.")]
         public int? AUDIT_BUDGET_TYPE { get; set; }
         public string BUDGET_TYPE_NAME { get; set; }
-        [Required(ErrorMessage = "Утга оруулна уу.")]
         public string AUDIT_INCLUDED_ORG { get; set; }
         
         public int? WORKING_PERSON { get; set; }
