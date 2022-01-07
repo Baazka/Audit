@@ -67,7 +67,8 @@
             <table id="CM5" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
-                        <th rowspan="3"><span class="vertical">Аудитын төрөл</span></th>
+                        <th rowspan="3" class="text-center">Төрийн аудитын байгууллага</th>
+                        <th rowspan="3"><span >Аудитын төрөл</span></th>
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Үзүүлэлт</th>
                         <th colspan="4">Орлого бүрдүүлэлттэй холбоотой</th>
@@ -146,22 +147,25 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
-                    { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME", },
+                    { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME", },
                     {
-                        "data": null, "sortable": false, "class": 'text-center',
+                        "data": null, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DECISION_TYPE === "Нийт дүн") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
-                                return count = count + 1
+                                return meta.row + meta.settings._iDisplayStart + 1;
                             }
                         }
                     },
+                    //{ "data": "DECISION_TYPE", "class": 'text-center',  },
                     { "data": "DECISION_TYPE", "name": "DECISION_TYPE" },
                     { "data": "INCOME_STATE_COUNT", "name": "INCOME_STATE_COUNT" },
                     { "data": "INCOME_STATE_AMOUNT", "name": "INCOME_STATE_AMOUNT" },
-                    { "data": "INCOME_LOCAL_COUNT", "name": "INCOME_LOCAL_AMOUNT" },
+                    { "data": "INCOME_LOCAL_COUNT", "name": "INCOME_LOCAL_COUNT" },
+                    { "data": "INCOME_LOCAL_AMOUNT", "name": "INCOME_LOCAL_AMOUNT" },
                     { "data": "BUDGET_STATE_COUNT", "name": "BUDGET_STATE_COUNT" },
                     { "data": "BUDGET_STATE_AMOUNT", "name": "BUDGET_STATE_AMOUNT" },
                     { "data": "BUDGET_LOCAL_COUNT", "name": "BUDGET_LOCAL_COUNT" },
@@ -182,7 +186,7 @@
                     { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
                     { "data": "ALL_COUNT", "name": "ALL_COUNT" },
                     { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
-                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
+                    
                 ],
                 scrollX: true,
                 scrollY: 392,
@@ -198,16 +202,83 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language,
-                "createdRow": function (row, data, index) {
-                    if (data !== undefined) {
-                        if (data.DECISION_TYPE === "Нийт дүн") {
-                            count = 0;
-                        }
-                    }
-                },
                 "drawCallback": function (settings) {
                     var api = this.api();
                     var rows = api.rows({ page: 'current' }).nodes();
+
+
+
+                    idx1 = 1
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx1, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx1 + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx1 = 1;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx1 = 1;
+                            }
+
+                        }
+
+                    });
+
+
+
+                    //idx2 = 2
+
+                    //last = null;
+                    //tr = null;
+                    //ltd = null;
+                    //api.column(idx2, { page: 'current' }).data().each(function (group, i) {
+                    //    tr = $(rows[i]);
+                    //    var td = $("td:eq(" + idx2 + ")", tr);
+
+                    //    if (last !== group) {
+
+                    //        td.attr("rowspan", 1);
+                    //        if ( group === "Нийт дүн" ) {
+                    //            count = 0;
+                    //        }
+                    //        if (group === "Төлбөрийн акт" || group === "Албан шаардлага" || group === "Зөвлөмж") {
+                    //            td.text(count = count + 1);
+                    //        }
+                    //        else {
+                    //            td.text("");
+                    //        }
+                    //        ltd = td;
+                    //        last = group;
+                    //        td.css("vertical-align", "middle");
+                    //        idx2 = 2;
+                    //    }
+                    //    else {
+                    //        ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                    //        td.remove();
+
+                    //        if (parseInt(ltd.attr("rowspan")) === 5) {
+                    //            idx2 = 2;
+                    //        }
+
+                    //    }
+
+                    //});
+
+
 
                     idx = 0
 
@@ -221,11 +292,11 @@
                         if (last !== group) {
 
                             td.attr("rowspan", 1);
-                            td.text("");
+
+                            td.text(group);
                             ltd = td;
                             last = group;
                             td.css("vertical-align", "middle");
-                            td.append('<span class="vertical" style="font-size:13px">' + group + '</span>');
                             idx = 0;
                         }
                         else {
@@ -240,8 +311,13 @@
 
                     });
 
-                },
 
+             
+
+                    
+
+
+                },
             });
 
         }
@@ -335,18 +411,20 @@
     }
         function exportFile(tableid, excelname,) {
             $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            CM5.table.destroy();
             cm5ListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM5.table.destroy();
                 cm5ListInit();
                 $('#exportXLSX').prop('disabled', false);
             }, 5000
             )
         }
+
+      
     </script>
 }

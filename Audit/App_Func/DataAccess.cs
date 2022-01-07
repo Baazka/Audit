@@ -244,7 +244,7 @@ namespace Audit.App_Func
                 else if (libName == "Reason")
                     cmd.CommandText = "SELECT INACTIVE_REASON_ID, INACTIVE_REASON_NAME FROM AUD_REG.REF_INACTIVE_REASON WHERE IS_ACTIVE = 1 ORDER BY INACTIVE_REASON_ID";
                 else if (libName == "StatPeriod")
-                    cmd.CommandText = "SELECT ID,PERIOD_LABEL FROM AUD_STAT.REF_PERIOD ORDER BY ID";
+                    cmd.CommandText = "SELECT ID,PERIOD_LABEL FROM AUD_STAT.REF_PERIOD ORDER BY ID DESC";
                 else if (libName == "RefAuditType")
                     cmd.CommandText = "SELECT AUDIT_TYPE_ID, AUDIT_TYPE_NAME FROM AUD_STAT.REF_AUDIT_TYPE WHERE IS_ACTIVE = 1 ORDER BY AUDIT_TYPE_ID ASC";
                 else if (libName == "RefTopicType")
@@ -1523,9 +1523,9 @@ namespace Audit.App_Func
                      "INNER JOIN AUD_STAT.REF_DEPARTMENT_TYPE RDT ON BM.AUDIT_DEPARTMENT_TYPE = RDT.DEPARTMENT_TYPE_ID " +
                      "INNER JOIN AUD_ORG.REF_DEPARTMENT RD1 ON BM.DEPARTMENT_ID = RD1.DEPARTMENT_ID " +
                      "INNER JOIN AUD_ORG.REF_DEPARTMENT RD2 ON BM.AUDIT_DEPARTMENT_ID = RD2.DEPARTMENT_ID " +
-                     "INNER JOIN AUD_REG.SYSTEM_USER SUS ON BM.AUDITOR_ENTRY_ID = SUS.USER_ID " +
-                     "WHERE BM.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
+                     "INNER JOIN AUD_REG.SYSTEM_USER SUS ON BM.AUDITOR_ENTRY_ID = SUS.USER_ID " + "WHERE BM.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
                      "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND BM.DEPARTMENT_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (BM.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
+                    
                      "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                      "OR UPPER(RTT.TOPIC_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                      "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
@@ -3306,7 +3306,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
 
                 dtTableCount.TableName = "RowCount";
-                var count = dtTableCount.Rows[0][0];
+                //var count = dtTableCount.Rows[0][0];
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -3389,6 +3389,7 @@ namespace Audit.App_Func
 
                 StringWriter sw = new StringWriter();
                 dataSet.WriteXml(sw, XmlWriteMode.WriteSchema);
+
 
 
                 XElement xmlResponseData = XElement.Parse(sw.ToString());
@@ -4312,7 +4313,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
 
                 dtTableCount.TableName = "RowCount";
-                var count = dtTableCount.Rows[0][0];
+                //var count = dtTableCount.Rows[0][0];
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -4761,7 +4762,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
 
                 dtTableCount.TableName = "RowCount";
-                var count = dtTableCount.Rows[0][0];
+                //var count = dtTableCount.Rows[0][0];
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -4779,7 +4780,6 @@ namespace Audit.App_Func
                                     "BM.CORRECTED_ERROR_COUNT, BM.CORRECTED_ERROR_AMOUNT, BM.OTHER_ERROR_COUNT, BM.OTHER_ERROR_AMOUNT, BM.ACT_COUNT, BM.ACT_AMOUNT, BM.CLAIM_COUNT, " +
                                     "BM.CLAIM_AMOUNT, BM.REFERENCE_COUNT, BM.REFERENCE_AMOUNT, BM.PROPOSAL_COUNT, BM.PROPOSAL_AMOUNT, BM.LAW_COUNT, BM.LAW_AMOUNT, BM.OTHER_COUNT, BM.OTHER_AMOUNT, " +
                                     "BM.IS_ACTIVE, BM.CREATED_BY, BM.CREATED_DATE,BM.UPDATED_BY, BM.UPDATED_DATE " +
-
                                     "FROM AUD_STAT.BM6_DATA BM " +
                                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
                                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -4874,7 +4874,7 @@ namespace Audit.App_Func
                                     "(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
                                     "AND b.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                                     "OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
-                                    "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%')";
+                                    "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RAY.YEAR_LABEL) LIKE '%' || UPPER(:V_SEARCH) || '%') ";
 
                 cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
@@ -4890,7 +4890,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
 
                 dtTableCount.TableName = "RowCount";
-                var count = dtTableCount.Rows[0][0];
+                //var count = dtTableCount.Rows[0][0];
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -6489,7 +6489,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT CM.ID, CM.OFFICE_ID, RD.DEPARTMENT_NAME, CM.STATISTIC_PERIOD, RP.PERIOD_LABEL, CM.AUDIT_TYPE, CM.CATEGORY_TYPE, CM.IS_STATE,CM.WORKING_PERSON, CM.WORKING_DAY, CM.WORKING_ADDITION_TIME, CM.EXECUTORY, CM.EXEC_DECISION, CM.EXEC_COLLECTION, CM.EXEC_TRUSTED, CM.PERFORMED, CM.PERF_DECISION, CM.PERF_COLLECTION, CM.PERF_TRUSTED, CM.PERF_NOT_AUDITED, CM.PROPOSAL, CM.PROP_UNVIOLATED, CM.PROP_RESTRICTED, CM.PROP_NEGATIVE, CM.PROP_NOT, CM.TPA_COUNT, CM.TPA_AMOUNT, CM.AUDITED_INCLUDED_ORG, CM.BENEFIT_FIN_COUNT, CM.BENEFIT_FIN_AMOUNT, CM.BENEFIT_NONFIN, CM.EXEC_TYPE, CM.CREATED_DATE " +
+                cmd.CommandText = "SELECT CM.ID, CM.OFFICE_ID, RD.DEPARTMENT_NAME, CM.STATISTIC_PERIOD, RP.PERIOD_LABEL, CM.AUDIT_TYPE, CM.CATEGORY_TYPE AS BUDGET_TYPE_NAME, CM.IS_STATE,CM.WORKING_PERSON, CM.WORKING_DAY, CM.WORKING_ADDITION_TIME, CM.EXECUTORY, CM.EXEC_DECISION, CM.EXEC_COLLECTION, CM.EXEC_TRUSTED, CM.PERFORMED, CM.PERF_DECISION, CM.PERF_COLLECTION, CM.PERF_TRUSTED, CM.PERF_NOT_AUDITED, CM.PROPOSAL, CM.PROP_UNVIOLATED, CM.PROP_RESTRICTED, CM.PROP_NEGATIVE, CM.PROP_NOT, CM.TPA_COUNT, CM.TPA_AMOUNT, CM.AUDITED_INCLUDED_ORG, CM.BENEFIT_FIN_COUNT, CM.BENEFIT_FIN_AMOUNT, CM.BENEFIT_NONFIN, CM.EXEC_TYPE, CM.CREATED_DATE " +
                     "FROM AUD_STAT.CM1_DATA CM " +
                     "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
@@ -6510,6 +6510,7 @@ namespace Audit.App_Func
                     "CASE WHEN :ORDER_NAME = 'CATEGORY_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.CATEGORY_TYPE END DESC " +
                     "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                     "FETCH NEXT :PAGESIZE ROWS ONLY";
+              
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -6620,7 +6621,7 @@ namespace Audit.App_Func
                      "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.BUDGET_TYPE END ASC,  " +
                      "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.BUDGET_TYPE END DESC " +
                      "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
-                     "FETCH NEXT: PAGESIZE ROWS ONLY ";
+                     "FETCH NEXT: PAGESIZE ROWS ONLY";
                 }
                 else
                 {
@@ -6651,7 +6652,7 @@ namespace Audit.App_Func
                     "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.BUDGET_TYPE END ASC,  " +
                     "CASE WHEN :ORDER_NAME = 'BUDGET_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.BUDGET_TYPE END DESC " +
                     "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
-                    "FETCH NEXT: PAGESIZE ROWS ONLY ";
+                    "FETCH NEXT: PAGESIZE ROWS ONLY";
                 }
 
 
@@ -7050,31 +7051,32 @@ namespace Audit.App_Func
                 //  "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                 //  "FETCH NEXT :PAGESIZE ROWS ONLY";
 
-                cmd.CommandText = "SELECT " +
-                        "CM.ID, CM.OFFICE_ID, RD.DEPARTMENT_NAME, CM.STATISTIC_PERIOD, RP.PERIOD_LABEL, CM.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, CM.DECISION_TYPE, " +
-                        "CM.INCOME_STATE_COUNT,CM.INCOME_STATE_AMOUNT,CM.INCOME_LOCAL_COUNT,CM.INCOME_LOCAL_AMOUNT,CM.BUDGET_STATE_COUNT,CM.BUDGET_STATE_AMOUNT,CM.BUDGET_LOCAL_COUNT,CM.BUDGET_LOCAL_AMOUNT, " +
-                        "CM.ACCOUNTANT_COUNT,CM.ACCOUNTANT_AMOUNT,CM.EFFICIENCY_COUNT,CM.EFFICIENCY_AMOUNT,CM.LAW_COUNT,CM.LAW_AMOUNT,CM.MONITORING_COUNT,CM.MONITORING_AMOUNT,CM.PURCHASE_COUNT,CM.PURCHASE_AMOUNT, " +
-                        "CM.COST_COUNT,CM.COST_AMOUNT,CM.OTHER_COUNT,CM.OTHER_AMOUNT,CM.ALL_COUNT,CM.ALL_AMOUNT, " +
-                        "CM.EXEC_TYPE,CM.CREATED_DATE,CM.CREATED_BY,CM.UPDATED_BY,CM.UPDATED_DATE " +
-                        "FROM AUD_STAT.CM5_DATA CM " +
-                        "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
-                        "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
-                        "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON CM.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
-                        "WHERE CM.IS_ACTIVE = 1 AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
-                        "AND(:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN " +
-                        "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR', 'HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND(:V_FILTER_DEPARTMENT IS NULL OR(CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
-                        "ORDER BY CM.OFFICE_ID, RD.DEPARTMENT_NAME, CM.AUDIT_TYPE, CM.DECISION_TYPE, " +
-                        "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN CM.ID END ASC, " +
-                        "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN CM.OFFICE_ID END ASC, " +
-                        "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN CM.OFFICE_ID END DESC,  " +
-                        "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
-                        "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
-                        "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.AUDIT_TYPE END ASC,  " +
-                        "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.AUDIT_TYPE END DESC,  " +
-                        "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.DECISION_TYPE END ASC,  " +
-                        "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.DECISION_TYPE END DESC " +
-                        "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
-                        "FETCH NEXT: PAGESIZE ROWS ONLY";
+                cmd.CommandText =
+                "SELECT " +
+                         "CM.ID, CM.OFFICE_ID, RD.DEPARTMENT_NAME, CM.STATISTIC_PERIOD, RP.PERIOD_LABEL, CM.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, CM.DECISION_TYPE, " +
+                         "CM.INCOME_STATE_COUNT,CM.INCOME_STATE_AMOUNT,CM.INCOME_LOCAL_COUNT,CM.INCOME_LOCAL_AMOUNT,CM.BUDGET_STATE_COUNT,CM.BUDGET_STATE_AMOUNT,CM.BUDGET_LOCAL_COUNT,CM.BUDGET_LOCAL_AMOUNT, " +
+                         "CM.ACCOUNTANT_COUNT,CM.ACCOUNTANT_AMOUNT,CM.EFFICIENCY_COUNT,CM.EFFICIENCY_AMOUNT,CM.LAW_COUNT,CM.LAW_AMOUNT,CM.MONITORING_COUNT,CM.MONITORING_AMOUNT,CM.PURCHASE_COUNT,CM.PURCHASE_AMOUNT, " +
+                         "CM.COST_COUNT,CM.COST_AMOUNT,CM.OTHER_COUNT,CM.OTHER_AMOUNT,CM.ALL_COUNT,CM.ALL_AMOUNT, " +
+                         "CM.EXEC_TYPE,CM.CREATED_DATE,CM.CREATED_BY,CM.UPDATED_BY,CM.UPDATED_DATE " +
+                         "FROM AUD_STAT.CM5_DATA CM " +
+                         "INNER JOIN AUD_REG.REF_DEPARTMENT RD ON CM.OFFICE_ID = RD.DEPARTMENT_ID " +
+                         "INNER JOIN AUD_STAT.REF_PERIOD RP ON CM.STATISTIC_PERIOD = RP.ID " +
+                         "INNER JOIN AUD_STAT.REF_AUDIT_TYPE RAT ON CM.AUDIT_TYPE = RAT.AUDIT_TYPE_ID " +
+                         "WHERE CM.IS_ACTIVE = 1 AND CM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(CM.DECISION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%') " +
+                         "AND(:V_USER_TYPE IN('HEAD_DIRECTOR', 'HEAD_AUDITOR', 'Admin') OR(:V_USER_TYPE IN " +
+                         "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR', 'HAK_USER') AND CM.OFFICE_ID = :V_DEPARTMENT)) AND(:V_FILTER_DEPARTMENT IS NULL OR(CM.OFFICE_ID = :V_FILTER_DEPARTMENT)) " +
+                         "ORDER BY CM.OFFICE_ID, RD.DEPARTMENT_NAME, CM.AUDIT_TYPE, CM.DECISION_TYPE, " +
+                         "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN CM.ID END ASC, " +
+                         "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'ASC' THEN CM.OFFICE_ID END ASC, " +
+                         "CASE WHEN :ORDER_NAME = 'OFFICE_ID' AND: ORDER_DIR = 'DESC' THEN CM.OFFICE_ID END DESC,  " +
+                         "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'ASC' THEN RP.PERIOD_LABEL END ASC,  " +
+                         "CASE WHEN :ORDER_NAME = 'PERIOD_LABEL' AND: ORDER_DIR = 'DESC' THEN RP.PERIOD_LABEL END DESC,  " +
+                         "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.AUDIT_TYPE END ASC,  " +
+                         "CASE WHEN :ORDER_NAME = 'AUDIT_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.AUDIT_TYPE END DESC,  " +
+                         "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'ASC' THEN CM.DECISION_TYPE END ASC,  " +
+                         "CASE WHEN :ORDER_NAME = 'DECISION_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.DECISION_TYPE END DESC " +
+                         "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
+                         "FETCH NEXT: PAGESIZE ROWS ONLY";
 
                 cmd.BindByName = true;
                 // Set parameters  

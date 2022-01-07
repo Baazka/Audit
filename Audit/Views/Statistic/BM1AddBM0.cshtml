@@ -120,7 +120,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийн актын огноо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.ACT_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                         @Html.ValidationMessageFor(m => m.ACT_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.ACT_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                         @Html.ValidationMessageFor(m => m.ACT_SUBMITTED_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийг барагдуулах: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.ACT_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                         @Html.ValidationMessageFor(m => m.ACT_DELIVERY_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

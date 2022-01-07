@@ -35,7 +35,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Зөрчлийг барагдуулах:</label>
                                 <div class="col-sm-4">
-                                    @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
+                                    @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийг арилгасан баримтын огноо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                     </div>
                                     <div class="col-sm-4 completionShow hiddenCompletion">
                                         @*@Html.EditorFor(m => m.COMPLETION_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker text-danger" } })*@
@@ -144,7 +144,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хуулийн байгууллагад шилжүүлсэн огноо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_LAW_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.REMOVED_LAW_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Тушаалаар хүчингүй болгосон огноо:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REMOVED_INVALID_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.REMOVED_INVALID_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
                                     </div>
                                 </div>
                             </div>

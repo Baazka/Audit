@@ -37,7 +37,7 @@ namespace Audit.Models
         public Int64? INCOME_STATE_COUNT { get; set; }
         public string INCOME_STATE_AMOUNT { get; set; }
         public Int64? INCOME_LOCAL_COUNT { get; set; }
-        public Int64? INCOME_LOCAL_NUMBER { get; set; }
+        public string INCOME_LOCAL_NUMBER { get; set; }
         public Int64? BUDGET_STATE_COUNT { get; set; }
         public string BUDGET_STATE_AMOUNT { get; set; }
         public Int64? BUDGET_LOCAL_COUNT { get; set; }
@@ -109,7 +109,7 @@ namespace Audit.Models
                 if (xml.Element("INCOME_LOCAL_COUNT") != null)
                     INCOME_LOCAL_COUNT = Convert.ToInt64(xml.Element("INCOME_LOCAL_COUNT").Value);
                 if (xml.Element("INCOME_LOCAL_NUMBER") != null)
-                    INCOME_LOCAL_NUMBER = Convert.ToInt64(xml.Element("INCOME_LOCAL_NUMBER").Value);
+                    INCOME_LOCAL_NUMBER = Convert.ToDecimal(xml.Element("INCOME_LOCAL_NUMBER").Value).ToString("#,0.00");
                 if (xml.Element("BUDGET_STATE_COUNT") != null)
                     BUDGET_STATE_COUNT = Convert.ToInt64(xml.Element("BUDGET_STATE_COUNT").Value);
                 if (xml.Element("BUDGET_STATE_AMOUNT") != null)
