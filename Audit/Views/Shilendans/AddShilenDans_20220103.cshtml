@@ -362,9 +362,8 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
 
                                             <table class="table table-bordered" style="font-size:12px;">
                                                 <tr>
-                                                    <th width="60%">МЭДЭЭЛЛИЙН АГУУЛГА</th>
-                                                    <th width="20%">ҮНЭЛГЭЭ</th>
-                                                    <th width="20%">ҮНЭЛГЭЭ 2020</th>
+                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                    <th>ҮНЭЛГЭЭ</th>
                                                 </tr>
                                                 @Html.EditorFor(t => t.tab4)
                                                 <tr>
@@ -527,9 +526,8 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                                                 <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т заасан Хяналтын багц буюу түүнээс дээш хэмжээний хувьцааг нь төр, орон нутаг болон тэдгээрийн нэгдмэл сонирхолтой этгээд эзэмшиж байгаа компанид хөтлөх маягт-4</p>
                                                 <table class="table table-bordered" style="font-size:12px;">
                                                     <tr>
-                                                        <th width="60%">МЭДЭЭЛЛИЙН АГУУЛГА</th>
-                                                        <th width="20%">ҮНЭЛГЭЭ</th>
-                                                        <th width="20%">ҮНЭЛГЭЭ 2020</th>
+                                                        <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                        <th>ҮНЭЛГЭЭ</th>
                                                     </tr>
                                                     @Html.EditorFor(t => t.tab6)
                                                     <tr>
@@ -972,126 +970,126 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
     $(function () {
         $(document).ready(function () {
             $("#tab2saving").click(function () {
-                //var tab1val1 = document.getElementById("tab1_0__Data01").value;
-                //var tab1val2 = document.getElementById("tab1_1__Data01").value;
-                //var tab1val3 = document.getElementById("tab1_3__Data01").value;
-                //var tab1val4 = document.getElementById("tab1_4__Data01").value;
-                //var tab1val5 = document.getElementById("tab1_5__Data01").value;
+                var tab1val1 = document.getElementById("tab1_0__Data01").value;
+                var tab1val2 = document.getElementById("tab1_1__Data01").value;
+                var tab1val3 = document.getElementById("tab1_3__Data01").value;
+                var tab1val4 = document.getElementById("tab1_4__Data01").value;
+                var tab1val5 = document.getElementById("tab1_5__Data01").value;
                 var tab1val6 = document.getElementById("tab1_6__Data01").value;
-                //var tab1val7 = document.getElementById("tab1_7__Data01").value;
-                //var tab1val8 = document.getElementById("tab1_8__Data01").value;
-                //var tab1val9 = document.getElementById("tab1_9__Data01").value;
+                var tab1val7 = document.getElementById("tab1_7__Data01").value;
+                var tab1val8 = document.getElementById("tab1_8__Data01").value;
+                var tab1val9 = document.getElementById("tab1_9__Data01").value;
                 var tab1val10 = document.getElementById("tab1_10__Data01").value;
-                //var tab1val11 = document.getElementById("tab1_11__Data01").value;
-                //var tab1val12 = document.getElementById("tab1_12__Data01").value;
-                //var tab1val13 = document.getElementById("tab1_13__Data01").value;
+                var tab1val11 = document.getElementById("tab1_11__Data01").value;
+                var tab1val12 = document.getElementById("tab1_12__Data01").value;
+                var tab1val13 = document.getElementById("tab1_13__Data01").value;
                 var tab1val14 = document.getElementById("tab1_14__Data01").value;
-                //var tab1val15 = document.getElementById("tab1_15__Data01").value;
-                //var tab1val16 = document.getElementById("tab1_16__Data01").value;
-                //var tab1val17 = document.getElementById("tab1_17__Data01").value;
+                var tab1val15 = document.getElementById("tab1_15__Data01").value;
+                var tab1val16 = document.getElementById("tab1_16__Data01").value;
+                var tab1val17 = document.getElementById("tab1_17__Data01").value;
                 var tab1val18 = document.getElementById("tab1_18__Data01").value;
-                //var tab1val19 = document.getElementById("tab1_19__Data01").value;
-                //var tab1val20 = document.getElementById("tab1_20__Data01").value;
-                //var tab1val21 = document.getElementById("tab1_21__Data01").value;
+                var tab1val19 = document.getElementById("tab1_19__Data01").value;
+                var tab1val20 = document.getElementById("tab1_20__Data01").value;
+                var tab1val21 = document.getElementById("tab1_21__Data01").value;
                 var tab1val22 = document.getElementById("tab1_22__Data01").value;
                 var tab1val23 = document.getElementById("tab1_23__Data01").value;
                 var tab1val24 = document.getElementById("tab1_24__Data01").value;
                 var tab1val25 = document.getElementById("tab1_25__Data01").value;
-                //var tab1val26 = document.getElementById("tab1_27__Data01").value;
-                //var tab1val27 = document.getElementById("tab1_28__Data01").value;
-                //var tab1val28 = document.getElementById("tab1_29__Data01").value;
-                //var tab1val29 = document.getElementById("tab1_30__Data01").value;
-                //var tab1val30 = document.getElementById("tab1_31__Data01").value;
-                //var tab1val31 = document.getElementById("tab1_32__Data01").value;
-                //var tab1val32 = document.getElementById("tab1_33__Data01").value;
+                var tab1val26 = document.getElementById("tab1_27__Data01").value;
+                var tab1val27 = document.getElementById("tab1_28__Data01").value;
+                var tab1val28 = document.getElementById("tab1_29__Data01").value;
+                var tab1val29 = document.getElementById("tab1_30__Data01").value;
+                var tab1val30 = document.getElementById("tab1_31__Data01").value;
+                var tab1val31 = document.getElementById("tab1_32__Data01").value;
+                var tab1val32 = document.getElementById("tab1_33__Data01").value;
 
-                //var tab2val1 = document.getElementById("tab2_0__Data01").value;
-                //var tab2val2 = document.getElementById("tab2_31__Data01").value;
+                var tab2val1 = document.getElementById("tab2_0__Data01").value;
+                var tab2val2 = document.getElementById("tab2_31__Data01").value;
 
-                //if (tab1val1 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val2 == 0) {
-                //    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val3 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val4 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val5 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val1 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val2 == 0) {
+                    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val3 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val4 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val5 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val6 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val7 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val8 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val9 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val7 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val8 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val9 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val10 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val11 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val12 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val13 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val11 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val12 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val13 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val14 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val15 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val16 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val17 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val15 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val16 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val17 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val18 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val19 == 0) {
-                //    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val20 == 0) {
-                //    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val21 == 0) {
-                //    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val19 == 0) {
+                    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val20 == 0) {
+                    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val21 == 0) {
+                    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val22 == 0) {
                     alert("Хөтлөх маягт-1: Санхүүгийн тайлан /хагас жил/ - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
@@ -1108,42 +1106,42 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                     alert("Хөтлөх маягт-1: Аудитын тайлан, дүгнэлтэд тусгагдсан асуудлаар авч хэрэгжүүлсэн арга хэмжээ - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val26 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val27 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val28 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val29 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val30 == 0) {
-                //    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val31 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val32 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab2val1 == 0) {
-                //    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab2val2 == 0) {
-                //    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val26 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val27 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val28 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val29 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val30 == 0) {
+                    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val31 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val32 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val1 == 0) {
+                    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val2 == 0) {
+                    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
             });
         });
     });
@@ -1152,128 +1150,128 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
     $(function () {
         $(document).ready(function () {
             $("#tab3saving").click(function () {
-                //var tab1val1 = document.getElementById("tab1_0__Data01").value;
-                //var tab1val2 = document.getElementById("tab1_1__Data01").value;
-                //var tab1val3 = document.getElementById("tab1_3__Data01").value;
-                //var tab1val4 = document.getElementById("tab1_4__Data01").value;
-                //var tab1val5 = document.getElementById("tab1_5__Data01").value;
+                var tab1val1 = document.getElementById("tab1_0__Data01").value;
+                var tab1val2 = document.getElementById("tab1_1__Data01").value;
+                var tab1val3 = document.getElementById("tab1_3__Data01").value;
+                var tab1val4 = document.getElementById("tab1_4__Data01").value;
+                var tab1val5 = document.getElementById("tab1_5__Data01").value;
                 var tab1val6 = document.getElementById("tab1_6__Data01").value;
-                //var tab1val7 = document.getElementById("tab1_7__Data01").value;
-                //var tab1val8 = document.getElementById("tab1_8__Data01").value;
-                //var tab1val9 = document.getElementById("tab1_9__Data01").value;
+                var tab1val7 = document.getElementById("tab1_7__Data01").value;
+                var tab1val8 = document.getElementById("tab1_8__Data01").value;
+                var tab1val9 = document.getElementById("tab1_9__Data01").value;
                 var tab1val10 = document.getElementById("tab1_10__Data01").value;
-                //var tab1val11 = document.getElementById("tab1_11__Data01").value;
-                //var tab1val12 = document.getElementById("tab1_12__Data01").value;
-                //var tab1val13 = document.getElementById("tab1_13__Data01").value;
+                var tab1val11 = document.getElementById("tab1_11__Data01").value;
+                var tab1val12 = document.getElementById("tab1_12__Data01").value;
+                var tab1val13 = document.getElementById("tab1_13__Data01").value;
                 var tab1val14 = document.getElementById("tab1_14__Data01").value;
-                //var tab1val15 = document.getElementById("tab1_15__Data01").value;
-                //var tab1val16 = document.getElementById("tab1_16__Data01").value;
-                //var tab1val17 = document.getElementById("tab1_17__Data01").value;
+                var tab1val15 = document.getElementById("tab1_15__Data01").value;
+                var tab1val16 = document.getElementById("tab1_16__Data01").value;
+                var tab1val17 = document.getElementById("tab1_17__Data01").value;
                 var tab1val18 = document.getElementById("tab1_18__Data01").value;
-                //var tab1val19 = document.getElementById("tab1_19__Data01").value;
-                //var tab1val20 = document.getElementById("tab1_20__Data01").value;
-                //var tab1val21 = document.getElementById("tab1_21__Data01").value;
+                var tab1val19 = document.getElementById("tab1_19__Data01").value;
+                var tab1val20 = document.getElementById("tab1_20__Data01").value;
+                var tab1val21 = document.getElementById("tab1_21__Data01").value;
                 var tab1val22 = document.getElementById("tab1_22__Data01").value;
                 var tab1val23 = document.getElementById("tab1_23__Data01").value;
                 var tab1val24 = document.getElementById("tab1_24__Data01").value;
                 var tab1val25 = document.getElementById("tab1_25__Data01").value;
-                //var tab1val26 = document.getElementById("tab1_27__Data01").value;
-                //var tab1val27 = document.getElementById("tab1_28__Data01").value;
-                //var tab1val28 = document.getElementById("tab1_29__Data01").value;
-                //var tab1val29 = document.getElementById("tab1_30__Data01").value;
-                //var tab1val30 = document.getElementById("tab1_31__Data01").value;
-                //var tab1val31 = document.getElementById("tab1_32__Data01").value;
-                //var tab1val32 = document.getElementById("tab1_33__Data01").value;
+                var tab1val26 = document.getElementById("tab1_27__Data01").value;
+                var tab1val27 = document.getElementById("tab1_28__Data01").value;
+                var tab1val28 = document.getElementById("tab1_29__Data01").value;
+                var tab1val29 = document.getElementById("tab1_30__Data01").value;
+                var tab1val30 = document.getElementById("tab1_31__Data01").value;
+                var tab1val31 = document.getElementById("tab1_32__Data01").value;
+                var tab1val32 = document.getElementById("tab1_33__Data01").value;
 
-                //var tab2val1 = document.getElementById("tab2_0__Data01").value;
-                //var tab2val2 = document.getElementById("tab2_31__Data01").value;
-
+                var tab2val1 = document.getElementById("tab2_0__Data01").value;
+                var tab2val2 = document.getElementById("tab2_31__Data01").value;
+            
                 var tab3val1 = document.getElementById("tab3_0__Data01").value;
 
-                //if (tab1val1 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val2 == 0) {
-                //    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val3 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val4 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val5 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val1 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val2 == 0) {
+                    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val3 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val4 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val5 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val6 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val7 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val8 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val9 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val7 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val8 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val9 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val10 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val11 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val12 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val13 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val14 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val15 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val16 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val17 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val11 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val12 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val13 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val14 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val15 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val16 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val17 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val18 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val19 == 0) {
-                //    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val20 == 0) {
-                //    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val21 == 0) {
-                //    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val19 == 0) {
+                    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val20 == 0) {
+                    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val21 == 0) {
+                    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val22 == 0) {
                     alert("Хөтлөх маягт-1: Санхүүгийн тайлан /хагас жил/ - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
@@ -1290,47 +1288,47 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                     alert("Хөтлөх маягт-1: Аудитын тайлан, дүгнэлтэд тусгагдсан асуудлаар авч хэрэгжүүлсэн арга хэмжээ - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val26 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val27 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val28 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val29 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val30 == 0) {
-                //    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val31 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val32 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab2val1 == 0) {
-                //    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab2val2 == 0) {
-                //    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val26 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val27 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val28 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val29 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val30 == 0) {
+                    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val31 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val32 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val1 == 0) {
+                    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val2 == 0) {
+                    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
 
-                //if (tab3val1 == 0) {
-                //    alert("Хөтлөх маягт-3: Байгууллагын батлагдсан орон тоонд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab3val1 == 0) {
+                    alert("Хөтлөх маягт-3: Байгууллагын батлагдсан орон тоонд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
             });
         });
     });
@@ -1339,128 +1337,128 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
     $(function () {
         $(document).ready(function () {
             $("#tab4saving").click(function () {
-                //var tab1val1 = document.getElementById("tab1_0__Data01").value;
-                //var tab1val2 = document.getElementById("tab1_1__Data01").value;
-                //var tab1val3 = document.getElementById("tab1_3__Data01").value;
-                //var tab1val4 = document.getElementById("tab1_4__Data01").value;
-                //var tab1val5 = document.getElementById("tab1_5__Data01").value;
+                var tab1val1 = document.getElementById("tab1_0__Data01").value;
+                var tab1val2 = document.getElementById("tab1_1__Data01").value;
+                var tab1val3 = document.getElementById("tab1_3__Data01").value;
+                var tab1val4 = document.getElementById("tab1_4__Data01").value;
+                var tab1val5 = document.getElementById("tab1_5__Data01").value;
                 var tab1val6 = document.getElementById("tab1_6__Data01").value;
-                //var tab1val7 = document.getElementById("tab1_7__Data01").value;
-                //var tab1val8 = document.getElementById("tab1_8__Data01").value;
-                //var tab1val9 = document.getElementById("tab1_9__Data01").value;
+                var tab1val7 = document.getElementById("tab1_7__Data01").value;
+                var tab1val8 = document.getElementById("tab1_8__Data01").value;
+                var tab1val9 = document.getElementById("tab1_9__Data01").value;
                 var tab1val10 = document.getElementById("tab1_10__Data01").value;
-                //var tab1val11 = document.getElementById("tab1_11__Data01").value;
-                //var tab1val12 = document.getElementById("tab1_12__Data01").value;
-                //var tab1val13 = document.getElementById("tab1_13__Data01").value;
+                var tab1val11 = document.getElementById("tab1_11__Data01").value;
+                var tab1val12 = document.getElementById("tab1_12__Data01").value;
+                var tab1val13 = document.getElementById("tab1_13__Data01").value;
                 var tab1val14 = document.getElementById("tab1_14__Data01").value;
-                //var tab1val15 = document.getElementById("tab1_15__Data01").value;
-                //var tab1val16 = document.getElementById("tab1_16__Data01").value;
-                //var tab1val17 = document.getElementById("tab1_17__Data01").value;
+                var tab1val15 = document.getElementById("tab1_15__Data01").value;
+                var tab1val16 = document.getElementById("tab1_16__Data01").value;
+                var tab1val17 = document.getElementById("tab1_17__Data01").value;
                 var tab1val18 = document.getElementById("tab1_18__Data01").value;
-                //var tab1val19 = document.getElementById("tab1_19__Data01").value;
-                //var tab1val20 = document.getElementById("tab1_20__Data01").value;
-                //var tab1val21 = document.getElementById("tab1_21__Data01").value;
+                var tab1val19 = document.getElementById("tab1_19__Data01").value;
+                var tab1val20 = document.getElementById("tab1_20__Data01").value;
+                var tab1val21 = document.getElementById("tab1_21__Data01").value;
                 var tab1val22 = document.getElementById("tab1_22__Data01").value;
                 var tab1val23 = document.getElementById("tab1_23__Data01").value;
                 var tab1val24 = document.getElementById("tab1_24__Data01").value;
                 var tab1val25 = document.getElementById("tab1_25__Data01").value;
-                //var tab1val26 = document.getElementById("tab1_27__Data01").value;
-                //var tab1val27 = document.getElementById("tab1_28__Data01").value;
-                //var tab1val28 = document.getElementById("tab1_29__Data01").value;
-                //var tab1val29 = document.getElementById("tab1_30__Data01").value;
-                //var tab1val30 = document.getElementById("tab1_31__Data01").value;
-                //var tab1val31 = document.getElementById("tab1_32__Data01").value;
-                //var tab1val32 = document.getElementById("tab1_33__Data01").value;
+                var tab1val26 = document.getElementById("tab1_27__Data01").value;
+                var tab1val27 = document.getElementById("tab1_28__Data01").value;
+                var tab1val28 = document.getElementById("tab1_29__Data01").value;
+                var tab1val29 = document.getElementById("tab1_30__Data01").value;
+                var tab1val30 = document.getElementById("tab1_31__Data01").value;
+                var tab1val31 = document.getElementById("tab1_32__Data01").value;
+                var tab1val32 = document.getElementById("tab1_33__Data01").value;
 
-                //var tab2val1 = document.getElementById("tab2_0__Data01").value;
-                //var tab2val2 = document.getElementById("tab2_31__Data01").value;
+                var tab2val1 = document.getElementById("tab2_0__Data01").value;
+                var tab2val2 = document.getElementById("tab2_31__Data01").value;
 
-                //var tab3val1 = document.getElementById("tab3_0__Data01").value;
+                var tab3val1 = document.getElementById("tab3_0__Data01").value;
 
-                //if (tab1val1 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val2 == 0) {
-                //    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val3 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val4 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val5 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val1 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val2 == 0) {
+                    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val3 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val4 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val5 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val6 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val7 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val8 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val9 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val7 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val8 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val9 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val10 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val11 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val12 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val13 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val11 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val12 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val13 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val14 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val15 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val16 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val17 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val15 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val16 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val17 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val18 == 0) {
                     alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val19 == 0) {
-                //    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val20 == 0) {
-                //    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val21 == 0) {
-                //    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val19 == 0) {
+                    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val20 == 0) {
+                    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val21 == 0) {
+                    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
                 if (tab1val22 == 0) {
                     alert("Хөтлөх маягт-1: Санхүүгийн тайлан /хагас жил/ - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
@@ -1477,47 +1475,47 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
                     alert("Хөтлөх маягт-1: Аудитын тайлан, дүгнэлтэд тусгагдсан асуудлаар авч хэрэгжүүлсэн арга хэмжээ - Үнэлгээ сонгоод хадгална уу!!!");
                     return false
                 }
-                //if (tab1val26 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val27 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val28 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val29 == 0) {
-                //    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val30 == 0) {
-                //    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val31 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab1val32 == 0) {
-                //    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab2val1 == 0) {
-                //    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab2val2 == 0) {
-                //    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab1val26 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val27 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val28 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val29 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val30 == 0) {
+                    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val31 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val32 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val1 == 0) {
+                    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val2 == 0) {
+                    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
 
-                //if (tab3val1 == 0) {
-                //    alert("Хөтлөх маягт-3: Байгууллагын батлагдсан орон тоонд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab3val1 == 0) {
+                    alert("Хөтлөх маягт-3: Байгууллагын батлагдсан орон тоонд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
             });
         });
     });
@@ -1526,17 +1524,17 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
     $(function () {
         $(document).ready(function () {
             $("#tab5saving").click(function () {
-                //var tab5val1 = document.getElementById("tab5_142__Data01").value;
-                //var tab5val2 = document.getElementById("tab5_143__Data01").value;
+                var tab5val1 = document.getElementById("tab5_142__Data01").value;
+                var tab5val2 = document.getElementById("tab5_143__Data01").value;
 
-                //if (tab5val1 == 0) {
-                //    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны төлөвлөгөө мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab5val2 == 0) {
-                //    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны тайлан мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab5val1 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны төлөвлөгөө мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab5val2 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны тайлан мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
             });
         });
     });
@@ -1545,17 +1543,17 @@ OnSuccess = "Organization.progressResponse(data, status, xhr)",
     $(function () {
         $(document).ready(function () {
             $("#tab6saving").click(function () {
-                //var tab5val1 = document.getElementById("tab5_142__Data01").value;
-                //var tab5val2 = document.getElementById("tab5_143__Data01").value;
+                var tab5val1 = document.getElementById("tab5_142__Data01").value;
+                var tab5val2 = document.getElementById("tab5_143__Data01").value;
 
-                //if (tab5val1 == 0) {
-                //    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны төлөвлөгөө мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
-                //if (tab5val2 == 0) {
-                //    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны тайлан мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
-                //    return false
-                //}
+                if (tab5val1 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны төлөвлөгөө мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab5val2 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны тайлан мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
             });
         });
     });

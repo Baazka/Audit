@@ -212,6 +212,7 @@ namespace Audit.Models
         public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
+        public string Data2020 { get; set; }
     }
 
     public class Tab5
@@ -234,6 +235,7 @@ namespace Audit.Models
         public double Data01 { get; set; }
         public string Data02 { get; set; }
         public string Data03 { get; set; }
+        public string Data2020 { get; set; }
     }
 
     public class Tab7
