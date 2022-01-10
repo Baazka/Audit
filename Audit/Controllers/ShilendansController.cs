@@ -709,8 +709,8 @@ namespace Audit.Controllers
                 var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
                 if (md == 3)
                 {
-                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 55;
-                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 55;
+                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 23;
+                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 23;
                     organization.print1.Add(
                             new Print1
                             {
@@ -768,8 +768,8 @@ namespace Audit.Controllers
                 var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
                 if (md == 3)
                 {
-                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 16;
-                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 16;
+                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 8;
+                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 8;
                     organization.print1.Add(
                             new Print1
                             {
