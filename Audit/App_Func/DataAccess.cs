@@ -414,7 +414,8 @@ namespace Audit.App_Func
                                 "LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AE.ENT_LEGAL_STATUS = RLS.LEGAL_STATUS_ID " +
                                 "LEFT JOIN AUD_ORG.REF_PROPERTY_TYPE RPT ON AE.ENT_PROPERTY_TYPE = RPT.PROPERTY_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.AUDIT_ORGANIZATION AO on AE.ENT_ORG_ID = AO.ORG_ID " +
-                                "WHERE AE.IS_ACTIVE = 1 AND (:DEP_ID = 101 OR (:DEP_ID !=101 AND AE.ENT_DEPARTMENT_ID = :DEP_ID)) " +
+                                "WHERE AE.IS_ACTIVE = 1 " +
+                                "AND (:DEP_ID = 101 OR (:DEP_ID !=101 AND AE.ENT_DEPARTMENT_ID = :DEP_ID)) " +
                                 "AND (:V_DEPARTMENT IS NULL OR AE.ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                 "AND (:V_PARENT_BUDGET_ID IS NULL OR AE.ENT_TEZ = :V_PARENT_BUDGET_ID) " +
                                 "AND (:V_BUDGET_TYPE IS NULL OR AE.ENT_BUDGET_TYPE = :V_BUDGET_TYPE) " +
@@ -8120,14 +8121,14 @@ namespace Audit.App_Func
                 //Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, F.ENT_NAME OPEN_ENT_BUDGET_PARENT, RBL.BUDGET_LEVEL_NAME ,D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
-                                  "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, " +
-                                  "(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE IN(107, 165) AND IS_FINISH = 1 AND ORGID = A.OPEN_ID) IS_FINISHED, " +
-                                  "(SELECT IS_PRINT FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 107 AND IS_PRINT = 1 AND ORGID = A.OPEN_ID) IS_PRINTED, " +
-                                  "(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
-                                  "(SELECT TO_CHAR(J.INSERTDATE, 'YYYY-MM-DD') INSERTDATE FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) INSERTDATE " +
+                cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
+                                  "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, B1.IS_FINISH IS_FINISHED, B2.IS_PRINT IS_PRINTED, " +
+                                  "(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.YEARCODE = 2021 AND J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
+                                  "TO_CHAR(B1.INSERTDATE, 'YYYY-MM-DD') INSERTDATE " +
                                   "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
-                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B ON A.OPEN_ID = B.ORGID " +
+                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B1 ON A.OPEN_ID = B1.ORGID AND B1.YEARCODE = 2021 AND B1.IS_FINISH = 1 AND B1.MDCODE IN (107,165) " +
+                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B2 ON A.OPEN_ID = B2.ORGID AND B2.YEARCODE = 2021 AND B2.IS_PRINT = 1 AND B2.MDCODE = 107 " +
+                                  "LEFT JOIN AUD_REG.SYSTEM_USER K1 ON A.OPEN_ID = B1.ORGID AND B1.INSERTUSERID = K1.USER_ID AND B1.YEARCODE = 2021 AND B1.MDCODE = 106  " +
                                   "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON A.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                   "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
                                   "INNER JOIN AUD_ORG.AUDIT_ENTITY F ON A.OPEN_ENT_TEZ = F.ENT_ID " +
@@ -8140,7 +8141,7 @@ namespace Audit.App_Func
                                   "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
-                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID " +
+                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID, B1.IS_FINISH, B2.IS_PRINT, B1.INSERTDATE " +
                                   "ORDER BY " +
                                   "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN A.OPEN_ID END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN D.DEPARTMENT_NAME END ASC, " +
@@ -8149,14 +8150,14 @@ namespace Audit.App_Func
                                   "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'DESC' THEN C.BUDGET_SHORT_NAME END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'MAYGT' AND :ORDER_DIR = 'ASC' THEN MAYGT END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'MAYGT' AND :ORDER_DIR = 'DESC' THEN MAYGT END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'ASC' THEN IS_FINISHED END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'DESC' THEN IS_FINISHED END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'ASC' THEN IS_PRINTED END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'DESC' THEN IS_PRINTED END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'ASC' THEN B1.IS_FINISH END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'DESC' THEN B1.IS_FINISH END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'ASC' THEN B2.IS_PRINT END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'DESC' THEN B2.IS_PRINT END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'ASC' THEN USER_NAME END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'DESC' THEN USER_NAME END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN INSERTDATE END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN INSERTDATE END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN B1.INSERTDATE END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN B1.INSERTDATE END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'ASC' THEN A.OPEN_ENT_NAME END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'DESC' THEN A.OPEN_ENT_NAME END DESC " +
                                   "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
@@ -8279,13 +8280,14 @@ namespace Audit.App_Func
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
-                                  "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, " +
-                                  "(SELECT IS_FINISH FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE IN(107, 165) AND IS_FINISH = 1 AND ORGID = A.OPEN_ID) IS_FINISHED, " +
-                                  "(SELECT IS_PRINT FROM AUD_MIRRORACC.SHILENDANSDATA WHERE MDCODE = 107 AND IS_PRINT = 1 AND ORGID = A.OPEN_ID) IS_PRINTED, " +
-                                  "(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
-                                  "(SELECT TO_CHAR(J.INSERTDATE, 'YYYY-MM-DD') INSERTDATE FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) INSERTDATE " +
+                                  "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, B1.IS_FINISH IS_FINISHED, B2.IS_PRINT IS_PRINTED, " +
+                                  "(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.YEARCODE = 2021 AND J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
+                                  "TO_CHAR(B1.INSERTDATE, 'YYYY-MM-DD') INSERTDATE " +
                                   "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
-                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B ON A.OPEN_ID = B.ORGID " +
+                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B1 ON A.OPEN_ID = B1.ORGID AND B1.YEARCODE = 2021 AND B1.IS_FINISH = 1 AND B1.MDCODE IN (107,165) " +
+                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B2 ON A.OPEN_ID = B2.ORGID AND B2.YEARCODE = 2021 AND B2.IS_PRINT = 1 AND B2.MDCODE = 107 " +
+                                  "LEFT JOIN AUD_REG.SYSTEM_USER K ON A.OPEN_ID = B1.ORGID AND B1.INSERTUSERID = K.USER_ID AND B1.YEARCODE = 2021 AND B1.MDCODE = 106 " +
+                                  "LEFT JOIN AUD_REG.SYSTEM_USER K1 ON A.OPEN_ID = B1.ORGID AND B1.INSERTUSERID = K1.USER_ID AND B1.YEARCODE = 2021 AND B1.MDCODE = 106  " +
                                   "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON A.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                   "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
                                   "INNER JOIN AUD_REG.SYSTEM_USER_DEPARTMENT E ON A.OPEN_ENT_DEPARTMENT_ID = E.DEP_ID " +
@@ -8297,7 +8299,7 @@ namespace Audit.App_Func
                                   "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
-                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID " +
+                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID, B1.IS_FINISH, B2.IS_PRINT, B1.INSERTDATE " +
                                   "ORDER BY " +
                                   "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN D.DEPARTMENT_NAME END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN D.DEPARTMENT_NAME END ASC, " +
@@ -8306,14 +8308,14 @@ namespace Audit.App_Func
                                   "CASE WHEN :ORDER_NAME = 'BUDGET_SHORT_NAME' AND :ORDER_DIR = 'DESC' THEN C.BUDGET_SHORT_NAME END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'MAYGT' AND :ORDER_DIR = 'ASC' THEN MAYGT END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'MAYGT' AND :ORDER_DIR = 'DESC' THEN MAYGT END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'ASC' THEN IS_FINISHED END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'DESC' THEN IS_FINISHED END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'ASC' THEN IS_PRINTED END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'DESC' THEN IS_PRINTED END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'ASC' THEN USER_NAME END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'DESC' THEN USER_NAME END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN INSERTDATE END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN INSERTDATE END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'ASC' THEN B1.IS_FINISH END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'DESC' THEN B1.IS_FINISH END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'ASC' THEN B2.IS_PRINT END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'DESC' THEN B2.IS_PRINT END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'ASC' THEN K.USER_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'DESC' THEN K.USER_NAME END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN B1.INSERTDATE END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN B1.INSERTDATE END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'ASC' THEN A.OPEN_ENT_NAME END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'DESC' THEN A.OPEN_ENT_NAME END DESC " +
                                   "OFFSET((: PAGENUMBER /:PAGESIZE) * :PAGESIZE) ROWS " +
@@ -8461,12 +8463,18 @@ namespace Audit.App_Func
                 //    "RIGHT JOIN MD_DESC B ON A.MDCODE = B.MD_CODE " +
                 //    "ORDER BY B.MD_CODE ASC ";
 
-                cmd.CommandText = "SELECT MD_CODE, MD_LAWS_NUM, MD_NAME, MD_TIME, TAB_ID " +
-                    "FROM MD_DESC " +
-                    "ORDER BY MD_CODE ASC ";
+                cmd.CommandText = "SELECT A.MD_CODE, A.MD_LAWS_NUM, A.MD_NAME, A.MD_TIME, A.TAB_ID, CASE WHEN B.MDCODE IN(112,113,170,171) THEN B.DATA02 WHEN B.DATA01 = 1 THEN 'Тийм' ELSE 'Үгүй' END DATA2020 " +
+                                  "FROM AUD_MIRRORACC.MD_DESC A " +
+                                  "INNER JOIN AUD_MIRRORACC.SHILENDANSDATA B ON B.MDCODE = A.MD_CODE AND B.YEARCODE = 2020 " +
+                                  "WHERE B.ORGID = :ORGID " +
+                                  "ORDER BY A.MD_CODE ";
+
+                //"SELECT MD_CODE, MD_LAWS_NUM, MD_NAME, MD_TIME, TAB_ID " +
+                //"FROM AUD_MIRRORACC.MD_DESC " +
+                //"ORDER BY MD_CODE ASC ";
 
                 // Set parameters
-                //cmd.Parameters.Add("");
+                cmd.Parameters.Add(":ORGID", OracleDbType.Varchar2, request.Element("Parameters").Element("ORGID").Value, System.Data.ParameterDirection.Input);
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -8503,11 +8511,17 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.MD_CODE, B.MD_LAWS_NUM, B.MD_TIME, B.MD_NAME, A.DATA01, A.DATA02 " +
-                        "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
-                        "JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
-                        "WHERE A.ORGID = :ORGID " +
-                        "ORDER BY B.MD_CODE ";
+                cmd.CommandText = "SELECT B.MD_CODE, B.MD_LAWS_NUM, B.MD_TIME, B.MD_NAME, A.DATA01, A.DATA02, CASE WHEN A2.MDCODE IN(112,113,170,171) THEN A2.DATA02 WHEN A2.DATA01 = 1 THEN 'Тийм' ELSE 'Үгүй' END DATA2020 " +
+                                  "FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                                  "INNER JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
+                                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA A2 ON A2.MDCODE = B.MD_CODE AND A2.ORGID = A.ORGID AND A2.YEARCODE = 2020 " +
+                                  "WHERE A.YEARCODE = 2021 AND A.ORGID = :ORGID " +
+                                  "ORDER BY B.MD_CODE ";
+                //"SELECT B.MD_CODE, B.MD_LAWS_NUM, B.MD_TIME, B.MD_NAME, A.DATA01, A.DATA02 " +
+                //"FROM AUD_MIRRORACC.SHILENDANSDATA A " +
+                //"JOIN AUD_MIRRORACC.MD_DESC B ON A.MDCODE = B.MD_CODE " +
+                //"WHERE A.YEARCODE = 2021 AND A.ORGID = :ORGID " +
+                //"ORDER BY B.MD_CODE ";
 
                 // Set parameters
                 cmd.Parameters.Add(":ORGID", OracleDbType.Varchar2, request.Element("Parameters").Element("ORGID").Value, System.Data.ParameterDirection.Input);
@@ -9601,7 +9615,7 @@ namespace Audit.App_Func
                                         "INNER JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                         "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                         "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
-                                        "WHERE ROP.IS_ACTIVE = 1 AND MDCODE BETWEEN 1 AND 35 AND (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
+                                        "WHERE A.YEARCODE = 2021 AND ROP.IS_ACTIVE = 1 AND MDCODE BETWEEN 1 AND 35 AND (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                         //"AND ROP.OPEN_ENT_TEZ IN(20775,21595,20092,21155,19960,20424,21371,21367,20804,16083,21393,21192,21390,20766,21369,21590,20764,21092,20488,21113,21114,20091,5596,5393,5599,20177,21091,19176,21374,21441,20425,21194,21111,19253) " +
                                         //"AND ROP.OPEN_ENT_TEZ IN(19423,20989,19484,19265,19335,19362,20971,21575,20179,20387,19837,19874,20283,20131,20436,19812,19896,20310,20016,19912,21099,21594) " +
                                         //"AND(:V_ParentBudgetID IS NULL OR (AE.ENT_NAME IN( :V_ParentBudgetID ))) " +
@@ -9697,7 +9711,7 @@ namespace Audit.App_Func
                                "INNER JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
-                               "WHERE ROP.IS_ACTIVE = 1 AND MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111) " +
+                               "WHERE A.YEARCODE = 2021 AND ROP.IS_ACTIVE = 1 AND MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111) " +
                                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND  (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                //"AND ROP.OPEN_ENT_TEZ IN(19423,20989,19484,19265,19335,19362,20971,21575,20179,20387,19837,19874,20283,20131,20436,19812,19896,20310,20016,19912,21099,21594) " +
                                //"AND ROP.OPEN_ENT_TEZ IN(20775,21595,20092,21155,19960,20424,21371,21367,20804,16083,21393,21192,21390,20766,21369,21590,20764,21092,20488,21113,21114,20091,5596,5393,5599,20177,21091,19176,21374,21441,20425,21194,21111,19253) " +
@@ -9782,8 +9796,8 @@ namespace Audit.App_Func
                 " SELECT ORGID, YEARCODE, MDCODE, DATA01, AE.ENT_NAME AS PARENT_NAME, ROP.OPEN_ENT_NAME AS ORGNAME,ROP.open_ent_register_no, C.BUDGET_TYPE_NAME AS ORGTYPE,ROP.OPEN_HEAD_ROLE, ROP.OPEN_HEAD_NAME, ROP.OPEN_HEAD_PHONE, ROP.OPEN_ACC_ROLE, ROP.OPEN_ACC_NAME , ROP.OPEN_ACC_PHONE FROM AUD_MIRRORACC.SHILENDANSDATA A " +
                 " INNER  JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                 " INNER  JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID  " +
-                "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
-                "         WHERE MDCODE IN(116,117,118,119,120,121, " +
+                " LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
+                " WHERE A.YEARCODE = 2021 AND MDCODE IN(116,117,118,119,120,121, " +
                 " 123,124,125,126,127,128, " +
                 " 130,131,132,133,134,135, " +
                 " 137,138,139,140,141,142, " +

@@ -9,9 +9,11 @@
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
+    @Html.HiddenFor(x => x.Data2020)
     <tr>
         <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>@Html.TextAreaFor(x => x.Data02, new { @style = "width: 100%;" })</td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.Data2020)</td>
     </tr>
 }
 else
@@ -20,6 +22,7 @@ else
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
     @Html.HiddenFor(x => x.MD_NAME)
     @Html.HiddenFor(x => x.MD_TIME)
+    @Html.HiddenFor(x => x.Data2020)
     <tr>
         <td style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_NAME)</td>
         <td>
@@ -29,5 +32,6 @@ else
                            new { value = 1 , text = "Тийм" }
                         }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
         </td>
+        <td style="vertical-align:middle;">@Html.DisplayFor(x => x.Data2020)</td>
     </tr>
 }
