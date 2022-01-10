@@ -589,7 +589,9 @@
           if (isNaN(sum)) {
               sum = 0;
           }
+    
           value1 = sum.toFixed(2);
+         
           $("#ACT_AMOUNT").val(sum).formatCurrency();
           if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
               $("#ACT_C2_AMOUNT").val(value1 - value2 - value3).formatCurrency();

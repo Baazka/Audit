@@ -323,7 +323,9 @@
                   sum += parseFloat(this.value);
               }
           });
-          console.log(sum);
+          if (sum == 0) {
+              sum = null;
+          }
           $("#ACT_AMOUNT").val(sum).formatCurrency();
       }
 

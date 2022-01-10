@@ -138,7 +138,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Өгсөн зөвлөмжийн тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.REFERENCE_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.REFERENCE_COUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

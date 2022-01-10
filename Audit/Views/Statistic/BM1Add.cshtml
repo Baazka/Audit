@@ -294,7 +294,7 @@
     </div>
 </div>
 <script>
-
+    
 
 
     $(function () {
@@ -325,9 +325,9 @@
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
-        $(".amount1").on("change", function () {
-            calculateSum2();
-        });
+      $(".amount1").on("change", function () {
+          calculateSum1();
+      });
 
       function calculateSum1() {
           var sum = 0;
@@ -336,8 +336,13 @@
                   sum += parseFloat(this.value);
               }
           });
-          console.log(sum);
-          $("#ACT_AMOUNT").val(sum).formatCurrency();
+          if (sum == 0) {
+              sum = null;
+          }
+          
+          $("#ACT_AMOUNT").val(sum).formatCurrency(); 
+          
+         
       }
      
   });
