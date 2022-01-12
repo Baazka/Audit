@@ -37,7 +37,7 @@
         <div class="col-md-6">
             <label>Аудитын код: ................................................................</label>
         </div>
-        <p class="col-md-12">Аудитад шалгагдагч /хамрагдагч/ байгууллагын нэр: @if (Session["print_open_ent_name"].ToString() != null) { Session["print_open_ent_name"].ToString(); }</p>
+        <p class="col-md-12">Аудитад шалгагдагч /хамрагдагч/ байгууллагын нэр: @if (Session["print_open_ent_name"].ToString() != null) { @Session["print_open_ent_name"].ToString(); }</p>
 
         <div class="col-md-6">
             <label>Шалгасан аудиторын нэр: @User.GetClaimData("USER_NAME")</label>
@@ -166,7 +166,7 @@
         <div class="col-md-2">
             @if (Session["print_open_head_name"].ToString() != null)
             {
-                Session["print_open_head_name"].ToString();
+                @Session["print_open_head_name"].ToString();
             }
         </div>
         <div class="col-md-2">
@@ -202,7 +202,7 @@
         <div class="col-md-2">
             @if (Session["print_open_acc_name"].ToString() != null)
             {
-                Session["print_open_acc_name"].ToString();
+                @Session["print_open_acc_name"].ToString();
             }
         </div>
         <div class="col-md-2">
