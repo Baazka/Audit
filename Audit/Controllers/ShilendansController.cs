@@ -706,29 +706,29 @@ namespace Audit.Controllers
 
             for (int i = 0; i < print1.Length; i++)
             {
-                var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
-                if (md == 3)
-                {
-                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 20;
-                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 20;
-                    organization.print1.Add(
-                            new Print1
-                            {
-                                MD_CODE = print1[i].Field<string>("MD_CODE"),
-                                MD_TIME = print1[i].Field<string>("MD_TIME"),
-                                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
-                                MD_NAME = print1[i].Field<string>("MD_NAME"),
-                                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
-                                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
-                                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
-                                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
-                                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
-                                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
-                                PRECENT2 = Math.Round(md3percent2, 1).ToString()
-                            }
-                        );
-                }
-                else { 
+                //var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
+                //if (md == 3)
+                //{
+                //    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 20;
+                //    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 20;
+                //    organization.print1.Add(
+                //            new Print1
+                //            {
+                //                MD_CODE = print1[i].Field<string>("MD_CODE"),
+                //                MD_TIME = print1[i].Field<string>("MD_TIME"),
+                //                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
+                //                MD_NAME = print1[i].Field<string>("MD_NAME"),
+                //                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
+                //                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
+                //                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
+                //                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                //                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
+                //                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
+                //                PRECENT2 = Math.Round(md3percent2, 1).ToString()
+                //            }
+                //        );
+                //}
+                //else { 
                     organization.print1.Add(
                             new Print1
                             {
@@ -745,7 +745,7 @@ namespace Audit.Controllers
                                 PRECENT2 = print1[i].Field<string>("PRECENT2")
                             }
                         );
-                }
+                //}
             }
            return View(organization);
         }
@@ -765,30 +765,30 @@ namespace Audit.Controllers
 
             for (int i = 0; i < print1.Length; i++)
             {
-                var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
-                if (md == 3)
-                {
-                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 6;
-                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 6;
-                    organization.print1.Add(
-                            new Print1
-                            {
-                                MD_CODE = print1[i].Field<string>("MD_CODE"),
-                                MD_TIME = print1[i].Field<string>("MD_TIME"),
-                                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
-                                MD_NAME = print1[i].Field<string>("MD_NAME"),
-                                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
-                                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
-                                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
-                                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
-                                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
-                                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
-                                PRECENT2 = Math.Round(md3percent2, 1).ToString()
-                            }
-                        );
-                }
-                else
-                {
+                //var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
+                //if (md == 3)
+                //{
+                //    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 6;
+                //    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 6;
+                //    organization.print1.Add(
+                //            new Print1
+                //            {
+                //                MD_CODE = print1[i].Field<string>("MD_CODE"),
+                //                MD_TIME = print1[i].Field<string>("MD_TIME"),
+                //                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
+                //                MD_NAME = print1[i].Field<string>("MD_NAME"),
+                //                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
+                //                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
+                //                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
+                //                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                //                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
+                //                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
+                //                PRECENT2 = Math.Round(md3percent2, 1).ToString()
+                //            }
+                //        );
+                //}
+                //else
+                //{
                     organization.print1.Add(
                         new Print1
                         {
@@ -805,7 +805,7 @@ namespace Audit.Controllers
                             PRECENT2 = print1[i].Field<string>("PRECENT2")
                         }
                     );
-                }
+                //}
             }
             return View(organization);
         }
