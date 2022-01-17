@@ -8286,7 +8286,6 @@ namespace Audit.App_Func
                                   "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
                                   "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B1 ON A.OPEN_ID = B1.ORGID AND B1.YEARCODE = 2021 AND B1.IS_FINISH = 1 AND B1.MDCODE IN (107,165) " +
                                   "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B2 ON A.OPEN_ID = B2.ORGID AND B2.YEARCODE = 2021 AND B2.IS_PRINT = 1 AND B2.MDCODE = 107 " +
-                                  "LEFT JOIN AUD_REG.SYSTEM_USER K ON A.OPEN_ID = B1.ORGID AND B1.INSERTUSERID = K.USER_ID AND B1.YEARCODE = 2021 AND B1.MDCODE = 106 " +
                                   "LEFT JOIN AUD_REG.SYSTEM_USER K1 ON A.OPEN_ID = B1.ORGID AND B1.INSERTUSERID = K1.USER_ID AND B1.YEARCODE = 2021 AND B1.MDCODE = 106  " +
                                   "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON A.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                   "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
@@ -8312,8 +8311,8 @@ namespace Audit.App_Func
                                   "CASE WHEN :ORDER_NAME = 'IS_FINISHED' AND :ORDER_DIR = 'DESC' THEN B1.IS_FINISH END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'ASC' THEN B2.IS_PRINT END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'IS_PRINTED' AND :ORDER_DIR = 'DESC' THEN B2.IS_PRINT END DESC, " +
-                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'ASC' THEN K.USER_NAME END ASC, " +
-                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'DESC' THEN K.USER_NAME END DESC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'ASC' THEN USER_NAME END ASC, " +
+                                  "CASE WHEN :ORDER_NAME = 'USER_NAME' AND :ORDER_DIR = 'DESC' THEN USER_NAME END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'ASC' THEN B1.INSERTDATE END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'INSERTDATE' AND :ORDER_DIR = 'DESC' THEN B1.INSERTDATE END DESC, " +
                                   "CASE WHEN :ORDER_NAME = 'OPEN_ENT_NAME' AND :ORDER_DIR = 'ASC' THEN A.OPEN_ENT_NAME END ASC, " +
