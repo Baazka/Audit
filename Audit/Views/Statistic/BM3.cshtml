@@ -70,7 +70,7 @@
 
         <div class="form-group-sm">
             <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM3', 'БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл')">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -265,6 +265,15 @@
                 },
                 "drawCallback": function () {
                     rowselected();
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('BM3'));
+                        XLSX.writeFile(wb, 'БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл' + '.xlsx');
+
+                        BM3.table.destroy();
+                        bm3ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
                 }
             });
 
@@ -509,20 +518,12 @@
                 }
             }
         }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             BM3.table.destroy();
             bm3ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                BM3.table.destroy();
-                bm3ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
+          
         }
     </script>
 } 

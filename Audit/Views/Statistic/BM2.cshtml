@@ -69,7 +69,7 @@
         }
             <div class="form-group-sm">
                 <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM2', 'БМ-2. Төрийн аудитын газрын аудитор болон багийн албан шаардлагын бүртгэл')">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-excel"></i>
                     </span>
@@ -164,7 +164,7 @@
             BM2.bm2ID = null;
         });
         function rowselected() {
-            $("#BM2 tbody tr").on('click', function (event) {
+            $("#BM2 tbody tr").on('click', function (event) { 
                 $("#FilterForm .enableBtn").removeClass("disabled")
                 $("#BM2 tbody tr").removeClass('row_selected');
                 $(this).addClass('row_selected');
@@ -276,6 +276,15 @@
                 "language": datatables.language,
                 "drawCallback": function () {
                     rowselected();
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('BM2'));
+                        XLSX.writeFile(wb, 'БМ-2. Төрийн аудитын газрын аудитор болон багийн албан шаардлагын бүртгэл' + '.xlsx');
+
+                        BM2.table.destroy();
+                        bm2ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
                 },
                 "createdRow": function (row, data, index) {
                     $(row).attr('data-id', data.ID);
@@ -535,20 +544,11 @@
                 }
             }
         }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             BM2.table.destroy();
             bm2ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                BM2.table.destroy();
-                bm2ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
         }
     </script>
 } 
