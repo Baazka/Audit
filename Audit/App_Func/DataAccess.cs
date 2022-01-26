@@ -2571,8 +2571,8 @@ namespace Audit.App_Func
                 XElement elem = request.Element("Parameters").Element("BM1");
 
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO AUD_STAT.BM1_DATA(AUDIT_ID, ACT_DATE, ACT_NO, ACT_VIOLATION_DESC, ACT_VIOLATION_TYPE, ACT_SUBMITTED_DATE, ACT_DELIVERY_DATE, ACT_AMOUNT, ACT_STATE_AMOUNT, ACT_LOCAL_AMOUNT, ACT_ORG_AMOUNT, ACT_OTHER_AMOUNT, ACT_RCV_NAME, ACT_RCV_ROLE, ACT_RCV_GIVEN_NAME, ACT_RCV_PHONE, ACT_RCV_ADDRESS, ACT_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
-                    "VALUES (:P_AUDIT_ID, :P_ACT_DATE, :P_ACT_NO, :P_ACT_VIOLATION_DESC, :P_ACT_VIOLATION_TYPE, :P_ACT_SUBMITTED_DATE, :P_ACT_DELIVERY_DATE, :P_ACT_AMOUNT, :P_ACT_STATE_AMOUNT, :P_ACT_LOCAL_AMOUNT, :P_ACT_ORG_AMOUNT, :P_ACT_OTHER_AMOUNT, :P_ACT_RCV_NAME, :P_ACT_RCV_ROLE, :P_ACT_RCV_GIVEN_NAME, :P_ACT_RCV_PHONE, :P_ACT_RCV_ADDRESS, :P_ACT_CONTROL_AUDITOR_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
+                cmd.CommandText = "INSERT INTO AUD_STAT.BM1_DATA(AUDIT_ID, ACT_DATE, ACT_NO, ACT_VIOLATION_DESC, ACT_VIOLATION_TYPE, ACT_SUBMITTED_DATE, ACT_DELIVERY_DATE, ACT_AMOUNT, ACT_STATE_AMOUNT, ACT_LOCAL_AMOUNT, ACT_ORG_AMOUNT, ACT_OTHER_AMOUNT, ACT_RCV_NAME, ACT_RCV_ROLE, ACT_RCV_GIVEN_NAME, ACT_RCV_PHONE, ACT_RCV_ADDRESS, ACT_CONTROL_AUDITOR_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE,ACT_C2_AMOUNT,ACT_C2_NONEXPIRED,ACT_C2_EXPIRED) " +
+                    "VALUES (:P_AUDIT_ID, :P_ACT_DATE, :P_ACT_NO, :P_ACT_VIOLATION_DESC, :P_ACT_VIOLATION_TYPE, :P_ACT_SUBMITTED_DATE, :P_ACT_DELIVERY_DATE, :P_ACT_AMOUNT, :P_ACT_STATE_AMOUNT, :P_ACT_LOCAL_AMOUNT, :P_ACT_ORG_AMOUNT, :P_ACT_OTHER_AMOUNT, :P_ACT_RCV_NAME, :P_ACT_RCV_ROLE, :P_ACT_RCV_GIVEN_NAME, :P_ACT_RCV_PHONE, :P_ACT_RCV_ADDRESS, :P_ACT_CONTROL_AUDITOR_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE, :P_ACT_C2_AMOUNT, :P_ACT_C2_NONEXPIRED, :P_ACT_C2_EXPIRED)";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
@@ -2598,10 +2598,19 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_ACT_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_ACT_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+
+
+                //complect
+                
+                cmd.Parameters.Add(":P_ACT_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_AMOUNT")?.Value == null || elem.Element("ACT_C2_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("ACT_C2_NONEXPIRED")?.Value == null || elem.Element("ACT_C2_NONEXPIRED")?.Value == "" ? null : elem.Element("ACT_C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_ACT_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_EXPIRED")?.Value == null || elem.Element("ACT_C2_EXPIRED")?.Value == "0.00" ? null : elem.Element("ACT_C2_EXPIRED")?.Value;
+            
+
+                
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
@@ -3154,7 +3163,10 @@ namespace Audit.App_Func
                     " CLAIM_CONTROL_AUDITOR_ID, " +
                     " IS_ACTIVE," +
                     " CREATED_BY, " +
-                    " CREATED_DATE " +
+                    " CREATED_DATE, " +
+                    " CLAIM_C2_AMOUNT, " +
+                    " CLAIM_C2_NONEXPIRED, " +
+                    " CLAIM_C2_EXPIRED " +
                     ") " +
 
                     "VALUES(:P_AUDIT_ID, " +
@@ -3173,7 +3185,10 @@ namespace Audit.App_Func
                     " :P_CLAIM_CONTROL_AUDITOR_ID," +
                     " :P_IS_ACTIVE," +
                     " :P_CREATED_BY, " +
-                    " :P_CREATED_DATE " +
+                    " :P_CREATED_DATE, " +
+                    " :P_CLAIM_C2_AMOUNT, " +
+                    ":P_CLAIM_C2_NONEXPIRED,"+
+                    ":P_CLAIM_C2_EXPIRED "+
                     ")";
 
                 // Set parameters
@@ -3195,6 +3210,11 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+
+                //complect
+                cmd.Parameters.Add(":P_CLAIM_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("CLAIM_C2_AMOUNT")?.Value == null || elem.Element("CLAIM_C2_AMOUNT")?.Value == "0.00" ? null : elem.Element("CLAIM_C2_AMOUNT")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_NONEXPIRED", OracleDbType.Varchar2).Value = elem.Element("CLAIM_C2_NONEXPIRED")?.Value == null || elem.Element("CLAIM_C2_NONEXPIRED")?.Value == "0.00" ? null : elem.Element("CLAIM_C2_NONEXPIRED")?.Value;
+                cmd.Parameters.Add(":P_CLAIM_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("CLAIM_C2_EXPIRED")?.Value == null || elem.Element("CLAIM_C2_EXPIRED")?.Value == "0.00" ? null : elem.Element("CLAIM_C2_EXPIRED")?.Value;
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();

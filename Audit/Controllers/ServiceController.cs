@@ -681,6 +681,7 @@ namespace Audit.Controllers
                     var pay8 = typ.GetProperty("BENEFIT_FIN_AMOUNT");
                     var pay9 = typ.GetProperty("CLAIM_C2_NONEXPIRED");
                     var pay10 = typ.GetProperty("CLAIM_C2_EXPIRED");
+                    var pay11 = typ.GetProperty("CLAIM_C2_AMOUNT");
 
                     var count = typ.GetProperty("BENEFIT_FIN");
                     var count1 = typ.GetProperty("BENEFIT_NONFIN");
@@ -696,6 +697,7 @@ namespace Audit.Controllers
                     Decimal AMOUNT8 = 0;
                     Decimal AMOUNT9 = 0;
                     Decimal AMOUNT10 = 0;
+                    Decimal AMOUNT11 = 0;
 
                     int NUMBER = 0;
                     int NUMBER1 = 0;
@@ -768,7 +770,12 @@ namespace Audit.Controllers
                             Decimal Amount1 = Convert.ToDecimal(strNii);
                             AMOUNT10 += Amount1;
                         }
-
+                        if (data.CLAIM_C2_AMOUNT != "0" && data.CLAIM_C2_AMOUNT != null)
+                        {
+                            string strNii = data.CLAIM_C2_AMOUNT.Replace(",", "");
+                            Decimal Amount1 = Convert.ToDecimal(strNii);
+                            AMOUNT11 += Amount1;
+                        }
 
                         if (data.BENEFIT_FIN != 0 && data.BENEFIT_FIN != null)
                         {
@@ -790,6 +797,7 @@ namespace Audit.Controllers
                     pay8.SetValue(Niit, AMOUNT8.ToString("#,0.00"));
                     pay9.SetValue(Niit, AMOUNT9.ToString("#,0.00"));
                     pay10.SetValue(Niit, AMOUNT10.ToString("#,0.00"));
+                    pay11.SetValue(Niit, AMOUNT11.ToString("#,0.00"));
 
                     count.SetValue(Niit, NUMBER);
                     count1.SetValue(Niit, NUMBER1);
