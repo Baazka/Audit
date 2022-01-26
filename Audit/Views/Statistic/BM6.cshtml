@@ -31,7 +31,7 @@
 
         <div class="form-group-sm ml-auto">
             <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM6', 'БМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн бүртгэл')">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -190,6 +190,17 @@
 
                     }
                 },
+                "drawCallback": function () {
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('BM6'));
+                        XLSX.writeFile(wb, 'БМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн бүртгэл' + '.xlsx');
+
+                        BM6.table.destroy();
+                        bm6ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
+                }
             });
 
         }
@@ -282,21 +293,11 @@
             }
         }
     }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             BM6.table.destroy();
             bm6ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                BM6.table.destroy();
-                bm6ListInit();
-                $('#exportXLSX').prop('disabled', false);
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
         }
     </script>
 }

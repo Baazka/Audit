@@ -18,7 +18,7 @@
             <i class="fas fa-arrow-left"></i>
         </span>
     </a>
-    <h4>БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл</h4>
+    <h4>БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл</h4> 
 </div>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
@@ -105,7 +105,7 @@
         }
         <div class="form-group-sm">
             <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM0', 'БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл')">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -289,6 +289,17 @@
                 },
                 "drawCallback": function () {
                     rowselected();
+
+                    if (pagelength == -1){
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('BM0'));
+                        XLSX.writeFile(wb, 'БМ-0. Төрийн аудитын газрын гүйцэтгэсэн аудитын бүртгэл' + '.xlsx');
+
+                        BM0.table.destroy();
+                        bm0ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
+
                 }
             });
         }
@@ -781,21 +792,22 @@
                 }
             }
         }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             BM0.table.destroy();
             bm0ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
+            //setTimeout(function () {
+            //    var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
+            //    XLSX.writeFile(wb, excelname + '.xlsx');
 
-                BM0.table.destroy();
-                bm0ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
+            //    BM0.table.destroy();
+            //    bm0ListInit();
+            //    $('#exportXLSX').removeClass('disabled');
+            //}, 100000)
         }
+
+
   
     </script>
 }

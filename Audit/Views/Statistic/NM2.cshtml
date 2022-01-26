@@ -29,7 +29,7 @@
 
             <div class="form-group-sm ml-auto">
                 <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM2', 'НМ-2. Төрийн аудитын газрын албан шаардлагын нэгтгэл')">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-excel"></i>
                     </span>
@@ -198,6 +198,17 @@
 
                     }
                 },
+                "drawCallback": function () {
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('NM2'));
+                        XLSX.writeFile(wb, 'НМ-2. Төрийн аудитын газрын албан шаардлагын нэгтгэл' + '.xlsx');
+
+                        NM2.table.destroy();
+                        nm2ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
+                }
             });
 
         }
@@ -290,20 +301,12 @@
             }
         }
     }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             NM2.table.destroy();
             nm2ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                NM2.table.destroy();
-                nm2ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
+         
         }
     </script>
 }

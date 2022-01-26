@@ -29,7 +29,7 @@
 
             <div class="form-group-sm ml-auto">
                 <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="NM1exportXLSX" onclick="NM1exportFile('NM1', 'НМ-1. Төрийн аудитын газрын төлбөрийн актын нэгтгэл')">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="NM1exportXLSX" onclick="NM1exportFile()">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-excel"></i>
                     </span>
@@ -204,6 +204,17 @@
 
                     }
                 },
+                "drawCallback": function () {
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('NM1'));
+                        XLSX.writeFile(wb, 'НМ-1. Төрийн аудитын газрын төлбөрийн актын нэгтгэл' + '.xlsx');
+
+                        NM1.table.destroy();
+                        nm1ListInit();
+                        $('#NM1exportXLSX').removeClass('disabled');
+                    }
+                }
             });
 
         }
@@ -296,20 +307,12 @@
             }
         }
     }
-        function NM1exportFile(tableid, excelname,) {
+        function NM1exportFile() {
             $('#NM1exportXLSX').addClass('disabled');
             NM1.table.destroy();
             nm1ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                NM1.table.destroy();
-                nm1ListInit();
-                $('#NM1exportXLSX').removeClass('disabled');
-            }, 5000
-            )
+          
         }
 
        
