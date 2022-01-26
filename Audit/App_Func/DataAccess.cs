@@ -8414,11 +8414,28 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT A.OPEN_ID ,B.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, A.OPEN_ENT_NAME, A.OPEN_HEAD_ROLE, A.OPEN_HEAD_NAME, A.OPEN_HEAD_PHONE, A.OPEN_ACC_ROLE, A.OPEN_ACC_NAME, A.OPEN_ACC_PHONE, A.OPEN_ENT_GROUP_ID " +
-                                  "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
-                                  "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE B ON A.OPEN_ENT_BUDGET_TYPE = B.BUDGET_TYPE_ID " +
-                                  "WHERE A.IS_ACTIVE = 1 " +
-                                  "AND A.OPEN_ID = :OPEN_ID ";
+                cmd.CommandText = "SELECT OE.OPEN_ID ,RBT.BUDGET_SHORT_NAME, OE.OPEN_ENT_BUDGET_PARENT, OE.OPEN_ENT_NAME, FDD.IND_VALUE OPEN_HEAD_ROLE, " +
+                                  "SUBSTR(FDD1.IND_VALUE, 0, 1)|| '.' || FDD2.IND_VALUE AS OPEN_HEAD_NAME, FDD3.IND_VALUE OPEN_HEAD_PHONE, FDA.IND_VALUE OPEN_ACC_ROLE, " +
+                                  "SUBSTR(FDA1.IND_VALUE, 0, 1)|| '.' || FDA2.IND_VALUE AS OPEN_ACC_NAME, FDA3.IND_VALUE OPEN_ACC_PHONE, OE.OPEN_ENT_GROUP_ID " +
+                                  "FROM AUD_MIRRORACC.OPENACC_ENTITY OE " +
+                                  "INNER JOIN AUD_ORG.AUDIT_ENTITY AE ON AE.ENT_ID = OE.OPEN_ENT_ID " +
+                                  "INNER JOIN FAS_ADMIN.FAS_AUDIT FA ON FA.ENT_ID = AE.ENT_ID " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDD ON FDD.FAS_AUDIT_ID = FA.ID AND FDD.IND_ID = 83 " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDD1 ON FDD1.FAS_AUDIT_ID = FA.ID AND FDD1.IND_ID = 260 " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDD2 ON FDD2.FAS_AUDIT_ID = FA.ID AND FDD2.IND_ID = 167 " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDD3 ON FDD3.FAS_AUDIT_ID = FA.ID AND FDD3.IND_ID = 170 " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDA ON FDA.FAS_AUDIT_ID = FA.ID AND FDA.IND_ID = 84 " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDA1 ON FDA1.FAS_AUDIT_ID = FA.ID AND FDA1.IND_ID = 261 " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDA2 ON FDA2.FAS_AUDIT_ID = FA.ID AND FDA2.IND_ID = 179 " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDA3 ON FDA3.FAS_AUDIT_ID = FA.ID AND FDA3.IND_ID = 182 " +
+                                  "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE RBT ON OE.OPEN_ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
+                                  "WHERE OE.IS_ACTIVE = 1 AND OE.OPEN_ID = :OPEN_ID ";
+
+                                  // "SELECT A.OPEN_ID ,B.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, A.OPEN_ENT_NAME, A.OPEN_HEAD_ROLE, A.OPEN_HEAD_NAME, A.OPEN_HEAD_PHONE, A.OPEN_ACC_ROLE, A.OPEN_ACC_NAME, A.OPEN_ACC_PHONE, A.OPEN_ENT_GROUP_ID " +
+                                  //"FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
+                                  //"INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE B ON A.OPEN_ENT_BUDGET_TYPE = B.BUDGET_TYPE_ID " +
+                                  //"WHERE A.IS_ACTIVE = 1 " +
+                                  //"AND A.OPEN_ID = :OPEN_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":OPEN_ID", OracleDbType.Int32, request.Element("Parameters").Element("OPEN_ID").Value, System.Data.ParameterDirection.Input);
