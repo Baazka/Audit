@@ -31,6 +31,7 @@
                         @*@Html.HiddenFor(m => m.ID)*@
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
                         <div class="row">
                             <div class="col-12">
@@ -39,7 +40,7 @@
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -155,7 +156,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хүргүүлсэн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
+                                        @Html.EditorFor(m => m.REFERENCE_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.REFERENCE_SUBMITTED_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -164,7 +165,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Биелэлтийг тооцох: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker",@readonly = "readonly"  } })
+                                        @Html.EditorFor(m => m.REFERENCE_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.REFERENCE_DELIVERY_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -210,16 +211,71 @@
                                 </div>
                             </div>
                             @*<div class="col-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог нэр, албан тушаал:</label>
-                                    <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.REFERENCE_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    </div>
-                                </div>
-                            </div>*@
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">Зөвлөмжийн хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог нэр, албан тушаал:</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.REFERENCE_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    </div>
+                </div>
+            </div>*@
 
                         </div>
-
+                        <div id="biylelt_nuutsalsan" hidden>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй тоо:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                            @Html.ValidationMessageFor(m => m.C2_NONEXPIRED, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй дүн:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.C2_NONEXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                            @Html.ValidationMessageFor(m => m.C2_NONEXPIRED_AMOUNT, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн тоо:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                            @Html.ValidationMessageFor(m => m.C2_EXPIRED, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн дүн:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.C2_EXPIRED_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                            @Html.ValidationMessageFor(m => m.C2_EXPIRED_AMOUNT, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
@@ -286,36 +342,58 @@
       calculateSum1();
       calculateSum2();
 
+      $("#REFERENCE_DELIVERY_DATE").change(function (value) {
+          calculateSum1();
+          calculateSum2();
+      });
+
+
+
       $(".amount1").on("keydown keyup", function () {
           calculateSum1();
       });
       $(".amount2").on("keydown keyup", function () {
           calculateSum2();
       });
-
+      $(".amount2").on("change", function () {
+          calculateSum2();
+      });
       function calculateSum1() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount1").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseInt(this.value);
-              }
-          });
+          var value4 = $("#REFERENCE_AMOUNT").val();
 
-          $("#COMPLETION_PROGRESS").val(sum);
+          var res4 = value4.replace(/,/g, '');
+
+
+          $("#COMPLETION_PROGRESS_AMOUNT").val(res4).formatCurrency();
+
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
+              $("#C2_EXPIRED_AMOUNT").val(res4).formatCurrency();
+              $("#C2_NONEXPIRED_AMOUNT").val(null);
+          }
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+              $("#C2_EXPIRED_AMOUNT").val(null);
+              $("#C2_NONEXPIRED_AMOUNT").val(res4).formatCurrency();
+
+          }
+
       }
-      function calculateSum2() {
-          var sum = 0;
-          //iterate through each textboxes and add the values
-          $(".amount2").each(function () {
-              //add only if the value is number
-              if (!isNaN(this.value) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
 
-          $("#COMPLETION_PROGRESS_AMOUNT").val(sum.toFixed(2));
+      function calculateSum2() {
+          var value7 = $("#REFERENCE_COUNT").val();
+
+          $("#COMPLETION_PROGRESS").val(value7);
+
+          if ($("#REFERENCE_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
+
+              $("#C2_EXPIRED").val(value7);
+              $("#C2_NONEXPIRED").val(null);
+          }
+          if ($("#REFERENCE_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+              $("#C2_EXPIRED").val(null);
+              $("#C2_NONEXPIRED").val(value7);
+
+          }
+
       }
   });
 </script>
