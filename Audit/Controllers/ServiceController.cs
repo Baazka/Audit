@@ -2713,13 +2713,13 @@ namespace Audit.Controllers
                             AMOUNT2 += Amount;
 
                         }
-                        if (data.C2_AMOUNT != null)
-                        {
-                            string strNii = data.C2_AMOUNT.Replace(",", "");
-                            Decimal Amount = Convert.ToDecimal(strNii);
-                            AMOUNT3 += Amount;
+                        //if (data.C2_AMOUNT != null)
+                        //{
+                        //    string strNii = data.C2_AMOUNT.Replace(",", "");
+                        //    Decimal Amount = Convert.ToDecimal(strNii);
+                        //    AMOUNT3 += Amount;
 
-                        }
+                        //}
                         if (data.C2_NONEXPIRED_AMOUNT != null)
                         {
                             string strNii = data.C2_NONEXPIRED_AMOUNT.Replace(",", "");
@@ -2755,10 +2755,10 @@ namespace Audit.Controllers
                         {
                             NUMBER2 += Convert.ToInt32(data.COMPLETION_PROGRESS_COUNT);
                         }
-                        if (data.C2_COUNT != 0)
-                        {
-                            NUMBER3 += Convert.ToInt32(data.C2_COUNT);
-                        }
+                        //if (data.C2_COUNT != 0)
+                        //{
+                        //    NUMBER3 += Convert.ToInt32(data.C2_COUNT);
+                        //}
                         if (data.C2_NONEXPIRED_COUNT != 0)
                         {
                             NUMBER4 += Convert.ToInt32(data.C2_NONEXPIRED_COUNT);
@@ -2789,6 +2789,8 @@ namespace Audit.Controllers
                         }
                     }
 
+                    AMOUNT3 = AMOUNT4 + AMOUNT5;
+                    NUMBER3 = NUMBER4 + NUMBER5;
 
                     pay.SetValue(Niit, AMOUNT.ToString("#,0.00"));
                     pay1.SetValue(Niit, AMOUNT1.ToString("#,0.00"));

@@ -5766,6 +5766,8 @@ namespace Audit.App_Func
                                     "NM.CREATED_DATE, " +
                                     "NM.UPDATED_BY, " +
                                     "NM.UPDATED_DATE " +
+                                    //"(NVL(NM.C2_NONEXPIRED_COUNT,0) + NVL(NM.C2_EXPIRED_COUNT,0)) AS C2_COUNT, " +
+                                    //"(NVL(NM.C2_NONEXPIRED_AMOUNT,0) + NVL(NM.C2_EXPIRED_AMOUNT,0)) AS C2_AMOUNT " +
                                     "FROM AUD_STAT.NM3_DATA NM " +
                                     "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
                                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
@@ -5815,7 +5817,9 @@ namespace Audit.App_Func
                                     "NM.CREATED_BY, " +
                                     "NM.CREATED_DATE, " +
                                     "NM.UPDATED_BY, " +
-                                    "NM.UPDATED_DATE " +
+                                    "NM.UPDATED_DATE, " +
+                                    "(NVL(NM.C2_NONEXPIRED_COUNT,0) + NVL(NM.C2_EXPIRED_COUNT,0)) AS C2_COUNT, "+
+                                    "(NVL(NM.C2_NONEXPIRED_AMOUNT,0) + NVL(NM.C2_EXPIRED_AMOUNT,0)) AS C2_AMOUNT " +
                                     "FROM AUD_STAT.NM3_DATA NM " +
                                     "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
                                     "INNER JOIN AUD_STAT.REF_PERIOD RP ON B.STATISTIC_PERIOD = RP.ID " +
