@@ -2420,7 +2420,9 @@ namespace Audit.App_Func
                 XElement elem = request.Element("Parameters").Element("BM1");
 
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM1_DATA SET COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT,  COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_AMOUNT = :P_REMOVED_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, ACT_C2_AMOUNT = :P_ACT_C2_AMOUNT, ACT_C2_NONEXPIRED = :P_ACT_C2_NONEXPIRED, ACT_C2_EXPIRED = :P_ACT_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM1_DATA SET COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_AMOUNT = :P_COMPLETION_AMOUNT, COMPLETION_STATE_AMOUNT = :P_COMPLETION_STATE_AMOUNT,  COMPLETION_LOCAL_AMOUNT = :P_COMPLETION_LOCAL_AMOUNT, COMPLETION_ORG_AMOUNT = :P_COMPLETION_ORG_AMOUNT, COMPLETION_OTHER_AMOUNT = :P_COMPLETION_OTHER_AMOUNT, REMOVED_AMOUNT = :P_REMOVED_AMOUNT, REMOVED_LAW_AMOUNT = :P_REMOVED_LAW_AMOUNT, REMOVED_LAW_DATE = :P_REMOVED_LAW_DATE, REMOVED_LAW_NO = :P_REMOVED_LAW_NO, REMOVED_INVALID_AMOUNT = :P_REMOVED_INVALID_AMOUNT, REMOVED_INVALID_DATE = :P_REMOVED_INVALID_DATE, REMOVED_INVALID_NO = :P_REMOVED_INVALID_NO, ACT_C2_AMOUNT = :P_ACT_C2_AMOUNT, ACT_C2_NONEXPIRED = :P_ACT_C2_NONEXPIRED, ACT_C2_EXPIRED = :P_ACT_C2_EXPIRED, BENEFIT_FIN = :P_BENEFIT_FIN, BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, BENEFIT_NONFIN = :P_BENEFIT_NONFIN, " +
+                     " UPDATED_BY = :P_UPDATED_BY, " +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
@@ -2444,6 +2446,10 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN")?.Value == "" ? null : elem.Element("BENEFIT_FIN")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Decimal).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == "" ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == "" ? null : elem.Element("BENEFIT_NONFIN")?.Value;
+
+
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
 
@@ -2953,9 +2959,9 @@ namespace Audit.App_Func
                     " CLAIM_C2_EXPIRED = :P_CLAIM_C2_EXPIRED, " +
                     " BENEFIT_FIN = :P_BENEFIT_FIN, " +
                     " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT, " +
-                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN " +
-                    //" UPDATED_BY = :P_UPDATED_BY," +
-                    //" UPDATED_DATE = :P_UPDATED_DATE " +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN, " +
+                    " UPDATED_BY = :P_UPDATED_BY," +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
                     " WHERE ID = :P_ID";
                
 
@@ -2984,8 +2990,8 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == null ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == null ? null : elem.Element("BENEFIT_NONFIN")?.Value;
 
-                //cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                //cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
 
@@ -3655,9 +3661,9 @@ namespace Audit.App_Func
                     " C2_EXPIRED_AMOUNT = :P_C2_EXPIRED_AMOUNT," +
                     " BENEFIT_FIN = :P_BENEFIT_FIN," +
                     " BENEFIT_FIN_AMOUNT = :P_BENEFIT_FIN_AMOUNT," +
-                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN " +
-                    //" UPDATED_BY = :P_UPDATED_BY," +
-                    //" UPDATED_DATE = :P_UPDATED_DATE " +
+                    " BENEFIT_NONFIN = :P_BENEFIT_NONFIN, " +
+                    " UPDATED_BY = :P_UPDATED_BY, " +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
                     " WHERE ID = :P_ID ";
 
                 // Set parameters
@@ -3678,8 +3684,8 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == null ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == null ? null : elem.Element("BENEFIT_NONFIN")?.Value;
 
-                //cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-                //cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
 
 
                 
@@ -4143,7 +4149,9 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM4");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM4_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM4_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DATE = :P_COMPLETION_DATE, COMPLETION_ORDER = :P_COMPLETION_ORDER, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT, " +
+                     " UPDATED_BY = :P_UPDATED_BY, " +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
@@ -4154,7 +4162,9 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null || elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
-                //cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
@@ -4504,7 +4514,9 @@ namespace Audit.App_Func
             {
                 XElement elem = request.Element("Parameters").Element("BM5");
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "UPDATE AUD_STAT.BM5_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID = :P_COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT = :P_COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER = :P_LAW_C2_NUMBER, LAW_C2_AMOUNT = :P_LAW_C2_AMOUNT " +
+                cmd.CommandText = "UPDATE AUD_STAT.BM5_DATA SET AUDIT_ID = :P_AUDIT_ID, COMPLETION_DONE = :P_COMPLETION_DONE, COMPLETION_DONE_AMOUNT = :P_COMPLETION_DONE_AMOUNT, COMPLETION_PROGRESS = :P_COMPLETION_PROGRESS, COMPLETION_PROGRESS_AMOUNT = :P_COMPLETION_PROGRESS_AMOUNT, COMPLETION_INVALID = :P_COMPLETION_INVALID, COMPLETION_INVALID_AMOUNT = :P_COMPLETION_INVALID_AMOUNT, LAW_C2_NUMBER = :P_LAW_C2_NUMBER, LAW_C2_AMOUNT = :P_LAW_C2_AMOUNT, " +
+                      " UPDATED_BY = :P_UPDATED_BY, " +
+                    " UPDATED_DATE = :P_UPDATED_DATE " +
                     "WHERE ID = :P_ID";
 
                 // Set parameters
@@ -4517,7 +4529,9 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_INVALID_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_INVALID_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_INVALID_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_LAW_C2_NUMBER", OracleDbType.Varchar2).Value = elem.Element("LAW_C2_NUMBER")?.Value == null ? null : elem.Element("LAW_C2_NUMBER")?.Value;
                 cmd.Parameters.Add(":P_LAW_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("LAW_C2_AMOUNT")?.Value == null ? null : elem.Element("LAW_C2_AMOUNT")?.Value;
-                //cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                
+                cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
+                cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
