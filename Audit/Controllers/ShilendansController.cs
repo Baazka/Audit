@@ -157,9 +157,9 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("MirrorOrgDetail") != null)
                 {
                     organization = new Mirroracc().FromXml(res.Element("MirrorOrgDetail"));
-                    Session["print_open_ent_name"] = organization.OPEN_ENT_NAME;
-                    Session["print_open_head_name"] = organization.OPEN_HEAD_NAME;
-                    Session["print_open_acc_name"] = organization.OPEN_ACC_NAME;
+                    if (organization.OPEN_ENT_NAME != null) { Session["print_open_ent_name"] = organization.OPEN_ENT_NAME; } else { Session["print_open_ent_name"] = ""; }
+                    if (organization.OPEN_HEAD_NAME != null) { Session["print_open_head_name"] = organization.OPEN_HEAD_NAME; } else { Session["print_open_head_name"] = ""; }
+                    if (organization.OPEN_ACC_NAME != null) { Session["print_open_acc_name"] = organization.OPEN_ACC_NAME; } else { Session["print_open_acc_name"] = ""; }
                 }
                 
                 XElement tb1res = AppStatic.SystemController.Table1List(openid);
@@ -267,8 +267,8 @@ namespace Audit.Controllers
                     }
                     for (int i = 0; i < table4.Length; i++)
                     {
-                        Session["Print1Val1"] = DsTables.Tables["MirrDataList"].Rows[111].Field<string>("DATA02");
-                        Session["Print1Val2"] = DsTables.Tables["MirrDataList"].Rows[112].Field<string>("DATA02");
+                        if (DsTables.Tables["MirrDataList"].Rows[111].Field<string>("DATA02") != null) { Session["Print1Val1"] = DsTables.Tables["MirrDataList"].Rows[111].Field<string>("DATA02"); } else { Session["Print1Val1"] = ""; }
+                        if (DsTables.Tables["MirrDataList"].Rows[112].Field<string>("DATA02") != null) { Session["Print1Val2"] = DsTables.Tables["MirrDataList"].Rows[112].Field<string>("DATA02"); } else { Session["Print1Val2"] = ""; }
                         var md = Convert.ToInt32(table4[i].Field<string>("MD_CODE"));
                         organization.tab4.Add(
                                 new Tab4
@@ -299,8 +299,9 @@ namespace Audit.Controllers
                     }
                     for (int i = 0; i < table6.Length; i++)
                     {
-                        Session["Print2Val1"] = DsTables.Tables["MirrDataList"].Rows[169].Field<string>("DATA02");
-                        Session["Print2Val2"] = DsTables.Tables["MirrDataList"].Rows[170].Field<string>("DATA02");
+                        if (DsTables.Tables["MirrDataList"].Rows[169].Field<string>("DATA02") != null) { Session["Print2Val1"] = DsTables.Tables["MirrDataList"].Rows[169].Field<string>("DATA02"); } else { Session["Print2Val1"] = ""; }
+                        if (DsTables.Tables["MirrDataList"].Rows[170].Field<string>("DATA02") != null) { Session["Print2Val2"] = DsTables.Tables["MirrDataList"].Rows[170].Field<string>("DATA02"); } else { Session["Print2Val2"] = ""; }
+                
                         var md = Convert.ToInt32(table6[i].Field<string>("MD_CODE"));
                         organization.tab6.Add(
                                 new Tab6
