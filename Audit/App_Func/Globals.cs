@@ -21,6 +21,7 @@ namespace Audit.App_Func
         public static List<Office> offices { get; set; } = new List<Office>();
         public static List<SubOffice> subOffices { get; set; } = new List<SubOffice>();
         public static List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
+        public static List<TtzBudgetType> ttzBudgetTypes { get; set; } = new List<TtzBudgetType>();
         public static List<OrgLegalStatus> OrgLegalStatuses { get; set; } = new List<OrgLegalStatus>();
         public static List<PropertyType> PropertyTypes { get; set; } = new List<PropertyType>();
         public static List<SourceType> SourceTypes { get; set; } = new List<SourceType>();

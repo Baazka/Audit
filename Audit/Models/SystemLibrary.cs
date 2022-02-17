@@ -90,6 +90,20 @@ namespace Audit.Models
         }
     }
 
+    public class TtzBudgetType
+    {
+        public int TTZ_CODE { get; set; }
+        public string TTZ_NAME { get; set; }
+        public TtzBudgetType FromXml(XElement elem)
+        {
+            if (elem.Element("TTZ_CODE") != null)
+                TTZ_CODE = Convert.ToInt32(elem.Element("TTZ_CODE").Value);
+            if (elem.Element("TTZ_NAME") != null)
+                TTZ_NAME = elem.Element("TTZ_NAME").Value;
+            return this;
+        }
+    }
+
     public class LegalStatus
     {
         public int LEGAL_STATUS_ID { get; set; }

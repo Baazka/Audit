@@ -43,6 +43,16 @@ namespace Audit.Controllers
                     Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
                     res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
+                if (Globals.ttzBudgetTypes.Count > 0)
+                {
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
+                }
+                else
+                {
+                    XElement responseTtzBudgetTypes = SendLibraryRequest("TtzBudgetType");
+                    Globals.ttzBudgetTypes = (from item in responseTtzBudgetTypes.Elements("Library") select new TtzBudgetType().FromXml(item)).ToList();
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
+                }
                 if (Globals.OrgLegalStatuses.Count > 0)
                 {
                     res.OrgLegalStatuses = Globals.OrgLegalStatuses;

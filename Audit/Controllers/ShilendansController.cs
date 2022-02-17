@@ -27,10 +27,11 @@ namespace Audit.Controllers
             OrgVM res = new OrgVM();
             try
             {
-                if (Globals.departments.Count > 0 || Globals.parentBudgetTypes.Count > 0  || Globals.budgetLevels.Count > 0 || Globals.statuses.Count > 0 || Globals.violations.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
+                if (Globals.departments.Count > 0 || Globals.parentBudgetTypes.Count > 0 || Globals.ttzBudgetTypes.Count > 0 || Globals.budgetLevels.Count > 0 || Globals.statuses.Count > 0 || Globals.violations.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
                 {
                     res.departments = Globals.departments;
                     res.parentBudgetTypes = Globals.parentBudgetTypes;
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
                     res.budgetLevel = Globals.budgetLevels;
                     res.statuses = Globals.statuses;
                     res.violations = Globals.violations;
@@ -56,6 +57,10 @@ namespace Audit.Controllers
                     XElement responseParentBudgetTypes = SendLibraryRequest("ParentBudgetType");
                     Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
                     res.parentBudgetTypes = Globals.parentBudgetTypes;
+
+                    XElement responseTtzBudgetTypes = SendLibraryRequest("TtzBudgetType");
+                    Globals.ttzBudgetTypes = (from item in responseTtzBudgetTypes.Elements("Library") select new TtzBudgetType().FromXml(item)).ToList();
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
 
                     XElement responseBudgetLevel = SendLibraryRequest("BudgetLevel");
                     Globals.budgetLevels = (from item in responseBudgetLevel.Elements("Library") select new BudgetLevel().FromXml(item)).ToList();

@@ -548,6 +548,7 @@ namespace Audit.Models
         public List<MenuRole> menuRoles { get; set; }
         public int DeparmentID { get; set; }
         public int PARENT_BUDGET_ID { get; set; }
+        public int TTZ_CODE { get; set; }
         public int BUDGET_LEVEL_ID { get; set; }
         public int LEGAL_STATUS_ID { get; set; }
         public int PROPERTY_TYPE_ID { get; set; }
@@ -561,6 +562,7 @@ namespace Audit.Models
         public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
+        public List<TtzBudgetType> ttzBudgetTypes { get; set; } = new List<TtzBudgetType>();
         public List<OrgLegalStatus> OrgLegalStatuses { get; set; } = new List<OrgLegalStatus>();
         public List<PropertyType> PropertyTypes { get; set; } = new List<PropertyType>();
         public List<SourceType> SourceTypes { get; set; } = new List<SourceType>();
@@ -586,6 +588,7 @@ namespace Audit.Models
     {
         public int ORG_ID { get;set; }
         public string TEZ_NAME { get; set; }
+        public string TTZ_NAME { get; set; }
         public string ENT_NAME { get; set; }
         public string ORG_REGISTER_NO { get; set; }
         public string LEGAL_STATUS_NAME { get; set; }
@@ -607,6 +610,8 @@ namespace Audit.Models
                 ORG_ID = Convert.ToInt32(elem.Element("ORG_ID").Value);
             if (elem.Element("TEZ_NAME") != null)
                 TEZ_NAME = elem.Element("TEZ_NAME").Value;
+            if (elem.Element("TTZ_NAME") != null)
+                TTZ_NAME = elem.Element("TTZ_NAME").Value;
             if (elem.Element("ENT_NAME") != null)
                 ENT_NAME = elem.Element("ENT_NAME").Value;
             if (elem.Element("ORG_REGISTER_NO") != null)

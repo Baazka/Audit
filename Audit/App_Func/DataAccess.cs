@@ -204,6 +204,8 @@ namespace Audit.App_Func
                     cmd.CommandText = "SELECT DEPARTMENT_ID, DEPARTMENT_NAME FROM AUD_REG.REF_DEPARTMENT WHERE IS_ACTIVE = 1 AND DEPARTMENT_TYPE = 1 ORDER BY DEPARTMENT_ID ASC";
                 else if (libName == "ParentBudgetType")
                     cmd.CommandText = "SELECT A.OPEN_ENT_TEZ PARENT_BUDGET_ID, B.ENT_NAME PARENT_BUGDET_NAME FROM AUD_MIRRORACC.OPENACC_ENTITY A INNER JOIN AUD_ORG.AUDIT_ENTITY B ON A.OPEN_ENT_TEZ = B.ENT_ID GROUP BY A.OPEN_ENT_TEZ, B.ENT_NAME ORDER BY B.ENT_NAME ASC";
+                else if (libName == "TtzBudgetType")
+                    cmd.CommandText = "SELECT AE.ENT_ID TTZ_CODE, RD.DEPARTMENT_SHORT_NAME || '-' || AE.ENT_NAME TTZ_NAME FROM AUD_ORG.AUDIT_ENTITY AE INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON AE.ENT_DEPARTMENT_ID = RD.DEPARTMENT_ID WHERE AE.ENT_BUDGET_TYPE = 2 AND AE.IS_ACTIVE = 1 ORDER BY AE.ENT_DEPARTMENT_ID, AE.ENT_NAME";
                 else if (libName == "BudgetLevel")
                     cmd.CommandText = "SELECT BUDGET_LEVEL_ID, BUDGET_LEVEL_NAME FROM AUD_ORG.REF_BUDGET_LEVEL";
                 else if (libName == "OrgLegalStatus")
@@ -388,6 +390,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":DEP_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_PARENT_BUDGET_ID", OracleDbType.Int32, req.Element("V_PARENT_BUDGET_ID") != null && !string.IsNullOrEmpty(req.Element("V_PARENT_BUDGET_ID").Value) ? req.Element("V_PARENT_BUDGET_ID")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":P_TTZ_CODE", OracleDbType.Int32, req.Element("V_TTZ_CODE") != null && !string.IsNullOrEmpty(req.Element("V_TTZ_CODE").Value) ? req.Element("V_TTZ_CODE")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_BUDGET_TYPE", OracleDbType.Int32, req.Element("V_BUDGET_TYPE") != null && !string.IsNullOrEmpty(req.Element("V_BUDGET_TYPE").Value) ? req.Element("V_BUDGET_TYPE")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_BUDGET_LEVEL_ID", OracleDbType.Int32, req.Element("V_BUDGET_LEVEL_ID") != null && !string.IsNullOrEmpty(req.Element("V_BUDGET_LEVEL_ID").Value) ? req.Element("V_BUDGET_LEVEL_ID")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":P_LEGAL_STATUS_ID", OracleDbType.Int32, req.Element("V_LEGAL_STATUS_ID") != null && !string.IsNullOrEmpty(req.Element("V_LEGAL_STATUS_ID").Value) ? req.Element("V_LEGAL_STATUS_ID")?.Value : null, System.Data.ParameterDirection.Input);
@@ -404,9 +407,10 @@ namespace Audit.App_Func
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
 
-                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME ,AE.ENT_NAME ,AO.ORG_REGISTER_NO, RLS.LEGAL_STATUS_NAME, RPT.PROPERTY_TYPE_NAME, RBT.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME, RD.DEPARTMENT_NAME, AE.ENT_VIOLATION, AE.ENT_INFO " +
+                cmd.CommandText = "SELECT AE.ENT_ID ORG_ID, AE_PARENT.ENT_NAME TEZ_NAME , AE_TTZ.ENT_NAME TTZ_NAME, AE.ENT_NAME ,AO.ORG_REGISTER_NO, RLS.LEGAL_STATUS_NAME, RPT.PROPERTY_TYPE_NAME, RBT.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME, RD.DEPARTMENT_NAME, AE.ENT_VIOLATION, AE.ENT_INFO " +
                                 "FROM AUD_ORG.AUDIT_ENTITY AE " +
                                 "INNER JOIN AUD_ORG.AUDIT_ENTITY AE_PARENT ON AE.ENT_TEZ = AE_PARENT.ENT_ID " +
+                                "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE_TTZ ON AE.ENT_TTZ = AE_TTZ.ENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON AE.ENT_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_TYPE RBT ON AE.ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                                 "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON AE.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
@@ -417,6 +421,7 @@ namespace Audit.App_Func
                                 "AND (:DEP_ID = 101 OR (:DEP_ID !=101 AND AE.ENT_DEPARTMENT_ID = :DEP_ID)) " +
                                 "AND (:V_DEPARTMENT IS NULL OR AE.ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                 "AND (:V_PARENT_BUDGET_ID IS NULL OR AE.ENT_TEZ = :V_PARENT_BUDGET_ID) " +
+                                "AND (:V_TTZ_CODE IS NULL OR AE.ENT_TTZ = :V_TTZ_CODE) " +
                                 "AND (:V_BUDGET_TYPE IS NULL OR AE.ENT_BUDGET_TYPE = :V_BUDGET_TYPE) " +
                                 "AND (:V_BUDGET_LEVEL_ID IS NULL OR AE.ENT_BUDGET_LEVEL = :V_BUDGET_LEVEL_ID) " +
                                 "AND (:V_LEGAL_STATUS_ID IS NULL OR AE.ENT_LEGAL_STATUS = :V_LEGAL_STATUS_ID) " +
@@ -425,7 +430,7 @@ namespace Audit.App_Func
                                 //"AND (:V_VIOLATION IS NULL OR (R1.VIOLATION_DETAIL LIKE '%'||:V_VIOLATION||'%')) " +
                                 "AND (:V_SEARCH IS NULL OR UPPER(AE.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RPT.PROPERTY_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 "OR UPPER(RBT.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RBL.BUDGET_LEVEL_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RLS.LEGAL_STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                "OR UPPER(RD.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AE_PARENT.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AO.ORG_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
+                                "OR UPPER(RD.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AE_PARENT.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AE_TTZ.ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AO.ORG_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
                                 //"OR UPPER(R1.VIOLATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(R1.INFORMATION_DETAIL) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 //"OR UPPER(RS.STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
                                 "ORDER BY " +
@@ -440,6 +445,8 @@ namespace Audit.App_Func
                                 "CASE WHEN :ORDER_NAME = 'BUDGET_LEVEL_NAME' AND :ORDER_DIR = 'DESC' THEN RBL.BUDGET_LEVEL_NAME END DESC, " +
                                 "CASE WHEN :ORDER_NAME = 'TEZ_NAME' AND :ORDER_DIR = 'ASC' THEN AE_PARENT.ENT_NAME END ASC, " +
                                 "CASE WHEN :ORDER_NAME = 'TEZ_NAME' AND :ORDER_DIR = 'DESC' THEN AE_PARENT.ENT_NAME END DESC, " +
+                                "CASE WHEN :ORDER_NAME = 'TTZ_NAME' AND :ORDER_DIR = 'ASC' THEN AE_TTZ.ENT_NAME END ASC, " +
+                                "CASE WHEN :ORDER_NAME = 'TTZ_NAME' AND :ORDER_DIR = 'DESC' THEN AE_TTZ.ENT_NAME END DESC, " +
                                 "CASE WHEN :ORDER_NAME = 'LEGAL_STATUS_NAME' AND :ORDER_DIR = 'ASC' THEN RLS.LEGAL_STATUS_NAME END ASC, " +
                                 "CASE WHEN :ORDER_NAME = 'LEGAL_STATUS_NAME' AND :ORDER_DIR = 'DESC' THEN RLS.LEGAL_STATUS_NAME END DESC, " +
                                 "CASE WHEN :ORDER_NAME = 'PROPERTY_TYPE_NAME' AND :ORDER_DIR = 'ASC' THEN RPT.PROPERTY_TYPE_NAME END ASC, " +
@@ -503,6 +510,7 @@ namespace Audit.App_Func
 
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PARENT_BUDGET_ID", OracleDbType.Int32, req.Element("V_PARENT_BUDGET_ID") != null && !string.IsNullOrEmpty(req.Element("V_PARENT_BUDGET_ID").Value) ? req.Element("V_PARENT_BUDGET_ID")?.Value : null, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_TTZ_CODE", OracleDbType.Int32, req.Element("V_TTZ_CODE") != null && !string.IsNullOrEmpty(req.Element("V_TTZ_CODE").Value) ? req.Element("V_TTZ_CODE")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_BUDGET_TYPE", OracleDbType.Int32, req.Element("V_BUDGET_TYPE") != null && !string.IsNullOrEmpty(req.Element("V_BUDGET_TYPE").Value) ? req.Element("V_BUDGET_TYPE")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_BUDGET_LEVEL_ID", OracleDbType.Int32, req.Element("V_BUDGET_LEVEL_ID") != null && !string.IsNullOrEmpty(req.Element("V_BUDGET_LEVEL_ID").Value) ? req.Element("V_BUDGET_LEVEL_ID")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_LEGAL_STATUS_ID", OracleDbType.Int32, req.Element("V_LEGAL_STATUS_ID") != null && !string.IsNullOrEmpty(req.Element("V_LEGAL_STATUS_ID").Value) ? req.Element("V_LEGAL_STATUS_ID")?.Value : null, System.Data.ParameterDirection.Input);

@@ -44,6 +44,11 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PARENT_BUDGET_ID", null));
 
+                if (request.TTZ_CODE != null && request.TTZ_CODE != 0)
+                    elem.Add(new XElement("V_TTZ_CODE", request.TTZ_CODE));
+                else
+                    elem.Add(new XElement("V_TTZ_CODE", null));
+
                 if (request.budget_type != null)
                     elem.Add(new XElement("V_BUDGET_TYPE", request.budget_type));
                 else

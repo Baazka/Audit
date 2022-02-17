@@ -19,8 +19,13 @@
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
         <div class="form-group-sm pr-2">
-            <label for="PARENT_BUDGET_ID" class="col-form-label">Төсвийн ерөнхийлөн захирагч:</label>
+            <label for="PARENT_BUDGET_ID" class="col-form-label">ТЕЗ:</label>
             @Html.DropDownListFor(model => model.PARENT_BUDGET_ID, Model.parentBudgetTypes.Select(m => new SelectListItem { Text = m.PARENT_BUGDET_NAME, Value = m.PARENT_BUDGET_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @style = "width: 189px;" })
+        </div>
+
+        <div class="form-group-sm pr-2">
+            <label for="TTZ_CODE" class="col-form-label">ТТЗ:</label>
+            @Html.DropDownListFor(model => model.TTZ_CODE, Model.ttzBudgetTypes.Select(m => new SelectListItem { Text = m.TTZ_NAME, Value = m.TTZ_CODE.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @style = "width: 189px;" })
         </div>
 
         <div class="form-group-sm pr-2">
@@ -49,9 +54,9 @@
                          }, "value", "text"), new { @class = "form-control form-control-sm" })
         </div>
 
-        <div class="form-group-sm pr-2" style="width:13%">
+        <div class="form-group-sm pr-2" style="width:10%">
             <label for="LEGAL_STATUS_ID" class="col-form-label">Хариуцлагын хэлбэр:</label>
-            @Html.DropDownListFor(model => model.LEGAL_STATUS_ID, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+            @Html.DropDownListFor(model => model.LEGAL_STATUS_ID, Model.OrgLegalStatuses.Select(m => new SelectListItem { Text = m.LEGAL_STATUS_NAME, Value = m.LEGAL_STATUS_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm", @style = "width: 150px;" })
         </div>
 
         <div class="form-group-sm pr-2" style="width:13%">
@@ -109,7 +114,8 @@
                         <thead>
                             <tr>
                                 <th class="text-center">№</th>
-                                <th>Дээд шатны төсөв захирагч</th>
+                                <th>ТЕЗ</th>
+                                <th>ТТЗ</th>
                                 <th>Шалгагдагч байгууллагын нэр</th>
                                 <th>Регистрийн дугаар</th>
                                 <th>Төсөв захирагчийн ангилал</th>
@@ -119,7 +125,7 @@
                                 <th>Харъяа аудитын газар</th>
                                 @*<th>Дээд шатны төсөв захирагч</th>*@
                                 @*<th>Алдааны мэдээлэл</th>
-                                <th>Төлөв</th>*@
+        <th>Төлөв</th>*@
                                 @*<th>Сануулга</th>*@
                                 <th>Үйлдэл</th>
                             </tr>
@@ -153,6 +159,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.budget_type = $('#BudgetTypeID').val();
                         data.PARENT_BUDGET_ID = $('#PARENT_BUDGET_ID').val();
+                        data.TTZ_CODE = $('#TTZ_CODE').val();
                         data.BUDGET_LEVEL_ID = $('#BUDGET_LEVEL_ID').val();
                         data.LEGAL_STATUS_ID = $('#LEGAL_STATUS_ID').val();
                         data.PROPERTY_TYPE_ID = $('#PROPERTY_TYPE_ID').val();
@@ -172,6 +179,7 @@
                         }
                     },
                     { "data": "TEZ_NAME", "name": "TEZ_NAME" },
+                    { "data": "TTZ_NAME", "name": "TTZ_NAME" },
                     { "data": "ENT_NAME", "name": "ENT_NAME" },
                     { "data": "ORG_REGISTER_NO", "name": "ORG_REGISTER_NO" },
                     { "data": "BUDGET_SHORT_NAME", "name": "BUDGET_SHORT_NAME" },
@@ -236,6 +244,9 @@
             orgListInit();
         });
         $('#PARENT_BUDGET_ID').change(function () {
+            orgListInit();
+        });
+        $('#TTZ_CODE').change(function () {
             orgListInit();
         });
         $('#BudgetTypeID').change(function () {
