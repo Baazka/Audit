@@ -8547,11 +8547,21 @@ namespace Audit.App_Func
                 //    "RIGHT JOIN MD_DESC B ON A.MDCODE = B.MD_CODE " +
                 //    "ORDER BY B.MD_CODE ASC ";
 
-                cmd.CommandText = "SELECT A.MD_CODE, A.MD_LAWS_NUM, A.MD_NAME, A.MD_TIME, A.TAB_ID, CASE WHEN B.MDCODE IN(112,113,170,171) THEN B.DATA02 WHEN B.DATA01 = 1 THEN 'Тийм' ELSE 'Үгүй' END DATA2020 " +
-                                  "FROM AUD_MIRRORACC.MD_DESC A " +
-                                  "INNER JOIN AUD_MIRRORACC.SHILENDANSDATA B ON B.MDCODE = A.MD_CODE AND B.YEARCODE = 2020 " +
-                                  "WHERE B.ORGID = :ORGID " +
-                                  "ORDER BY A.MD_CODE ";
+                //cmd.CommandText = "SELECT A.MD_CODE, A.MD_LAWS_NUM, A.MD_NAME, A.MD_TIME, A.TAB_ID, CASE WHEN B.MDCODE IN(112,113,170,171) THEN B.DATA02 WHEN B.DATA01 = 1 THEN 'Тийм' ELSE 'Үгүй' END DATA2020 " +
+                //                  "FROM AUD_MIRRORACC.MD_DESC A " +
+                //                  "INNER JOIN AUD_MIRRORACC.SHILENDANSDATA B ON B.MDCODE = A.MD_CODE AND B.YEARCODE = 2020 " +
+                //                  "WHERE B.ORGID = :ORGID " +
+                //                  "ORDER BY A.MD_CODE ";
+
+                cmd.CommandText = "SELECT A.MD_CODE, A.MD_LAWS_NUM, A.MD_NAME, A.MD_TIME, A.TAB_ID,  " +
+                  "CASE " +
+                  "WHEN B.MDCODE IS NULL THEN ' ' " +
+                  "WHEN B.MDCODE IN(112,113,170,171) THEN B.DATA02 " +
+                  "WHEN B.DATA01 = 1 THEN 'Тийм' ELSE 'Үгүй' " +
+                  "END DATA2020 " +
+                  "FROM AUD_MIRRORACC.MD_DESC A " +
+                  "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B ON B.MDCODE = A.MD_CODE AND B.YEARCODE = 2020 AND B.ORGID = :ORGID " +
+                  "ORDER BY A.MD_CODE ";
 
                 //"SELECT MD_CODE, MD_LAWS_NUM, MD_NAME, MD_TIME, TAB_ID " +
                 //"FROM AUD_MIRRORACC.MD_DESC " +
