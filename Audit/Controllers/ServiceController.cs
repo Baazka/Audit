@@ -192,11 +192,11 @@ namespace Audit.Controllers
                 //else
                 //    elem.Add(new XElement("V_BUDGET_TYPE", null));
 
-                XElement res = AppStatic.SystemController.MirrorOrgList(elem, Convert.ToInt32(User.GetClaimData("DepartmentID")));
+                XElement res = AppStatic.SystemController.MirrorOrgList(elem, Convert.ToInt32(User.GetClaimData("DepartmentID") == "" ? "0" : User.GetClaimData("DepartmentID")));
                 if (res != null && res.Elements("MirroraccOrgList") != null)
                     response.data = (from item in res.Elements("MirroraccOrgList") select new MirroraccOrgList().FromXml(item)).ToList();
 
-                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value);
+                response.recordsTotal = Convert.ToInt32(res.Element("RowCount")?.Value == "" ? "0" : res.Element("RowCount")?.Value);
                 response.recordsFiltered = response.recordsTotal;
                 response.draw = request.draw;
             }

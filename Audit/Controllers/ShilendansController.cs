@@ -426,7 +426,7 @@ namespace Audit.Controllers
             }
             catch (Exception ex)
             {
-                Globals.WriteErrorLog(ex);
+                Globals.WriteErrorLog(ex, openid);
             }
 
             return PartialView("AddShilenDans", organization);
@@ -578,7 +578,7 @@ namespace Audit.Controllers
                     }
                     catch (Exception ex)
                     {
-                        Globals.WriteErrorLog(ex);
+                        Globals.WriteErrorLog(ex, organization.OPEN_ID + "_!_"+ button);
                     }
                 }
             //}
