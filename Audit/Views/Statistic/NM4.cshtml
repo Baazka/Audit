@@ -29,7 +29,7 @@
 
             <div class="form-group-sm ml-auto">
                 <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM4', 'НМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын нэгтгэл')">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-excel"></i>
                     </span>
@@ -94,7 +94,7 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.TOPIC_CODE === "НИЙТ ДҮН") {
+                            if (data.TOPIC_CODE === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -133,7 +133,29 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+
+                        if (data.TOPIC_CODE === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
+                "drawCallback": function () {
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('NM4'));
+                        XLSX.writeFile(wb, 'НМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын нэгтгэл' + '.xlsx');
+
+                        NM4.table.destroy();
+                        nm4ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
+                }
             });
 
         }
@@ -226,20 +248,10 @@
             }
         }
     }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             NM4.table.destroy();
             nm4ListInit(-1);
-
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                NM4.table.destroy();
-                nm4ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
         }
     </script>
 }

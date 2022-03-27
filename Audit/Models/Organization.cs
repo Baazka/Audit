@@ -16,9 +16,15 @@ namespace Audit.Models
         public string ORG_REGISTER_NO { get; set; }
         public string ENT_BUDGET_TYPE { get; set; }
         public string ENT_BUDGET_LEVEL { get; set; }
-        public string ORG_LEGAL_STATUS { get; set; }
-        public string ORG_PROPERTY_TYPE { get; set; }
+        public string ENT_LEGAL_STATUS { get; set; }
+        public string ENT_PROPERTY_TYPE { get; set; }
         public string ENT_DEPARTMENT_ID { get; set; }
+        public string ENT_HEAD_ROLE { get; set; }
+        public string ENT_HEAD_NAME { get; set; }
+        public string ENT_HEAD_PHONE { get; set; }
+        public string ENT_ACC_ROLE { get; set; }
+        public string ENT_ACC_NAME { get; set; }
+        public string ENT_ACC_PHONE { get; set; }
 
         public bool IsShow { get; set; } = false;
         public int ORGB_ID { get; set; }
@@ -184,12 +190,24 @@ namespace Audit.Models
                 ENT_BUDGET_TYPE = elem.Element("ENT_BUDGET_TYPE").Value;
             if (elem.Element("ENT_BUDGET_LEVEL") != null)
                 ENT_BUDGET_LEVEL = elem.Element("ENT_BUDGET_LEVEL").Value;
-            if (elem.Element("ORG_LEGAL_STATUS") != null)
-                ORG_LEGAL_STATUS = elem.Element("ORG_LEGAL_STATUS").Value;
-            if (elem.Element("ORG_PROPERTY_TYPE") != null)
-                ORG_PROPERTY_TYPE = elem.Element("ORG_PROPERTY_TYPE").Value;
+            if (elem.Element("ENT_LEGAL_STATUS") != null)
+                ENT_LEGAL_STATUS = elem.Element("ENT_LEGAL_STATUS").Value;
+            if (elem.Element("ENT_PROPERTY_TYPE") != null)
+                ENT_PROPERTY_TYPE = elem.Element("ENT_PROPERTY_TYPE").Value;
             if (elem.Element("ENT_DEPARTMENT_ID") != null)
                 ENT_DEPARTMENT_ID = elem.Element("ENT_DEPARTMENT_ID").Value;
+            if (elem.Element("ENT_HEAD_ROLE") != null)
+                ENT_HEAD_ROLE = elem.Element("ENT_HEAD_ROLE").Value;
+            if (elem.Element("ENT_HEAD_NAME") != null)
+                ENT_HEAD_NAME = elem.Element("ENT_HEAD_NAME").Value;
+            if (elem.Element("ENT_HEAD_PHONE") != null)
+                ENT_HEAD_PHONE = elem.Element("ENT_HEAD_PHONE").Value;
+            if (elem.Element("ENT_ACC_ROLE") != null)
+                ENT_ACC_ROLE = elem.Element("ENT_ACC_ROLE").Value;
+            if (elem.Element("ENT_ACC_NAME") != null)
+                ENT_ACC_NAME = elem.Element("ENT_ACC_NAME").Value;
+            if (elem.Element("ENT_ACC_PHONE") != null)
+                ENT_ACC_PHONE = elem.Element("ENT_ACC_PHONE").Value;
             //if (elem.Element("ORGB_ID") != null)
             //    ORGB_ID = Convert.ToInt32(elem.Element("ORGB_ID").Value);
             //if (elem.Element("ORGB_ID2") != null)
@@ -303,12 +321,21 @@ namespace Audit.Models
 
             return this;
         }
+        //SAVE TO DATA
         public XElement ToXml()
         {
             return new XElement("Organization",
                        new XElement("ORG_ID", ORG_ID),
                        new XElement("ENT_BUDGET_TYPE", ENT_BUDGET_TYPE),
-                       new XElement("ENT_BUDGET_LEVEL", ENT_BUDGET_LEVEL)
+                       new XElement("ENT_BUDGET_LEVEL", ENT_BUDGET_LEVEL),
+                       new XElement("ENT_LEGAL_STATUS", ENT_LEGAL_STATUS),
+                       new XElement("ENT_PROPERTY_TYPE", ENT_PROPERTY_TYPE),
+                       new XElement("ENT_HEAD_NAME", ENT_HEAD_NAME),
+                       new XElement("ENT_HEAD_ROLE", ENT_HEAD_ROLE),
+                       new XElement("ENT_HEAD_PHONE", ENT_HEAD_PHONE),
+                       new XElement("ENT_ACC_ROLE", ENT_ACC_ROLE),
+                       new XElement("ENT_ACC_NAME", ENT_ACC_NAME),
+                       new XElement("ENT_ACC_PHONE", ENT_ACC_PHONE)
                        //new XElement("ORGP_ID", ORGP_ID),
                        //new XElement("ORGP_ID2", ORGP_ID2),
                        //new XElement("ORG_CODE", ORG_CODE),
@@ -521,6 +548,7 @@ namespace Audit.Models
         public List<MenuRole> menuRoles { get; set; }
         public int DeparmentID { get; set; }
         public int PARENT_BUDGET_ID { get; set; }
+        public int TTZ_CODE { get; set; }
         public int BUDGET_LEVEL_ID { get; set; }
         public int LEGAL_STATUS_ID { get; set; }
         public int PROPERTY_TYPE_ID { get; set; }
@@ -534,6 +562,7 @@ namespace Audit.Models
         public MultiSelectList Violation { get; set; }
         public List<Department> departments { get; set; } = new List<Department>();
         public List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
+        public List<TtzBudgetType> ttzBudgetTypes { get; set; } = new List<TtzBudgetType>();
         public List<OrgLegalStatus> OrgLegalStatuses { get; set; } = new List<OrgLegalStatus>();
         public List<PropertyType> PropertyTypes { get; set; } = new List<PropertyType>();
         public List<SourceType> SourceTypes { get; set; } = new List<SourceType>();
@@ -559,6 +588,7 @@ namespace Audit.Models
     {
         public int ORG_ID { get;set; }
         public string TEZ_NAME { get; set; }
+        public string TTZ_NAME { get; set; }
         public string ENT_NAME { get; set; }
         public string ORG_REGISTER_NO { get; set; }
         public string LEGAL_STATUS_NAME { get; set; }
@@ -580,6 +610,8 @@ namespace Audit.Models
                 ORG_ID = Convert.ToInt32(elem.Element("ORG_ID").Value);
             if (elem.Element("TEZ_NAME") != null)
                 TEZ_NAME = elem.Element("TEZ_NAME").Value;
+            if (elem.Element("TTZ_NAME") != null)
+                TTZ_NAME = elem.Element("TTZ_NAME").Value;
             if (elem.Element("ENT_NAME") != null)
                 ENT_NAME = elem.Element("ENT_NAME").Value;
             if (elem.Element("ORG_REGISTER_NO") != null)

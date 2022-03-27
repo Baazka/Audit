@@ -29,7 +29,7 @@
 
             <div class="form-group-sm ml-auto">
                 <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('NM6', 'НМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн нэгтгэл')">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-excel"></i>
                     </span>
@@ -119,7 +119,7 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.TOPIC_CODE === "НИЙТ ДҮН") {
+                            if (data.TOPIC_CODE === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -172,7 +172,29 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+
+                        if (data.TOPIC_CODE === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
+                "drawCallback": function () {
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('NM6'));
+                        XLSX.writeFile(wb, 'НМ-6. Төрийн аудитын газрын тайлант хугацаанд аудитаар илрүүлсэн алдаа, зөрчлийн шийдвэрлэлтийн нэгтгэл' + '.xlsx');
+
+                        NM6.table.destroy();
+                        nm6ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
+                }
             });
 
         }
@@ -265,20 +287,12 @@
             }
         }
     }
-    function exportFile(tableid, excelname,) {
+    function exportFile() {
         $('#exportXLSX').addClass('disabled');
             NM6.table.destroy();
             nm6ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                NM6.table.destroy();
-                nm6ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
+        
         }
 </script>
 }

@@ -3,7 +3,8 @@
     Layout = null;
 }
 
-@if (Model.MD_CODE == "3" || Model.MD_CODE == "27")
+@*@if (Model.MD_CODE == "3" || Model.MD_CODE == "27")*@
+@if (Model.MD_CODE == "3")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
@@ -13,7 +14,8 @@
         <td colspan="4">@Html.DisplayFor(x => x.MD_LAWS_NUM) @Html.DisplayFor(x => x.MD_NAME)</td>
     </tr>
 }
-@if (Model.MD_CODE == "1" || Model.MD_CODE == "2" || Model.MD_CODE == "4" || Model.MD_CODE == "5" || Model.MD_CODE == "6" || Model.MD_CODE == "7" || Model.MD_CODE == "8" || Model.MD_CODE == "9" || Model.MD_CODE == "10" || Model.MD_CODE == "11" || Model.MD_CODE == "12" || Model.MD_CODE == "13" || Model.MD_CODE == "14" || Model.MD_CODE == "15" || Model.MD_CODE == "16" || Model.MD_CODE == "17" || Model.MD_CODE == "18" || Model.MD_CODE == "19" || Model.MD_CODE == "20" || Model.MD_CODE == "21" || Model.MD_CODE == "22" || Model.MD_CODE == "23" || Model.MD_CODE == "24" || Model.MD_CODE == "25" || Model.MD_CODE == "26" || Model.MD_CODE == "28" || Model.MD_CODE == "29" || Model.MD_CODE == "30" || Model.MD_CODE == "31" || Model.MD_CODE == "32" || Model.MD_CODE == "33" || Model.MD_CODE == "34")
+@*@if (Model.MD_CODE == "1" || Model.MD_CODE == "2" || Model.MD_CODE == "4" || Model.MD_CODE == "5" || Model.MD_CODE == "6" || Model.MD_CODE == "7" || Model.MD_CODE == "8" || Model.MD_CODE == "9" || Model.MD_CODE == "10" || Model.MD_CODE == "11" || Model.MD_CODE == "12" || Model.MD_CODE == "13" || Model.MD_CODE == "14" || Model.MD_CODE == "15" || Model.MD_CODE == "16" || Model.MD_CODE == "17" || Model.MD_CODE == "18" || Model.MD_CODE == "19" || Model.MD_CODE == "20" || Model.MD_CODE == "21" || Model.MD_CODE == "22" || Model.MD_CODE == "23" || Model.MD_CODE == "24" || Model.MD_CODE == "25" || Model.MD_CODE == "26" || Model.MD_CODE == "28" || Model.MD_CODE == "29" || Model.MD_CODE == "30" || Model.MD_CODE == "31" || Model.MD_CODE == "32" || Model.MD_CODE == "33" || Model.MD_CODE == "34")*@
+@if (Model.MD_CODE == "7" || Model.MD_CODE == "11" || Model.MD_CODE == "15" || Model.MD_CODE == "19" || Model.MD_CODE == "23" || Model.MD_CODE == "24" || Model.MD_CODE == "25" || Model.MD_CODE == "26")
 {
     @Html.HiddenFor(x => x.MD_CODE)
     @Html.HiddenFor(x => x.MD_LAWS_NUM)
@@ -25,20 +27,20 @@
         <td class="text-center" style="vertical-align:middle;">@Html.DisplayFor(x => x.MD_TIME)</td>
         <td>
             @*@Html.DropDownListFor(model => model.Data01, new SelectList(
-                new List<Object>{
-                      new { value = 0 , text = "--Сонгоно уу--" },
-                      new { value = 1 , text = "Мэдээлсэн" },
-                      new { value = 2 , text = "Мэдээлээгүй" },
-                      new { value = 3 , text = "Хугацаа хоцроосон" },
-                      new { value = 4 , text = "Мэдээлэх шаардлагагүй, хамааралгүй" }
-                }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
-            @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })*@
+                    new List<Object>{
+                          new { value = 0 , text = "--Сонгоно уу--" },
+                          new { value = 1 , text = "Мэдээлсэн" },
+                          new { value = 2 , text = "Мэдээлээгүй" },
+                          new { value = 3 , text = "Хугацаа хоцроосон" },
+                          new { value = 4 , text = "Мэдээлэх шаардлагагүй, хамааралгүй" }
+                    }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })*@
             @Html.DropDownListFor(m => m.Data01, new List<SelectListItem>
                { new SelectListItem{Text="Мэдээлсэн", Value="1"},
                  new SelectListItem{Text="Мэдээлээгүй", Value="2"},
                  new SelectListItem{Text="Хугацаа хоцроосон", Value="3"},
                  new SelectListItem{Text="Мэдээлэх шаардлагагүй, хамааралгүй", Value="4"}}, "--Сонгоно уу--", new { @class = "form-control", @style = "font-size:12px;" })
-        @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(m => m.Data01, "", new { @class = "text-danger" })
         </td>
     </tr>
 }

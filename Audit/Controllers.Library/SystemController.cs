@@ -3660,7 +3660,7 @@ namespace Audit.Controllers.Library
 
             return null;
         }
-        public XElement Table1List()
+        public XElement Table1List(int orgid)
         {
             try
             {
@@ -3669,7 +3669,9 @@ namespace Audit.Controllers.Library
                 if (!this.IsValid) { return null; }
 
                 XElement requestXml = new XElement("Request",
-                                               new XElement("Function", "Table1List"));
+                                               new XElement("Function", "Table1List"),
+                                               new XElement("Parameters",
+                                               new XElement("ORGID", orgid)));
 
                 DataResponse response = GetDataResponse(requestXml);
 

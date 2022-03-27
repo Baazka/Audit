@@ -21,6 +21,7 @@ namespace Audit.App_Func
         public static List<Office> offices { get; set; } = new List<Office>();
         public static List<SubOffice> subOffices { get; set; } = new List<SubOffice>();
         public static List<ParentBudgetType> parentBudgetTypes { get; set; } = new List<ParentBudgetType>();
+        public static List<TtzBudgetType> ttzBudgetTypes { get; set; } = new List<TtzBudgetType>();
         public static List<OrgLegalStatus> OrgLegalStatuses { get; set; } = new List<OrgLegalStatus>();
         public static List<PropertyType> PropertyTypes { get; set; } = new List<PropertyType>();
         public static List<SourceType> SourceTypes { get; set; } = new List<SourceType>();
@@ -84,11 +85,11 @@ namespace Audit.App_Func
             else
                 WriteLog(string.Format("{1}_{0}.log", DateTime.Now.ToString("yyyyMMdd"), type.ToUpper()), string.Format("{0}: {1} [{2}]{3}", DateTime.Now.ToString("HH:mm:ss"), l, getCallerInfoString(2), Environment.NewLine));
         }
-        public static void WriteErrorLog(object log)
+        public static void WriteErrorLog(object log, object id = null)
         {
             string l = "";
             if (log is Exception)
-                l = string.Format("{0} - {1}", ((Exception)log).Source, ((Exception)log).Message);
+                l = string.Format("{0} - {1} - {2}", ((Exception)log).Source, ((Exception)log).Message, id);
             WriteLog(string.Format("ERROR_{0}.log", DateTime.Now.ToString("yyyyMMdd")), string.Format("{0}: {1} [{2}]{3}", DateTime.Now.ToString("HH:mm:ss"), l, getCallerInfoString(2), Environment.NewLine));
         }
         static public StackFrame[] getCaller(int skipFrames = 1)

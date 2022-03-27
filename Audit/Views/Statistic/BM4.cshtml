@@ -69,7 +69,7 @@
         }
             <div class="form-group-sm">
                 <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM4', 'БМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын бүртгэл')">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                     <span class="icon text-white-50">
                         <i class="fas fa-file-excel"></i>
                     </span>
@@ -171,14 +171,12 @@
                         return data;
                     }
                 },
-                createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ID);
-                },
+               
                 "columns": [
                     {
                         "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -226,6 +224,7 @@
 
                 ],
                 scrollX: true,
+                scrollY: 392,
                 scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,
@@ -237,8 +236,30 @@
                 "stateSave": false,
                 lengthChange: true,
                 "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    $(row).attr('data-id', data.ID);
+                    if (data !== undefined) {
+
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
                 "drawCallback": function () {
                     rowselected();
+
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('BM4'));
+                        XLSX.writeFile(wb, 'БМ-4. Төрийн аудитын газрын албан тушаалтанд хариуцлага тооцуулах саналын бүртгэл' + '.xlsx');
+
+                        BM4.table.destroy();
+                        bm4ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
                 }
             });
 
@@ -482,20 +503,12 @@
                 }
             }
         }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             BM4.table.destroy();
-            bm4sListInit(-1);
+            bm4ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                BM4.table.destroy();
-                bm4ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
+          
         }
     </script>
 }

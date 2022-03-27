@@ -12,7 +12,7 @@
         </span>
     </a>
     <h4>БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл</h4>
-</div>
+</div> 
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -67,18 +67,18 @@
                 </a>
             </div>
         }
-            <div class="form-group-sm">
-                <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM1', 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл')">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-file-excel"></i>
-                    </span>
-                    <span class="text">Excel</span>
-                </a>
-            </div>
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
         </div>
+    </div>
 </form>
-<div class="card">
+<div class="card" id="CardH">
     <div class="card-body">
         <div class="table-responsive">
             <table id="BM1" class="table table-bordered table-hover datatable display">
@@ -161,8 +161,13 @@
 </div>
 
 @section scripts{
+
     <script>
         var userid = @ViewBag.UserID;
+        //var scl = window.innerHeight - 277;
+        //var scl = document.getElementById("CardH").offsetHeight + 108;
+
+        //alert(document.documentElement.clientWidth);
         $(document).ready(function () {
             setTimeout(function () { bm1ListInit(); }, 1000);
         });
@@ -193,14 +198,12 @@
                         return data;
                     }
                 },
-                createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ID);
-                },
+
                 "columns": [
                     {
                         "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -262,6 +265,7 @@
                     { width: 300, targets: 12 },
                 ],
                 scrollX: true,
+                scrollY: 392,
                 scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,
@@ -273,8 +277,29 @@
                 "stateSave": false,
                 lengthChange: true,
                 "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    $(row).attr('data-id', data.ID);
+                    if (data !== undefined) {
+
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
                 "drawCallback": function () {
                     rowselected();
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('BM1'));
+                        XLSX.writeFile(wb, 'БМ-1. Төрийн аудитын газрын аудитор болон багийн төлбөрийн актын бүртгэл' + '.xlsx');
+
+                        BM1.table.destroy();
+                        bm1ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
                 }
             });
         }
@@ -314,7 +339,6 @@
             }
         }
         function CheckUserTypeCompletion(userType) {
-            console.log(BM1.bm1ID);
             if (userType == 'BRANCH_AUDITOR' || userType == 'HAK_USER') {
                 if (BM1.bm1ID == null) {
                     alert("Бичлэг сонгоно уу");
@@ -522,20 +546,12 @@
                 }
             }
         }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             BM1.table.destroy();
             bm1ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                BM1.table.destroy();
-                bm1ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
+         
         }
 
     </script>

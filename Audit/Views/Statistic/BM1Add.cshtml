@@ -27,8 +27,10 @@
                         </div>
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @*@Html.HiddenFor(m => m.ID)*@
+
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
                         <div class="row">
                             <div class="col-12">
@@ -38,16 +40,16 @@
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
                                     <div class="col-4">
-                                            <div class="form-group row">
-                                                <div class="col-sm-8">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-8">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                                    </svg>
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -130,7 +132,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийн актын огноо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.ACT_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.ACT_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -149,7 +151,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Илрүүлсэн зөрчлийн товч утга: <span class="required">*</span></label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_VIOLATION_DESC, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                     
+
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +168,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.ACT_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.ACT_SUBMITTED_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -175,7 +177,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Төлбөрийг барагдуулах: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.ACT_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.ACT_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.ACT_DELIVERY_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -195,7 +197,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Улсын төсөвт:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_STATE_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right decimal amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +206,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Орон нутгийн төсөвт:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_LOCAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
-                                       
+
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +215,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Тухайн байгууллагад:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_ORG_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +224,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Бусад:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_OTHER_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -267,21 +269,52 @@
                                     <label class="col-sm-4 col-form-label text-right">Холбоо барих  хаяг:</label>
                                     <div class="col-sm-4">
                                         @Html.EditorFor(m => m.ACT_RCV_ADDRESS, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                       
+
                                     </div>
                                 </div>
                             </div>
                             @*<div class="col-12">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">Төлбөрийн актын хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.ACT_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                        @Html.ValidationMessageFor(m => m.ACT_CONTROL_AUDITOR, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+                        </div>
+                        <div id="biylelt_nuutsalsan" >
+                       
+                                
+                                <div class="col-12">
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label text-right">Төлбөрийн актын хэрэгжилтэд хяналт тавих аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                                        <label class="col-sm-4 col-form-label text-right">Дараа онд шилжих үлдэгдлийн дүн:</label>
                                         <div class="col-sm-4">
-                                            @Html.EditorFor(m => m.ACT_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                            @Html.ValidationMessageFor(m => m.ACT_CONTROL_AUDITOR, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(m => m.ACT_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(m => m.ACT_C2_AMOUNT, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                </div>*@
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.ACT_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)", @readonly = "readonly" } })
+                                            @*@Html.ValidationMessageFor(m => m.ACT_C2_NONEXPIRED, "", new { @class = "text-danger" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
+                                        <div class="col-sm-4">
+                                            @Html.EditorFor(m => m.ACT_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount5 text-danger", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)", @readonly = "readonly" } })
+                                            @*@Html.ValidationMessageFor(m => m.ACT_C2_EXPIRED, "", new { @class = "text-danger" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                    
                         </div>
-                      
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
@@ -294,7 +327,16 @@
     </div>
 </div>
 <script>
+    
+ 
+    $(document).ready(function () {
 
+        if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+            $("#ACT_C2_AMOUNT").val(null);
+            $("#ACT_C2_NONEXPIRED").val(null);
+            $("#ACT_C2_EXPIRED").val(null);
+        }
+    });
 
 
     $(function () {
@@ -318,27 +360,56 @@
           buttonText: "Select date"
       });
 
-      calculateSum1();
+        calculateSum1();
 
-      
-
-      $(".amount1").on("keydown keyup", function () {
-          calculateSum1();
-      });
-        $(".amount1").on("change", function () {
-            calculateSum2();
+        $("#ACT_DELIVERY_DATE").change(function (value) {
+            calculateSum1();
         });
 
-      function calculateSum1() {
-          var sum = 0;
-          $(".amount1").each(function () {
-              if (!isNaN(parseFloat(this.value)) && this.value.length != 0) {
-                  sum += parseFloat(this.value);
-              }
-          });
-          console.log(sum);
-          $("#ACT_AMOUNT").val(sum).formatCurrency();
-      }
+        $(".amount1").on("keydown keyup", function () {
+            calculateSum1();
+        });
+   
+
+      $(".amount1").on("change", function () {
+          calculateSum1();
+      });
+
+        function calculateSum1() {
+            var sum = 0;
+            //iterate through each textboxes and add the values
+            $(".amount1").each(function () {
+                //add only if the value is number
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    sum += parseFloat(this.value);
+                }
+            });
+            if (isNaN(sum)) {
+                sum = 0;
+            }
+           
+            if (sum == 0) {
+                sum = null;
+
+            }
+            $("#ACT_AMOUNT").val(sum).formatCurrency();
+
+                if ($("#ACT_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
+                    $("#ACT_C2_AMOUNT").val(sum).formatCurrency();
+                    $("#ACT_C2_NONEXPIRED").val(null);
+                    $("#ACT_C2_EXPIRED").val(sum).formatCurrency();
+
+                }
+                if ($("#ACT_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+                    $("#ACT_C2_AMOUNT").val(sum).formatCurrency();
+                    $("#ACT_C2_NONEXPIRED").val(sum).formatCurrency();
+                    $("#ACT_C2_EXPIRED").val(null);
+                }
+            
+        }
+      
+
+
      
   });
 </script>

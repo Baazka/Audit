@@ -1,0 +1,1560 @@
+﻿@model Audit.Models.Mirroracc
+@using Audit.App_Func
+<style>
+    .modal-header {
+        background-color: #233772;
+        padding: 0.5rem 1rem;
+    }
+
+    .modal-title {
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .tab-content {
+        min-height: 500px;
+    }
+
+    .close {
+        font-weight: normal;
+        text-shadow: none;
+        opacity: inherit;
+    }
+
+    .col-form-label {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+
+    .field-validation-error {
+        font-size: 12px;
+    }
+
+    .modal-body h6 {
+        text-transform: uppercase;
+        color: #233772;
+    }
+
+    label {
+        font-size: 12px !important;
+    }
+
+    div.ui-datepicker {
+        font-size: 12px;
+    }
+
+    .ui-datepicker-trigger {
+        position: absolute;
+        right: 15px;
+        top: 7px;
+    }
+
+    .nav-tabs {
+        background-color: white;
+        height: auto;
+        width: 100%;
+    }
+
+        .nav-tabs .nav-item {
+            background-color: #FFF;
+            border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+        }
+
+
+    .nav .nav-link {
+        color: #1b508a;
+        font-weight: bold;
+        font-size: small;
+        padding: 4px 20px;
+        height: auto;
+        align-self: center;
+        border-color: white;
+        border-style: solid;
+        border-width: 3.5px;
+        border-top: none;
+        background-color: #eaecf4;
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;
+    }
+
+        .nav .nav-link.active {
+            border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+            background-color: #1b508a;
+            color: #FFF;
+            border: solid 3px #1b508a;
+        }
+</style>
+
+@using (Ajax.BeginForm("AddShilenDans", "Shilendans", new { Area = "" },
+    new AjaxOptions
+    {
+        UpdateTargetId = "orgmodalcontainer",
+//OnBegin = "Modal.show()",
+//OnComplete = "Modal.hide(); $('#OrgModal').modal('show');",
+//OnComplete = "",
+OnSuccess = "Organization.progressResponse(data, status, xhr)",
+        OnFailure = "errorResponse",
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.Replace
+    },
+    new { @class = "form-horizontal", @autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal fade" id="OrgModal" tabindex="-1" role="dialog" style="padding-right:0px;display:block;">
+        <div class="modal-dialog modal-lg" role="document" style="max-width:100%;">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">Шилэн дансны бүртгэл</h6>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>*@
+                </div>
+                <div class="modal-body">
+                    @if (ViewBag.Results != null)
+                    {
+                        if (ViewBag.Tabid == "#maygt1-1")
+                        {
+                            if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="alert alert-danger success text-center">
+                                    @for (var x = 0; x < Model.tab1.Count; x++)
+                                    {
+                                        <p>@Html.ValidationMessageFor(m => m.tab1[x].Data01, "", new { @class = "text-danger" }) </p>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-success success text-center">
+                                    <span style="font-weight:bold;">@ViewBag.Results</span>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="alert alert-success success text-center">
+                                <span style="font-weight:bold;">@ViewBag.Results</span>
+                            </div>
+                        }
+                    }
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        @*@if (Model != null && Model.ORG_ID != 0)
+                            {*@
+                        @if (Model.OPEN_ENT_GROUP_ID == 1 || Model.OPEN_ENT_GROUP_ID == 2)
+                        {
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="maygt1-tab" data-toggle="tab" href="#maygt1" role="tab" aria-selected="true">
+                                    Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т хамаарах байгууллагад хөтлөх маягт
+                                </a>
+                            </li>
+                        }
+                        else if (Model.OPEN_ENT_GROUP_ID == 3)
+                        {
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="maygt2-tab" data-toggle="tab" href="#maygt2" role="tab" aria-selected="false">
+                                    Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т хамаарах байгууллагад хөтлөх маягт
+                                </a>
+                            </li>
+                        }
+                        @*<li class="nav-item" role="presentation" style="width: 400px;">
+                                <a class="nav-link" id="maygt3-tab" data-toggle="tab" href="#maygt3" role="tab" aria-selected="false">
+                                    Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.4, 3.1.5-д хамаарах байгууллагад хөтлөх маягт
+                                </a>
+                            </li>*@
+                        @*}*@
+                    </ul>
+                    <div class="tab-content" id="myTabContent" style="background-color: #e7e7e5; padding:0 10px">
+
+                        <div class="tab-pane fade" id="maygt1" role="tabpanel" aria-labelledby="maygt1-tab">
+                            <fieldset>
+                                <div class="hidden text-danger error-msgs">
+                                    <ul></ul>
+                                </div>
+                                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                                @*@Html.HiddenFor(m => m.ORG_ID)
+                                    @Html.HiddenFor(m => m.ORGB_ID)
+                                    @Html.HiddenFor(m => m.ORGB_ID2)
+                                    @Html.HiddenFor(m => m.ORGP_ID)
+                                    @Html.HiddenFor(m => m.ORGP_ID2)*@
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
+                                                                                new List<Object>{
+                                                                new { value = 99 , text = "2021.01.01-2021.12.31" },
+                                 }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан</p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="color:#e7e7e5;">. </p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="clearfix"></div>
+
+                                <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 6px 3px;">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link active" id="maygt1_1-tab" data-toggle="tab" href="#maygt1-1" role="tab" aria-selected="true">
+                                                ХӨТЛӨХ МАЯГТ-1
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="maygt1_2-tab" data-toggle="tab" href="#maygt1-2" role="tab" aria-selected="false">
+                                                ХӨТЛӨХ МАЯГТ-2
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="maygt1_3-tab" data-toggle="tab" href="#maygt1-3" role="tab" aria-selected="false">
+                                                ХӨТЛӨХ МАЯГТ-3
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="maygt1_4-tab" data-toggle="tab" href="#maygt1-4" role="tab" aria-selected="false">
+                                                ЗӨРЧЛИЙН ШИЙДЭЛ
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content" id="printdiv1">
+                                        <div class="tab-pane fade show active" id="maygt1-1" role="tabpanel" aria-labelledby="maygt1_1-tab">
+                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
+                                            <table class="table table-bordered" style="font-size:12px;">
+                                                <tr>
+                                                    <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                    <th class="text-center">ХУГАЦАА</th>
+                                                    <th>ҮНЭЛГЭЭ</th>
+                                                </tr>
+                                                @Html.EditorFor(t => t.tab1)
+                                            </table>
+
+                                            <div style="text-align: right">
+                                                @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
+                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                <button type="submit" value="tab1save" name="button" id="tab1saving" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="maygt1-2" role="tabpanel" aria-labelledby="maygt1_2-tab">
+                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
+                                            <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
+                                            <table class="table table-bordered" style="font-size:12px;">
+                                                <tr>
+                                                    <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                    <th class="text-center">ХУГАЦАА</th>
+                                                    <th>ҮНЭЛГЭЭ</th>
+                                                </tr>
+                                                @Html.EditorFor(t => t.tab2)
+                                            </table>
+
+                                            <div style="text-align: right">
+                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                <button type="submit" value="tab2save" id="tab2saving" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="maygt1-3" role="tabpanel" aria-labelledby="maygt1_3-tab">
+                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
+                                            <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
+                                            <table class="table table-bordered" style="font-size:12px;">
+                                                <tr>
+                                                    <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                    <th class="text-center">ХУГАЦАА</th>
+                                                    <th>ҮНЭЛГЭЭ</th>
+                                                </tr>
+                                                @Html.EditorFor(t => t.tab3)
+                                            </table>
+
+                                            <div style="text-align: right">
+                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                <button type="submit" value="tab3save" id="tab3saving" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="maygt1-4" role="tabpanel" aria-labelledby="maygt1_4-tab">
+                                            <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.1, 3.1.2-т заасан төрийн болон орон нутгийн өмчит хуулийн этгээд, төрийн өмчит үйлдвэрийн газарт хөтлөх маягт-1</p>
+
+                                            <table class="table table-bordered" style="font-size:12px;">
+                                                <tr>
+                                                    <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                    <th>ҮНЭЛГЭЭ</th>
+                                                </tr>
+                                                @Html.EditorFor(t => t.tab4)
+                                                <tr>
+                                                    <td>Шалгасан аудиторын нэр</td>
+                                                    <td><input type="text" value="@User.GetClaimData("USER_NAME")" style="width:100%;"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Аудиторын код</td>
+                                                    <td><input type="text" value="@User.Identity.Name.ToUpper()" style="width:100%;"></td>
+                                                </tr>
+                                            </table>
+
+                                            <div style="text-align: right">
+                                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                @Html.ActionLink("Хэвлэх", "Print", "Shilendans", new { org_id = Model.OPEN_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
+                                                @*<a href="#" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</a>*@
+                                                <button type="submit" value="tab4save" id="tab4saving" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="tab-pane fade" id="maygt2" role="tabpanel" aria-labelledby="maygt2-tab">
+                            <fieldset>
+                                <div class="hidden text-danger error-msgs">
+                                    <ul></ul>
+                                </div>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.OPEN_ID)
+                                @*@Html.HiddenFor(m => m.ORGB_ID)
+                                    @Html.HiddenFor(m => m.ORGB_ID2)
+                                    @Html.HiddenFor(m => m.ORGP_ID)
+                                    @Html.HiddenFor(m => m.ORGP_ID2)*@
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
+                                                                                 new List<Object>{
+                                                                new { value = 99 , text = "2020.01.01-2020.12.31" },
+          }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="color:#e7e7e5;">. </p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+                                    <div class="clearfix"></div>
+
+                                    <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link active" id="maygt2_1-tab" data-toggle="tab" href="#maygt2-1" role="tab" aria-selected="true">
+                                                    ХӨТЛӨХ МАЯГТ-1
+                                                </a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" id="maygt2_2-tab" data-toggle="tab" href="#maygt2-2" role="tab" aria-selected="false">
+                                                    ЗӨРЧЛИЙН ШИЙДЭЛ
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="maygt2-1" role="tabpanel" aria-labelledby="maygt2_1-tab">
+                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т заасан Хяналтын багц буюу түүнээс дээш хэмжээний хувьцааг нь төр, орон нутаг болон тэдгээрийн нэгдмэл сонирхолтой этгээд эзэмшиж байгаа компанид хөтлөх маягт-4</p>
+                                                <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
+                                                <table class="table table-bordered" style="font-size:12px;">
+                                                    <tr>
+                                                        <th class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                                                        <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                        <th class="text-center">ХУГАЦАА</th>
+                                                        <th>ҮНЭЛГЭЭ</th>
+                                                    </tr>
+                                                    @Html.EditorFor(t => t.tab5)
+                                                </table>
+
+                                                <div style="text-align: right">
+                                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                    <button type="submit" value="tab5save" id="tab5saving" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                </div>
+                                                <br>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="maygt2-2" role="tabpanel" aria-labelledby="maygt2_2-tab">
+                                                <p style="color: #3a3b45;font-size: 12px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.3-т заасан Хяналтын багц буюу түүнээс дээш хэмжээний хувьцааг нь төр, орон нутаг болон тэдгээрийн нэгдмэл сонирхолтой этгээд эзэмшиж байгаа компанид хөтлөх маягт-4</p>
+                                                <table class="table table-bordered" style="font-size:12px;">
+                                                    <tr>
+                                                        <th>МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                                                        <th>ҮНЭЛГЭЭ</th>
+                                                    </tr>
+                                                    @Html.EditorFor(t => t.tab6)
+                                                    <tr>
+                                                        <td>Шалгасан аудиторын нэр</td>
+                                                        <td><input type="text" value="@User.GetClaimData("USER_NAME")" style="width:100%;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Аудиторын код</td>
+                                                        <td><input type="text" value="@User.Identity.Name.ToUpper()" style="width:100%;"></td>
+                                                    </tr>
+                                                </table>
+
+                                                <div style="text-align: right">
+                                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                    @Html.ActionLink("Хэвлэх", "Print2", "Shilendans", new { org_id = Model.OPEN_ID }, new { @class = "btn btn-sm", @style = "background-color:#233772; color:#fff;" })
+                                                    <button type="submit" value="tab6save" id="tab6saving" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="tab-pane fade" id="maygt3" role="tabpanel" aria-labelledby="maygt3-tab">
+                            <fieldset>
+                                <div class="hidden text-danger error-msgs">
+                                    <ul></ul>
+                                </div>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.OPEN_ID)
+                                @*@Html.HiddenFor(m => m.ORGB_ID)
+                                    @Html.HiddenFor(m => m.ORGB_ID2)
+                                    @Html.HiddenFor(m => m.ORGP_ID)
+                                    @Html.HiddenFor(m => m.ORGP_ID2)*@
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                                            <div class="col-sm-8">
+                                                @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                                            <div class="col-sm-8">
+                                                @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
+                                                                                                    new List<Object>{
+                                                                new { value = 99 , text = "2020.01.01-2020.12.31" },
+                             }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p style="color:#e7e7e5;">. </p>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                                            <div class="col-sm-7">
+                                                @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+                                    <div class="clearfix"></div>
+
+                                    <div class="col-md-12" style="background-color: #FFF; width: 100%; border: solid 1px #FFF; padding: 0px 3px;">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link active" id="maygt3_1-tab" data-toggle="tab" href="#maygt3-1" role="tab" aria-selected="true">
+                                                    МАЯГТ 6
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="maygt3-1" role="tabpanel" aria-labelledby="maygt3_1-tab">
+                                                <p style="color: #000;font-size: 12px;text-align: center;margin-top: 10px;">Шилэн дансны тухай хуулийн 3 дугаар зүйлийн 3.1.4, 3.1.5-д заасан улс, орон нутгийн төсвийн хөрөнгөөр хөрөнгө оруулалт, төсөл, хөтөлбөр, арга хэмжээ, ажил, үйлчилгээ гүйцэтгэж байгаа аж ахуйн нэгж, байгууллага, төрийн чиг үүрэгт хамаарах ажил, үйлчилгээг хууль тогтоомж, гэрээний үндсэн дээр гүйцэтгэгчид хөтлөх маягт</p>
+
+                                                <div style="text-align: right; margin-top:6px;">
+                                                    <button type="button" class="btn btn-sm" style="background-color:#233772; color:#fff;" data-toggle="modal" data-target="#InsertProjectModal">Нэмэх</button>
+                                                    <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                                                </div><br>
+
+                                                <div id="ReloadTables">
+                                                    <table class="table table-bordered reloadtable" id="reloadtable" style="font-size:12px;">
+                                                        <tr>
+                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Хэрэгжүүлж буй төсөл арга хэмжээний нэр</th>
+                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center" width="10%">Гэрээний дугаар</th>
+                                                            <th colspan="2" class="text-center">Хэрэгжүүлэх хугацаа /он сар өдөр/</th>
+                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Хэрэгжилтийн явц, үе шат /өссөн хувиар/</th>
+                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Нийт төсөвт өртөг /сая.төг/</th>
+                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Санхүүжилт өгсөн байгууллагын нэр /санхүүжилт олгосон Захиалагч байгууллага/</th>
+                                                            <th rowspan="2" style="vertical-align:middle;" class="text-center">Үйлдэл</th>
+                                                        <tr>
+                                                            <th class="text-center">Эхлэх</th>
+                                                            <th class="text-center">Дуусах</th>
+
+                                                            @Html.EditorFor(t => t.tab8)
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    /////////////////////////// Project add /////////////////////////////////////
+    <div class="modal fade" id="InsertProjectModal" role="dialog">
+        <div class="modal-dialog" style="max-width:100%;margin: 0 auto;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">НЭМЭХ</h6>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>*@
+                </div>
+
+                <div class="row" style="background-color: #e7e7e5;margin: 0 10px;">
+
+                    <div class="col-md-4">
+                        <p style="color: #233772;">Байгууллагатай холбоотой мэдээлэл</p>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">ТЕЗ:</label>
+                            <div class="col-sm-8">
+                                @Html.EditorFor(m => m.BUDGET_SHORT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">ТТЗ/ТЕЗ:</label>
+                            <div class="col-sm-8">
+                                @Html.EditorFor(m => m.OPEN_ENT_BUDGET_PARENT, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Шалгагдагч байгууллага, /иргэн, хуулийн этгээд/ нэр:</label>
+                            <div class="col-sm-8">
+                                @Html.EditorFor(m => m.OPEN_ENT_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Тайлант хугацаа:</label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.REPORT_YEAR, new SelectList(
+                                                                                    new List<Object>{
+                                                            new { value = 99 , text = "2020.01.01-2020.12.31" },
+                         }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <p style="color: #233772;">Мэдээлэл байршуулах албан тушаалтан  </p>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн албан тушаал:</label>
+                            <div class="col-sm-7">
+                                @Html.EditorFor(m => m.OPEN_HEAD_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Төсөв захирагчийн нэр:</label>
+                            <div class="col-sm-7">
+                                @Html.EditorFor(m => m.OPEN_HEAD_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                            <div class="col-sm-7">
+                                @Html.EditorFor(m => m.OPEN_HEAD_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <p style="color:#e7e7e5;">. </p>
+
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн албан тушаал:</label>
+                            <div class="col-sm-7">
+                                @Html.EditorFor(m => m.OPEN_ACC_ROLE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Нягтлан бодогчийн нэр:</label>
+                            <div class="col-sm-7">
+                                @Html.EditorFor(m => m.OPEN_ACC_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Холбоо барих утас:</label>
+                            <div class="col-sm-7">
+                                @Html.EditorFor(m => m.OPEN_ACC_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @ReadOnly = "readonly" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div style="margin: 0 10px;">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Хуулийн заалт:</label>
+                        <div class="col-sm-2">
+                            @Html.DropDownListFor(m => m.AUD_LAWS_NUM, new SelectList(
+                                                                                                 new List<Object>{
+                                                    new { value = 1 , text = "3.1.4" },
+                                                    new { value = 2 , text = "3.1.5" },
+                         }, "value", "text"), new { @class = "form-control", @style = "font-size:12px;" })
+                        </div>
+                    </div>
+
+                    <p class="text-right" style="font-size: 13px; margin-top: 6px; color: #3a3b45; margin-bottom: 0px; font-style: italic; ">төгрөгөөр</p>
+                    <table class="table table-bordered" style="font-size:12px;">
+                        <tr>
+                            <th width="10%" class="text-center">ХУУЛИЙН ЗААЛТ</th>
+                            <th width="40%">МЭДЭЭЛЛИЙН АГУУЛГА</th>
+                            <th width="10%" class="text-center">ХУГАЦАА</th>
+                            <th width="40%">ҮНЭЛГЭЭ</th>
+                        </tr>
+                        @Html.EditorFor(t => t.tab7)
+                        <tr>
+                            <td>Шалгасан аудиторын нэр</td>
+                            <td><input type="text" value="@User.GetClaimData("USER_NAME")" style="width:100%;"></td>
+                        </tr>
+                        <tr>
+                            <td>Аудиторын код</td>
+                            <td><input type="text" value="@User.Identity.Name.ToUpper()" style="width:100%;"></td>
+                        </tr>
+                    </table>
+
+                    <div style="text-align: right">
+                        <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-toggle="modal" data-target="#NoteModal">Хаах</button>
+                        @*<button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>*@
+                        <button type="submit" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хэвлэх</button>
+                        <button type="submit" value="tab7save" name="button" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+<div class="modal fade" id="NoteModal" role="dialog">
+    <div class="modal-dialog" style="max-width:100%;margin: 0 auto;">
+        <!-- Modal content-->
+        <div class="modal-content" style="height: 800px;">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel"></h6>
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>*@
+            </div>
+
+            <h6 class="alert alert-danger text-center" style="margin-top:350px;">Энэ цонхыг хаахдаа итгэлтэй байна уу</h6>
+
+            <div style="text-align: center">
+                <a href="/shilendans/index?id=613ixrUIjMXQ2eTrm2it6Q==" class="btn btn-danger">ТИЙМ</a>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">ҮГҮЙ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('input').keypress(function (e) {
+            if (e.which == 13) {
+                $(this).next('input').focus();
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var bigtabid = '@Model.OPEN_ENT_GROUP_ID';
+        var tabid = '@(ViewBag.Tabid)';
+
+        if (bigtabid == 1 || bigtabid == 2) {
+            $('.nav a[href="#maygt1"]').tab('show');
+        }
+        if (tabid == "#maygt1-1") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+        }
+        if (tabid == "#maygt1-2") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+            $('.nav a[href="#maygt1-2"]').tab('show');
+        }
+        if (tabid == "#maygt1-3") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+            $('.nav a[href="#maygt1-3"]').tab('show');
+        }
+        if (tabid == "#maygt1-4") {
+            $('#maygt1').addClass('active');
+            $('#maygt1').addClass('show');
+            $('.nav a[href="#maygt1-4"]').tab('show');
+        }
+
+        if (bigtabid == 3) {
+            $('.nav a[href="#maygt2"]').tab('show');
+        }
+        if (tabid == "#maygt2") {
+            $('#maygt2').addClass('active');
+            $('#maygt2').addClass('show');
+        }
+        if (tabid == "#maygt2-2") {
+            $('#maygt2').addClass('active');
+            $('#maygt2').addClass('show');
+            $('.nav a[href="#maygt2-2"]').tab('show');
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("div.success").fadeIn(300).delay(1500).fadeOut(400);
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        /* $(".currency").maskMoney({ suffix: ' ' });*/
+        $('.currency').formatCurrency();
+        $('.currency').blur(function () {
+            $('.currency').html(null);
+            $(this).formatCurrency({ colorize: true, negativeFormat: '%s%n', roundToDecimalPlace: 2 });
+        })
+            .keyup(function (e) {
+                var e = window.event || e;
+                var keyUnicode = e.charCode || e.keyCode;
+                if (e !== undefined) {
+                    switch (keyUnicode) {
+                        case 16: break; // Shift
+                        case 17: break; // Ctrl
+                        case 18: break; // Alt
+                        case 27: this.value = ''; break; // Esc: clear entry
+                        case 35: break; // End
+                        case 36: break; // Home
+                        case 37: break; // cursor left
+                        case 38: break; // cursor up
+                        case 39: break; // cursor right
+                        case 40: break; // cursor down
+                        case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                        case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                        case 190: break; // .
+                        default: $(this).formatCurrency({ colorize: true, negativeFormat: '-%s%n', roundToDecimalPlace: -1, eventOnDecimalsEntered: true });
+                    }
+                }
+            })
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var modal_id = '@(ViewBag.ModalID)';
+        if (modal_id != null && modal_id != "") {
+
+        setTimeout(function () {
+            $(""+modal_id+"").modal();
+        }, 1000);
+        }
+    });
+</script>
+
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $("#tab2saving").click(function () {
+                var tab1val1 = document.getElementById("tab1_0__Data01").value;
+                var tab1val2 = document.getElementById("tab1_1__Data01").value;
+                var tab1val3 = document.getElementById("tab1_3__Data01").value;
+                var tab1val4 = document.getElementById("tab1_4__Data01").value;
+                var tab1val5 = document.getElementById("tab1_5__Data01").value;
+                var tab1val6 = document.getElementById("tab1_6__Data01").value;
+                var tab1val7 = document.getElementById("tab1_7__Data01").value;
+                var tab1val8 = document.getElementById("tab1_8__Data01").value;
+                var tab1val9 = document.getElementById("tab1_9__Data01").value;
+                var tab1val10 = document.getElementById("tab1_10__Data01").value;
+                var tab1val11 = document.getElementById("tab1_11__Data01").value;
+                var tab1val12 = document.getElementById("tab1_12__Data01").value;
+                var tab1val13 = document.getElementById("tab1_13__Data01").value;
+                var tab1val14 = document.getElementById("tab1_14__Data01").value;
+                var tab1val15 = document.getElementById("tab1_15__Data01").value;
+                var tab1val16 = document.getElementById("tab1_16__Data01").value;
+                var tab1val17 = document.getElementById("tab1_17__Data01").value;
+                var tab1val18 = document.getElementById("tab1_18__Data01").value;
+                var tab1val19 = document.getElementById("tab1_19__Data01").value;
+                var tab1val20 = document.getElementById("tab1_20__Data01").value;
+                var tab1val21 = document.getElementById("tab1_21__Data01").value;
+                var tab1val22 = document.getElementById("tab1_22__Data01").value;
+                var tab1val23 = document.getElementById("tab1_23__Data01").value;
+                var tab1val24 = document.getElementById("tab1_24__Data01").value;
+                var tab1val25 = document.getElementById("tab1_25__Data01").value;
+                var tab1val26 = document.getElementById("tab1_27__Data01").value;
+                var tab1val27 = document.getElementById("tab1_28__Data01").value;
+                var tab1val28 = document.getElementById("tab1_29__Data01").value;
+                var tab1val29 = document.getElementById("tab1_30__Data01").value;
+                var tab1val30 = document.getElementById("tab1_31__Data01").value;
+                var tab1val31 = document.getElementById("tab1_32__Data01").value;
+                var tab1val32 = document.getElementById("tab1_33__Data01").value;
+
+                var tab2val1 = document.getElementById("tab2_0__Data01").value;
+                var tab2val2 = document.getElementById("tab2_31__Data01").value;
+
+                if (tab1val1 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val2 == 0) {
+                    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val3 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val4 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val5 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val6 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val7 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val8 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val9 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val10 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val11 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val12 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val13 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val14 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val15 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val16 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val17 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val18 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val19 == 0) {
+                    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val20 == 0) {
+                    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val21 == 0) {
+                    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val22 == 0) {
+                    alert("Хөтлөх маягт-1: Санхүүгийн тайлан /хагас жил/ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val23 == 0) {
+                    alert("Хөтлөх маягт-1: Санхүүгийн тайлан /жилийн эцсийн/ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val24 == 0) {
+                    alert("Хөтлөх маягт-1: ТЕЗ-ын төсвийн багцад хийсэн аудитын дүгнэлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val25 == 0) {
+                    alert("Хөтлөх маягт-1: Аудитын тайлан, дүгнэлтэд тусгагдсан асуудлаар авч хэрэгжүүлсэн арга хэмжээ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val26 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val27 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val28 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val29 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val30 == 0) {
+                    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val31 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val32 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val1 == 0) {
+                    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val2 == 0) {
+                    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $("#tab3saving").click(function () {
+                var tab1val1 = document.getElementById("tab1_0__Data01").value;
+                var tab1val2 = document.getElementById("tab1_1__Data01").value;
+                var tab1val3 = document.getElementById("tab1_3__Data01").value;
+                var tab1val4 = document.getElementById("tab1_4__Data01").value;
+                var tab1val5 = document.getElementById("tab1_5__Data01").value;
+                var tab1val6 = document.getElementById("tab1_6__Data01").value;
+                var tab1val7 = document.getElementById("tab1_7__Data01").value;
+                var tab1val8 = document.getElementById("tab1_8__Data01").value;
+                var tab1val9 = document.getElementById("tab1_9__Data01").value;
+                var tab1val10 = document.getElementById("tab1_10__Data01").value;
+                var tab1val11 = document.getElementById("tab1_11__Data01").value;
+                var tab1val12 = document.getElementById("tab1_12__Data01").value;
+                var tab1val13 = document.getElementById("tab1_13__Data01").value;
+                var tab1val14 = document.getElementById("tab1_14__Data01").value;
+                var tab1val15 = document.getElementById("tab1_15__Data01").value;
+                var tab1val16 = document.getElementById("tab1_16__Data01").value;
+                var tab1val17 = document.getElementById("tab1_17__Data01").value;
+                var tab1val18 = document.getElementById("tab1_18__Data01").value;
+                var tab1val19 = document.getElementById("tab1_19__Data01").value;
+                var tab1val20 = document.getElementById("tab1_20__Data01").value;
+                var tab1val21 = document.getElementById("tab1_21__Data01").value;
+                var tab1val22 = document.getElementById("tab1_22__Data01").value;
+                var tab1val23 = document.getElementById("tab1_23__Data01").value;
+                var tab1val24 = document.getElementById("tab1_24__Data01").value;
+                var tab1val25 = document.getElementById("tab1_25__Data01").value;
+                var tab1val26 = document.getElementById("tab1_27__Data01").value;
+                var tab1val27 = document.getElementById("tab1_28__Data01").value;
+                var tab1val28 = document.getElementById("tab1_29__Data01").value;
+                var tab1val29 = document.getElementById("tab1_30__Data01").value;
+                var tab1val30 = document.getElementById("tab1_31__Data01").value;
+                var tab1val31 = document.getElementById("tab1_32__Data01").value;
+                var tab1val32 = document.getElementById("tab1_33__Data01").value;
+
+                var tab2val1 = document.getElementById("tab2_0__Data01").value;
+                var tab2val2 = document.getElementById("tab2_31__Data01").value;
+            
+                var tab3val1 = document.getElementById("tab3_0__Data01").value;
+
+                if (tab1val1 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val2 == 0) {
+                    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val3 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val4 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val5 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val6 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val7 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val8 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val9 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val10 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val11 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val12 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val13 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val14 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val15 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val16 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val17 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val18 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val19 == 0) {
+                    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val20 == 0) {
+                    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val21 == 0) {
+                    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val22 == 0) {
+                    alert("Хөтлөх маягт-1: Санхүүгийн тайлан /хагас жил/ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val23 == 0) {
+                    alert("Хөтлөх маягт-1: Санхүүгийн тайлан /жилийн эцсийн/ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val24 == 0) {
+                    alert("Хөтлөх маягт-1: ТЕЗ-ын төсвийн багцад хийсэн аудитын дүгнэлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val25 == 0) {
+                    alert("Хөтлөх маягт-1: Аудитын тайлан, дүгнэлтэд тусгагдсан асуудлаар авч хэрэгжүүлсэн арга хэмжээ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val26 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val27 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val28 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val29 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val30 == 0) {
+                    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val31 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val32 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val1 == 0) {
+                    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val2 == 0) {
+                    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+
+                if (tab3val1 == 0) {
+                    alert("Хөтлөх маягт-3: Байгууллагын батлагдсан орон тоонд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $("#tab4saving").click(function () {
+                var tab1val1 = document.getElementById("tab1_0__Data01").value;
+                var tab1val2 = document.getElementById("tab1_1__Data01").value;
+                var tab1val3 = document.getElementById("tab1_3__Data01").value;
+                var tab1val4 = document.getElementById("tab1_4__Data01").value;
+                var tab1val5 = document.getElementById("tab1_5__Data01").value;
+                var tab1val6 = document.getElementById("tab1_6__Data01").value;
+                var tab1val7 = document.getElementById("tab1_7__Data01").value;
+                var tab1val8 = document.getElementById("tab1_8__Data01").value;
+                var tab1val9 = document.getElementById("tab1_9__Data01").value;
+                var tab1val10 = document.getElementById("tab1_10__Data01").value;
+                var tab1val11 = document.getElementById("tab1_11__Data01").value;
+                var tab1val12 = document.getElementById("tab1_12__Data01").value;
+                var tab1val13 = document.getElementById("tab1_13__Data01").value;
+                var tab1val14 = document.getElementById("tab1_14__Data01").value;
+                var tab1val15 = document.getElementById("tab1_15__Data01").value;
+                var tab1val16 = document.getElementById("tab1_16__Data01").value;
+                var tab1val17 = document.getElementById("tab1_17__Data01").value;
+                var tab1val18 = document.getElementById("tab1_18__Data01").value;
+                var tab1val19 = document.getElementById("tab1_19__Data01").value;
+                var tab1val20 = document.getElementById("tab1_20__Data01").value;
+                var tab1val21 = document.getElementById("tab1_21__Data01").value;
+                var tab1val22 = document.getElementById("tab1_22__Data01").value;
+                var tab1val23 = document.getElementById("tab1_23__Data01").value;
+                var tab1val24 = document.getElementById("tab1_24__Data01").value;
+                var tab1val25 = document.getElementById("tab1_25__Data01").value;
+                var tab1val26 = document.getElementById("tab1_27__Data01").value;
+                var tab1val27 = document.getElementById("tab1_28__Data01").value;
+                var tab1val28 = document.getElementById("tab1_29__Data01").value;
+                var tab1val29 = document.getElementById("tab1_30__Data01").value;
+                var tab1val30 = document.getElementById("tab1_31__Data01").value;
+                var tab1val31 = document.getElementById("tab1_32__Data01").value;
+                var tab1val32 = document.getElementById("tab1_33__Data01").value;
+
+                var tab2val1 = document.getElementById("tab2_0__Data01").value;
+                var tab2val2 = document.getElementById("tab2_31__Data01").value;
+
+                var tab3val1 = document.getElementById("tab3_0__Data01").value;
+
+                if (tab1val1 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөв - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val2 == 0) {
+                    alert("Хөтлөх маягт-1: ОНХС-ийн төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val3 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val4 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val5 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val6 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val7 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val8 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 5-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val9 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 6-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val10 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val11 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 7-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val12 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 8-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val13 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 9-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val14 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val15 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 10-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val16 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 11-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val17 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 12-р сар - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val18 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн гүйцэтгэл 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val19 == 0) {
+                    alert("Хөтлөх маягт-1: Хагас жилийн төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val20 == 0) {
+                    alert("Хөтлөх маягт-1: Өмнөх оны төсвийн гүйцэтгэл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val21 == 0) {
+                    alert("Хөтлөх маягт-1: Дараа жилийн төсвийн төсөл - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val22 == 0) {
+                    alert("Хөтлөх маягт-1: Санхүүгийн тайлан /хагас жил/ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val23 == 0) {
+                    alert("Хөтлөх маягт-1: Санхүүгийн тайлан /жилийн эцсийн/ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val24 == 0) {
+                    alert("Хөтлөх маягт-1: ТЕЗ-ын төсвийн багцад хийсэн аудитын дүгнэлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val25 == 0) {
+                    alert("Хөтлөх маягт-1: Аудитын тайлан, дүгнэлтэд тусгагдсан асуудлаар авч хэрэгжүүлсэн арга хэмжээ - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val26 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 1-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val27 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 2-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val28 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 3-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val29 == 0) {
+                    alert("Хөтлөх маягт-1: Төсвийн хэмнэлт хэтрэлт, түүний шалтгааны тайлбар 4-р улирал - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val30 == 0) {
+                    alert("Хөтлөх маягт-1: Нийгмийн даатгалын сангаас тэтгэвэр, тэтгэмж, төлбөр авах эрх бүхий этгээдийн жагсаалт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val31 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн жилийн төсөвт орсон нэмэлт, өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab1val32 == 0) {
+                    alert("Хөтлөх маягт-1: Тухайн байгууллагын төлбөр, хураамж, зохицуулалтын үйлчилгээний хөлсний хэмжээнд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val1 == 0) {
+                    alert("Хөтлөх маягт-2: ХАА-ны төлөвлөгөө - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab2val2 == 0) {
+                    alert("Хөтлөх маягт-2: Худалдан авалтын аудитын тайлан, дүгнэлт болон бусад хяналт шалгалтын дүн - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+
+                if (tab3val1 == 0) {
+                    alert("Хөтлөх маягт-3: Байгууллагын батлагдсан орон тоонд орсон өөрчлөлт - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $("#tab5saving").click(function () {
+                var tab5val1 = document.getElementById("tab5_142__Data01").value;
+                var tab5val2 = document.getElementById("tab5_143__Data01").value;
+
+                if (tab5val1 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны төлөвлөгөө мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab5val2 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны тайлан мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $("#tab6saving").click(function () {
+                var tab5val1 = document.getElementById("tab5_142__Data01").value;
+                var tab5val2 = document.getElementById("tab5_143__Data01").value;
+
+                if (tab5val1 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны төлөвлөгөө мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+                if (tab5val2 == 0) {
+                    alert("Хөтлөх маягт-1: Худалдан авах ажиллагааны тайлан мэдээлсэн эсэх - Үнэлгээ сонгоод хадгална уу!!!");
+                    return false
+                }
+            });
+        });
+    });
+</script>

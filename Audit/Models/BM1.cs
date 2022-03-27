@@ -43,6 +43,7 @@ namespace Audit.Models
         public string ACT_SUBMITTED_DATE { get; set; }
         [Required(ErrorMessage = "Утга оруулна уу.")]
         public string ACT_DELIVERY_DATE { get; set; }
+        [Required(ErrorMessage = "Төлбөрийн дүн оруулна уу.")]
         public string ACT_AMOUNT { get; set; }
         public decimal? ACT_STATE_AMOUNT { get; set; }
         public decimal? ACT_LOCAL_AMOUNT { get; set; }

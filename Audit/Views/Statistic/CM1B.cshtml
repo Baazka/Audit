@@ -12,6 +12,11 @@
     </a>
     <h4>СМ-1Б. Гүйцэтгэлийн аудитын ерөнхий мэдээлэл</h4>
 </div>
+<style>
+    .tableBackround {
+        background-color: #8080804a !important;
+    }
+</style>
 <hr class="sidebar-divider">
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
@@ -44,6 +49,7 @@
             <table id="CM1B" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="3" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Үзүүлэлт</th>
                         <th colspan="3">Ажилласан</th>
@@ -78,7 +84,8 @@
             setTimeout(function () { cm1bListInit(); }, 1000);
         });
 
-        function cm1bListInit(pagelength = 10) {
+        function cm1bListInit(pagelength = -1) {
+            var count = 0;
             CM1B.table = $("#CM1B").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -89,6 +96,7 @@
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
                         data.Type = 2;
+                        count = 0;
                         return data;
                     }
                 },
@@ -96,15 +104,22 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                                return "";
+                            }
+                            else {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
                         }
                     },
                     //{ "data": "AUDIT_TYPE", "name": "AUDIT_TYPE" },
                     //{ "data": "CATEGORY_TYPE", "name": "CATEGORY_TYPE" },
-                    { "data": "IS_STATE", "name": "IS_STATE" },
+                   // { "data": "IS_STATE", "name": "IS_STATE" },
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
                     { "data": "WORKING_PERSON", "name": "WORKING_PERSON" },
                     { "data": "WORKING_DAY", "name": "WORKING_DAY" },
                     { "data": "WORKING_ADDITION_TIME", "name": "WORKING_ADDITION_TIME" },
@@ -115,6 +130,10 @@
                     { "data": "BENEFIT_FIN_AMOUNT", "name": "BENEFIT_FIN_AMOUNT" },
                     { "data": "BENEFIT_NONFIN", "name": "BENEFIT_NONFIN" },
                 ],
+                scrollX: true,
+                scrollY: 392,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
@@ -125,7 +144,64 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 0)
+                                    $('td', row).eq(0).addClass('font-weight-bold');
+
+                                $(row).children('td').each((index, td) => {
+
+                                    if (index !== 27)
+                                        $('td', row).eq(index).addClass('tableBackround');
+
+                                });
+                            });
+                        }
+                    }
+                },
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+
+
+
+
+                    idx = 0
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
+                },
             });
 
         }

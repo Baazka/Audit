@@ -36,7 +36,7 @@
                                 <th>Өмчийн хэлбэр</th>
                                 <th>Байгуулагдсан огноо</th>
                                 <th>Мэдээллийн эх үүсвэр</th>
-                                <th>Үйлдэл</th>
+                                @*<th>Үйлдэл</th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -85,15 +85,15 @@
                     { "data": "LEGAL_STATUS_NAME", "name": "LEGAL_STATUS_NAME" },
                     { "data": "PROPERTY_TYPE_NAME", "name": "PROPERTY_TYPE_NAME" },
                     { "data": "ORG_REG_DATE", "name": "ORG_REG_DATE" },
-                    { "data": "SOURCE_TYPE_NAME", "name": "SOURCE_TYPE_NAME" },
-                    {
-                    "data": null, "sortable": false, "class": 'text-center',
-                        render: function (data, type, row, meta) {
-                            /*var tmp = '<div class="btn-group"><a href="#" class="btn btn-sm" onclick="Organization.loadTemplate(' + data.ORG_ID + ')"><i class="fa fa-plus text-info"></i> Шалгагдагчид нэмэх</a></div>';*/
-                            var tmp = '<div class="btn-group"><a href="#" class="btn btn-sm"><i class="fa fa-plus text-info"></i> Шалгагдагчид нэмэх</a></div>';
-                        return tmp;
-                        }
-                    }
+                    { "data": "SOURCE_TYPE_NAME", "name": "SOURCE_TYPE_NAME" }
+                    //{
+                    //"data": null, "sortable": false, "class": 'text-center',
+                    //    render: function (data, type, row, meta) {
+                    //        /*var tmp = '<div class="btn-group"><a href="#" class="btn btn-sm" onclick="Organization.loadTemplate(' + data.ORG_ID + ')"><i class="fa fa-plus text-info"></i> Шалгагдагчид нэмэх</a></div>';*/
+                    //        var tmp = '<div class="btn-group"><a href="#" class="btn btn-sm"><i class="fa fa-plus text-info"></i> Шалгагдагчид нэмэх</a></div>';
+                    //    return tmp;
+                    //    }
+                    //}
 
                 ],
                 "destroy": true,

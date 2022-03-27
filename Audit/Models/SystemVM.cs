@@ -22,6 +22,7 @@ namespace Audit.Models
         public List<string> violation { get; set; }
         public int? DeparmentID { get; set; }
         public int? PARENT_BUDGET_ID { get; set; }
+        public int? TTZ_CODE { get; set; }
         public int? BUDGET_LEVEL_ID { get; set; }
         public int? LEGAL_STATUS_ID { get; set; }
         public int? PROPERTY_TYPE_ID { get; set; }

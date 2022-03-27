@@ -39,7 +39,7 @@
                                     <div class="col-sm-4">
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
-                                  
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -121,7 +121,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.PROPOSAL_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
                                     <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
 
-                                        @Html.EditorFor(m => m.PROPOSAL_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.PROPOSAL_SUBMITTED_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Биелэлтийг тооцох: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
 
                                         @Html.ValidationMessageFor(m => m.PROPOSAL_DELIVERY_DATE, "", new { @class = "text-danger" })
                                     </div>
@@ -183,7 +183,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн тоо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount1", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_COUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right amount2", @placeholder = "0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                         @Html.ValidationMessageFor(m => m.PROPOSAL_COUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -192,7 +192,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount2", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Утас:</label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.PROPOSAL_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm",  @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                        @Html.EditorFor(m => m.PROPOSAL_RCV_PHONE, new { htmlAttributes = new { @class = "form-control form-control-sm", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
                                     </div>
                                 </div>
                             </div>
@@ -237,15 +237,32 @@
                                 </div>
                             </div>
                             @*<div class="col-12">
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.PROPOSAL_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.PROPOSAL_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
                         </div>
-
+                        <div id="biylelt_nuutsalsan" hidden>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй тоо:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.0", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хэрэгжээгүй дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.COMPLETION_PROGRESS_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right", @readonly = "readonly", @placeholder = "0.00", @onkeypress = "return event.charCode >= 48 && event.charCode <= 57" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
@@ -309,21 +326,31 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
-      calculateSubtract1();
-      calculateSubtract2();
+      calculateSum1();
+      calculateSum2();
 
       $(".amount1").on("keydown keyup", function () {
-          calculateSubtract1();
+          calculateSum1();
       });
       $(".amount2").on("keydown keyup", function () {
-          calculateSubtract2();
+          calculateSum2();
+      });
+      $(".amount2").on("change", function () {
+          calculateSum2();
       });
 
-      function calculateSubtract1() {
-          $("#COMPLETION_PROGRESS").val(parseFloat($("#PROPOSAL_COUNT").val()) - parseFloat($("#COMPLETION_DONE").val()));
+      function calculateSum1() {
+          var value1 = $("#PROPOSAL_AMOUNT").val();
+
+          var res1 = value1.replace(/,/g, '');
+
+          $("#COMPLETION_PROGRESS_AMOUNT").val(res1).formatCurrency();
       }
-      function calculateSubtract2() {
-          $("#COMPLETION_PROGRESS_AMOUNT").val(parseFloat($("#PROPOSAL_AMOUNT").val()) - parseFloat($("#COMPLETION_DONE_AMOUNT").val()));
+      function calculateSum2() {
+          var value2 = $("#PROPOSAL_COUNT").val();
+
+
+          $("#COMPLETION_PROGRESS").val(value2);
       }
   });
 </script>

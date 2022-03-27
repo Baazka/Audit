@@ -4,6 +4,23 @@
     ViewBag.Title = "CM4A";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+
+    #tableBorder {
+        border-right-color: transparent !important;
+    }
+
+    .tableBackround {
+        background-color: #8080804a !important;
+    }
+
+    .tableBackroundDun {
+        background-color: #17a2b81f !important;
+    }
+
+    .text-center sorting_1 {
+    }
+</style>
 <div class="d-flex">
     <a href="@Url.Action("Index","Statistic")?type=3" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
@@ -44,6 +61,7 @@
             <table id="CM4A" class="table table-bordered table-hover datatable display" style="width:100%">
                 <thead>
                     <tr class="bg-light">
+                        <th rowspan="3" class="text-center">Төрийн аудитын байгууллага</th>
                         <th rowspan="3" class="text-center">№</th>
                         <th rowspan="3">Үзүүлэлт</th>
                         <th colspan="6">Илрүүлэлт</th>
@@ -100,7 +118,8 @@
             setTimeout(function () { cm4aListInit(); }, 1000);
         });
 
-        function cm4aListInit() {
+        function cm4aListInit(pagelength = -1) {
+            var count = 0;
             CM4A.table = $("#CM4A").DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -110,6 +129,8 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Type = 1;
+                        count = 0;
                         return data;
                     }
                 },
@@ -117,38 +138,63 @@
                     $(row).attr('data-id', data.ID);
                 },
                 "columns": [
+                    { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                                return "";
+                            }
+                            if (data.BUDGET_TYPE_NAME === "Дүн") {
+                                count = 0;
+                                return "";
+                            }
+                            if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага") {
+
+                                return "";
+                            }
+                            if (data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+
+                                return "";
+                            }
+                            else {
+                                //return meta.row + meta.settings._iDisplayStart + 1;
+                                return count = count + 1;
+                            }
+
                         }
                     },
-                    { "data": "IS_STATE", "name": "IS_STATE" },
-                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT" },
-                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT" },
-                    { "data": "ERROR_COUNT", "name": "ERROR_COUNT" },
-                    { "data": "ERROR_AMOUNT", "name": "ERROR_AMOUNT" },
-                    { "data": "ALL_COUNT", "name": "ALL_COUNT" },
-                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT" },
-                    { "data": "CORRECTED_ERROR_COUNT", "name": "CORRECTED_ERROR_COUNT" },
-                    { "data": "CORRECTED_ERROR_AMOUNT", "name": "CORRECTED_ERROR_AMOUNT" },
-                    { "data": "OTHER_ERROR_COUNT", "name": "OTHER_ERROR_COUNT" },
-                    { "data": "OTHER_ERROR_AMOUNT", "name": "OTHER_ERROR_AMOUNT" },
-                    { "data": "ACT_COUNT", "name": "ACT_COUNT" },
-                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT" },
-                    { "data": "CLAIM_COUNT", "name": "CLAIM_COUNT" },
-                    { "data": "CLAIM_AMOUNT", "name": "CLAIM_AMOUNT" },
-                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT" },
-                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT" },
-                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT" },
-                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT" },
-                    { "data": "LAW_COUNT", "name": "LAW_COUNT" },
-                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT" },
-                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT" },
-                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT" },
+                   
+                    { "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    { "data": "VIOLATION_COUNT", "name": "VIOLATION_COUNT", "class": "text-right",},
+                    { "data": "VIOLATION_AMOUNT", "name": "VIOLATION_AMOUNT", "class": "text-right",},
+                    { "data": "ERROR_COUNT", "name": "ERROR_COUNT", "class": "text-right",},
+                    { "data": "ERROR_AMOUNT", "name": "ERROR_AMOUNT", "class": "text-right",},
+                    { "data": "ALL_COUNT", "name": "ALL_COUNT", "class": "text-right",},
+                    { "data": "ALL_AMOUNT", "name": "ALL_AMOUNT", "class": "text-right",},
+                    { "data": "CORRECTED_ERROR_COUNT", "name": "CORRECTED_ERROR_COUNT", "class": "text-right",},
+                    { "data": "CORRECTED_ERROR_AMOUNT", "name": "CORRECTED_ERROR_AMOUNT", "class": "text-right",},
+                    { "data": "OTHER_ERROR_COUNT", "name": "OTHER_ERROR_COUNT", "class": "text-right",},
+                    { "data": "OTHER_ERROR_AMOUNT", "name": "OTHER_ERROR_AMOUNT", "class": "text-right",},
+                    { "data": "ACT_COUNT", "name": "ACT_COUNT", "class": "text-right",},
+                    { "data": "ACT_AMOUNT", "name": "ACT_AMOUNT", "class": "text-right",},
+                    { "data": "CLAIM_COUNT", "name": "CLAIM_COUNT", "class": "text-right",},
+                    { "data": "CLAIM_AMOUNT", "name": "CLAIM_AMOUNT", "class": "text-right",},
+                    { "data": "REFERENCE_COUNT", "name": "REFERENCE_COUNT", "class": "text-right",},
+                    { "data": "REFERENCE_AMOUNT", "name": "REFERENCE_AMOUNT", "class": "text-right",},
+                    { "data": "PROPOSAL_COUNT", "name": "PROPOSAL_COUNT", "class": "text-right",},
+                    { "data": "PROPOSAL_AMOUNT", "name": "PROPOSAL_AMOUNT", "class": "text-right",},
+                    { "data": "LAW_COUNT", "name": "LAW_COUNT", "class": "text-right",},
+                    { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right",},
+                    { "data": "OTHER_COUNT", "name": "OTHER_COUNT", "class": "text-right",},
+                    { "data": "OTHER_AMOUNT", "name": "OTHER_AMOUNT", "class": "text-right",},
                 ],
+                scrollX: true,
+                scrollY: 392,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
-                "scrollCollapse": true,
+                "pageLength": pagelength,
                 "paging": true,
                 "lengthMenu": [[10, 25, 50], [10, 25, 50]],
                 "filter": true,
@@ -156,7 +202,99 @@
                 "stateSave": false,
                 "bAutoWidth": false,
                 lengthChange: true,
-                "language": datatables.language
+                "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    if (data !== undefined) {
+                        if (data.BUDGET_TYPE_NAME === "Дүн") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 2)
+                                    $('td', row).eq(2).addClass('font-weight-bold');
+
+                                if (index !== 27 && index !== 0)
+                                    $('td', row).eq(index).addClass('tableBackroundDun');
+                            });
+                        }
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 0)
+                                    $('td', row).eq(0).addClass('font-weight-bold');
+
+                                if (index !== 27)
+                                    $('td', row).eq(index).addClass('tableBackround');
+                            });
+                        }
+                        if (data.BUDGET_TYPE_NAME === "Нэг. Төрийн аудитын байгууллага" || data.BUDGET_TYPE_NAME === "Хоёр. Хараат бус аудитын компани") {
+                            $(row).children('td').each((index, td) => {
+                                if (index === 2)
+                                    $('td', row).eq(2).addClass('font-weight-bold');
+
+                                if (index === 2)
+                                    $('td', row).eq(index).attr("colspan", 4);
+
+
+                                if (index === 22)
+                                    $('td', row).eq(22).remove();
+                                if (index === 23)
+                                    $('td', row).eq(23).remove();
+                                if (index === 24)
+                                    $('td', row).eq(24).remove();
+                                if (index === 25)
+                                    $('td', row).eq(25).remove();
+
+
+                                if (index !== 26 && index !== 0)
+                                    $('td', row).eq(index).attr('id', "tableBorder");
+
+                                if (index !== 27 && index !== 0)
+                                    $('td', row).eq(index).addClass('tableBackround');
+
+                            });
+                        }
+
+                    }
+                },
+
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+
+
+
+
+
+
+                    idx = 0
+
+                    last = null;
+                    tr = null;
+                    ltd = null;
+                    api.column(idx, { page: 'current' }).data().each(function (group, i) {
+                        tr = $(rows[i]);
+                        var td = $("td:eq(" + idx + ")", tr);
+
+                        if (last !== group) {
+
+                            td.attr("rowspan", 1);
+
+                            td.text(group);
+                            ltd = td;
+                            last = group;
+                            td.css("vertical-align", "middle");
+                            idx = 0;
+                        }
+                        else {
+                            ltd.attr("rowspan", parseInt(ltd.attr("rowspan")) + 1);
+                            td.remove();
+
+                            if (parseInt(ltd.attr("rowspan")) === 5) {
+                                idx = 0;
+                            }
+
+                        }
+
+                    });
+
+                },
             });
 
         }
@@ -248,18 +386,20 @@
             }
         }
     }
+
+
         function exportFile(tableid, excelname,) {
-            $('#exportXLSX').prop('disabled', true);
-            table.destroy();
+            $('#exportXLSX').addClass('disabled');
+            CM4A.table.destroy();
             cm4aListInit(-1);
 
             setTimeout(function () {
                 var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
                 XLSX.writeFile(wb, excelname + '.xlsx');
 
-                table.destroy();
+                CM4A.table.destroy();
                 cm4aListInit();
-                $('#exportXLSX').prop('disabled', false);
+                $('#exportXLSX').removeClass('disabled');
             }, 5000
             )
         }

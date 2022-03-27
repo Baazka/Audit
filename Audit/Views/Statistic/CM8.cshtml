@@ -185,8 +185,8 @@
                     {
                         "data": null, "sortable": false, "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.AUD_NAME === "НИЙТ ДҮН") {
-                                return "НИЙТ ДҮН";
+                            if (data.AUD_NAME === "Нийт дүн") {
+                                return "Нийт дүн";
                             }
                             else {
                                 return meta.row + meta.settings._iDisplayStart + 1;
@@ -216,7 +216,7 @@
                     { "data": "OTHER_PROF", "name": "OTHER_PROF" },
 
                     { "data": "STUDY_COUNT", "name": "STUDY_COUNT" },
-                    { "data": "INCLUDED_MAN", "name": "INCLUDED_MAN" },
+                    { "data": "INCLUDED_MAN", "name": "INCLUDED_MAN" }, 
                     { "data": "ONLINE_STUDY_COUNT", "name": "ONLINE_STUDY_COUNT" },
                     { "data": "LOCAL_STUDY_COUNT", "name": "LOCAL_STUDY_COUNT" },
                     { "data": "AUDIT_STUDY_COUNT", "name": "AUDIT_STUDY_COUNT" },
@@ -255,6 +255,10 @@
                     //    }
                     //}
                 ],
+                scrollX: true,
+                scrollY: 392,
+                scrollCollapse: true,
+                autoWidth: true,
                 "destroy": true,
                 "scrollCollapse": true,
                 "paging": true,
@@ -271,7 +275,7 @@
                 },
                 //"createdRow": function (row, data, index) {
                 //    if (data !== undefined) {
-                //        if (data.AUD_NAME === "НИЙТ ДҮН") {
+                //        if (data.AUD_NAME === "Нийт дүн") {
                 //            $(row).children('td').each((index, td) => {
                 //                if (index === 0) {
                 //                    $('td', row).eq(0).addClass('font-weight-bold');

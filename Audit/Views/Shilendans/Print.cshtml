@@ -37,7 +37,7 @@
         <div class="col-md-6">
             <label>Аудитын код: ................................................................</label>
         </div>
-        <p class="col-md-12">Аудитад шалгагдагч /хамрагдагч/ байгууллагын нэр: @if (Session["print_open_ent_name"].ToString() != null){ Session["print_open_ent_name"].ToString(); }</p>
+        <p class="col-md-12">Аудитад шалгагдагч /хамрагдагч/ байгууллагын нэр: @Session["print_open_ent_name"].ToString()</p>
 
         <div class="col-md-6">
             <label>Шалгасан аудиторын нэр: @User.GetClaimData("USER_NAME")</label>
@@ -46,7 +46,7 @@
         <div class="col-md-6">
             <label>Аудиторын код: @User.Identity.Name.ToUpper()</label>
         </div>
-        <p class="col-md-12 text-right">Хамрах хугацаа: 2020.01.01-2020.12.31</p>
+        <p class="col-md-12 text-right">Хамрах хугацаа: 2021.01.01-2021.12.31</p>
 
     </div>
     <div class="row">
@@ -81,11 +81,13 @@
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td colspan="2" style="background-color:yellow;border:1px solid black;text-align:left; vertical-align:middle; white-space:normal;"><strong>Тухайн байгууллагын санал</strong></td>
-                    <td colspan="8" style="background-color:yellow;border:1px solid black;text-align:left; vertical-align:middle; white-space:normal;">@Session["Print1Val1"].ToString()</td>
+                    <td colspan="8" style="background-color:yellow;border:1px solid black;text-align:left; vertical-align:middle; white-space:normal;">@Session["Print1Val1"].ToString()
+                    </td>
                 </tr>
                 <tr style="border: 1px solid black;">
                     <td colspan="2" style="background-color:yellow;border:1px solid black;text-align:left; vertical-align:middle; white-space:normal;"><strong>Тайлбар</strong></td>
-                    <td colspan="8" style="background-color:yellow;border:1px solid black;text-align:left; vertical-align:middle; white-space:normal;">@Session["Print1Val2"].ToString()</td>
+                    <td colspan="8" style="background-color:yellow;border:1px solid black;text-align:left; vertical-align:middle; white-space:normal;">@Session["Print1Val2"].ToString()
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -166,9 +168,7 @@
             Танилцаж зөвшөөрсөн:
         </div>
         <div class="col-md-2">
-            @if(Session["print_open_head_name"].ToString() != null) {
-                Session["print_open_head_name"].ToString();
-            }
+            @Session["print_open_head_name"].ToString()
         </div>
         <div class="col-md-2">
             ................................................
@@ -201,10 +201,7 @@
             Танилцаж зөвшөөрсөн:
         </div>
         <div class="col-md-2">
-            @if (Session["print_open_acc_name"].ToString() != null)
-            {
-                Session["print_open_acc_name"].ToString()
-            }
+             @Session["print_open_acc_name"].ToString()
         </div>
         <div class="col-md-2">
             ................................................

@@ -69,7 +69,7 @@
         }
         <div class="form-group-sm">
             <br />
-            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('BM5', 'БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл')">
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
                 <span class="icon text-white-50">
                     <i class="fas fa-file-excel"></i>
                 </span>
@@ -160,14 +160,12 @@
                         return data;
                     }
                 },
-                createdRow: function (row, data, dataIndex) {
-                    $(row).attr('data-id', data.ID);
-                },
+              
                 "columns": [
                     {
                         "data": null,  "class": 'text-center',
                         render: function (data, type, row, meta) {
-                            if (data.DEPARTMENT_NAME === "НИЙТ ДҮН") {
+                            if (data.DEPARTMENT_NAME === "Нийт дүн") {
                                 return "";
                             }
                             else {
@@ -175,6 +173,31 @@
                             }
                         }
                     },
+                    //{ "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
+                    //{ "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
+                    //{ "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
+                    //{ "data": "TOPIC_CODE", "name": "TOPIC_CODE" },
+                    //{ "data": "TOPIC_NAME", "name": "TOPIC_NAME" },
+                    //{ "data": "BUDGET_TYPE_NAME", "name": "BUDGET_TYPE_NAME" },
+                    ////{ "data": "ORDER_DATE", "name": "ORDER_DATE" },
+                    ////{ "data": "ORDER_NO", "name": "ORDER_NO" },
+                    //{ "data": "LAW_RESPONDANT_NAME", "name": "LAW_RESPONDANT_NAME" },
+                    //{ "data": "LAW_VIOLATION_DESC", "name": "LAW_VIOLATION_DESC" },
+                    //{ "data": "VIOLATION_NAME", "name": "VIOLATION_NAME" },
+                    //{ "data": "LAW_MOVING_INFORMATION", "name": "LAW_MOVING_INFORMATION" },
+                    //{ "data": "LAW_NUMBER", "name": "LAW_NUMBER", "class": "text-right" },
+                    //{ "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right" },
+                    //{ "data": "LAW_C2_NUMBER", "name": "LAW_C2_NUMBER", "class": "text-right" },
+                    //{ "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT", "class": "text-right" },
+                    //{ "data": "COMPLETION_DONE", "name": "COMPLETION_DONE", "class": "text-right" },
+                    //{ "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
+                    //{ "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS", "class": "text-right" },
+                    //{ "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
+                    //{ "data": "COMPLETION_INVALID", "name": "COMPLETION_INVALID", "class": "text-right" },
+                    //{ "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT", "class": "text-right" },
+
+
+
                     { "data": "DEPARTMENT_NAME", "name": "DEPARTMENT_NAME" },
                     { "data": "YEAR_LABEL", "name": "YEAR_LABEL" },
                     { "data": "AUDIT_TYPE_NAME", "name": "AUDIT_TYPE_NAME" },
@@ -189,26 +212,17 @@
                     { "data": "LAW_MOVING_INFORMATION", "name": "LAW_MOVING_INFORMATION" },
                     { "data": "LAW_NUMBER", "name": "LAW_NUMBER", "class": "text-right" },
                     { "data": "LAW_AMOUNT", "name": "LAW_AMOUNT", "class": "text-right" },
-                    { "data": "LAW_C2_NUMBER", "name": "LAW_C2_NUMBER", "class": "text-right" },
-                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT", "class": "text-right" },
                     { "data": "COMPLETION_DONE", "name": "COMPLETION_DONE", "class": "text-right" },
                     { "data": "COMPLETION_DONE_AMOUNT", "name": "COMPLETION_DONE_AMOUNT", "class": "text-right" },
                     { "data": "COMPLETION_PROGRESS", "name": "COMPLETION_PROGRESS", "class": "text-right" },
                     { "data": "COMPLETION_PROGRESS_AMOUNT", "name": "COMPLETION_PROGRESS_AMOUNT", "class": "text-right" },
                     { "data": "COMPLETION_INVALID", "name": "COMPLETION_INVALID", "class": "text-right" },
                     { "data": "COMPLETION_INVALID_AMOUNT", "name": "COMPLETION_INVALID_AMOUNT", "class": "text-right" },
-                    //{
-                    //    "data": null, "sortable": false, "class": 'text-center',
-                    //    render: function (data, type, row, meta) {
-                    //        var tmp = '<div class="btn-group">';
-                    //        var urledit = '<a href="#" class="btn btn-sm" onclick="BM5.edit(' + data.ID + ')"><i class="fa fa-edit text-warning"></i></a>';
-                    //        var urldelete = '<a href="#" class="btn btn-sm" onclick="BM5.delete(' + data.ID + ')"><i class="fa fa-trash-alt text-danger" ></i></a>';
-                    //        tmp += urledit;
-                    //        tmp += urldelete;
-                    //        tmp += "</div>";
-                    //        return tmp;
-                    //    }
-                    //}
+                    { "data": "LAW_C2_NUMBER", "name": "LAW_C2_NUMBER", "class": "text-right" },
+                    { "data": "LAW_C2_AMOUNT", "name": "LAW_C2_AMOUNT", "class": "text-right" },
+
+
+                  
                 ],
                 columnDefs: [
                     { width: 300, targets: 5 },
@@ -218,6 +232,7 @@
 
                 ],
                 scrollX: true,
+                scrollY: 392,
                 scrollCollapse: true,
                 autoWidth: true,
                 "destroy": true,
@@ -230,8 +245,29 @@
                 "bAutoWidth": false,
                 lengthChange: true,
                 "language": datatables.language,
+                "createdRow": function (row, data, index) {
+                    $(row).attr('data-id', data.ID);
+                    if (data !== undefined) {
+
+                        if (data.DEPARTMENT_NAME === "Нийт дүн") {
+                            $(row).children('td').each((index, td) => {
+                                $('td', row).eq(index).attr('id', "tableNiitDun");
+                            });
+                        }
+
+                    }
+                },
                 "drawCallback": function () {
                     rowselected();
+                    if (pagelength == -1) {
+
+                        var wb = XLSX.utils.table_to_book(document.getElementById('BM5'));
+                        XLSX.writeFile(wb, 'БМ-5. Төрийн аудитын газрын хууль хяналтын байгууллагад шилжүүлсэн асуудлын бүртгэл' + '.xlsx');
+
+                        BM5.table.destroy();
+                        bm5ListInit();
+                        $('#exportXLSX').removeClass('disabled');
+                    }
                 }
             });
 
@@ -474,20 +510,11 @@
                 }
             }
         }
-        function exportFile(tableid, excelname,) {
+        function exportFile() {
             $('#exportXLSX').addClass('disabled');
             BM5.table.destroy();
             bm5ListInit(-1);
 
-            setTimeout(function () {
-                var wb = XLSX.utils.table_to_book(document.getElementById(tableid));
-                XLSX.writeFile(wb, excelname + '.xlsx');
-
-                BM5.table.destroy();
-                bm5ListInit();
-                $('#exportXLSX').removeClass('disabled');
-            }, 5000
-            )
         }
     </script>
 }

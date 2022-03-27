@@ -27,10 +27,11 @@ namespace Audit.Controllers
             OrgVM res = new OrgVM();
             try
             {
-                if (Globals.departments.Count > 0 || Globals.parentBudgetTypes.Count > 0  || Globals.budgetLevels.Count > 0 || Globals.statuses.Count > 0 || Globals.violations.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
+                if (Globals.departments.Count > 0 || Globals.parentBudgetTypes.Count > 0 || Globals.ttzBudgetTypes.Count > 0 || Globals.budgetLevels.Count > 0 || Globals.statuses.Count > 0 || Globals.violations.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
                 {
                     res.departments = Globals.departments;
                     res.parentBudgetTypes = Globals.parentBudgetTypes;
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
                     res.budgetLevel = Globals.budgetLevels;
                     res.statuses = Globals.statuses;
                     res.violations = Globals.violations;
@@ -56,6 +57,10 @@ namespace Audit.Controllers
                     XElement responseParentBudgetTypes = SendLibraryRequest("ParentBudgetType");
                     Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
                     res.parentBudgetTypes = Globals.parentBudgetTypes;
+
+                    XElement responseTtzBudgetTypes = SendLibraryRequest("TtzBudgetType");
+                    Globals.ttzBudgetTypes = (from item in responseTtzBudgetTypes.Elements("Library") select new TtzBudgetType().FromXml(item)).ToList();
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
 
                     XElement responseBudgetLevel = SendLibraryRequest("BudgetLevel");
                     Globals.budgetLevels = (from item in responseBudgetLevel.Elements("Library") select new BudgetLevel().FromXml(item)).ToList();
@@ -157,12 +162,12 @@ namespace Audit.Controllers
                 if (res != null && res.Elements("MirrorOrgDetail") != null)
                 {
                     organization = new Mirroracc().FromXml(res.Element("MirrorOrgDetail"));
-                    Session["print_open_ent_name"] = organization.OPEN_ENT_NAME;
-                    Session["print_open_head_name"] = organization.OPEN_HEAD_NAME;
-                    Session["print_open_acc_name"] = organization.OPEN_ACC_NAME;
+                    if (organization.OPEN_ENT_NAME != null) { Session["print_open_ent_name"] = organization.OPEN_ENT_NAME; } else { Session["print_open_ent_name"] = ""; }
+                    if (organization.OPEN_HEAD_NAME != null) { Session["print_open_head_name"] = organization.OPEN_HEAD_NAME; } else { Session["print_open_head_name"] = ""; }
+                    if (organization.OPEN_ACC_NAME != null) { Session["print_open_acc_name"] = organization.OPEN_ACC_NAME; } else { Session["print_open_acc_name"] = ""; }
                 }
                 
-                XElement tb1res = AppStatic.SystemController.Table1List();
+                XElement tb1res = AppStatic.SystemController.Table1List(openid);
                 XElement tblprojectlist = AppStatic.SystemController.TableProjectList(Convert.ToInt32(organization.OPEN_ID));
 
                 DataSet ds = new DataSet();
@@ -180,7 +185,7 @@ namespace Audit.Controllers
                 DataRow[] table4 = ds.Tables[0].Select("TAB_ID = " + 4);
                 DataRow[] table5 = ds.Tables[0].Select();
                 DataRow[] table6 = ds.Tables[0].Select("TAB_ID = " + 6);
-                DataRow[] table7 = ds.Tables[0].Select("TAB_ID = " + 7);
+                //DataRow[] table7 = ds.Tables[0].Select("TAB_ID = " + 7);
 
                 if(ds1.Tables.Count > 0) { 
                     DataRow[] table8 = ds1.Tables[0].Select();
@@ -211,7 +216,7 @@ namespace Audit.Controllers
                 organization.tab4 = new List<Tab4>();
                 organization.tab5 = new List<Tab5>();
                 organization.tab6 = new List<Tab6>();
-                organization.tab7 = new List<Tab7>();
+                //organization.tab7 = new List<Tab7>();
 
 
                 XElement MirrOrgDataLists = AppStatic.SystemController.MirrDataList(openid);
@@ -267,8 +272,8 @@ namespace Audit.Controllers
                     }
                     for (int i = 0; i < table4.Length; i++)
                     {
-                        Session["Print1Val1"] = DsTables.Tables["MirrDataList"].Rows[111].Field<string>("DATA02");
-                        Session["Print1Val2"] = DsTables.Tables["MirrDataList"].Rows[112].Field<string>("DATA02");
+                        if (DsTables.Tables["MirrDataList"].Rows[111].Field<string>("DATA02") != null) { Session["Print1Val1"] = DsTables.Tables["MirrDataList"].Rows[111].Field<string>("DATA02"); } else { Session["Print1Val1"] = ""; }
+                        if (DsTables.Tables["MirrDataList"].Rows[112].Field<string>("DATA02") != null) { Session["Print1Val2"] = DsTables.Tables["MirrDataList"].Rows[112].Field<string>("DATA02"); } else { Session["Print1Val2"] = ""; }
                         var md = Convert.ToInt32(table4[i].Field<string>("MD_CODE"));
                         organization.tab4.Add(
                                 new Tab4
@@ -278,7 +283,8 @@ namespace Audit.Controllers
                                     MD_NAME = table4[i].Field<string>("MD_NAME"),
                                     MD_TIME = table4[i].Field<string>("MD_TIME"),
                                     Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
-                                    Data02 =DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")                                    
+                                    Data02 =DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02"),
+                                    Data2020 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA2020")
                                 }
                             );
                     }
@@ -298,8 +304,9 @@ namespace Audit.Controllers
                     }
                     for (int i = 0; i < table6.Length; i++)
                     {
-                        Session["Print2Val1"] = DsTables.Tables["MirrDataList"].Rows[169].Field<string>("DATA02");
-                        Session["Print2Val2"] = DsTables.Tables["MirrDataList"].Rows[170].Field<string>("DATA02");
+                        if (DsTables.Tables["MirrDataList"].Rows[169].Field<string>("DATA02") != null) { Session["Print2Val1"] = DsTables.Tables["MirrDataList"].Rows[169].Field<string>("DATA02"); } else { Session["Print2Val1"] = ""; }
+                        if (DsTables.Tables["MirrDataList"].Rows[170].Field<string>("DATA02") != null) { Session["Print2Val2"] = DsTables.Tables["MirrDataList"].Rows[170].Field<string>("DATA02"); } else { Session["Print2Val2"] = ""; }
+                
                         var md = Convert.ToInt32(table6[i].Field<string>("MD_CODE"));
                         organization.tab6.Add(
                                 new Tab6
@@ -309,25 +316,26 @@ namespace Audit.Controllers
                                     MD_NAME = table6[i].Field<string>("MD_NAME"),
                                     MD_TIME = table6[i].Field<string>("MD_TIME"),
                                     Data01 = Convert.ToDouble(DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01")),
-                                    Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
+                                    Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02"),
+                                    Data2020 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA2020")
                                 }
                             );
                     }
-                    for (int i = 0; i < table7.Length; i++)
-                    {
-                        var md = Convert.ToInt32(table7[i].Field<string>("MD_CODE"));
-                        organization.tab7.Add(
-                                new Tab7
-                                {
-                                    MD_CODE = table7[i].Field<string>("MD_CODE"),
-                                    MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
-                                    MD_NAME = table7[i].Field<string>("MD_NAME"),
-                                    MD_TIME = table7[i].Field<string>("MD_TIME"),
-                                    Data01 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"),
-                                    Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
-                                }
-                            );
-                    }
+                    //for (int i = 0; i < table7.Length; i++)
+                    //{
+                    //    var md = Convert.ToInt32(table7[i].Field<string>("MD_CODE"));
+                    //    organization.tab7.Add(
+                    //            new Tab7
+                    //            {
+                    //                MD_CODE = table7[i].Field<string>("MD_CODE"),
+                    //                MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
+                    //                MD_NAME = table7[i].Field<string>("MD_NAME"),
+                    //                MD_TIME = table7[i].Field<string>("MD_TIME"),
+                    //                Data01 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA01"),
+                    //                Data02 = DsTables.Tables["MirrDataList"].Rows[md - 1].Field<string>("DATA02")
+                    //            }
+                    //        );
+                    //}
                     
                     
                 }
@@ -373,7 +381,8 @@ namespace Audit.Controllers
                             MD_CODE = table4[i].Field<string>("MD_CODE"),
                             MD_NAME = table4[i].Field<string>("MD_NAME"),
                             Data01 = 0.00,
-                            Data02 = null
+                            Data02 = null,
+                            Data2020 = table4[i].Field<string>("DATA2020")
                         });
                     }
                     for (int i = 0; i < table5.Length; i++)
@@ -394,29 +403,30 @@ namespace Audit.Controllers
                             MD_CODE = table6[i].Field<string>("MD_CODE"),
                             MD_NAME = table6[i].Field<string>("MD_NAME"),
                             Data01 = 0.00,
-                            Data02 = null
-                        });
-                    }
-                    for (int i = 0; i < table7.Length; i++)
-                    {
-                        organization.tab7.Add(new Tab7
-                        {
-                            MD_CODE = table7[i].Field<string>("MD_CODE"),
-                            MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
-                            MD_NAME = table7[i].Field<string>("MD_NAME"),
-                            MD_TIME = table7[i].Field<string>("MD_TIME"),
-                            Data01 = null,
                             Data02 = null,
-                            Data03 = DateTime.Now
+                            Data2020 = table4[i].Field<string>("DATA2020")
                         });
                     }
+                    //for (int i = 0; i < table7.Length; i++)
+                    //{
+                    //    organization.tab7.Add(new Tab7
+                    //    {
+                    //        MD_CODE = table7[i].Field<string>("MD_CODE"),
+                    //        MD_LAWS_NUM = table7[i].Field<string>("MD_LAWS_NUM"),
+                    //        MD_NAME = table7[i].Field<string>("MD_NAME"),
+                    //        MD_TIME = table7[i].Field<string>("MD_TIME"),
+                    //        Data01 = null,
+                    //        Data02 = null,
+                    //        Data03 = DateTime.Now
+                    //    });
+                    //}
                 }
 
                 return PartialView("AddShilenDans", organization);
             }
             catch (Exception ex)
             {
-                Globals.WriteErrorLog(ex);
+                Globals.WriteErrorLog(ex, openid);
             }
 
             return PartialView("AddShilenDans", organization);
@@ -434,7 +444,7 @@ namespace Audit.Controllers
             //{
                 if (organization.OPEN_ID != 0)
                 {
-                    int YearCode = 2020;
+                    int YearCode = 2021;
                     DateTime InsDate = DateTime.Now;
 
                     int mdcodes = 0;
@@ -568,7 +578,7 @@ namespace Audit.Controllers
                     }
                     catch (Exception ex)
                     {
-                        Globals.WriteErrorLog(ex);
+                        Globals.WriteErrorLog(ex, organization.OPEN_ID + "_!_"+ button);
                     }
                 }
             //}
@@ -702,29 +712,29 @@ namespace Audit.Controllers
 
             for (int i = 0; i < print1.Length; i++)
             {
-                var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
-                if (md == 3)
-                {
-                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 55;
-                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 55;
-                    organization.print1.Add(
-                            new Print1
-                            {
-                                MD_CODE = print1[i].Field<string>("MD_CODE"),
-                                MD_TIME = print1[i].Field<string>("MD_TIME"),
-                                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
-                                MD_NAME = print1[i].Field<string>("MD_NAME"),
-                                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
-                                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
-                                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
-                                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
-                                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
-                                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
-                                PRECENT2 = Math.Round(md3percent2, 1).ToString()
-                            }
-                        );
-                }
-                else { 
+                //var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
+                //if (md == 3)
+                //{
+                //    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 20;
+                //    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 20;
+                //    organization.print1.Add(
+                //            new Print1
+                //            {
+                //                MD_CODE = print1[i].Field<string>("MD_CODE"),
+                //                MD_TIME = print1[i].Field<string>("MD_TIME"),
+                //                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
+                //                MD_NAME = print1[i].Field<string>("MD_NAME"),
+                //                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
+                //                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
+                //                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
+                //                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                //                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
+                //                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
+                //                PRECENT2 = Math.Round(md3percent2, 1).ToString()
+                //            }
+                //        );
+                //}
+                //else { 
                     organization.print1.Add(
                             new Print1
                             {
@@ -741,7 +751,7 @@ namespace Audit.Controllers
                                 PRECENT2 = print1[i].Field<string>("PRECENT2")
                             }
                         );
-                }
+                //}
             }
            return View(organization);
         }
@@ -761,30 +771,30 @@ namespace Audit.Controllers
 
             for (int i = 0; i < print1.Length; i++)
             {
-                var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
-                if (md == 3)
-                {
-                    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 16;
-                    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 16;
-                    organization.print1.Add(
-                            new Print1
-                            {
-                                MD_CODE = print1[i].Field<string>("MD_CODE"),
-                                MD_TIME = print1[i].Field<string>("MD_TIME"),
-                                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
-                                MD_NAME = print1[i].Field<string>("MD_NAME"),
-                                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
-                                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
-                                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
-                                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
-                                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
-                                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
-                                PRECENT2 = Math.Round(md3percent2, 1).ToString()
-                            }
-                        );
-                }
-                else
-                {
+                //var md = Convert.ToInt32(print1[i].Field<string>("MD_CODE"));
+                //if (md == 3)
+                //{
+                //    var md3percent1 = Convert.ToDecimal(print1[i].Field<string>("PRECENT1")) / 6;
+                //    var md3percent2 = Convert.ToDecimal(print1[i].Field<string>("PRECENT2")) / 6;
+                //    organization.print1.Add(
+                //            new Print1
+                //            {
+                //                MD_CODE = print1[i].Field<string>("MD_CODE"),
+                //                MD_TIME = print1[i].Field<string>("MD_TIME"),
+                //                PARENT_NAME = print1[i].Field<string>("PARENT_NAME"),
+                //                MD_NAME = print1[i].Field<string>("MD_NAME"),
+                //                MEDEELEH_TOO_HEMJEE = print1[i].Field<string>("MEDEELEH_TOO_HEMJEE"),
+                //                MEDEELSEN = print1[i].Field<string>("MEDEELSEN"),
+                //                MEDEELEEGUI = print1[i].Field<string>("MEDEELEEGUI"),
+                //                SHAARDLAGAGUI = print1[i].Field<string>("SHAARDLAGAGUI"),
+                //                HUGATSAA_HOTSROOSON = print1[i].Field<string>("HUGATSAA_HOTSROOSON"),
+                //                PRECENT1 = Math.Round(md3percent1, 1).ToString(),
+                //                PRECENT2 = Math.Round(md3percent2, 1).ToString()
+                //            }
+                //        );
+                //}
+                //else
+                //{
                     organization.print1.Add(
                         new Print1
                         {
@@ -801,7 +811,7 @@ namespace Audit.Controllers
                             PRECENT2 = print1[i].Field<string>("PRECENT2")
                         }
                     );
-                }
+                //}
             }
             return View(organization);
         }

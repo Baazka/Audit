@@ -10,7 +10,7 @@
                        UpdateTargetId = "bm2modalcontainerBM0",
                        OnBegin = "Modal.show()",
                        OnComplete = "Modal.hide(); $('#Bm2ModalBM0').modal({ show: true }); $('.modal-backdrop:first').remove()",
-                       OnSuccess = "BM0.progressResponse(data, status, xhr, 'BM2')",
+                       OnSuccess = "BM0.progressResponse(data, status, xhr, 'BM2')", 
                        OnFailure = "errorResponse",
                        HttpMethod = "Post",
                        InsertionMode = InsertionMode.Replace
@@ -31,6 +31,7 @@
                         @*@Html.HiddenFor(m => m.ID)*@
                         @Html.HiddenFor(m => m.AUDIT_ID)
                         @Html.HiddenFor(m => m.CREATED_DATE)
+                        @Html.HiddenFor(m => m.NOW_CREATED_DATE)
                         <h6 class="heading-1"><span>Ерөнхий мэдээлэл</span></h6>
                         <div class="row">
                             <div class="col-12">
@@ -40,18 +41,18 @@
                                         @Html.DropDownListFor(model => model.STATISTIC_PERIOD, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
                                     </div>
                                     @*@if (Model.Button == true)
-                                        {*@
+                    {*@
                                     @*<div class="col-4">
-                                            <div class="form-group row">
-                                                <div class="col-sm-8">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>*@
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <button type="button" class="btn btn-sm btn-outline-secondary btnBM0listPopup">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>*@
                                     @*}*@
 
                                 </div>
@@ -136,8 +137,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Албан шаардлагын огноо: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @*<input class="form-control form-control-sm datepicker"/>*@
-                                        @Html.EditorFor(m => m.CLAIM_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @*<input class="form-control form-control-sm datepicker",@readonly = "readonly" />*@
+                                        @Html.EditorFor(m => m.CLAIM_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -173,7 +174,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Хүлээлгэн өгсөн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.CLAIM_SUBMITTED_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_SUBMITTED_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -182,7 +183,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийг барагдуулах: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker" } })
+                                        @Html.EditorFor(m => m.CLAIM_DELIVERY_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker", @readonly = "readonly" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_DELIVERY_DATE, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -191,7 +192,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-right">Зөрчлийн дүн: <span class="required">*</span></label>
                                     <div class="col-sm-4">
-                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
+                                        @Html.EditorFor(m => m.CLAIM_VIOLATION_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right currency amount1", @placeholder = "0.00", @onkeypress = "return validateFloatKeyPress(this, event)" } })
                                         @Html.ValidationMessageFor(m => m.CLAIM_VIOLATION_AMOUNT, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -241,15 +242,48 @@
                                 </div>
                             </div>
                             @*<div class="col-12">
-                                    <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
-                                        <div class="col-sm-4">
-                                            @Html.EditorFor(m => m.CLAIM_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                        </div>
-                                    </div>
-                                </div>*@
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">Албан шаардлагын хэрэгжилтэд хяналт тавих баг, аудитор, шинжээчийн овог, нэр, албан тушаал:</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.CLAIM_CONTROL_AUDITOR, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                    </div>
+                </div>
+            </div>*@
                         </div>
-
+                        <div id="biylelt_nuutsalsan" hidden>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Дараа онд шилжих үлдэгдлийн дүн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_C2_AMOUNT, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_C2_AMOUNT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хугацаа болоогүй:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_C2_NONEXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right ", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_C2_NONEXPIRED, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label text-right">Хугацаа хэтэрсэн:</label>
+                                    <div class="col-sm-4">
+                                        @Html.EditorFor(m => m.CLAIM_C2_EXPIRED, new { htmlAttributes = new { @class = "form-control form-control-sm text-right text-danger", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(m => m.CLAIM_C2_EXPIRED, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div style="text-align: right">
+                                <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
+                                <button type="button" class="btn btn-sm btn-default bg-secondary text-white" data-dismiss="modal">Хаах</button>
+                            </div>
+                        </div>
                         <hr />
                         <div style="text-align: right">
                             <button type="submit" class="btn btn-sm" style="background-color:#233772; color:#fff;">Хадгалах</button>
@@ -313,7 +347,40 @@
           buttonImageOnly: true,
           buttonText: "Select date"
       });
+      calculateSum1();
 
+      $("#CLAIM_DELIVERY_DATE").change(function (value) {
+          calculateSum1();
+      });
+
+      $(".amount1").on("keydown keyup", function () {
+          calculateSum1();
+      });
+
+
+      function calculateSum1() {
+          var value1 = $("#CLAIM_VIOLATION_AMOUNT").val();
+
+          var sum = value1.replace(/,/g, '');
+
+          if (isNaN(sum)) {
+              sum = 0;
+          }
+
+
+          if ($("#CLAIM_DELIVERY_DATE").val() < $("#NOW_CREATED_DATE").val()) {
+              $("#CLAIM_C2_AMOUNT").val(sum).formatCurrency();
+              $("#CLAIM_C2_NONEXPIRED").val(null);
+              $("#CLAIM_C2_EXPIRED").val(sum).formatCurrency();
+
+          }
+          if ($("#CLAIM_DELIVERY_DATE").val() >= $("#NOW_CREATED_DATE").val()) {
+              $("#CLAIM_C2_AMOUNT").val(sum).formatCurrency();
+              $("#CLAIM_C2_NONEXPIRED").val(sum).formatCurrency();
+              $("#CLAIM_C2_EXPIRED").val(null);
+          }
+
+      }
   });
 </script>
 

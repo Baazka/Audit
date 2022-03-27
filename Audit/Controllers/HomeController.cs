@@ -23,96 +23,15 @@ namespace Audit.Controllers
                 if (response != null && response.Elements("MenuRole") != null)
                     res.menuRoles = (from item in response.Elements("MenuRole") select new MenuRole().FromXml(item)).ToList();
 
-                if (Globals.departments.Count > 0 || Globals.OrgLegalStatuses.Count > 0 || Globals.PropertyTypes.Count > 0 || Globals.statuses.Count > 0 || Globals.violations.Count > 0 || Globals.offices.Count > 0 || Globals.subOffices.Count > 0 || Globals.budgetTypes.Count > 0 || Globals.activities.Count > 0 || Globals.subBudgetTypes.Count > 0 || Globals.committees.Count > 0 || Globals.taxOffices.Count > 0 || Globals.costTypes.Count > 0 || Globals.insuranceOffices.Count > 0 || Globals.finOffices.Count > 0 || Globals.financingTypes.Count > 0 || Globals.banks.Count > 0)
+                if (Globals.departments.Count > 0)
                 {
                     res.departments = Globals.departments;
-                    res.OrgLegalStatuses = Globals.OrgLegalStatuses;
-                    res.PropertyTypes = Globals.PropertyTypes;
-                    res.statuses = Globals.statuses;
-                    res.violations = Globals.violations;
-                    res.offices = Globals.offices;
-                    res.subOffices = Globals.subOffices;
-                    res.budgetTypes = Globals.budgetTypes;
-                    res.activities = Globals.activities;
-                    res.subBudgetTypes = Globals.subBudgetTypes;
-                    res.committees = Globals.committees;
-                    res.taxOffices = Globals.taxOffices;
-                    res.costTypes = Globals.costTypes;
-                    res.insuranceOffices = Globals.insuranceOffices;
-                    res.finOffices = Globals.finOffices;
-                    res.financingTypes = Globals.financingTypes;
-                    res.banks = Globals.banks;
                 }
                 else
                 {
                     XElement responseDepartment = SendLibraryRequest("Department");
                     Globals.departments = (from item in responseDepartment.Elements("Library") select new Department().FromXml(item)).ToList();
                     res.departments = Globals.departments;
-
-                    XElement responseOrgLegalStatus = SendLibraryRequest("OrgLegalStatus");
-                    Globals.OrgLegalStatuses = (from item in responseOrgLegalStatus.Elements("Library") select new OrgLegalStatus().FromXml(item)).ToList();
-                    res.OrgLegalStatuses = Globals.OrgLegalStatuses;
-
-                    XElement responsePropertyTypes = SendLibraryRequest("PropertyType");
-                    Globals.PropertyTypes = (from item in responsePropertyTypes.Elements("Library") select new PropertyType().FromXml(item)).ToList();
-                    res.PropertyTypes = Globals.PropertyTypes;
-
-                    XElement responseStatus = SendLibraryRequest("Status");
-                    Globals.statuses = (from item in responseStatus.Elements("Library") select new Status().FromXml(item)).ToList();
-                    res.statuses = Globals.statuses;
-
-                    XElement responseViolation = SendLibraryRequest("Violation");
-                    Globals.violations = (from item in responseViolation.Elements("Library") select new Violation().FromXml(item)).ToList();
-                    res.violations = Globals.violations;
-
-                    XElement responseOffice = SendLibraryRequest("Office");
-                    Globals.offices = (from item in responseOffice.Elements("Library") select new Office().FromXml(item)).ToList();
-                    res.offices = Globals.offices;
-
-                    XElement responseSubOffice = SendLibraryRequest("SubOffice");
-                    Globals.subOffices = (from item in responseSubOffice.Elements("Library") select new SubOffice().FromXml(item)).ToList();
-                    res.subOffices = Globals.subOffices;
-
-                    XElement responseBudgetType = SendLibraryRequest("BudgetType");
-                    Globals.budgetTypes = (from item in responseBudgetType.Elements("Library") select new BudgetType().FromXml(item)).ToList();
-                    res.budgetTypes = Globals.budgetTypes;
-
-                    XElement responseActivity = SendLibraryRequest("Activity");
-                    Globals.activities = (from item in responseActivity.Elements("Library") select new ActivityLib().FromXml(item)).ToList();
-                    res.activities = Globals.activities;
-
-                    XElement responseSubBudgetType = SendLibraryRequest("SubBudgetType");
-                    Globals.subBudgetTypes = (from item in responseSubBudgetType.Elements("Library") select new SubBudgetType().FromXml(item)).ToList();
-                    res.subBudgetTypes = Globals.subBudgetTypes;
-
-                    XElement responseCommittee = SendLibraryRequest("Committee");
-                    Globals.committees = (from item in responseCommittee.Elements("Library") select new Committee().FromXml(item)).ToList();
-                    res.committees = Globals.committees;
-
-                    XElement responseTaxOffice = SendLibraryRequest("TaxOffice");
-                    Globals.taxOffices = (from item in responseTaxOffice.Elements("Library") select new TaxOffice().FromXml(item)).ToList();
-                    res.taxOffices = Globals.taxOffices;
-
-                    XElement responseCostType = SendLibraryRequest("CostType");
-                    Globals.costTypes = (from item in responseCostType.Elements("Library") select new CostType().FromXml(item)).ToList();
-                    res.costTypes = Globals.costTypes;
-
-                    XElement responseInsuranceOffice = SendLibraryRequest("InsuranceOffice");
-                    Globals.insuranceOffices = (from item in responseInsuranceOffice.Elements("Library") select new InsuranceOffice().FromXml(item)).ToList();
-                    res.insuranceOffices = Globals.insuranceOffices;
-
-                    XElement responseFinOffice = SendLibraryRequest("FinOffice");
-                    Globals.finOffices = (from item in responseFinOffice.Elements("Library") select new FinOffice().FromXml(item)).ToList();
-                    res.insuranceOffices = Globals.insuranceOffices;
-
-                    XElement responseFinancingType = SendLibraryRequest("FinancingType");
-                    Globals.financingTypes = (from item in responseFinancingType.Elements("Library") select new FinancingType().FromXml(item)).ToList();
-                    res.financingTypes = Globals.financingTypes;
-
-                    XElement responseBank = SendLibraryRequest("Bank");
-                    Globals.banks = (from item in responseBank.Elements("Library") select new Bank().FromXml(item)).ToList();
-                    res.banks = Globals.banks;
-
                 }
                 if (Globals.parentBudgetTypes.Count > 0)
                 {
@@ -124,6 +43,177 @@ namespace Audit.Controllers
                     Globals.parentBudgetTypes = (from item in responseParentBudgetTypes.Elements("Library") select new ParentBudgetType().FromXml(item)).ToList();
                     res.parentBudgetTypes = Globals.parentBudgetTypes;
                 }
+                if (Globals.ttzBudgetTypes.Count > 0)
+                {
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
+                }
+                else
+                {
+                    XElement responseTtzBudgetTypes = SendLibraryRequest("TtzBudgetType");
+                    Globals.ttzBudgetTypes = (from item in responseTtzBudgetTypes.Elements("Library") select new TtzBudgetType().FromXml(item)).ToList();
+                    res.ttzBudgetTypes = Globals.ttzBudgetTypes;
+                }
+                if (Globals.OrgLegalStatuses.Count > 0)
+                {
+                    res.OrgLegalStatuses = Globals.OrgLegalStatuses;
+                }
+                else
+                {
+                    XElement responseOrgLegalStatus = SendLibraryRequest("OrgLegalStatus");
+                    Globals.OrgLegalStatuses = (from item in responseOrgLegalStatus.Elements("Library") select new OrgLegalStatus().FromXml(item)).ToList();
+                    res.OrgLegalStatuses = Globals.OrgLegalStatuses;
+                }
+                if (Globals.PropertyTypes.Count > 0)
+                {
+                    res.PropertyTypes = Globals.PropertyTypes;
+                }
+                else
+                {
+                    XElement responsePropertyTypes = SendLibraryRequest("PropertyType");
+                    Globals.PropertyTypes = (from item in responsePropertyTypes.Elements("Library") select new PropertyType().FromXml(item)).ToList();
+                    res.PropertyTypes = Globals.PropertyTypes;
+                }
+                if (Globals.statuses.Count > 0)
+                {
+                    res.statuses = Globals.statuses;
+                }
+                else
+                {
+                    XElement responseStatus = SendLibraryRequest("Status");
+                    Globals.statuses = (from item in responseStatus.Elements("Library") select new Status().FromXml(item)).ToList();
+                    res.statuses = Globals.statuses;
+                }
+                if (Globals.violations.Count > 0)
+                {
+                    res.violations = Globals.violations;
+                }
+                else
+                {
+                    XElement responseViolation = SendLibraryRequest("Violation");
+                    Globals.violations = (from item in responseViolation.Elements("Library") select new Violation().FromXml(item)).ToList();
+                    res.violations = Globals.violations;
+                }
+                if (Globals.offices.Count > 0)
+                {
+                    res.offices = Globals.offices;
+                }
+                else
+                {
+                    XElement responseOffice = SendLibraryRequest("Office");
+                    Globals.offices = (from item in responseOffice.Elements("Library") select new Office().FromXml(item)).ToList();
+                    res.offices = Globals.offices;
+                }
+                if (Globals.subOffices.Count > 0)
+                {
+                    res.subOffices = Globals.subOffices;
+                }
+                else
+                {
+                    XElement responseSubOffice = SendLibraryRequest("SubOffice");
+                    Globals.subOffices = (from item in responseSubOffice.Elements("Library") select new SubOffice().FromXml(item)).ToList();
+                    res.subOffices = Globals.subOffices;
+                }
+                if (Globals.budgetTypes.Count > 0)
+                {
+                    res.budgetTypes = Globals.budgetTypes;
+                }
+                else
+                {
+                    XElement responseBudgetType = SendLibraryRequest("BudgetType");
+                    Globals.budgetTypes = (from item in responseBudgetType.Elements("Library") select new BudgetType().FromXml(item)).ToList();
+                    res.budgetTypes = Globals.budgetTypes;
+                }
+                if (Globals.activities.Count > 0)
+                {
+                    res.activities = Globals.activities;
+                }
+                else
+                {
+                    XElement responseActivity = SendLibraryRequest("Activity");
+                    Globals.activities = (from item in responseActivity.Elements("Library") select new ActivityLib().FromXml(item)).ToList();
+                    res.activities = Globals.activities;
+                }
+                if (Globals.subBudgetTypes.Count > 0)
+                {
+                    res.subBudgetTypes = Globals.subBudgetTypes;
+                }
+                else
+                {
+                    XElement responseSubBudgetType = SendLibraryRequest("SubBudgetType");
+                    Globals.subBudgetTypes = (from item in responseSubBudgetType.Elements("Library") select new SubBudgetType().FromXml(item)).ToList();
+                    res.subBudgetTypes = Globals.subBudgetTypes;
+                }
+                if (Globals.committees.Count > 0)
+                {
+                    res.committees = Globals.committees;
+                }
+                else
+                {
+                    XElement responseCommittee = SendLibraryRequest("Committee");
+                    Globals.committees = (from item in responseCommittee.Elements("Library") select new Committee().FromXml(item)).ToList();
+                    res.committees = Globals.committees;
+                }
+                if (Globals.taxOffices.Count > 0)
+                {
+                    res.taxOffices = Globals.taxOffices;
+                }
+                else
+                {
+                    XElement responseTaxOffice = SendLibraryRequest("TaxOffice");
+                    Globals.taxOffices = (from item in responseTaxOffice.Elements("Library") select new TaxOffice().FromXml(item)).ToList();
+                    res.taxOffices = Globals.taxOffices;
+                }
+                if (Globals.costTypes.Count > 0)
+                {
+                    res.costTypes = Globals.costTypes;
+                }
+                else
+                {
+                    XElement responseCostType = SendLibraryRequest("CostType");
+                    Globals.costTypes = (from item in responseCostType.Elements("Library") select new CostType().FromXml(item)).ToList();
+                    res.costTypes = Globals.costTypes;
+                }
+                if (Globals.insuranceOffices.Count > 0)
+                {
+                    res.insuranceOffices = Globals.insuranceOffices;
+                }
+                else
+                {
+                    XElement responseInsuranceOffice = SendLibraryRequest("InsuranceOffice");
+                    Globals.insuranceOffices = (from item in responseInsuranceOffice.Elements("Library") select new InsuranceOffice().FromXml(item)).ToList();
+                    res.insuranceOffices = Globals.insuranceOffices;
+                }
+                if (Globals.finOffices.Count > 0)
+                {
+                    res.finOffices = Globals.finOffices;
+                }
+                else
+                {
+                    XElement responseFinOffice = SendLibraryRequest("FinOffice");
+                    Globals.finOffices = (from item in responseFinOffice.Elements("Library") select new FinOffice().FromXml(item)).ToList();
+                    res.insuranceOffices = Globals.insuranceOffices;
+                }
+                if (Globals.financingTypes.Count > 0)
+                {
+                    res.financingTypes = Globals.financingTypes;
+                }
+                else
+                {
+                    XElement responseFinancingType = SendLibraryRequest("FinancingType");
+                    Globals.financingTypes = (from item in responseFinancingType.Elements("Library") select new FinancingType().FromXml(item)).ToList();
+                    res.financingTypes = Globals.financingTypes;
+                }
+                if (Globals.banks.Count > 0)
+                {
+                    res.banks = Globals.banks;
+                }
+                else
+                {
+                    XElement responseBank = SendLibraryRequest("Bank");
+                    Globals.banks = (from item in responseBank.Elements("Library") select new Bank().FromXml(item)).ToList();
+                    res.banks = Globals.banks;
+                }
+
             }
             catch (Exception ex)
             {
