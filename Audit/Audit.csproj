@@ -279,6 +279,7 @@
     <Compile Include="App_Func\DataConnection.cs" />
     <Compile Include="App_Func\DataResponse.cs" />
     <Compile Include="App_Func\DataService.cs" />
+    <Compile Include="App_Func\EmailSender.cs" />
     <Compile Include="App_Func\Globals.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
