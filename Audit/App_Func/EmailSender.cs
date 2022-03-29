@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Onimes.WebUI.AppCode
+namespace Onimes.WebUI.App_Func
 {
     public class EmailSettings
     {
@@ -62,7 +62,8 @@ namespace Onimes.WebUI.AppCode
                     Port = _emailSettings.MailPort,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Host = _emailSettings.MailServer,
+                    Timeout = 5000,
+                Host = _emailSettings.MailServer,
                     EnableSsl = true,
                     Credentials = credentials
                 };

@@ -1,6 +1,7 @@
 ﻿using Audit.App_Func;
 using Audit.Models;
 using Microsoft.AspNet.Identity;
+using Onimes.WebUI.App_Func;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,21 @@ namespace Audit.Controllers
 {
     [ApplicationAuthorize]
     //[Authorize(Roles = "Director")]
-    public class HomeController : Controller
+    public class HomeController : Controller { 
+        private readonly EmailSettings _emailSettings;
+    public HomeController()
     {
+        EmailSettings settings = new EmailSettings();
+        settings.MailPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["MailPort"]);
+        settings.MailServer = System.Configuration.ConfigurationManager.AppSettings["MailServer"];
+        settings.Password = System.Configuration.ConfigurationManager.AppSettings["Password"];
+        settings.Sender = System.Configuration.ConfigurationManager.AppSettings["Sender"];
+        settings.SenderName = System.Configuration.ConfigurationManager.AppSettings["SenderName"];
+        _emailSettings = settings;
+    }
         public ActionResult Index(string id)
         {
+
             OrgVM res = new OrgVM();
             try
             {
@@ -229,6 +241,10 @@ namespace Audit.Controllers
                 XElement responsePeriod = SendLibraryRequest("StatPeriod");
                 Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
             }
+            ////Mail the pdf and delete it
+            //EmailSender email = new EmailSender(this._emailSettings);
+            //email.SendEmailAsync("batochirn@audit.gov.mn", "subject",
+            //    @"<p>Танд энэ өдрийн мэнд хүргэе.</p>", "uchralb@audit.gov.mn", null);
             return View();
         }
         [AllowAnonymous]
