@@ -8372,7 +8372,6 @@ namespace Audit.App_Func
                                     "FROM AUD_MIRRORACC.SHILENDANSDATA J " +
                                     "INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID " +
                                     "WHERE J.YEARCODE = 2021 AND J.MDCODE = 106) U ON A.OPEN_ID = U.ORGID " +
-                                  "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND (:DEPARTMENT_ID IN (2, 101) OR (:DEPARTMENT_ID NOT IN(2, 101) AND A.OPEN_ENT_DEPARTMENT_ID = :DEPARTMENT_ID)) " +
                                   "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND E.DEP_USER_ID = :UserID " +
                                   "AND (:V_DEPARTMENT IS NULL OR A.OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                   "AND (:V_BUDGET_TYPE IS NULL OR A.OPEN_ENT_BUDGET_TYPE = :V_BUDGET_TYPE) " +
