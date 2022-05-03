@@ -8191,7 +8191,8 @@ namespace Audit.App_Func
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
                                   "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, B1.IS_FINISH IS_FINISHED, B2.IS_PRINT IS_PRINTED, " +
-                                  "A.OPEN_ENT_REGISTER_NO USER_NAME, " +
+                                  //"A.OPEN_ENT_REGISTER_NO USER_NAME, " +
+                                  "U.USER_NAME, " +
                                   //"(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.YEARCODE = 2021 AND J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
                                   "TO_CHAR(B1.INSERTDATE, 'YYYY-MM-DD') INSERTDATE " +
                                   "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
@@ -8202,6 +8203,10 @@ namespace Audit.App_Func
                                   "INNER JOIN AUD_REG.REF_DEPARTMENT D ON A.OPEN_ENT_DEPARTMENT_ID = D.DEPARTMENT_ID " +
                                   "INNER JOIN AUD_ORG.AUDIT_ENTITY F ON A.OPEN_ENT_TEZ = F.ENT_ID " +
                                   "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON F.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
+                                  "LEFT JOIN(SELECT K.USER_NAME, J.ORGID " +
+                                    "FROM AUD_MIRRORACC.SHILENDANSDATA J " +
+                                    "INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID " +
+                                    "WHERE J.YEARCODE = 2021 AND J.MDCODE = 106) U ON A.OPEN_ID = U.ORGID " +
                                   "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND (:DEPARTMENT_ID IN (2, 101) OR (:DEPARTMENT_ID NOT IN(2, 101) AND A.OPEN_ENT_DEPARTMENT_ID = :DEPARTMENT_ID)) " +
                                   "AND (:V_ParentBudgetID IS NULL OR A.OPEN_ENT_TEZ = :V_ParentBudgetID) " +
                                   "AND (:V_BUDGET_LEVEL_ID IS NULL OR F.ENT_BUDGET_LEVEL = :V_BUDGET_LEVEL_ID) " +
@@ -8210,7 +8215,7 @@ namespace Audit.App_Func
                                   "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
-                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID, B1.IS_FINISH, B2.IS_PRINT, B1.INSERTDATE " +
+                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID, B1.IS_FINISH, B2.IS_PRINT, U.USER_NAME, B1.INSERTDATE " +
                                   "ORDER BY " +
                                   "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN A.OPEN_ID END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN D.DEPARTMENT_NAME END ASC, " +
@@ -8351,7 +8356,8 @@ namespace Audit.App_Func
                 cmd.CommandText = "SELECT A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME OPEN_ENT_BUDGET_PARENT, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, " +
                                   "CASE WHEN A.OPEN_ENT_GROUP_ID IN (1,2) THEN 'Маягт 1' WHEN A.OPEN_ENT_GROUP_ID = 3 THEN 'Маягт 4' END MAYGT, B1.IS_FINISH IS_FINISHED, B2.IS_PRINT IS_PRINTED, " +
                                   ////"(SELECT K.USER_NAME FROM AUD_MIRRORACC.SHILENDANSDATA J INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID WHERE J.YEARCODE = 2021 AND J.MDCODE = 106 AND J.ORGID = A.OPEN_ID) USER_NAME, " +
-                                  "A.OPEN_ENT_REGISTER_NO USER_NAME, " +
+                                  //"A.OPEN_ENT_REGISTER_NO USER_NAME, " +
+                                  "U.USER_NAME, " +
                                   "TO_CHAR(B1.INSERTDATE, 'YYYY-MM-DD') INSERTDATE " +
                                   "FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
                                   "LEFT JOIN AUD_MIRRORACC.SHILENDANSDATA B1 ON A.OPEN_ID = B1.ORGID AND B1.YEARCODE = 2021 AND B1.IS_FINISH = 1 AND B1.MDCODE IN (107,165) " +
@@ -8362,13 +8368,18 @@ namespace Audit.App_Func
                                   "INNER JOIN AUD_REG.SYSTEM_USER_DEPARTMENT E ON A.OPEN_ENT_DEPARTMENT_ID = E.DEP_ID " +
                                   "INNER JOIN AUD_ORG.AUDIT_ENTITY F ON A.OPEN_ENT_TEZ = F.ENT_ID " +
                                   "INNER JOIN AUD_ORG.REF_BUDGET_LEVEL RBL ON F.ENT_BUDGET_LEVEL = RBL.BUDGET_LEVEL_ID " +
+                                  "LEFT JOIN(SELECT K.USER_NAME, J.ORGID " +
+                                    "FROM AUD_MIRRORACC.SHILENDANSDATA J " +
+                                    "INNER JOIN AUD_REG.SYSTEM_USER K ON J.INSERTUSERID = K.USER_ID " +
+                                    "WHERE J.YEARCODE = 2021 AND J.MDCODE = 106) U ON A.OPEN_ID = U.ORGID " +
+                                  "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND (:DEPARTMENT_ID IN (2, 101) OR (:DEPARTMENT_ID NOT IN(2, 101) AND A.OPEN_ENT_DEPARTMENT_ID = :DEPARTMENT_ID)) " +
                                   "WHERE A.IS_ACTIVE = 1 AND A.OPEN_ENT_GROUP_ID IN(1,2,3) AND E.DEP_USER_ID = :UserID " +
                                   "AND (:V_DEPARTMENT IS NULL OR A.OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                   "AND (:V_BUDGET_TYPE IS NULL OR A.OPEN_ENT_BUDGET_TYPE = :V_BUDGET_TYPE) " +
                                   "AND (:V_SEARCH IS NULL OR UPPER(C.BUDGET_SHORT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(D.DEPARTMENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                   "OR UPPER(A.OPEN_ENT_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(A.OPEN_ENT_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
-                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID, B1.IS_FINISH, B2.IS_PRINT, B1.INSERTDATE " +
+                                  "GROUP BY A.OPEN_ID, C.BUDGET_SHORT_NAME, RBL.BUDGET_LEVEL_NAME ,F.ENT_NAME, D.DEPARTMENT_NAME, A.OPEN_ENT_NAME, A.OPEN_ENT_REGISTER_NO, A.OPEN_ENT_GROUP_ID, B1.IS_FINISH, B2.IS_PRINT, U.USER_NAME, B1.INSERTDATE " +
                                   "ORDER BY " +
                                   "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN D.DEPARTMENT_NAME END ASC, " +
                                   "CASE WHEN :ORDER_NAME = 'DEPARTMENT_NAME' AND :ORDER_DIR = 'ASC' THEN D.DEPARTMENT_NAME END ASC, " +
