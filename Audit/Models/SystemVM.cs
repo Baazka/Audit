@@ -1270,6 +1270,7 @@ namespace Audit.Models
         public string MD169 { get; set; }
         public int? DeparmentID { get; set; }
         public int? PARENT_BUDGET_ID { get; set; }
+        public int YearCode { get; set; }
         public int? PeriodID { get; set; }
         public List<string>[] parent_budget_type { get; set; }
 

@@ -15954,6 +15954,8 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_TypeID", null));
 
+                elem.Add(new XElement("V_YEARCODE", request.YearCode));
+
                 XElement res = AppStatic.SystemController.N1(elem, User.GetClaimData("USER_TYPE")); 
                 if (res != null && res.Elements("N1") != null)
                 {
@@ -16200,6 +16202,8 @@ namespace Audit.Controllers
                     
                 }
 
+                
+
                 if (request.PARENT_BUDGET_ID != null && request.PARENT_BUDGET_ID != 0)
                     elem.Add(new XElement("V_ParentBudgetID", request.PARENT_BUDGET_ID));
                 else
@@ -16216,6 +16220,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_TypeID", null));
 
+                elem.Add(new XElement("V_YEARCODE", request.YearCode));
 
                 XElement res = AppStatic.SystemController.Report1N2(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("Report1N2") != null)
@@ -16551,6 +16556,7 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_TypeID", null));
 
+                elem.Add(new XElement("V_YEARCODE", request.YearCode));
 
                 XElement res = AppStatic.SystemController.ReportN2(elem, User.GetClaimData("USER_TYPE"));
                 if (res != null && res.Elements("ReportN2") != null)

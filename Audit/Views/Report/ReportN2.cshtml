@@ -31,6 +31,13 @@
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
         <div class="form-group-sm pr-2">
+            <label for="TypeID" class="col-form-label">Жил:</label>
+            @Html.DropDownListFor(model => model.YearCode, new List<SelectListItem>
+               { new SelectListItem{Text="2021", Value="2021"},
+                 new SelectListItem{Text="2020", Value="2020"}},
+               null, new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
             <label for="DeparmentID" class="col-form-label">Алба:</label>
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
@@ -191,6 +198,7 @@
                     url: "/api/service/ReportN2List",
                     type: 'POST',
                     data: function (data) {
+                        data.YearCode = $('#YearCode').val();
                         data.DeparmentID = $('#DeparmentID').val();
                         data.TypeID = $('#TypeID').val();
                         data.Mayagt = mayagt;
@@ -357,6 +365,9 @@
 
         }
 
+        $('#YearCode').change(function () {
+            N2ListInit();
+        });
         $('#DeparmentID').change(function () {
             N2ListInit();
         });

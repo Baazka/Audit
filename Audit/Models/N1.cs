@@ -11,6 +11,7 @@ namespace Audit.Models
     public class N1VM
     {
         public int DeparmentID { get; set; }
+        public int YearCode { get; set; }
         public int PARENT_BUDGET_ID { get; set; }
         public int[] parentBudgetTypeIDs { get; set; }
         public MultiSelectList parentBudgetType { get; set; }

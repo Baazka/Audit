@@ -10127,7 +10127,7 @@ namespace Audit.App_Func
                                         "INNER JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                         "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                         "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
-                                        "WHERE A.YEARCODE = 2021 AND ROP.IS_ACTIVE = 1 AND MDCODE BETWEEN 1 AND 35 AND (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
+                                        "WHERE A.YEARCODE = :V_YEARCODE AND ROP.IS_ACTIVE = 1 AND MDCODE BETWEEN 1 AND 35 AND (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                         //"AND ROP.OPEN_ENT_TEZ IN(20775,21595,20092,21155,19960,20424,21371,21367,20804,16083,21393,21192,21390,20766,21369,21590,20764,21092,20488,21113,21114,20091,5596,5393,5599,20177,21091,19176,21374,21441,20425,21194,21111,19253) " +
                                         //"AND ROP.OPEN_ENT_TEZ IN(19423,20989,19484,19265,19335,19362,20971,21575,20179,20387,19837,19874,20283,20131,20436,19812,19896,20310,20016,19912,21099,21594) " +
                                         //"AND(:V_ParentBudgetID IS NULL OR (AE.ENT_NAME IN( :V_ParentBudgetID ))) " +
@@ -10145,6 +10145,8 @@ namespace Audit.App_Func
                                         "FROM negtgel1";
 
                 cmd.BindByName = true;
+
+                cmd.Parameters.Add(":V_YEARCODE", OracleDbType.Int32, req.Element("V_YEARCODE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 //cmd.Parameters.Add(":V_ParentBudgetID", OracleDbType.Int32, req.Element("V_ParentBudgetID") != null && !string.IsNullOrEmpty(req.Element("V_ParentBudgetID").Value) ? req.Element("V_ParentBudgetID")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_ParentBudgetID", OracleDbType.Varchar2, req.Element("V_ParentBudgetID") != null && !string.IsNullOrEmpty(req.Element("V_ParentBudgetID").Value) ? req.Element("V_ParentBudgetID")?.Value : null, System.Data.ParameterDirection.Input);
@@ -10223,7 +10225,7 @@ namespace Audit.App_Func
                                "INNER JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                                "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID " +
                                "LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
-                               "WHERE A.YEARCODE = 2021 AND ROP.IS_ACTIVE = 1 AND MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111) " +
+                               "WHERE A.YEARCODE = :V_YEARCODE AND ROP.IS_ACTIVE = 1 AND MDCODE IN(33,34,37,38,39,40,41,42,43,44,45,46,47,48,49,57,58,59,60,61,62,50,51,52,53,54,55,56,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111) " +
                                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND  (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                //"AND ROP.OPEN_ENT_TEZ IN(19423,20989,19484,19265,19335,19362,20971,21575,20179,20387,19837,19874,20283,20131,20436,19812,19896,20310,20016,19912,21099,21594) " +
                                //"AND ROP.OPEN_ENT_TEZ IN(20775,21595,20092,21155,19960,20424,21371,21367,20804,16083,21393,21192,21390,20766,21369,21590,20764,21092,20488,21113,21114,20091,5596,5393,5599,20177,21091,19176,21374,21441,20425,21194,21111,19253) " +
@@ -10240,6 +10242,7 @@ namespace Audit.App_Func
                                "FROM Negtgel2";
 
                 cmd.BindByName = true;
+                cmd.Parameters.Add(":V_YEARCODE", OracleDbType.Int32, req.Element("V_YEARCODE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_ParentBudgetID", OracleDbType.Int32, req.Element("V_ParentBudgetID") != null && !string.IsNullOrEmpty(req.Element("V_ParentBudgetID").Value) ? req.Element("V_ParentBudgetID")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
@@ -10309,7 +10312,7 @@ namespace Audit.App_Func
                 " INNER  JOIN AUD_MIRRORACC.OPENACC_ENTITY ROP ON A.ORGID = ROP.OPEN_ID " +
                 " INNER  JOIN AUD_MIRRORACC.REF_BUDGET_TYPE C ON ROP.OPEN_ENT_BUDGET_TYPE = C.BUDGET_TYPE_ID  " +
                 " LEFT JOIN AUD_ORG.AUDIT_ENTITY AE ON ROP.OPEN_ENT_TEZ = AE.ENT_ID " +
-                " WHERE A.YEARCODE = 2021 AND MDCODE IN(116,117,118,119,120,121, " +
+                " WHERE A.YEARCODE = :V_YEARCODE AND MDCODE IN(116,117,118,119,120,121, " +
                 " 123,124,125,126,127,128, " +
                 " 130,131,132,133,134,135, " +
                 " 137,138,139,140,141,142, " +
@@ -10347,6 +10350,7 @@ namespace Audit.App_Func
 
 
                 cmd.BindByName = true;
+                cmd.Parameters.Add(":V_YEARCODE", OracleDbType.Int32, req.Element("V_YEARCODE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_ParentBudgetID", OracleDbType.Int32, req.Element("V_ParentBudgetID") != null && !string.IsNullOrEmpty(req.Element("V_ParentBudgetID").Value) ? req.Element("V_ParentBudgetID")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
