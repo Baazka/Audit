@@ -8499,7 +8499,7 @@ namespace Audit.App_Func
                                   "SUBSTR(FDA1.IND_VALUE, 0, 1)|| '.' || FDA2.IND_VALUE AS OPEN_ACC_NAME, FDA3.IND_VALUE OPEN_ACC_PHONE, OE.OPEN_ENT_GROUP_ID " +
                                   "FROM AUD_MIRRORACC.OPENACC_ENTITY OE " +
                                   "INNER JOIN AUD_ORG.AUDIT_ENTITY AE ON AE.ENT_ID = OE.OPEN_ENT_ID " +
-                                  "INNER JOIN FAS_ADMIN.FAS_AUDIT FA ON FA.ENT_ID = AE.ENT_ID " +
+                                  "LEFT JOIN FAS_ADMIN.FAS_AUDIT FA ON FA.ENT_ID = AE.ENT_ID " +
                                   "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDD ON FDD.FAS_AUDIT_ID = FA.ID AND FDD.IND_ID = 83 " +
                                   "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDD1 ON FDD1.FAS_AUDIT_ID = FA.ID AND FDD1.IND_ID = 260 " +
                                   "LEFT JOIN FAS_ADMIN.FAS_DOCUMENT_DATA FDD2 ON FDD2.FAS_AUDIT_ID = FA.ID AND FDD2.IND_ID = 167 " +
