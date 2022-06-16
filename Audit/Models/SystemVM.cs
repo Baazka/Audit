@@ -174,6 +174,7 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
 
     }
     public class BM1ListResponse : DataTableAjaxResponModel
@@ -226,6 +227,8 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
+        
 
     }
     public class BM2ListResponse : DataTableAjaxResponModel
@@ -275,6 +278,7 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
 
     }
     public class BM3ListResponse : DataTableAjaxResponModel
@@ -317,6 +321,7 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
 
     }
     public class BM4ListResponse : DataTableAjaxResponModel
@@ -355,6 +360,7 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
 
     }
     public class BM5ListResponse : DataTableAjaxResponModel
@@ -399,6 +405,7 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
 
     }
     public class BM6ListResponse : DataTableAjaxResponModel
@@ -445,6 +452,7 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
 
     }
     public class BM7ListResponse : DataTableAjaxResponModel
@@ -473,6 +481,7 @@ namespace Audit.Models
 
         public int? DeparmentID { get; set; }
         public int? PeriodID { get; set; }
+        public int? Audittypes { get; set; }
 
     }
     public class BM8ListResponse : DataTableAjaxResponModel

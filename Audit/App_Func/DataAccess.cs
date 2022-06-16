@@ -2192,7 +2192,7 @@ namespace Audit.App_Func
                     "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN ('BRANCH_DIRECTOR','BRANCH_REGISTER') AND B.DEPARTMENT_ID = :V_DEPARTMENT) " +
                     "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND B.DEPARTMENT_ID = :V_DEPARTMENT AND (BM.CREATED_BY = :V_USER_ID OR BM.UPDATED_BY = :V_USER_ID " +
                     "OR B.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
-                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND  (:V_AUDITTYPES IS NULL OR(B.AUDIT_TYPE = :V_AUDITTYPES)) AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'  " +
                     "OR UPPER(RBT.BUDGET_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RTT.TOPIC_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
@@ -2200,12 +2200,17 @@ namespace Audit.App_Func
                     "OR UPPER(SU.USER_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.COMPLETION_ORDER) LIKE '%' || UPPER(:V_SEARCH) || '%') ";
 
                 cmd.BindByName = true;
+                cmd.Parameters.Add(":V_AUDITTYPES", OracleDbType.Int32, req.Element("V_AUDITTYPES") != null && !string.IsNullOrEmpty(req.Element("V_AUDITTYPES").Value) ? req.Element("V_AUDITTYPES")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+
+                
+                
+
                 DataTable dtTableCount = new DataTable();
                 dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -2231,7 +2236,7 @@ namespace Audit.App_Func
                     "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN ('BRANCH_DIRECTOR','BRANCH_REGISTER') AND B.DEPARTMENT_ID = :V_DEPARTMENT) " +
                     "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND B.DEPARTMENT_ID = :V_DEPARTMENT AND (BM.CREATED_BY = :V_USER_ID OR BM.UPDATED_BY = :V_USER_ID " +
                     "OR B.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
-                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND (:V_AUDITTYPES IS NULL OR(B.AUDIT_TYPE = :V_AUDITTYPES)) AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ACT_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'  " +
                     "OR UPPER(RBT.BUDGET_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RTT.TOPIC_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
@@ -2269,7 +2274,7 @@ namespace Audit.App_Func
 
                 cmd.BindByName = true;
                 // Set parameters  
-
+                cmd.Parameters.Add(":V_AUDITTYPES", OracleDbType.Int32, req.Element("V_AUDITTYPES") != null && !string.IsNullOrEmpty(req.Element("V_AUDITTYPES").Value) ? req.Element("V_AUDITTYPES")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
@@ -2280,7 +2285,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
-
+                
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -2713,7 +2718,7 @@ namespace Audit.App_Func
                     "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN ('BRANCH_DIRECTOR','BRANCH_REGISTER') AND B.DEPARTMENT_ID = :V_DEPARTMENT) " +
                     "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND B.DEPARTMENT_ID = :V_DEPARTMENT AND (BM.CREATED_BY = :V_USER_ID OR BM.UPDATED_BY = :V_USER_ID " +
                     "OR B.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
-                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND  (:V_AUDITTYPES IS NULL OR(B.AUDIT_TYPE = :V_AUDITTYPES))  AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.CLAIM_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RBT.BUDGET_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RTT.TOPIC_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
@@ -2727,6 +2732,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_AUDITTYPES", OracleDbType.Int32, req.Element("V_AUDITTYPES") != null && !string.IsNullOrEmpty(req.Element("V_AUDITTYPES").Value) ? req.Element("V_AUDITTYPES")?.Value : null, System.Data.ParameterDirection.Input);
 
                 DataTable dtTableCount = new DataTable();
                 dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -2753,7 +2759,7 @@ namespace Audit.App_Func
                     "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN ('BRANCH_DIRECTOR','BRANCH_REGISTER') AND B.DEPARTMENT_ID = :V_DEPARTMENT) " +
                     "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND B.DEPARTMENT_ID = :V_DEPARTMENT AND (BM.CREATED_BY = :V_USER_ID OR BM.UPDATED_BY = :V_USER_ID " +
                     "OR B.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
-                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
+                    "AND B.STATISTIC_PERIOD = :V_PERIOD AND  (:V_AUDITTYPES IS NULL OR(B.AUDIT_TYPE = :V_AUDITTYPES))  AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.CLAIM_VIOLATION_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RBT.BUDGET_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(RTT.TOPIC_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
@@ -2800,6 +2806,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
+                cmd.Parameters.Add(":V_AUDITTYPES", OracleDbType.Int32, req.Element("V_AUDITTYPES") != null && !string.IsNullOrEmpty(req.Element("V_AUDITTYPES").Value) ? req.Element("V_AUDITTYPES")?.Value : null, System.Data.ParameterDirection.Input);
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -3317,7 +3324,7 @@ namespace Audit.App_Func
                     "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN ('BRANCH_DIRECTOR','BRANCH_REGISTER') AND B.DEPARTMENT_ID = :V_DEPARTMENT) " +
                     "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND B.DEPARTMENT_ID = :V_DEPARTMENT AND (BM.CREATED_BY = :V_USER_ID OR BM.UPDATED_BY = :V_USER_ID " +
                     "OR B.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
-                    "AND B.STATISTIC_PERIOD = :V_PERIOD " +
+                    "AND B.STATISTIC_PERIOD = :V_PERIOD  AND  (:V_AUDITTYPES IS NULL OR(B.AUDIT_TYPE = :V_AUDITTYPES)) " +
                     "AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.REFERENCE_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'  " +
@@ -3332,7 +3339,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
-
+                cmd.Parameters.Add(":V_AUDITTYPES", OracleDbType.Int32, req.Element("V_AUDITTYPES") != null && !string.IsNullOrEmpty(req.Element("V_AUDITTYPES").Value) ? req.Element("V_AUDITTYPES")?.Value : null, System.Data.ParameterDirection.Input);
                 DataTable dtTableCount = new DataTable();
                 dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -3358,7 +3365,7 @@ namespace Audit.App_Func
                     "WHERE BM.IS_ACTIVE = 1 AND B.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN ('BRANCH_DIRECTOR','BRANCH_REGISTER') AND B.DEPARTMENT_ID = :V_DEPARTMENT) " +
                     "OR (:V_USER_TYPE IN ('BRANCH_AUDITOR','HAK_USER') AND B.DEPARTMENT_ID = :V_DEPARTMENT AND (BM.CREATED_BY = :V_USER_ID OR BM.UPDATED_BY = :V_USER_ID " +
                     "OR B.ID IN (SELECT DISTINCT AUDIT_ID FROM AUD_STAT.BM0_TEAM_DATA WHERE AUDITOR_ID = :V_USER_ID)))) AND (:V_FILTER_DEPARTMENT IS NULL OR(B.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
-                    "AND B.STATISTIC_PERIOD = :V_PERIOD " +
+                    "AND B.STATISTIC_PERIOD = :V_PERIOD  AND  (:V_AUDITTYPES IS NULL OR(B.AUDIT_TYPE = :V_AUDITTYPES)) " +
                     "AND(:V_SEARCH IS NULL OR UPPER(B.AUDIT_YEAR) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.REFERENCE_TYPE) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                     "OR UPPER(B.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(B.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%'  " +
@@ -3406,7 +3413,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
-
+                cmd.Parameters.Add(":V_AUDITTYPES", OracleDbType.Int32, req.Element("V_AUDITTYPES") != null && !string.IsNullOrEmpty(req.Element("V_AUDITTYPES").Value) ? req.Element("V_AUDITTYPES")?.Value : null, System.Data.ParameterDirection.Input);
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 

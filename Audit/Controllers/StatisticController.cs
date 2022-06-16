@@ -571,6 +571,16 @@ namespace Audit.Controllers
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     res.periods = Globals.periods;
                 }
+                if (Globals.audittypes.Count > 0)
+                {
+                    res.audittypes = Globals.audittypes;
+                }
+                else
+                {
+                    XElement responseaudittypes = SendLibraryRequest("RefAuditType");
+                    Globals.audittypes = (from item in responseaudittypes.Elements("Library") select new REF_AUDIT_TYPE().FromXml(item)).ToList();
+                    res.audittypes = Globals.audittypes;
+                }
             }
             catch (Exception ex)
             {
@@ -1169,6 +1179,16 @@ namespace Audit.Controllers
                     XElement responsePeriod = SendLibraryRequest("StatPeriod");
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     res.periods = Globals.periods;
+                }
+                if (Globals.audittypes.Count > 0)
+                {
+                    res.audittypes = Globals.audittypes;
+                }
+                else
+                {
+                    XElement responseaudittypes = SendLibraryRequest("RefAuditType");
+                    Globals.audittypes = (from item in responseaudittypes.Elements("Library") select new REF_AUDIT_TYPE().FromXml(item)).ToList();
+                    res.audittypes = Globals.audittypes;
                 }
             }
             catch (Exception ex)
@@ -1836,6 +1856,17 @@ namespace Audit.Controllers
                     XElement responsePeriod = SendLibraryRequest("StatPeriod");
                     Globals.periods = (from item in responsePeriod.Elements("Library") select new Period().FromXml(item)).ToList();
                     res.periods = Globals.periods;
+                }
+
+                if (Globals.audittypes.Count > 0)
+                {
+                    res.audittypes = Globals.audittypes;
+                }
+                else
+                {
+                    XElement responseaudittypes = SendLibraryRequest("RefAuditType");
+                    Globals.audittypes = (from item in responseaudittypes.Elements("Library") select new REF_AUDIT_TYPE().FromXml(item)).ToList();
+                    res.audittypes = Globals.audittypes;
                 }
             }
             catch (Exception ex)

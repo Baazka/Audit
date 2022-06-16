@@ -11,8 +11,11 @@ namespace Audit.Models
     {
         public int DeparmentID { get; set; }
         public int PeriodID { get; set; }
+        
         public List<Department> departments { get; set; } = new List<Department>();
         public List<Period> periods { get; set; } = new List<Period>();
+        public int Audittypes { get; set; }
+        public List<REF_AUDIT_TYPE> audittypes { get; set; } = new List<REF_AUDIT_TYPE>();
     }
     public class BM1
     {

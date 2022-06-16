@@ -9,7 +9,7 @@
     <a href="@Url.Action("Index","Statistic")" class="btn btn-sm btn-light mr-2">
         <span class="icon text-gray-600">
             <i class="fas fa-arrow-left"></i>
-        </span>
+        </span> 
     </a>
     <h4>БМ-3. Төрийн аудитын газрын аудитор болон багийн зөвлөмжийн бүртгэл</h4>
 </div>
@@ -27,6 +27,10 @@
         <div class="form-group-sm pr-2">
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
+        <div class="form-group-sm pr-2">
+            <label for="Audittypes" class="col-form-label">Аудитын төрөл:</label>
+            @Html.DropDownListFor(model => model.Audittypes, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
         @if (User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_REGISTER" || User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "HAK_USER" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN")
         {
@@ -180,6 +184,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Audittypes = $('#Audittypes').val();
                         return data;
                     }
                 },
@@ -359,6 +364,12 @@
             bm3ListInit();
         });
         $('#PeriodID').change(function () {
+            $("#BM3 tbody tr").removeClass('row_selected');
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM3.bm3ID = null;
+            bm3ListInit();
+        });
+        $('#Audittypes').change(function () {
             $("#BM3 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
             BM3.bm3ID = null;

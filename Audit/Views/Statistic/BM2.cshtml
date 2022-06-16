@@ -28,6 +28,10 @@
             <label for="PeriodID" class="col-form-label">Он:</label>
             @Html.DropDownListFor(model => model.PeriodID, Model.periods.Select(m => new SelectListItem { Text = m.PERIOD_LABEL, Value = m.ID.ToString() }).ToList(), null, htmlAttributes: new { @class = "form-control form-control-sm" })
         </div>
+        <div class="form-group-sm pr-2">
+            <label for="Audittypes" class="col-form-label">Аудитын төрөл:</label>
+            @Html.DropDownListFor(model => model.Audittypes, Model.audittypes.Select(m => new SelectListItem { Text = m.AUDIT_TYPE_NAME, Value = m.AUDIT_TYPE_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
+        </div>
         @if (User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_REGISTER" || User.GetClaimData("USER_TYPE").ToUpper() == "BRANCH_AUDITOR" || User.GetClaimData("USER_TYPE").ToUpper() == "HAK_USER" || User.GetClaimData("USER_TYPE").ToUpper() == "ADMIN")
         {
             <div class="form-group-sm ml-auto pr-2">
@@ -41,7 +45,7 @@
             </div>
             <div class="form-group-sm pr-2">
                 <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn"  onclick="CheckUserTypeCompletion('@User.GetClaimData("USER_TYPE")');">
+                <a href="#" class="btn btn-sm btn-success btn-icon-split disabled enableBtn" onclick="CheckUserTypeCompletion('@User.GetClaimData("USER_TYPE")');">
                     <span class="icon text-white-50">
                         <i class="fas fa-check"></i>
                     </span>
@@ -67,16 +71,16 @@
                 </a>
             </div>
         }
-            <div class="form-group-sm">
-                <br />
-                <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-file-excel"></i>
-                    </span>
-                    <span class="text">Excel</span>
-                </a>
-            </div>
+        <div class="form-group-sm">
+            <br />
+            <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile()">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                </span>
+                <span class="text">Excel</span>
+            </a>
         </div>
+    </div>
 </form>
 <div class="card">
     <div class="card-body">
@@ -183,6 +187,7 @@
                     data: function (data) {
                         data.DeparmentID = $('#DeparmentID').val();
                         data.PeriodID = $('#PeriodID').val();
+                        data.Audittypes = $('#Audittypes').val();
                         return data;
                     }
                 },
@@ -385,6 +390,12 @@
             bm2ListInit();
         });
         $('#PeriodID').change(function () {
+            $("#BM2 tbody tr").removeClass('row_selected');
+            $("#FilterForm .enableBtn").addClass("disabled")
+            BM2.bm2ID = null;
+            bm2ListInit();
+        });
+        $('#Audittypes').change(function () {
             $("#BM2 tbody tr").removeClass('row_selected');
             $("#FilterForm .enableBtn").addClass("disabled")
             BM2.bm2ID = null;

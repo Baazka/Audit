@@ -407,6 +407,11 @@ namespace Audit.Controllers
                 else
                     elem.Add(new XElement("V_PERIOD", null));
 
+                if (request.Audittypes != null)
+                    elem.Add(new XElement("V_AUDITTYPES", request.Audittypes));
+                else
+                    elem.Add(new XElement("V_AUDITTYPES", null));
+
                 XElement res = AppStatic.SystemController.BM1(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM1List> Body = new List<BM1List>();
                 List<BM1List> AllData = new List<BM1List>();
@@ -656,7 +661,10 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
                 else
                     elem.Add(new XElement("V_PERIOD", null));
-
+                if (request.Audittypes != null)
+                    elem.Add(new XElement("V_AUDITTYPES", request.Audittypes));
+                else
+                    elem.Add(new XElement("V_AUDITTYPES", null));
 
                 response.recordsTotal = 0;
                 XElement res = AppStatic.SystemController.BM2(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
@@ -859,7 +867,10 @@ namespace Audit.Controllers
                     elem.Add(new XElement("V_PERIOD", request.PeriodID));
                 else
                     elem.Add(new XElement("V_PERIOD", null));
-
+                if (request.Audittypes != null)
+                    elem.Add(new XElement("V_AUDITTYPES", request.Audittypes));
+                else
+                    elem.Add(new XElement("V_AUDITTYPES", null));
                 XElement res = AppStatic.SystemController.BM3(elem, User.GetClaimData("USER_TYPE"), User.GetClaimData("DepartmentID"), User.Identity.GetUserId());
                 List<BM3List> Body = new List<BM3List>();
                 List<BM3List> AllData = new List<BM3List>();
