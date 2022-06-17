@@ -112,7 +112,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT US.USER_ID, US.USER_CODE, US.USER_NAME, US.USER_DEPARTMENT_ID, US.USER_TYPE_ID, US.USER_EMAIL, US.USER_REG_DATE, RD.DEPARTMENT_NAME, UST.USER_TYPE_NAME "+
+                cmd.CommandText = "SELECT US.USER_ID, US.USER_CODE, US.USER_NAME, US.USER_DEPARTMENT_ID, US.USER_TYPE_ID, US.USER_EMAIL, US.USER_REG_DATE, RD.DEPARTMENT_NAME, UST.USER_TYPE_NAME " +
   "FROM AUD_REG.SYSTEM_USER US " +
   "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON RD.DEPARTMENT_ID = US.USER_DEPARTMENT_ID " +
   "INNER JOIN AUD_REG.SYSTEM_USER_TYPE UST ON UST.USER_TYPE_ID = US.USER_TYPE_ID WHERE US.USER_ID = :USER_ID ";
@@ -209,7 +209,7 @@ namespace Audit.App_Func
                 else if (libName == "BudgetLevel")
                     cmd.CommandText = "SELECT BUDGET_LEVEL_ID, BUDGET_LEVEL_NAME FROM AUD_ORG.REF_BUDGET_LEVEL";
                 else if (libName == "OrgLegalStatus")
-                    cmd.CommandText = "SELECT RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME FROM AUD_ORG.AUDIT_ENTITY AE LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AE.ENT_LEGAL_STATUS = RLS.LEGAL_STATUS_ID WHERE RLS.LEGAL_STATUS_NAME IS NOT NULL GROUP BY RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME ORDER BY RLS.LEGAL_STATUS_ID";         
+                    cmd.CommandText = "SELECT RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME FROM AUD_ORG.AUDIT_ENTITY AE LEFT JOIN AUD_ORG.REF_LEGAL_STATUS RLS ON AE.ENT_LEGAL_STATUS = RLS.LEGAL_STATUS_ID WHERE RLS.LEGAL_STATUS_NAME IS NOT NULL GROUP BY RLS.LEGAL_STATUS_ID, RLS.LEGAL_STATUS_NAME ORDER BY RLS.LEGAL_STATUS_ID";
                 else if (libName == "PropertyType")
                     cmd.CommandText = "SELECT PROPERTY_TYPE_ID, PROPERTY_TYPE_NAME FROM AUD_ORG.REF_PROPERTY_TYPE ORDER BY PROPERTY_TYPE_ID";
                 else if (libName == "SourceType")
@@ -594,7 +594,7 @@ namespace Audit.App_Func
                                 "AND (:V_SEARCH IS NULL OR UPPER(AO.ORG_LEGAL_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 "OR UPPER(AO.ORG_REGISTER_NO) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(AO.ORG_REG_DATE) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
                                 "OR UPPER(RST.SOURCE_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' " +
-                                "OR UPPER(RLS.LEGAL_STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RPT.PROPERTY_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +        
+                                "OR UPPER(RLS.LEGAL_STATUS_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%' OR UPPER(RPT.PROPERTY_TYPE_NAME) LIKE '%'||UPPER(:V_SEARCH)||'%') " +
                                 "ORDER BY " +
                                 "CASE WHEN :ORDER_NAME IS NULL AND :ORDER_DIR IS NULL THEN AO.ORG_LEGAL_NAME END ASC, " +
                                 "CASE WHEN :ORDER_NAME = 'ORG_LEGAL_NAME' AND :ORDER_DIR = 'ASC' THEN AO.ORG_LEGAL_NAME END ASC, " +
@@ -1274,7 +1274,7 @@ namespace Audit.App_Func
         {
             DataResponse response = new DataResponse();
 
-           
+
             try
             {
                 // Open a connection to the database
@@ -1284,7 +1284,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                if(request.Element("Parameters").Element("DEPARTMENT_ID").Value == "101")
+                if (request.Element("Parameters").Element("DEPARTMENT_ID").Value == "101")
                 {
                     cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, RD.DEPARTMENT_ID, RD.DEPARTMENT_NAME " +
                     "FROM AUD_REG.SYSTEM_USER SU " +
@@ -1295,12 +1295,12 @@ namespace Audit.App_Func
                 }
                 else
                 {
-                     cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, RD.DEPARTMENT_ID, RD.DEPARTMENT_NAME " +
-                     "FROM AUD_REG.SYSTEM_USER SU " +
-                     "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON SU.USER_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
-                     "WHERE SU.IS_ACTIVE = 1 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
-                     "AND RD.DEPARTMENT_ID = :DEPARTMENT_ID " +
-                     "ORDER BY RD.DEPARTMENT_ID, SU.USER_CODE";
+                    cmd.CommandText = "SELECT SU.USER_ID, SU.USER_CODE, SU.USER_NAME, RD.DEPARTMENT_ID, RD.DEPARTMENT_NAME " +
+                    "FROM AUD_REG.SYSTEM_USER SU " +
+                    "INNER JOIN AUD_ORG.REF_DEPARTMENT RD ON SU.USER_DEPARTMENT_ID = RD.DEPARTMENT_ID " +
+                    "WHERE SU.IS_ACTIVE = 1 AND SU.USER_TYPE_ID IN(3,4) AND SU.IS_TEST = 0 " +
+                    "AND RD.DEPARTMENT_ID = :DEPARTMENT_ID " +
+                    "ORDER BY RD.DEPARTMENT_ID, SU.USER_CODE";
                 }
                 if (request.Element("Parameters").Element("USER_TYPE").Value == "Admin")
                 {
@@ -1311,7 +1311,7 @@ namespace Audit.App_Func
                     "ORDER BY RD.DEPARTMENT_ID, SU.USER_CODE";
                 }
 
-                cmd.BindByName = true; 
+                cmd.BindByName = true;
                 cmd.Parameters.Add(":V_USER_TYPE", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_TYPE").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":DEPARTMENT_ID", OracleDbType.Int32, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
 
@@ -1383,7 +1383,7 @@ namespace Audit.App_Func
                     "LEFT JOIN AUD_STAT.REF_BUDGET_TYPE RBT ON BM.AUDIT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                     "WHERE BM.IS_ACTIVE = 1 AND BM.DEPARTMENT_ID = :P_OFFICE_ID AND BM.STATISTIC_PERIOD = :P_PERIOD_ID " +
                     "ORDER BY ORDER_NO DESC";
-              
+
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -1453,7 +1453,7 @@ namespace Audit.App_Func
                 cmd.BindByName = true;
                 // Set parameters  
                 cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32, request.Element("Parameters").Element("OFFICE_ID").Value, System.Data.ParameterDirection.Input);
-               // cmd.Parameters.Add(":P_PERIOD_ID", OracleDbType.Int32, request.Element("Parameters").Element("PERIOD_ID").Value, System.Data.ParameterDirection.Input);
+                // cmd.Parameters.Add(":P_PERIOD_ID", OracleDbType.Int32, request.Element("Parameters").Element("PERIOD_ID").Value, System.Data.ParameterDirection.Input);
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -1532,7 +1532,7 @@ namespace Audit.App_Func
                      "INNER JOIN AUD_ORG.REF_DEPARTMENT RD2 ON BM.AUDIT_DEPARTMENT_ID = RD2.DEPARTMENT_ID " +
                      "INNER JOIN AUD_REG.SYSTEM_USER SUS ON BM.AUDITOR_ENTRY_ID = SUS.USER_ID " + "WHERE BM.IS_ACTIVE = 1 AND (:V_USER_TYPE IN ('HEAD_DIRECTOR','HEAD_AUDITOR','Admin') OR (:V_USER_TYPE IN " +
                      "('BRANCH_DIRECTOR', 'BRANCH_REGISTER', 'BRANCH_AUDITOR','HAK_USER') AND BM.DEPARTMENT_ID = :V_DEPARTMENT)) AND (:V_FILTER_DEPARTMENT IS NULL OR (BM.DEPARTMENT_ID = :V_FILTER_DEPARTMENT)) " +
-                    
+
                      "AND BM.STATISTIC_PERIOD = :V_PERIOD AND(:V_SEARCH IS NULL OR UPPER(RAT.AUDIT_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                      "OR UPPER(RTT.TOPIC_TYPE_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.TOPIC_NAME) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
                      "OR UPPER(BM.TOPIC_CODE) LIKE '%' || UPPER(:V_SEARCH) || '%' OR UPPER(BM.ORDER_NO) LIKE '%' || UPPER(:V_SEARCH) || '%' " +
@@ -1554,7 +1554,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
 
                 dtTableCount.TableName = "RowCount";
-               // var count = dtTableCount.Rows[0][0];
+                // var count = dtTableCount.Rows[0][0];
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -1626,7 +1626,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":USER_ID", OracleDbType.Varchar2, request.Element("Parameters").Element("USER_ID").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_DEPARTMENT", OracleDbType.Varchar2, request.Element("Parameters").Element("DEPARTMENT_ID").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_FILTER_DEPARTMENT", OracleDbType.Int32, req.Element("V_DEPARTMENT") != null && !string.IsNullOrEmpty(req.Element("V_DEPARTMENT").Value) ? req.Element("V_DEPARTMENT")?.Value : null, System.Data.ParameterDirection.Input);
-               
+
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":ORDER_NAME", OracleDbType.Varchar2, req.Element("OrderName")?.Value, System.Data.ParameterDirection.Input);
@@ -1636,8 +1636,57 @@ namespace Audit.App_Func
 
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
-               
 
+                /*  DataTable table = new DataTable("TOPIC_NAME");
+                  table.Columns.Add(new DataColumn("ID", typeof(int)));
+                  table.Columns.Add(new DataColumn("STATISTIC_PERIOD", typeof(int)));
+                  table.Columns.Add(new DataColumn("PERIOD_LABEL", typeof(string)));
+                  table.Columns.Add(new DataColumn("DEPARTMENT_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("YEAR_LABEL", typeof(int)));
+                  table.Columns.Add(new DataColumn("AUDIT_TYPE_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("TOPIC_TYPE_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("TOPIC_CODE", typeof(string)));
+                  table.Columns.Add(new DataColumn("TOPIC_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("ORDER_NO", typeof(string)));
+                  table.Columns.Add(new DataColumn("ORDER_DATE", typeof(string)));
+                  table.Columns.Add(new DataColumn("FORM_TYPE_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("PROPOSAL_TYPE_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("BUDGET_TYPE_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("CREATED_BY", typeof(int)));
+                  table.Columns.Add(new DataColumn("UPDATED_BY", typeof(int)));
+                  table.Columns.Add(new DataColumn("AUDIT_INCLUDED_COUNT", typeof(int)));
+                  table.Columns.Add(new DataColumn("AUDIT_INCLUDED_ORG", typeof(string)));
+                  table.Columns.Add(new DataColumn("WORKING_PERSON", typeof(int)));
+                  table.Columns.Add(new DataColumn("WORKING_DAY", typeof(int)));
+                  table.Columns.Add(new DataColumn("WORKING_ADDITION_TIME", typeof(int)));
+                  table.Columns.Add(new DataColumn("AUDIT_SERVICE_PAY", typeof(int)));
+                  table.Columns.Add(new DataColumn("DEPARTMENT_SHORT_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("TEAM_DEPARTMENT_NAME", typeof(string)));
+                  table.Columns.Add(new DataColumn("AUDITOR_LEAD", typeof(string)));
+                  table.Columns.Add(new DataColumn("AUDITOR_MEMBER", typeof(string)));
+                  table.Columns.Add(new DataColumn("AUDITOR_ENTRY", typeof(string)));*/
+
+                for (int i = 0; i < dtTableCount.Rows.Count; i++)
+                {
+                    //object o = dtTableCount.Rows[i].ItemArray[8];
+                    string s = dtTableCount.Rows[i].ItemArray[8] == null?"": dtTableCount.Rows[i].ItemArray[8].ToString();
+
+                    dtTableCount.Rows[i][8] = s.Replace("\v", " ");
+
+
+                }
+                for (int j = 0; j < dtTable.Rows.Count; j++)
+                {
+                    //object o = dtTableCount.Rows[i].ItemArray[8];
+                    
+                    string s = dtTable.Rows[j].ItemArray[8] == null ? "" : dtTable.Rows[j].ItemArray[8].ToString();
+
+                    dtTable.Rows[j][8] = s.Replace("\v", " ");
+
+                    
+
+
+                }
 
                 DataSet dataSet = new DataSet();
                 dataSet.Tables.Add(dtTableCount);
@@ -1647,15 +1696,19 @@ namespace Audit.App_Func
 
                 dtTable.TableName = "BM0";
 
+
+                
+
                 StringWriter sw = new StringWriter();
                 dataSet.WriteXml(sw, XmlWriteMode.WriteSchema);
 
-                XElement xmlResponseData = XElement.Parse(sw.ToString());
+                XElement xmlResponseData = XElement.Parse(
+                    sw.ToString());
                 response.CreateResponse(xmlResponseData);
 
-                
+
                 //xmlResponseData.Add(new XElement("RowCount", count));
-             
+
             }
             catch (Exception ex)
             {
@@ -1724,7 +1777,7 @@ namespace Audit.App_Func
 
             return response;
         }
-       
+
         public static DataResponse BM0Detail(XElement request)
         {
             DataResponse response = new DataResponse();
@@ -1856,7 +1909,7 @@ namespace Audit.App_Func
                     "WHERE ID = :P_ID ";
 
                 // Set parameters
-                
+
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
                 cmd.Parameters.Add(":P_DEPARTMENT_ID", OracleDbType.Int32).Value = elem.Element("DEPARTMENT_ID")?.Value;
                 cmd.Parameters.Add(":P_AUDIT_YEAR", OracleDbType.Int32).Value = elem.Element("AUDIT_YEAR")?.Value;
@@ -1889,11 +1942,11 @@ namespace Audit.App_Func
                 string[] leads = elem.Element("AUDITOR_LEAD")?.Value.Split(',');
                 string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
                 // delete query add
-               
-                    
+
+
                 if (elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "1")
                 {
-                    if(leads.Count() > 0)
+                    if (leads.Count() > 0)
                     {
                         OracleCommand cmdLeadDelete = con.CreateCommand();
 
@@ -1923,7 +1976,7 @@ namespace Audit.App_Func
                         }
 
                     }
-                   if(members.Count() > 0)
+                    if (members.Count() > 0)
                     {
 
                         OracleCommand cmdMemberDelete = con.CreateCommand();
@@ -1951,7 +2004,7 @@ namespace Audit.App_Func
                             cmdMember.Dispose();
                         }
                     }
-                    
+
                 }
                 if (elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "2")
                 {
@@ -2021,7 +2074,7 @@ namespace Audit.App_Func
                 int lnNextVal = Convert.ToInt32(cmd2.ExecuteScalar());
 
                 XElement elem = request.Element("Parameters").Element("BM0");
-               
+
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = "INSERT INTO AUD_STAT.BM0_DATA (ID,STATISTIC_PERIOD, DEPARTMENT_ID, AUDIT_YEAR, AUDIT_TYPE, TOPIC_TYPE, TOPIC_CODE, TOPIC_NAME, ORDER_NO, ORDER_DATE, AUDIT_FORM_TYPE, AUDIT_PROPOSAL_TYPE, AUDIT_BUDGET_TYPE, AUDIT_INCLUDED_COUNT, AUDIT_INCLUDED_ORG, WORKING_PERSON, WORKING_DAY, WORKING_ADDITION_TIME, AUDIT_DEPARTMENT_TYPE, AUDIT_DEPARTMENT_ID, AUDIT_SERVICE_PAY, AUDITOR_ENTRY_ID, IS_ACTIVE, CREATED_BY, CREATED_DATE) " +
                     "VALUES(:P_ID, :P_STATISTIC_PERIOD, :P_DEPARTMENT_ID, :P_AUDIT_YEAR, :P_AUDIT_TYPE, :P_TOPIC_TYPE, :P_TOPIC_CODE, :P_TOPIC_NAME, :P_ORDER_NO, :P_ORDER_DATE, :P_AUDIT_FORM_TYPE, :P_AUDIT_PROPOSAL_TYPE, :P_AUDIT_BUDGET_TYPE, :P_AUDIT_INCLUDED_COUNT, :P_AUDIT_INCLUDED_ORG, :P_WORKING_PERSON, :P_WORKING_DAY, :P_WORKING_ADDITION_TIME, :P_AUDIT_DEPARTMENT_TYPE, :P_AUDIT_DEPARTMENT_ID, :P_AUDIT_SERVICE_PAY, :P_AUDITOR_ENTRY_ID, :P_IS_ACTIVE, :P_CREATED_BY, :P_CREATED_DATE)";
@@ -2060,8 +2113,8 @@ namespace Audit.App_Func
                 string[] members = elem.Element("AUDITOR_MEMBER")?.Value.Split(',');
                 if (elem.Element("AUDIT_DEPARTMENT_TYPE")?.Value == "1")
                 {
-                    
-                    if(leads[0] != "")
+
+                    if (leads[0] != "")
                     {
                         for (int i = 0; i < leads.Count(); i++)
                         {
@@ -2102,7 +2155,7 @@ namespace Audit.App_Func
                     }
 
                 }
-               
+
 
 
 
@@ -2208,8 +2261,8 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":V_PERIOD", OracleDbType.Int32, req.Element("V_PERIOD") != null && !string.IsNullOrEmpty(req.Element("V_PERIOD").Value) ? req.Element("V_PERIOD")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search")?.Value, System.Data.ParameterDirection.Input);
 
-                
-                
+
+
 
                 DataTable dtTableCount = new DataTable();
                 dtTableCount.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -2221,7 +2274,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.ACT_DATE, BM.ACT_NO, BM.ACT_VIOLATION_DESC, BM.ACT_VIOLATION_TYPE, RVT.VIOLATION_NAME, BM.ACT_SUBMITTED_DATE, BM.ACT_DELIVERY_DATE, BM.ACT_AMOUNT, BM.ACT_STATE_AMOUNT, BM.ACT_LOCAL_AMOUNT, BM.ACT_ORG_AMOUNT, BM.ACT_OTHER_AMOUNT, BM.ACT_RCV_NAME, BM.ACT_RCV_ROLE, BM.ACT_RCV_GIVEN_NAME, BM.ACT_RCV_PHONE, BM.ACT_RCV_ADDRESS, BM.CREATED_BY, "+
+                cmd.CommandText = "SELECT BM.ID, B.STATISTIC_PERIOD, RP.PERIOD_LABEL, B.DEPARTMENT_ID, RD.DEPARTMENT_NAME, RAY.YEAR_LABEL, B.AUDIT_TYPE, RAT.AUDIT_TYPE_NAME, RTT.TOPIC_TYPE_NAME, B.TOPIC_CODE, B.TOPIC_NAME, B.ORDER_NO, B.ORDER_DATE, RBT.BUDGET_TYPE_NAME, BM.ACT_DATE, BM.ACT_NO, BM.ACT_VIOLATION_DESC, BM.ACT_VIOLATION_TYPE, RVT.VIOLATION_NAME, BM.ACT_SUBMITTED_DATE, BM.ACT_DELIVERY_DATE, BM.ACT_AMOUNT, BM.ACT_STATE_AMOUNT, BM.ACT_LOCAL_AMOUNT, BM.ACT_ORG_AMOUNT, BM.ACT_OTHER_AMOUNT, BM.ACT_RCV_NAME, BM.ACT_RCV_ROLE, BM.ACT_RCV_GIVEN_NAME, BM.ACT_RCV_PHONE, BM.ACT_RCV_ADDRESS, BM.CREATED_BY, " +
                   "BM.UPDATED_BY, SU.USER_CODE||' - '||SU.USER_NAME ACT_CONTROL_AUDITOR, BM.COMPLETION_DATE, BM.COMPLETION_ORDER, BM.COMPLETION_AMOUNT, BM.COMPLETION_STATE_AMOUNT, BM.COMPLETION_LOCAL_AMOUNT, BM.COMPLETION_ORG_AMOUNT, BM.COMPLETION_OTHER_AMOUNT, BM.REMOVED_AMOUNT, BM.REMOVED_LAW_AMOUNT, BM.REMOVED_LAW_DATE, BM.REMOVED_LAW_NO, BM.REMOVED_INVALID_AMOUNT, BM.REMOVED_INVALID_DATE, BM.REMOVED_INVALID_NO, BM.ACT_C2_AMOUNT, BM.ACT_C2_NONEXPIRED, BM.ACT_C2_EXPIRED, BM.BENEFIT_FIN, BM.BENEFIT_FIN_AMOUNT, BM.BENEFIT_NONFIN " +
                     "FROM AUD_STAT.BM1_DATA BM " +
                     "INNER JOIN AUD_STAT.BM0_DATA B ON BM.AUDIT_ID = B.ID " +
@@ -2285,7 +2338,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":ORDER_DIR", OracleDbType.Varchar2, req.Element("OrderDir")?.Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGENUMBER", OracleDbType.Int32, req.Element("PageNumber").Value, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":PAGESIZE", OracleDbType.Int32, req.Element("PageSize").Value, System.Data.ParameterDirection.Input);
-                
+
                 DataTable dtTable = new DataTable();
                 dtTable.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
 
@@ -2608,7 +2661,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ACT_ORG_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_ORG_AMOUNT")?.Value == "" ? null : elem.Element("ACT_ORG_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_OTHER_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ACT_OTHER_AMOUNT")?.Value == "" ? null : elem.Element("ACT_OTHER_AMOUNT")?.Value;
 
-                
+
 
                 cmd.Parameters.Add(":P_ACT_RCV_NAME", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_NAME")?.Value;
                 cmd.Parameters.Add(":P_ACT_RCV_ROLE", OracleDbType.Varchar2).Value = elem.Element("ACT_RCV_ROLE")?.Value;
@@ -2622,13 +2675,13 @@ namespace Audit.App_Func
 
 
                 //complect
-                
+
                 cmd.Parameters.Add(":P_ACT_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_AMOUNT")?.Value == null || elem.Element("ACT_C2_AMOUNT")?.Value == "0.00" ? null : elem.Element("ACT_C2_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_ACT_C2_NONEXPIRED", OracleDbType.Decimal).Value = elem.Element("ACT_C2_NONEXPIRED")?.Value == null || elem.Element("ACT_C2_NONEXPIRED")?.Value == "" ? null : elem.Element("ACT_C2_NONEXPIRED")?.Value;
                 cmd.Parameters.Add(":P_ACT_C2_EXPIRED", OracleDbType.Varchar2).Value = elem.Element("ACT_C2_EXPIRED")?.Value == null || elem.Element("ACT_C2_EXPIRED")?.Value == "0.00" ? null : elem.Element("ACT_C2_EXPIRED")?.Value;
-            
 
-                
+
+
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
                 transaction.Commit();
@@ -2978,7 +3031,7 @@ namespace Audit.App_Func
                     " UPDATED_BY = :P_UPDATED_BY," +
                     " UPDATED_DATE = :P_UPDATED_DATE " +
                     " WHERE ID = :P_ID";
-               
+
 
                 // Set parameters
 
@@ -3144,7 +3197,7 @@ namespace Audit.App_Func
             }
 
             return response;
-       
+
         }
         public static DataResponse BM2Insert(XElement request)
         {
@@ -3157,7 +3210,7 @@ namespace Audit.App_Func
             // Create and execute the command
             OracleCommand cmd = con.CreateCommand();
             OracleTransaction transaction;
-            
+
             // Start a local transaction
             transaction = con.BeginTransaction(IsolationLevel.ReadCommitted);
             // Assign transaction object for a pending local transaction
@@ -3207,14 +3260,14 @@ namespace Audit.App_Func
                     " :P_CREATED_BY, " +
                     " :P_CREATED_DATE, " +
                     " :P_CLAIM_C2_AMOUNT, " +
-                    ":P_CLAIM_C2_NONEXPIRED,"+
-                    ":P_CLAIM_C2_EXPIRED "+
+                    ":P_CLAIM_C2_NONEXPIRED," +
+                    ":P_CLAIM_C2_EXPIRED " +
                     ")";
 
                 // Set parameters
                 cmd.Parameters.Add(":P_AUDIT_ID", OracleDbType.Int32).Value = elem.Element("AUDIT_ID")?.Value;
                 cmd.Parameters.Add(":CLAIM_DATE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_DATE")?.Value;
-                
+
                 cmd.Parameters.Add(":P_CLAIM_NO", OracleDbType.Varchar2).Value = elem.Element("CLAIM_NO")?.Value == null ? null : elem.Element("CLAIM_NO")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_VIOLATION_DESC", OracleDbType.Varchar2).Value = elem.Element("CLAIM_VIOLATION_DESC")?.Value == null ? null : elem.Element("CLAIM_VIOLATION_DESC")?.Value;
                 cmd.Parameters.Add(":P_CLAIM_VIOLATION_TYPE", OracleDbType.Varchar2).Value = elem.Element("CLAIM_VIOLATION_TYPE")?.Value == null ? null : elem.Element("CLAIM_VIOLATION_TYPE")?.Value;
@@ -3607,7 +3660,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_REFERENCE_RCV_PHONE", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_PHONE")?.Value == null ? null : elem.Element("REFERENCE_RCV_PHONE")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_ADDRESS")?.Value == null ? null : elem.Element("REFERENCE_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
-               
+
                 cmd.Parameters.Add(":P_COMPLETION_DATE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DATE")?.Value == null ? null : elem.Element("COMPLETION_DATE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_ORDER", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_ORDER")?.Value == null ? null : elem.Element("COMPLETION_ORDER")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
@@ -3620,7 +3673,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_C2_EXPIRED_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("C2_EXPIRED_AMOUNT")?.Value == null || elem.Element("C2_EXPIRED_AMOUNT")?.Value == "0.00" ? null : elem.Element("C2_EXPIRED_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN")?.Value == null ? null : elem.Element("BENEFIT_FIN")?.Value;
                 cmd.Parameters.Add(":P_BENEFIT_FIN_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_FIN_AMOUNT")?.Value == null ? null : elem.Element("BENEFIT_FIN_AMOUNT")?.Value;
-                
+
                 cmd.Parameters.Add(":P_BENEFIT_NONFIN", OracleDbType.Varchar2).Value = elem.Element("BENEFIT_NONFIN")?.Value == null ? null : elem.Element("BENEFIT_NONFIN")?.Value;
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -3703,7 +3756,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
 
 
-                
+
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
 
                 int rowsUpdated = cmd.ExecuteNonQuery();
@@ -3761,7 +3814,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_REFERENCE_RCV_ADDRESS", OracleDbType.Varchar2).Value = elem.Element("REFERENCE_RCV_ADDRESS")?.Value == null ? null : elem.Element("REFERENCE_RCV_ADDRESS")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_CONTROL_AUDITOR_ID", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
 
-               
+
                 cmd.Parameters.Add(":P_IS_ACTIVE", OracleDbType.Int32).Value = elem.Element("IS_ACTIVE")?.Value;
                 cmd.Parameters.Add(":P_CREATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_CREATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
@@ -4177,7 +4230,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS")?.Value == null ? null : elem.Element("COMPLETION_PROGRESS")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_PROGRESS_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == null || elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value == "0.00" ? null : elem.Element("COMPLETION_PROGRESS_AMOUNT")?.Value;
-                
+
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
@@ -4544,7 +4597,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_COMPLETION_INVALID_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_INVALID_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_INVALID_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_LAW_C2_NUMBER", OracleDbType.Varchar2).Value = elem.Element("LAW_C2_NUMBER")?.Value == null ? null : elem.Element("LAW_C2_NUMBER")?.Value;
                 cmd.Parameters.Add(":P_LAW_C2_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("LAW_C2_AMOUNT")?.Value == null ? null : elem.Element("LAW_C2_AMOUNT")?.Value;
-                
+
                 cmd.Parameters.Add(":P_UPDATED_BY", OracleDbType.Int32).Value = request.Element("Parameters").Element("USER_ID").Value;
                 cmd.Parameters.Add(":P_UPDATED_DATE", OracleDbType.Varchar2).Value = elem.Element("CREATED_DATE")?.Value;
                 cmd.Parameters.Add(":P_ID", OracleDbType.Int32).Value = elem.Element("ID")?.Value;
@@ -4555,7 +4608,7 @@ namespace Audit.App_Func
                 cmd.Dispose();
                 con.Close();
 
-                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа"); 
+                response.CreateResponse(responseVal, string.Empty, "Хадгаллаа");
             }
             catch (Exception ex)
             {
@@ -4596,7 +4649,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_LAW_MOVING_INFORMATION", OracleDbType.Varchar2).Value = elem.Element("LAW_MOVING_INFORMATION")?.Value == null ? null : elem.Element("LAW_MOVING_INFORMATION")?.Value;
                 cmd.Parameters.Add(":P_LAW_NUMBER", OracleDbType.Varchar2).Value = elem.Element("LAW_NUMBER")?.Value == null ? null : elem.Element("LAW_NUMBER")?.Value;
                 cmd.Parameters.Add(":P_LAW_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("LAW_AMOUNT")?.Value == null ? null : elem.Element("LAW_AMOUNT")?.Value;
-            
+
 
                 cmd.Parameters.Add(":P_COMPLETION_DONE", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE")?.Value == null ? null : elem.Element("COMPLETION_DONE")?.Value;
                 cmd.Parameters.Add(":P_COMPLETION_DONE_AMOUNT", OracleDbType.Varchar2).Value = elem.Element("COMPLETION_DONE_AMOUNT")?.Value == null ? null : elem.Element("COMPLETION_DONE_AMOUNT")?.Value;
@@ -4837,7 +4890,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT "+
+                cmd.CommandText = "SELECT " +
                                     "B.STATISTIC_PERIOD, " +
                                     "RP.PERIOD_LABEL, " +
                                     "B.DEPARTMENT_ID, " +
@@ -5509,7 +5562,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT "+
+                cmd.CommandText = "SELECT " +
                                     "B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                                     "NM.ACT_COUNT,NM.ACT_AMOUNT,NM.COMPLETION_COUNT,NM.COMPLETION_AMOUNT,NM.COMPLETION_STATE_COUNT,NM.COMPLETION_STATE_AMOUNT,NM.COMPLETION_LOCAL_COUNT,NM.COMPLETION_LOCAL_AMOUNT,NM.COMPLETION_ORG_COUNT, " +
                                     "NM.COMPLETION_ORG_AMOUNT,NM.COMPLETION_OTHER_COUNT,NM.COMPLETION_OTHER_AMOUNT,NM.REMOVED_COUNT,NM.REMOVED_AMOUNT,NM.REMOVED_LAW_COUNT,NM.REMOVED_LAW_AMOUNT,NM.REMOVED_INVALID_COUNT,NM.REMOVED_INVALID_AMOUNT, " +
@@ -5660,7 +5713,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                                     "NM.CLAIM_VIOLATION_COUNT, " +
                                     "NM.CLAIM_VIOLATION_AMOUNT, " +
                                     "NM.COMPLETION_COUNT, " +
@@ -5689,9 +5742,9 @@ namespace Audit.App_Func
                                     //"NM.BENEFIT_FIN_AMOUNT, " +
                                     //"NM.BENEFIT_NONFIN_COUNT, " +
                                     //"NM.BENEFIT_NONFIN_AMOUNT, " +
-                                    "NM.BENEFIT_FIN, "+
-                                    "NM.BENEFIT_FIN_AMOUNT, "+
-                                    "NM.BENEFIT_NONFIN, "+
+                                    "NM.BENEFIT_FIN, " +
+                                    "NM.BENEFIT_FIN_AMOUNT, " +
+                                    "NM.BENEFIT_NONFIN, " +
                                     "NM.EXEC_TYPE, " +
                                     "NM.IS_ACTIVE, " +
                                     "NM.CREATED_BY, " +
@@ -5827,7 +5880,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                                     "NM.REFERENCE_COUNT, " +
                                     "NM.REFERENCE_AMOUNT, " +
                                     "NM.COMPLETION_DONE_COUNT, " +
@@ -5847,7 +5900,7 @@ namespace Audit.App_Func
                                     "NM.CREATED_DATE, " +
                                     "NM.UPDATED_BY, " +
                                     "NM.UPDATED_DATE, " +
-                                    "(NVL(NM.C2_NONEXPIRED_COUNT,0) + NVL(NM.C2_EXPIRED_COUNT,0)) AS C2_COUNT, "+
+                                    "(NVL(NM.C2_NONEXPIRED_COUNT,0) + NVL(NM.C2_EXPIRED_COUNT,0)) AS C2_COUNT, " +
                                     "(NVL(NM.C2_NONEXPIRED_AMOUNT,0) + NVL(NM.C2_EXPIRED_AMOUNT,0)) AS C2_AMOUNT " +
                                     "FROM AUD_STAT.NM3_DATA NM " +
                                     "INNER JOIN AUD_STAT.BM0_DATA B ON NM.AUDIT_ID = B.ID " +
@@ -5926,7 +5979,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 OracleCommand cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                             "NM.PROPOSAL_COUNT, " +
                             "NM.PROPOSAL_AMOUNT, " +
                             "NM.COMPLETION_DONE_COUNT, " +
@@ -5969,7 +6022,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                             "NM.PROPOSAL_COUNT, " +
                             "NM.PROPOSAL_AMOUNT, " +
                             "NM.COMPLETION_DONE_COUNT, " +
@@ -6106,7 +6159,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT  B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                cmd.CommandText = "SELECT  B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                             "NM.LAW_COUNT, " +
                             "NM.LAW_AMOUNT, " +
                             "NM.COMPLETION_DONE_COUNT, " +
@@ -6258,7 +6311,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT  B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                cmd.CommandText = "SELECT  B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                             "NM.VIOLATION_COUNT, " +
                             "NM.VIOLATION_AMOUNT, " +
                             "NM.ERROR_COUNT, " +
@@ -6425,7 +6478,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, "+
+                cmd.CommandText = "SELECT B.STATISTIC_PERIOD,RP.PERIOD_LABEL,B.DEPARTMENT_ID,RD.DEPARTMENT_NAME,RAY.YEAR_LABEL,B.AUDIT_TYPE,RAT.AUDIT_TYPE_NAME,B.TOPIC_CODE,B.TOPIC_NAME, " +
                             "NM.DECISION_TYPE, " +
                             "NM.INCOME_STATE_COUNT, " +
                             "NM.INCOME_STATE_AMOUNT, " +
@@ -6585,7 +6638,7 @@ namespace Audit.App_Func
                     "CASE WHEN :ORDER_NAME = 'CATEGORY_TYPE' AND: ORDER_DIR = 'DESC' THEN CM.CATEGORY_TYPE END DESC " +
                     "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                     "FETCH NEXT :PAGESIZE ROWS ONLY";
-              
+
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -6809,7 +6862,7 @@ namespace Audit.App_Func
                 // Create and execute the command
                 cmd = con.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                if(req.Element("V_TYPE").Value != "1")
+                if (req.Element("V_TYPE").Value != "1")
                 {
                     cmd.CommandText = "SELECT CM.ID, CM.OFFICE_ID, RD.DEPARTMENT_NAME, CM.STATISTIC_PERIOD, RP.PERIOD_LABEL, CM.AUDIT_TYPE, CM.DECISION_TYPE, CM.BUDGET_TYPE, RTT.TOPIC_TYPE_NAME AS BUDGET_TYPE_NAME, CM.IS_STATE, CM.C1_COUNT, CM.C1_AMOUNT, CM.CURRENT_COUNT, CM.CURRENT_AMOUNT, CM.TOTAL_COUNT, CM.TOTAL_AMOUNT, CM.COMPLETION_DONE_COUNT, CM.COMPLETION_DONE_AMOUNT, CM.COMPLETION_PROGRESS_COUNT, CM.COMPLETION_PROGRESS_AMOUNT, CM.LAW_COUNT, CM.LAW_AMOUNT, CM.LAW_CURRENT_COUNT, CM.LAW_CURRENT_AMOUNT, CM.LAW_TOTAL_COUNT, CM.LAW_TOTAL_AMOUNT, CM.LAW_COMP_DONE_COUNT, CM.LAW_COMP_DONE_AMOUNT, CM.LAW_COMP_PROG_COUNT, CM.LAW_COMP_PROG_AMOUNT, CM.LAW_COMP_INVALID_COUNT, CM.LAW_COMP_INVALID_AMOUNT,CM.C2_COUNT, CM.C2_AMOUNT, CM.EXEC_TYPE,  CM.CREATED_DATE, CM.IS_ACTIVE, CM.CREATED_BY, CM.UPDATED_BY, CM.UPDATED_DATE " +
                    "FROM AUD_STAT.CM3_DATA CM " +
@@ -6863,7 +6916,7 @@ namespace Audit.App_Func
                     "OFFSET ((:PAGENUMBER/:PAGESIZE) * :PAGESIZE) ROWS " +
                     "FETCH NEXT :PAGESIZE ROWS ONLY";
                 }
-                
+
 
                 cmd.BindByName = true;
                 // Set parameters  
@@ -7344,7 +7397,7 @@ namespace Audit.App_Func
                     "WHERE ID = :P_ID";
 
                 // Set parameters
-                
+
                 cmd.Parameters.Add(":P_OFFICE_ID", OracleDbType.Int32).Value = elem.Element("OFFICE_ID")?.Value;
                 cmd.Parameters.Add(":P_STATISTIC_PERIOD", OracleDbType.Int32).Value = elem.Element("STATISTIC_PERIOD")?.Value;
                 cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("AUD_NAME")?.Value;
@@ -7441,7 +7494,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_ALL_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_COUNT")?.Value == null || elem.Element("ALL_COUNT")?.Value == "0" ? null : elem.Element("ALL_COUNT")?.Value;
                 cmd.Parameters.Add(":P_ALL_AMOUNT", OracleDbType.Decimal).Value = elem.Element("ALL_AMOUNT")?.Value == null || elem.Element("ALL_AMOUNT")?.Value == "0.00" ? null : elem.Element("ALL_AMOUNT")?.Value;
                 cmd.Parameters.Add(":P_PROCESSED_INCOMED_COUNT", OracleDbType.Int32).Value = elem.Element("PROCESSED_INCOMED_COUNT") != null && elem.Element("PROCESSED_INCOMED_COUNT").Value != "" ? elem.Element("PROCESSED_INCOMED_COUNT").Value : null;
-                cmd.Parameters.Add(":P_PROCESSED_INCOMED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROCESSED_INCOMED_AMOUNT") != null && elem.Element("PROCESSED_INCOMED_AMOUNT").Value != "" ? elem.Element("PROCESSED_INCOMED_AMOUNT").Value : null; 
+                cmd.Parameters.Add(":P_PROCESSED_INCOMED_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROCESSED_INCOMED_AMOUNT") != null && elem.Element("PROCESSED_INCOMED_AMOUNT").Value != "" ? elem.Element("PROCESSED_INCOMED_AMOUNT").Value : null;
                 cmd.Parameters.Add(":P_PROCESSED_COSTS_COUNT", OracleDbType.Int32).Value = elem.Element("PROCESSED_COSTS_COUNT") != null && elem.Element("PROCESSED_COSTS_COUNT").Value != "" ? elem.Element("PROCESSED_COSTS_COUNT").Value : null;
                 cmd.Parameters.Add(":P_PROCESSED_COSTS_AMOUNT", OracleDbType.Decimal).Value = elem.Element("PROCESSED_COSTS_AMOUNT") != null && elem.Element("PROCESSED_COSTS_AMOUNT").Value != "" ? elem.Element("PROCESSED_COSTS_AMOUNT").Value : null;
                 cmd.Parameters.Add(":P_ALL_C1_COUNT", OracleDbType.Int32).Value = elem.Element("ALL_C1_COUNT")?.Value == null || elem.Element("ALL_C1_COUNT")?.Value == "0" ? null : elem.Element("ALL_C1_COUNT")?.Value;
@@ -7729,7 +7782,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":P_AUD_NAME", OracleDbType.Varchar2).Value = elem.Element("AUD_NAME")?.Value;
                 cmd.Parameters.Add(":P_NAME_TYPE", OracleDbType.Varchar2).Value = elem.Element("NAME_TYPE")?.Value;
                 cmd.Parameters.Add(":P_REFERENCE_COUNT", OracleDbType.Int32).Value = elem.Element("REFERENCE_COUNT")?.Value == null || elem.Element("REFERENCE_COUNT")?.Value == "0" ? null : elem.Element("REFERENCE_COUNT")?.Value;
-                cmd.Parameters.Add(":P_BUDGET_EXPENSES", OracleDbType.Int32).Value = elem.Element("BUDGET_EXPENSES") != null && elem.Element("BUDGET_EXPENSES").Value != "" ? elem.Element("BUDGET_EXPENSES").Value : null; 
+                cmd.Parameters.Add(":P_BUDGET_EXPENSES", OracleDbType.Int32).Value = elem.Element("BUDGET_EXPENSES") != null && elem.Element("BUDGET_EXPENSES").Value != "" ? elem.Element("BUDGET_EXPENSES").Value : null;
                 cmd.Parameters.Add(":P_HUMAN_RESOURCES", OracleDbType.Int32).Value = elem.Element("HUMAN_RESOURCES") != null && elem.Element("HUMAN_RESOURCES").Value != "" ? elem.Element("HUMAN_RESOURCES").Value : null;
                 cmd.Parameters.Add(":P_PLANNED_COMPLETED", OracleDbType.Int32).Value = elem.Element("PLANNED_COMPLETED") != null && elem.Element("PLANNED_COMPLETED").Value != "" ? elem.Element("PLANNED_COMPLETED").Value : null;
                 cmd.Parameters.Add(":P_OTHER", OracleDbType.Int32).Value = elem.Element("OTHER") != null && elem.Element("OTHER").Value != "" ? elem.Element("OTHER").Value : null;
@@ -8518,11 +8571,11 @@ namespace Audit.App_Func
                                   "INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE RBT ON OE.OPEN_ENT_BUDGET_TYPE = RBT.BUDGET_TYPE_ID " +
                                   "WHERE OE.IS_ACTIVE = 1 AND OE.OPEN_ID = :OPEN_ID ";
 
-                                  // "SELECT A.OPEN_ID ,B.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, A.OPEN_ENT_NAME, A.OPEN_HEAD_ROLE, A.OPEN_HEAD_NAME, A.OPEN_HEAD_PHONE, A.OPEN_ACC_ROLE, A.OPEN_ACC_NAME, A.OPEN_ACC_PHONE, A.OPEN_ENT_GROUP_ID " +
-                                  //"FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
-                                  //"INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE B ON A.OPEN_ENT_BUDGET_TYPE = B.BUDGET_TYPE_ID " +
-                                  //"WHERE A.IS_ACTIVE = 1 " +
-                                  //"AND A.OPEN_ID = :OPEN_ID ";
+                // "SELECT A.OPEN_ID ,B.BUDGET_SHORT_NAME, A.OPEN_ENT_BUDGET_PARENT, A.OPEN_ENT_NAME, A.OPEN_HEAD_ROLE, A.OPEN_HEAD_NAME, A.OPEN_HEAD_PHONE, A.OPEN_ACC_ROLE, A.OPEN_ACC_NAME, A.OPEN_ACC_PHONE, A.OPEN_ENT_GROUP_ID " +
+                //"FROM AUD_MIRRORACC.OPENACC_ENTITY A " +
+                //"INNER JOIN AUD_MIRRORACC.REF_BUDGET_TYPE B ON A.OPEN_ENT_BUDGET_TYPE = B.BUDGET_TYPE_ID " +
+                //"WHERE A.IS_ACTIVE = 1 " +
+                //"AND A.OPEN_ID = :OPEN_ID ";
 
                 // Set parameters
                 cmd.Parameters.Add(":OPEN_ID", OracleDbType.Int32, request.Element("Parameters").Element("OPEN_ID").Value, System.Data.ParameterDirection.Input);
@@ -8904,49 +8957,49 @@ namespace Audit.App_Func
                                 "WHERE YEARCODE = 2021 AND ORGID = :ORGID " +
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME ";
 
-                                //"UNION ALL " +
-                                //"SELECT AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEH_TOO_HEMJEE, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELSEN, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEEGUI, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) SHAARDLAGAGUI, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) HUGATSAA_HOTSROOSON, " +
-                                //"SUM(CASE WHEN DATA01 IN(1, 3) AND MDCODE IN(7, 11, 15, 19, 23, 24, 25, 26) THEN 100 ELSE NULL END) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 39 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 40 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) + " +
-                                //"ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 48 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 49 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 55 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 56 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 62 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 63 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) + " +                            
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 92 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 93 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 99 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 100 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
-                                //"SUM(CASE WHEN DATA01 = 1 AND MDCODE IN(7, 11, 15, 19, 23, 24, 25, 26) THEN 100 ELSE NULL END) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) + " +
-                                //"ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 64 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
-                                //"FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                                //"(SELECT MD_CODE, MD_TIME, 'Тухайн байгууллагын шилэн дансны нийт мэдээллийн дундаж хувь, хэмжээ' AS PARENT_NAME, MD_TIME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 3) AA " +
-                                //"WHERE YEARCODE = 2021 AND ORGID = :ORGID " +
-                                //"GROUP BY AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME ";
+                //"UNION ALL " +
+                //"SELECT AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEH_TOO_HEMJEE, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELSEN, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEEGUI, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) SHAARDLAGAGUI, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                //"SUM(CASE WHEN DATA01 IN(1, 3) AND MDCODE IN(7, 11, 15, 19, 23, 24, 25, 26) THEN 100 ELSE NULL END) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 39 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 40 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) + " +
+                //"ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 48 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 49 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 55 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 56 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 62 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 63 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) + " +                            
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 92 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 93 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 99 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 100 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) PRECENT1, " +
+                //"SUM(CASE WHEN DATA01 = 1 AND MDCODE IN(7, 11, 15, 19, 23, 24, 25, 26) THEN 100 ELSE NULL END) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 41 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 37 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 42 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 38 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(SUM(CASE WHEN MDCODE = 43 AND DATA01 != 0 THEN 100 ELSE NULL END), 1) + " +
+                //"ROUND(SUM(CASE WHEN MDCODE = 44 AND DATA01 != 0 THEN 100 ELSE 0 END), 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 50 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 46 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 51 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 47 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 57 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 53 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 58 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 54 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 64 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 60 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 65 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 61 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 94 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 90 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 95 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 91 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 101 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 97 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 102 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 98 THEN DATA01 END) ELSE NULL END, 1) PRECENT2 " +
+                //"FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                //"(SELECT MD_CODE, MD_TIME, 'Тухайн байгууллагын шилэн дансны нийт мэдээллийн дундаж хувь, хэмжээ' AS PARENT_NAME, MD_TIME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 3) AA " +
+                //"WHERE YEARCODE = 2021 AND ORGID = :ORGID " +
+                //"GROUP BY AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME ";
 
-//////////////////////////// prev version /////////////////////////////////////////////////////////
+                //////////////////////////// prev version /////////////////////////////////////////////////////////
 
                 //"SELECT B.MD_CODE ,B.MD_TIME, CASE WHEN B.IS_PREW = 0 THEN B.MD_NAME END PARENT_NAME, B.MD_LAWS_NUM || ' ' || B.MD_NAME AS MD_NAME, " +
                 //                "	   CASE WHEN A.DATA01 IS NOT NULL THEN 1 ELSE NULL END MEDEELEH_TOO_HEMJEE, " +
@@ -9541,35 +9594,35 @@ namespace Audit.App_Func
                                 "WHERE YEARCODE = 2021 AND ORGID = :ORGID " +
                                 "GROUP BY AA.MD_CODE, AA.MD_TIME, BB.PARENT_NAME, AA.MD_NAME ";
 
-                                //"UNION ALL " +
-                                //"SELECT AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEH_TOO_HEMJEE, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) - SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) MEDEELSEN, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEEGUI, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) SHAARDLAGAGUI, " +
-                                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) HUGATSAA_HOTSROOSON, " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 132 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 133 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 139 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 140 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 148 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 149 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) + " +
-                                //"SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END)  PRECENT1, " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) + " +
-                                //"SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) + " +
-                                //"SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END) PERCENT2 " +
-                                //"FROM AUD_MIRRORACC.SHILENDANSDATA, " +
-                                //"(SELECT MD_CODE, MD_TIME, 'Тухайн байгууллагын шилэн дансны нийт мэдээллийн дундаж хувь, хэмжээ' AS PARENT_NAME, MD_TIME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 3) AA " +
-                                //"WHERE ORGID = :ORGID " +
-                                //"GROUP BY AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME";
+                //"UNION ALL " +
+                //"SELECT AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEH_TOO_HEMJEE, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) - SUM(CASE WHEN MDCODE = 105 THEN DATA01 END) MEDEELSEN, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) MEDEELEEGUI, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) SHAARDLAGAGUI, " +
+                //"SUM(CASE WHEN MDCODE = 3 THEN NULL END) HUGATSAA_HOTSROOSON, " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 132 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 133 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 139 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 140 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 148 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 149 AND DATA01 != 0 THEN DATA01 ELSE NULL END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) + " +
+                //"SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END)  PRECENT1, " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 134 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 130 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 135 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 131 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 141 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 137 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 142 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 138 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 150 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 146 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"ROUND(100 - 100 * SUM(CASE WHEN MDCODE = 151 THEN DATA01 END) / CASE WHEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) != 0 THEN SUM(CASE WHEN MDCODE = 147 THEN DATA01 END) ELSE NULL END, 1) + " +
+                //"SUM(CASE WHEN MDCODE = 152 AND DATA01 != 0 THEN 100 END) + " +
+                //"SUM(CASE WHEN MDCODE = 153 AND DATA01 != 0 THEN 100 END) PERCENT2 " +
+                //"FROM AUD_MIRRORACC.SHILENDANSDATA, " +
+                //"(SELECT MD_CODE, MD_TIME, 'Тухайн байгууллагын шилэн дансны нийт мэдээллийн дундаж хувь, хэмжээ' AS PARENT_NAME, MD_TIME AS MD_NAME FROM AUD_MIRRORACC.MD_DESC WHERE MD_CODE = 3) AA " +
+                //"WHERE ORGID = :ORGID " +
+                //"GROUP BY AA.MD_CODE, AA.MD_TIME, AA.PARENT_NAME, AA.MD_NAME";
 
-////////////////////////////////////// prev version ///////////////////////////////////////////
+                ////////////////////////////////////// prev version ///////////////////////////////////////////
 
                 //                "SELECT AA.MD_CODE, AA.MD_TIME , BB.PARENT_NAME, AA.MD_NAME, " +
                 //                "	   SUM(CASE WHEN MDCODE = 116 THEN DATA01 END) MEDEELEH_TOO_HEMJEE, " +
@@ -10166,7 +10219,7 @@ namespace Audit.App_Func
                 dtTable2.TableName = "N1Footer";
 
                 DataSet dataSet = new DataSet();
-               /* dataSet.Tables.Add(dtTable);*/
+                /* dataSet.Tables.Add(dtTable);*/
                 dataSet.Tables.Add(dtTable2);
                 cmd.Dispose();
                 con.Close();
@@ -10203,7 +10256,7 @@ namespace Audit.App_Func
 
                 OracleCommand cmd = con.CreateCommand();
 
-              
+
                 string mayagt = null;
                 string typeId = "";
                 string departmentId = "";
@@ -10216,7 +10269,7 @@ namespace Audit.App_Func
                 {
                     mayagt = "1,2";
                 }
-                if(req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
+                if (req.Element("V_TypeID")?.Value != null && req.Element("V_TypeID")?.Value != "")
                 {
                     typeId = "AND ROP.OPEN_ENT_BUDGET_TYPE =" + req.Element("V_TypeID")?.Value + " AND ";
                 }
@@ -10236,8 +10289,8 @@ namespace Audit.App_Func
                                "AND UPPER(ROP.OPEN_ENT_NAME) LIKE '%'|| UPPER(:V_SEARCH) ||'%' AND  (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                                //"AND ROP.OPEN_ENT_TEZ IN(19423,20989,19484,19265,19335,19362,20971,21575,20179,20387,19837,19874,20283,20131,20436,19812,19896,20310,20016,19912,21099,21594) " +
                                //"AND ROP.OPEN_ENT_TEZ IN(20775,21595,20092,21155,19960,20424,21371,21367,20804,16083,21393,21192,21390,20766,21369,21590,20764,21092,20488,21113,21114,20091,5596,5393,5599,20177,21091,19176,21374,21441,20425,21194,21111,19253) " +
-                               "AND(:V_ParentBudgetID IS NULL OR ROP.OPEN_ENT_TEZ = :V_ParentBudgetID) "  +typeId +" ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " + 
-                               
+                               "AND(:V_ParentBudgetID IS NULL OR ROP.OPEN_ENT_TEZ = :V_ParentBudgetID) " + typeId + " ROP.OPEN_ENT_GROUP_ID IN (" + mayagt + ") " +
+
                                ") D " +
                                "PIVOT( " +
                                "MAX(DATA01) " +
@@ -10254,7 +10307,7 @@ namespace Audit.App_Func
                 cmd.Parameters.Add(":V_ParentBudgetID", OracleDbType.Int32, req.Element("V_ParentBudgetID") != null && !string.IsNullOrEmpty(req.Element("V_ParentBudgetID").Value) ? req.Element("V_ParentBudgetID")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_SEARCH", OracleDbType.Varchar2, req.Element("Search") != null && !string.IsNullOrEmpty(req.Element("Search").Value) ? req.Element("Search")?.Value : null, System.Data.ParameterDirection.Input);
                 cmd.Parameters.Add(":V_Mayagt", OracleDbType.Varchar2, req.Element("V_Mayagt") != null && !string.IsNullOrEmpty(req.Element("V_Mayagt").Value) ? req.Element("V_Mayagt")?.Value : null, System.Data.ParameterDirection.Input);
-              
+
 
                 DataTable dtTable2 = new DataTable();
                 dtTable2.Load(cmd.ExecuteReader(), LoadOption.OverwriteChanges);
@@ -10333,7 +10386,7 @@ namespace Audit.App_Func
                 "AND (:V_DEPARTMENT IS NULL OR OPEN_ENT_DEPARTMENT_ID = :V_DEPARTMENT) " +
                 //"AND ROP.OPEN_ENT_TEZ IN(19423,20989,19484,19265,19335,19362,20971,21575,20179,20387,19837,19874,20283,20131,20436,19812,19896,20310,20016,19912,21099,21594) " +
                 //"AND ROP.OPEN_ENT_TEZ IN(20775,21595,20092,21155,19960,20424,21371,21367,20804,16083,21393,21192,21390,20766,21369,21590,20764,21092,20488,21113,21114,20091,5596,5393,5599,20177,21091,19176,21374,21441,20425,21194,21111,19253) " +
-                "AND(:V_ParentBudgetID IS NULL OR ROP.OPEN_ENT_TEZ = :V_ParentBudgetID) " + 
+                "AND(:V_ParentBudgetID IS NULL OR ROP.OPEN_ENT_TEZ = :V_ParentBudgetID) " +
                 " ) D  " +
                 " PIVOT ( " +
                 " MAX(DATA01) " +
@@ -10368,11 +10421,11 @@ namespace Audit.App_Func
                 dtTable.TableName = "ReportN2";
 
 
-               
+
 
                 DataSet dataSet = new DataSet();
                 dataSet.Tables.Add(dtTable);
-               
+
                 cmd.Dispose();
                 con.Close();
 
