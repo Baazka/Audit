@@ -2345,6 +2345,7 @@
     <Content Include="Views\Home\ListTEZT.cshtml" />
     <Content Include="Views\Home\ListTTZ.cshtml" />
     <Content Include="Views\Home\ListTTZT.cshtml" />
+    <Content Include="Views\Home\ListBKHT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
