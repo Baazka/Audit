@@ -351,7 +351,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\calendar.png" />
+    <Content Include="Images\calendar2.png" />
+    <Content Include="Images\clock.png" />
+    <Content Include="Images\dots_icon.png" />
+    <Content Include="Images\hadaglah.png" />
     <Content Include="Images\hashee.png" />
     <Content Include="Images\header-back.png" />
     <Content Include="Images\i1.png" />
@@ -2331,6 +2334,17 @@
     <Content Include="Views\Statistic\BM1AddBM0.cshtml" />
     <Content Include="Views\Statistic\BM0Search2020.cshtml" />
     <Content Include="Views\Home\AudOrg.cshtml" />
+    <Content Include="Views\Home\OrgAddEdit2.cshtml" />
+    <Content Include="Views\Home\ListTZAT.cshtml" />
+    <Content Include="Views\Home\ListBKH.cshtml" />
+    <Content Include="Views\Home\ListBT.cshtml" />
+    <Content Include="Views\Home\ListDAT.cshtml" />
+    <Content Include="Views\Home\ListDAT2.cshtml" />
+    <Content Include="Views\Home\ListSHBNT.cshtml" />
+    <Content Include="Views\Home\ListTEZ.cshtml" />
+    <Content Include="Views\Home\ListTEZT.cshtml" />
+    <Content Include="Views\Home\ListTTZ.cshtml" />
+    <Content Include="Views\Home\ListTTZT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,64 @@
+﻿@*@model List<Audit.Models.BM0Search2020>
+    @{ int counter = 0; }*@
+<div id="ListTTZTModal" class="modal fade bs-example-modal-lg modal-lvl1" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" style="max-width:40%;margin: 0 auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">ТӨСВИЙН ТӨВЛӨРҮҮЛСЭН ЗАХИРАГЧИЙН ЖАГСААЛТ</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        
+                        <table id="bm0list2020" class="table table-sm table-bordered table-hover" style="width:100%">
+
+                            <tr class="text-center table-header-footer">
+
+                                <td class="p-3 mb-2 bg-info text-white">л</td>
+                                <td class="p-3 mb-2 bg-info text-white">Овог</td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>Нэр</td>
+
+                            </tr>
+
+                            @*<tbody>
+                        @if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                counter++;
+            <tr>
+                <td class="text-center">@counter</td>
+                <td>@item.DEPARTMENT_NAME</td>
+                <td>@item.YEAR_LABEL</td>
+                <td>@item.AUDIT_TYPE_NAME</td>
+                <td>@item.TOPIC_TYPE_NAME</td>
+                <td>@item.TOPIC_CODE</td>
+                <td>@item.TOPIC_NAME</td>
+                <td>@item.ORDER_NO</td>
+                <td>@item.BUDGET_TYPE_NAME</td>
+                <td>@item.FORM_TYPE_NAME</td>
+                <td>@item.PROPOSAL_TYPE_NAME</td>
+                <td><a onclick="Choose2020('@item.AUDIT_TYPE', '@item.TOPIC_TYPE', '@item.TOPIC_CODE', '@item.TOPIC_NAME', '@item.ORDER_NO', '@item.AUDIT_BUDGET_TYPE', '@item.AUDIT_FORM_TYPE', '@item.AUDIT_PROPOSAL_TYPE')" style="cursor:pointer; text-decoration:underline;">Сонгох</a></td>
+            </tr>}
+                        }
+                    </tbody>*@
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script>
+        $('#bm0list2020').DataTable({
+            "bLengthChange": false,
+            language: datatables.language
+        });
+    </script>*@

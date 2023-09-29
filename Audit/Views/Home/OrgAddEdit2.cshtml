@@ -1,0 +1,341 @@
+﻿@model Audit.Models.Organization
+
+<style>
+    .icon-rtl {
+        background: url("@Url.Content("~/Images/dots_icon.png")") no-repeat right;
+        background-size: 25px;
+        position: absolute;
+        height: 100%;
+        width: 25px;
+        top: 0px;
+        bottom: 0px;
+        right: 14px;
+        border: none;
+        display: block;
+        cursor: pointer;
+        font-size: 100px;
+    }
+    
+
+</style>
+<div class="modal fade" id="OrgModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="max-width:75%; margin: 0 auto;" >
+        @using (Ajax.BeginForm("OrgAddEdit2", "Home", new { Area = "" },
+                   new AjaxOptions
+                   {
+                       UpdateTargetId = "orgmodalcontainer",
+                       OnBegin = "Modal.show()",
+                       OnComplete = "Modal.hide(); $('#OrgModal').modal({ show: true }); $('.modal-backdrop:first').remove()",
+                       OnSuccess = "Organization.progressResponse(data, status, xhr)",
+                       OnFailure = "errorResponse",
+                       HttpMethod = "Post",
+                       InsertionMode = InsertionMode.Replace
+                   },
+                   new { @class = "form-horizontal", @autocomplete = "off" }))
+        {
+    
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #127bfc">
+                <h6 class="modal-title" style="margin-left: 9.35rem" id="exampleModalLabel">Бүртгэл үүсгэх</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#fff;">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content align-items-center" id="myTabContent" style="background-color: white; padding:20px 1px 20px 150px">
+                    <div class="tab-pane fade show active" id="staus" role="tabpanel" aria-labelledby="staus-tab">
+                        <fieldset>
+                            <form style="padding:150px">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Байнгийн хороо:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                                <button type="button" class="icon-rtl" onclick="Organization.btnListBKHPopup();"></button>
+
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-sm"  onclick="Organization.btnListBKHTPopup();">
+                                                <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:18px"  />
+        
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Төсөв захирагчийн ангилал:</label>
+                                            <div class="col-6">
+                                                    @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                    @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-sm" onclick="Organization.btnListTZATPopup();">
+                                                <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:18px" /></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">ТЕЗ:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                                <button type="button" class="icon-rtl" onclick="Organization.btnListTEZPopup();"></button>
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-sm " onclick="Organization.btnListTEZTPopup();">
+                                                <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:18px" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Дэд ангилал:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-right" onclick="Organization.btnListDATPopup();">
+                                                <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:18px" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">ТТЗ:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                                <button type="button" class="icon-rtl" onclick="Organization.btnLisTTZPopup();"></button>
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-sm " style="width:30px; height:25px" onclick="Organization.btnListTTZTPopup();">
+                                                <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:18px" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Дэд ангилал2:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-right" onclick="Organization.btnListDAT2Popup();">
+                                                <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:18px" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Шалгагдагч байгуулгын нэр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-right" onclick="Organization.btnListSHBNTPopup();">
+                                                <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:18px" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Төсвийн ангилал:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Регистрийн ангилал:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Хариуцлагын хэлбэр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Өмчийн хэлбэр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Харьяа аудитын газар:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="col-6">
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group row justify-content-end " style="padding:10px 130px 10px 00px;cursor: pointer;" onclick="Organization.btnListBKHTPopup();">
+                                            <img src="@Url.Content("~/Images/clock.png")" style="width:21px; height:19px" />
+                                            <label style="color: dodgerblue; text-decoration: underline; margin-left: 8px;" class="col-form-label">БҮРТГЭЛИЙН ТҮҮХ</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Төсөв захирыгчийн албан тушаал:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Ерөнхий санхүүчийн албан тушаал:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Төсөв захирыгчийн овог:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Ерөнхий санхүүчийн овог:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Төсөв захирыгчийн нэр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Ерөнхий санхүүчийн нэр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Төсөв томилогдсон өдөр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm datepicker border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Ерөнхий санхүүчийн томилогдсон өдөр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary datepicker" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Төсөв захирыгчийн томилогдсон тушаалын өдөр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Ерөнхий санхүүчийн томилогдсон тушаалын өдөр:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Утасны дугаар:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-4 col-form-label">Утасны дугаар:</label>
+                                            <div class="col-6">
+                                                @Html.EditorFor(m => m.TEZ_NAME, new { htmlAttributes = new { @class = "form-control form-control-sm border-primary" } })
+                                                @Html.ValidationMessageFor(m => m.TEZ_NAME, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div style="text-align: right">
+                                <button type="submit" class="btn btn-sm" style="background-color:#17aaff; margin-right: 115px; color:#ffffff;">
+                                    <img src="@Url.Content("~/Images/hadaglah.png")" style="width:20px; height:20px" />Хадгалах
+                                </button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        }
+    </div>
+</div>
+<script>
+  $( function() {
+      $(".datepicker").datepicker({
+          beforeShow: function () {
+              setTimeout(function () {
+                  $('.ui-datepicker').css('z-index', 99999999999999);
+              }, 0);
+          },
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy/mm/dd",
+          firstDay: 1,
+          dayNamesMin: ["Ня", "Да", "Мя", "Лха", "Пү", "Ба", "Бя"],
+          monthNamesShort: ["1-сар", "2-сар", "3-сар", "4-сар", "5-сар", "6-сар", "7-сар", "8-сар", "9-сар", "10-сар", "11-сар", "12-сар"],
+          maxDate: "+0D",
+          showOn: "button",
+          buttonImage: "@Url.Content("~/Images/calendar.png")",
+          buttonImageOnly: true,
+          buttonText: "Select date"
+
+      });
+     
+  });
+</script>

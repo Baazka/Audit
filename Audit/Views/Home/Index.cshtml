@@ -1,21 +1,19 @@
 ﻿@using Audit.Models
 @model Audit.Models.OrgVM
 
-@{
-    var status = Model.statuses.Select(c => new
-    {
-        ID = c.STATUS_ID,
-        Name = c.STATUS_NAME
-    }).ToList();
-    Model.Status = new MultiSelectList(status, "ID", "Name");
+@{ var status = Model.statuses.Select(c => new
+                {
+                    ID = c.STATUS_ID,
+                    Name = c.STATUS_NAME
+                }).ToList();
+                Model.Status = new MultiSelectList(status, "ID", "Name");
 
-    var violation = Model.violations.Select(c => new
-    {
-        ID = c.VIOLATION_ID,
-        Name = c.VIOLATION_NAME
-    }).ToList();
-    Model.Violation = new MultiSelectList(violation, "ID", "Name");
-}
+                var violation = Model.violations.Select(c => new
+                {
+                    ID = c.VIOLATION_ID,
+                    Name = c.VIOLATION_NAME
+                }).ToList();
+                Model.Violation = new MultiSelectList(violation, "ID", "Name"); }
 <form method="post" id="FilterForm">
     <div class="d-flex flex-wrap mb-2">
         <div class="form-group-sm pr-2">
@@ -32,27 +30,27 @@
             <label for="BudgetTypeID" class="col-form-label">Төсөв захирагчийн ангилал:</label>
 
             @Html.DropDownListFor(model => model.BudgetTypeID, new SelectList(
-                     new List<Object>{
+                          new List<Object>{
                           new { value = "" , text = "Сонгоно уу" },
                           new { value = 1 , text = "ТЕЗ" },
                           new { value = 2 , text = "ТТЗ" },
                           new { value = 3 , text = "ТШЗ" },
                           new { value = 4 , text = "ТБОНӨҮГ" },
                           new { value = 5 , text = "ЗГСНТ" },
-                         }, "value", "text"), new { @class = "form-control form-control-sm" })
+                              }, "value", "text"), new { @class = "form-control form-control-sm" })
         </div>
 
         <div class="form-group-sm pr-2">
             <label for="BUDGET_LEVEL_ID" class="col-form-label">Төсвийн ангилал:</label>
 
             @Html.DropDownListFor(model => model.BUDGET_LEVEL_ID, new SelectList(
-                     new List<Object>{
+                          new List<Object>{
                           new { value = "" , text = "Сонгоно уу" },
                           new { value = 1 , text = "Улсын төсөв" },
                           new { value = 2 , text = "Орон нутгийн төсөв" },
                           new { value = 3 , text = "Нийгмийн даатгалын сан" },
                           new { value = 4 , text = "Эрүүл мэндийн даатгалын сан" },
-                         }, "value", "text"), new { @class = "form-control form-control-sm" })
+                              }, "value", "text"), new { @class = "form-control form-control-sm" })
         </div>
 
         <div class="form-group-sm pr-2" style="width:10%">
@@ -66,7 +64,7 @@
         </div>
 
         @*@if (Role.hasHeadAuditorRole(User))
-        {*@
+            {*@
         <div class="form-group-sm pr-2">
             <label for="DeparmentID" class="col-form-label">Алба:</label>
             @Html.DropDownListFor(model => model.DeparmentID, Model.departments.Select(m => new SelectListItem { Text = m.DEPARTMENT_NAME, Value = m.DEPARTMENT_ID.ToString() }).ToList(), "Сонгоно уу", htmlAttributes: new { @class = "form-control form-control-sm" })
@@ -76,25 +74,24 @@
 
         @*<a href="https://app.powerbi.com/view?r=eyJrIjoiZDAxMDY3N2YtNTFiOS00NDcwLWIxYjUtYjFlYjEzN2YwNGM3IiwidCI6ImI0MDYwNDEyLTEwM2MtNDBlNy05YzExLTBhNjBkY2NhZjVhZCIsImMiOjEwfQ%3D%3D" target="_blank">.</a>*@
         @*<div class="form-group-sm pr-2">
-            <label for="StatusID" class="col-form-label">Төлөв:</label><br />
-            @Html.ListBoxFor(model => model.StatusIDs, Model.Status, new { id = "status" })
-        </div>
-        <div class="form-group-sm pr-2">
-            <label for="ViolationID" class="col-form-label">Алдаа:</label><br />
-            @Html.ListBoxFor(model => model.ViolationIDs, Model.Violation, new { id = "violation" })
-        </div>*@
+                <label for="StatusID" class="col-form-label">Төлөв:</label><br />
+                @Html.ListBoxFor(model => model.StatusIDs, Model.Status, new { id = "status" })
+            </div>
+            <div class="form-group-sm pr-2">
+                <label for="ViolationID" class="col-form-label">Алдаа:</label><br />
+                @Html.ListBoxFor(model => model.ViolationIDs, Model.Violation, new { id = "violation" })
+            </div>*@
 
         @if (Model.menuRoles.Any(m => m.ROLE_NAME == "RECORD_ADD"))
         {
-            <div class="form-group-sm ml-auto pr-2">
-                <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Organization.loadTemplate();">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-plus"></i>
-                    </span>
-                    <span class="text">Шинэ бүртгэл</span>
-                </a>
-            </div>
-        }
+<div class="form-group-sm ml-auto pr-2">
+    <a href="#" class="btn btn-sm btn-secondary btn-icon-split" onclick="Organization.loadTemplate();">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">Шинэ бүртгэл</span>
+    </a>
+</div>}
 
         <div class="form-group-sm pr-2">
             <a href="#" class="btn btn-sm btn-success btn-icon-split" id="exportXLSX" onclick="exportFile('organizationlist', 'Шалгагдагч этгээдийн жагсаалт')">
@@ -126,7 +123,7 @@
                                 <th>Харъяа аудитын газар</th>
                                 @*<th>Дээд шатны төсөв захирагч</th>*@
                                 @*<th>Алдааны мэдээлэл</th>
-        <th>Төлөв</th>*@
+                                    <th>Төлөв</th>*@
                                 @*<th>Сануулга</th>*@
                                 <th>Үйлдэл</th>
                             </tr>
@@ -265,41 +262,41 @@
 
         var Organization = {
             OrgID: null,
-        display: function (data) {
-            $("div#orgmodalcontainer").remove();
-            $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
+            display: function (data) {
+                $("div#orgmodalcontainer").remove();
+                $('<div/>', { id: "orgmodalcontainer" }).appendTo('body').append(data);
 
-            $('#OrgModal #ORG_OFFICE_ID').change(function () {
-                if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
-                    $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
-                var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
+                $('#OrgModal #ORG_OFFICE_ID').change(function () {
+                    if ($("#OrgModal #ORG_SUB_OFFICE_ID").children().length > 1)
+                        $("#OrgModal #ORG_SUB_OFFICE_ID option:not(:first)").remove();
+                    var $options = $("#OrgModal #ddSubOfficeHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+                    $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
+
                 });
-                $("#OrgModal #ORG_SUB_OFFICE_ID").append($options);
 
-            });
+                $('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
+                    if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
+                        $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
+                    var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
+                        $(this).val($(this).val().split(':')[1]);
+                    });
+                    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
 
-            $('#OrgModal #ORG_BUDGET_TYPE_ID').change(function () {
-                if ($("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").children().length > 1)
-                    $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID option:not(:first)").remove();
-                var $options = $("#OrgModal #ddSubBudgetHidden option[value^='" + $(this).val() + ":']").clone().each(function () {
-                    $(this).val($(this).val().split(':')[1]);
                 });
-                $("#OrgModal #ORG_SUB_BUDGET_TYPE_ID").append($options);
 
-            });
+                $("#OrgModal").modal({ show: true });
+            },
+            displayDelete: function (data) {
+                $("div#orgmodaldeletecontainer").remove();
+                $('<div/>', { id: "orgmodaldeletecontainer" }).appendTo('body').append(data);
 
-            $("#OrgModal").modal({ show: true });
-        },
-        displayDelete: function (data) {
-            $("div#orgmodaldeletecontainer").remove();
-            $('<div/>', { id: "orgmodaldeletecontainer" }).appendTo('body').append(data);
-
-            $('#OrgDeleteModal').modal({ show: true });
-        },
-        loadTemplate: function () {
-            $.ajax({
-                    url: "@Url.Action("OrgAddEdit", "Home", new { Area = "" })",
+                $('#OrgDeleteModal').modal({ show: true });
+            },
+            loadTemplate: function () {
+                $.ajax({
+                    url: "@Url.Action("OrgAddEdit2", "Home", new { Area = "" })",
                     type: 'GET',
                     success: function (data) {
                         Organization.display(data);
@@ -312,7 +309,7 @@
                         Modal.hide();
                     }
                 });
-        },
+            },
         @*list: function () {
             $.ajax({
                 url: "@Url.Action("OrgList","Home")",
@@ -336,50 +333,12 @@
                     isshow = true
                 else
                     isshow = false
-            $.ajax({
-                url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
-                type: 'POST',
-                data: { orgid, isshow },
-                success: function (data, status, xhr) {
-                    Organization.progressResponse(data, status, xhr);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
-                }
-            });
-        },
-        delete: function (orgid) {
-            Organization.OrgID = orgid;
                 $.ajax({
-                url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
-                type: 'GET',
-                    data: { orgid },
-                success: function (data, status, xhr) {
-                    Organization.displayDelete(data);
-                },
-                error: errorResponse,
-                beforeSend: function () {
-                    Modal.show();
-                },
-                complete: function () {
-                    Modal.hide();
-                }
-            });
-        },
-        confirm: function (orgid) {
-            var result = confirm("Баталгаажуулах уу?");
-            if (result) {
-                $.ajax({
-                    url: "@Url.Action("OrgConfirm", "Home", new { Area = "" })",
+                    url: "@Url.Action("OrgDetail", "Home", new { Area = "" })",
                     type: 'POST',
-                    data: { orgid },
-                    dataType: "json",
+                    data: { orgid, isshow },
                     success: function (data, status, xhr) {
-                        Organization.progressResponse(data, status, xhr, true);
+                        Organization.progressResponse(data, status, xhr);
                     },
                     error: errorResponse,
                     beforeSend: function () {
@@ -389,35 +348,358 @@
                         Modal.hide();
                     }
                 });
-            }
-        },
-        close: function () {
-            $("#OrgModal").modal("hide");
-            $('#OrgDeleteModal').modal("hide");
-        },
-        progressResponse: function (data, status, xhr, confirmed=false,deleted=false) {
-            var ct = xhr.getResponseHeader("content-type") || "";
-            if (ct.indexOf("html") > -1) {
-                Organization.display(data);
-            }
-            if (ct.indexOf('json') > -1) {
-                if (data.error) {
-                    Message.error(data.message);
-                } else {
-                    $('.modal-backdrop:first').remove()
-                    Organization.close();
-
-                    if (deleted == true) {
-                        if (!data.error)
-                            table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
+            },
+            delete: function (orgid) {
+                Organization.OrgID = orgid;
+                $.ajax({
+                    url: "@Url.Action("OrgDelete", "Home", new { Area = "" })",
+                    type: 'GET',
+                    data: { orgid },
+                    success: function (data, status, xhr) {
+                        Organization.displayDelete(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
                     }
-                    if (confirmed == false && deleted == false) {
-                        orgListInit();
-                    }
-                    Message.success(data.message);
+                });
+            },
+            confirm: function (orgid) {
+                var result = confirm("Баталгаажуулах уу?");
+                if (result) {
+                    $.ajax({
+                        url: "@Url.Action("OrgConfirm", "Home", new { Area = "" })",
+                        type: 'POST',
+                        data: { orgid },
+                        dataType: "json",
+                        success: function (data, status, xhr) {
+                            Organization.progressResponse(data, status, xhr, true);
+                        },
+                        error: errorResponse,
+                        beforeSend: function () {
+                            Modal.show();
+                        },
+                        complete: function () {
+                            Modal.hide();
+                        }
+                    });
                 }
-            }
-        }
+            },
+            close: function () {
+                $("#OrgModal").modal("hide");
+                $('#OrgDeleteModal').modal("hide");
+            },
+            progressResponse: function (data, status, xhr, confirmed = false, deleted = false) {
+                var ct = xhr.getResponseHeader("content-type") || "";
+                if (ct.indexOf("html") > -1) {
+                    Organization.display(data);
+                }
+                if (ct.indexOf('json') > -1) {
+                    if (data.error) {
+                        Message.error(data.message);
+                    } else {
+                        $('.modal-backdrop:first').remove()
+                        Organization.close();
+
+                        if (deleted == true) {
+                            if (!data.error)
+                                table.row($("tr[data-id='" + Organization.OrgID + "']")).remove().draw();
+                        }
+                        if (confirmed == false && deleted == false) {
+                            orgListInit();
+                        }
+                        Message.success(data.message);
+                    }
+                }
+            },
+
+            //POP UPS
+            btnListBKHPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListBKH", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListBKH(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListBKH: function (data) {
+                $("div#listBKHmodalcontainer").remove();
+                $('<div/>', { id: "listBKHmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListBKHModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+
+            },
+
+            btnListTEZPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListTEZ", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListTEZ(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListTEZ: function (data) {
+                $("div#ListTEZmodalcontainer").remove();
+                $('<div/>', { id: "ListTEZModalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListTEZModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+
+            },
+            btnLisTTZPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListTTZ", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListTTZ(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListTTZ: function (data) {
+                $("div#ListTTZmodalcontainer").remove();
+                $('<div/>', { id: "ListTTZmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListTTZModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+
+            },
+            btnListBTPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListBT", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListBT(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListBT: function (data) {
+                $("div#ListBTmodalcontainer").remove();
+                $('<div/>', { id: "ListBTmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListBTModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+
+            },
+             btnListBKHTPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListBKHT", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListBKHT(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListBKHT: function (data) {
+                $("div#ListBKHTmodalcontainer").remove();
+                $('<div/>', { id: "ListBKHTmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListBKHTModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+
+            },
+            btnListTZATPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListTZAT", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListTZAT(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListTZAT: function (data) {
+                $("div#ListTZATmodalcontainer").remove();
+                $('<div/>', { id: "ListTZATmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListTZATModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+
+            },
+             btnListTEZTPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListTEZT", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListTEZT(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListTEZT: function (data) {
+                $("div#ListTEZTmodalcontainer").remove();
+                $('<div/>', { id: "ListTEZTmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListTEZTModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+
+            },
+             btnListDATPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListDAT", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListDAT(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListDAT: function (data) {
+                $("div#ListDATmodalcontainer").remove();
+                $('<div/>', { id: "ListDATmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListDATModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+            },
+            btnListTTZTPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListTTZT", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListTTZT(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListTTZT: function (data) {
+                $("div#ListTTZTmodalcontainer").remove();
+                $('<div/>', { id: "ListTTZTmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListTTZTModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+            },
+             btnListDAT2Popup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListDAT2", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListDAT2(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListDAT2: function (data) {
+                $("div#ListDAT2modalcontainer").remove();
+                $('<div/>', { id: "ListDA2Tmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListDAT2Modal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+            },
+              btnListSHBNTPopup: function () {
+                $.ajax({
+                    url: "@Url.Action("ListSHBNT", "Home", new { Area = "" })",
+                    type: 'GET',
+                    success: function (data) {
+                        Organization.displayListSHBNT(data);
+                    },
+                    error: errorResponse,
+                    beforeSend: function () {
+                        Modal.show();
+                    },
+                    complete: function () {
+                        Modal.hide();
+                    }
+                });
+            },
+            displayListSHBNT: function (data) {
+                $("div#ListSHBNTmodalcontainer").remove();
+                $('<div/>', { id: "ListSHBNTTmodalcontainer" }).appendTo('body').append(data);
+
+                $('#OrgModal').modal('hide');
+                $('#ListSHBNTModal').modal({ show: true }).on('hidden.bs.modal', function (e) {
+                    $('#OrgModal').modal('show');
+                });
+            },
         }
             //Organization.list();
 
